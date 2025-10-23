@@ -1,0 +1,67 @@
+{%- comment -%}
+  自定义下拉选择器组件
+  参数:
+  - section_id: 选择器所在区块的ID
+  - option_names: 选项名称数组
+  - option_values: 选项值数组
+{%- endcomment -%}
+
+{{ 'custom-selector.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}选择器主容器{%- endcomment -%}
+<div id="{{ 'customSelect-' | append: section_id }}" class="custom-select">
+  <span class="selected-value">{{ option_names[0] }}</span>
+  <ul class="options" style="display:none;">
+    {% for option_name in option_names %}
+      <li data-value="{{ option_values[forloop.index0] }}">{{ option_name }}</li>
+    {% endfor %}
+  </ul>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 获取DOM元素
+    const customSelect = document.getElementById('{{ 'customSelect-' | append: section_id }}');
+    const optionsList = customSelect.querySelector('.options');
+    const selectedValueDisplay = customSelect.querySelector('.selected-value');
+    const content = document.querySelector('.multi-page-switch');
+
+    /**
+     * 清除所有选项的active状态
+     */
+    const clearActive = () => {
+      Array.from(content.querySelectorAll('[data-selector-option-value]')).forEach(el => {
+        el.classList.remove('active');
+      });
+    };
+
+    // 点击显示值时切换选项列表显示状态
+    selectedValueDisplay.addEventListener('click', () => {
+      optionsList.style.display = optionsList.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // 为每个选项添加点击事件
+    optionsList.querySelectorAll('li').forEach(option => {
+      option.addEventListener('click', function() {
+        const value = this.getAttribute('data-value');
+        
+        // 更新显示值
+        selectedValueDisplay.textContent = this.textContent;
+        
+        // 隐藏选项列表
+        optionsList.style.display = 'none';
+        
+        // 更新active状态
+        clearActive();
+        content.querySelector(`[data-selector-option-value="${value}"]`).classList.add('active');
+      });
+    });
+
+    // 点击页面其他区域时关闭选项列表
+    document.addEventListener('click', (event) => {
+      if (!customSelect.contains(event.target)) {
+        optionsList.style.display = 'none';
+      }
+    });
+  });
+</script>

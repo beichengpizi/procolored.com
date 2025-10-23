@@ -1,0 +1,162 @@
+{% liquid
+  if section.settings.top == '17.5'
+    assign top = 'pt-8 md:pt-17.5'
+  elsif section.settings.top == '20'
+    assign top = 'pt-8 md:pt-20'
+  elsif section.settings.top == '24'
+    assign top = 'pt-8 md:pt-24'
+  elsif section.settings.top == '28'
+    assign top = 'pt-8 md:pt-28'
+  else
+    assign top = ''
+  endif
+
+  if section.settings.bottom == '17.5'
+    assign bottom = 'pb-8 md:pb-17.5'
+  elsif section.settings.bottom == '20'
+    assign bottom = 'pb-8 md:pb-20'
+  elsif section.settings.bottom == '24'
+    assign bottom = 'pb-8 md:pb-24'
+  elsif section.settings.bottom == '28'
+    assign bottom = 'pb-8 md:pb-28'
+  else
+    assign bottom = ''
+  endif
+%}
+
+<div class="{{ top }} {{ bottom }}" data-section-type="rent-terminate-lease">
+  <div class="container">
+    {% if section.settings.headding != blank or section.settings.descriptiton != blank %}
+      <div class="mb-8 lg:mb-10 text-center max-w-4xl mx-auto px-4 lg:px-10">
+        {%- if section.settings.headding != blank -%}
+          <h2 class="text-2xl md:text-4xl">{{ section.settings.headding }}</h2>
+        {%- endif -%}
+        {% if section.settings.descriptiton != blank %}
+          <p class="m-0 text-sm md:text-base">{{ section.settings.descriptiton }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="w-full bg-white rounded-lg md:rounded-2xl shadow-md overflow-hidden">
+      {%- if section.settings.image != blank and section.settings.image_mobile != blank -%}
+        <div class="aspect-[981/342] md:aspect-[2400/584] overflow-hidden">
+          <img
+            class="lazyload object-cover w-full h-full hidden md:block {% unless settings.lazy_loading %} no-blur{% endunless %}"
+            data-src="{{ section.settings.image | image_url }}"
+            width="{{ section.settings.image.width }}"
+            height="{{ section.settings.image.height }}"
+            alt="{{ section.settings.image.alt }}"
+          >
+          <img
+            class="lazyload object-cover w-full h-full md:hidden {% unless settings.lazy_loading %} no-blur{% endunless %}"
+            data-src="{{ section.settings.image_mobile | image_url }}"
+            width="{{ section.settings.image_mobile.width }}"
+            height="{{ section.settings.image_mobile.height }}"
+            alt="{{ section.settings.image_mobile.alt }}"
+          >
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "如何终止租赁",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "配置项"
+    },
+    {
+      "type": "select",
+      "id": "top",
+      "default": "20",
+      "label": "板块上边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bottom",
+      "default": "20",
+      "label": "板块下边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "内容配置"
+    },
+    {
+      "type": "text",
+      "id": "headding",
+      "label": "标题",
+      "default": "How to Terminate the Lease"
+    },
+    {
+      "type": "textarea",
+      "id": "descriptiton",
+      "label": "描述"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "电脑端图片",
+      "info": "图片比例: 2400/584"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "手机端端图片",
+      "info": "图片比例: 981/342"
+    }
+  ],
+  "presets": [
+    {
+      "name": "如何终止租赁"
+    }
+  ]
+}
+{% endschema %}

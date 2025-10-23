@@ -1,0 +1,435 @@
+<style>
+  /* 参数表格模块 */
+  .k-13-lite-comparison-table-wrapper {
+    background-color: #fff;
+    padding: 100px 0;
+  }
+  .k-13-lite-comparison-table-container {
+    max-width: 1248px;
+    padding: 0 24px;
+    margin: 0 auto;
+  }
+  .k-13-lite-comparison-table-container .comparison-table-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(9, auto);
+    max-width: 1248px;
+    margin: 0 auto;
+  }
+  .k-13-lite-comparison-table-container .custom-title-wrap {
+    text-align: center;
+  }
+  .k-13-lite-comparison-table-container .custom-title {
+    color: #000;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 56px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    margin-bottom: 50px;
+  }
+  .k-13-lite-comparison-table-container .comparison-table-item {
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(204, 204, 204, 0.4);
+    display: grid;
+    grid-template-columns: repeat({{3 | plus: 1}}, 1fr);
+  }
+  .k-13-lite-comparison-table-container .cost-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+    height: 100%;
+    padding: 16px 0;
+  }
+  .k-13-lite-comparison-table-container .cost-breakdown-item {
+  }
+  .k-13-lite-comparison-table-container .printer-image {
+    display: block;
+    margin-bottom: 30px;
+    width: 228px;
+  }
+  .k-13-lite-comparison-table-container .printer-title {
+    margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
+    color: #000;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .k-13-lite-comparison-table-container .spec-column-product {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    width: 100%;
+  }
+  .k-13-lite-comparison-table-container .spec-label {
+    color: #2c2d2e;
+    font-family: Mulish;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    padding: 16px 0 16px 28px;
+    display: flex;
+    align-items: center;
+  }
+  .k-13-lite-comparison-table-container .spec-label-column-product,
+  .k-13-lite-comparison-table-container .spec-column {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    color: #6d6d6d;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.25;
+    padding: 0 28px;
+  }
+  .k-13-lite-comparison-table-container .spec-column.first {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    color: #000;
+    font-size: 16px;
+  }
+  .k-13-lite-comparison-table-container .spec-row {
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    align-items: start;
+    font-size: 12px;
+    justify-content: center;
+  }
+  .k-13-lite-comparison-table-container .spec-label-mobile {
+    display: none;
+  }
+  .k-13-lite-comparison-table-container .desktopShow {
+    position: relative;
+    display: block;
+  }
+  .k-13-lite-comparison-table-container .mobileShow {
+    position: relative;
+    display: none;
+  }
+  @media screen and (max-width: 768px) {
+    .k-13-lite-comparison-table-wrapper {
+      max-width: 100%;
+      padding: 50px 0;
+    }
+    .k-13-lite-comparison-table-container {
+      max-width: 100%;
+      padding: 0;
+      margin: 0 auto;
+    }
+    .k-13-lite-comparison-table-container .custom-title-wrap {
+      text-align: center;
+      padding: 0;
+    }
+    .k-13-lite-comparison-table-container .comparison-table-container {
+      overflow-x: scroll;
+      padding: 0 24px;
+    }
+    .k-13-lite-comparison-table-container .custom-title {
+      color: #000;
+      text-align: center;
+      font-family: Mulish;
+      font-size: 26px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: normal;
+      margin-bottom: 18px;
+    }
+
+    .k-13-lite-comparison-table-container .spec-label-column-product,
+    .k-13-lite-comparison-table-container .spec-label {
+      display: none;
+    }
+    .k-13-lite-comparison-table-container .spec-column-product {
+      padding: 0;
+    }
+    .k-13-lite-comparison-table-container .spec-label-mobile {
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 0;
+      opacity: 0;
+      width: 250px;
+      display: flex;
+      flex-wrap: nowrap;
+    }
+    .k-13-lite-comparison-table-container .spec-label-mobile.first {
+      opacity: 1;
+      color: #000;
+      text-align: left;
+    }
+    .k-13-lite-comparison-table-container .cost-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: left;
+      height: 100%;
+      padding: 0;
+    }
+    .k-13-lite-comparison-table-container .printer-title {
+      font-size: 14px;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+    .k-13-lite-comparison-table-container .printer-image {
+      display: block;
+      margin-bottom: 12px;
+      width: 120px;
+    }
+    .k-13-lite-comparison-table-container .printer-model,
+    .k-13-lite-comparison-table-container .printer-size {
+      font-size: 12px;
+    }
+    .k-13-lite-comparison-table-container .printer-model {
+      margin-bottom: 0;
+    }
+    .k-13-lite-comparison-table-container .spec-label-column-product,
+    .k-13-lite-comparison-table-container .spec-column {
+      font-size: 12px;
+      padding: 12px 0;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .k-13-lite-comparison-table-container .spec-column.first {
+      text-align: center;
+      display: flex;
+      align-items: start;
+      justify-content: start;
+      color: #6d6d6d;
+      font-size: 12px;
+      gap: 10px;
+      text-align: left;
+    }
+    .k-13-lite-comparison-table-container .comparison-table-item {
+      grid-template-columns: repeat({{3}}, 155px);
+    }
+    .k-13-lite-comparison-table-container .desktopShow {
+      position: relative;
+      display: none;
+    }
+    .k-13-lite-comparison-table-container .mobileShow {
+      position: relative;
+      display: block;
+    }
+  }
+</style>
+
+<!-- 产品利润对比表格模块 -->
+<section id="k-13-lite-comparison-table-section">
+  <div class="k-13-lite-comparison-table-wrapper">
+    <div class="k-13-lite-comparison-table-container">
+      <div class="custom-title-wrap">
+        <div class="custom-title">Product Comparison</div>
+      </div>
+
+      <div class="comparison-table-container">
+        <!-- 表格参数名称 -->
+
+        <div class="comparison-table-item">
+          <div class="spec-label-column-product"></div>
+
+          <div class="spec-column-product">
+            <div class="printer-title">K13 Lite</div>
+
+            <img
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Rectangle_2593.png?v=1757474907"
+              style="max-width:100%;aspect-ratio: 114 / 61;"
+              class="printer-image lazyload"
+              alt="K13 Lite"
+            >
+          </div>
+          <div class="spec-column-product">
+            <div class="printer-title" style="color:#6D6D6D">K13</div>
+
+            <img
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Rectangle_2596.png?v=1757475552"
+              style="max-width:100%;aspect-ratio: 114 / 61;"
+              class="printer-image lazyload"
+              alt="K13"
+            >
+          </div>
+          <div class="spec-column-product">
+            <div class="printer-title" style="color:#6D6D6D">F13</div>
+
+            <img
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Rectangle_2597.png?v=1757475798"
+              style="max-width:100%;aspect-ratio: 114 / 61;"
+              class="printer-image lazyload"
+              alt="F13"
+            >
+          </div>
+        </div>
+
+        <div class="comparison-table-item">
+          <div class="spec-label">Appearance</div>
+
+          <div class="spec-column first">
+            <div class="spec-label-mobile first">Appearance</div>
+            <div>Pixel Art</div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Appearance</div>
+            <div>Cyber punk</div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Appearance</div>
+            <div>Standard</div>
+          </div>
+        </div>
+        <div class="comparison-table-item">
+          <div class="spec-label">Print head</div>
+          <div class="spec-column first">
+            <div class="spec-label-mobile first">Print head</div>
+            <div>LH-500</div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Print head</div>
+            <div>L1800</div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Print head</div>
+            <div>L1800</div>
+          </div>
+        </div>
+        <div class="comparison-table-item">
+          <div class="spec-label">Print Width</div>
+          <div class="spec-column first">
+            <div class="spec-label-mobile first">Print Width</div>
+            <div>13"(330mm)</div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Print Width</div>
+            <div>13"(330mm)</div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Print Width</div>
+            <div>13"(330mm)</div>
+          </div>
+        </div>
+        <div class="comparison-table-item">
+          <div class="spec-label">Print Speed per Hour (Letter/A4 Size)</div>
+          <div class="spec-column first">
+            <div class="spec-label-mobile first">Print Speed per Hour (Letter/A4 Size)</div>
+            <div>5pcs</div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Print Speed per Hour (Letter/A4 Size)</div>
+            <div>6pcs</div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Print Speed per Hour (Letter/A4 Size)</div>
+            <div>6pcs</div>
+          </div>
+        </div>
+        <div class="comparison-table-item">
+          <div class="spec-label">Resolution</div>
+          <div class="spec-column first">
+            <div class="spec-label-mobile first">Resolution</div>
+            <div>1440*1440DPI(8Pass)</div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Resolution</div>
+            <div>1440*1440DPI(8Pass)</div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Resolution</div>
+            <div>1440*1440DPI(8Pass)</div>
+          </div>
+        </div>
+        <div class="comparison-table-item">
+          <div class="spec-label">Color Configuration</div>
+          <div class="spec-column first">
+            <div class="spec-label-mobile first">Color Configuration</div>
+            <div>CMYK+W</div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Color Configuration</div>
+            <div>CMYK+WW</div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Color Configuration</div>
+            <div>CMYK+WW</div>
+          </div>
+        </div>
+        <div class="comparison-table-item">
+          <div class="spec-label">Features</div>
+
+          <div class="spec-column first">
+            <div class="spec-label-mobile first">Features</div>
+            <div class="cost-breakdown">
+              <div class="cost-breakdown-item">Switchable Display Theme</div>
+              <div class="cost-breakdown-item">One Click Ink Guide</div>
+              <div class="cost-breakdown-item">Protective Film Cutter</div>
+              <div class="cost-breakdown-item">White Ink Circulation</div>
+              <div class="cost-breakdown-item">Negative Pressure Printing Platform</div>
+              <div class="cost-breakdown-item">Printhead Auto Cleaning</div>
+              <div class="cost-breakdown-item">Printhead Safeguard System</div>
+            </div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Features</div>
+            <div class="cost-breakdown">
+              <div class="cost-breakdown-item">One Click Ink Guide</div>
+              <div class="cost-breakdown-item">Protective Film Cutter</div>
+              <div class="cost-breakdown-item">White Ink Circulation</div>
+              <div class="cost-breakdown-item">Negative Pressure Printing Platform</div>
+              <div class="cost-breakdown-item">Printhead Auto Cleaning</div>
+              <div class="cost-breakdown-item">Printhead Safeguard System</div>
+            </div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Features</div>
+            <div class="cost-breakdown">
+              <div class="cost-breakdown-item">Protective Film Cutter</div>
+              <div class="cost-breakdown-item">White Ink Circulation</div>
+              <div class="cost-breakdown-item">Negative Pressure Printing Platform</div>
+              <div class="cost-breakdown-item">Printhead Auto Cleaning</div>
+              <div class="cost-breakdown-item">Printhead Safeguard System</div>
+            </div>
+          </div>
+        </div>
+        <div class="comparison-table-item">
+          <div class="spec-label">Warranty</div>
+          <div class="spec-column first">
+            <div class="spec-label-mobile first">Warranty</div>
+            <div>12 months for 2 Printhead</div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Warranty</div>
+            <div>6 months for 1 Printhead</div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Warranty</div>
+            <div>6 months for 1 Printhead</div>
+          </div>
+        </div>
+
+        <div class="comparison-table-item">
+          <div class="spec-label">Software</div>
+          <div class="spec-column first">
+            <div class="spec-label-mobile first">Software</div>
+            <div>Procolored Studio Lite</div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Software</div>
+            <div>Pro RIP</div>
+          </div>
+          <div class="spec-column">
+            <div class="spec-label-mobile ">Software</div>
+            <div>Pro RIP</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,474 @@
+<!doctype html>
+{%- capture dir -%}
+	{%- case request.locale.iso_code -%}
+	  {%- when 'ae' or 'ar' or 'arc' or 'bcc' or 'bqi' or 'ckb' or 'dv' or 'fa' or 'glk' or 'ha' or 'he' or 'kwh' or 'ks' or 'ku' or 'mzn' or 'nqo' or 'pnb' or 'ps' or 'sd' or 'ug' or 'ur' or 'yi' -%}
+	    rtl
+	  {%- else -%}
+	    ltr
+	{%- endcase -%}
+{%- endcapture -%}
+<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ dir }}">
+  <head>
+    <script>
+      async function getVisitorIP() {
+        try {
+          const response = await fetch('https://api.ipify.org/');
+          const ipAddress = await response.text();
+          return ipAddress;
+        } catch (error) {
+          console.error('Failed to get visitor IP:', error);
+          return null;
+        }
+      }
+      async function isFromEurope() {
+        try {
+          const IsEu = window.sessionStorage.getItem('is_eu');
+          if (IsEu != undefined) {
+            return IsEu !== 'false';
+          }
+
+          const ipAddress = await getVisitorIP();
+          if (!ipAddress) {
+            console.log('Could not determine the IP.');
+            return false;
+          }
+          const url = `https://ipinfo.io/${ipAddress}/json`;
+          const geoResponse = await fetch(url);
+          const geoData = await geoResponse.json();
+          console.log(geoData);
+          const countryCode = geoData.country;
+          const europeanCountries = [
+            'AT',
+            'BE',
+            'BG',
+            'CY',
+            'CZ',
+            'DK',
+            'EE',
+            'FI',
+            'FR',
+            'DE',
+            'GR',
+            'HU',
+            'IE',
+            'IT',
+            'LV',
+            'GE',
+            'LT',
+            'LU',
+            'MT',
+            'NL',
+            'PL',
+            'PT',
+            'RO',
+            'SK',
+            'SI',
+            'ES',
+            'SE',
+            'GB',
+            'CH',
+            'HR',
+            'AL',
+            'AD',
+            'AM',
+            'BY',
+            'BA',
+            'FO',
+            'GI',
+            'IS',
+            'IM',
+            'XK',
+            'LI',
+            'MK',
+            'MD',
+            'MC',
+            'ME',
+            'NO',
+            'RU',
+            'SM',
+            'RS',
+            'TR',
+            'UA',
+            'VA',
+          ];
+          const tmp = europeanCountries.includes(countryCode.toUpperCase());
+          window.sessionStorage.setItem('is_eu', tmp);
+          return tmp;
+        } catch (error) {
+          console.error('Failed to fetch geolocation data:', error);
+          return false;
+        }
+      }
+      // isFromEurope().then((isEuropean) => {
+      //   if (isEuropean) {
+      //     window.location.href = 'https://procolored.eu'
+      //   }
+      // })
+    </script>
+    <script>
+      (function (w, d, t, r, u) {
+        var f, n, i;
+        (w[u] = w[u] || []),
+          (f = function () {
+            var o = { ti: '187027788' };
+            (o.q = w[u]), (w[u] = new UET(o)), w[u].push('pageLoad');
+          }),
+          (n = d.createElement(t)),
+          (n.src = r),
+          (n.async = 1),
+          (n.onload = n.onreadystatechange =
+            function () {
+              var s = this.readyState;
+              (s && s !== 'loaded' && s !== 'complete') || (f(), (n.onload = n.onreadystatechange = null));
+            }),
+          (i = d.getElementsByTagName(t)[0]),
+          i.parentNode.insertBefore(n, i);
+      })(window, document, 'script', '//bat.bing.com/bat.js', 'uetq');
+    </script>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-M95JQVW');
+    </script>
+    <!-- End Google Tag Manager -->
+    <!-- A\B 测试 开始 目前使用crazzy egg 插件实现，此代码暂时保留 -->
+    {% comment %}
+      <script>
+        let isABTest = false;
+        let ABTestNum = 0;
+        const shopifyTemplateType = '{{template.name}}';
+        const shopifyTemplateName = '{{template.suffix}}';
+        const shopifyCurrentTemplate = '{{template}}';
+        console.log('当前模版==', shopifyCurrentTemplate);
+        console.log('模版类型==', shopifyTemplateType);
+        console.log('模版名称==', shopifyTemplateName);
+        if(shopifyTemplateType =='page'){
+          isABTest={{ page.metafields.custom.ab_test | default: false }}
+          ABTestNum={{ page.metafields.custom.ab_test_template_nums | default: 0 }}
+        }else if(shopifyTemplateType =='product'){
+          isABTest={{ product.metafields.custom.ab_test | default: false }}
+          ABTestNum={{ product.metafields.custom.ab_test_template_nums | default: 0 }}
+        }
+        console.log('当前模版是否开启A\B测试及个数==',isABTest,ABTestNum);
+        if (!shopifyTemplateName) {
+          console.log('当前模版为默认模版，请检查是否在模版设置中设置模版名称');
+        }
+      </script>
+      <script type="text/javascript" src="{{ 'ab-test.js' | asset_url }}"></script>
+    {% endcomment %}
+    <!-- A\B 测试 结束 -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <meta name="theme-color" content="{{ settings.color_body_bg }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    {% render 'head-preload' %}
+
+    {% if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif %}
+
+    <title>
+      {{ page_title }}
+      {% if current_tags -%}
+        {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+      {%- endif %}
+      {% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}
+      {% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+    </title>
+    <link
+      rel="preload"
+      as="font"
+      href="{{ 'ItalianPlateNo2Expanded-Bold.woff2' | file_url }}"
+      type="font/woff2"
+      crossorigin
+    >
+
+    <link
+      rel="preload"
+      as="font"
+      href="{{ 'ItalianPlateNo2Expanded-Regular.woff2' | file_url }}"
+      type="font/woff2"
+      crossorigin
+    >
+    <link
+      rel="preload"
+      as="font"
+      href="{{ 'DancingScript-VariableFont_wght.woff2' | file_url }}"
+      type="font/woff2"
+      crossorigin
+    >
+    <link rel="preload" as="font" href="{{ 'mulish.woff2' | file_url }}" type="font/woff2" crossorigin>
+    <link
+      rel="preload"
+      href="{{'fonts_procolored.css' | asset_url }}"
+      type="text/css"
+      as="style"
+      onload="this.onload=null; this.rel='stylesheet'; "
+    >
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {%- unless settings.heading_font.system? and settings.body_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    {% render 'social-meta-tags' %}
+
+    {{ 'app.css' | asset_url | stylesheet_tag }}
+    {{ 'product-grid.css' | asset_url | stylesheet_tag }}
+
+    {%- liquid
+      render 'vite-tag' with 'theme.css', preload_stylesheet: true
+      render 'vite-tag' with 'theme.js'
+      # if request.page_type contains 'customers/'
+      #  render 'vite-tag' with 'customers.js'
+      # endif
+    -%}
+    {% render 'head-variables' %}
+    <script>
+      window.Shopify = window.Shopify || {};
+      {% if request.design_mode %}
+        window.Shopify.designMode = true
+      {%  else %}
+        window.Shopify.designMode = false;
+      {% endif %}
+
+      window.theme = window.theme || {};
+      theme = {
+        settings: {
+          money_with_currency_format: {{- shop.money_format | json -}},
+          cart_drawer: {{- settings.cart_drawer -}}
+        },
+        routes: {
+          root_url: '{{ routes.root_url }}',
+          cart_url: '{{ routes.cart_url }}',
+          cart_add_url: '{{ routes.cart_add_url }}',
+          search_url: '{{ routes.search_url }}',
+          cart_change_url: '{{ routes.cart_change_url }}',
+          cart_update_url: '{{ routes.cart_update_url }}',
+          predictive_search_url: '{{ routes.predictive_search_url }}',
+        },
+        variantStrings: {
+          addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+          soldOut: `{{ 'products.product.sold_out' | t }}`,
+          unavailable: `{{ 'products.product.unavailable' | t }}`,
+        },
+        strings: {
+          requiresTerms: `{{ 'sections.cart.terms_confirm' | t }}`,
+        }
+      };
+    </script>
+    {{ content_for_header }}
+    <!-- Header hook for plugins -->
+
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
+    <link
+      rel="preload"
+      href="{{'swiper.min.css' | asset_url }}"
+      type="text/css"
+      as="style"
+      onload="this.onload=null; this.rel='stylesheet'; "
+    >
+    <link
+      rel="preload"
+      href="{{'animate.css' | asset_url }}"
+      type="text/css"
+      as="style"
+      onload="this.onload=null; this.rel='stylesheet';"
+    >
+    <link
+      rel="preload"
+      href="{{'iconfont.css' | asset_url }}"
+      type="text/css"
+      as="style"
+      onload="this.onload=null; this.rel='stylesheet';"
+    >
+    <link
+      rel="preload"
+      href="{{'fancybox.min.css' | asset_url }}"
+      type="text/css"
+      as="style"
+      onload="this.onload=null; this.rel='stylesheet';"
+    >
+    <noscript><link rel="stylesheet" href="{{'swiper.min.css' | asset_url }}"></noscript>
+    <noscript><link rel="stylesheet" href="{{'animate.css' | asset_url }}"></noscript>
+
+    <!-- Gem_Page_Header_Script -->
+    {% render 'gem-app-header-scripts' %}
+    <!-- End_Gem_Page_Header_Script -->
+    <script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0122/6468.js" async="async"></script>
+    {{ 'jquery-3.7.1.min.js' | asset_url | script_tag }}
+    {{ 'fancybox.min.js' | asset_url | script_tag }}
+    {{ 'swiper.min.js' | asset_url | script_tag }}
+    <script>
+      function isMobile() {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+        // 检查是否为移动端设备
+        const mobileKeywords = [
+          'Android',
+          'iPhone',
+          'iPad',
+          'iPod',
+          'BlackBerry',
+          'Windows Phone',
+          'Opera Mini',
+          'IEMobile',
+        ];
+
+        for (let keyword of mobileKeywords) {
+          if (userAgent.indexOf(keyword) !== -1) {
+            return true;
+          }
+        }
+
+        return false;
+      }
+      console.log('是否移动端==', isMobile());
+      console.log('当前模版==', '{{template}}');
+    </script>
+
+    <!-- 兼容会员页相关样式重置 -->
+    {% unless template contains 'customers'
+      or template contains 'member'
+      or template contains 'maintenance'
+      or template contains 'rent'
+    %}
+      <style>
+        :root {
+          /* Font sizes */
+          --text-h0: 48px;
+          --text-h1: 40px;
+          --text-h2: 24px;
+          --text-h3: 22px;
+          --text-h4: 20px;
+          --text-h5: 18px;
+          --text-h6: 16px;
+          --text-xs: 11px;
+          --text-sm: 12px;
+          --text-base: 14px;
+          --text-lg: 18px;
+        }
+        .text-xxs {
+          font-size: 10px;
+          line-height: 1.7;
+        }
+
+        .text-xs {
+          font-size: var(--text-xs);
+          line-height: 1.2;
+        }
+
+        .text-sm {
+          font-size: var(--text-sm);
+          line-height: 1.2;
+        }
+
+        .text-base {
+          font-size: var(--text-base);
+          line-height: 1.2;
+        }
+        .text-md {
+          font-size: var(--text-md);
+          line-height: 1.2;
+        }
+
+        .text-lg {
+          font-size: var(--text-lg);
+          line-height: 1.4;
+        }
+        custom-automatic-discount-reminder {
+          font-size: 12px;
+          align-items: start !important;
+        }
+        @media screen and (max-width: 769px) {
+          :root {
+            /* Font sizes */
+            --text-h0: 30px;
+            --text-h1: 30px;
+            --text-h2: 24px;
+            --text-h3: 22px;
+            --text-h4: 20px;
+            --text-h5: 18px;
+            --text-h6: 16px;
+            --text-xs: 11px;
+            --text-sm: 12px;
+            --text-base: 14px;
+            --text-lg: 18px;
+          }
+          custom-automatic-discount-reminder {
+            font-size: 10px;
+            align-items: start;
+          }
+        }
+        #judgeme_product_reviews .jdgm-rev-widg {
+          max-width: 1232px;
+          margin: 0 auto;
+          padding: 24px 16px;
+        }
+        .gPreorderPartialPaymentWrapper > div {
+          font-family: ItalianPlateNo2Expanded-Bold;
+          font-size: 20px;
+          font-weight: bold;
+        }
+        .gPreorderPartialPaymentWrapper .gPreorderPartialPaymentChoices {
+          display: flex;
+          align-items: center;
+
+          gap: 10px;
+        }
+
+        .gPreorderPartialPaymentChoices li label {
+          font-family: ItalianPlateNo2Expanded-Regular !important;
+          font-weight: 400 !important;
+          font-size: 14px !important;
+        }
+        .gPreorderPartialPaymentWrapper .gPreorderPartialPaymentChoices .gPreorderPartialPaymentControl {
+          margin-top: 0px !important;
+        }
+      </style>
+    {% endunless %}
+        <script type="text/javascript">
+      document
+        .getElementById('globo-formbuilder-80473')
+        .querySelector('button[type="submit"]')
+        .addEventListener(
+          'click',
+          function () {
+        
+            fbq('track', 'CompleteRegistration');
+          },
+          false
+        );
+    </script>
+        <!-- <script type="text/javascript">
+      const formElement = document.getElementById('early-bird-contact-form');
+      if (formElement) {
+        const formChild = formElement.querySelector('form');
+        if (formChild) {
+          formChild.querySelector('button[type="submit"]').addEventListener(
+            'click',
+            function () {
+              fbq('track', 'CompleteRegistration');
+            },
+            false
+          );
+        }
+      }
+    </script> -->
+  </head>
+  <body class="animations-{{ settings.animations }} button-uppercase-{{ settings.button_uppercase }} navigation-uppercase-{{ settings.navigation_uppercase }} product-card-spacing-{{ settings.product_card_spacing }} article-card-spacing-{{ settings.article_card_spacing }} {% if customer %} customer-logged-in{% endif %} template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }} template-{{ template | replace: '.', '-' | handle }}">{{ content_for_layout }}</body>
+</html>

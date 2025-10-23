@@ -1,0 +1,279 @@
+{% liquid
+  if section.settings.top == '17.5'
+    assign top = 'pt-8 md:pt-17.5'
+  elsif section.settings.top == '20'
+    assign top = 'pt-8 md:pt-20'
+  elsif section.settings.top == '24'
+    assign top = 'pt-8 md:pt-24'
+  elsif section.settings.top == '28'
+    assign top = 'pt-8 md:pt-28'
+  else
+    assign top = ''
+  endif
+
+  if section.settings.bottom == '17.5'
+    assign bottom = 'pb-8 md:pb-17.5'
+  elsif section.settings.bottom == '20'
+    assign bottom = 'pb-8 md:pb-20'
+  elsif section.settings.bottom == '24'
+    assign bottom = 'pb-8 md:pb-24'
+  elsif section.settings.bottom == '28'
+    assign bottom = 'pb-8 md:pb-28'
+  else
+    assign bottom = ''
+  endif
+
+  if section.settings.row == 3
+    assign row = 'lg:grid-cols-3'
+  endif
+
+  if section.settings.row == 4
+    assign row = 'lg:grid-cols-4'
+  endif
+%}
+
+<div
+  class="{{ top }} {{ bottom }}"
+  data-section-type="image-with-text-1"
+  style="background-color: {{ section.settings.bg_color }};"
+>
+  <div class="container">
+    <div class="space-y-4 md:hidden">
+      {%- if section.settings.headding != blank -%}
+        <h2 class="m-0 text-2xl md:text-[44px]">{{ section.settings.headding }}</h2>
+      {%- endif -%}
+      {% if section.settings.descriptiton != blank %}
+        <p class="text-sm md:text-base text-[#333] font-italian">{{ section.settings.descriptiton }}</p>
+      {% endif %}
+      {% if section.settings.link != blank %}
+        <a
+          href="{{ section.settings.link }}"
+          class="inline-flex items-center text-sm pl-4 pr-2 py-2 rounded-full shadow bg-black text-white hover:text-white hover:bg-black/85 transition-colors"
+        >
+          <span>{{- section.settings.btn_text -}}</span>
+          <span class="flex flex-shrink-0 w-6 h-6 items-center justify-center bg-white text-black rounded-full ml-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-4"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+            </svg>
+          </span>
+        </a>
+      {% endif %}
+    </div>
+    <div class="items-center hidden md:flex gap-x-14">
+      <div class="w-1/4 flex-shrink-0">
+        {%- if section.settings.headding != blank -%}
+          <h2 class="m-0 text-2xl md:text-5xl">{{ section.settings.headding }}</h2>
+        {%- endif -%}
+        {% if section.settings.link != blank %}
+          <a
+            href="{{ section.settings.link }}"
+            class="inline-flex items-center lg:text-base px-4 py-2 font-semibold rounded-full mt-8 shadow bg-black text-white hover:text-white hover:bg-black/85 transition-colors"
+          >
+            <span>{{- section.settings.btn_text -}}</span>
+            <span class="flex flex-shrink-0 w-8 h-8 items-center justify-center bg-white text-black rounded-full ml-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+              </svg>
+            </span>
+          </a>
+        {% endif %}
+      </div>
+      {% if section.settings.descriptiton != blank %}
+        <p class="text-sm md:text-xl text-[#333] font-italian ml-auto">{{ section.settings.descriptiton }}</p>
+      {% endif %}
+    </div>
+
+    <div class="w-full mt-4 lg:mt-10 flex items-center gap-4 snap-x snap-mandatory overflow-x-auto">
+      {%- for block in section.blocks -%}
+        <style>
+          [data-section-type="step"] [data-block-id="block-{{ block.id }}"] {
+            {%- if block.settings.bg_image != blank -%}
+              background-image: url({{ block.settings.bg_image | image_url: width: '140' }});
+              background-repeat: no-repeat;
+              background-position: 110px 14px;
+              background-size: 24%;
+            {%- endif -%}
+            background-color: {{ block.settings.bg_color }};
+          }
+          @media (min-width:768px) {
+            [data-section-type="step"] [data-block-id="block-{{ block.id }}"] {
+              {%- if block.settings.bg_image != blank -%}
+                background-position: 200px 27px;
+                background-size: 24%;
+              {%- endif -%}
+            }
+          }
+        </style>
+        <div
+          class="md:rounded-2xl rounded-xl relative flex flex-col snap-center shrink-0 w-56 md:w-96"
+          data-block-id="block-{{ block.id }}"
+        >
+          {%- if block.settings.image -%}
+            {%- liquid
+              assign image = block.settings.image
+            -%}
+            <img
+              data-src="{{ image | image_url }}"
+              class="lazyload aspect-[8/5] w-full h-full {% unless settings.lazy_loading %} no-blur{% endunless %}"
+              width="{{ image.src.width }}"
+              height="{{ image.src.height }}"
+              alt="{{ image.alt }}"
+            >
+          {%- else -%}
+            {{ 'collection-1' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+          {%- endif -%}
+          <h3 class="text-base md:text-lg mt-4 mb-0">{{ block.settings.title }}</h3>
+          {%- if block.settings.description != blank -%}
+            <div class="prose prose-sm text-center space-y-1 prose-p:m-0">
+              {{ block.settings.description }}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "图文",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "配置项"
+    },
+    {
+      "type": "select",
+      "id": "top",
+      "default": "17.5",
+      "label": "板块上边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bottom",
+      "default": "17.5",
+      "label": "板块下边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "背景颜色",
+      "default": "#fff"
+    },
+    {
+      "type": "text",
+      "id": "headding",
+      "label": "标题"
+    },
+    {
+      "type": "textarea",
+      "id": "descriptiton",
+      "label": "描述"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "链接"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Btn Text",
+      "default": "Apply now"
+    },
+    {
+      "type": "header",
+      "content": "配置项",
+      "info": "配置卡片"
+    },
+    {
+      "type": "range",
+      "id": "row",
+      "label": "一行显示n个",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "unit": "N",
+      "default": 3
+    }
+  ],
+  "blocks": [
+    {
+      "type": "img",
+      "name": "图片",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "图片"
+        },
+        {
+          "type": "color_background",
+          "id": "bg_color",
+          "label": "背景颜色",
+          "default": "#F5F5F5"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

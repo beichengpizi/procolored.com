@@ -1,0 +1,25 @@
+<div class="product-btn-adt">
+  <product-form
+    class="product-form"
+    data-section="{{ section.id }}"
+    data-hide-errors="false"
+  >
+    {%- form 'product',
+      product,
+      id: product_form_id,
+      class: 'form',
+      novalidate: 'novalidate',
+      data-type: 'add-to-cart-form'
+    -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
+      <button
+        type="submit"
+        name="add"
+        id="AddToCart"
+        class="btn-adt"
+      >
+        Add to cart
+      </button>
+    {%- endform -%}
+  </product-form>
+</div>

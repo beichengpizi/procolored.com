@@ -1,0 +1,4476 @@
+<style>
+    {%- assign total_blocks = section.blocks.size -%}
+    :root {
+      /* Font sizes */
+      --text-h0-n: 56px;
+      --text-h1-n: 40px;
+      --text-h2-n: 30px;
+      --text-h3-n: 26px;
+      --text-h4-n: 24px;
+      --text-h5-n: 20px;
+      --text-h6-n: 16px;
+      --text-xs-n: 12px;
+      --text-sm-n: 14px;
+      --text-base-n: 18px;
+      --text-lg-n: 19px;
+    }
+    .text-xxs {
+      font-size: 10px;
+      line-height: 1.3;
+    }
+
+    .text-xs {
+      font-size: var(--text-xs-n);
+      line-height: 1.3;
+    }
+
+    .text-sm {
+      font-size: var(--text-sm-n);
+      line-height: 1.3;
+    }
+
+    .text-base {
+      font-size: var(--text-base-n);
+      line-height: 1.3;
+    }
+    .text-md {
+      font-size: var(--text-md-n);
+      line-height: 1.2;
+    }
+
+    .text-lg {
+      font-size: var(--text-lg-n);
+      line-height: 1.2;
+    }
+     /* 重置样式 start*/
+     #activity-collection-section-{{section.id}}  .h0 {
+      font-size: var(--text-h0-n) !important;
+      line-height: 1;
+      font-family: ItalianPlateNo2Expanded-Bold, sans-serif !important;
+    }
+
+    #activity-collection-section-{{section.id}}  h1,
+    #activity-collection-section-{{section.id}}  .h1,
+    #activity-collection-section-{{section.id}}  .prose h1:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h1-n) !important;
+      line-height: 1.1;
+      font-family: ItalianPlateNo2Expanded-Bold, sans-serif !important;
+    }
+
+    #activity-collection-section-{{section.id}}  h2,
+    #activity-collection-section-{{section.id}}  .h2,
+    #activity-collection-section-{{section.id}}  .prose h2:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h2-n);
+      line-height: 1.1;
+      font-family: ItalianPlateNo2Expanded-Bold, sans-serif !important;
+    }
+
+    #activity-collection-section-{{section.id}}  h3,
+    #activity-collection-section-{{section.id}}  .h3,
+    #activity-collection-section-{{section.id}}  .prose h3:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h3-n) !important;
+      line-height: 1.2;
+    }
+
+    #activity-collection-section-{{section.id}}  h4,
+    #activity-collection-section-{{section.id}}  .h4,
+    #activity-collection-section-{{section.id}}  .prose h4:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h4-n) !important;
+      line-height: 1.3;
+    }
+
+    #activity-collection-section-{{section.id}}  h5,
+    #activity-collection-section-{{section.id}}  .h5,
+    #activity-collection-section-{{section.id}}  .prose h5:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h5-n) !important;
+      line-height: 1.3;
+    }
+
+    #activity-collection-section-{{section.id}}  h6,
+    #activity-collection-section-{{section.id}}  .h6,
+    #activity-collection-section-{{section.id}}  .prose h6:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h6-n) !important;
+      line-height: 1.3;
+    }
+    /* 重置样式 end*/
+    /* 图片文字左右调换模块 */
+    #activity-collection-section-{{section.id}} {
+      padding: {{section.settings.padding_top}}px 24px {{section.settings.padding_bottom}}px 24px;
+        background: {{section.settings.bg_color}};
+        {% if section.settings.enable_desktop_slider -%}
+          overflow: hidden;
+        {% else %}
+
+        {% endif %}
+
+
+      }
+      #activity-collection-section-{{section.id}} .detail-container {
+          {% if section.settings.show_full_width %}
+              max-width:100%;
+
+            {% else %}
+            max-width: 1200px;
+              width: 100%;
+              margin: auto;
+            {% endif %}
+            background: {{section.settings.bg_content_color}};
+
+      }
+      #activity-collection-section-{{section.id}} .heading{
+        text-align: center;
+        color: {{section.settings.title_color}};
+        {% if section.settings.subtitle != empty %}
+        padding-bottom: 24px;
+      {% endif %}
+        margin-bottom:{{section.settings.title_to_content_padding}}px;
+        font-family: ItalianPlateNo2Expanded-Bold;
+      }
+      #activity-collection-section-{{section.id}}  .subtitle{
+          text-align: center;
+          color: {{section.settings.subtitle_color}};
+          margin-bottom: 0;
+          font-family: ItalianPlateNo2Expanded-Regular !important;
+          font-weight: 400;
+      }
+
+      #activity-collection-section-{{section.id}} .custom-row {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        {% if total_blocks > 1 %}
+          padding: 0 50px;
+        {% endif %}
+        margin-top:{{section.settings.title_to_content_padding}}px;
+        column-gap: {{section.settings.flex_column_gap}}px;
+
+      }
+
+      #activity-collection-section-{{section.id}} .custom-media {
+
+
+        flex: 1;
+      overflow: hidden;
+        padding:0;
+    }
+
+
+      {% comment %} #activity-collection-section-{{section.id}} .custom-media img:hover{
+        transform: scale(1.1);
+      transition: all .3s;
+
+    } {% endcomment %}
+      #activity-collection-section-{{section.id}} .custom-media video,
+      #activity-collection-section-{{section.id}} .custom-media img {
+        /*border-radius: 20px;*/
+        {% comment %} box-shadow: rgb(0 0 0 / 25%) .4rem .4rem 1.6rem; {% endcomment %}
+      }
+
+      #activity-collection-section-{{section.id}} .info {
+        flex: 0 0 {{section.settings.content_space_percent}}%;
+        padding: 0;
+    }
+
+
+      #activity-collection-section-{{section.id}} .title{
+        text-align: center;
+        margin-top: {{section.settings.heading_margin_top}}px;
+        margin-bottom: {{section.settings.heading_margin_bottom}}px;
+        color: {{section.settings.heading_color}};
+      }
+      #activity-collection-section-{{section.id}} .subheading{
+          margin-bottom: {{section.settings.subheading_margin_bottom}}px;
+          color: {{section.settings.subheading_color}};
+          text-transform: initial;
+          letter-spacing: 0;
+      }
+      #activity-collection-section-{{section.id}} .title, #activity-collection-section-{{section.id}} .subheading,#activity-collection-section-{{section.id}} .content,#activity-collection-section-{{section.id}} .info {
+        text-align: {{ section.settings.content_alignment }};
+      }
+
+
+
+      #activity-collection-section-{{section.id}} .content {
+        margin-bottom: {{section.settings.content_margin_bottom}}px;
+        color:{{section.settings.desc_color}};
+        line-height: 1.3;
+        text-align: {{ section.settings.content_alignment }};
+      }
+      #activity-collection-section-{{section.id}}  .button_link{
+          display: inline-flex;
+      align-items: center;
+      column-gap: 12px;
+        text-align: {{ section.settings.content_alignment }};
+        border-radius: {{ section.settings.button_border_radius }}px;
+        padding: 12px 20px;
+        font-size: 16px;
+        background: {{ section.settings.button_bg_color }};
+        font-family: ItalianPlateNo2Expanded-Bold;
+        line-height: 1;
+        color: {{ section.settings.button_font_color }};
+      }
+      #activity-collection-section-{{section.id}}  .button_link .arrow-icon{
+          background: #000;
+          border-radius: 50%;
+          padding: 10px;
+          width: 33px;
+          height: 33px;
+      }
+      #activity-collection-section-{{section.id}}  .button_link:hover{
+        color: {{ section.settings.button_font_color }};
+      }
+      #activity-collection-section-{{section.id}} .swiper-button-next ,
+      #activity-collection-section-{{section.id}} .swiper-button-prev  {
+      position: relative;
+      width: {{section.settings.swiper_button_size}}px;
+      height: {{section.settings.swiper_button_size}}px;
+      background-color: {{section.settings.swiper_button_bg_color}};
+      border-radius: 50%;
+      display: flex ;
+      align-items: center;
+      justify-content: center;
+      left: auto;
+      right: auto;
+
+
+
+
+      }
+      #activity-collection-section-{{section.id}} .swiper-button-next svg,
+      #activity-collection-section-{{section.id}} .swiper-button-prev svg {
+          fill: #333333;
+          width: {{section.settings.swiper_button_icon_size}}px;
+          height: {{section.settings.swiper_button_icon_size}}px;
+
+      }
+
+
+      {% if total_blocks > 1 %}
+        #activity-collection-section-{{section.id}}  .swiper-button-next.swiper-button-disabled, #activity-collection-section-{{section.id}}  .swiper-button-prev.swiper-button-disabled {
+          opacity: 0;
+          cursor: auto;
+          pointer-events: none;
+      }
+      {% endif %}
+      #activity-collection-section-{{section.id}} .swiper-button-next.swiper-button-disabled svg,
+      #activity-collection-section-{{section.id}} .swiper-button-prev.swiper-button-disabled svg {
+          fill: #c0c0c0;
+          width: {{section.settings.swiper_button_icon_size}}px;
+          height: {{section.settings.swiper_button_icon_size}}px;
+
+      }
+
+
+
+      #activity-collection-section-{{section.id}} .reverse {
+        flex-direction: row-reverse;
+      }
+      #activity-collection-section-{{section.id}} .item-column-reverse {
+          flex-direction: column-reverse;
+        }
+        #activity-collection-section-{{section.id}} .item-column {
+          flex-direction: column;
+        }
+
+
+
+      #activity-collection-section-{{section.id}}  .all-view-wrap{
+          display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+      margin-bottom: 24px;
+      }
+      #activity-collection-section-{{section.id}}   .all-view-title{
+          display: flex;
+      column-gap: 8px;
+      font-size: 24px;
+      font-family: ItalianPlateNo2Expanded-Bold;
+      }
+      #activity-collection-section-{{section.id}}  .all-view-title .icon{
+          width: 21px;
+      }
+      #activity-collection-section-{{section.id}} .all-view-btn{
+          color: #fff;
+      font-size: 16px;
+      font-family: ItalianPlateNo2Expanded-Regular;
+      }
+    #activity-collection-section-{{section.id}}  #Slider-{{ section.id }}{
+          position: relative;
+
+          {%- if section.settings.show_current_collection_view_all
+            and section.settings.current_collection_view_all_position == 'bottom'
+          -%}
+          padding-bottom: 55px;
+        {%- else -%}
+          padding-bottom: 80px;
+        {%- endif %}
+        {% if section.settings.enable_desktop_slider -%}
+
+        {% else %}
+          overflow: hidden;
+        {% endif %}
+
+
+
+      }
+      #activity-collection-section-{{section.id}} .swiper-button-wrap{
+        width: 100%;
+        position: absolute;
+
+        height: 44px;
+        display: flex;
+
+        column-gap: 20px;
+        {%- if section.settings.enable_slider_center
+
+        -%}
+        bottom: 50%;
+        justify-content: space-between;
+      {%- else -%}
+        bottom: 0;
+        justify-content: end;
+      {%- endif %}
+      }
+
+      #activity-collection-section-{{section.id}}  .swiper-slide-content,#activity-collection-section-{{section.id}}  .grid-wrapper .grid-item  {
+          background: {{ section.settings.product_bg_content_color }};
+          border-radius: {{ section.settings.product_container_border_radius }}px;
+          padding:{{ section.settings.product_container_top_and_bottom_padding }}px {{ section.settings.product_container_left_and_right_padding }}px;
+      }
+      #activity-collection-section-{{section.id}}  .flash-sale-label{
+          width: 100px;
+          height: 100px;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 1;
+      }
+      #activity-collection-section-{{section.id}}  .discount-label,#activity-collection-section-{{section.id}} .discount-label-placeholder {
+          position: relative;
+          width: 100px; /* 与SVG宽度一致 */
+          height: 34px; /* 与SVG高度一致 */
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-left: -{{ section.settings.product_container_left_and_right_padding }}px; /* 减去左边距 */
+          margin-bottom: 10px;
+          font-family: ItalianPlateNo2Expanded-Bold;
+          font-size:16px;
+          color:#fff;
+          line-height: 1;
+        }
+        #activity-collection-section-{{section.id}}  .gift-label-free{
+          position: relative;
+          width: 60px; /* 与SVG宽度一致 */
+          height: 32px; /* 与SVG高度一致 */
+          display: flex;
+          align-items: center;
+          font-family: ItalianPlateNo2Expanded-Bold;
+          font-size:16px;
+          color:#fff;
+          line-height: 1;
+      }
+      #activity-collection-section-{{section.id}} .mystery_gift_label{
+
+          height: 34px;
+      }
+      #activity-collection-section-{{section.id}} .mystery_gift_label>img{
+
+          height: 100%;
+      }
+
+      #activity-collection-section-{{section.id}}  .discount-label svg,.gift-label-free svg{
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        #activity-collection-section-{{section.id}}   .discount-info,.gift-label-free-info {
+          position: relative;
+          z-index: 1;
+          color: white;
+          font-size: 16px;
+          font-weight: bold;
+        }
+        #activity-collection-section-{{section.id}}  .gift-label{
+          display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: end;
+      height: {{ section.settings.gift_img_height }}px;
+      column-gap: 10px;
+      min-height: {{ section.settings.gift_min_height }}px;
+      min-height: {{ section.settings.gift_min_height }}px;
+      padding: 0 {{ section.settings.product_img_left_and_right_padding }}px 0 {{ section.settings.product_img_left_and_right_padding }}px;
+      }
+      #activity-collection-section-{{section.id}}  .gift-label>img{
+          height:100%;
+      }
+      #activity-collection-section-{{section.id}}  .product-img{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: {{ section.settings.product_img_min_height }}px;
+          padding: 0 {{ section.settings.product_img_left_and_right_padding }}px 10px {{ section.settings.product_img_left_and_right_padding }}px;
+      }
+      #activity-collection-section-{{section.id}} .product-img>img{
+          height: 100%;
+          width: 100%;
+      }
+      #activity-collection-section-{{section.id}} .product-name{
+
+          color: {{ section.settings.product_name_font_color }};
+          margin-top: {{ section.settings.product_name_margin_top }}px;
+      margin-bottom: {{ section.settings.product_name_margin_bottom }}px;
+      min-height: {{ section.settings.product_name_min_height }}px;
+      text-align: {{ section.settings.content_alignment }};
+      }
+      #activity-collection-section-{{section.id}}  .product-price{
+          margin-bottom: {{ section.settings.price_margin_bottom }}px;
+          display: flex;
+          column-gap: 10px;
+          align-items: center;
+          justify-content: {{ section.settings.content_alignment }};
+
+      }
+      #activity-collection-section-{{section.id}}  .product-sale-price{
+          margin-bottom: 0;
+          color: {{ section.settings.selling_price_font_color }};
+      }
+      #activity-collection-section-{{section.id}}  .product-origin-price{
+          margin-bottom: 0;
+          color: {{ section.settings.original_price_font_color }};
+          text-decoration: line-through;
+      }
+      #activity-collection-section-{{section.id}}  .external-add-to-cart-button,#activity-collection-section-{{section.id}} .external-add-to-cart-button-nav{
+          font-size: {{ section.settings.button_font_size }}px !important;
+          color: {{ section.settings.button_font_color }} !important;
+          border-radius: {{ section.settings.button_border_radius }}px !important;
+          padding: 14px !important;
+          background: {{ section.settings.button_bg_color }} !important;
+          font-family: ItalianPlateNo2Expanded-Bold !important;
+          max-height: {{ section.settings.button_max_height }}px;
+          margin-top: 0px;
+      }
+      #activity-collection-section-{{section.id}} .external-pre-order-button,#activity-collection-section-{{section.id}} .external-pre-order-button-nav{
+        color: {{ section.settings.pre_button_font_color }} !important;
+        background: {{ section.settings.pre_button_bg_color }} !important;
+      }
+      #activity-collection-section-{{section.id}}  .countdown-box{
+          color: #fff;
+          border: 1px solid #FECE67;
+          border-radius: 40px 40px 40px 40px;
+          text-align: center;
+          font-size: 14px;
+          padding: 7px;
+      }
+      #activity-collection-section-{{section.id}}  .finish-countdown-tips{
+          text-align: center;
+      display: block;
+          color: #fff;
+      font-size: 14px;
+      font-family: ItalianPlateNo2Expanded-Regular !important;
+      }
+      #activity-collection-section-{{section.id}}  .grid-wrapper {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-start; /* 主轴上的对齐方式为从左到右 */
+          gap: 20px;
+          margin-right: -20px;
+
+      }
+
+      {% case section.settings.columns_desktop %}
+        {% when '1' %}
+          {% assign column_gap = 20 %}
+        {% when '2' %}
+          {% assign column_gap = 10 %}
+        {% when '3' %}
+          {% assign column_gap = 13.34 %}
+        {% when '4' %}
+          {% assign column_gap = 15 %}
+        {% else %}
+          {% assign column_gap = 20 %}
+      {% endcase %}
+      #activity-collection-section-{{section.id}}  .grid-wrapper .grid-item {
+          flex-basis: calc(100% / {{ section.settings.columns_desktop | plus: 0 }} - {{ column_gap }}px); /* 计算每个项目的宽度，减去一半的间隙以确保总间隙为 15px */
+          box-sizing: border-box; /* 包含 padding 和 border 在元素的总宽高之内 */
+          position: relative;
+      }
+      .collection-tabs-container-{{section.id}}{
+        position: relative;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: {{ section.settings.tabs_margin_bottom }}px;
+        z-index: 2;
+        width:auto;
+        border-radius: 25px;
+        background: #fff;
+    }
+      .collection-tabs-container-{{section.id}} .collection-tab-item{
+        color: {{ section.settings.tab_font_color }};
+        font-size:18px;
+        padding: 17px 24px;
+        border-radius: 25px;
+        cursor: pointer;
+        min-width: max-content;
+        text-align: center;
+        line-height: 1;
+        font-family: ItalianPlateNo2Expanded-Bold ;
+
+      }
+      .collection-tabs-container-{{section.id}} .collection-tab-item.active{
+        background-color:{{ section.settings.tab_bg_color }};
+      }
+      .collection-tabs-container-{{section.id}}  .view-all-wrap{
+        position: absolute;
+        right: 0;
+
+
+      }
+
+      #activity-collection-section-{{section.id}} .swiper-template-featured-collection{
+        display:none;
+      }
+      #activity-collection-section-{{section.id}} .swiper-template-featured-collection.active{
+        display:flex;
+      }
+      #activity-collection-section-{{section.id}} .swiper-template-featured-collection  .view-all-wrap-bottom{
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        font-family: ItalianPlateNo2Expanded-Bold;
+        margin: 0;
+    }
+    #activity-collection-section-{{section.id}} .show_desktop {
+      display: flex;
+    }
+  #activity-collection-section-{{section.id}} .show_mobile {
+      display: none;
+    }
+      @media screen and (min-width: 320px) and (max-width: 768px) {
+        .collection-tabs-container-{{section.id}}{
+          margin-bottom: {{ section.settings.tabs_margin_bottom_mobile }}px;
+          width:auto;
+          overflow-x: auto;
+          touch-action: pan-x;
+          scrollbar-width: none;
+          flex-wrap: nowrap;
+          justify-content: start;
+          border-radius: 25px;
+          gap: 0;
+      }
+      .collection-tabs-container-{{section.id}} .collection-tab-item{
+        color: {{ section.settings.tab_font_color }};
+        font-size:13px;
+        padding: 7px 10px;
+        border-radius: 40px;
+        cursor: pointer;
+        flex-wrap: nowrap;
+        display: flex;
+        min-width: max-content;
+        line-height: 1;
+
+      }
+      #activity-collection-section-{{section.id}}  .view-all-wrap{
+
+        margin-bottom: 20px;
+
+      }
+          #activity-collection-section-{{section.id}}  .all-view-wrap{
+
+          margin-bottom: 20px;
+          }
+          #activity-collection-section-{{section.id}}   .all-view-title{
+              display: flex;
+          column-gap: 5px;
+          font-size: 14px;
+
+          }
+          #activity-collection-section-{{section.id}}  .all-view-title .icon{
+              width: 15px;
+          }
+          #activity-collection-section-{{section.id}} .all-view-btn{
+
+          font-size: 12px;
+
+          }
+          #activity-collection-section-{{section.id}}  #Slider-{{ section.id }}{
+            {%- if section.settings.show_current_collection_view_all
+              and section.settings.current_collection_view_all_position == 'bottom'
+            -%}
+            padding-bottom: 30px;
+          {%- else -%}
+            padding-bottom: 40px;
+          {%- endif %}
+          {% if section.settings.enable_mobile_slider -%}
+            overflow: visible;
+            {% else %}
+            {% endif %}
+
+
+
+        }
+          #activity-collection-section-{{section.id}}  .grid-wrapper {
+              gap: 10px;
+              width:100%;
+
+          }
+
+            #activity-collection-section-{{section.id}}  .grid-wrapper .grid-item {
+              {% case section.settings.columns_mobile %}
+                  {% when '1' %}
+                      flex:100%; /* 移动端每行两个项目，减去间距 */
+                  {% when '2' %}
+                      flex:calc(50% - 10px); /* 移动端每行两个项目，减去间距 */
+
+
+                {% endcase %}
+
+                {% comment %} flex-basis: calc(100% / {{ section.settings.columns_mobile | plus: 0 }} - {{ column_gap_moblie }}px); /* 计算每个项目的宽度，减去一半的间隙以确保总间隙为 15px */ {% endcomment %}
+                box-sizing: border-box; /* 包含 padding 和 border 在元素的总宽高之内 */
+                padding:{{ section.settings.product_container_top_and_bottom_padding_mobile }}px {{ section.settings.product_container_left_and_right_padding_mobile }}px;
+
+            }
+          #activity-collection-section-{{section.id}}  .discount-label,#activity-collection-section-{{section.id}} .discount-label-placeholder {
+
+              width: 68px; /* 与SVG宽度一致 */
+              height: 24px; /* 与SVG高度一致 */
+
+              margin-left: -{{ section.settings.product_container_left_and_right_padding_mobile }}px; /* 减去左边距 */
+              margin-bottom: 14px;
+              font-family: ItalianPlateNo2Expanded-Bold;
+              font-size:12px;
+
+            }
+            #activity-collection-section-{{section.id}}   .discount-info,.gift-label-free-info {
+
+              font-size: 12px;
+
+            }
+          #activity-collection-section-{{section.id}}  .gift-label{
+
+          height: {{ section.settings.gift_img_height_mobile }}px;
+          column-gap: 10px;
+          min-height: {{ section.settings.gift_img_height_mobile }}px;
+          padding: 0 {{ section.settings.product_img_left_and_right_padding_mobile }}px 10px {{ section.settings.product_img_left_and_right_padding_mobile }}px;
+          }
+          #activity-collection-section-{{section.id}} .mystery_gift_label{
+
+              height: {{ section.settings.gift_img_height_mobile }}px;
+          }
+          #activity-collection-section-{{section.id}}  .swiper-slide-content {
+              padding:{{ section.settings.product_container_top_and_bottom_padding_mobile }}px {{ section.settings.product_container_left_and_right_padding_mobile }}px;
+          }
+          #activity-collection-section-{{section.id}}  .product-img{
+              min-height: {{ section.settings.product_img_min_height_mobile }}px;
+              padding: 0 {{ section.settings.product_img_left_and_right_padding_mobile }}px 10px {{ section.settings.product_img_left_and_right_padding_mobile }}px;
+          }
+          #activity-collection-section-{{section.id}}  .product-name{
+              font-size: {{ section.settings.product_name_size_mobile }}px !important;
+
+              margin-top: {{ section.settings.product_name_margin_top_mobile }}px;
+              margin-bottom: {{ section.settings.product_name_margin_bottom_mobile }}px;
+              line-height: 1.5 !important;
+              min-height: {{ section.settings.product_name_min_height_mobile }}px;
+          }
+          #activity-collection-section-{{section.id}}  .product-price{
+              column-gap: 4px;
+              flex-wrap: wrap;
+              margin-bottom: {{ section.settings.price_margin_bottom_mobile }}px;
+              min-height: 42px;
+              flex-direction: column;
+              align-items: {{ section.settings.content_alignment_mobile }};
+              justify-content: start;
+
+          }
+          #activity-collection-section-{{section.id}}  .product-sale-price{
+              font-size: {{ section.settings.selling_price_size_mobile }}px !important;
+
+          }
+          #activity-collection-section-{{section.id}}  .product-origin-price{
+              font-size: {{ section.settings.original_price_size_mobile }}px !important;
+
+
+          }
+          #activity-collection-section-{{section.id}}  .external-add-to-cart-button,#activity-collection-section-{{section.id}} .external-add-to-cart-button-nav{
+              font-size: {{ section.settings.button_font_size_mobile }}px !important;
+              max-height: {{ section.settings.button_max_height_mobile }}px;
+          }
+
+          #activity-collection-section-{{section.id}}  .countdown-box{
+              color: #fff;
+              border: 1px solid #FECE67;
+              border-radius: 40px 40px 40px 40px;
+              text-align: center;
+              font-size: 14px;
+              padding: 2px;
+              height: {{ section.settings.button_max_height_mobile }}px;
+          }
+          #activity-collection-section-{{section.id}}  .countdown-box>div{
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+          }
+
+          #activity-collection-section-{{section.id}} .product-card--add-to-cart-button{
+              margin-top: 10px;
+              max-height: {{ section.settings.button_max_height_mobile }}px;
+          }
+          #activity-collection-section-{{section.id}}  .finish-countdown-tips{
+
+          font-size: 12px;
+
+          }
+              #activity-collection-section-{{section.id}} .title, #activity-collection-section-{{section.id}} .subheading,#activity-collection-section-{{section.id}} .content,#activity-collection-section-{{section.id}} .info{
+          text-align: {{ section.settings.content_alignment_mobile }};
+        }
+        #activity-collection-section-{{section.id}} .heading{
+          font-size: {{section.settings.title_size_mobile}}px;
+          {% if section.settings.subtitle != empty %}
+          padding-bottom: 12px;
+        {% endif %}
+        margin-bottom:{{section.settings.title_to_content_padding_mobile}}px;
+
+        }
+        #activity-collection-section-{{section.id}}  .subtitle{
+          font-size: {{section.settings.subheading_size_mobile}}px;
+          {% if section.settings.subtitle != empty %}
+              padding-bottom: 32px;
+            {% endif %}
+      }
+        #activity-collection-section-{{section.id}} .custom-row {
+          position: relative;
+          display: flex;
+          text-align: {{ section.settings.content_alignment_mobile }};
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 70px;
+          flex-wrap: wrap;
+          margin-right: -15px;
+          margin-left: -15px;
+          {% if total_blocks > 1 %}
+            padding: 0;
+          {% endif %}
+
+        }
+        #activity-collection-section-{{section.id}} .swiper-button-container{
+          width: 100%;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 40px;
+          margin-top: 10px;
+        }
+        #activity-collection-section-{{section.id}} .swiper-button-next ,
+        #activity-collection-section-{{section.id}} .swiper-button-prev  {
+        position: relative;
+        top: auto;
+        width: {{section.settings.swiper_button_size_mobile}}px;
+        height: {{section.settings.swiper_button_size_mobile}}px;
+        margin-top: 0;
+        background-color: {{section.settings.swiper_button_bg_color}};
+        border-radius: 50%;
+        display: flex ;
+        align-items: center;
+        justify-content: center;
+        transform: none;
+        left:auto;
+        right:auto;
+
+
+
+        }
+        #activity-collection-section-{{section.id}} .swiper-button-next svg,
+        #activity-collection-section-{{section.id}} .swiper-button-prev svg {
+            fill: #333333;
+            width: {{section.settings.swiper_button_icon_size_mobile}}px;
+            height: {{section.settings.swiper_button_icon_size_mobile}}px;
+
+        }
+        #activity-collection-section-{{section.id}} {
+          padding: {{section.settings.padding_top_mobile}}px {{section.settings.padding_left_and_right_mobile}}px  {{section.settings.padding_bottom_mobile}}px {{section.settings.padding_left_and_right_mobile}}px;
+          width: auto;
+          {% if section.settings.enable_mobile_slider -%}
+            overflow: hidden;
+            {% else %}
+
+            {% endif %}
+
+        }
+        #activity-collection-section-{{section.id}} .title {
+          margin-top: {{section.settings.heading_margin_top_mobile}}px;
+          margin-bottom: {{section.settings.heading_margin_bottom_mobile}}px;
+          font-size: {{section.settings.heading_size_mobile}}px !important;
+        }
+
+        #activity-collection-section-{{section.id}} .subheading{
+          font-size: {{section.settings.subheading_size_mobile}}px !important;
+          margin-bottom: {{section.settings.subheading_margin_bottom_mobile}}px;
+
+      }
+        #activity-collection-section-{{section.id}} .custom-row {
+          flex-direction: column;
+          margin-bottom: 65px;
+          margin: 0;
+        }
+
+        #activity-collection-section-{{section.id}} .column {
+          width: 100%;
+          max-width: 100%;
+        }
+
+
+        #activity-collection-section-{{section.id}} .content {
+          padding: 0;
+          font-size: {{section.settings.desc_size_mobile}}px !important;
+          line-height: 1.5;
+          margin-bottom: {{section.settings.content_margin_bottom_mobile}}px;
+        }
+        #activity-collection-section-{{section.id}}  .button_link{
+          padding: 6px 15px;
+         font-size: 14px;
+         margin-bottom: 1px;
+        }
+        #activity-collection-section-{{section.id}}  .button_link .arrow-icon{
+          padding: 9px;
+          width: 28px;
+          height: 28px;
+      }
+
+      #activity-collection-section-{{section.id}}  .button_link .arrow-icon svg{
+          width: 10px;
+          height: 10px;
+      }
+        #activity-collection-section-{{section.id}} .show_desktop {
+          display: none;
+        }
+      #activity-collection-section-{{section.id}} .show_mobile {
+          display: flex;
+        }
+        #activity-collection-section-{{section.id}} .swiper-template-featured-collection  .view-all-wrap-bottom{
+
+          font-family: ItalianPlateNo2Expanded-Regular;
+
+      }
+      #activity-collection-section-{{section.id}} .swiper-template-featured-collection  .view-all-wrap-bottom .text-base{
+        font-size: 15px;
+      }
+      }
+</style>
+
+{%- liquid
+  assign products_to_display = section.settings.collection.all_products_count
+
+  assign columns_mobile_int = section.settings.columns_mobile | plus: 0
+  assign show_mobile_slider = false
+  if section.settings.swipe_on_mobile and products_to_display > columns_mobile_int
+    assign show_mobile_slider = true
+  endif
+
+  assign show_desktop_slider = false
+  if section.settings.enable_desktop_slider
+    assign show_desktop_slider = true
+  endif
+  assign show_mobile_slider = false
+  if section.settings.enable_mobile_slider
+    assign show_mobile_slider = true
+  endif
+-%}
+<div id="{%- if section.settings.nav_id != empty %}custom-nav-{{- section.settings.nav_id -}}{% endif -%}">
+  <div id="activity-collection-section-{{section.id}}">
+    <div class="detail-container">
+      {% if section.settings.title != empty %}
+        <h3 class="heading {{ section.settings.title_size }}   wow fadeInUp" data-wow-delay="0.8s">
+          {{ section.settings.title }}
+        </h3>
+      {% endif %}
+      {% if section.settings.subtitle != empty %}
+        <div class="subtitle {{ section.settings.subtitle_size }}   wow fadeInUp" data-wow-delay="0.8s">
+          {{ section.settings.subtitle }}
+        </div>
+      {% endif %}
+      {% if section.settings.heading != empty %}
+        <h3
+          class="title {{ section.settings.heading_size }} {{ section.settings.heading_font_family }} wow fadeInUp"
+          data-wow-delay="0.8s"
+        >
+          {{- section.settings.heading -}}
+        </h3>
+      {% endif %}
+      {% if section.settings.subheading != empty %}
+        <div
+          class="subheading {{ section.settings.subheading_size }} {{ section.settings.subheading_font_family }} wow fadeInUp"
+          data-wow-delay="0.8s"
+        >
+          {{- section.settings.subheading -}}
+        </div>
+      {% endif %}
+      <!-- tab系列菜单切换 -->
+      <div class="collection-tabs-container-{{section.id}}">
+        {%- for block in section.blocks -%}
+          <div
+            data-blockId="{{ block.id }}"
+            data-handle="{{-block.settings.collection.handle -}}"
+            data-url="{{-block.settings.collection.url -}}"
+            data-productsCount="{{ block.settings.collection.products_count }}"
+            class="collection-tab-item {% if forloop.index == 1 -%} active {%- endif %}"
+          >
+            {{ block.settings.collection.title }}
+          </div>
+        {% endfor %}
+        <!-- 查看系列全部按钮 PC端显示  顶部 -->
+        {%- if section.settings.show_current_collection_view_all
+          and section.settings.current_collection_view_all_position == 'top'
+        -%}
+          <div
+            class=" view-all-wrap "
+          >
+            <a class="view-all text-base" href=" {{- section.blocks[0].settings.collection.url -}}">
+              <span class="reversed-link">View all</span>
+              <span class="circle-chevron">
+                <svg
+                  role="presentation"
+                  focusable="false"
+                  width="5"
+                  height="8"
+                  class="icon icon-chevron-right-small reverse-icon"
+                  viewBox="0 0 5 8"
+                >
+                  <path d="m.75 7 3-3-3-3" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+                </svg>
+              </span>
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+      <!-- 查看系列全部按钮 移动端显示 顶部 -->
+      {%- if section.settings.show_current_collection_view_all
+        and section.settings.current_collection_view_all_position == 'top'
+      -%}
+        <div
+          class="view-all-wrap show_mobile"
+        >
+          <a class="view-all text-base" href=" {{- section.blocks[0].settings.collection.url -}}">
+            <span class="reversed-link">View all</span>
+            <span class="circle-chevron">
+              <svg
+                role="presentation"
+                focusable="false"
+                width="5"
+                height="8"
+                class="icon icon-chevron-right-small reverse-icon"
+                viewBox="0 0 5 8"
+              >
+                <path d="m.75 7 3-3-3-3" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+              </svg>
+            </span>
+          </a>
+        </div>
+      {%- endif -%}
+      <!-- 轮播切换模式 -->
+      {%- for block in section.blocks -%}
+        <div
+          id="Slider-{{ section.id }}"
+          class="
+            swiper-template-featured-collection swiper-template-featured-collection-{{block.id}} {% if forloop.index == 1 %}
+              active
+            {%- endif %}
+          "
+        >
+          {%- assign collection = block.settings.collection -%}
+
+          <div class="swiper-wrapper swiper-wrapper-{{collection.handle }}">
+            {%- for product in collection.products limit: section.settings.products_to_show -%}
+              {% assign is_purchasable = false %}
+              {% if product.available and product.variants.size == 1 %}
+                {% assign is_purchasable = true %}
+              {% endif %}
+              <div class="swiper-slide">
+                <div id="Slide-{{ section.id }}-{{ forloop.index }}" class="swiper-slide-content ">
+                  <!-- 闪购标签 -->
+                  {% if section.settings.show_flash_label %}
+                    <div class="flash-sale-label">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 108 109"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M0.334961 22.7603L23.1016 0H66.9148L0.334961 66.5798V22.7603Z" fill="url(#paint0_linear_2064_334)"/>
+                        <g clip-path="url(#clip0_2064_334)">
+                        <path d="M25.3004 19.0297L26.1851 11.6548L19.7322 22.7388H23.4443V30.157L29.0125 19.0297H25.3004ZM23.0508 26.4689H19.7903L17.4059 14.4143H13.6282V16.2689H15.8555L16.4123 19.0507L18.2684 28.3234H23.0508V26.4689ZM13.7111 20.9053V19.0507H16.0312L16.4123 20.9053H13.7111ZM13.7111 26.4689V24.6143H17.052L17.4232 26.4689H13.7111ZM13.7111 23.6871H16.9419L16.5707 21.8325H13.7123V23.6871H13.7111ZM28.0226 26.4689L30.2499 19.0507H32.1877L29.4035 28.3234H24.8005L25.7285 26.4689H28.0226ZM21.9805 31.1053C21.9805 31.5971 21.7849 32.0688 21.4369 32.4166C21.0888 32.7644 20.6167 32.9598 20.1244 32.9598C19.6322 32.9598 19.1601 32.7644 18.812 32.4166C18.4639 32.0688 18.2684 31.5971 18.2684 31.1053C18.2684 30.6134 18.4639 30.1417 18.812 29.7939C19.1601 29.4461 19.6322 29.2507 20.1244 29.2507C20.6167 29.2507 21.0888 29.4461 21.4369 29.7939C21.7849 30.1417 21.9805 30.6134 21.9805 31.1053ZM27.5487 32.9598C28.041 32.9598 28.5131 32.7644 28.8612 32.4166C29.2092 32.0688 29.4048 31.5971 29.4048 31.1053C29.4048 30.6134 29.2092 30.1417 28.8612 29.7939C28.5131 29.4461 28.041 29.2507 27.5487 29.2507C27.0564 29.2507 26.5844 29.4461 26.2363 29.7939C25.8882 30.1417 25.6926 30.6134 25.6926 31.1053C25.6926 31.5971 25.8882 32.0688 26.2363 32.4166C26.5844 32.7644 27.0564 32.9598 27.5487 32.9598Z" fill="white"/>
+                        </g>
+                        <defs>
+                        <linearGradient id="paint0_linear_2064_334" x1="67.891" y1="34.2678" x2="0.328799" y2="34.0251" gradientUnits="userSpaceOnUse">
+                        <stop offset="0.095" stop-color="#08DEFF"/>
+                        <stop offset="0.865" stop-color="#FF2ACE"/>
+                        </linearGradient>
+                        <clipPath id="clip0_2064_334">
+                        <rect width="23.4909" height="22.2545" fill="white" transform="translate(10.844 11.1799)"/>
+                        </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+                  {% endif %}
+                  <!-- 折扣标签 -->
+                  {% if section.settings.show_discount_label %}
+                    {% assign show_discount = false %}
+                    {% if is_purchasable %}
+                      {% if section.settings.show_activity_preheat_price %}
+                        {% assign show_discount = true %}
+                      {%- else -%}
+                        {% if product.compare_at_price > product.price %}
+                          {% assign show_discount = true %}
+                        {% endif %}
+                      {% endif %}
+                    {%- else -%}
+                      {%- if section.settings.product_variants_type == 'single' -%}
+                        {%- if product.metafields.custom.product_variants != blank -%}
+                          {% assign target_variant_id = product.metafields.custom.product_variants
+                            | split: '/'
+                            | last
+                            | plus: 0
+                          %}
+                          {%- for variant in product.variants -%}
+                            {%- if variant.id == target_variant_id -%}
+                              {% assign target_variant = variant %}
+                              {%- break -%}
+                            {%- endif -%}
+                          {%- endfor -%}
+                          {% if section.settings.show_activity_preheat_price %}
+                            {% assign show_discount = true %}
+                          {%- else -%}
+                            {% if target_variant.compare_at_price > target_variant.price %}
+                              {% assign show_discount = true %}
+                            {% endif %}
+                          {% endif %}
+
+                        {%- else -%}
+                          {% if section.settings.show_activity_preheat_price %}
+                            {% assign show_discount = true %}
+                          {%- else -%}
+                            {% if product.compare_at_price > product.price %}
+                              {% assign show_discount = true %}
+                            {% endif %}
+                          {% endif %}
+                        {% endif %}
+                      {%- else -%}
+                      {% endif %}
+                    {% endif %}
+
+                    {% if show_discount %}
+                      <div class="discount-label">
+                        <svg width="97" height="34" viewBox="0 0 97 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 0H93.581C95.7001 0 97.1513 2.13753 96.3692 4.1071L85.7527 30.8452C84.9965 32.7497 83.1547 34 81.1056 34H0V0Z" fill="url(#paint0_linear_199_1490)"/>
+                          <defs>
+                          <linearGradient id="paint0_linear_199_1490" x1="98" y1="17.4994" x2="8.34412e-07" y2="16.4994" gradientUnits="userSpaceOnUse">
+                          <stop offset="0.095" stop-color="#08DEFF"/>
+                          <stop offset="0.865" stop-color="#FF2ACE"/>
+                          </linearGradient>
+                          </defs>
+                        </svg>
+
+                        <div class="discount-info">
+                          {% if is_purchasable %}
+                            {% if section.settings.show_activity_preheat_price %}
+                              {% case section.settings.activity_preheat_price_select %}
+                                {% when '1' %}
+                                  {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[0]
+                                    | default: 0
+                                    | times: 100
+                                  %}
+                                  {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[0]
+                                    | default: 0
+                                    | times: 100
+                                  %}
+                                {% when '2' %}
+                                  {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[1]
+                                    | default: 0
+                                    | times: 100
+                                  %}
+                                  {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[1]
+                                    | default: 0
+                                    | times: 100
+                                  %}
+                                {% when '3' %}
+                                  {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[2]
+                                    | default: 0
+                                    | times: 100
+                                  %}
+                                  {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[2]
+                                    | default: 0
+                                    | times: 100
+                                  %}
+                                {% when '4' %}
+                                  {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[3]
+                                    | default: 0
+                                    | times: 100
+                                  %}
+                                  {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[3]
+                                    | default: 0
+                                    | times: 100
+                                  %}
+                                {% when '5' %}
+                                  {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[4]
+                                    | default: 0
+                                    | times: 100
+                                  %}
+                                  {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[4]
+                                    | default: 0
+                                    | times: 100
+                                  %}
+                                {% else %}
+                                  {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[0]
+                                    | default: 0
+                                    | times: 100
+                                  %}
+                                  {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[0]
+                                    | default: 0
+                                    | times: 100
+                                  %}
+                              {% endcase %}
+
+                              {% assign compare_at_price = product.compare_at_price
+                                | minus: paddedrice_difference_origin_price
+                              %}
+                              {% assign price = product.price | minus: paddedrice_difference_price %}
+                            {%- else -%}
+                              {% assign compare_at_price = product.compare_at_price %}
+                              {% assign price = product.price %}
+                            {%- endif -%}
+
+                            {% if section.settings.discount_label_type == 'percentage' %}
+                              {{
+                                compare_at_price
+                                | minus: price
+                                | times: 100.0
+                                | divided_by: compare_at_price
+                                | round
+                              -}}
+                              % off
+                            {% elsif section.settings.discount_label_type == 'price' %}
+                              - {{ compare_at_price | minus: price | money -}}
+                            {%- endif -%}
+
+                          {%- else -%}
+                            {%- if section.settings.product_variants_type == 'single' -%}
+                              {%- if product.metafields.custom.product_variants != blank -%}
+                                {% assign target_variant_id = product.metafields.custom.product_variants
+                                  | split: '/'
+                                  | last
+                                  | plus: 0
+                                %}
+                                {%- for variant in product.variants -%}
+                                  {%- if variant.id == target_variant_id -%}
+                                    {% assign target_variant = variant %}
+                                    {%- break -%}
+                                  {%- endif -%}
+                                {%- endfor -%}
+
+                                {% if section.settings.show_activity_preheat_price %}
+                                  {% case section.settings.activity_preheat_price_select %}
+                                    {% when '1' %}
+                                      {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[0]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                      {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[0]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                    {% when '2' %}
+                                      {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[1]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                      {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[1]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                    {% when '3' %}
+                                      {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[2]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                      {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[2]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                    {% when '4' %}
+                                      {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[3]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                      {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[3]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                    {% when '5' %}
+                                      {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[4]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                      {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[4]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                    {% else %}
+                                      {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[0]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                      {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[0]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                  {% endcase %}
+
+                                  {% assign compare_at_price = target_variant.compare_at_price
+                                    | minus: paddedrice_difference_origin_price
+                                  %}
+                                  {% assign price = target_variant.price | minus: paddedrice_difference_price %}
+
+                                {%- else -%}
+                                  {% assign compare_at_price = target_variant.compare_at_price %}
+                                  {% assign price = target_variant.price %}
+                                {%- endif -%}
+
+                                {% if section.settings.discount_label_type == 'percentage' %}
+                                  {{
+                                    compare_at_price
+                                    | minus: price
+                                    | times: 100.0
+                                    | divided_by: compare_at_price
+                                    | round
+                                  -}}
+                                  % off
+                                {% elsif section.settings.discount_label_type == 'price' %}
+                                  - {{ compare_at_price | minus: price | money -}}
+                                {%- endif -%}
+
+                              {%- else -%}
+                                {% if section.settings.show_activity_preheat_price %}
+                                  {% case section.settings.activity_preheat_price_select %}
+                                    {% when '1' %}
+                                      {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[0]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                      {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[0]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                    {% when '2' %}
+                                      {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[1]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                      {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[1]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                    {% when '3' %}
+                                      {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[2]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                      {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[2]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                    {% when '4' %}
+                                      {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[3]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                      {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[3]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                    {% when '5' %}
+                                      {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[4]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                      {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[4]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                    {% else %}
+                                      {% assign paddedrice_difference_origin_price = product.metafields.custom.activity_minus_origin_price.value[0]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                      {% assign paddedrice_difference_price = product.metafields.custom.activity_minus_price.value[0]
+                                        | default: 0
+                                        | times: 100
+                                      %}
+                                  {% endcase %}
+
+                                  {% assign compare_at_price = product.compare_at_price
+                                    | minus: paddedrice_difference_origin_price
+                                  %}
+                                  {% assign price = product.price | minus: paddedrice_difference_price %}
+                                {%- else -%}
+                                  {% assign compare_at_price = product.compare_at_price %}
+                                  {% assign price = product.price %}
+                                {%- endif -%}
+                                {% if section.settings.discount_label_type == 'percentage' %}
+                                  {{
+                                    compare_at_price
+                                    | minus: price
+                                    | times: 100.0
+                                    | divided_by: compare_at_price
+                                    | round
+                                  -}}
+                                  % off
+                                {% elsif section.settings.discount_label_type == 'price' %}
+                                  - {{ compare_at_price | minus: price | money -}}
+                                {%- endif -%}
+                              {% endif %}
+                            {%- else -%}
+                            {% endif %}
+                          {% endif %}
+                        </div>
+                      </div>
+                    {%- else -%}
+                      <div class="discount-label-placeholder"></div>
+                    {% endif %}
+                  {% endif %}
+                  {% if section.settings.product_name_position == 'top' %}
+                    <div class="product-name {{ section.settings.product_name_font_family }} {{ section.settings.product_name_size }} ">
+                      {{- product.title | escape -}}
+                    </div>
+                  {% endif %}
+                  <a
+                    href="{{ product.url | split: '?' | first }}"
+                    title="{{- product.title | escape -}}"
+                    class="product-img"
+                  >
+                    {% assign image = product.metafields.custom.transparent_product_image
+                      | default: product.featured_image
+                    %}
+                    {% assign size = 100 | divided_by: section.settings.columns_desktop | round %}
+                    <img
+                      data-sizes="{{ size }}vw"
+                      data-srcset="
+                        {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                        {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                        {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                        {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                        {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                        {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                        {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                        {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                        {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                        {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                        {{ image | image_url }} {{ image.width }}w
+                      "
+                      data-src="{{ image | image_url:width:750 }}"
+                      class="swiper-lazy  lazyload "
+                    >
+                  </a>
+                  {% if section.settings.show_gift_label %}
+                    <!-- 赠品标签 -->
+                    <div class="gift-label">
+                      <!-- free标签 -->
+                      {% if section.settings.show_free_label %}
+                        <div class="gift-label-free">
+                          <svg
+                            width="61"
+                            height="32"
+                            viewBox="0 0 61 32"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M60.153 12.6372L52.3667 1.70554C51.6014 0.631448 50.3494 -0.00598064 49.0158 4.2304e-05L3.07129 0.15965C1.36731 0.167681 -0.00812666 1.53288 3.61458e-05 3.21027L0.125539 28.9784C0.133702 30.6548 1.5224 32.008 3.22639 32L49.0607 31.8414C50.4545 31.8343 51.7473 31.1266 52.4881 29.9652L60.2846 17.7296C61.2845 16.1606 61.2325 14.155 60.152 12.6382L60.153 12.6372ZM52.5024 17.6041C51.2769 17.8751 50.0597 17.1173 49.7852 15.9117C49.5097 14.7061 50.2801 13.5085 51.5055 13.2385C52.7309 12.9674 53.9472 13.7253 54.2227 14.9309C54.4982 16.1365 53.7278 17.3331 52.5024 17.6041Z" fill="url(#paint0_linear_199_1088)"/>
+                            <defs>
+                            <linearGradient id="paint0_linear_199_1088" x1="61.8944" y1="16.47" x2="-0.00354192" y2="16.0462" gradientUnits="userSpaceOnUse">
+                            <stop offset="0.095" stop-color="#08DEFF"/>
+                            <stop offset="0.865" stop-color="#FF2ACE"/>
+                            </linearGradient>
+                            </defs>
+                          </svg>
+                          <div class="gift-label-free-info">FREE</div>
+                        </div>
+                      {% endif %}
+
+                      {% if product.metafields.custom.product_gift.value != blank %}
+                        {% assign nums = product.metafields.custom.product_gift.value.size %}
+                        {%- for image in product.metafields.custom.product_gift.value -%}
+                          {% assign size = 100 | divided_by: nums | round %}
+                          <img
+                            data-sizes="{{ size }}vw"
+                            data-srcset="
+                              {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                              {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                              {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                              {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                              {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                              {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                              {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                              {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                              {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                              {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                              {{ image | image_url }} {{ image.width }}w
+                            "
+                            data-src="{{ image | image_url:width:750 }}"
+                            class=" lazyload "
+                          >
+                        {%- endfor -%}
+                      {% endif %}
+                      <!-- 神秘礼物标签 -->
+                      {% if section.settings.show_mystery_gift_label %}
+                        <div class="mystery_gift_label">
+                          {% if product.metafields.custom.product_mystery_gift.value != blank %}
+                            {% assign nums = product.metafields.custom.product_mystery_gift.value.size %}
+                            {%- for image in product.metafields.custom.product_mystery_gift.value -%}
+                              {% assign size = 100 | divided_by: nums | round %}
+                              <img
+                                data-sizes="{{ size }}vw"
+                                data-srcset="
+                                  {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                                  {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                                  {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                                  {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                                  {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                  {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                  {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                  {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                  {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                  {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                  {{ image | image_url }} {{ image.width }}w
+                                "
+                                data-src="{{ image | image_url:width:750 }}"
+                                class=" lazyload "
+                              >
+                            {%- endfor -%}
+                          {% endif %}
+                        </div>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                  {% if section.settings.product_name_position == 'bottom' %}
+                    <div class="product-name {{ section.settings.product_name_font_family }} {{ section.settings.product_name_size }} ">
+                      {{- product.title | escape -}}
+                    </div>
+                  {% endif %}
+
+                  <!-- 价格显示 -->
+                  <div class="product-price">
+                    <div class="product-sale-price {{ section.settings.selling_price_font_family }} {{ section.settings.selling_price_size }}">
+                      {% if is_purchasable %}
+                        {% if section.settings.show_activity_preheat_price
+                          and product.metafields.custom.activity_minus_price != blank
+                        -%}
+                          {% case section.settings.activity_preheat_price_select %}
+                            {% when '1' %}
+                              {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[0]
+                                | times: 100
+                              %}
+                            {% when '2' %}
+                              {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[1]
+                                | times: 100
+                              %}
+                            {% when '3' %}
+                              {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[2]
+                                | times: 100
+                              %}
+                            {% when '4' %}
+                              {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[3]
+                                | times: 100
+                              %}
+                            {% when '5' %}
+                              {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[4]
+                                | times: 100
+                              %}
+                            {% else %}
+                              {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[0]
+                                | times: 100
+                              %}
+                          {% endcase %}
+
+                          <span
+                            class="activity_minus_price"
+                            style="
+                              {%- unless section.settings.show_flash_sale_countdown -%}
+                                display: inline-block;
+                              {%- endunless -%}
+                            "
+                          >
+                            {{- product.price | minus: paddedrice_difference | money -}}
+                          </span>
+                          <span
+                            class="activity_price"
+                          >
+                            {{- product.price | money -}}
+                          </span>
+
+                        {%- else -%}
+                          {{- product.price | money -}}
+                        {%- endif -%}
+                      {%- else -%}
+                        {%- if section.settings.product_variants_type == 'single' -%}
+                          {%- if product.metafields.custom.product_variants != blank -%}
+                            {% assign target_variant_id = product.metafields.custom.product_variants
+                              | split: '/'
+                              | last
+                              | plus: 0
+                            %}
+                            {%- for variant in product.variants -%}
+                              {%- if variant.id == target_variant_id -%}
+                                {% assign target_variant = variant %}
+                                {%- break -%}
+                              {%- endif -%}
+                            {%- endfor -%}
+
+                            {% if section.settings.show_activity_preheat_price
+                              and product.metafields.custom.activity_minus_price != blank
+                            %}
+                              {% case section.settings.activity_preheat_price_select %}
+                                {% when '1' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[0]
+                                    | times: 100
+                                  %}
+                                {% when '2' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[1]
+                                    | times: 100
+                                  %}
+                                {% when '3' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[2]
+                                    | times: 100
+                                  %}
+                                {% when '4' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[3]
+                                    | times: 100
+                                  %}
+                                {% when '5' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[4]
+                                    | times: 100
+                                  %}
+                                {% else %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[0]
+                                    | times: 100
+                                  %}
+                              {% endcase %}
+                              <span
+                                class="activity_minus_price"
+                                style="
+                                  {%- unless section.settings.show_flash_sale_countdown -%}
+                                    display: inline-block;
+                                  {%- endunless -%}
+                                "
+                              >
+                                {{- target_variant.price | minus: paddedrice_difference | money -}}
+                              </span>
+                              <span class="activity_price">
+                                {{- target_variant.price | money -}}
+                              </span>
+
+                            {%- else -%}
+                              {{- target_variant.price | money -}}
+                            {%- endif -%}
+
+                          {%- else -%}
+                            {% if section.settings.show_activity_preheat_price
+                              and product.metafields.custom.activity_minus_price != blank
+                            %}
+                              {% case section.settings.activity_preheat_price_select %}
+                                {% when '1' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[0]
+                                    | times: 100
+                                  %}
+                                {% when '2' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[1]
+                                    | times: 100
+                                  %}
+                                {% when '3' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[2]
+                                    | times: 100
+                                  %}
+                                {% when '4' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[3]
+                                    | times: 100
+                                  %}
+                                {% when '5' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[4]
+                                    | times: 100
+                                  %}
+                                {% else %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_price.value[0]
+                                    | times: 100
+                                  %}
+                              {% endcase %}
+                              <span
+                                class="activity_minus_price"
+                                style="
+                                  {%- unless section.settings.show_flash_sale_countdown -%}
+                                    display: inline-block;
+                                  {%- endunless -%}
+                                "
+                              >
+                                {{- product.price | minus: paddedrice_difference | money -}}
+                              </span>
+                              <span class="activity_price">
+                                {{- product.price | money -}}
+                              </span>
+
+                            {%- else -%}
+                              {{- product.price | money -}}
+                            {%- endif -%}
+                          {% endif %}
+                        {% endif %}
+                      {% endif %}
+                    </div>
+                    <div class="product-origin-price {{ section.settings.original_price_font_family }} {{ section.settings.original_price_size }}">
+                      {% if is_purchasable %}
+                        {% if section.settings.show_activity_preheat_price
+                          and product.metafields.custom.activity_minus_origin_price != blank
+                        %}
+                          {% case section.settings.activity_preheat_price_select %}
+                            {% when '1' %}
+                              {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[0]
+                                | times: 100
+                              %}
+                            {% when '2' %}
+                              {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[1]
+                                | times: 100
+                              %}
+                            {% when '3' %}
+                              {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[2]
+                                | times: 100
+                              %}
+                            {% when '4' %}
+                              {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[3]
+                                | times: 100
+                              %}
+                            {% when '5' %}
+                              {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[4]
+                                | times: 100
+                              %}
+                            {% else %}
+                              {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[0]
+                                | times: 100
+                              %}
+                          {% endcase %}
+
+                          <span
+                            class="activity_minus_origin_price"
+                            style="
+                              {%- unless section.settings.show_flash_sale_countdown -%}
+                                display: inline-block;
+                              {%- endunless -%}
+                            "
+                          >
+                            {{- product.compare_at_price | minus: paddedrice_difference | money -}}
+                          </span>
+                          <span class="activity_origin_price">
+                            {%- if product.compare_at_price > product.price -%}
+                              {{- product.compare_at_price | money -}}
+                            {%- endif -%}
+                          </span>
+
+                        {%- else -%}
+                          {%- if product.compare_at_price > product.price -%}
+                            {{- product.compare_at_price | money -}}
+                          {%- endif -%}
+                        {%- endif -%}
+
+                      {%- else -%}
+                        {%- if section.settings.product_variants_type == 'single' -%}
+                          {%- if product.metafields.custom.product_variants != blank -%}
+                            {% assign target_variant_id = product.metafields.custom.product_variants
+                              | split: '/'
+                              | last
+                              | plus: 0
+                            %}
+                            {%- for variant in product.variants -%}
+                              {%- if variant.id == target_variant_id -%}
+                                {% assign target_variant = variant %}
+                                {%- break -%}
+                              {%- endif -%}
+                            {%- endfor -%}
+
+                            {% if section.settings.show_activity_preheat_price
+                              and product.metafields.custom.activity_minus_origin_price != blank
+                            %}
+                              {% case section.settings.activity_preheat_price_select %}
+                                {% when '1' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[0]
+                                    | times: 100
+                                  %}
+                                {% when '2' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[1]
+                                    | times: 100
+                                  %}
+                                {% when '3' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[2]
+                                    | times: 100
+                                  %}
+                                {% when '4' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[3]
+                                    | times: 100
+                                  %}
+                                {% when '5' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[4]
+                                    | times: 100
+                                  %}
+                                {% else %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[0]
+                                    | times: 100
+                                  %}
+                              {% endcase %}
+                              <span
+                                class="activity_minus_origin_price"
+                                style="
+                                  {%- unless section.settings.show_flash_sale_countdown -%}
+                                    display: inline-block;
+                                  {%- endunless -%}
+                                "
+                              >
+                                {{- target_variant.compare_at_price | minus: paddedrice_difference | money -}}
+                              </span>
+                              <span class="activity_origin_price">
+                                {%- if product.compare_at_price > product.price -%}
+                                  {{- target_variant.compare_at_price | money -}}
+                                {%- endif -%}
+                              </span>
+
+                            {%- else -%}
+                              {%- if product.compare_at_price > product.price -%}
+                                {{- target_variant.compare_at_price | money -}}
+                              {%- endif -%}
+                            {%- endif -%}
+
+                          {%- else -%}
+                            {% if section.settings.show_activity_preheat_price
+                              and product.metafields.custom.activity_minus_origin_price != blank
+                            %}
+                              {% case section.settings.activity_preheat_price_select %}
+                                {% when '1' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[0]
+                                    | times: 100
+                                  %}
+                                {% when '2' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[1]
+                                    | times: 100
+                                  %}
+                                {% when '3' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[2]
+                                    | times: 100
+                                  %}
+                                {% when '4' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[3]
+                                    | times: 100
+                                  %}
+                                {% when '5' %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[4]
+                                    | times: 100
+                                  %}
+                                {% else %}
+                                  {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[0]
+                                    | times: 100
+                                  %}
+                              {% endcase %}
+                              <span
+                                class="activity_minus_origin_price"
+                                style="
+                                  {%- unless section.settings.show_flash_sale_countdown -%}
+                                    display: inline-block;
+                                  {%- endunless -%}
+                                "
+                              >
+                                {{- product.compare_at_price | minus: paddedrice_difference | money -}}
+                              </span>
+                              <span class="activity_origin_price">
+                                {%- if product.compare_at_price > product.price -%}
+                                  {{- product.compare_at_price | money -}}
+                                {%- endif -%}
+                              </span>
+
+                            {%- else -%}
+                              {%- if product.compare_at_price > product.price -%}
+                                {{- product.compare_at_price | money -}}
+                              {%- endif -%}
+                            {%- endif -%}
+                          {% endif %}
+                        {%- else -%}
+                          {% if section.settings.show_activity_preheat_price
+                            and product.metafields.custom.activity_minus_origin_price != blank
+                          %}
+                            {% case section.settings.activity_preheat_price_select %}
+                              {% when '1' %}
+                                {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[0]
+                                  | times: 100
+                                %}
+                              {% when '2' %}
+                                {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[1]
+                                  | times: 100
+                                %}
+                              {% when '3' %}
+                                {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[2]
+                                  | times: 100
+                                %}
+                              {% when '4' %}
+                                {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[3]
+                                  | times: 100
+                                %}
+                              {% when '5' %}
+                                {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[4]
+                                  | times: 100
+                                %}
+                              {% else %}
+                                {% assign paddedrice_difference = product.metafields.custom.activity_minus_origin_price.value[0]
+                                  | times: 100
+                                %}
+                            {% endcase %}
+
+                            <span
+                              class="activity_minus_origin_price"
+                              style="
+                                {%- unless section.settings.show_flash_sale_countdown -%}
+                                  display: inline-block;
+                                {%- endunless -%}
+                              "
+                            >
+                              {{- product.compare_at_price | minus: paddedrice_difference | money -}}
+                            </span>
+                            <span class="activity_origin_price">
+                              {%- if product.compare_at_price > product.price -%}
+                                {{- product.compare_at_price | money -}}
+                              {%- endif -%}
+                            </span>
+
+                          {%- else -%}
+                            {%- if product.compare_at_price > product.price -%}
+                              {{- product.compare_at_price | money -}}
+                            {%- endif -%}
+                          {%- endif -%}
+                        {%- endif -%}
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="button-group">
+                    {% if section.settings.show_flash_sale_countdown %}
+                      <div class="Countdown">
+                        <!-- 秒杀倒计时 开始 -->
+
+                        {% if is_purchasable %}
+                          {% if product.metafields.custom.flash_sale_countdown != blank %}
+                            {% assign item = product %}
+                          {%- else -%}
+                            {% assign item = product.variants[0] %}
+                          {%- endif -%}
+
+                        {%- else -%}
+                          {%- if section.settings.product_variants_type == 'single' -%}
+                            {%- if product.metafields.custom.product_variants != blank -%}
+                              {% unless section.settings.is_multiple_buy %}
+                                {% assign target_variant_id = product.metafields.custom.product_variants
+                                  | split: '/'
+                                  | last
+                                  | plus: 0
+                                %}
+                                {%- for variant in product.variants -%}
+                                  {%- if variant.id == target_variant_id -%}
+                                    {% assign target_variant = variant %}
+                                    {%- break -%}
+                                  {%- endif -%}
+                                {%- endfor -%}
+                                {% assign item = target_variant %}
+                              {% else %}
+                                {% assign item = product %}
+                              {% endunless %}
+
+                            {%- else -%}
+                              {% if product.metafields.custom.flash_sale_countdown != blank %}
+                                {% assign item = product %}
+                              {%- else -%}
+                                {% assign item = product.variants[0] %}
+                              {%- endif -%}
+                            {% endif %}
+                          {%- else -%}
+                            {% assign item = product.variants[0] %}
+                          {% endif %}
+                        {% endif %}
+                        {% comment %} {{ item.metafields.custom.variant_flash_sale_countdown }} {% endcomment %}
+                        {%- if item.metafields.custom.variant_flash_sale_countdown != blank
+                          or item.metafields.custom.variant_flash_sale_countdown_end != blank
+                          or item.metafields.custom.flash_sale_countdown != blank
+                          or item.metafields.custom.flash_sale_countdown_end != blank
+                          or section.settings.flash_sale_countdown != empty
+                          or section.settings.flash_sale_countdown_end != empty
+                        -%}
+                          <div
+                            class="product-flash-sale-countdown"
+                          >
+                            {%- render 'flash-sale-countdown',
+                              item: item,
+                              flash_sale_countdown_date: section.settings.flash_sale_countdown,
+                              flash_sale_countdown_end_date: section.settings.flash_sale_countdown_end
+                            -%}
+                          </div>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+
+                    <!-- 产品预售按钮 开始 -->
+                    {% if section.settings.show_pre_order_btn %}
+                      <product-card>
+                        <div class="product-card--add-to-cart-button-wrapper">
+                          {% if is_purchasable %}
+                            {% if product.selected_or_first_available_variant.metafields.custom.product_variant_is_pre
+                              and product.selected_or_first_available_variant.metafields.custom.selling_plan_id != blank
+                            %}
+                              {% assign selling_plan_id = product.selected_or_first_available_variant.metafields.custom.selling_plan_id %}
+                              <button
+                                class="external-add-to-cart-button external-pre-order-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                                data-product-id="{{ product.selected_or_first_available_variant.id }}"
+                                data-selling-plan-id="{{ selling_plan_id }}"
+                                tabindex="-1"
+                                {% if product.selected_or_first_available_variant.available == false %}
+                                  disabled
+                                {% endif %}
+                              >
+                                {% render 'svg-icons' with 'thb-loading' %}
+                                <span class="product-card--add-to-cart-text">
+                                  {%- if product.selected_or_first_available_variant.available -%}
+                                    {%- if section.settings.pre_button_text != blank -%}
+                                      {{- section.settings.pre_button_text -}}
+
+                                    {%- else -%}
+                                      {{- 'products.product.add_to_cart' | t -}}
+                                    {%- endif -%}
+
+                                  {%- else -%}
+                                    {{- 'products.product.sold_out' | t -}}
+                                  {%- endif -%}
+                                </span>
+                              </button>
+                            {%- endif -%}
+                          {% else %}
+                            {% comment %}
+                              类型{{ section.settings.product_variants_type }}-
+                              {{- product.metafields.custom.product_variants | split: '/' | last | plus: 0}}
+                            {% endcomment %}
+
+                            {%- if section.settings.product_variants_type == 'single' -%}
+                              {%- if product.metafields.custom.product_variants != blank -%}
+                                {% assign target_variant_id = product.metafields.custom.product_variants
+                                  | split: '/'
+                                  | last
+                                  | plus: 0
+                                %}
+                                {%- for variant in product.variants -%}
+                                  {%- if variant.id == target_variant_id -%}
+                                    {% assign target_variant = variant %}
+                                    {%- break -%}
+                                  {%- endif -%}
+                                {%- endfor -%}
+                                {%- if target_variant.metafields.custom.product_variant_is_pre
+                                  and target_variant.metafields.custom.selling_plan_id != blank
+                                -%}
+                                  {% assign selling_plan_id = target_variant.metafields.custom.selling_plan_id %}
+                                  <button
+                                    class="external-add-to-cart-button external-pre-order-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                                    data-product-id="{{ target_variant.id }}"
+                                    data-selling-plan-id="{{ selling_plan_id }}"
+                                    tabindex="-1"
+                                    {% if target_variant.available == false %}
+                                      disabled
+                                    {% endif %}
+                                  >
+                                    {% render 'svg-icons' with 'thb-loading' %}
+                                    <span class="product-card--add-to-cart-text">
+                                      {%- if target_variant.available -%}
+                                        {%- if section.settings.pre_button_text != blank -%}
+                                          {{- section.settings.pre_button_text -}}
+
+                                        {%- else -%}
+                                          {{- 'products.product.add_to_cart' | t -}}
+                                        {%- endif -%}
+
+                                      {%- else -%}
+                                        {{- 'products.product.sold_out' | t -}}
+                                      {%- endif -%}
+                                    </span>
+                                    {% comment %}
+                                      <script>
+                                        console.log({{ target_variant | json }})
+                                        console.log({{ target_variant.selling_plan_allocations[0].selling_plan_group_id }})
+                                      </script>
+                                    {% endcomment %}
+                                  </button>
+                                {%- endif -%}
+                              {%- else -%}
+                                <a
+                                  class="external-add-to-cart-button-nav external-pre-order-button-nav product-card--add-to-cart-button button accent"
+                                  href="{{ product.url | split: '?' | first }}"
+                                  tabindex="-1"
+                                >
+                                  <span class="product-card--add-to-cart-text">
+                                    {{- 'products.product.choose_options' | t -}}
+                                  </span>
+                                </a>
+                              {%- endif -%}
+                            {%- else -%}
+                              <a
+                                class="external-add-to-cart-button-nav external-pre-order-button-nav product-card--add-to-cart-button button accent"
+                                href="{{ product.url | split: '?' | first }}"
+                                tabindex="-1"
+                              >
+                                <span class="product-card--add-to-cart-text">
+                                  {{- 'products.product.choose_options' | t -}}
+                                </span>
+                              </a>
+                            {%- endif -%}
+                          {% endif %}
+                        </div>
+                      </product-card>
+                    {%- endif -%}
+                    <!-- 产品预售按钮 结束 -->
+                    <product-card>
+                      <div class="product-card--add-to-cart-button-wrapper">
+                        {% if is_purchasable %}
+                          <button
+                            class="external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                            data-product-id="{{ product.selected_or_first_available_variant.id }}"
+                            tabindex="-1"
+                            {% if product.selected_or_first_available_variant.available == false %}
+                              disabled
+                            {% endif %}
+                          >
+                            {% render 'svg-icons' with 'thb-loading' %}
+                            <span class="product-card--add-to-cart-text">
+                              {%- if product.selected_or_first_available_variant.available -%}
+                                {%- if section.settings.button_text != blank -%}
+                                  {{- section.settings.button_text -}}
+
+                                {%- else -%}
+                                  {{- 'products.product.add_to_cart' | t -}}
+                                {%- endif -%}
+
+                              {%- else -%}
+                                {{- 'products.product.sold_out' | t -}}
+                              {%- endif -%}
+                            </span>
+                          </button>
+                        {% else %}
+                          {% comment %}
+                            类型{{ section.settings.product_variants_type }}-
+                            {{- product.metafields.custom.product_variants | split: '/' | last | plus: 0}}
+                          {% endcomment %}
+
+                          {%- if section.settings.product_variants_type == 'single' -%}
+                            {%- if product.metafields.custom.product_variants != blank -%}
+                              {% unless section.settings.is_multiple_buy %}
+                                {% assign target_variant_id = product.metafields.custom.product_variants
+                                  | split: '/'
+                                  | last
+                                  | plus: 0
+                                %}
+                                {%- for variant in product.variants -%}
+                                  {%- if variant.id == target_variant_id -%}
+                                    {% assign target_variant = variant %}
+                                    {%- break -%}
+                                  {%- endif -%}
+                                {%- endfor -%}
+
+                                <button
+                                  class="external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                                  data-product-id="{{ target_variant.id }}"
+                                  tabindex="-1"
+                                  {% if target_variant.available == false %}
+                                    disabled
+                                  {% endif %}
+                                >
+                                  {% render 'svg-icons' with 'thb-loading' %}
+                                  <span class="product-card--add-to-cart-text">
+                                    {%- if target_variant.available -%}
+                                      {%- if section.settings.button_text != blank -%}
+                                        {{- section.settings.button_text -}}
+
+                                      {%- else -%}
+                                        {{- 'products.product.add_to_cart' | t -}}
+                                      {%- endif -%}
+
+                                    {%- else -%}
+                                      {{- 'products.product.sold_out' | t -}}
+                                    {%- endif -%}
+                                  </span>
+                                </button>
+                              {% else %}
+                                <a
+                                  class="external-add-to-cart-button-nav product-card--add-to-cart-button button accent"
+                                  href="{{ product.url | split: '?' | first }}"
+                                  tabindex="-1"
+                                >
+                                  <span class="product-card--add-to-cart-text">
+                                    {{- 'products.product.choose_options' | t -}}
+                                  </span>
+                                </a>
+                              {% endunless %}
+
+                            {%- else -%}
+                              <a
+                                class="external-add-to-cart-button-nav product-card--add-to-cart-button button accent"
+                                href="{{ product.url | split: '?' | first }}"
+                                tabindex="-1"
+                              >
+                                <span class="product-card--add-to-cart-text">
+                                  {{- 'products.product.choose_options' | t -}}
+                                </span>
+                              </a>
+                            {%- endif -%}
+                          {%- else -%}
+                            <a
+                              class="external-add-to-cart-button-nav product-card--add-to-cart-button button accent"
+                              href="{{ product.url | split: '?' | first }}"
+                              tabindex="-1"
+                            >
+                              <span class="product-card--add-to-cart-text">
+                                {{- 'products.product.choose_options' | t -}}
+                              </span>
+                            </a>
+                          {%- endif -%}
+                        {% endif %}
+                      </div>
+                    </product-card>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+          {%- if show_desktop_slider -%}
+            <!-- 自定义 PC端切换按钮 -->
+            {% assign columns_desktop_num = section.settings.columns_desktop | plus: 0 %}
+            {% if section.settings.products_to_show > columns_desktop_num
+              and collection.products.length > columns_desktop_num
+            %}
+              <div class="swiper-button-wrap show_desktop">
+                <div class="swiper-button-prev  swiper-button-prev-{{section.id}}">
+                  {%- if section.settings.swiper_button_type == '1' -%}
+                    <svg
+                      class="bi"
+                      width="40"
+                      height="70"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                      <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z">
+                      </path>
+                    </svg>
+                  {%- else -%}
+                    <svg
+                      t="1733466545471"
+                      class="icon"
+                      viewBox="0 0 1024 1024"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      p-id="2447"
+                      width="32"
+                      height="32"
+                    >
+                      <path d="M862.485 481.154H234.126l203.3-203.3c12.497-12.497 12.497-32.758 0-45.255s-32.758-12.497-45.255 0L135.397 489.373c-12.497 12.497-12.497 32.758 0 45.254l256.774 256.775c6.249 6.248 14.438 9.372 22.627 9.372s16.379-3.124 22.627-9.372c12.497-12.497 12.497-32.759 0-45.255l-203.3-203.301h628.36c17.036 0 30.846-13.81 30.846-30.846s-13.81-30.846-30.846-30.846z" fill="" p-id="2448"></path>
+                    </svg>
+                  {%- endif -%}
+                </div>
+
+                <div
+                  class="swiper-button-next swiper-button-next-{{section.id}}"
+                >
+                  {%- if section.settings.swiper_button_type == '1' -%}
+                    <svg
+                      class="bi"
+                      width="40"
+                      height="70"
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                      <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L10.293 8 4.646 2.354a.5.5 0 010-.708z">
+                      </path>
+                    </svg>
+                  {%- else -%}
+                    <svg
+                      t="1733466298126"
+                      class="icon"
+                      viewBox="0 0 1024 1024"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      p-id="1447"
+                      width="32"
+                      height="32"
+                    >
+                      <path d="M885.113 489.373L628.338 232.599c-12.496-12.497-32.758-12.497-45.254 0-12.497 12.497-12.497 32.758 0 45.255l203.3 203.3H158.025c-17.036 0-30.846 13.811-30.846 30.846 0 17.036 13.811 30.846 30.846 30.846h628.36L583.084 746.147c-12.497 12.496-12.497 32.758 0 45.255 6.248 6.248 14.438 9.372 22.627 9.372s16.379-3.124 22.627-9.372l256.775-256.775a31.999 31.999 0 0 0 0-45.254z" fill="" p-id="1448"></path>
+                    </svg>
+                  {%- endif -%}
+                </div>
+              </div>
+            {% endif %}
+          {%- endif -%}
+          {%- if show_mobile_slider -%}
+            <!-- 自定义 移动端切换按钮 -->
+            {% assign display_number_per_line_mobile_num = section.settings.display_number_per_line_mobile | plus: 0 %}
+            {% if section.settings.products_to_show > display_number_per_line_mobile_num
+              and collection.products.length > display_number_per_line_mobile_num
+            %}
+              <div class="swiper-button-wrap show_mobile">
+                <div class="swiper-button-prev  swiper-button-prev-{{section.id}}">
+                  {%- if section.settings.swiper_button_type == '1' -%}
+                    <svg
+                      class="bi"
+                      width="40"
+                      height="70"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                      <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z">
+                      </path>
+                    </svg>
+                  {%- else -%}
+                    <svg
+                      t="1733466545471"
+                      class="icon"
+                      viewBox="0 0 1024 1024"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      p-id="2447"
+                      width="32"
+                      height="32"
+                    >
+                      <path d="M862.485 481.154H234.126l203.3-203.3c12.497-12.497 12.497-32.758 0-45.255s-32.758-12.497-45.255 0L135.397 489.373c-12.497 12.497-12.497 32.758 0 45.254l256.774 256.775c6.249 6.248 14.438 9.372 22.627 9.372s16.379-3.124 22.627-9.372c12.497-12.497 12.497-32.759 0-45.255l-203.3-203.301h628.36c17.036 0 30.846-13.81 30.846-30.846s-13.81-30.846-30.846-30.846z" fill="" p-id="2448"></path>
+                    </svg>
+                  {%- endif -%}
+                </div>
+
+                <div
+                  class="swiper-button-next swiper-button-next-{{section.id}}"
+                >
+                  {%- if section.settings.swiper_button_type == '1' -%}
+                    <svg
+                      class="bi"
+                      width="40"
+                      height="70"
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                      <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L10.293 8 4.646 2.354a.5.5 0 010-.708z">
+                      </path>
+                    </svg>
+                  {%- else -%}
+                    <svg
+                      t="1733466298126"
+                      class="icon"
+                      viewBox="0 0 1024 1024"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      p-id="1447"
+                      width="32"
+                      height="32"
+                    >
+                      <path d="M885.113 489.373L628.338 232.599c-12.496-12.497-32.758-12.497-45.254 0-12.497 12.497-12.497 32.758 0 45.255l203.3 203.3H158.025c-17.036 0-30.846 13.811-30.846 30.846 0 17.036 13.811 30.846 30.846 30.846h628.36L583.084 746.147c-12.497 12.496-12.497 32.758 0 45.255 6.248 6.248 14.438 9.372 22.627 9.372s16.379-3.124 22.627-9.372l256.775-256.775a31.999 31.999 0 0 0 0-45.254z" fill="" p-id="1448"></path>
+                    </svg>
+                  {%- endif -%}
+                </div>
+              </div>
+            {% endif %}
+          {%- endif -%}
+          <!-- 查看系列全部按钮 PC端显示  底部 -->
+          {%- if section.settings.show_current_collection_view_all
+            and section.settings.current_collection_view_all_position == 'bottom'
+          -%}
+            <div
+              class="view-all-wrap-bottom view-all-wrap show_desktop"
+            >
+              <a class="view-all text-base" href=" {{- collection.url -}}">
+                <span class="reversed-link">View all</span>
+                <span class="circle-chevron">
+                  <svg
+                    role="presentation"
+                    focusable="false"
+                    width="5"
+                    height="8"
+                    class="icon icon-chevron-right-small reverse-icon"
+                    viewBox="0 0 5 8"
+                  >
+                    <path d="m.75 7 3-3-3-3" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+                  </svg>
+                </span>
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<script
+  defer
+  type="text/javascript"
+>
+  document.addEventListener('DOMContentLoaded', () => {
+    const externalButtons = document.querySelectorAll('.external-add-to-cart-button');
+
+    externalButtons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+            {% comment %} const productId = event.currentTarget.dataset.productId;
+            const sellingPlanId = "{{event.currentTarget.dataset.sellingPlanId}}"; {% endcomment %}
+            if (button.disabled) {
+                return;
+            }
+            // 调用静态方法 quickAddStatic
+            ProductCard.quickAddStatic();
+        });
+    });
+
+
+    switchProductList()
+
+    function switchProductList(products=null,Id=null){
+      const blockId = Id?Id:'{{ section.blocks[0].id }}'
+      const productsCount = products?products:{{ section.blocks[0].settings.collection.products_count }}
+      const is_swiper_autoplay = {{section.settings.is_swiper_autoplay}};
+      const currentProductTotalNum = productsCount - 0; // 当前产品系列实际产品数
+      const containerWidth = $('.swiper-template-featured-collection-{{section.id}}').width();  // 容器宽度
+      let showProductsNum = {{ section.settings.products_to_show }} ; //  要显示的最大产品数
+      const display_number_per_line = {{section.settings.columns_desktop | plus: 0 }};
+      let columns_desktop_show_num = {{ section.settings.columns_desktop }};
+      const display_number_per_line_mobile = {{section.settings.display_number_per_line_mobile | plus: 0 }};
+      let slidesPerViewTotal = currentProductTotalNum >{{ section.settings.columns_desktop }}?columns_desktop_show_num:{{ section.settings.columns_desktop }};  //桌面上的列数
+      let spaceBetweenValue = 20;
+      let slidesPerViewValue;
+      let  initialSlideValue = 0;
+      let slidesOffsetBeforeValue = 0;
+      let isSliderCenter = {{ section.settings.enable_slider_center }}
+      const enable_desktop_slider = {{ section.settings.enable_desktop_slider }}
+
+      if(isSliderCenter){
+
+        {% comment %} if(!isMobile()){
+          spaceBetweenValue = 30;
+          slidesPerViewValue =  {{ section.settings.columns_desktop }};
+          if(containerWidth<1200){
+            slidesPerViewValue = 3
+          }else if(containerWidth<960){
+            slidesPerViewValue = 2
+          }
+        }else{
+          slidesPerViewValue =  {{ columns_mobile_int }};
+          spaceBetweenValue = 10;
+        }
+        let slidesMarginWidth;  // 每个slide 的marigin 总宽度
+        let singleSlidesHalfWidthValue ;  // 计算出单个slide 一半的宽度
+
+
+        //let dpr = window.devicePixelRatio || 1;
+        if(slidesPerViewValue >=4 || isMobile()){
+          if(currentProductTotalNum>=6 && showProductsNum>=6 || isMobile()){
+            slidesMarginWidth =  slidesPerViewValue *spaceBetweenValue;  // 每个slide 的marigin 总宽度
+            slidesPerViewTotal = slidesPerViewValue + 1  // 要展示的列数  加1 是因为两边需要多出一个 显示各一半的效果
+            singleSlidesHalfWidthValue = (containerWidth - slidesMarginWidth)/slidesPerViewTotal/2;  // 计算出单个slide 一半的宽度
+            // console.log((containerWidth - slidesMarginWidth)/slidesPerViewTotal)
+            // console.log(singleSlidesHalfWidthValue)
+            initialSlideValue = 2
+
+            slidesOffsetBeforeValue = (singleSlidesHalfWidthValue + 18)
+
+
+          }else{
+            if(currentProductTotalNum>=3){
+              slidesPerViewTotal = slidesPerViewValue
+            }else{
+              slidesPerViewTotal = slidesPerViewValue + 0.5
+            }
+
+          }
+
+
+        }else{
+
+          if(currentProductTotalNum>=4){
+
+            if(slidesPerViewValue >= 3 && showProductsNum>=5){
+              slidesMarginWidth =  slidesPerViewValue *spaceBetweenValue;  // 每个slide 的marigin 总宽度
+              slidesPerViewTotal = slidesPerViewValue + 1  // 要展示的列数  加1 是因为两边需要多出一个 显示各一半的效果
+              singleSlidesHalfWidthValue = (containerWidth - slidesMarginWidth)/slidesPerViewTotal/2;  // 计算出单个slide 一半的宽度
+              console.log((containerWidth - slidesMarginWidth)/slidesPerViewTotal)
+              console.log(singleSlidesHalfWidthValue)
+              initialSlideValue = 2
+              slidesOffsetBeforeValue = (singleSlidesHalfWidthValue + 18)
+
+            }else{
+              slidesPerViewTotal = slidesPerViewValue + 0.5
+            }
+
+          }else{
+            slidesPerViewTotal = slidesPerViewValue
+          }
+
+
+        } {% endcomment %}
+      }else{
+        {% comment %} if(isMobile()){
+          let columns_mobile_show_num = show_product_half?{{ columns_mobile_int }} + 0.3:{{ columns_mobile_int }}
+          slidesPerViewTotal =  columns_mobile_show_num;
+          spaceBetweenValue = 10;
+        } {% endcomment %}
+      }
+
+
+
+
+      console.log('显示个数==',slidesPerViewTotal)
+      //console.log('设备像素比==',dpr)
+      console.log('偏移量==',slidesOffsetBeforeValue)
+      console.log('初始化位置==',initialSlideValue)
+      console.log('当前产品系列实际产品数==',currentProductTotalNum)
+
+      const swiperTemplateFeaturedCollection = new Swiper(`.swiper-template-featured-collection-${blockId}`, {
+        slidesPerView: display_number_per_line,
+        initialSlide: initialSlideValue,
+        spaceBetween: spaceBetweenValue,
+        slidesOffsetBefore : slidesOffsetBeforeValue,
+        preventClicksPropagation: false,
+        observer: true,
+        observeParents: true,
+        navigation: {
+          nextEl: '.swiper-button-next-{{section.id}}',
+          prevEl: '.swiper-button-prev-{{section.id}}',
+        },
+        scrollbar: {
+          el: '.swiper-scrollbar-{{section.id}}',
+          hide: false,
+        },
+        on: {
+          init: function (swiper) {
+            if (is_swiper_autoplay) {
+              // 禁用自动播放
+              this.autoplay.start()
+            } else {
+              this.autoplay.stop()
+            }
+            if (!isMobile()) {
+              
+              if (enable_desktop_slider){
+                if (currentProductTotalNum === display_number_per_line) {
+                  console.log('禁止拖动')
+                  // 禁止拖动
+                  this.allowTouchMove = false
+                } else {
+                  // 允许拖动
+                  console.log('允许拖动')
+                  this.allowTouchMove = true
+                }
+              }else{
+                this.allowTouchMove = false
+              }
+
+            } else {
+              if (currentProductTotalNum === display_number_per_line_mobile) {
+                console.log('禁止拖动')
+                // 禁止拖动
+                this.allowTouchMove = false
+              } else {
+                // 允许拖动
+                console.log('允许拖动')
+                this.allowTouchMove = true
+              }
+            }
+          },
+          slideChangeTransitionEnd: function (swiper) {},
+        },
+        breakpoints: {
+          //当宽度小于等于768时显示
+          768: {
+            slidesPerView: display_number_per_line_mobile,
+            initialSlide: initialSlideValue,
+            slidesOffsetBefore :slidesOffsetBeforeValue,
+            spaceBetween: 10,
+          },
+          1024: {
+              slidesPerView: 2,
+              spaceBetween: 10,
+          },
+          1200: {
+            slidesPerView: 3,
+            spaceBetween: 10,
+          }
+        }
+
+      });
+      swiperTemplateFeaturedCollection.update()
+      setTimeout(() => {
+          $('.swiper-button-next-{{section.id}}').removeClass(
+            'swiper-button-disabled'
+          )
+
+      }, 1000)
+    }  
+    $('.collection-tabs-container-{{section.id}}>.collection-tab-item').on('click', function () {
+      $(this).addClass('active').siblings().removeClass('active');
+      $(this).parent().children('.view-all-wrap').children('a').attr('href', $(this).attr('data-url'));
+     
+      const handle = $(this).attr('data-handle');
+      const blockId = $(this).attr('data-blockId');
+      const productsCount = $(this).attr('data-productsCount');
+      console.log('productsCount&&blockId==', productsCount, blockId);
+      switchProductList(productsCount, blockId);
+
+      $(`.swiper-template-featured-collection-${blockId}`).addClass('active').siblings().removeClass('active');
+    });  
+
+  });
+</script>
+<!-- 倒计时格式化时间 -->
+<script>
+  function formatUtcTime(v) {
+    let date = new Date(v);
+    return (
+      date.getFullYear() +
+      '/' +
+      (date.getMonth() + 1) +
+      '/' +
+      (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+      ' ' +
+      (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+      ':' +
+      (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+      ':' +
+      (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+    );
+  }
+
+  // var tt = '2023-05-30T07:00:00Z';
+  // var eee = formatUtcTime(tt);
+  //console.log(eee);
+  $(function () {
+    // 产品秒杀倒计时
+    if ($('#activity-collection-section-{{section.id}} [data-countdown]')) {
+      $('#activity-collection-section-{{section.id}} [data-countdown]').each(function () {
+        const $this = $(this),
+          UTCDate = $(this).data('countdown'), // 活动开始倒计时
+          UTCDate_end = $(this).data('countdown-end'); // 活动截止倒计时
+        $(this).parents('.countdown-box').css('visibility', 'visible');
+        console.log('UTCDate-活动开始倒计时：', UTCDate);
+        console.log('UTCDate_end-活动截止倒计时：', UTCDate_end);
+        finalDate = formatUtcTime(UTCDate);
+        finalDate_end = formatUtcTime(UTCDate_end);
+        const finalDate1 = finalDate.replace('/', '-');
+        const finalDate2 = finalDate_end ? finalDate_end.replace('/', '-') : null;
+        const timestamp = new Date(finalDate1).getTime();
+        const timestamp_end = finalDate2 ? new Date(finalDate2).getTime() : null;
+        const currentTimestamp = new Date().getTime();
+        console.log('活动开始本地时间==', finalDate);
+        console.log('活动截止本地时间==', finalDate_end);
+        let format;
+        let style = $(this).data('countdown-style');
+         const button_text = '{{ section.settings.button_text}}'? '{{ section.settings.button_text}}':'{{'products.product.add_to_cart' | t}}';
+         const pre_button_text = '{{ section.settings.pre_button_text }}'? '{{ section.settings.pre_button_text }}':'pre order';
+         const coming_soon_button_text = '{{ section.settings.coming_soon_button_text }}'? '{{ section.settings.coming_soon_button_text }}':'coming soon';
+
+        if (timestamp > currentTimestamp) {
+          console.log('加购按钮文字==', button_text);
+          console.log('预售按钮文本==', pre_button_text);
+          console.log('停止加购按钮文字==', coming_soon_button_text);
+          // 活动开始倒计时
+          $('.product-flash-sale-countdown').show();
+
+            // 活动未开始禁止用户点击按钮购买
+            $(this)
+              .parents('.button-group')
+              .children('product-card')
+              .find('.external-add-to-cart-button')
+              .attr('disabled', true);
+            $(this)
+              .parents('.button-group')
+              .children('product-card')
+              .find('.product-card--add-to-cart-button-wrapper')
+              .css('cursor', 'not-allowed');
+            $(this)
+              .parents('.button-group')
+              .children('product-card')
+              .find('.external-add-to-cart-button')
+              .children('.product-card--add-to-cart-text')
+              .text(coming_soon_button_text);
+            // 活动未开始禁止用户点击链接跳转购买
+            $(this)
+              .parents('.button-group')
+              .children('product-card')
+              .find('.external-add-to-cart-button-nav')
+              .css('cursor', 'not-allowed');
+            $(this)
+              .parents('.button-group')
+              .children('product-card')
+              .find('.external-add-to-cart-button-nav')
+              .children('.product-card--add-to-cart-text')
+              .text(coming_soon_button_text);
+            // 显示活动实际价格减去差价之后
+            $(this)
+              .parents('.button-group')
+              .siblings('.product-price')
+              .find('.product-sale-price')
+              .children('.activity_minus_price')
+              .show();
+            $(this)
+              .parents('.button-group')
+              .siblings('.product-price')
+              .find('.product-origin-price')
+              .children('.activity_minus_origin_price')
+              .show();
+
+        }
+
+        $this
+          .countdown(finalDate)
+          .on('update.countdown', function (event) {
+            if (style == 1) {
+              format = '<span>%D</span>:<span>%H</span>:<span>%M</span>:<span>%S</span>';
+            } else if (style == 2) {
+              format =
+                '<span>%D<span>Days</span></span>:<span>%H<span>Hrs</span></span>:<span>%M<span>Mins</span></span>:<span>%S<span>Secs</span></span>';
+            }
+
+            $(this).html(event.strftime(format));
+          })
+          .on('finish.countdown', function (event) {
+            if (timestamp_end && timestamp_end > currentTimestamp) {
+              // 如果存在活动截止倒计时，则切换到活动截止倒计时
+              console.log('活动准备开始');
+              // 活动开始允许用户点击按钮购买
+              $(this)
+                .parents('.button-group')
+                .children('product-card')
+                .find('.external-add-to-cart-button')
+                .attr('disabled', false);
+              $(this)
+                .parents('.button-group')
+                .children('product-card')
+                .find('.product-card--add-to-cart-button-wrapper')
+                .css('cursor', 'pointer');
+              $(this)
+                .parents('.button-group')
+                .children('product-card')
+                .find('.external-add-to-cart-button')
+                .children('.product-card--add-to-cart-text')
+                .text(button_text);
+
+              $(this)
+                .parents('.button-group')
+                .children('product-card')
+                .find('.external-pre-order-button')
+                .children('.product-card--add-to-cart-text')
+                .text(pre_button_text);
+
+
+              $(this)
+                .parents('.button-group')
+                .children('product-card')
+                .find('.external-add-to-cart-button-nav')
+                .css('cursor', 'pointer');
+              $(this)
+                .parents('.button-group')
+                .children('product-card')
+                .find('.external-add-to-cart-button-nav')
+                .children('.product-card--add-to-cart-text')
+                .text('Choose options');
+              // 隐藏活动实际价格减去差价之后
+              $(this)
+                .parents('.button-group')
+                .siblings('.product-price')
+                .find('.product-sale-price')
+                .children('.activity_minus_price')
+                .hide();
+              $(this)
+                .parents('.button-group')
+                .siblings('.product-price')
+                .find('.product-origin-price')
+                .children('.activity_minus_origin_price')
+                .hide();
+              // 显示活动实际价格
+              $(this)
+                .parents('.button-group')
+                .siblings('.product-price')
+                .find('.product-sale-price')
+                .children('.activity_price')
+                .show();
+              $(this)
+                .parents('.button-group')
+                .siblings('.product-price')
+                .find('.product-origin-price')
+                .children('.activity_origin_price')
+                .show();
+
+              console.log('存在活动截止倒计时');
+
+              $(this)
+                .countdown(finalDate2)
+                .on('update.countdown', function (event) {
+                  if (style == 1) {
+                    format = '<span>%D</span>:<span>%H</span>:<span>%M</span>:<span>%S</span>';
+                  } else if (style == 2) {
+                    format =
+                      '<span>%D<span>Days</span></span>:<span>%H<span>Hrs</span></span>:<span>%M<span>Mins</span></span>:<span>%S<span>Secs</span></span>';
+                  }
+
+                  $(this).html(event.strftime(format));
+                })
+                .on('finish.countdown', function (event) {
+
+                  // 活动结束后禁止用户点击按钮购买
+                  {% comment %} $(this)
+                    .parents('.button-group')
+                    .children('product-card')
+                    .find('.external-add-to-cart-button')
+                    .attr('disabled', true);
+                  $(this)
+                    .parents('.button-group')
+                    .children('product-card')
+                    .find('.product-card--add-to-cart-button-wrapper')
+                    .css('cursor', 'not-allowed');
+                  $(this)
+                    .parents('.button-group')
+                    .children('product-card')
+                    .find('.external-add-to-cart-button')
+                    .children('.product-card--add-to-cart-text')
+                    .text(coming_soon_button_text); {% endcomment %}
+
+                  // 活动结束后隐藏购买按钮
+                  $(this)
+                    .parents('.button-group')
+                    .children('product-card')
+                    .find('.external-add-to-cart-button')
+                    .hide()
+                  // 活动结束后禁止用户点击链接跳转购买
+                  {% comment %} $(this)
+                    .parents('.button-group')
+                    .children('product-card')
+                    .find('.external-add-to-cart-button-nav')
+                    .css('cursor', 'not-allowed');
+                  $(this)
+                    .parents('.button-group')
+                    .children('product-card')
+                    .find('.external-add-to-cart-button-nav')
+                    .children('.product-card--add-to-cart-text')
+                    .text(coming_soon_button_text); {% endcomment %}
+
+                  // 活动结束后隐藏跳转链接跳转购买
+                    $(this)
+                    .parents('.button-group')
+                    .children('product-card')
+                    .find('.external-add-to-cart-button-nav')
+                    .hide()
+
+                    // 隐藏活动实际价格减去差价之后
+                    $(this)
+                    .parents('.button-group')
+                    .siblings('.product-price')
+                    .find('.product-sale-price')
+                    .children('.activity_minus_price')
+                    .hide();
+                  $(this)
+                    .parents('.button-group')
+                    .siblings('.product-price')
+                    .find('.product-origin-price')
+                    .children('.activity_minus_origin_price')
+                    .hide();
+                  // 显示活动实际价格
+                  $(this)
+                    .parents('.button-group')
+                    .siblings('.product-price')
+                    .find('.product-sale-price')
+                    .children('.activity_price')
+                    .show();
+                  $(this)
+                    .parents('.button-group')
+                    .siblings('.product-price')
+                    .find('.product-origin-price')
+                    .children('.activity_origin_price')
+                    .show();
+                  const parentsEl = $(this).parents('.product-flash-sale-countdown');
+                  if (parentsEl) {
+                    $(this)
+                      .parents('.Countdown')
+                      .html('<span class="finish-countdown-tips">The offer has been expired.</span>');
+                    parentsEl.hide();
+                  }
+                });
+            } else {
+              if(timestamp_end && timestamp_end < currentTimestamp){
+                console.log('活动已结束');
+                          // 活动结束后禁止用户点击按钮购买
+                  {% comment %} $(this)
+                    .parents('.button-group')
+                    .children('product-card')
+                    .find('.external-add-to-cart-button')
+                    .attr('disabled', true);
+                  $(this)
+                    .parents('.button-group')
+                    .children('product-card')
+                    .find('.product-card--add-to-cart-button-wrapper')
+                    .css('cursor', 'not-allowed');
+                  $(this)
+                    .parents('.button-group')
+                    .children('product-card')
+                    .find('.external-add-to-cart-button')
+                    .children('.product-card--add-to-cart-text')
+                    .text(coming_soon_button_text); {% endcomment %}
+
+                  // 活动结束后隐藏购买按钮
+                  $(this)
+                    .parents('.button-group')
+                    .children('product-card')
+                    .find('.external-add-to-cart-button')
+                    .hide()
+                  // 活动结束后禁止用户点击链接跳转购买
+                  {% comment %} $(this)
+                    .parents('.button-group')
+                    .children('product-card')
+                    .find('.external-add-to-cart-button-nav')
+                    .css('cursor', 'not-allowed');
+                  $(this)
+                    .parents('.button-group')
+                    .children('product-card')
+                    .find('.external-add-to-cart-button-nav')
+                    .children('.product-card--add-to-cart-text')
+                    .text(coming_soon_button_text); {% endcomment %}
+
+                  // 活动结束后隐藏跳转链接跳转购买
+                    $(this)
+                    .parents('.button-group')
+                    .children('product-card')
+                    .find('.external-add-to-cart-button-nav')
+                    .hide()
+
+                    // 隐藏活动实际价格减去差价之后
+                    $(this)
+                    .parents('.button-group')
+                    .siblings('.product-price')
+                    .find('.product-sale-price')
+                    .children('.activity_minus_price')
+                    .hide();
+                  $(this)
+                    .parents('.button-group')
+                    .siblings('.product-price')
+                    .find('.product-origin-price')
+                    .children('.activity_minus_origin_price')
+                    .hide();
+                  // 显示活动实际价格
+                  $(this)
+                    .parents('.button-group')
+                    .siblings('.product-price')
+                    .find('.product-sale-price')
+                    .children('.activity_price')
+                    .show();
+                  $(this)
+                    .parents('.button-group')
+                    .siblings('.product-price')
+                    .find('.product-origin-price')
+                    .children('.activity_origin_price')
+                    .show();
+                  const parentsEl = $(this).parents('.product-flash-sale-countdown');
+                  if (parentsEl) {
+                    $(this)
+                      .parents('.Countdown')
+                      .html('<span class="finish-countdown-tips">The offer has been expired.</span>');
+                    parentsEl.hide();
+                  }
+
+
+              }else{
+                console.log('活动准备开始');
+                // 活动开始允许用户点击按钮购买
+                $(this)
+                  .parents('.button-group')
+                  .children('product-card')
+                  .find('.external-add-to-cart-button')
+                  .attr('disabled', false);
+                $(this)
+                  .parents('.button-group')
+                  .children('product-card')
+                  .find('.product-card--add-to-cart-button-wrapper')
+                  .css('cursor', 'pointer');
+                $(this)
+                  .parents('.button-group')
+                  .children('product-card')
+                  .find('.external-add-to-cart-button')
+                  .children('.product-card--add-to-cart-text')
+                  .text(button_text);
+
+                $(this)
+                  .parents('.button-group')
+                  .children('product-card')
+                  .find('.external-pre-order-button')
+                  .children('.product-card--add-to-cart-text')
+                  .text(pre_button_text);
+
+
+                $(this)
+                  .parents('.button-group')
+                  .children('product-card')
+                  .find('.external-add-to-cart-button-nav')
+                  .css('cursor', 'pointer');
+                $(this)
+                  .parents('.button-group')
+                  .children('product-card')
+                  .find('.external-add-to-cart-button-nav')
+                  .children('.product-card--add-to-cart-text')
+                  .text('Choose options');
+                // 隐藏活动实际价格减去差价之后
+                $(this)
+                  .parents('.button-group')
+                  .siblings('.product-price')
+                  .find('.product-sale-price')
+                  .children('.activity_minus_price')
+                  .hide();
+                $(this)
+                  .parents('.button-group')
+                  .siblings('.product-price')
+                  .find('.product-origin-price')
+                  .children('.activity_minus_origin_price')
+                  .hide();
+                // 显示活动实际价格
+                $(this)
+                  .parents('.button-group')
+                  .siblings('.product-price')
+                  .find('.product-sale-price')
+                  .children('.activity_price')
+                  .show();
+                $(this)
+                  .parents('.button-group')
+                  .siblings('.product-price')
+                  .find('.product-origin-price')
+                  .children('.activity_origin_price')
+                  .show();
+                const parentsEl = $(this).parents('.product-flash-sale-countdown');
+                if (parentsEl) {
+
+                  parentsEl.hide();
+                }
+              }
+
+            }
+
+
+
+
+          });
+      });
+    }
+  });
+</script>
+{% schema %}
+{
+  "name": "multiple collections",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_full_width",
+      "label": "全屏显示",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gift_label",
+      "label": "显示赠品标签",
+      "default": false,
+      "info": "赠品元字段：product.metafields.custom.product_gift"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_free_label",
+      "label": "显示FREE标签",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mystery_gift_label",
+      "label": "显示神秘礼物标签",
+      "default": false,
+      "info": "神秘礼物元字段：product.metafields.custom.product_mystery_gift"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_flash_label",
+      "label": "显示闪购标签",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_discount_label",
+      "label": "显示折扣标签",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "is_multiple_buy",
+      "label": "产品多属性购买",
+      "default": false,
+      "info": "当同一个页面有多个同样的模块且存在同一个产品，存在单个购买及多个购买时开启"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_flash_sale_countdown",
+      "label": "显示秒杀倒计时",
+      "default": false,
+      "info": "秒杀倒计时元字段：当前产品只有单个SKU时或针对整个产品时配置product.metafields.custom.flash_sale_countdown；若有多个SKU时，且指定单个SKU时请使用（产品变体多属性）variants.metafields.custom.variant_flash_sale_countdown并同时配置（指定其中一个SKU）product.metafields.custom.product_variants"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pre_order_btn",
+      "label": "显示预售按钮",
+      "default": false,
+      "info": "目前只针对单个SKU进行配置，元字段为：variants.metafields.custom.product_variant_is_pre,设置为true;产品变体需填写元字段selling plan id"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_activity_preheat_price",
+      "label": "显示活动预热价格",
+      "default": false
+    },
+    {
+      "type": "radio",
+      "id": "activity_preheat_price_select",
+      "label": "活动预热价格方案选择",
+      "options": [
+        {
+          "value": "1",
+          "label": "第一种"
+        },
+        {
+          "value": "2",
+          "label": "第二种"
+        },
+        {
+          "value": "3",
+          "label": "第三种"
+        },
+        {
+          "value": "4",
+          "label": "第四种"
+        },
+        {
+          "value": "5",
+          "label": "第五种"
+        }
+      ],
+      "default": "1",
+      "info": "当产品存在多个预热价格时，选择对应的方案（若同一个系列里面需设置多个产品，则多个产品需设置同一套方案）当产品元字段的方案数目小于当前当前选择的方案，则活动预热价格默认显示产品原价和实际价格"
+    },
+    {
+      "type": "text",
+      "id": "flash_sale_countdown",
+      "label": "活动开始时间",
+      "info": "(全局配置：优先级最高，其他地区可以更改对应时区，如美国2024-10-24T15:00:00-05:00)活动开始时间，格式为：2024-10-24T15:00:00+08:00"
+    },
+    {
+      "type": "text",
+      "id": "flash_sale_countdown_end",
+      "label": "活动截止时间",
+      "info": "(全局配置：优先级最高，其他地区可以更改对应时区，如美国2024-10-24T15:00:00-05:00)活动截止时间，格式为：2024-10-24T15:00:00+08:00"
+    },
+    {
+      "type": "radio",
+      "id": "discount_label_type",
+      "label": "折扣标签显示类型",
+      "options": [
+        {
+          "value": "percentage",
+          "label": "百分比"
+        },
+        {
+          "value": "price",
+          "label": "价格"
+        }
+      ],
+      "default": "price"
+    },
+
+    {
+      "type": "radio",
+      "id": "product_variants_type",
+      "label": "产品变体类型",
+      "info": "目前仅支持单变体",
+      "options": [
+        {
+          "value": "single",
+          "label": "单个"
+        },
+        {
+          "value": "multiple",
+          "label": "多个"
+        }
+      ],
+      "default": "single"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "大标题",
+      "default": "大标题"
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": "大标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题字体大小（移动端）",
+      "default": 30
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题",
+      "default": "小标题"
+    },
+    {
+      "type": "select",
+      "id": "subtitle_size",
+      "label": "小标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题字体大小（移动端）",
+      "default": 14
+    },
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "主标题",
+      "default": "主标题"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "主标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h3"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "主标题字体大小（移动端）",
+      "default": 18
+    },
+    {
+      "type": "html",
+      "id": "subheading",
+      "label": "副标题",
+      "default": "副标题"
+    },
+    {
+      "type": "select",
+      "id": "subheading_size",
+      "label": "副标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "text-base"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "副标题字体大小（移动端）",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 25,
+      "step": 1,
+      "default": 4,
+      "label": "要显示的最大产品数"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "桌面上的列数"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_current_collection_view_all",
+      "default": true,
+      "label": "查看当前系列按钮"
+    },
+    {
+      "type": "radio",
+      "id": "current_collection_view_all_position",
+      "label": "查看当前系列按钮位置",
+      "options": [
+        {
+          "value": "top",
+          "label": "顶部"
+        },
+        {
+          "value": "bottom",
+          "label": "底部"
+        }
+      ],
+      "default": "bottom"
+    },
+    {
+      "type": "radio",
+      "id": "swiper_button_type",
+      "label": "轮播切换按钮类型",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "swiper_button_size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "轮播切换按钮大小",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "swiper_button_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "轮播切换按钮大小(移动端)",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "swiper_button_icon_size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "轮播切换按钮图标大小",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "swiper_button_icon_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "轮播切换按钮图标大小(移动端)",
+      "default": 20
+    },
+    {
+      "type": "checkbox",
+      "id": "is_swiper_autoplay",
+      "label": "自动轮播切换",
+      "default": false
+    },
+
+    {
+      "type": "select",
+      "id": "display_number_per_line_mobile",
+      "label": "每行显示个数(移动端)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "1.5",
+          "label": "1.5"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "2.1",
+          "label": "2.1"
+        },
+        {
+          "value": "2.3",
+          "label": "2.3"
+        },
+        {
+          "value": "2.5",
+          "label": "2.5"
+        }
+      ],
+      "info": "仅在开启移动端轮播显示才生效",
+      "default": "1.5"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "2",
+      "label": "移动设备上的列数",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 列"
+        },
+        {
+          "value": "2",
+          "label": "2 列"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_desktop_slider",
+      "label": "开启桌面滑动",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_mobile_slider",
+      "label": "开启移动端滑动",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slider_center",
+      "label": "产品轮播居中展示",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "内容对齐方式",
+      "options": [
+        {
+          "value": "start",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中对齐"
+        },
+        {
+          "value": "end",
+          "label": "右对齐"
+        }
+      ],
+      "default": "start"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment_mobile",
+      "label": "内容对齐方式（移动端）",
+      "options": [
+        {
+          "value": "start",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中对齐"
+        },
+
+        {
+          "value": "end",
+          "label": "右对齐"
+        }
+      ],
+      "default": "start"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "按钮文本"
+    },
+    {
+      "type": "text",
+      "id": "pre_button_text",
+      "label": "预售按钮文本",
+      "default": "Secure Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "URL",
+      "info": "点击图片或按钮跳转地址"
+    },
+    {
+      "type": "select",
+      "id": "product_name_position",
+      "label": "产品名称位置",
+      "options": [
+        {
+          "value": "top",
+          "label": "产品图顶部"
+        },
+        {
+          "value": "bottom",
+          "label": "产品图底部"
+        }
+      ],
+      "default": "bottom"
+    },
+    {
+      "type": "select",
+      "id": "product_name_size",
+      "label": "产品名称字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h6"
+    },
+    {
+      "type": "range",
+      "id": "product_name_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "产品名称字体大小（移动端）",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "product_name_min_height",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "产品名称最小高度",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "product_name_min_height_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "产品名称最小高度（移动端）",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "button_max_height",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮最大高度",
+      "default": 38
+    },
+    {
+      "type": "range",
+      "id": "button_max_height_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮最大高度（移动端）",
+      "default": 28
+    },
+
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮字体大小",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_font_size_mobile",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮字体大小（移动端）",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "gift_min_height",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "赠品最小高度",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "gift_min_height_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "赠品最小高度（移动端）",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "selling_price_size",
+      "label": "售价字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "range",
+      "id": "selling_price_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "售价字体大小（移动端）",
+      "default": 20
+    },
+
+    {
+      "type": "select",
+      "id": "original_price_size",
+      "label": "原价字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h6"
+    },
+    {
+      "type": "range",
+      "id": "original_price_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "原价字体大小（移动端）",
+      "default": 14
+    },
+
+    {
+      "type": "select",
+      "id": "heading_font_family",
+      "label": "主标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        }
+      ],
+      "default": "custom-font-bold"
+    },
+    {
+      "type": "select",
+      "id": "subheading_font_family",
+      "label": "副标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        }
+      ],
+      "default": "custom-font-regular"
+    },
+    {
+      "type": "select",
+      "id": "product_name_font_family",
+      "label": "产品名称字体系列",
+      "options": [
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        }
+      ],
+      "default": "custom-font-regular"
+    },
+    {
+      "type": "select",
+      "id": "selling_price_font_family",
+      "label": "售价字体系列",
+      "options": [
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        }
+      ],
+      "default": "custom-font-bold"
+    },
+    {
+      "type": "select",
+      "id": "original_price_font_family",
+      "label": "原价字体系列",
+      "options": [
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        }
+      ],
+      "default": "custom-font-regular"
+    },
+
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "大标题字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "小标题字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "主标题字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "副标题字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "product_name_font_color",
+      "label": "产品名称字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "selling_price_font_color",
+      "label": "售价字体颜色",
+      "default": "#FF9500"
+    },
+    {
+      "type": "color",
+      "id": "original_price_font_color",
+      "label": "原价字体颜色",
+      "default": "#C5C5C5"
+    },
+    {
+      "type": "color",
+      "id": "button_font_color",
+      "label": "按钮字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "按钮背景色",
+      "default": "#FECE67"
+    },
+    {
+      "type": "color",
+      "id": "tab_font_color",
+      "label": "Tab菜单字体颜色",
+      "default": "#5D5E5F"
+    },
+    {
+      "type": "color",
+      "id": "tab_bg_color",
+      "label": "Tab菜单激活时背景色",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "pre_button_font_color",
+      "label": "预售按钮字体颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "pre_button_bg_color",
+      "label": "预售按钮背景色",
+      "default": "#006fbb"
+    },
+    {
+      "type": "color",
+      "id": "swiper_button_bg_color",
+      "label": "轮播切换按钮背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "product_bg_content_color",
+      "label": "产品内容背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "bg_content_color",
+      "label": "内容区域背景色",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "header",
+      "content": "分区填充"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮圆角大小",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "product_container_border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "产品容器圆角大小",
+      "default": 12
+    },
+
+    {
+      "type": "range",
+      "id": "product_img_min_height",
+      "min": 100,
+      "max": 300,
+      "step": 2,
+      "unit": "px",
+      "label": "产品图片的最小高度",
+      "default": 248,
+      "info": "保持图片高度一致，产品图片(透明底)元字段transparent product image"
+    },
+    {
+      "type": "range",
+      "id": "product_img_min_height_mobile",
+      "min": 50,
+      "max": 150,
+      "step": 1,
+      "unit": "px",
+      "label": "产品图片的最小高度(移动端)",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "gift_img_height",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "px",
+      "label": "赠品图片的高度",
+      "default": 36,
+      "info": "赠品图片元字段product gift"
+    },
+    {
+      "type": "range",
+      "id": "product_img_left_and_right_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "产品图片的左右边距",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "product_container_left_and_right_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "产品容器左右填充",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "product_container_top_and_bottom_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "产品容器上下填充",
+      "default": 24
+    },
+
+    {
+      "type": "range",
+      "id": "title_to_content_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "tabs_margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Tabs菜单底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "主标题顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "主标题底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "subheading_margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "副标题底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "product_name_margin_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "产品名称顶部填充",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "product_name_margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "产品名称底部填充",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "price_margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "价格底部填充",
+      "default": 20
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "gift_img_height_mobile",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "px",
+      "label": "赠品图片的高度(移动端)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "product_img_left_and_right_padding_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "产品图片的左右边距(移动端)",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "product_container_left_and_right_padding_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "产品容器左右填充(移动端)",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "product_container_top_and_bottom_padding_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "产品容器上下填充(移动端)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "title_to_content_padding_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "tabs_margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Tabs菜单底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "主标题顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "主标题底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "subheading_margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "副标题底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "product_name_margin_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "产品名称顶部填充(移动端)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "product_name_margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "产品名称底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "price_margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "价格底部填充(移动端)",
+      "default": 10
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_left_and_right_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "左右边距(移动端)",
+      "default": 14
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collections",
+      "name": "产品系列",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "产品系列"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "multiple collections",
+      "blocks": [
+        {
+          "type": "collections"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

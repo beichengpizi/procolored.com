@@ -1,0 +1,320 @@
+{%- liquid
+  assign show_subcollections = false
+  assign show_collection_image = section.settings.show_collection_image
+  assign show_collection_description = section.settings.show_collection_description
+  assign display_description = section.settings.display_description
+
+  if template contains 'collection'
+    assign show_subcollections = section.settings.show_subcollections
+    assign heading = collection.title
+    if show_collection_description
+      assign description = collection.description
+    endif
+    assign collection_handle = collection.handle
+    assign color_subcollection_bg = section.settings.color_subcollection_bg
+    assign color_subcollection_text = section.settings.color_subcollection_text
+    assign extra_offers_info = collection.metafields.custom.extra_offers_info
+    assign extra_offers_url = collection.metafields.custom.extra_offers_url
+    assign extra_offers_img = collection.metafields.custom.extra_offers_img
+  elsif template == 'search'
+    assign heading = 'search.heading' | t
+    capture description
+      assign search_phrase = search.terms | replace: '*', ''
+      if '' != search_phrase
+        echo 'search.results_found' | t: count: search.results_count, key: search_phrase
+      endif
+    endcapture
+  elsif template contains 'page'
+    assign heading = page.title
+    if display_description
+      assign description = page_description
+    endif
+  elsif template contains 'cart'
+    assign heading = 'sections.cart.title' | t
+  elsif template contains 'customers/account'
+    assign heading = 'customer.account.title' | t
+  elsif template contains 'customers/addresses'
+    assign heading = 'customer.addresses.title' | t
+  elsif template contains 'customers/order'
+    assign heading = 'customer.order.title' | t: name: order.name
+  endif
+-%}
+{{ 'template-header.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .product_description-{{ section.id }}{
+    padding: 20px 20px 0 20px;
+    background: #fff;
+    border-radius: 20px
+  }
+  .product_description-{{ section.id }}    .product_description {
+      background-color: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .product_description-{{ section.id }}    .description {
+      position: relative;
+      overflow: hidden;
+      max-height: 50px; /* 初始状态下只显示部分内容 */
+      transition: max-height 0.3s ease;
+      padding-bottom: 20px; /* 为渐变遮罩留出空间 */
+      font-family: ItalianPlateNo2Expanded-Regular !important;
+    }
+
+    .product_description-{{ section.id }}    .description::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 20px; /* 渐变遮罩的高度 */
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+      pointer-events: none; /* 防止遮罩影响点击事件 */
+    }
+
+    .product_description-{{ section.id }}    .description.expanded {
+      max-height: 1000px; /* 设置一个足够大的值以确保内容完全展开 */
+      transition: max-height 0.3s ease;
+      padding-bottom: 0; /* 完全展开时去掉底部填充 */
+    }
+
+    .product_description-{{ section.id }}    .toggle-button {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      width: 100%;
+      padding: 10px 0 20px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      color: #333;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+      font-family: ItalianPlateNo2Expanded-Regular !important;
+    }
+
+
+
+    .product_description-{{ section.id }}    .toggle-button .text {
+      margin-right: 10px;
+    }
+
+    .product_description-{{ section.id }}    .chevron svg {
+      transition: transform 0.3s ease;
+    }
+
+    .product_description-{{ section.id }}    .chevron.rotated svg {
+      transform: rotate(180deg);
+    }
+</style>
+
+<div class="template-header">
+  <div class="row">
+    <div class="small-12 columns">
+      <div class="template-header--content">
+        {% assign image = collection.featured_image %}
+        {%- if template contains 'collection' and show_collection_image and image -%}
+          <div class="template-header--image">
+            {%- render 'responsive-image', image: image, sizes: '90x90,180x180' -%}
+          </div>
+        {%- endif -%}
+        <div>
+          <h1 class="template-header--title h2">{{ heading }}</h1>
+          {%- if template == 'search' -%}
+            <form role="search" method="get" class="searchform" action="{{ routes.search_url }}">
+              <fieldset>
+                <input
+                  type="search"
+                  class="search-field"
+                  placeholder="{{ 'sections.header.search_for' | t | escape }}"
+                  value="{{ search.terms | replace: '*', '' }}"
+                  name="q"
+                  autocomplete="off"
+                >
+                <button type="submit" class="thb-search-submit">{% render 'svg-icons' with 'search' %}</button>
+              </fieldset>
+            </form>
+          {%- endif -%}
+          {%- if template contains 'collection' and extra_offers_info != blank -%}
+            <div class="coll-extra-offers">
+              <div class="offers-box">
+                <div class="offers-img">
+                  <div class="img-box">
+                    <img src="{{ extra_offers_img }}" alt="">
+                  </div>
+                </div>
+                <p class="offers-info-pc">{{ extra_offers_info }}</p>
+                <a class="offers-info-mb" href="{{ extra_offers_url }}">Join in forExtra Offers</a>
+                <a class="offers-btn" href="{{ extra_offers_url }}" class="btn">Join In</a>
+              </div>
+            </div>
+          {%- endif -%}
+          {%- if description != blank and description != '' -%}
+            <div class="product_description-{{ section.id }}">
+              <div class="description" id="description-{{ section.id }}">
+                {{ description }}
+              </div>
+              <button
+                class="toggle-button"
+                onclick="toggleContent('{{ section.id }}')"
+              >
+                <span class="text">View More</span>
+                <span class="chevron">
+                  <svg
+                    width="14"
+                    height="8"
+                    viewBox="0 0 14 8"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13 6.81818L7 0.818176L1 6.81818"
+                      stroke="var(--color-heading)"
+                      stroke-width="1.3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          {%- endif -%}
+          {%- if template contains 'customers/account' -%}
+            <a
+              href="{{ routes.account_logout_url }}"
+              title="{{ 'customer.account.log_out' | t | escape }}"
+              class="myaccount--link"
+            >
+              {% render 'svg-icons' with 'thb-log-out' %}
+              <span class="text-button">{{ 'customer.account.log_out' | t }}</span>
+            </a>
+          {%- elsif template contains 'customers' -%}
+            <a href="{{ routes.account_url }}" class="myaccount--link">
+              {% render 'svg-icons' with 'thb-account-back' %}
+              <span class="text-button">{{ 'customer.account.return_to_account_details' | t }}</span>
+            </a>
+          {%- endif -%}
+          {%- if show_subcollections and linklists[collection_handle] != empty -%}
+            {%- liquid
+              assign color_body_bg = settings.color_body_bg | downcase
+              assign color_drawer_bg = settings.color_drawer_bg | downcase
+
+              if color_body_bg == color_drawer_bg or color_drawer_bg == 'transparent' or color_drawer_bg == 'rgba(0,0,0,0)'
+                assign class = ' template-header--subcollection-transparent'
+              endif
+            -%}
+            <div class="template-header--subcollections-container">
+              <scroll-shadow>
+                <div
+                  class="template-header--subcollections"
+                  style="--subcollection-bg: {{ color_subcollection_bg }}; --color-body: {{ color_subcollection_text }}"
+                >
+                  {%- for link in linklists[collection_handle].links -%}
+                    {%- assign link_collection = collections[link.handle] -%}
+                    {%- if link_collection != blank -%}
+                      <a
+                        href="{{ link_collection.url }}"
+                        title="{{ link_collection.title | escape }}"
+                        class="template-header--subcollection {{ class }}"
+                      >
+                        {%- if link_collection.featured_image -%}
+                          {%- render 'responsive-image', image: link_collection.featured_image | image_url, sizes: '42x42,84x84' -%}
+                        {%- endif -%}
+                        <span>{{ link_collection.title }}</span>
+                      </a>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              </scroll-shadow>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function toggleContent(id) {
+    const description = $(`#description-${id}`);
+    const button = description.next('.toggle-button');
+    const text = button.find('.text');
+    const chevron = button.find('.chevron');
+
+    if (description.hasClass('expanded')) {
+      // 如果已经展开，则收起
+      description.removeClass('expanded').stop().animate({ maxHeight: '50px' }, 300);
+      text.text('View More');
+      chevron.removeClass('rotated');
+    } else {
+      // 如果未展开，则展开
+      description.addClass('expanded').stop().animate({ maxHeight: '1000px' }, 300);
+      text.text('View Less');
+      chevron.addClass('rotated');
+    }
+  }
+</script>
+{% schema %}
+{
+  "name": "Template header",
+  "class": "section-template-header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Collection page",
+      "info": "These settings are only used on collection pages."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_image",
+      "default": false,
+      "label": "Show collection image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "default": true,
+      "label": "Show collection description"
+    },
+    {
+      "type": "header",
+      "content": "Subcollections",
+      "info": "These settings are only used on collection pages."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subcollections",
+      "default": true,
+      "label": "Show subcollections",
+      "info": "Links to subcollections from your menu will appear here. [Learn more.](https://documentation.fuelthemes.net/kb/how-do-i-add-sub-category-links-inside-template-header/)"
+    },
+    {
+      "type": "color",
+      "id": "color_subcollection_bg",
+      "label": "Subcollection background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_subcollection_text",
+      "label": "Text",
+      "default": "#2C2D2E"
+    },
+    {
+      "type": "header",
+      "content": "Pages"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_description",
+      "label": "Show description text",
+      "default": true,
+      "info": "Displays the page SEO description text under page title. [Learn more](https://help.shopify.com/en/manual/online-store/themes/theme-structure/pages#edit-the-search-engine-listing-for-a-webpage)"
+    }
+  ]
+}
+{% endschema %}

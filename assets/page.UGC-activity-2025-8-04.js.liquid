@@ -1,0 +1,1732 @@
+
+
+
+const api = "https://booster.procolored.com"; //正式环境
+// const api = 'https://test.procolored.com'; //测试环境
+// 查询客户是否上传作品
+const inspirationWorkApi = "/procolored/ugc/getInspirationWork";
+// 获取上周中奖作品
+const lastWeekCuratedSelectApi = "/procolored/ugc/getLastWeekCuratedSelect";
+// 获取上上周的中奖作品
+const twoWeekAgoCuratedSelectApi = "/procolored/ugc/getTwoWeekAgoCuratedSelect";
+// 获取样机列表
+const modeListApi = "/procolored/ugc/getModeList";
+// 上传灵感作品
+const uploadInspirationApi = "/procolored/ugc/uploadInspiration";
+// ugc上传图片
+const uploadImgApi = "/procolored/ugc/uploadImg";
+// 监听预览按钮点击事件
+// 解决移动端点击无效问题，兼容 click 和 touchend 事件
+document.addEventListener('DOMContentLoaded', function () {
+  var previewIcon = document.querySelector('.ugc-upload-your-inspiration-content-not-uploaded-popup-detail-img-content-preview-icon');
+  if (previewIcon) {
+    // 封装预览处理函数
+    function handlePreview(e) {
+      // 阻止事件冒泡和默认行为
+      e.stopPropagation && e.stopPropagation();
+      e.preventDefault && e.preventDefault();
+      // 获取截图区域
+      const captureArea = document.getElementById('ugc-upload-img-capture-area');
+      if (!captureArea) {
+        // alert('未找到截图区域');
+        return;
+      }
+      // 使用html2canvas进行截图
+      html2canvas(captureArea, {
+        useCORS: true,
+        backgroundColor: null,
+        scale: 1
+      }).then(function (canvas) {
+        // 创建弹窗显示截图
+        const imgDataUrl = canvas.toDataURL('image/png');
+        // 使用fancybox弹窗展示
+        $.fancybox.open([
+          {
+            src: imgDataUrl,
+            type: 'image'
+          }
+        ], {
+          caption: 'Preview effect',
+          buttons: [
+            "close"
+          ]
+        });
+      }).catch(function (err) {
+        alert('Screenshot failed: ' + err);
+      });
+    }
+
+    // 绑定PC端点击事件
+    previewIcon.addEventListener('click', handlePreview);
+
+    // 绑定移动端 touchend 事件
+    previewIcon.addEventListener('touchend', function (e) {
+      // 只处理单指触摸，避免多指误触
+      if (e.touches && e.touches.length > 1) return;
+      handlePreview(e);
+    });
+  }
+});
+// 监听已参加活动弹窗点击事件
+document.addEventListener("DOMContentLoaded", function () {
+  var uploadedPopup = document.querySelector(
+    ".ugc-upload-your-inspiration-content-uploaded"
+  );
+  if (uploadedPopup) {
+    uploadedPopup.addEventListener("click", function () {
+      // 这里可以根据需求自定义弹窗点击后的操作
+      console.log("已参加活动弹窗被点击");
+      if (customerInspirationWorkDetail !== null) {
+        const currentCustomerId = customerInspirationWorkDetail.customerId || "";
+        const customerEmail = customerInspirationWorkDetail.customerEmail || "";
+        const customerFirstName =
+          customerInspirationWorkDetail.customerFirstName || "";
+        const customerLastName =
+          customerInspirationWorkDetail.customerLastName || "";
+        // 生成 customerIcon，为名和姓的首字母拼接
+        const customerIcon =
+          (customerFirstName ? customerFirstName[0] : "") +
+          (customerLastName ? customerLastName[0] : "");
+        // 生成作者全称，英文顺序：名 + 空格 + 姓
+        const authorNameText =
+          (customerFirstName ? customerFirstName : "") +
+          (customerLastName ? " " + customerLastName : "");
+
+        const inspirationWork =
+          customerInspirationWorkDetail.inspirationWork || "";
+        const inspirationTitle =
+          customerInspirationWorkDetail.inspirationTitle || "";
+        const inspirationDescribe =
+          customerInspirationWorkDetail.inspirationDescribe || "";
+        const transfers = customerInspirationWorkDetail.transfers || "";
+
+        const popup = document.getElementById(
+          "ugc-week-1-inspiration-users-swiper-popup-content"
+        );
+        if (popup) {
+          // 填充作者icon
+          const popupAuthorIcon = popup.querySelector(
+            ".ugc-week-1-inspiration-users-swiper-popup-content-author-icon"
+          );
+          if (popupAuthorIcon) {
+            popupAuthorIcon.textContent = customerIcon;
+          }
+          // 填充作者名
+          const popupAuthorName = popup.querySelector(
+            ".ugc-week-1-inspiration-users-swiper-popup-content-author-name"
+          );
+          if (popupAuthorName) {
+            popupAuthorName.textContent = authorNameText;
+          }
+          // 填充model图片src
+          const popupModelImg = popup.querySelector(
+            ".ugc-week-1-inspiration-users-swiper-popup-content-detail-img-container .model img"
+          );
+          if (popupModelImg) {
+            popupModelImg.setAttribute("src", inspirationWork);
+          }
+          // 填充model图片下载url
+          const popupModelUrl = popup.querySelector(
+            ".ugc-week-1-inspiration-users-swiper-popup-content-detail-img-container .model a"
+          );
+          if (popupModelUrl) {
+            popupModelUrl.style.display = "block";
+            popupModelUrl.setAttribute("href", inspirationWork);
+          }
+
+
+          // 填充标题
+          const popupTitle = popup.querySelector(
+            ".ugc-week-1-inspiration-users-swiper-popup-content-detail-description-title"
+          );
+          if (popupTitle) {
+            popupTitle.textContent = inspirationTitle;
+          }
+          // 填充描述
+          const popupDesc = popup.querySelector(
+            ".ugc-week-1-inspiration-users-swiper-popup-content-detail-description-content"
+          );
+
+          if (popupDesc) {
+            popupDesc.textContent = inspirationDescribe;
+          }
+          // 显示复制文案
+          const popupCopyEl = popup.querySelector(
+            ".ugc-upload-your-inspiration-content-share-popup-detail-content-box-copy"
+          );
+          if (popupCopyEl) {
+            popupCopyEl.style.display = "flex";
+          }
+          // 复制文案
+          const popupCopyText = popup.querySelector(
+            ".ugc-upload-your-inspiration-content-share-popup-detail-content-box-copy-icon"
+          );
+          if (popupCopyText) {
+
+            popupCopyText.setAttribute('data-text', inspirationTitle + '\n' + inspirationDescribe + '#UnlockInspirationPrint #Procolored');
+          }
+          const popupInspirationWorkContent = $(
+            "#ugc-week-1-inspiration-users-swiper-popup-content"
+          );
+          // console.log('当前登录用户ID',customerId)
+          // console.log('当前用户ID',currentCustomerId)
+          $.fancybox.open(popupInspirationWorkContent);
+        }
+      }
+    });
+  } else {
+    console.log("已参加活动弹窗按钮不存在");
+  }
+});
+
+// 查看上周中奖作品xiang'q  由于 .ugc-week-1-inspiration-users-item 元素是动态渲染的，需使用事件委托绑定点击事件
+document.addEventListener("DOMContentLoaded", () => {
+  // 事件委托到父级swiper-wrapper
+  const wrapper = document.querySelector(
+    ".ugc-week-1-inspiration-users-swiper-container .swiper-wrapper"
+  );
+  if (wrapper) {
+    wrapper.addEventListener("click", (e) => {
+      // 查找最近的ugc-week-1-inspiration-users-item
+      const item = e.target.closest(".ugc-week-1-inspiration-users-item");
+      if (!item) return;
+
+      // 获取model下img的src
+      const modelImg = item.querySelector(
+        ".ugc-week-1-inspiration-users-item-img-wrapper .model img"
+      );
+      const modelImgSrc = modelImg ? modelImg.getAttribute("src") : "";
+      // 获取user-img下img的src
+      const userImg = item.querySelector(
+        ".ugc-week-1-inspiration-users-item-img-wrapper .user-img img"
+      );
+      const userImgSrc = userImg ? userImg.getAttribute("src") : "";
+      // 获取标题文本
+      const titleEl = item.querySelector(
+        ".ugc-week-1-inspiration-users-item-detail-title"
+      );
+      const titleText = titleEl ? titleEl.textContent.trim() : "";
+      // 获取描述文本
+      const descEl = item.querySelector(
+        ".ugc-week-1-inspiration-users-item-detail-description"
+      );
+      const descText = descEl ? descEl.textContent.trim() : "";
+      // 获取作者icon文本
+      const authorIconEl = item.querySelector(
+        ".ugc-week-1-inspiration-users-item-detail-author-icon"
+      );
+      const authorIconText = authorIconEl
+        ? authorIconEl.textContent.trim()
+        : "";
+      // 获取作者名文本
+      const authorNameEl = item.querySelector(
+        ".ugc-week-1-inspiration-users-item-detail-author-name"
+      );
+      const authorNameText = authorNameEl
+        ? authorNameEl.textContent.trim()
+        : "";
+
+      // 控制台输出，实际可根据需求处理
+      console.log("model图片src:", modelImgSrc);
+      console.log("user图片src:", userImgSrc);
+      console.log("标题:", titleText);
+      console.log("描述:", descText);
+      console.log("作者icon:", authorIconText);
+      console.log("作者名:", authorNameText);
+      // 获取弹窗元素
+      const popup = document.getElementById(
+        "ugc-week-1-inspiration-users-swiper-popup-content"
+      );
+      if (popup) {
+        // 填充作者icon
+        const popupAuthorIcon = popup.querySelector(
+          ".ugc-week-1-inspiration-users-swiper-popup-content-author-icon"
+        );
+        if (popupAuthorIcon) {
+          popupAuthorIcon.textContent = authorIconText;
+        }
+        // 填充作者名
+        const popupAuthorName = popup.querySelector(
+          ".ugc-week-1-inspiration-users-swiper-popup-content-author-name"
+        );
+        if (popupAuthorName) {
+          popupAuthorName.textContent = authorNameText;
+        }
+        // 填充model图片src
+        const popupModelImg = popup.querySelector(
+          ".ugc-week-1-inspiration-users-swiper-popup-content-detail-img-container .model img"
+        );
+        if (popupModelImg) {
+          popupModelImg.setAttribute("src", modelImgSrc);
+        }
+        // 填充标题
+        const popupTitle = popup.querySelector(
+          ".ugc-week-1-inspiration-users-swiper-popup-content-detail-description-title"
+        );
+        if (popupTitle) {
+          popupTitle.textContent = titleText;
+        }
+        // 填充描述
+        const popupDesc = popup.querySelector(
+          ".ugc-week-1-inspiration-users-swiper-popup-content-detail-description-content"
+        );
+        if (popupDesc) {
+          popupDesc.textContent = descText;
+        }
+        // 隐藏model图片下载url
+        const modelUrl = item.querySelector(
+          ".ugc-week-1-inspiration-users-swiper-popup-content-detail-img-container .model a"
+        );
+        if (modelUrl) {
+          modelUrl.style.display = "none";
+        }
+        // 隐藏复制文案
+        const popupCopyEl = popup.querySelector(
+          ".ugc-upload-your-inspiration-content-share-popup-detail-content-box-copy"
+        );
+        if (popupCopyEl) {
+          popupCopyEl.style.display = "none";
+        }
+        const popupInspirationWorkContent = $(
+          "#ugc-week-1-inspiration-users-swiper-popup-content"
+        );
+        $.fancybox.open(popupInspirationWorkContent);
+      }
+    });
+  }
+});
+// 查看上上周中奖作品xiang'q  由于 .ugc-week-1-inspiration-users-item 元素是动态渲染的，需使用事件委托绑定点击事件
+document.addEventListener("DOMContentLoaded", () => {
+  // 事件委托到父级swiper-wrapper
+  const wrapper = document.querySelector(
+    ".excellent-work-display-swiper-container .swiper-wrapper"
+  );
+  if (wrapper) {
+    wrapper.addEventListener("click", (e) => {
+      // 查找最近的ugc-week-1-inspiration-users-item
+      const item = e.target.closest(
+        ".excellent-work-display-swiper-slide-content"
+      );
+      if (!item) return;
+
+      // 获取model下img的src
+      const modelImg = item.querySelector(
+        ".excellent-work-display-swiper-slide-content-image-works  img"
+      );
+      const modelImgSrc = modelImg ? modelImg.getAttribute("src") : "";
+      // 获取user-img下img的src
+      const userImg = item.querySelector(
+        ".excellent-work-display-swiper-slide-content-image-transfer img"
+      );
+      const userImgSrc = userImg ? userImg.getAttribute("src") : "";
+      // 获取标题文本
+      const titleEl = item.querySelector(
+        ".excellent-work-display-swiper-slide-content-title"
+      );
+      const titleText = titleEl ? titleEl.textContent.trim() : "";
+      // 获取描述文本
+      const descEl = item.querySelector(
+        ".excellent-work-display-swiper-slide-content-description"
+      );
+      const descText = descEl ? descEl.textContent.trim() : "";
+      // 获取作者icon文本
+      const authorIconEl = item.querySelector(
+        ".excellent-work-display-swiper-slide-content-author-icon"
+      );
+      const authorIconText = authorIconEl
+        ? authorIconEl.textContent.trim()
+        : "";
+      // 获取作者名文本
+      const authorNameEl = item.querySelector(
+        ".excellent-work-display-swiper-slide-content-author-name"
+      );
+      const authorNameText = authorNameEl
+        ? authorNameEl.textContent.trim()
+        : "";
+
+      // 控制台输出，实际可根据需求处理
+      console.log("model图片src:", modelImgSrc);
+      console.log("user图片src:", userImgSrc);
+      console.log("标题:", titleText);
+      console.log("描述:", descText);
+      console.log("作者icon:", authorIconText);
+      console.log("作者名:", authorNameText);
+      // 获取弹窗元素
+      const popup = document.getElementById(
+        "ugc-week-1-inspiration-users-swiper-popup-content"
+      );
+      if (popup) {
+        // 填充作者icon
+        const popupAuthorIcon = popup.querySelector(
+          ".ugc-week-1-inspiration-users-swiper-popup-content-author-icon"
+        );
+        if (popupAuthorIcon) {
+          popupAuthorIcon.textContent = authorIconText;
+        }
+        // 填充作者名
+        const popupAuthorName = popup.querySelector(
+          ".ugc-week-1-inspiration-users-swiper-popup-content-author-name"
+        );
+        if (popupAuthorName) {
+          popupAuthorName.textContent = authorNameText;
+        }
+        // 填充model图片src
+        const popupModelImg = popup.querySelector(
+          ".ugc-week-1-inspiration-users-swiper-popup-content-detail-img-container .model img"
+        );
+        if (popupModelImg) {
+          popupModelImg.setAttribute("src", modelImgSrc);
+        }
+        // 填充标题
+        const popupTitle = popup.querySelector(
+          ".ugc-week-1-inspiration-users-swiper-popup-content-detail-description-title"
+        );
+        if (popupTitle) {
+          popupTitle.textContent = titleText;
+        }
+        // 填充描述
+        const popupDesc = popup.querySelector(
+          ".ugc-week-1-inspiration-users-swiper-popup-content-detail-description-content"
+        );
+        if (popupDesc) {
+          popupDesc.textContent = descText;
+        }
+        // 隐藏model图片下载url
+        const modelUrl = popup.querySelector(
+          ".ugc-week-1-inspiration-users-swiper-popup-content-detail-img-container .model a"
+        );
+        if (modelUrl) {
+          modelUrl.style.display = "none";
+        }
+        // 隐藏复制文案
+        const popupCopyEl = popup.querySelector(
+          ".ugc-upload-your-inspiration-content-share-popup-detail-content-box-copy"
+        );
+        if (popupCopyEl) {
+          popupCopyEl.style.display = "none";
+        }
+        const popupInspirationWorkContent = $(
+          "#ugc-week-1-inspiration-users-swiper-popup-content"
+        );
+        $.fancybox.open(popupInspirationWorkContent);
+      }
+    });
+  }
+});
+// 查询客户是否上传作品
+function getInspirationWork(customerId) {
+  if (typeof customerId !== "number" || customerId == '') {
+    console.error("customerId 必须为数字");
+    return;
+  }
+  fetch(`${api}${inspirationWorkApi}?customerId=${customerId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("网络请求失败");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // 这里可以根据实际需求处理返回的数据
+      console.log("查询结果:", data);
+      if (data.code === 200) {
+        // 成功，获取图片地址
+        let result = data.result;
+
+        console.log("否上传作品", result);
+        if (result !== null) {
+          isCampaign = true;
+          customerInspirationWorkDetail = result;
+          // 隐藏未上传弹窗，显示已上传弹窗
+          // 解决无法获取原本隐藏元素的问题，可以用{hidden: true}参数让querySelector查找所有元素（包括display:none的），
+          // 但原生querySelector不支持。可以用更通用的方式：先确保元素在DOM中（即使display:none也能获取），
+          // 或者用document.getElementsByClassName，返回HTMLCollection，不受display:none影响。
+          const notUploadedEl = document.getElementsByClassName(
+            "ugc-upload-your-inspiration-content-not-uploaded"
+          )[0];
+          const uploadedEl = document.getElementsByClassName(
+            "ugc-upload-your-inspiration-content-uploaded"
+          )[0];
+          if (notUploadedEl) {
+            notUploadedEl.style.display = "none";
+          } else {
+            console.warn(
+              "未找到 .ugc-upload-your-inspiration-content-not-uploaded 元素"
+            );
+          }
+          if (uploadedEl) {
+            uploadedEl.style.display = "flex";
+          } else {
+            console.warn(
+              "未找到 .ugc-upload-your-inspiration-content-uploadedshe 元素"
+            );
+          }
+        } else {
+          // 显示上传按钮
+          getModeList();
+        }
+      } else {
+        console.error("上传失败:", data.msg);
+      }
+    })
+    .catch((error) => {
+      console.error("查询失败:", error);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (customerId != '') {
+    console.log("用户未登录，请先登录");
+    getInspirationWork(customerId);
+
+  }
+
+});
+// 查询上周中奖作品的函数
+function getLastWeekCuratedSelect() {
+  fetch(`${api}${lastWeekCuratedSelectApi}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("网络请求失败");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // 这里可以根据实际需求处理返回的数据
+
+      if (data.code === 200) {
+        console.log("上周中奖作品:", data.result);
+        const result = data.result;
+        // 判断如果 result 是空数组，则隐藏 .excellent-work-display-wrapper
+        if (Array.isArray(result) && result.length === 0) {
+          // const inspirationUsersWrapper = document.querySelector('.ugc-week-1-inspiration-users-container');
+          // if (inspirationUsersWrapper) {
+          //   inspirationUsersWrapper.style.display = 'none';
+          // }
+          return;
+        }
+        // 遍历 result 数组，判断每个字段是否存在，存在则输出变量值（中文注释）
+        if (Array.isArray(result)) {
+          const inspirationUsersWrapper = document.querySelector('.ugc-week-1-inspiration-users-container');
+          if (inspirationUsersWrapper) {
+            inspirationUsersWrapper.style.display = 'block';
+          }
+          // 获取swiper-wrapper容器
+          const swiperWrapper = document.querySelector(
+            ".ugc-week-1-inspiration-users-swiper-container .swiper-wrapper"
+          );
+          if (swiperWrapper) {
+            // 先清空原有内容
+            swiperWrapper.innerHTML = "";
+            result.forEach((item, idx) => {
+              // 变量赋值，使用ES6写法
+              const customerId = item.customerId || "";
+              // const customerEmail = item.customerEmail || '';
+              const customerFirstName = item.customerFirstName || "";
+              const customerLastName = item.customerLastName || "";
+              // 生成 customerIcon，为名和姓的首字母拼接
+              const customerIcon =
+                (customerFirstName ? customerFirstName[0] : "") +
+                (customerLastName ? customerLastName[0] : "");
+              const inspirationWork = item.inspirationWork || "";
+              const inspirationTitle = item.inspirationTitle || "";
+              const inspirationDescribe = item.inspirationDescribe || "";
+              // const selectModeId = item.selectModeId || '';
+              // const curatedSelect = item.curatedSelect || '';
+              const transfers = item.transfers || "";
+
+              // 根据 selectModeId 生成 modeType
+              // let modeType = '';
+              // switch (selectModeId) {
+              //     case 1:
+              //     case '1':
+              //         modeType = 'clothes';
+              //         break;
+              //     case 2:
+              //     case '2':
+              //         modeType = 'clothes';
+              //         break;
+              //     case 3:
+              //     case '3':
+              //         modeType = 'hat';
+              //         break;
+              //     case 4:
+              //     case '4':
+              //         modeType = 'bag';
+              //         break;
+              //     default:
+              //         modeType = '';
+              // }
+
+              // 生成DOM结构
+              const slideHtml = `
+<div class="swiper-slide">
+<div 
+class="ugc-week-1-inspiration-users-item" data-customer-id="${customerId}"  >
+<div class="ugc-week-1-inspiration-users-item-img-wrapper">
+<div class="model">
+<img style="width: 100%;max-width: 100%;"
+  src="${inspirationWork}"
+  alt="">
+</div>
+<div class="user-img">
+<img style="width: 100%;max-width: 100%;"
+  src="${transfers}"
+  alt="">
+</div>
+</div>
+<div class="ugc-week-1-inspiration-users-item-details">
+<div class="ugc-week-1-inspiration-users-item-detail-title"
+title=" ${inspirationTitle}">
+${inspirationTitle}
+</div>
+<div class="ugc-week-1-inspiration-users-item-detail-description"
+title="${inspirationDescribe}">
+${inspirationDescribe}
+</div>
+<div class="ugc-week-1-inspiration-users-item-detail-author">
+<div class="ugc-week-1-inspiration-users-item-detail-author-icon">
+  ${customerIcon}
+</div>
+<div class="ugc-week-1-inspiration-users-item-detail-author-name" title="${customerFirstName} ${customerLastName}">
+  ${customerFirstName} ${customerLastName} </div>
+</div>
+</div>
+</div>
+</div>
+                          `;
+              // 插入到swiper-wrapper
+              swiperWrapper.insertAdjacentHTML("beforeend", slideHtml);
+            });
+          } else {
+            console.warn(
+              "未找到 .ugc-week-1-inspiration-users-swiper-container .swiper-wrapper 元素"
+            );
+          }
+        } else {
+          console.warn("result 不是数组");
+        }
+      } else {
+      }
+    })
+    .catch((error) => {
+      console.error("查询上周中奖作品失败:", error);
+    });
+}
+
+// 查询上上周中奖作品的函数
+function getTwoWeekAgoCuratedSelect() {
+  fetch(`${api}${twoWeekAgoCuratedSelectApi}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("网络请求失败");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // 这里可以根据实际需求处理返回的数据
+      console.log("上上周中奖作品:", data);
+      if (data.code === 200) {
+        console.log("上周中奖作品:", data.result);
+        const result = data.result;
+        // 判断如果 result 是空数组，则隐藏 .excellent-work-display-wrapper
+        if (Array.isArray(result) && result.length === 0) {
+          const excellentWorkWrapper = document.querySelector('.excellent-work-display-wrapper');
+          if (excellentWorkWrapper) {
+            excellentWorkWrapper.style.display = 'none';
+          }
+          return;
+        }
+        // 遍历 result 数组，判断每个字段是否存在，存在则输出变量值（中文注释）
+        if (Array.isArray(result)) {
+          // 获取swiper-wrapper容器
+          const swiperWrapper = document.querySelector(
+            ".excellent-work-display-swiper-container .swiper-wrapper"
+          );
+          if (swiperWrapper) {
+            // 先清空原有内容
+            swiperWrapper.innerHTML = "";
+            result.forEach((item, idx) => {
+              // 变量赋值，使用ES6写法
+              const customerId = item.customerId || "";
+              // const customerEmail = item.customerEmail || '';
+              const customerFirstName = item.customerFirstName || "";
+              const customerLastName = item.customerLastName || "";
+              // 生成 customerIcon，为名和姓的首字母拼接
+              const customerIcon =
+                (customerFirstName ? customerFirstName[0] : "") +
+                (customerLastName ? customerLastName[0] : "");
+              const inspirationWork = item.inspirationWork || "";
+              const inspirationTitle = item.inspirationTitle || "";
+              const inspirationDescribe = item.inspirationDescribe || "";
+
+              const transfers = item.transfers || "";
+
+              // 生成DOM结构
+              const slideHtml = `
+<div class="swiper-slide">
+<div class="excellent-work-display-swiper-slide-content" data-customer-id="${customerId}">
+<div class="excellent-work-display-swiper-slide-content-image">
+<div class="excellent-work-display-swiper-slide-content-image-works">
+<img style="width: 100%; max-width: 100%;"
+  src="${inspirationWork}"
+  alt="">
+</div>
+<div class="excellent-work-display-swiper-slide-content-image-transfer">
+<img style="width: 100%; max-width: 100%;"
+  src="${transfers}"
+  alt="">
+</div>
+
+</div>
+<div class="excellent-work-display-swiper-slide-content-title" title="${inspirationTitle}">${inspirationTitle}</div>
+
+<div class="excellent-work-display-swiper-slide-content-description" title="${inspirationDescribe}">${inspirationDescribe}
+</div>
+<div class="excellent-work-display-swiper-slide-content-author">
+<div class="excellent-work-display-swiper-slide-content-author-icon">${customerIcon}</div>
+<div class="excellent-work-display-swiper-slide-content-author-name">${customerFirstName} ${customerLastName}</div>
+</div>
+</div>
+</div>
+                          `;
+              // 插入到swiper-wrapper
+              swiperWrapper.insertAdjacentHTML("beforeend", slideHtml);
+              initExcellentWorkSwiper();
+            });
+          } else {
+            console.warn(
+              "未找到 .ugc-week-1-inspiration-users-swiper-container .swiper-wrapper 元素"
+            );
+          }
+        } else {
+          console.warn("result 不是数组");
+        }
+      } else {
+      }
+    })
+    .catch((error) => {
+      console.error("查询上上周中奖作品失败:", error);
+    });
+}
+
+// 查询模型列表的函数
+function getModeList() {
+  fetch(`${api}${modeListApi}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("网络请求失败");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // 这里可以根据实际需求处理返回的数据
+      console.log("模型列表:", data);
+      if (data.code == 200) {
+        let result = data.result;
+        // 获取容器
+        let radioGroup = document.getElementById(
+          "ugc-select-model-radio-group"
+        );
+        if (radioGroup && Array.isArray(result)) {
+          // 先清空原有内容
+          radioGroup.innerHTML = "";
+          result.forEach(function (item, idx) {
+            // 创建label元素
+
+            let label = document.createElement("label");
+            label.setAttribute("for", "mode_" + item.id);
+
+            // 创建input元素
+            let input = document.createElement("input");
+            input.id = "mode_" + item.id;
+            input.type = "radio";
+            input.name = "selectModeId";
+            input.value = item.modePath + `?date=${Date.now()}`;
+            // 默认选中第一个
+            if (idx === 0) {
+              input.checked = true;
+            }
+            // 根据item.id为input添加data-type属性
+            if (item.id == 1 || item.id == 2) {
+              input.setAttribute("data-type", "clothes");
+            } else if (item.id == 3) {
+              input.setAttribute("data-type", "hat");
+            } else if (item.id == 4) {
+              input.setAttribute("data-type", "bag");
+            }
+
+            // 创建img元素
+            let img = document.createElement("img");
+            img.src = item.modePath + `?date=${Date.now()}`;
+            img.alt = item.modeName;
+            img.crossOrigin = "anonymous";
+
+            // 创建span元素
+            let span = document.createElement("span");
+            span.className =
+              "ugc-upload-your-inspiration-content-not-uploaded-popup-detail-content-item-model-name";
+            span.innerText = item.modeName;
+
+            // 组装
+            label.appendChild(input);
+            label.appendChild(img);
+            label.appendChild(span);
+
+            // 插入到radioGroup
+            radioGroup.appendChild(label);
+
+            // 如果是第一个，替换主展示图片
+            if (idx === 0) {
+              let mainImg = document.getElementById("ugc-upload-model-img");
+              let originalSizeModelImg = document.getElementById(
+                "ugc-upload-model-Original-size-img"
+              );
+              if (mainImg) {
+                mainImg.src = item.modePath + `?date=${Date.now()}`;
+              }
+              if (originalSizeModelImg) {
+                originalSizeModelImg.src =
+                  item.modePath + `?date=${Date.now()}`;
+              }
+            }
+          });
+        }
+      }
+    })
+    .catch((error) => {
+      console.error("查询模型列表失败:", error);
+    });
+}
+
+// 上传灵感作品的函数
+function postUploadInspiration(data, url, text) {
+  console.log("上传灵感作品数据==", data);
+
+  // 你要分享的页面链接（可以是图片链接，也可以是你的网站链接）
+  // const shareUrl = encodeURIComponent(data.inspirationWork);
+  // const shareimgUrl = data.inspirationWork;
+  const imgDataUrl = data.inspirationWork;
+  const allInspirationText = text;
+  const uploadButton = document.querySelector(
+    ".ugc-upload-your-inspiration-content-not-uploaded-popup-button-upload"
+  );
+  fetch(`${api}${uploadInspirationApi}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("网络请求失败");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // 这里可以根据实际需求处理返回的数据
+      console.log("上传灵感作品成功:", data);
+      if (data.code === 200) {
+        getInspirationWork(customerId);
+        if (uploadButton) {
+          // 禁用点击和交互
+          uploadButton.style.pointerEvents = "none";
+          uploadButton.style.opacity = "0.7";
+          uploadButton.setAttribute("aria-disabled", "true");
+          // 隐藏上传文案
+          const text = uploadButton.querySelector(
+            ".ugc-upload-your-inspiration-content-not-uploaded-popup-button-upload-text"
+          );
+          if (text) text.style.display = "none";
+          // loading 加active
+          const loading = uploadButton.querySelector(".loading-overlay");
+          if (loading) loading.classList.add("active");
+        }
+        // 更改标题文本
+        const notUploadedPopup = document.getElementById(
+          "ugc-upload-your-inspiration-content-not-uploaded"
+        );
+
+        notUploadedPopup.classList.add("Successful-upload");
+        if (notUploadedPopup) {
+          // 更改标题
+          const titleEl = notUploadedPopup.querySelector(
+            ".ugc-upload-your-inspiration-content-not-uploaded-popup-title"
+          );
+          if (titleEl) {
+            titleEl.textContent = "Successful Upload";
+          }
+          // 隐藏 detail
+          const detailEl = notUploadedPopup.querySelector(
+            ".ugc-upload-your-inspiration-content-not-uploaded-popup-detail"
+          );
+          if (detailEl) {
+            detailEl.style.display = "none";
+          }
+          // 隐藏按钮组
+          const btnGroupEl = notUploadedPopup.querySelector(
+            ".ugc-upload-your-inspiration-content-not-uploaded-popup-button-group"
+          );
+          if (btnGroupEl) {
+            btnGroupEl.style.display = "none";
+          }
+
+          // 插入分享弹窗内容
+          // 检查是否已插入，避免重复插入
+          if (
+            !notUploadedPopup.querySelector(
+              ".ugc-upload-your-inspiration-content-share-popup-detail"
+            )
+          ) {
+            const shareHtml = `
+<div class="ugc-upload-your-inspiration-content-share-popup-detail">
+                <div class="ugc-upload-your-inspiration-content-share-popup-detail-success-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 38 38" fill="none">
+                        <circle cx="19" cy="19" r="19" fill="#FF8F1C" />
+                        <path d="M11 19.556L16.556 25.112L27.668 14" stroke="white" stroke-width="3"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="ugc-upload-your-inspiration-content-share-popup-detail-title">Successful
+                    Upload
+                </div>
+                <div class="ugc-upload-your-inspiration-content-share-popup-detail-desc">
+                    You’ve got <span>$100 coupons</span> in your email !
+                </div>
+                <div class="ugc-upload-your-inspiration-content-share-popup-detail-content">
+
+                    <div class="ugc-upload-your-inspiration-content-share-popup-detail-content-img">
+                        <img style="width: 100%;max-width: 100%;"
+                            src="${imgDataUrl}"
+                            alt="">
+                        <a href="${imgDataUrl}" download="screenshot.png"  class="ugc-upload-your-inspiration-content-share-popup-detail-content-img-download">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 17 14"
+                                fill="none">
+                                <path d="M8.50391 9.88736V1.75" stroke="#3D3D3D" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M12.5 6.41675L8.5 9.91675L4.5 6.41675" stroke="#3D3D3D" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M12.5 12.25H4.5" stroke="#3D3D3D" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                    </div>
+
+                    <div class="ugc-upload-your-inspiration-content-share-popup-detail-content-box">
+                        <div class="ugc-upload-your-inspiration-content-share-popup-detail-content-box-copy">
+                            <span
+                                class="ugc-upload-your-inspiration-content-share-popup-detail-content-box-copy-text">Copy
+                                Text</span>
+                                <div class="ugc-upload-your-inspiration-content-share-popup-detail-content-box-copy-icon" data-text="${allInspirationText}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 16 16"
+                                    fill="none">
+                                    <path
+                                        d="M1.66797 13.6666V6.99992C1.66797 6.63172 1.96645 6.33325 2.33464 6.33325H5.66797C6.03617 6.33325 6.33464 6.63172 6.33464 6.99992V8.99992C6.33464 9.36812 6.6331 9.66659 7.0013 9.66659H9.0013C9.3695 9.66659 9.66797 9.96505 9.66797 10.3333V13.6666C9.66797 14.0348 9.3695 14.3333 9.0013 14.3333H2.33464C1.96645 14.3333 1.66797 14.0348 1.66797 13.6666Z"
+                                        stroke="#6D6D6D" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path
+                                        d="M6.33203 9.00008V2.33341C6.33203 1.96522 6.6305 1.66675 6.9987 1.66675H13.6654C14.0336 1.66675 14.332 1.96522 14.332 2.33341V9.00008C14.332 9.36828 14.0336 9.66675 13.6654 9.66675H6.9987C6.6305 9.66675 6.33203 9.36828 6.33203 9.00008Z"
+                                        stroke="#6D6D6D" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                                </div>
+                         
+                        </div>
+                        <div class="ugc-upload-your-inspiration-content-share-popup-detail-content-box-rules">
+                            <div class="ugc-upload-your-inspiration-content-share-popup-detail-content-box-rules-title">
+                                Share on Social Media for a chance to <span>win up to $300！</span>
+                            </div>
+                            <div class="ugc-upload-your-inspiration-content-share-popup-detail-content-box-rules-desc">
+                                <div
+                                    class="ugc-upload-your-inspiration-content-share-popup-detail-content-box-rules-desc-item">
+                                    <div
+                                        class="ugc-upload-your-inspiration-content-share-popup-detail-content-box-rules-desc-item-num">
+                                        1</div>
+                                    <div
+                                        class="ugc-upload-your-inspiration-content-share-popup-detail-content-box-rules-desc-item-text">
+                                        Save Image</div>
+                                </div>
+                                <div
+                                    class="ugc-upload-your-inspiration-content-share-popup-detail-content-box-rules-desc-item">
+                                    <div
+                                        class="ugc-upload-your-inspiration-content-share-popup-detail-content-box-rules-desc-item-num">
+                                        2</div>
+                                    <div
+                                        class="ugc-upload-your-inspiration-content-share-popup-detail-content-box-rules-desc-item-text">
+                                        Copy Text</div>
+                                </div>
+                                <div
+                                    class="ugc-upload-your-inspiration-content-share-popup-detail-content-box-rules-desc-item">
+                                    <div
+                                        class="ugc-upload-your-inspiration-content-share-popup-detail-content-box-rules-desc-item-num">
+                                        3</div>
+                                    <div
+                                        class="ugc-upload-your-inspiration-content-share-popup-detail-content-box-rules-desc-item-text">
+                                        Post To Facebook / Instagram</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+                  `;
+            // 插入到notUploadedPopup的最后
+            notUploadedPopup.insertAdjacentHTML("beforeend", shareHtml);
+          }
+        }
+      }
+    })
+    .catch((error) => {
+      console.error("上传灵感作品失败:", error);
+      if (uploadButton) {
+        // 禁用点击和交互
+        uploadButton.style.pointerEvents = "none";
+        uploadButton.style.opacity = "0.7";
+        uploadButton.setAttribute("aria-disabled", "true");
+        // 隐藏上传文案
+        const text = uploadButton.querySelector(
+          ".ugc-upload-your-inspiration-content-not-uploaded-popup-button-upload-text"
+        );
+        if (text) text.style.display = "none";
+        // loading 加active
+        const loading = uploadButton.querySelector(".loading-overlay");
+        if (loading) loading.classList.add("active");
+      }
+    });
+}
+
+// 上传图片的函数
+function postUploadImg(file) {
+  // 选中未上传按钮
+  const notUploaded = document.querySelector(
+    ".ugc-upload-your-inspiration-content-not-uploaded"
+  );
+
+  if (notUploaded) {
+    // 禁用点击和交互
+    notUploaded.style.pointerEvents = "none";
+    notUploaded.style.opacity = "0.7";
+    notUploaded.setAttribute("aria-disabled", "true");
+    // 隐藏上传文案
+    const text = notUploaded.querySelector(
+      ".ugc-upload-your-inspiration-content-upload-button-text"
+    );
+    const upload_icon = notUploaded.querySelector(
+      ".ugc-upload-your-inspiration-content-upload-button-icon"
+    );
+    if (text) text.style.display = "none";
+    if (upload_icon) upload_icon.style.display = "none";
+    // loading 加active
+    const loading = notUploaded.querySelector(".loading-overlay");
+    if (loading) loading.classList.add("active");
+  }
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  fetch(`${api}${uploadImgApi}`, {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("网络请求失败");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // 上传结束，恢复按钮状态
+      if (notUploaded) {
+        // 恢复可点击
+        notUploaded.style.pointerEvents = "";
+        notUploaded.style.opacity = "";
+        notUploaded.removeAttribute("aria-disabled");
+        const text = notUploaded.querySelector(
+          ".ugc-upload-your-inspiration-content-upload-button-text"
+        );
+        const upload_icon = notUploaded.querySelector(
+          ".ugc-upload-your-inspiration-content-upload-button-icon"
+        );
+        if (text) text.style.display = "";
+        if (upload_icon) upload_icon.style.display = "";
+        const loading = notUploaded.querySelector(".loading-overlay");
+        if (loading) loading.classList.remove("active");
+      }
+      if (data.code === 200) {
+        // 成功，获取图片地址
+        const imgUrl = data.result;
+        console.log("上传成功，图片地址:", imgUrl);
+        // 这里可以根据需要进一步处理imgUrl
+        const $links = document.getElementById(
+          "ugc-upload-your-inspiration-content-not-uploaded"
+        );
+        console.log("$links==", $links);
+        // 获取被选中的 input
+        let radioGroup = document.getElementById(
+          "ugc-select-model-radio-group"
+        );
+        if (radioGroup) {
+          let checkedInput = radioGroup.querySelector(
+            'input[type="radio"][name="selectModeId"]:checked'
+          );
+          if (checkedInput) {
+            let dataType = checkedInput.getAttribute("data-type");
+            // 更新 .ugc-upload-textures-img 的 data-type 属性
+            let texturesImg = document.querySelector(
+              ".ugc-upload-textures-img"
+            );
+            let originalSizeTexturesImg = document.querySelector(
+              ".ugc-upload-textures-Original-size-img"
+            );
+            if (texturesImg && dataType) {
+              texturesImg.setAttribute("data-type", dataType);
+              // 将 .ugc-upload-textures-img 下的 img 的 src 替换为 $links
+              let texturesImgTag = texturesImg.querySelector("img");
+              if (texturesImgTag) {
+                texturesImgTag.src = imgUrl;
+              }
+            }
+            if (originalSizeTexturesImg && dataType) {
+              originalSizeTexturesImg.setAttribute("data-type", dataType);
+              // 将 .ugc-upload-textures-img 下的 img 的 src 替换为 $links
+              let originalSizeTexturesImgTag =
+                originalSizeTexturesImg.querySelector("img");
+              if (originalSizeTexturesImgTag) {
+                originalSizeTexturesImgTag.src = imgUrl;
+              }
+            }
+          }
+        }
+
+        $.fancybox.open($links);
+      } else {
+        console.error("上传失败:", data.msg);
+        if (notUploaded) {
+          // 恢复可点击
+          notUploaded.style.pointerEvents = "";
+          notUploaded.style.opacity = "";
+          notUploaded.removeAttribute("aria-disabled");
+          const text = notUploaded.querySelector(
+            ".ugc-upload-your-inspiration-content-upload-button-text"
+          );
+          const upload_icon = notUploaded.querySelector(
+            ".ugc-upload-your-inspiration-content-upload-button-icon"
+          );
+          if (text) text.style.display = "";
+          if (upload_icon) upload_icon.style.display = "";
+          const loading = notUploaded.querySelector(".loading-overlay");
+          if (loading) loading.classList.remove("active");
+        }
+      }
+    })
+    .catch((error) => {
+      // 上传失败也要恢复按钮状态
+      if (notUploaded) {
+        // 恢复可点击
+        notUploaded.style.pointerEvents = "";
+        notUploaded.style.opacity = "";
+        notUploaded.removeAttribute("aria-disabled");
+        const text = notUploaded.querySelector(
+          ".ugc-upload-your-inspiration-content-upload-button-text"
+        );
+        const upload_icon = notUploaded.querySelector(
+          ".ugc-upload-your-inspiration-content-upload-button-icon"
+        );
+        if (text) text.style.display = "";
+        if (upload_icon) upload_icon.style.display = "";
+        const loading = notUploaded.querySelector(".loading-overlay");
+        if (loading) loading.classList.remove("active");
+      }
+      console.error("上传图片失败:", error);
+    });
+}
+
+// 功能：点击radio时，替换上方大图img的src
+document.addEventListener("DOMContentLoaded", function () {
+  // 由于input[type="radio"][name="selectModeId"]是动态生成的，直接绑定事件无效，需用事件委托
+  let modelImg = document.getElementById("ugc-upload-model-img");
+  let originalSizeModelImg = document.getElementById(
+    "ugc-upload-model-Original-size-img"
+  );
+  let texturesImg = document.querySelector(".ugc-upload-textures-img");
+  let originalSizeTexturesImg = document.querySelector(
+    ".ugc-upload-textures-Original-size-img"
+  );
+  document.addEventListener("change", function (e) {
+    let target = e.target;
+    if (target && target.matches('input[type="radio"][name="selectModeId"]')) {
+      if (target.checked) {
+        console.log(target.value);
+        modelImg.src = target.value;
+        originalSizeModelImg.src = target.value;
+        let dataType = target.getAttribute("data-type");
+        texturesImg.setAttribute("data-type", dataType);
+        originalSizeTexturesImg.setAttribute("data-type", dataType);
+      }
+    }
+  });
+
+  // 由于 #ugc-upload-img-capture-area 可能是动态生成的，这里需要在每次点击时动态获取
+  const uploadBtn = document.querySelector(
+    ".ugc-upload-your-inspiration-content-not-uploaded-popup-button-upload"
+  );
+  uploadBtn.addEventListener("click", function () {
+    // 获取标题和描述的值
+    const titleInput = document.querySelector('input[name="inspirationTitle"]');
+    const descTextarea = document.querySelector(
+      'textarea[name="inspirationDescribe"]'
+    );
+    // 获取 transfers 的值，即 .ugc-upload-textures-img 下 img 的 src 属性
+    let transfers = "";
+    const texturesImgContainer = document.querySelector(
+      ".ugc-upload-textures-img"
+    );
+    if (texturesImgContainer) {
+      const texturesImg = texturesImgContainer.querySelector("img");
+      if (texturesImg) {
+        transfers = texturesImg.getAttribute("src") || "";
+      }
+    }
+    const titleValue = titleInput ? titleInput.value.trim() : "";
+    const descValue = descTextarea ? descTextarea.value.trim() : "";
+    if (!titleValue) {
+      alert("Please enter a title");
+      return;
+    }
+    if (!descValue) {
+      alert("Please enter describe");
+      return;
+    }
+    // 选中上传按钮
+    const uploadButton = document.querySelector(
+      ".ugc-upload-your-inspiration-content-not-uploaded-popup-button-upload"
+    );
+    if (uploadButton) {
+      // 禁用点击和交互
+      uploadButton.style.pointerEvents = "none";
+      uploadButton.style.opacity = "0.7";
+      uploadButton.setAttribute("aria-disabled", "true");
+      // 隐藏上传文案
+      const text = uploadButton.querySelector(
+        ".ugc-upload-your-inspiration-content-not-uploaded-popup-button-upload-text"
+      );
+      if (text) text.style.display = "none";
+      // loading 加active
+      const loading = uploadButton.querySelector(".loading-overlay");
+      if (loading) loading.classList.add("active");
+    }
+
+    //截图功能  动态获取截图区域
+    const captureArea = document.getElementById("ugc-upload-img-capture-area");
+    console.log("截图区域==", captureArea);
+    if (!captureArea) {
+      alert("截图区域未找到，请稍后重试或刷新页面。");
+      return;
+    }
+    html2canvas(captureArea, {
+      // 启用跨域图片渲染（前提是图片服务器允许CORS）
+      useCORS: true,
+      allowTaint: true,
+      // 固定截图时的垂直滚动位置为0，避免页面滚动影响截图
+      scrollY: 0,
+      // 固定截图时的水平滚动位置为0
+      scrollX: 0,
+      // 设置背景为透明（null），否则默认是白色
+      backgroundColor: null,
+    })
+      .then(function (canvas) {
+        // 创建图片并展示
+        let imgDataUrl = canvas.toDataURL("image/png");
+        // // 你可以选择将图片插入到页面上，或者下载
+        // // 这里以弹窗方式展示图片
+        // var img = document.createElement("img");
+        // img.src = imgDataUrl;
+        // img.style.maxWidth = "90vw";
+        // img.style.maxHeight = "70vh";
+        // // 创建下载按钮
+        // var downloadBtn = document.createElement("a");
+        // downloadBtn.href = imgDataUrl;
+        // downloadBtn.download = "screenshot.png";
+        // downloadBtn.textContent = "download";
+        // downloadBtn.style.display = "inline-block";
+        // downloadBtn.style.margin = "20px auto 0";
+        // downloadBtn.style.padding = "10px 30px";
+        // downloadBtn.style.background = "#007aff";
+        // downloadBtn.style.color = "#fff";
+        // downloadBtn.style.borderRadius = "6px";
+        // downloadBtn.style.textDecoration = "none";
+        // downloadBtn.style.fontSize = "18px";
+        // downloadBtn.style.fontWeight = "bold";
+        // // 弹窗展示
+        // var win = window.open("");
+        // win.document.write("<title>截图结果</title>");
+        // win.document.write(
+        //   '<body style="margin:0;padding:0;text-align:center;background:#f5f5f5;">'
+        // );
+        // win.document.write('<h3 style="margin-top:20px;">截图结果</h3>');
+        // win.document.body.appendChild(img);
+        // win.document.body.appendChild(downloadBtn);
+        // win.document.write("</body>");
+
+        // 增加图片转化为二进制文件的需求
+        // 将 base64 图片数据转为二进制文件（Blob）
+        // 检查图片格式，仅允许png格式上传
+        function dataURLtoBlob(dataurl) {
+          let arr = dataurl.split(","),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
+          for (let i = 0; i < n; i++) {
+            u8arr[i] = bstr.charCodeAt(i);
+          }
+          return new Blob([u8arr], { type: mime });
+        }
+        // 将截图结果转为二进制文件
+        const imgBlob = dataURLtoBlob(imgDataUrl);
+        const file = new File([imgBlob], Date.now() + ".png", {
+          type: "image/png",
+        });
+        console.log("图片已转为二进制文件（Blob）:", imgBlob);
+        console.log("将二进制对象的内容 转成file:", file);
+
+        // 检查文件类型，必须为 image/png
+        if (imgBlob.type !== "image/png") {
+          alert("文件格式错误，仅支持PNG格式图片上传，上传失败。");
+          if (uploadButton) {
+            // 禁用点击和交互
+            uploadButton.style.pointerEvents = "none";
+            uploadButton.style.opacity = "0.7";
+            uploadButton.setAttribute("aria-disabled", "true");
+            // 隐藏上传文案
+            const text = uploadButton.querySelector(
+              ".ugc-upload-your-inspiration-content-not-uploaded-popup-button-upload-text"
+            );
+            if (text) text.style.display = "none";
+            // loading 加active
+            const loading = uploadButton.querySelector(".loading-overlay");
+            if (loading) loading.classList.add("active");
+          }
+          return;
+        }
+        // 上传图片
+        const formData = new FormData();
+        formData.append("file", file);
+        fetch(`${api}${uploadImgApi}`, {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("网络请求失败");
+            }
+            return response.json();
+          })
+          .then(function (data) {
+            if (data.code === 200) {
+              if (uploadButton) {
+                // 恢复可点击
+                uploadButton.style.pointerEvents = "";
+                uploadButton.style.opacity = "";
+                uploadButton.removeAttribute("aria-disabled");
+                const text = uploadButton.querySelector(
+                  ".ugc-upload-your-inspiration-content-not-uploaded-popup-button-upload-text"
+                );
+
+                if (text) text.style.display = "";
+
+                const loading = uploadButton.querySelector(".loading-overlay");
+                if (loading) loading.classList.remove("active");
+              }
+              // 上传成功
+              // 获取图片地址
+              const imgUrl = data.result;
+              console.log("上传灵感作品成功，图片地址:", imgUrl);
+              // 创建一个对象，包含用户和作品的相关信息
+              const uploadData = {
+                customerId: customerId, //客户Id
+                customerFirstName: customerFirstName, //客户firstName
+                customerLastName: customerLastName, //客户lastName
+                customerEmail: customerEmail, //客户 Email
+                inspirationWork: imgUrl, //灵感作品
+                inspirationTitle: titleValue, //灵感作品标题
+                inspirationDescribe: descValue, //灵感作品描述
+                transfers: transfers, // 印花作品
+              };
+              const allInspirationText = titleValue + '\n' + descValue + "#UnlockInspirationPrint #Procolored";
+              postUploadInspiration(uploadData, imgDataUrl, allInspirationText);
+            }
+          });
+      })
+      .catch(function (e) {
+        console.log("截图失败: " + e);
+        if (uploadButton) {
+          // 禁用点击和交互
+          uploadButton.style.pointerEvents = "none";
+          uploadButton.style.opacity = "0.7";
+          uploadButton.setAttribute("aria-disabled", "true");
+          // 隐藏上传文案
+          const text = uploadButton.querySelector(
+            ".ugc-upload-your-inspiration-content-not-uploaded-popup-button-upload-text"
+          );
+          if (text) text.style.display = "none";
+          // loading 加active
+          const loading = uploadButton.querySelector(".loading-overlay");
+          if (loading) loading.classList.add("active");
+        }
+        // alert('截图失败: ' + e + '\n\n如遇CORS跨域报错，请参考控制台提示和上方注释解决。');
+      });
+  });
+});
+
+// 解决移动端点击时背景闪烁问题，使用 touchstart 阻止点击高亮
+document.addEventListener("DOMContentLoaded", function () {
+  var faqItems = document.querySelectorAll(".ugc-faq-container-content-item");
+  faqItems.forEach(function (item) {
+    var question = item.querySelector(
+      ".ugc-faq-container-content-item-question"
+    );
+    // 阻止移动端点击高亮（闪烁）
+    question.addEventListener(
+      "touchstart",
+      function (e) {
+        e.preventDefault(); // 阻止默认的点击高亮
+        // 手动触发点击事件
+        this.click();
+      },
+      { passive: false }
+    );
+    question.addEventListener("click", function (e) {
+      // 如果当前item已激活，则移除active，实现随时切换
+      if (item.classList.contains("active")) {
+        item.classList.remove("active");
+      } else {
+        // 移除所有的active
+        faqItems.forEach(function (i) {
+          i.classList.remove("active");
+        });
+        // 给当前点击的item添加active
+        item.classList.add("active");
+      }
+    });
+  });
+});
+getLastWeekCuratedSelect();
+getTwoWeekAgoCuratedSelect();
+// 监听导航栏点击事件，切换active并锚点跳转，并让激活的导航项自动滚动到可视区域
+document.querySelectorAll('.ugc-page-nav-container-item').forEach(function (item, idx) {
+  item.addEventListener('click', function () {
+    // 切换active
+    document.querySelectorAll('.ugc-page-nav-container-item').forEach(function (nav) {
+      nav.classList.remove('active');
+    });
+    this.classList.add('active');
+
+    // 激活的导航项自动滚动到可视区域，优化滚动效果
+    this.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+    // 对应section的id顺序
+    const sectionIds = [
+      'ugc-upload-your-inspiration',
+      'ugc-excellent-work-display',
+      'ugc-selection-mechanism',
+      'ugc-rule'
+    ];
+    // 进行锚点跳转
+    const targetId = sectionIds[idx];
+    const targetSection = document.getElementById(targetId);
+    if (targetSection) {
+      // 平滑滚动到对应section
+      targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+
+
+// window.addEventListener('DOMContentLoaded', function () {
+// 动态计算 slidesOffsetBefore，使其在1920px时为360px，响应式自适应
+function getSlidesOffsetBefore() {
+  const winWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  // 设计稿为1920px，左边距为360px，按比例缩放
+  if (winWidth >= 1920) {
+    return 360;
+  } else if (winWidth <= 1024) {
+    // 在breakpoints中已单独设置
+    return 0;
+  } else {
+    // 其余宽度按比例缩放
+    return Math.round(360 * (winWidth / 1920));
+  }
+}
+
+let ugcWeek1Swiper = null;
+function initUgcWeek1Swiper() {
+  if (ugcWeek1Swiper) {
+    ugcWeek1Swiper.destroy(true, true);
+  }
+  ugcWeek1Swiper = new Swiper('.ugc-week-1-inspiration-users-swiper-container', {
+    slidesPerView: 5.5,
+
+    slidesOffsetBefore: getSlidesOffsetBefore(),
+    loopedSlides: 10, // slidesPerView设置为非整数（如1.2）时，可能会出现循环问题添加此行，指定循环所需的额外幻灯片数量
+    spaceBetween: 20,
+    observer: true, //开启动态检查器，监测swiper和slide
+    observeParents: true,  //监测Swiper 的祖/父元素
+    navigation: {
+      nextEl: '.ugc-week-1-inspiration-users-swiper-button-next',
+      prevEl: '.ugc-week-1-inspiration-users-swiper-button-prev',
+    },
+    on: {},
+    breakpoints: {
+      //当宽度小于等于1024时显示
+
+      1024: {
+
+        slidesPerView: 3.5,
+        spaceBetween: 15,
+        slidesOffsetBefore: 0,
+      },
+      //当宽度小于等于768时显示
+      768: {
+        slidesOffsetBefore: 24,
+        slidesOffsetAfter: 24,
+        slidesPerView: 1.8,
+        spaceBetween: 12,
+      },
+    },
+  });
+}
+
+// 初始化swiper
+initUgcWeek1Swiper();
+
+// 只监听PC端窗口变化，移动端（宽度小于等于1024px）不监听
+window.addEventListener('resize', function () {
+  const winWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  if (winWidth > 1024) {
+    initUgcWeek1Swiper();
+  }
+});
+// 由于动态加载slide后，Swiper的自动轮播会失效，需要在数据渲染完成后重新初始化Swiper实例
+let excellentWorkSwiper = null;
+function initExcellentWorkSwiper() {
+  if (excellentWorkSwiper) {
+    excellentWorkSwiper.destroy(true, true);
+  }
+  excellentWorkSwiper = new Swiper('.excellent-work-display-swiper-container', {
+    loop: true,
+    slidesPerView: 3.4,
+    loopedSlides: 10, // slidesPerView设置为非整数（如1.2）时，可能会出现循环问题添加此行，指定循环所需的额外幻灯片数量
+    spaceBetween: 20,
+    observer: true, //开启动态检查器，监测swiper和slide
+    observeParents: true,  //监测Swiper 的祖/父元素
+    freeMode: true,
+    speed: 5000, //设置为0以实现立即停止
+    // allowTouchMove: false, // 禁止拖动
+    autoplay: {
+      delay: 0,
+      disableOnInteraction: false,
+      stopOnLastSlide: false,
+      waitForTransition: true
+    },
+    on: {},
+    breakpoints: {
+      //当宽度小于等于1024时显示
+      1024: {
+        slidesPerView: 3.5,
+        spaceBetween: 15,
+      },
+      //当宽度小于等于768时显示
+      768: {
+        slidesOffsetBefore: 24,
+        slidesOffsetAfter: 24,
+        slidesPerView: 1.8,
+        spaceBetween: 12,
+      },
+    },
+  });
+}
+
+// 页面初次加载时初始化
+initExcellentWorkSwiper();
+// 创建隐藏的文件输入框
+const fileInput = document.createElement("input");
+fileInput.type = "file";
+// 只允许上传jpeg/jpg/webp/png/svg类型
+fileInput.accept = ".jpg,.jpeg,.png,.webp,.svg";
+fileInput.style.display = "none";
+document.body.appendChild(fileInput);
+
+// 监听上传按钮点击
+document
+  .querySelector(".ugc-upload-your-inspiration-content-upload-button")
+  .addEventListener("click", function () {
+    if (customerId == '') {
+      console.log("用户未登录，请先登录");
+      //  会员登录弹窗
+
+
+      const modalLogin = document.querySelector("modal-login");
+      console.log('modalLogin', modalLogin)
+      const loginForm = modalLogin.showModal(modalLogin.fetchForm.login.innerHTML);
+      modalLogin.loginBindEvent(loginForm.el);
+
+      return;
+
+    }
+    if (isCampaign) {
+      console.log("已参与活动，请勿重复提交");
+      // 已参与，直接返回或可做其他处理
+      return;
+    }
+    fileInput.value = ""; // 重置
+    fileInput.click();
+  });
+
+// 绑定编辑图标点击事件
+var editIcon = document.querySelector(
+  ".ugc-upload-your-inspiration-content-not-uploaded-popup-detail-img-content-edit-icon"
+);
+if (editIcon) {
+  editIcon.addEventListener("click", function () {
+    // 触发文件选择
+    fileInput.value = "";
+    fileInput.click();
+  });
+}
+
+// 校验图片类型
+function isImageType(file) {
+  // 只允许jpg/jpeg/png/webp/svg
+  return /\.(jpg|jpeg|png|webp|svg)$/i.test(file.name);
+}
+
+// 监听文件选择
+fileInput.addEventListener("change", function (e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  // 校验类型
+  if (!isImageType(file)) {
+    alert("Please select an image file（jpg, jpeg, png, webp）");
+    return;
+  }
+
+  // 校验大小
+  if (file.size > 5 * 1024 * 1024) {
+    alert("The image size cannot exceed 5M");
+    return;
+  }
+
+  // svg无需校验分辨率
+  if (/\.svg$/i.test(file.name)) {
+    alert("图片校验通过，可以上传！");
+    // 例如：uploadImage(file);
+    postUploadImg(file);
+    return;
+  }
+
+  // 校验分辨率（非svg）
+  const img = new Image();
+  img.onload = function () {
+    if (img.width < 720 || img.height < 720) {
+      alert("The image resolution must be greater than 720*720");
+      return;
+    }
+    // 校验通过，可以上传
+    // 这里可以添加上传逻辑
+    console.log("The image has passed verification and can be uploaded！");
+    postUploadImg(file);
+
+    // alert('The image has passed verification and can be uploaded！');
+    // 例如：uploadImage(file);
+  };
+  img.onerror = function () {
+    alert("Image loading failed, please select again");
+  };
+  // 读取图片数据
+  const reader = new FileReader();
+  reader.onload = function (evt) {
+    img.src = evt.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+// 优化后的复制功能，优先使用 Clipboard API，兼容性处理
+function copyTextToClipboard(
+  text,
+  successMsg = "Copied successfully",
+  errorMsg = "Copy failed"
+) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(
+      function () {
+        alert(successMsg);
+      },
+      function () {
+        alert(errorMsg);
+      }
+    );
+  } else {
+    // 兼容旧浏览器
+    var textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed"; // 防止页面滚动
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    try {
+      var successful = document.execCommand("copy");
+      alert(successful ? successMsg : errorMsg);
+    } catch (err) {
+      alert(errorMsg);
+    }
+    document.body.removeChild(textarea);
+  }
+}
+
+// 复制 文案
+//优化后的代码，提升性能与健壮性，避免重复绑定事件，支持动态内容 
+document.addEventListener("click", function (e) {
+  // 判断是否点击了复制图标
+  const copyIcon = e.target.closest(
+    ".ugc-upload-your-inspiration-content-share-popup-detail-content-box-copy-icon"
+  );
+  if (copyIcon) {
+    // 优先获取 data-text 属性
+    const text = copyIcon.getAttribute("data-text");
+    if (text) {
+      copyTextToClipboard(text.trim());
+      return;
+    }
+
+  }
+});
+
+

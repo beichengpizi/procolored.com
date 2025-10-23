@@ -1,0 +1,1334 @@
+<style>
+      /* 在售产品 */
+    .christmas-container-{{ section.id }}  .products-on-sale-wrap {
+        background-color: #f6fff2;
+        padding-top: 60px;
+        padding-bottom: 80px;
+        position: relative;
+        box-sizing: border-box;
+      }
+
+    .christmas-container-{{ section.id }}  .gift-box-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        box-sizing: border-box;
+      }
+    .christmas-container-{{ section.id }}  .products-on-sale-title {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        font-size: 40px;
+        font-family: ItalianPlateNo2Expanded-Bold;
+        margin-bottom: 45px;
+      }
+    .christmas-container-{{ section.id }}  .products-on-sale-title .gift-box-icon {
+        background-image: url(https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_icon_Gift__Box.png?v=1731910331);
+        background-size: cover;
+        background-position: center;
+        height: 54px;
+        width: 48px;
+      }
+    .christmas-container-{{ section.id }}  .products-on-sale-title .christmas-tree-icon {
+        background-image: url(https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_icon_Christmas__tree.png?v=1731910331);
+        background-size: cover;
+        background-position: center;
+        height: 60px;
+        width: 44px;
+      }
+
+    .christmas-container-{{ section.id }}  .lable,.christmas-container-{{ section.id }} .lable-holder {
+        position: relative;
+        width: 62px;
+        height: 80px;
+      }
+    .christmas-container-{{ section.id }}  .lable svg {
+        width: 62px;
+        height: 80px;
+      }
+    .christmas-container-{{ section.id }}  .lable-info {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        font-size: 12px;
+        text-align: center;
+      }
+    .christmas-container-{{ section.id }}  .products-on-sale-content {
+        display: flex;
+        color: #000;
+        width: 100%;
+        border-radius: 18px;
+        overflow: hidden;
+        margin-bottom: 60px;
+      }
+
+      .christmas-container-{{ section.id }}  .products-on-sale-content-2,.christmas-container-{{ section.id }}  .products-on-sale-content-3 {
+        margin-bottom: 0;
+      }
+    .christmas-container-{{ section.id }}  .products-on-sale-content-1 .product-container-left .product-img div {
+        background-image: url({{section.settings.first_variant_image_pc | image_url:width:750 }});
+      }
+    .christmas-container-{{ section.id }}  .products-on-sale-content-2 .product-container-left .product-img div {
+        background-image: url({{section.settings.second_variant_image_pc | image_url:width:750 }});
+      }
+    .christmas-container-{{ section.id }}  .products-on-sale-content-3 .product-container-left .product-img div {
+        background-image: url({{section.settings.third_variant_image_pc | image_url:width:750 }});
+      }
+    .christmas-container-{{ section.id }}  .product-container-left {
+        flex: 0 0 20%;
+        background-color: #fff;
+        padding: 0 23px 33px 23px;
+        text-align: left;
+      }
+    .christmas-container-{{ section.id }}  .prodcut-title {
+        font-size: 18px;
+        margin-top: 23px;
+        margin-bottom: 10px;
+      }
+    .christmas-container-{{ section.id }}  .product-price {
+        margin-bottom: 16px;
+        display: flex;
+        gap: 7px;
+        justify-content: left;
+        align-items: center;
+      }
+    .christmas-container-{{ section.id }}  .product-btn {
+        background-color: #ed1120;
+        color: #fff;
+        font-family: ItalianPlateNo2Expanded-Bold;
+        font-size: 18px;
+        border-radius: 60px;
+        padding: 16px 0;
+        text-align: center;
+        width: 100%;
+        line-height: 1;
+        cursor: pointer;
+        margin-top: 0;
+      }
+    .christmas-container-{{ section.id }}  .sale-price {
+        font-family: ItalianPlateNo2Expanded-Bold;
+        font-size: 32px;
+        line-height: 1;
+      }
+    .christmas-container-{{ section.id }}  .origin-price {
+        color: #c5c5c5;
+        font-size: 24px;
+        line-height: 1;
+      }
+    .christmas-container-{{ section.id }}  .product-container-left .product-img {
+        box-sizing: border-box;
+        padding: 0 60px;
+        display: block;
+      }
+    .christmas-container-{{ section.id }}  .product-container-left .product-img div {
+        background-size: cover;
+        background-position: center;
+        width: 220px;
+        height: 249px;
+      }
+
+    .christmas-container-{{ section.id }}  .product-container-right {
+        background-color: #fff2c0;
+        flex: 1;
+      }
+    .christmas-container-{{ section.id }}  .products-on-sale-content-1 .product-gift-img {
+        background-image: url({{section.settings.first_variant_right_image_pc | image_url:width:1920 }});
+      }
+    .christmas-container-{{ section.id }}  .products-on-sale-content-2 .product-gift-img {
+        background-image:  url({{section.settings.second_variant_right_image_pc | image_url:width:1920 }});
+      }
+    .christmas-container-{{ section.id }}  .products-on-sale-content-3 .product-gift-img {
+        background-image:  url({{section.settings.third_variant_right_image_pc | image_url:width:1920 }});
+      }
+    .christmas-container-{{ section.id }}  .product-gift-img {
+        width: 100%;
+        height: 437px;
+        background-size: cover;
+        background-position: center;
+      }
+    .christmas-container-{{ section.id }}  .product-container-right .product-gift-text {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 16px;
+        padding: 49px 0;
+        line-height: 1;
+        color: #000;
+      }
+        .christmas-container-{{ section.id }}  .product-container-right .product-gift-text .product-gift-text-item{
+        width: 30%;
+        text-align: center;
+
+    }
+      /* Versatile Applications  多种应用  */
+    .christmas-container-{{ section.id }}  .versatile-applications-wrap {
+        background-color: #fff;
+        padding-top: 80px;
+        padding-bottom: 120px;
+        position: relative;
+        box-sizing: border-box;
+      }
+    .christmas-container-{{ section.id }}  .versatile-applications-container {
+        margin: 0 auto;
+        width: 100%;
+      }
+    .christmas-container-{{ section.id }}  .versatile-applications-title {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        font-size: 40px;
+        font-family: ItalianPlateNo2Expanded-Bold;
+        margin-bottom: 32px;
+      }
+    .christmas-container-{{ section.id }}  .versatile-applications-subtitle {
+        font-size: 18px;
+        margin-bottom: 45px;
+        width: 100%;
+        text-align: center;
+      }
+    .christmas-container-{{ section.id }}  .versatile-applications-title .christmas-balls-icon {
+        background-image: url(https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_icon_Christmas__balls.png?v=1731910333);
+        background-size: cover;
+        background-position: center;
+        height: 60px;
+        width: 49px;
+      }
+    .christmas-container-{{ section.id }}  .versatile-applications-title .snowman-icon {
+        background-image: url(https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_icon_snowman.png?v=1731910331);
+        background-size: cover;
+        background-position: center;
+        height: 60px;
+        width: 45px;
+      }
+    .christmas-container-{{ section.id }}  .versatile-applications-contaner-item {
+        position: relative;
+      }
+    .christmas-container-{{ section.id }}  .versatile-applications-contaner-item .lable {
+        position: absolute;
+        top: 14px;
+        left: 16px;
+        font-size: 12px;
+        padding: 8px 20px;
+        background-color: rgba(255, 255, 255, 0.55);
+        border-radius: 24px 24px 24px 24px;
+        border-image: linear-gradient(95deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)) 0 0;
+        width: auto;
+        height: auto;
+        line-height: 1;
+      }
+    .christmas-container-{{ section.id }}  .versatile-applications-swiper-container,
+    .christmas-container-{{ section.id }}  .versatile-applications-swiper-container-mb-1,
+    .christmas-container-{{ section.id }}  .versatile-applications-swiper-container-mb-2 {
+        overflow: hidden;
+      }
+      .christmas-container-{{ section.id }}  .versatile-applications-swiper-container-mb-2 {
+        margin-top: 14px;
+      }
+      .christmas-container-{{ section.id }}  .versatile-applications-contaner-item img {
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+      }
+      .christmas-container-{{ section.id }}  .desktopShow {
+        display: block;
+      }
+      .christmas-container-{{ section.id }}  .mobileShow {
+        display: none;
+      }
+      .christmas-container-{{ section.id }}  .versatile-applications-swiper-container .swiper-wrapper,
+      .christmas-container-{{ section.id }}  .versatile-applications-swiper-container-mb-1 .swiper-wrapper,
+      .christmas-container-{{ section.id }}  .versatile-applications-swiper-container-mb-2 .swiper-wrapper {
+        transition-timing-function: linear !important; /* 没错就是这个属性 */
+      }
+      /* Sale Campaign T&C 促销活动条款与条件 */
+      .christmas-container-{{ section.id }}  .sale-campaign-wrap {
+        background-color: #f6fff2;
+        padding-top: 80px;
+        padding-bottom: 120px;
+        position: relative;
+        box-sizing: border-box;
+      }
+
+      .christmas-container-{{ section.id }}  .sale-campaign-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        box-sizing: border-box;
+      }
+      .christmas-container-{{ section.id }}  .sale-campaign-title {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 40px;
+        font-family: ItalianPlateNo2Expanded-Bold;
+        margin-bottom: 60px;
+      }
+      .christmas-container-{{ section.id }}  .sale-campaign-content {
+        background-color: #fff;
+        border-radius: 18px;
+        padding: 60px 50px;
+        box-sizing: border-box;
+        color: #000;
+        width: 100%;
+      }
+      .christmas-container-{{ section.id }}  .sale-campaign-content .title {
+        font-size: 18px;
+        font-family: ItalianPlateNo2Expanded-Bold;
+        margin-bottom: 25px;
+      }
+      .christmas-container-{{ section.id }}  .sale-campaign-content .item-title {
+        font-size: 16px;
+        font-family: ItalianPlateNo2Expanded-Bold;
+      }
+      .christmas-container-{{ section.id }}  .sale-campaign-content ul {
+        padding-left: 25px;
+        margin-bottom: 25px;
+        margin-top: 10px;
+      }
+      .christmas-container-{{ section.id }}  .sale-campaign-content li {
+        font-size: 16px;
+        color: #666666;
+        line-height: 1.5;
+      }
+      @media screen and (max-width: 768px) {
+        .christmas-container-{{ section.id }}    .desktopShow {
+          display: none;
+        }
+        .christmas-container-{{ section.id }}    .mobileShow {
+          display: block;
+        }
+        /* Sale Campaign T&C 促销活动条款与条件 */
+        .christmas-container-{{ section.id }}    .sale-campaign-wrap {
+          background-color: #f6fff2;
+          padding-top: 40px;
+          padding-bottom: 120px;
+          position: relative;
+          box-sizing: border-box;
+        }
+        .christmas-container-{{ section.id }}    .sale-campaign-title {
+          font-size: 30px;
+
+          margin-bottom: 34px;
+        }
+        .christmas-container-{{ section.id }}    .sale-campaign-content {
+          background-color: #f6fff2;
+          border-radius: 0;
+          padding: 0 13px;
+        }
+        .christmas-container-{{ section.id }}    .sale-campaign-content .title {
+          font-size: 14px;
+
+          margin-bottom: 15px;
+        }
+        .christmas-container-{{ section.id }}    .sale-campaign-content .item-title {
+          font-size: 14px;
+        }
+        .christmas-container-{{ section.id }}    .sale-campaign-content ul {
+          padding-left: 25px;
+          margin-bottom: 15px;
+          margin-top: 10px;
+        }
+        .christmas-container-{{ section.id }}    .sale-campaign-content li {
+          font-size: 14px;
+        }
+        .christmas-container-{{ section.id }}    .products-on-sale-wrap,
+        .christmas-container-{{ section.id }}    .versatile-applications-wrap {
+          padding: 40px 13px;
+        }
+        .christmas-container-{{ section.id }}    .products-on-sale-title,
+        .christmas-container-{{ section.id }}    .versatile-applications-title {
+          padding: 0 13px;
+          box-sizing: border-box;
+          font-size: 30px;
+          line-height: 1;
+          gap: 7px;
+          text-align: center;
+          margin-bottom: 34px;
+        }
+        .christmas-container-{{ section.id }}    .versatile-applications-title {
+          margin-bottom: 24px;
+          padding: 0 28px;
+          gap: 0;
+        }
+        .christmas-container-{{ section.id }}    .versatile-applications-subtitle {
+          font-size: 14px;
+          margin-bottom: 34px;
+          width: 100%;
+          text-align: center;
+        }
+        .christmas-container-{{ section.id }}    .products-on-sale-title .gift-box-icon {
+          width: 35px;
+          height: 40px;
+        }
+        .christmas-container-{{ section.id }}    .products-on-sale-title .christmas-tree-icon {
+          height: 40px;
+          width: 30px;
+        }
+     .christmas-container-{{ section.id }}    .products-on-sale-title    .products-on-sale-title-content{
+          width:75%
+  }
+        .christmas-container-{{ section.id }}    .versatile-applications-title .christmas-balls-icon {
+          height: 40px;
+          width: 42px;
+        }
+        .christmas-container-{{ section.id }}    .versatile-applications-title .snowman-icon {
+          height: 40px;
+          width: 40px;
+        }
+        .christmas-container-{{ section.id }}    .lable svg {
+          width: 56px;
+          height: 73px;
+        }
+        .christmas-container-{{ section.id }}    .lable,.christmas-container-{{ section.id }} .lable-holder {
+          position: relative;
+          width: 56px;
+          height: 73px;
+        }
+        .christmas-container-{{ section.id }}    .products-on-sale-content {
+          flex-direction: column;
+          row-gap: 14px;
+          border-radius: 7px;
+          margin-bottom: 20px;
+        }
+        .christmas-container-{{ section.id }}    .lable-info {
+          font-size: 10px;
+        }
+        .christmas-container-{{ section.id }}  .product-container-left,
+        .christmas-container-{{ section.id }}  .product-container-right {
+          border-radius: 7px;
+          overflow: hidden;
+        }
+        .christmas-container-{{ section.id }}  .product-gift-img {
+          height: 200px;
+        }
+        .christmas-container-{{ section.id }}  .product-container-right .product-gift-text {
+          font-size: 12px;
+          padding: 16px 0;
+        }
+        .christmas-container-{{ section.id }}  .product-container-left .product-img {
+          padding: 0 45px;
+        }
+        .christmas-container-{{ section.id }}  .prodcut-title {
+          font-size: 18px;
+          margin-top: 18px;
+          margin-bottom: 10px;
+          line-height: 1.6;
+        }
+        .christmas-container-{{ section.id }}  .sale-price {
+          font-size: 28px;
+        }
+        .christmas-container-{{ section.id }}  .product-btn {
+          padding: 14px 0;
+        }
+      }
+</style>
+<div class="christmas-container-{{ section.id }}">
+  <div class="products-on-sale-wrap">
+    <div class="gift-box-container">
+      <div class="products-on-sale-title">
+        <span class="gift-box-icon"></span>
+        <span class="products-on-sale-title-content">{{ section.settings.title }}</span
+        ><span class="christmas-tree-icon"></span>
+      </div>
+      {% assign target_product = section.settings.product %}
+      {% assign first_variant_location = section.settings.first_variant_location | minus: 0 %}
+      <!-- Procolored V6 Panda UV Printer 6.7" A4 L800+CyIindrical Fixture -->
+      <div class="products-on-sale-content products-on-sale-content-1">
+        <div class="product-container-left">
+          {%- if target_product.variants[first_variant_location].compare_at_price != blank
+            and target_product.variants[first_variant_location].compare_at_price
+              > target_product.variants[first_variant_location].price
+          -%}
+            <div class="lable">
+              <svg
+                width="100%"
+                height="100%"
+                viewBox="0 0 63 81"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_2595_102)">
+                  <path
+                    d="M31.1105 80.6663C48.3005 80.6663 58.1646 74.9907 61.1505 71.8238C62.227 70.6826 62.5239 68.9793 61.8951 67.5279C59.1953 61.2926 53.2766 54.8906 53.2766 54.8906C53.3369 54.8627 53.3949 54.8347 53.4528 54.8067C55.822 53.6387 57.164 51.1799 55.9173 48.8062C53.5988 44.3935 45.8263 37.3674 45.8263 37.3674C48.7302 36.6496 48.9619 35.1689 48.6915 34.1543C47.3084 28.9617 35.7342 18.1701 32.1593 14.9326C31.5655 14.3949 30.6579 14.3949 30.0641 14.9326C26.4892 18.1713 14.9162 28.9617 13.5319 34.1543C13.2615 35.1689 13.4932 36.6496 16.3971 37.3674C16.3971 37.3674 8.62335 44.3947 6.30608 48.8062C5.05935 51.1799 6.40022 53.6387 8.77059 54.8067C8.82852 54.8347 8.88646 54.8627 8.9468 54.8906C8.9468 54.8906 3.02812 61.2926 0.328261 67.5279C-0.300539 68.9793 -0.003639 70.6814 1.07292 71.8238C4.05882 74.9919 13.9229 80.6663 31.1129 80.6663H31.1105Z"
+                    fill="#0C9125"
+                  />
+                  <path
+                    d="M31.1104 77.502C27.5452 77.502 16.6975 77.502 4.56809 70.2472C3.6617 69.7046 3.37205 68.4149 3.9224 67.3723C4.93741 65.4512 10.0982 58.0735 12.2706 54.9918C12.6604 54.4382 12.6001 53.6839 12.1258 53.2009L10.0909 51.1265C9.50677 50.5304 9.46815 49.6374 9.98712 48.6774C11.2604 46.3184 15.5546 41.9239 18.6901 38.7144C19.885 37.4917 21.1112 36.2361 21.6024 35.6521L18.3148 34.646C17.9431 34.5316 17.6558 34.2554 17.5267 33.8856C17.3987 33.5181 17.4494 33.1227 17.6679 32.8003C21.985 26.4324 27.3751 21.5136 29.492 19.6947C29.9578 19.2944 30.5517 19.0742 31.166 19.0742C31.7803 19.0742 32.3741 19.2944 32.84 19.6947C34.9569 21.5136 40.3469 26.4324 44.664 32.8003C44.8813 33.1215 44.9332 33.5169 44.8053 33.8856C44.6761 34.2554 44.3889 34.5328 44.0171 34.646L40.7295 35.6521C41.2207 36.2361 42.4482 37.4929 43.6418 38.7144C46.7773 41.9239 51.0715 46.3184 52.3448 48.6774C52.8626 49.6374 52.8252 50.5304 52.241 51.1265L50.2062 53.2009C49.7319 53.6851 49.6715 54.4382 50.0613 54.9918C52.2338 58.0748 57.3945 65.4512 58.4095 67.3723C58.9599 68.4149 58.6714 69.7058 57.7638 70.2472C45.6344 77.502 34.7058 77.502 31.1141 77.502H31.1104ZM31.1636 19.8018C30.7218 19.8018 30.2946 19.9599 29.9591 20.2483C28.3249 21.6523 22.6512 26.739 18.2641 33.2103C18.1772 33.3381 18.1579 33.495 18.2086 33.641C18.2605 33.7895 18.3751 33.9002 18.5236 33.9452L22.2445 35.084C22.376 35.1241 22.4738 35.2275 22.5076 35.3613C22.5933 35.702 22.4786 35.8735 19.2043 39.2254C16.2739 42.2244 11.8458 46.7564 10.622 49.0242C10.3673 49.4962 10.1573 50.1544 10.6051 50.6107L12.6399 52.685C13.3616 53.4211 13.4546 54.5684 12.8596 55.4115C10.6956 58.4823 5.55535 65.8284 4.55965 67.713C4.23499 68.3274 4.28688 69.2301 4.93499 69.617C16.8943 76.7696 27.5923 76.7696 31.108 76.7696C34.6238 76.7696 45.4292 76.7696 57.3885 69.617C58.0366 69.2289 58.0885 68.3261 57.7638 67.713C56.7693 65.8296 51.6279 58.4823 49.4639 55.4115C48.8689 54.5672 48.9619 53.4211 49.6836 52.685L51.7184 50.6107C52.1662 50.1544 51.9562 49.4962 51.7015 49.0242C50.4777 46.7564 46.0496 42.2244 43.1192 39.2254C39.8449 35.8748 39.7302 35.702 39.8159 35.3613C39.8497 35.2275 39.9486 35.1241 40.079 35.084L43.7999 33.9452C43.9483 33.9002 44.0642 33.7882 44.1149 33.641C44.1656 33.495 44.1463 33.3381 44.0594 33.2103C39.6723 26.739 33.9986 21.6523 32.3644 20.2483C32.0301 19.9599 31.6017 19.8018 31.1599 19.8018H31.1636Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M38.6125 10.2307C39.2618 9.61507 38.9082 8.51523 38.0235 8.40208L34.4293 7.94341C34.0721 7.89718 33.7619 7.67089 33.6086 7.34239L32.5948 5.17313C32.4814 6.94334 32.2617 8.21594 31.8646 8.87171C32.7288 9.18317 33.3479 10.0141 33.3479 10.9923C33.3479 12.2369 32.3462 13.2467 31.1115 13.2467C29.8769 13.2467 28.8751 12.2369 28.8751 10.9923C28.8751 10.0153 29.4931 9.1856 30.356 8.87292C30.5588 8.79993 30.776 8.75491 31.0005 8.74396C31.0379 8.74274 31.0717 8.73909 31.1091 8.73909C31.1465 8.73909 31.1815 8.74153 31.2177 8.74396C31.3988 8.60161 31.7536 8.03953 31.9552 5.82281C32.0071 5.25343 32.0421 4.64633 32.0662 4.04287L32.0638 4.03922C31.6836 3.22651 30.537 3.22651 30.1569 4.03922L30.1545 4.04409L29.627 5.17435L29.557 5.32278L28.6132 7.34239C28.46 7.67089 28.1498 7.8984 27.7925 7.94341L24.1984 8.40208C23.3137 8.51523 22.9589 9.61507 23.6094 10.2307L26.2489 12.7309C26.512 12.9803 26.6303 13.3465 26.5627 13.7042L25.8856 17.2908C25.7191 18.1741 26.6472 18.853 27.428 18.4211L30.6034 16.6631C30.9196 16.4879 31.3022 16.4879 31.6184 16.6631L34.7938 18.4211C35.5747 18.8542 36.5028 18.1741 36.3362 17.2908L35.6592 13.7042C35.5916 13.3477 35.7099 12.9803 35.973 12.7309L38.6125 10.2307Z"
+                    fill="#FFD20A"
+                  />
+                  <path
+                    d="M28.6942 4.84395C28.5952 3.25502 28.5952 1.77681 28.5952 0.666016H30.1473C30.1473 1.55416 30.1473 2.57249 30.1968 3.82562L30.2016 3.94485L28.8306 6.87938L28.6942 4.84395Z"
+                    fill="#8B4A0E"
+                  />
+                  <path
+                    d="M31.2723 10.3565C30.9464 10.3565 30.4781 10.2276 30.1052 9.61438L29.824 9.15206C29.9893 9.03526 30.1583 8.94767 30.3345 8.88075C30.7304 8.72867 31.148 8.73962 31.148 8.73962C31.259 8.52428 31.4859 7.90744 31.6355 6.26498C31.6826 5.75278 31.7188 5.16271 31.7442 4.51059C31.7936 3.24894 31.7937 1.98728 31.7937 1.15267V0.666016H33.3457V1.15267C33.3457 3.08104 33.3107 4.52397 33.2359 5.69073C33.108 7.67385 32.8545 8.91968 32.4357 9.61195C32.064 10.2276 31.5969 10.3565 31.2711 10.3565H31.2723Z"
+                    fill="#8B4A0E"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_2595_102">
+                    <rect
+                      width="62.2222"
+                      height="80"
+                      fill="white"
+                      transform="translate(0 0.666016)"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
+              <div class="lable-info">
+                {% if section.settings.discount_label_type == 'percentage' %}
+                  <div class="lable-discount" style="color: #ffd20a">
+                    {{
+                      target_product.variants[first_variant_location].compare_at_price
+                      | minus: target_product.variants[first_variant_location].price
+                      | times: 100.0
+                      | divided_by: target_product.variants[first_variant_location].compare_at_price
+                      | round
+                    -}}
+                    %
+                  </div>
+                  <div class="lable-discount-lable" style="color: #fff">OFF</div>
+                {% elsif section.settings.discount_label_type == 'price' %}
+                  <div class="lable-discount" style="color: #ffd20a">
+                    -
+                    {{-
+                      target_product.variants[first_variant_location].compare_at_price
+                      | minus: target_product.variants[first_variant_location].price
+                      | money_without_trailing_zeros
+                    -}}
+                  </div>
+                  <div class="lable-discount-lable" style="color: #fff">OFF</div>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- else -%}
+            <div class="lable-holder"></div>
+          {%- endif -%}
+          <a
+            class="product-img"
+            href="{{target_product.url}}"
+          >
+            <div></div>
+          </a>
+          {% comment %} {{ target_product.variants[0] | json }} {% endcomment %}
+          <div class="prodcut-title">
+            {{ target_product.title -}}
+            {% if target_product.variants[first_variant_location].title contains '+' %}
+              {{- target_product.variants[first_variant_location].title }}
+            {%- else -%}
+              +
+              {{- target_product.variants[first_variant_location].title }}
+            {%- endif -%}
+          </div>
+          <div class="product-price">
+            <div class="sale-price">{{ target_product.variants[first_variant_location].price | money }}</div>
+            <div class="origin-price">
+              {{ target_product.variants[first_variant_location].compare_at_price | money }}
+            </div>
+          </div>
+          <product-card>
+            <button
+              class="product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+              data-product-id="{{ target_product.variants[first_variant_location].id}}"
+            >
+              {{ section.settings.button_text }}
+            </button>
+          </product-card>
+        </div>
+        <div class="product-container-right">
+          <div class="product-gift-img"></div>
+          <div class="product-gift-text">
+            {%- assign first_variant_right_text = section.settings.first_variant_right_text | split: ';' -%}
+            {% for word in first_variant_right_text -%}
+              <div class="product-gift-text-item">{{ word }}</div>
+            {%- endfor %}
+          </div>
+        </div>
+      </div>
+      <!-- Procolored V6 Panda UV Printer 6.7" A4 L800+Glof Fixture -->
+      {% assign second_variant_location = section.settings.second_variant_location | minus: 0 %}
+      <div class="products-on-sale-content products-on-sale-content-2">
+        <div class="product-container-left">
+          {%- if target_product.variants[second_variant_location].compare_at_price != blank
+            and target_product.variants[second_variant_location].compare_at_price
+              > target_product.variants[second_variant_location].price
+          -%}
+            <div class="lable">
+              <svg
+                width="100%"
+                height="100%"
+                viewBox="0 0 63 81"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_2595_102)">
+                  <path
+                    d="M31.1105 80.6663C48.3005 80.6663 58.1646 74.9907 61.1505 71.8238C62.227 70.6826 62.5239 68.9793 61.8951 67.5279C59.1953 61.2926 53.2766 54.8906 53.2766 54.8906C53.3369 54.8627 53.3949 54.8347 53.4528 54.8067C55.822 53.6387 57.164 51.1799 55.9173 48.8062C53.5988 44.3935 45.8263 37.3674 45.8263 37.3674C48.7302 36.6496 48.9619 35.1689 48.6915 34.1543C47.3084 28.9617 35.7342 18.1701 32.1593 14.9326C31.5655 14.3949 30.6579 14.3949 30.0641 14.9326C26.4892 18.1713 14.9162 28.9617 13.5319 34.1543C13.2615 35.1689 13.4932 36.6496 16.3971 37.3674C16.3971 37.3674 8.62335 44.3947 6.30608 48.8062C5.05935 51.1799 6.40022 53.6387 8.77059 54.8067C8.82852 54.8347 8.88646 54.8627 8.9468 54.8906C8.9468 54.8906 3.02812 61.2926 0.328261 67.5279C-0.300539 68.9793 -0.003639 70.6814 1.07292 71.8238C4.05882 74.9919 13.9229 80.6663 31.1129 80.6663H31.1105Z"
+                    fill="#0C9125"
+                  />
+                  <path
+                    d="M31.1104 77.502C27.5452 77.502 16.6975 77.502 4.56809 70.2472C3.6617 69.7046 3.37205 68.4149 3.9224 67.3723C4.93741 65.4512 10.0982 58.0735 12.2706 54.9918C12.6604 54.4382 12.6001 53.6839 12.1258 53.2009L10.0909 51.1265C9.50677 50.5304 9.46815 49.6374 9.98712 48.6774C11.2604 46.3184 15.5546 41.9239 18.6901 38.7144C19.885 37.4917 21.1112 36.2361 21.6024 35.6521L18.3148 34.646C17.9431 34.5316 17.6558 34.2554 17.5267 33.8856C17.3987 33.5181 17.4494 33.1227 17.6679 32.8003C21.985 26.4324 27.3751 21.5136 29.492 19.6947C29.9578 19.2944 30.5517 19.0742 31.166 19.0742C31.7803 19.0742 32.3741 19.2944 32.84 19.6947C34.9569 21.5136 40.3469 26.4324 44.664 32.8003C44.8813 33.1215 44.9332 33.5169 44.8053 33.8856C44.6761 34.2554 44.3889 34.5328 44.0171 34.646L40.7295 35.6521C41.2207 36.2361 42.4482 37.4929 43.6418 38.7144C46.7773 41.9239 51.0715 46.3184 52.3448 48.6774C52.8626 49.6374 52.8252 50.5304 52.241 51.1265L50.2062 53.2009C49.7319 53.6851 49.6715 54.4382 50.0613 54.9918C52.2338 58.0748 57.3945 65.4512 58.4095 67.3723C58.9599 68.4149 58.6714 69.7058 57.7638 70.2472C45.6344 77.502 34.7058 77.502 31.1141 77.502H31.1104ZM31.1636 19.8018C30.7218 19.8018 30.2946 19.9599 29.9591 20.2483C28.3249 21.6523 22.6512 26.739 18.2641 33.2103C18.1772 33.3381 18.1579 33.495 18.2086 33.641C18.2605 33.7895 18.3751 33.9002 18.5236 33.9452L22.2445 35.084C22.376 35.1241 22.4738 35.2275 22.5076 35.3613C22.5933 35.702 22.4786 35.8735 19.2043 39.2254C16.2739 42.2244 11.8458 46.7564 10.622 49.0242C10.3673 49.4962 10.1573 50.1544 10.6051 50.6107L12.6399 52.685C13.3616 53.4211 13.4546 54.5684 12.8596 55.4115C10.6956 58.4823 5.55535 65.8284 4.55965 67.713C4.23499 68.3274 4.28688 69.2301 4.93499 69.617C16.8943 76.7696 27.5923 76.7696 31.108 76.7696C34.6238 76.7696 45.4292 76.7696 57.3885 69.617C58.0366 69.2289 58.0885 68.3261 57.7638 67.713C56.7693 65.8296 51.6279 58.4823 49.4639 55.4115C48.8689 54.5672 48.9619 53.4211 49.6836 52.685L51.7184 50.6107C52.1662 50.1544 51.9562 49.4962 51.7015 49.0242C50.4777 46.7564 46.0496 42.2244 43.1192 39.2254C39.8449 35.8748 39.7302 35.702 39.8159 35.3613C39.8497 35.2275 39.9486 35.1241 40.079 35.084L43.7999 33.9452C43.9483 33.9002 44.0642 33.7882 44.1149 33.641C44.1656 33.495 44.1463 33.3381 44.0594 33.2103C39.6723 26.739 33.9986 21.6523 32.3644 20.2483C32.0301 19.9599 31.6017 19.8018 31.1599 19.8018H31.1636Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M38.6125 10.2307C39.2618 9.61507 38.9082 8.51523 38.0235 8.40208L34.4293 7.94341C34.0721 7.89718 33.7619 7.67089 33.6086 7.34239L32.5948 5.17313C32.4814 6.94334 32.2617 8.21594 31.8646 8.87171C32.7288 9.18317 33.3479 10.0141 33.3479 10.9923C33.3479 12.2369 32.3462 13.2467 31.1115 13.2467C29.8769 13.2467 28.8751 12.2369 28.8751 10.9923C28.8751 10.0153 29.4931 9.1856 30.356 8.87292C30.5588 8.79993 30.776 8.75491 31.0005 8.74396C31.0379 8.74274 31.0717 8.73909 31.1091 8.73909C31.1465 8.73909 31.1815 8.74153 31.2177 8.74396C31.3988 8.60161 31.7536 8.03953 31.9552 5.82281C32.0071 5.25343 32.0421 4.64633 32.0662 4.04287L32.0638 4.03922C31.6836 3.22651 30.537 3.22651 30.1569 4.03922L30.1545 4.04409L29.627 5.17435L29.557 5.32278L28.6132 7.34239C28.46 7.67089 28.1498 7.8984 27.7925 7.94341L24.1984 8.40208C23.3137 8.51523 22.9589 9.61507 23.6094 10.2307L26.2489 12.7309C26.512 12.9803 26.6303 13.3465 26.5627 13.7042L25.8856 17.2908C25.7191 18.1741 26.6472 18.853 27.428 18.4211L30.6034 16.6631C30.9196 16.4879 31.3022 16.4879 31.6184 16.6631L34.7938 18.4211C35.5747 18.8542 36.5028 18.1741 36.3362 17.2908L35.6592 13.7042C35.5916 13.3477 35.7099 12.9803 35.973 12.7309L38.6125 10.2307Z"
+                    fill="#FFD20A"
+                  />
+                  <path
+                    d="M28.6942 4.84395C28.5952 3.25502 28.5952 1.77681 28.5952 0.666016H30.1473C30.1473 1.55416 30.1473 2.57249 30.1968 3.82562L30.2016 3.94485L28.8306 6.87938L28.6942 4.84395Z"
+                    fill="#8B4A0E"
+                  />
+                  <path
+                    d="M31.2723 10.3565C30.9464 10.3565 30.4781 10.2276 30.1052 9.61438L29.824 9.15206C29.9893 9.03526 30.1583 8.94767 30.3345 8.88075C30.7304 8.72867 31.148 8.73962 31.148 8.73962C31.259 8.52428 31.4859 7.90744 31.6355 6.26498C31.6826 5.75278 31.7188 5.16271 31.7442 4.51059C31.7936 3.24894 31.7937 1.98728 31.7937 1.15267V0.666016H33.3457V1.15267C33.3457 3.08104 33.3107 4.52397 33.2359 5.69073C33.108 7.67385 32.8545 8.91968 32.4357 9.61195C32.064 10.2276 31.5969 10.3565 31.2711 10.3565H31.2723Z"
+                    fill="#8B4A0E"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_2595_102">
+                    <rect
+                      width="62.2222"
+                      height="80"
+                      fill="white"
+                      transform="translate(0 0.666016)"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
+              <div class="lable-info">
+                {% if section.settings.discount_label_type == 'percentage' %}
+                  <div class="lable-discount" style="color: #ffd20a">
+                    {{
+                      target_product.variants[second_variant_location].compare_at_price
+                      | minus: target_product.variants[second_variant_location].price
+                      | times: 100.0
+                      | divided_by: target_product.variants[second_variant_location].compare_at_price
+                      | round
+                    -}}
+                    %
+                  </div>
+                  <div class="lable-discount-lable" style="color: #fff">OFF</div>
+                {% elsif section.settings.discount_label_type == 'price' %}
+                  <div class="lable-discount" style="color: #ffd20a">
+                    -
+                    {{-
+                      target_product.variants[second_variant_location].compare_at_price
+                      | minus: target_product.variants[second_variant_location].price
+                      | money_without_trailing_zeros
+                    -}}
+                  </div>
+                  <div class="lable-discount-lable" style="color: #fff">OFF</div>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- else -%}
+            <div class="lable-holder"></div>
+          {%- endif -%}
+          <a
+            class="product-img"
+            href="{{target_product.url}}"
+          >
+            <div></div>
+          </a>
+          <div class="prodcut-title">
+            {{ target_product.title -}}
+            {% if target_product.variants[second_variant_location].title contains '+' %}
+              {{- target_product.variants[second_variant_location].title }}
+            {%- else -%}
+              +
+              {{- target_product.variants[second_variant_location].title }}
+            {%- endif -%}
+          </div>
+          <div class="product-price">
+            <div class="sale-price">{{ target_product.variants[second_variant_location].price | money }}</div>
+            <div class="origin-price">
+              {{ target_product.variants[second_variant_location].compare_at_price | money }}
+            </div>
+          </div>
+          <product-card>
+            <button
+              class="product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+              data-product-id="{{ target_product.variants[second_variant_location].id}}"
+            >
+              {{ section.settings.button_text }}
+            </button>
+          </product-card>
+        </div>
+        <div class="product-container-right">
+          <div class="product-gift-img"></div>
+          <div class="product-gift-text">
+            {%- assign second_variant_right_text = section.settings.second_variant_right_text | split: ';' -%}
+            {% for word in second_variant_right_text -%}
+              <div class="product-gift-text-item">{{ word }}</div>
+            {%- endfor %}
+          </div>
+        </div>
+      </div>
+      <!-- Procolored V6 Panda UV Printer 6.7" A4 L800+Pen Fixture -->
+
+        {% assign third_variant_location = section.settings.third_variant_location | minus: 0 %}
+        <div class="products-on-sale-content products-on-sale-content-3">
+          <div class="product-container-left">
+            {%- if target_product.variants[third_variant_location].compare_at_price != blank
+              and target_product.variants[third_variant_location].compare_at_price
+                > target_product.variants[third_variant_location].price
+            -%}
+              <div class="lable">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 63 81"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0_2595_102)">
+                    <path
+                      d="M31.1105 80.6663C48.3005 80.6663 58.1646 74.9907 61.1505 71.8238C62.227 70.6826 62.5239 68.9793 61.8951 67.5279C59.1953 61.2926 53.2766 54.8906 53.2766 54.8906C53.3369 54.8627 53.3949 54.8347 53.4528 54.8067C55.822 53.6387 57.164 51.1799 55.9173 48.8062C53.5988 44.3935 45.8263 37.3674 45.8263 37.3674C48.7302 36.6496 48.9619 35.1689 48.6915 34.1543C47.3084 28.9617 35.7342 18.1701 32.1593 14.9326C31.5655 14.3949 30.6579 14.3949 30.0641 14.9326C26.4892 18.1713 14.9162 28.9617 13.5319 34.1543C13.2615 35.1689 13.4932 36.6496 16.3971 37.3674C16.3971 37.3674 8.62335 44.3947 6.30608 48.8062C5.05935 51.1799 6.40022 53.6387 8.77059 54.8067C8.82852 54.8347 8.88646 54.8627 8.9468 54.8906C8.9468 54.8906 3.02812 61.2926 0.328261 67.5279C-0.300539 68.9793 -0.003639 70.6814 1.07292 71.8238C4.05882 74.9919 13.9229 80.6663 31.1129 80.6663H31.1105Z"
+                      fill="#0C9125"
+                    />
+                    <path
+                      d="M31.1104 77.502C27.5452 77.502 16.6975 77.502 4.56809 70.2472C3.6617 69.7046 3.37205 68.4149 3.9224 67.3723C4.93741 65.4512 10.0982 58.0735 12.2706 54.9918C12.6604 54.4382 12.6001 53.6839 12.1258 53.2009L10.0909 51.1265C9.50677 50.5304 9.46815 49.6374 9.98712 48.6774C11.2604 46.3184 15.5546 41.9239 18.6901 38.7144C19.885 37.4917 21.1112 36.2361 21.6024 35.6521L18.3148 34.646C17.9431 34.5316 17.6558 34.2554 17.5267 33.8856C17.3987 33.5181 17.4494 33.1227 17.6679 32.8003C21.985 26.4324 27.3751 21.5136 29.492 19.6947C29.9578 19.2944 30.5517 19.0742 31.166 19.0742C31.7803 19.0742 32.3741 19.2944 32.84 19.6947C34.9569 21.5136 40.3469 26.4324 44.664 32.8003C44.8813 33.1215 44.9332 33.5169 44.8053 33.8856C44.6761 34.2554 44.3889 34.5328 44.0171 34.646L40.7295 35.6521C41.2207 36.2361 42.4482 37.4929 43.6418 38.7144C46.7773 41.9239 51.0715 46.3184 52.3448 48.6774C52.8626 49.6374 52.8252 50.5304 52.241 51.1265L50.2062 53.2009C49.7319 53.6851 49.6715 54.4382 50.0613 54.9918C52.2338 58.0748 57.3945 65.4512 58.4095 67.3723C58.9599 68.4149 58.6714 69.7058 57.7638 70.2472C45.6344 77.502 34.7058 77.502 31.1141 77.502H31.1104ZM31.1636 19.8018C30.7218 19.8018 30.2946 19.9599 29.9591 20.2483C28.3249 21.6523 22.6512 26.739 18.2641 33.2103C18.1772 33.3381 18.1579 33.495 18.2086 33.641C18.2605 33.7895 18.3751 33.9002 18.5236 33.9452L22.2445 35.084C22.376 35.1241 22.4738 35.2275 22.5076 35.3613C22.5933 35.702 22.4786 35.8735 19.2043 39.2254C16.2739 42.2244 11.8458 46.7564 10.622 49.0242C10.3673 49.4962 10.1573 50.1544 10.6051 50.6107L12.6399 52.685C13.3616 53.4211 13.4546 54.5684 12.8596 55.4115C10.6956 58.4823 5.55535 65.8284 4.55965 67.713C4.23499 68.3274 4.28688 69.2301 4.93499 69.617C16.8943 76.7696 27.5923 76.7696 31.108 76.7696C34.6238 76.7696 45.4292 76.7696 57.3885 69.617C58.0366 69.2289 58.0885 68.3261 57.7638 67.713C56.7693 65.8296 51.6279 58.4823 49.4639 55.4115C48.8689 54.5672 48.9619 53.4211 49.6836 52.685L51.7184 50.6107C52.1662 50.1544 51.9562 49.4962 51.7015 49.0242C50.4777 46.7564 46.0496 42.2244 43.1192 39.2254C39.8449 35.8748 39.7302 35.702 39.8159 35.3613C39.8497 35.2275 39.9486 35.1241 40.079 35.084L43.7999 33.9452C43.9483 33.9002 44.0642 33.7882 44.1149 33.641C44.1656 33.495 44.1463 33.3381 44.0594 33.2103C39.6723 26.739 33.9986 21.6523 32.3644 20.2483C32.0301 19.9599 31.6017 19.8018 31.1599 19.8018H31.1636Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M38.6125 10.2307C39.2618 9.61507 38.9082 8.51523 38.0235 8.40208L34.4293 7.94341C34.0721 7.89718 33.7619 7.67089 33.6086 7.34239L32.5948 5.17313C32.4814 6.94334 32.2617 8.21594 31.8646 8.87171C32.7288 9.18317 33.3479 10.0141 33.3479 10.9923C33.3479 12.2369 32.3462 13.2467 31.1115 13.2467C29.8769 13.2467 28.8751 12.2369 28.8751 10.9923C28.8751 10.0153 29.4931 9.1856 30.356 8.87292C30.5588 8.79993 30.776 8.75491 31.0005 8.74396C31.0379 8.74274 31.0717 8.73909 31.1091 8.73909C31.1465 8.73909 31.1815 8.74153 31.2177 8.74396C31.3988 8.60161 31.7536 8.03953 31.9552 5.82281C32.0071 5.25343 32.0421 4.64633 32.0662 4.04287L32.0638 4.03922C31.6836 3.22651 30.537 3.22651 30.1569 4.03922L30.1545 4.04409L29.627 5.17435L29.557 5.32278L28.6132 7.34239C28.46 7.67089 28.1498 7.8984 27.7925 7.94341L24.1984 8.40208C23.3137 8.51523 22.9589 9.61507 23.6094 10.2307L26.2489 12.7309C26.512 12.9803 26.6303 13.3465 26.5627 13.7042L25.8856 17.2908C25.7191 18.1741 26.6472 18.853 27.428 18.4211L30.6034 16.6631C30.9196 16.4879 31.3022 16.4879 31.6184 16.6631L34.7938 18.4211C35.5747 18.8542 36.5028 18.1741 36.3362 17.2908L35.6592 13.7042C35.5916 13.3477 35.7099 12.9803 35.973 12.7309L38.6125 10.2307Z"
+                      fill="#FFD20A"
+                    />
+                    <path
+                      d="M28.6942 4.84395C28.5952 3.25502 28.5952 1.77681 28.5952 0.666016H30.1473C30.1473 1.55416 30.1473 2.57249 30.1968 3.82562L30.2016 3.94485L28.8306 6.87938L28.6942 4.84395Z"
+                      fill="#8B4A0E"
+                    />
+                    <path
+                      d="M31.2723 10.3565C30.9464 10.3565 30.4781 10.2276 30.1052 9.61438L29.824 9.15206C29.9893 9.03526 30.1583 8.94767 30.3345 8.88075C30.7304 8.72867 31.148 8.73962 31.148 8.73962C31.259 8.52428 31.4859 7.90744 31.6355 6.26498C31.6826 5.75278 31.7188 5.16271 31.7442 4.51059C31.7936 3.24894 31.7937 1.98728 31.7937 1.15267V0.666016H33.3457V1.15267C33.3457 3.08104 33.3107 4.52397 33.2359 5.69073C33.108 7.67385 32.8545 8.91968 32.4357 9.61195C32.064 10.2276 31.5969 10.3565 31.2711 10.3565H31.2723Z"
+                      fill="#8B4A0E"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_2595_102">
+                      <rect
+                        width="62.2222"
+                        height="80"
+                        fill="white"
+                        transform="translate(0 0.666016)"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+                <div class="lable-info">
+                  {% if section.settings.discount_label_type == 'percentage' %}
+                    <div class="lable-discount" style="color: #ffd20a">
+                      {{
+                        target_product.variants[third_variant_location].compare_at_price
+                        | minus: target_product.variants[third_variant_location].price
+                        | times: 100.0
+                        | divided_by: target_product.variants[third_variant_location].compare_at_price
+                        | round
+                      -}}
+                      %
+                    </div>
+                    <div class="lable-discount-lable" style="color: #fff">OFF</div>
+                  {% elsif section.settings.discount_label_type == 'price' %}
+                    <div class="lable-discount" style="color: #ffd20a">
+                      -
+                      {{-
+                        target_product.variants[third_variant_location].compare_at_price
+                        | minus: target_product.variants[third_variant_location].price
+                        | money_without_trailing_zeros
+                      -}}
+                    </div>
+                    <div class="lable-discount-lable" style="color: #fff">OFF</div>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- else -%}
+              <div class="lable-holder"></div>
+            {%- endif -%}
+            <a
+              class="product-img"
+              href="{{target_product.url}}"
+            >
+              <div></div>
+            </a>
+            <div class="prodcut-title">
+              {{ target_product.title -}}
+              {% if target_product.variants[third_variant_location].title contains '+' %}
+                {{- target_product.variants[third_variant_location].title }}
+              {%- else -%}
+                +
+                {{- target_product.variants[third_variant_location].title }}
+              {%- endif -%}
+            </div>
+            <div class="product-price">
+              <div class="sale-price">{{ target_product.variants[third_variant_location].price | money }}</div>
+              <div class="origin-price">
+                {{ target_product.variants[third_variant_location].compare_at_price | money }}
+              </div>
+            </div>
+            <product-card>
+              <button
+                class="product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                data-product-id="{{ target_product.variants[third_variant_location].id}}"
+              >
+                {{ section.settings.button_text }}
+              </button>
+            </product-card>
+          </div>
+          <div class="product-container-right">
+            <div class="product-gift-img"></div>
+            <div class="product-gift-text">
+              {%- assign third_variant_right_text = section.settings.third_variant_right_text | split: ';' -%}
+              {% for word in third_variant_right_text -%}
+                <div class="product-gift-text-item">{{ word }}</div>
+              {%- endfor %}
+            </div>
+          </div>
+        </div>
+
+    </div>
+  </div>
+  <!-- Versatile Applications  多种应用 -->
+
+    <div class="versatile-applications-wrap">
+      <div class="versatile-applications-container">
+        <div class="versatile-applications-title">
+          <span class="christmas-balls-icon"></span>
+          <span>Versatile Applications</span><span class="snowman-icon"></span>
+        </div>
+        <div class="versatile-applications-subtitle">
+          Enjoy a pleasant printing experience with the Procolored V6 UV printer and bring your most imaginative ideas to
+          life
+        </div>
+        <!-- PC端显示 -->
+        <div class="versatile-applications-swiper-container desktopShow">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="versatile-applications-contaner-item">
+                <img
+                  class="swiper-lazy"
+                  src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Acrylic_Frame.png?v=1731921914"
+                  alt=""
+                >
+                <div class="lable">Acrylic Frame</div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="versatile-applications-contaner-item">
+                <img
+                  class="swiper-lazy"
+                  src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Bottle_Cap.png?v=1731921913"
+                  alt=""
+                >
+                <div class="lable">Bottle Cap</div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="versatile-applications-contaner-item">
+                <img
+                  class="swiper-lazy"
+                  src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Canvas_Frame.png?v=1731921913"
+                  alt=""
+                >
+                <div class="lable">Canvas Frame</div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="versatile-applications-contaner-item">
+                <img
+                  class="swiper-lazy"
+                  src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Card.png?v=1731921913"
+                  alt=""
+                >
+                <div class="lable">Card</div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="versatile-applications-contaner-item">
+                <img
+                  class="swiper-lazy"
+                  src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Dog_Tag.png?v=1731921913"
+                  alt=""
+                >
+                <div class="lable">Dog Tag</div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="versatile-applications-contaner-item">
+                <img
+                  class="swiper-lazy"
+                  src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Phone_Case.png?v=1731921913"
+                  alt=""
+                >
+                <div class="lable">Phone Case</div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="versatile-applications-contaner-item">
+                <img
+                  class="swiper-lazy"
+                  src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Plastic_Board.png?v=1731921913"
+                  alt=""
+                >
+                <div class="lable">Plastic Board</div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="versatile-applications-contaner-item">
+                <img
+                  class="swiper-lazy"
+                  src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Sign.png?v=1731921913"
+                  alt=""
+                >
+                <div class="lable">Sign</div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="versatile-applications-contaner-item">
+                <img
+                  class="swiper-lazy"
+                  src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Wood_Board.png?v=1731921913"
+                  alt=""
+                >
+                <div class="lable">Wood Board</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mobileShow">
+          <div class="versatile-applications-swiper-container-mb-1">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="versatile-applications-contaner-item">
+                  <img
+                    class="swiper-lazy"
+                    src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Acrylic_Frame.png?v=1731921914"
+                    alt=""
+                  >
+                  <div class="lable">Acrylic Frame</div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="versatile-applications-contaner-item">
+                  <img
+                    class="swiper-lazy"
+                    src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Bottle_Cap.png?v=1731921913"
+                    alt=""
+                  >
+                  <div class="lable">Bottle Cap</div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="versatile-applications-contaner-item">
+                  <img
+                    class="swiper-lazy"
+                    src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Canvas_Frame.png?v=1731921913"
+                    alt=""
+                  >
+                  <div class="lable">Canvas Frame</div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="versatile-applications-contaner-item">
+                  <img
+                    class="swiper-lazy"
+                    src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Card.png?v=1731921913"
+                    alt=""
+                  >
+                  <div class="lable">Card</div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="versatile-applications-contaner-item">
+                  <img
+                    class="swiper-lazy"
+                    src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Dog_Tag.png?v=1731921913"
+                    alt=""
+                  >
+                  <div class="lable">Dog Tag</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="versatile-applications-swiper-container-mb-2">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="versatile-applications-contaner-item">
+                  <img
+                    class="swiper-lazy"
+                    src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Phone_Case.png?v=1731921913"
+                    alt=""
+                  >
+                  <div class="lable">Phone Case</div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="versatile-applications-contaner-item">
+                  <img
+                    class="swiper-lazy"
+                    src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Plastic_Board.png?v=1731921913"
+                    alt=""
+                  >
+                  <div class="lable">Plastic Board</div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="versatile-applications-contaner-item">
+                  <img
+                    class="swiper-lazy"
+                    src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Sign.png?v=1731921913"
+                    alt=""
+                  >
+                  <div class="lable">Sign</div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="versatile-applications-contaner-item">
+                  <img
+                    class="swiper-lazy"
+                    src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/pc_Wood_Board.png?v=1731921913"
+                    alt=""
+                  >
+                  <div class="lable">Wood Board</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Sale Campaign T&C 促销活动条款与条件 -->
+
+  <div class="sale-campaign-wrap">
+    <div class="sale-campaign-container">
+      <div class="sale-campaign-title">Sale Campaign T&C</div>
+      <div class="sale-campaign-content">
+        <div class="title">Procolored V6 UV Printer Christmas Sale</div>
+        <div class="item-title">1. Event Date</div>
+        <ul>
+          <li>December 1st to 31st, 2024 (Eastern Time, UTC/GMT -5.00)</li>
+        </ul>
+        <div class="item-title">2. Discover Procolored V6 UV Printer</div>
+        <ul>
+          <li>
+            Step into a world where imagination meets innovation with the Procolored V6 - a compact UV printer which
+            ultilizes UV-curable inks to print colorful graphics on both solid and soft substrates. It meets your
+            various customization needs, including pins, purse, phone case, tumblers, keychains, and canvas frames.
+          </li>
+        </ul>
+        <div class="item-title">3. Limited Gift Promotion</div>
+        <ul>
+          <li>
+            During the Christmas Sale Event, customers who purchase a V6 printer will get a cylindrical fixture and a
+            pair of UV protection glasses for free, ensuring both safety and versatility in your printing adventures.
+          </li>
+        </ul>
+        <div class="item-title">4.Special Offers</div>
+        <ul>
+          <li>Procolored V6: $2799 (Regular price: $3599)</li>
+          <li>Procolored V6 + Phone Case Fixture: $2899 (Regular price: $3678)</li>
+          <li>
+            Procolored V6 + Cylindrical Fixture: $2999 (Regular price: $3798), plus enjoy an extra $200 auto-discount
+            for the Cylindrical Fixture
+          </li>
+          <li>Procolored V6 + Golf Fixture: $2999 (Regular price: $3678)</li>
+          <li>
+            Procolored V6 + 4 Fixtures: $3399 (Regular price: $4255), plus enjoy an extra $200 auto-discount for the
+            Cylindrical Fixture
+          </li>
+        </ul>
+        <ul style="margin-bottom: 0;">
+          <li>
+            Upgrade your printing capabilities today with the Procolored V6 Printer. Take advantage of these special
+            offers and secure your discounts now!
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const externalButtons = document.querySelectorAll('.external-add-to-cart-button');
+
+        externalButtons.forEach((button) => {
+            button.addEventListener('click', (event) => {
+                {% comment %} const productId = event.currentTarget.dataset.productId;
+                const sellingPlanId = "{{event.currentTarget.dataset.sellingPlanId}}"; {% endcomment %}
+                if (button.disabled) {
+                    return;
+                }
+                // 调用静态方法 quickAddStatic
+                ProductCard.quickAddStatic();
+            });
+        });
+    });
+const mySwiper1 = new Swiper('.versatile-applications-swiper-container', {
+    loop: true,
+    slidesPerView: 6,
+    slidesOffsetBefore: -150,
+    initialSlide: 2, // 初始化时显示第三个滑块
+
+    spaceBetween: 20,
+    freeMode: true,
+    loopedSlides: 10,
+    speed: 5000, //匀速时间5秒
+    autoplay: {
+      delay: 0, // 每隔多少时间，自动播放
+      disableOnInteraction: false,
+    },
+
+    breakpoints: {
+      1024: {
+        slidesPerView: 5,
+        spaceBetween: 0,
+      },
+      //当宽度小于等于768时显示
+      768: {
+        slidesOffsetBefore: -90,
+        slidesPerView: 2,
+        spaceBetween: 14,
+      },
+    },
+  }); 
+  //  鼠标悬停
+ mySwiper1.el.onmouseover = function () {
+    mySwiper1.autoplay.stop();
+  };
+  mySwiper1.el.onmouseout = function () {
+    mySwiper1.autoplay.start();
+  }; 
+ const mySwiper2 = new Swiper('.versatile-applications-swiper-container-mb-1', {
+    loop: true,
+    slidesPerView: 1.8,
+    slidesOffsetBefore: -120,
+    initialSlide: 2, // 初始化时显示第三个滑块
+    loopedSlides: 10,
+    spaceBetween: 14,
+    freeMode: true,
+    speed: 5000, //匀速时间5秒
+    autoplay: {
+      delay: 0, // 每隔多少时间，自动播放
+      disableOnInteraction: false,
+    },
+  }); 
+ const mySwiper3 = new Swiper('.versatile-applications-swiper-container-mb-2', {
+    loop: true,
+    slidesPerView: 1.8,
+    slidesOffsetBefore: -20,
+    initialSlide: 1, // 初始化时显示第三个滑块
+    loopedSlides: 10,
+    spaceBetween: 14,
+    freeMode: true,
+    speed: 5000, //匀速时间5秒
+    autoplay: {
+      delay: 0, // 每隔多少时间，自动播放
+      disableOnInteraction: false,
+    },
+  }); 
+</script>
+{% schema %}
+{
+  "name": "christmas-content",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "产品"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "标题",
+      "default": "Save up to $856 in December"
+    },
+    {
+      "type": "image_picker",
+      "id": "first_variant_image_pc",
+      "label": "第一个产品变体主图"
+    },
+    {
+      "type": "image_picker",
+      "id": "second_variant_image_pc",
+      "label": "第二个产品变体主图"
+    },
+    {
+      "type": "image_picker",
+      "id": "third_variant_image_pc",
+      "label": "第三个产品变体主图"
+    },
+    {
+      "type": "image_picker",
+      "id": "first_variant_right_image_pc",
+      "label": "第一个产品变体右侧图"
+    },
+    {
+      "type": "image_picker",
+      "id": "second_variant_right_image_pc",
+      "label": "第二个产品变体右侧图"
+    },
+    {
+      "type": "image_picker",
+      "id": "third_variant_right_image_pc",
+      "label": "第三个产品变体右侧图"
+    },
+    {
+      "type": "html",
+      "id": "first_variant_right_text",
+      "label": "第一个产品变体右侧文字",
+      "default": "Tumbler;Glass Cup;Perfume",
+      "info": "多个参数使用&符号连接"
+    },
+    {
+      "type": "html",
+      "id": "second_variant_right_text",
+      "label": "第二个产品变体右侧文字",
+      "default": "Ping-pong Ball;Airpods Case;Pin",
+      "info": "多个参数使用&符号连接"
+    },
+    {
+      "type": "html",
+      "id": "third_variant_right_text",
+      "label": "第三个产品变体右侧文字",
+      "default": "Pen;USB Drive;Keychains",
+      "info": "多个参数使用&符号连接"
+    },
+    {
+      "type": "radio",
+      "id": "first_variant_location",
+      "label": "第一个产品图相关变体",
+      "options": [
+        {
+          "value": "0",
+          "label": "第一个变体"
+        },
+        {
+          "value": "1",
+          "label": "第二个变体"
+        },
+        {
+          "value": "2",
+          "label": "第三个变体"
+        },
+        {
+          "value": "3",
+          "label": "第四个变体"
+        },
+        {
+          "value": "4",
+          "label": "第五个变体"
+        }
+      ],
+      "default": "3",
+      "info": "查看对应产品后台，选择对应的变体所在位置，从上到下依次排序"
+    },
+    {
+      "type": "radio",
+      "id": "second_variant_location",
+      "label": "第二个产品图相关变体",
+      "options": [
+        {
+          "value": "0",
+          "label": "第一个变体"
+        },
+        {
+          "value": "1",
+          "label": "第二个变体"
+        },
+        {
+          "value": "2",
+          "label": "第三个变体"
+        },
+        {
+          "value": "3",
+          "label": "第四个变体"
+        },
+        {
+          "value": "4",
+          "label": "第五个变体"
+        }
+      ],
+      "default": "4",
+      "info": "查看对应产品后台，选择对应的变体所在位置，从上到下依次排序"
+    },
+    {
+      "type": "radio",
+      "id": "third_variant_location",
+      "label": "第三个产品图相关变体",
+      "options": [
+        {
+          "value": "0",
+          "label": "第一个变体"
+        },
+        {
+          "value": "1",
+          "label": "第二个变体"
+        },
+        {
+          "value": "2",
+          "label": "第三个变体"
+        },
+        {
+          "value": "3",
+          "label": "第四个变体"
+        },
+        {
+          "value": "4",
+          "label": "第五个变体"
+        }
+      ],
+      "default": "2",
+      "info": "查看对应产品后台，选择对应的变体所在位置，从上到下依次排序"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "按钮文本",
+      "default": "Add To Cart"
+    },
+    {
+      "type": "radio",
+      "id": "discount_label_type",
+      "label": "折扣标签显示类型",
+      "options": [
+        {
+          "value": "percentage",
+          "label": "百分比"
+        },
+        {
+          "value": "price",
+          "label": "价格"
+        }
+      ],
+      "default": "price"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "christmas-content"
+    }
+  ]
+}
+{% endschema %}

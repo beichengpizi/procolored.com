@@ -1,0 +1,756 @@
+<style>
+      .rent-products-{{ section.id }} {
+        /* background: #fff; */
+        padding-bottom: 60px;
+      }
+
+      .rent-products-{{ section.id }} .main-card {
+        max-width: 1200px;
+        margin: 0 auto 0 auto;
+        background: #fff;
+        border-radius: 20px;
+        padding: 40px 40px 27px 40px;
+        display: flex;
+        row-gap: 15px;
+        flex-direction: column;
+      }
+
+      .rent-products-{{ section.id }} .main-card-header {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+      }
+
+      .rent-products-{{ section.id }} .rent-title {
+        color: #ff8f1c;
+        flex: 1;
+        font-family: Mulish;
+        font-size: 40px;
+        font-weight: 800;
+        line-height: 1.2;
+      }
+
+      .rent-products-{{ section.id }} .rent-title.pc {
+        display: block;
+      }
+
+      .rent-products-{{ section.id }} .rent-title.mb {
+        display: none;
+      }
+
+      .rent-products-{{ section.id }} .lease-tip {
+        color: #000;
+        font-family: Mulish;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.38;
+        text-align: left;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .rent-products-{{ section.id }} .lease-tip .sub {
+        color: #000;
+        font-size: 14px;
+        line-height: 1.2;
+        font-weight: 400;
+      }
+
+      .rent-products-{{ section.id }} .main-card-content {
+        display: flex;
+        gap: 40px;
+      }
+
+      .rent-products-{{ section.id }} .img-area {
+        min-height: 320px;
+        width: 50%;
+      }
+
+      .rent-products-{{ section.id }} .img-area img {
+        max-width: 100%;
+        object-fit: contain;
+        width: 100%;
+      }
+
+      .rent-products-{{ section.id }} .info-area {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+
+      .rent-products-{{ section.id }} .deposit {
+        margin-bottom: 4px;
+        color: #000;
+        font-family: Mulish;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.38;
+      }
+
+      .rent-products-{{ section.id }} .period {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        color: #000;
+        font-family: Mulish;
+        font-size: 18px;
+        flex-wrap: wrap;
+        font-weight: 400;
+        line-height: 1.38;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .rent-products-{{ section.id }} .free-tag {
+        color: #ff8f1c;
+        border-radius: 5px;
+        padding: 2px 10px;
+        border: 1px solid #ff8f1c;
+        font-family: Mulish;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.25;
+      }
+
+      .rent-products-{{ section.id }} .desc-area {
+        color: #000;
+        font-family: Mulish;
+        font-size: 14px;
+        font-weight: 400;
+        padding: 18px 0;
+      }
+
+      .rent-products-{{ section.id }} .desc-title {
+        margin-bottom: 8px;
+        color: #000;
+        text-decoration: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: Mulish;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.38;
+      }
+
+      .rent-products-{{ section.id }} .desc-list {
+        margin: 0;
+        padding: 20px 17px;
+        list-style: none;
+        border-radius: 10px;
+        background: #fffbf7;
+      }
+
+      .rent-products-{{ section.id }} .desc-list li {
+        display: flex;
+        gap: 4px;
+        flex-direction: column;
+      }
+
+      .rent-products-{{ section.id }} .desc-list li:first-child {
+        margin-bottom: 14px;
+      }
+
+      .rent-products-{{ section.id }} .desc-list li div {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #6d6d6d;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.77;
+      }
+
+      .rent-products-{{ section.id }} .desc-list li div:first-child {
+        color: #000;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.4;
+      }
+
+      .rent-products-{{ section.id }} .desc-list svg {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+      }
+
+      .rent-products-{{ section.id }} .add-cart-btn {
+        background: #ff8f1c;
+        color: #fff;
+        border: none;
+        border-radius: 99px;
+        font-family: Mulish;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1;
+        padding: 10px 24px;
+        cursor: pointer;
+        display: inline-flex;
+        min-height: 40px;
+        justify-content: center;
+        align-items: center;
+        width: max-content;
+        height: auto;
+    margin: 0;
+      }
+      #hidden-content-{{ section.id }}  {
+        max-width: 560px;
+    padding: 30px 20px;
+    border-radius: 10px;
+
+      }
+     .fancybox-slide--html .fancybox-close-small{
+        padding: 0;
+    width: 22px;
+    height: 22px;
+    top: 30px;
+    right: 20px;
+    color: #000;
+    }
+      #hidden-content-{{ section.id }}  .modal-title{
+        color: #000;
+
+    /* MB/H4四级标题 */
+    font-family: Mulish;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.38; /* 138% */
+    padding-bottom: 16px;
+    border-bottom: 1px solid #F0F0F0;
+
+      }
+        #hidden-content-{{ section.id }}  .modal-content{
+          color: #3D3D3D;
+          padding-top: 16px;
+  /* PC/小文本 */
+  font-family: Mulish;
+  font-size: 14px;
+
+  font-weight: 400;
+  line-height: 1.4; /* 140% */
+      }
+      @media (max-width: 1068px) {
+        .rent-products-{{ section.id }} {
+          padding: 0 24px 20px 24px;
+        }
+
+        .rent-products-{{ section.id }} .rent-title.pc {
+          display: none;
+        }
+
+        .rent-products-{{ section.id }} .lease-tip {
+          width: 100%;
+          justify-content: center;
+          font-size: 14px;
+          line-height: 1.4;
+          gap: 0;
+        }
+
+        .rent-products-{{ section.id }} .lease-tip .sub {
+          font-size: 12px;
+          line-height: 1.4;
+        }
+
+        .rent-products-{{ section.id }} .main-card {
+          margin: 0;
+          border-radius: 10px;
+          padding: 14px 10px 20px 10px;
+          max-width: 100vw;
+          gap: 0;
+        }
+
+        .rent-products-{{ section.id }} .main-card-content {
+          display: flex;
+          gap: 0;
+          flex-direction: column;
+        }
+
+        .rent-products-{{ section.id }} .img-area {
+          border-radius: 0;
+          min-height: 150px;
+          padding: 10px 0;
+          border: none;
+          width: 100%;
+        }
+
+        .rent-products-{{ section.id }} .rent-title.mb {
+          display: block;
+          text-align: center;
+          font-size: 24px;
+          font-weight: 700;
+          line-height: 1.33;
+        }
+
+        .rent-products-{{ section.id }} .deposit {
+          font-size: 14px;
+          line-height: 1.4;
+          text-align: center;
+        }
+
+        .rent-products-{{ section.id }} .period {
+          align-items: center;
+          gap: 4px;
+          font-size: 14px;
+          line-height: 1.4;
+          padding-bottom: 16px;
+          flex-direction: column;
+        }
+
+        .rent-products-{{ section.id }} .desc-area {
+          padding: 14px 0;
+        }
+
+        .rent-products-{{ section.id }} .desc-title {
+          margin-bottom: 10px;
+          font-size: 14px;
+        }
+
+        .rent-products-{{ section.id }} .desc-list {
+          padding: 14px 12px;
+          border-radius: 5px;
+        }
+
+        .rent-products-{{ section.id }} .desc-list li {
+          gap: 6px;
+        }
+
+        .rent-products-{{ section.id }} .desc-list li div {
+          align-items: start;
+          gap: 6px;
+          line-height: 1.4;
+          font-size: 14px;
+        }
+        .rent-products-{{ section.id }} .desc-list li div:first-child{
+          font-size: 14px;
+        }
+        .rent-products-{{ section.id }} .add-cart-btn {
+          margin-top: 0;
+          width: 100%;
+        }
+        .rent-products-{{ section.id }}  .product-card--add-to-cart-button-wrapper {
+            padding: 0;
+        }
+        #hidden-content-{{ section.id }}  {
+            max-width: 100%;
+
+        margin-left: 24px;
+        margin-right: 24px;
+
+          }
+     .fancybox-slide--html .fancybox-close-small{
+            padding: 0;
+        width: 22px;
+        height: 22px;
+        top: 30px;
+        right: 20px;
+
+
+        }
+          #hidden-content-{{ section.id }}  .modal-title{
+
+
+
+        font-size: 16px;
+
+        line-height: 1.4; /* 138% */
+        padding-bottom: 14px;
+
+
+          }
+            #hidden-content-{{ section.id }}  .modal-content{
+
+              padding-top: 14px;
+
+      font-size: 14px;
+
+          }
+      }
+</style>
+{%- if section.settings.headding != blank -%}
+{%- endif -%}
+{%- liquid
+  assign product = section.settings.product
+  assign image = section.settings.image | default: product.featured_image
+  assign title = product.title
+  assign subtitle = product.metafields.custom.subtitle
+  assign price = product.price | default: product.metafields.custom.rent_price.value
+
+  assign deposit = product.metafields.custom.deposit.value
+-%}
+
+<div class="rent-products-{{ section.id }}">
+  <div class="main-card">
+    <div class="main-card-header">
+      <div class="lease-tip">
+        {%- if section.settings.product_img_headding != blank -%}
+          <span class="title">{{- section.settings.product_img_headding -}}</span>
+        {%- endif -%}
+        {%- if section.settings.product_img_subheadding != blank -%}
+          <span class="sub">{{- section.settings.product_img_subheadding -}}</span>
+        {%- endif -%}
+      </div>
+      <div class="rent-title pc">Rent: {{ price | money_without_trailing_zeros -}}</div>
+    </div>
+    <div class="main-card-content">
+      <div class="img-area">
+        {%- if image -%}
+          <a href="{{ product.url }}">
+            <img
+              data-sizes="100vw"
+              data-srcset="
+                {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                {{ image | image_url }} {{ image.width }}w
+              "
+              data-src="{{ image | image_url:width:750 }}"
+              class="lazyload "
+            >
+          </a>
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+        {%- endif -%}
+      </div>
+      <!-- 信息区域 -->
+      <div class="info-area">
+        <div class="rent-title mb">Rent: {{ price | money_without_trailing_zeros -}}</div>
+        <div class="deposit">
+          {{- deposit | money_without_trailing_zeros }}
+          Deposit
+        </div>
+        <div class="period">
+          {%- if section.settings.rental_period_heading != blank -%}
+            <span>{{- section.settings.rental_period_heading -}}</span>
+          {%- endif -%}
+          {%- if section.settings.rental_period_description != blank -%}
+            <span class="free-tag">{{- section.settings.rental_period_description -}}</span>
+          {%- endif -%}
+        </div>
+        <div class="desc-area">
+          <a
+            class="desc-title"
+            data-fancybox
+            data-src="#hidden-content-{{ section.id }}"
+            href="javascript:;"
+          >
+            {%- if section.settings.rental_description_area_heading != blank -%}
+              <span>{{ section.settings.rental_description_area_heading }}</span>
+            {%- endif -%}
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+            >
+              <path
+                d="M7 4L12 9L7 14"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+
+          <ul class="desc-list">
+            <li>
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                >
+                  <g clip-path="url(#clip0_2175_1703)">
+                    <path
+                      d="M6.54545 0H11.4545C15.8182 0 18 2.18182 18 6.54545V11.4545C18 15.8182 15.8182 18 11.4545 18H6.54545C2.18182 18 0 15.8182 0 11.4545V6.54545C0 2.18182 2.18182 0 6.54545 0Z"
+                      fill="#FF8F1C"
+                    />
+                    <rect
+                      x="3.5"
+                      y="6.07239"
+                      width="11"
+                      height="2.42857"
+                      rx="1"
+                      stroke="white"
+                    />
+                    <path
+                      d="M13.6436 8.64221V12.9996C13.6434 13.8278 12.9717 14.4994 12.1436 14.4996H5.85742C5.02909 14.4996 4.35757 13.8279 4.35742 12.9996V8.64221H13.6436Z"
+                      stroke="white"
+                    />
+                    <path
+                      d="M9 6.6001V13.8001"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M7.28516 3.50012C7.95565 3.50012 8.49977 4.04355 8.5 4.71399V5.92883H7.28516C6.61472 5.92861 6.07129 5.38448 6.07129 4.71399C6.07152 4.04369 6.61486 3.50035 7.28516 3.50012Z"
+                      stroke="white"
+                    />
+                    <path
+                      d="M10.7148 3.50012C10.0444 3.50012 9.50023 4.04355 9.5 4.71399V5.92883H10.7148C11.3853 5.92861 11.9287 5.38448 11.9287 4.71399C11.9285 4.04369 11.3851 3.50035 10.7148 3.50012Z"
+                      stroke="white"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_2175_1703">
+                      <rect width="18" height="18" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+                {%- if section.settings.rent_end_heading != blank -%}
+                  <span>{{- section.settings.rent_end_heading -}}</span>
+                {%- endif -%}
+              </div>
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                >
+                  <path
+                    d="M3.75 9.5L7.25 12.5L14.25 5.5"
+                    stroke="#FF8F1C"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                {%- if section.settings.rent_end_desc != blank -%}
+                  <span>{{- section.settings.rent_end_desc -}}</span>
+                {%- endif -%}
+              </div>
+            </li>
+            <li>
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                >
+                  <g clip-path="url(#clip0_2175_1699)">
+                    <path
+                      d="M6.54545 0H11.4545C15.8182 0 18 2.18182 18 6.54545V11.4545C18 15.8182 15.8182 18 11.4545 18H6.54545C2.18182 18 0 15.8182 0 11.4545V6.54545C0 2.18182 2.18182 0 6.54545 0Z"
+                      fill="#FF8F1C"
+                    />
+                    <path
+                      d="M7.59277 3.56348C8.38882 3.02141 9.41976 2.98747 10.2451 3.46191L10.4072 3.56348L13.4072 5.60547C14.0908 6.07096 14.4998 6.84487 14.5 7.67188V12C14.5 13.3807 13.3807 14.5 12 14.5H6C4.61929 14.5 3.5 13.3807 3.5 12V7.67188C3.50015 6.89671 3.85978 6.16882 4.46777 5.69727L4.59277 5.60547L7.59277 3.56348Z"
+                      stroke="white"
+                    />
+                    <path
+                      d="M11 7H7.5C7.22386 7 7 7.22386 7 7.5V8.5C7 8.77614 7.22386 9 7.5 9H10.5C10.7761 9 11 9.22386 11 9.5V10.5C11 10.7761 10.7761 11 10.5 11H7"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M8.95215 6V6.73214"
+                      stroke="white"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M8.95215 11.125V12.5"
+                      stroke="white"
+                      stroke-linecap="round"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_2175_1699">
+                      <rect width="18" height="18" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+                {%- if section.settings.consideration_heading != blank -%}
+                  <span>{{- section.settings.consideration_heading -}}</span>
+                {%- endif -%}
+              </div>
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                >
+                  <path
+                    d="M3.75 9.5L7.25 12.5L14.25 5.5"
+                    stroke="#FF8F1C"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+
+                <span>Own the equipment: Deposit {{ deposit | money_without_trailing_zeros }} is non-refundable</span>
+              </div>
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                >
+                  <path
+                    d="M3.75 9.5L7.25 12.5L14.25 5.5"
+                    stroke="#FF8F1C"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+
+                <span
+                  >Returning the device: Full deposit {{ deposit | money_without_trailing_zeros }} will be refunded</span
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+        <product-card>
+          <div class="product-card--add-to-cart-button-wrapper">
+            <button
+              class=" add-cart-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+              data-product-id="{{ product.selected_or_first_available_variant.id }}"
+              tabindex="-1"
+              {% unless product.selected_or_first_available_variant.available %}
+                disabled
+              {% endunless %}
+            >
+              {% render 'svg-icons' with 'thb-loading' %}
+              <span class="product-card--add-to-cart-text">
+                {%- if product.selected_or_first_available_variant.available -%}
+                  {%- if section.settings.button_text != blank -%}
+                    {{- section.settings.button_text -}}
+
+                  {%- else -%}
+                    {{- 'products.product.add_to_cart' | t -}}
+                  {%- endif -%}
+
+                {%- else -%}
+                  {{- 'products.product.sold_out' | t -}}
+                {%- endif -%}
+              </span>
+            </button>
+          </div>
+        </product-card>
+      </div>
+    </div>
+  </div>
+  <div style="display: none" id="hidden-content-{{ section.id }}">
+    {%- if section.settings.rental_description_area_heading != blank -%}
+      <div class="modal-title">{{ section.settings.rental_description_area_heading }}</div>
+    {%- endif -%}
+    <div class="modal-content">
+      The printer requires a {{ deposit | money_without_trailing_zeros }} deposit and a rental fee of
+      {{ price | money_without_trailing_zeros }} for 3 months. Early termination is allowed, but only the deposit will
+      be refunded. After the initial rental period, there's a 3-month consideration period with no additional fee. At
+      the end of this period, you can either keep the device (the deposit will not be refunded) or return it for a full
+      deposit refund.
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "租赁产品2",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "产品租金及押金",
+      "info": "为满足不同货币之间换算，需要在产品元字段分别配置：rent price和deposit才可显示"
+    },
+    {
+      "type": "text",
+      "id": "product_img_headding",
+      "label": "产品图片顶部标题",
+      "default": "Lease available only in California, USA"
+    },
+    {
+      "type": "text",
+      "id": "product_img_subheadding",
+      "label": "产品图片顶部副标题",
+      "default": "(More regions are unlocked soon!)"
+    },
+    {
+      "type": "text",
+      "id": "rental_period_heading",
+      "label": "租期文案标题",
+      "default": "Rental Period: 3 months"
+    },
+    {
+      "type": "text",
+      "id": "rental_period_description",
+      "label": "租期文案描述",
+      "default": "Three months of free use after expiration"
+    },
+    {
+      "type": "text",
+      "id": "rental_description_area_heading",
+      "label": "租赁说明文案",
+      "default": "Rental Description Area"
+    },
+
+    {
+      "type": "text",
+      "id": "rent_end_heading",
+      "label": "租期结束文案标题",
+      "default": "At the end of the 3-month lease, you will receive:"
+    },
+    {
+      "type": "text",
+      "id": "rent_end_desc",
+      "label": "租期结束文案内容",
+      "default": "3-month consideration period (rent-free)"
+    },
+    {
+      "type": "text",
+      "id": "consideration_heading",
+      "label": "考虑期内文案标题",
+      "default": "During the consideration period:"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "产品图片"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "选择产品"
+    },
+
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "按钮文本"
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "租赁产品2"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,572 @@
+{% liquid
+  if section.settings.row_tablet == 1
+    assign row_tablet = 'md:grid-cols-1'
+  endif
+
+  if section.settings.row_tablet == 2
+    assign row_tablet = 'md:grid-cols-2'
+  endif
+
+  if section.settings.row_tablet == 3
+    assign row_tablet = 'md:grid-cols-3'
+  endif
+
+  if section.settings.row == 1
+    assign row = 'lg:grid-cols-1'
+  endif
+
+  if section.settings.row == 2
+    assign row = 'lg:grid-cols-2'
+  endif
+
+  if section.settings.row == 3
+    assign row = 'lg:grid-cols-3'
+  endif
+
+  if section.settings.row == 4
+    assign row = 'lg:grid-cols-4'
+  endif
+
+  if section.settings.row == 5
+    assign row = 'lg:grid-cols-5'
+  endif
+
+  if section.settings.top == '17.5'
+    assign top = 'pt-8 md:pt-17.5'
+  elsif section.settings.top == '20'
+    assign top = 'pt-8 md:pt-20'
+  elsif section.settings.top == '24'
+    assign top = 'pt-8 md:pt-24'
+  elsif section.settings.top == '28'
+    assign top = 'pt-8 md:pt-28'
+  else
+    assign top = ''
+  endif
+
+  if section.settings.bottom == '17.5'
+    assign bottom = 'pb-8 md:pb-17.5'
+  elsif section.settings.bottom == '20'
+    assign bottom = 'pb-8 md:pb-20'
+  elsif section.settings.bottom == '24'
+    assign bottom = 'pb-8 md:pb-24'
+  elsif section.settings.bottom == '28'
+    assign bottom = 'pb-8 md:pb-28'
+  else
+    assign bottom = ''
+  endif
+%}
+<script src="{{ 'rent-progress-bar.js' | asset_url }}"></script>
+<style>
+  .rent-products-{{ section.id }}  .rent-product {
+      display: flex;
+      flex-direction: column;
+      padding: 2.5rem;
+    }
+    .rent-products-{{ section.id }} .rent-product .title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0;
+      line-height: 1;
+    }
+    .rent-products-{{ section.id }} .rent-product .subtitle {
+      font-size: 12px;
+      margin: 0;
+      line-height: 1;
+    }
+    .rent-products-{{ section.id }} .rent-product-content {
+      display: flex;
+      flex-direction: row;
+      gap: 2.5rem;
+    }
+    .rent-products-{{ section.id }} .left-content {
+      width: 50%;
+    }
+    .rent-products-{{ section.id }} .right-content {
+      flex: 1;
+    }
+    .rent-products-{{ section.id }} .product-price-container {
+      display: flex;
+      align-items: end;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+    .rent-products-{{ section.id }} .price {
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1;
+    }
+    .rent-products-{{ section.id }} .rental-fees {
+      margin-top: 30px;
+    }
+    .rent-products-{{ section.id }} .rental-fees h2 {
+      line-height: 1.2;
+      margin-bottom: 0;
+      font-weight: 400;
+    }
+    .progress-bar-description{
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      margin-top: 10px;
+      margin-bottom: 0;
+      line-height: 1;
+    }
+      .progress-bar-description .progress-bar-description-item{
+        width: 50%;
+      }
+      .progress-bar-description .progress-bar-description-item2{
+        width: 50%;
+      }
+      .rent-products-{{ section.id }}  .button.accent, input[type=submit].accent{
+
+        width: auto;
+    border-radius: 20px;
+    padding: 10px 20px;
+      }
+      @media only screen and (max-width: 768px) {
+        .rent-products-{{ section.id }}  .rent-product {
+          display: flex;
+          flex-direction: column;
+          padding: 10px;
+        }
+        .rent-products-{{ section.id }} .rent-product-content {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .rent-products-{{ section.id }} .rent-product .title {
+          font-size: 12px;
+          font-weight: 400;
+          margin: 0;
+          line-height: 1;
+        }
+        .rent-products-{{ section.id }} .rent-product .subtitle {
+          font-size: 10px;
+          margin: 0;
+          line-height: 1;
+        }
+        .rent-products-{{ section.id }} .left-content {
+          width: 100%;
+        }
+        .rent-products-{{ section.id }} .right-content {
+          flex: 1;
+        }
+        .rent-products-{{ section.id }} .lease{
+          font-size: 12px;
+          text-align: center;
+        }
+        .rent-products-{{ section.id }} .product-price-container {
+          display: flex;
+          align-items: end;
+          justify-content: center;
+          gap: 2px;
+          margin-bottom: 6px;
+        }
+        .rent-products-{{ section.id }} .price {
+          font-size: 36px;
+          font-weight: 600;
+          line-height: 1;
+        }
+        .rent-products-{{ section.id }} .rental-fees {
+          margin-top: 20px;
+        }
+        .rent-products-{{ section.id }} .rental-fees h2 {
+          line-height: 1.2;
+          margin-bottom: 0;
+          font-weight: 400;
+        }
+        .progress-bar-description{
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          margin-top: 10px;
+          margin-bottom: 0;
+          line-height: 1;
+        }
+        .rent-products-{{ section.id }}  .button.accent, input[type=submit].accent{
+          width: 100%;
+        }
+      }
+</style>
+<div class="{{ top }} {{ bottom }} rent-products-{{ section.id }}">
+  <div class="container">
+    {% if section.settings.headding != blank or section.settings.descriptiton != blank %}
+      <div class="mb-48 lg:mb-10 text-center max-w-4xl mx-auto px-4 lg:px-10">
+        {%- if section.settings.headding != blank -%}
+          <h2 class="text-2xl md:text-4xl">{{ section.settings.headding }}</h2>
+        {%- endif -%}
+        {% if section.settings.descriptiton != blank %}
+          <p class="m-0 text-sm md:text-base">{{ section.settings.descriptiton }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="w-full inline-grid grid-cols-1 gap-4 {{ row_tablet }} {{ row }}">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign product = block.settings.product
+          assign image = block.settings.image | default: product.featured_image
+          assign title = product.title
+          assign subtitle = product.metafields.custom.subtitle
+          assign price = product.price
+          assign compare_at_price = product.compare_at_price
+        -%}
+        <div class="rent-product md:rounded-2xl rounded-xl relative bg-white p-4 md:p-8 shadow transition-colors ">
+          <div class="space-y-0.5">
+            <h3 class="title text-base lg:text-lg font-semibold m-0">{{ block.settings.title }}</h3>
+            <p class="subtitle m-0 text-xs lg:text-base">{{ block.settings.subtitle }}</p>
+          </div>
+          <div class="rent-product-content">
+            <div class="left-content ">
+              {%- if image -%}
+                {% comment %}
+                  <div class="aspect-[800/293] my-8 overflow-hidden">
+                    <img
+                      data-src="{{ image | image_url }}"
+                      class="lazyload w-full h-full object-cover object-center {% unless settings.lazy_loading %} no-blur{% endunless %}"
+                      width="{{ image.src.width }}"
+                      height="{{ image.src.height }}"
+                      alt="{{ image.alt }}"
+                    >
+                  </div>
+                {% endcomment %}
+                {% assign size = 100 | divided_by: section.settings.columns_desktop | round %}
+                <a href="{{ product.url }}">
+                  <img
+                    data-sizes="{{ size }}vw"
+                    data-srcset="
+                      {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                      {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                      {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                      {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                      {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                      {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                      {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                      {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                      {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                      {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                      {{ image | image_url }} {{ image.width }}w
+                    "
+                    data-src="{{ image | image_url:width:750 }}"
+                    class=" lazyload "
+                  >
+                </a>
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+              {%- endif -%}
+            </div>
+            <div class="right-content ">
+              {%- if block.settings.deposit != blank -%}
+                <div class="text-left">
+                  <div class="product-price-container">
+                    <span class="price text-orange-500 text-xl lg:text-4xl font-bold">
+                      {{- block.settings.deposit | times: 100 | money_without_trailing_zeros -}}
+                    </span>
+                    <span class="text-sm md:text-lg text-black">Deposit</span>
+                  </div>
+                  <p class="lease text-black m-0 text-sm md:text-lg">{{ block.settings.lease }}</p>
+                </div>
+              {%- endif -%}
+
+              <div class="rental-fees">
+                <h2 class="text-base lg:text-lg font-semibold mb-2">Rental Fees</h2>
+                <hr class="mt-0">
+
+                {% if block.settings.first_3 != blank %}
+                  <div class="mb-4">
+                    <rent-progress-bar
+                      data-width="{{ block.settings.first_3_rang }}"
+                    ></rent-progress-bar>
+                    <div class="progress-bar-description">
+                      <div class="progress-bar-description-item">
+                        Rent:{{ price | money_without_trailing_zeros -}}
+                        {% comment %} {{ block.settings.first_3 }} {% endcomment %}
+                      </div>
+                      <div class="progress-bar-description-item2">
+                        {{ block.settings.first_3_2 }}
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+
+                {% if block.settings.last_3 != blank %}
+                  <div class="mb-4">
+                    <rent-progress-bar
+                      data-width="{{ block.settings.last_3_rang }}"
+                    ></rent-progress-bar>
+                    <div class=" text-sm md:text-lg text-black " style="line-height: 1;">
+                      {{ block.settings.last_3_2 }}
+                    </div>
+                  </div>
+                {% endif %}
+
+                {% if block.settings.six_month_after != blank %}
+                  <div>
+                    <rent-progress-bar
+                      data-width="{{ block.settings.six_month_after_rang }}"
+                    ></rent-progress-bar>
+                    <div class="progress-bar-description" style="line-height: 1;">
+                      {{ block.settings.six_month_after }}
+                    </div>
+                  </div>
+                {% endif %}
+                <product-card>
+                  <div class="product-card--add-to-cart-button-wrapper">
+                    <button
+                      class="external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                      data-product-id="{{ product.selected_or_first_available_variant.id }}"
+                      tabindex="-1"
+                      {% if product.selected_or_first_available_variant.available == false %}
+                        disabled
+                      {% endif %}
+                    >
+                      {% render 'svg-icons' with 'thb-loading' %}
+                      <span class="product-card--add-to-cart-text">
+                        {%- if product.selected_or_first_available_variant.available -%}
+                          {%- if section.settings.button_text != blank -%}
+                            {{- section.settings.button_text -}}
+
+                          {%- else -%}
+                            {{- 'products.product.add_to_cart' | t -}}
+                          {%- endif -%}
+
+                        {%- else -%}
+                          {{- 'products.product.sold_out' | t -}}
+                        {%- endif -%}
+                      </span>
+                    </button>
+                  </div>
+                </product-card>
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "租赁产品",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "配置项"
+    },
+    {
+      "type": "select",
+      "id": "top",
+      "default": "20",
+      "label": "板块上边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bottom",
+      "default": "20",
+      "label": "板块下边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "内容配置"
+    },
+    {
+      "type": "text",
+      "id": "headding",
+      "label": "标题"
+    },
+    {
+      "type": "textarea",
+      "id": "descriptiton",
+      "label": "描述"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "按钮文本"
+    },
+    {
+      "type": "header",
+      "content": "配置项",
+      "info": "配置卡片"
+    },
+    {
+      "type": "range",
+      "id": "row",
+      "label": "一行显示n个(电脑端)",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "N",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "row_tablet",
+      "label": "一行显示n个(平板端)",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "unit": "N",
+      "default": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "产品",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "标题"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "副标题"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "产品图片",
+          "info": "建议图片比例 800:293, 比如: 1600x584"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "选择产品"
+        },
+        {
+          "type": "text",
+          "id": "deposit",
+          "label": "产品定金",
+          "default": "500"
+        },
+        {
+          "type": "html",
+          "id": "lease",
+          "label": "租赁期限"
+        },
+        {
+          "type": "header",
+          "content": "租赁费说明",
+          "info": "配置租赁费用的进度"
+        },
+        {
+          "type": "html",
+          "id": "first_3",
+          "label": "前三个月"
+        },
+        {
+          "type": "html",
+          "id": "first_3_2",
+          "label": "前三个月2"
+        },
+        {
+          "type": "range",
+          "id": "first_3_rang",
+          "label": "前三个月分期进度条百分比",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 30
+        },
+        {
+          "type": "text",
+          "id": "last_3",
+          "label": "最后三个月",
+          "default": "last 3 months: $150/month"
+        },
+        {
+          "type": "html",
+          "id": "last_3_2",
+          "label": "最后三个月2"
+        },
+        {
+          "type": "range",
+          "id": "last_3_rang",
+          "label": "最后三个月分期进度条百分比",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 80
+        },
+        {
+          "type": "text",
+          "id": "six_month_after",
+          "label": "六个月之后",
+          "default": "Or own your rental product after 6 months!"
+        },
+        {
+          "type": "html",
+          "id": "six_month_after_2",
+          "label": "六个月之后2"
+        },
+        {
+          "type": "range",
+          "id": "six_month_after_rang",
+          "label": "六个月之后分期进度条百分比",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 100
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "租赁产品"
+    }
+  ]
+}
+{% endschema %}

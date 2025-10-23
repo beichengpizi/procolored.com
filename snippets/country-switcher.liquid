@@ -1,0 +1,195 @@
+{%- liquid
+  assign country_icon = 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/web.png?v=1734312305'
+
+  if shop.name == 'Procolored'
+    assign current_country_name = 'USA'
+    assign current_country_icon = 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/united_state.png?v=1734311748'
+    assign country_icon = 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/european.webp?v=1734311748'
+    assign country_url = 'https://procolored.eu/'
+    assign country_name = 'Europe'
+  else
+    assign current_country_name = 'Europe'
+    assign current_country_icon = 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/european.webp?v=1734311748'
+    assign country_icon = 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/united_state.png?v=1734311748'
+    assign country_url = 'https://www.procolored.com/'
+    assign country_name = 'USA'
+  endif
+-%}
+<div class="country-switcher">
+  <a title="Change Store">
+    <img
+      data-src="{{ current_country_icon }}"
+      class="serch_image lazyload"
+      style="width: 20px;height: 20px;"
+      src="{{ current_country_icon }}"
+    >
+    <span class=" current_country_name gothambook color000 f16  ml-15 " style="margin-left: 5px;">
+      {{ current_country_name -}}
+    </span>
+  </a>
+  <!-- 国家 -->
+
+  <style>
+    .country-switcher {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+    .country-switcher .ht-dropdown {
+      background: #fff;
+      left: 0;
+      opacity: 0;
+      position: absolute;
+      -webkiit-transform: scaleY(0);
+      -webkit-transform: scaleY(0);
+      transform: scaleY(0);
+      -webkit-transform-origin: 0 0 0;
+      transform-origin: 0 0 0;
+      /* width: 180px; */
+      /* visibility: hidden; */
+      z-index: 1000;
+      -webkit-transition: all 700ms ease 0s;
+      transition: all 700ms ease 0s;
+      -webkit-box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.1);
+      -ms-box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.1);
+    }
+    .country-switcher .ht-dropdownsearchshow {
+      opacity: 1;
+      visibility: visible;
+      -webkiit-transform: scaleY(1);
+      -webkit-transform: scaleY(1);
+      transform: scaleY(1);
+      max-height: 900px;
+      overflow: auto;
+    }
+    .country-switcher .countrybackground {
+      padding: 0 !important;
+    }
+    .country-switcher .countrysbackground {
+      background: #fff;
+      border-top: transparent;
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+    .country-switcher .countrtItem {
+      display: flex;
+      align-items: center;
+      column-gap: 10px;
+      cursor: pointer;
+    }
+    .country-switcher .countrywidth260 {
+      min-width: 260px;
+    }
+    .country-switcher .navsvg li a {
+      padding-bottom: 0px !important;
+    }
+    .country-switcher .imagewidth23 img {
+      width: 23px;
+      height: 23px;
+    }
+    .country-switcher .countrysbackground .row {
+      padding: 0 15px !important;
+    }
+    #countrybox .countrysbackground a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    #countrybox .countrysbackground a .gothambook {
+      font-size: 14px;
+    }
+    .country-switcher .color000 {
+      color: #000;
+    }
+    #countrybox .countrysbackground a:hover .gothambook {
+      color: #f93822 !important;
+    }
+    @media (max-width: 1580px) {
+      .country-switcher .countrywidth260 {
+        min-width: 200px;
+        left: -100px;
+        bottom: -40px;
+      }
+      .country-switcher-footer .country-switcher .countrywidth260 {
+        left: 0px;
+        bottom: -40px;
+      }
+    }
+    @media (max-width: 1400px) {
+      .country-switcher .countrywidth260 {
+        left: -160px;
+      }
+    }
+    @media screen and (max-width: 780px) {
+      .current_country_name {
+        display: none;
+      }
+      .country-switcher-footer .country-switcher > a {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+      }
+      .country-switcher-footer .current_country_name {
+        display: block;
+        font-size: 12px;
+        line-height: 1;
+      }
+    }
+  </style>
+
+  <div class="ht-dropdown search-box-view  d-flex countrywidth260" id="countrybox">
+    <div class="container countrysbackground">
+      <div class="row" style="margin-left: 0;margin-right: 0;">
+        <a href="{{ country_url }}" class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
+          <div class="imagewidth23 d-lg-flex align-items-center  d-md-flex countrtItem">
+            <img
+              class="lazyload"
+              data-src="{{ country_icon }}"
+              src="{{ country_icon }}"
+            >
+            <span class="gothambook color000 f16  ml-15 "> {{ country_name }}</span>
+          </div>
+        </a>
+
+        {% comment %}
+          <a href="https://uk.1more.com" class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
+            <div class="imagewidth23 d-lg-flex align-items-center  d-md-flex countrtItem">
+              <img
+                class="lazyload"
+                data-src="//global.1more.com/cdn/shop/files/uk.png?v=1686627075"
+                src="//global.1more.com/cdn/shop/files/uk.png?v=1686627075"
+              >
+              <span class="gothambook color000 f16  ml-15 "> United Kingdom </span>
+            </div>
+          </a>
+        {% endcomment %}
+
+        {% comment %}
+          <a href="https://procolored.eu/" class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
+            <div class="imagewidth23 d-lg-flex align-items-center  d-md-flex countrtItem">
+              <img
+                class="lazyload"
+                data-src="//global.1more.com/cdn/shop/files/european.png?v=1698132827"
+                src="//global.1more.com/cdn/shop/files/european.png?v=1698132827"
+              >
+              <span class="gothambook color000 f16  ml-15 "> Europe </span>
+            </div>
+          </a>
+        {% endcomment %}
+        {% comment %}
+          <a href="https://jp.1more.com" class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
+            <div class="imagewidth23 d-lg-flex align-items-center  d-md-flex countrtItem">
+              <img
+                class="lazyload"
+                data-src="//global.1more.com/cdn/shop/files/jp.png?v=1698132814"
+                src="//global.1more.com/cdn/shop/files/jp.png?v=1698132814"
+              >
+              <span class="gothambook color000 f16  ml-15 "> Japan </span>
+            </div>
+          </a>
+        {% endcomment %}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+{{ 'page.distributor.css' | asset_url | stylesheet_tag }}
+<div class="distributor">
+  <div class="distributor-banner mobile" style="background-image: url({{ 'distributor-banner-mobile.png' | asset_url }})"></div>
+  <div class="distributor-banner pc" style="background-image: url(https://cdn.shopify.com/s/files/1/0509/3454/6613/files/01a22581cd48885d61cfb3aaafa5ff2d.png)"></div>
+  <div class="apply-button-outer bg-white">
+    <div class="apply-button mobile" data-anchor="join-section">Apply Now</div>
+  </div>
+  <div class="sections bg-white">
+    <div class="section-headers">
+      <div class="section-header-1">Why Partner with Us?</div>
+    </div>
+    <section class="why">
+      <div class="section-cards">
+        <div class="section-card">
+          <div class="section-card-inner">
+            <div class="section-card-icon">
+              <img src="{{ 'distributor-1.svg' |  asset_url }}">
+            </div>
+            <div class="section-card-title">Light Asset</div>
+            <div class="section-card-content">
+              Join the program without the need for significant upfront capital or physical infrastructure
+            </div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-inner">
+            <div class="section-card-icon">
+              <img src="{{ 'distributor-2.svg' | asset_url }}">
+            </div>
+            <div class="section-card-title">Simple Process</div>
+            <div class="section-card-content">
+              Agents are only responsible for sale, while we handle shipping, inventory and guidance
+            </div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-inner">
+            <div class="section-card-icon">
+              <img src="{{ 'distributor-3.svg' |  asset_url }}">
+            </div>
+            <div class="section-card-title">Stable Income</div>
+            <div class="section-card-content">
+              High brand market share and good reputation lead to easy transactions and consistent income
+            </div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-card-inner">
+            <div class="section-card-icon">
+              <img src="{{ 'distributor-4.svg' |  asset_url }}">
+            </div>
+            <div class="section-card-title">Reliable Support</div>
+            <div class="section-card-content">
+              Procolored offers comprehensive support to partners in after-sales and marketing
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="sections">
+    <section class="form">
+      <div class="form-inner">
+        <div class="globo-formbuilder" data-id="Mjc1Mjc="></div>
+      </div>
+    </section>
+  </div>
+</div>
+{{ 'data-href-support.js' | asset_url | script_tag }}
+<script>
+  document.querySelectorAll('.faq-obj-head').forEach(el => {
+    el.addEventListener('click', () => {
+      if (el.parentElement.classList.contains('active')) {
+        el.parentElement.classList.remove('active');
+      } else {
+        el.parentElement.classList.add('active')
+      }
+    })
+  })
+
+  document.querySelector('.distributor-banner.pc').addEventListener('click', e => {
+    document.querySelector('.form').scrollIntoView({
+      behavior: 'smooth'
+    })
+  })
+
+  document.querySelector('.apply-button.mobile').addEventListener('click', e => {
+    document.querySelector('.form').scrollIntoView({
+      behavior: 'smooth'
+    })
+  })
+</script>

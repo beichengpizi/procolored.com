@@ -1,0 +1,119 @@
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+{{ 'swiper-bundle.min.js' | asset_url | script_tag }}
+<div class="choices-reach">
+  <div class="cr-wrapper">
+    <div class="cr-title">
+      <div class="title-img-l">
+        <picture>
+          <source
+            media="(min-width: 769px)"
+            srcset="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/p07181.png"
+          >
+          <source
+            media="(max-width: 768px)"
+            srcset="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/m07184.png"
+          >
+          <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/p07181.png">
+        </picture>
+      </div>
+      <div class="title">Choices Within Your Reach</div>
+      <div class="title-img-r">
+        <picture>
+          <source
+            media="(min-width: 769px)"
+            srcset="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/p07186.png"
+          >
+          <source
+            media="(max-width: 768px)"
+            srcset="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/m07189.png"
+          >
+          <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/p07186.png">
+        </picture>
+      </div>
+    </div>
+    <div id="swiper1" class="swiper swiper1">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <picture>
+            <source
+              media="(max-width: 768px)"
+              srcset="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/m07182.png"
+            >
+            <source
+              media="(min-width: 769px)"
+              srcset="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/p07187.png"
+            >
+            <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/p07187.png" alt="">
+          </picture>
+        </div>
+        <div class="swiper-slide">
+          <picture>
+            <source
+              media="(max-width: 768px)"
+              srcset="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/m07181.png"
+            >
+            <source
+              media="(min-width: 769px)"
+              srcset="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/p07188.png"
+            >
+            <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/p07188.png" alt="">
+          </picture>
+        </div>
+        <div class="swiper-slide">
+          <picture>
+            <source
+              media="(max-width: 768px)"
+              srcset="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/3_2cec4951-58f2-4a68-98fd-504c56684080.png"
+            >
+            <source
+              media="(min-width: 769px)"
+              srcset="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/p07189.png"
+            >
+            <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/p07189.png" alt="">
+          </picture>
+        </div>
+      </div>
+    </div>
+    <div class="thumbs-box">
+      <div id="swiper2" class="swiper swiper2">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><span>Mug Seller</span></div>
+          <div class="swiper-slide"><span>Tumbler Seller</span></div>
+          <div class="swiper-slide"><span>Sticker Seller</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var swiper2 = new Swiper('.swiper2', {
+    slidesPerView: 'auto',
+  });
+  var swiper = new Swiper('.swiper1', {
+    grabCursor: true,
+    autoplay: false,
+    slidesPerView: 1,
+    centeredSlides: true,
+    spaceBetween: 5,
+    thumbs: {
+      swiper: swiper2,
+    },
+    breakpoints: {
+      769: {
+        //当屏幕宽度大于等于320
+        slidesPerView: 2,
+        spaceBetween: 34,
+      },
+    },
+  });
+</script>
+{% schema %}
+{
+  "name": "VF13Pro Swiper",
+  "presets": [
+    {
+      "name": "VF13Pro Swiper"
+    }
+  ]
+}
+{% endschema %}

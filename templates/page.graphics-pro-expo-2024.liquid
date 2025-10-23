@@ -1,0 +1,127 @@
+{{ 'graphics-pro-expo-2024.css' | asset_url | stylesheet_tag }}
+<div class="expo-page">
+  <!--
+    <div class="banner-wrapper">
+      <div class="banner-content">
+        <img
+          src="{{ "procoloredxGPX.png" | asset_url }}"
+          alt="graphics pro expo 2024"
+        >
+        <div class="content-center">
+          <h1>
+            Discover Procolored at<br>
+            Graphics Pro EXPO
+          </h1>
+          <p>
+            June 13-15, 2024<br>
+            Long Beach Convention and<br>
+            Entertainment Center | Hall: A 300 E<br>
+            Ocean Blvd, Long Beach, CA, 90802
+          </p>
+          <h4>{% render 'svg-icons' with 'location-pin' %} Booth #215</h4>
+        </div>
+      </div>
+    </div>
+  -->
+  <picture>
+    <source media="(max-width: 767px)" srcset="{{ "Expo-banner-mo.png" | asset_url }}">
+    <img src="{{ "Expo-banner-pc.png" | asset_url }}">
+  </picture>
+  <div class="sign-up-form">
+    <div class="globo-formbuilder" data-id="NDIxODg="></div>
+  </div>
+  <div class="booth-wrapper">
+    <h2>
+      At the Procolored booth<br>
+      you will have the opportunity to
+    </h2>
+    <div class="booth-grid-wrapper">
+      <div class="booth-grid-item">
+        <img
+          src="{{ "booth-1-01.png" | asset_url }}"
+        >
+        <div class="booth-grid-content">
+          <p>See live demos of our newest printing equipment and software</p>
+        </div>
+      </div>
+      <div class="booth-grid-item">
+        <img
+          src="{{ "booth-2.png" | asset_url }}"
+        >
+        <div class="booth-grid-content">
+          <p>Speak one-on-one with our knowledgeable sales and technical staff</p>
+        </div>
+      </div>
+      <div class="booth-grid-item">
+        <img
+          src="{{ "booth-3.png" | asset_url }}"
+        >
+        <div class="booth-grid-content">
+          <p>Get limited gifts and special discounts</p>
+        </div>
+      </div>
+      <div class="booth-grid-item">
+        <img
+          src="{{ "booth-4.png" | asset_url }}"
+        >
+        <div class="booth-grid-content">
+          <p>Network with peers and industry leaders from across the country</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="welcome-wrapper">
+    <h2>
+      We look forward to welcoming<br>
+      you to Graphics Pro Expo
+    </h2>
+    <div class="welcome-grid-wrapper">
+      <div class="welcome-grid-item">
+        <div class="welcome-grid-bg">
+          {% render 'svg-icons' with 'next-level' %}
+        </div>
+        <div class="welcome-grid-content">
+          <p>Showcasing how Procolored can help take your business to the next level</p>
+        </div>
+      </div>
+      <div class="welcome-grid-item">
+        <div class="welcome-grid-bg">
+          {% render 'svg-icons' with 'hands-on' %}
+        </div>
+        <div class="welcome-grid-content">
+          <p>Here are the products you can get your hands on</p>
+        </div>
+      </div>
+      <div class="welcome-grid-item">
+        <div class="welcome-grid-bg">
+          {% render 'svg-icons' with 'ask-question' %}
+        </div>
+        <div class="welcome-grid-content">
+          <p>Learn operation skills and ask questions</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="products-wrapper">
+    <h2>
+      Previews for Procolored Products<br>
+      on Display
+    </h2>
+    <div class="products-grid-wrapper">
+      {% for product_obj in page.metafields.custom.graphics_pro_expo_2024_products.value %}
+        <div class="products-grid-item">
+          <div class="img-wrapper">
+            <img src="{{ product_obj.img.value | image_url  }}" alt="{{ product_obj.title }}">
+          </div>
+          <div class="products-grid-item-content">
+            <h3>{{ product_obj.rich_title }}</h3>
+            <p>{{ product_obj.desc }}</p>
+            <div>
+              <a target="_blank" href="{{ product_obj.product.value.url }}">Learn More</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

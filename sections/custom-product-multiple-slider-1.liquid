@@ -1,0 +1,1853 @@
+<style>
+      :root {
+          /* Font sizes */
+          --text-h0-n: 56px;
+          --text-h1-n: 40px;
+          --text-h2-n: 30px;
+          --text-h3-n: 26px;
+          --text-h4-n: 24px;
+          --text-h5-n: 20px;
+          --text-h6-n: 16px;
+          --text-xs-n: 12px;
+          --text-sm-n: 14px;
+          --text-base-n: 18px;
+          --text-lg-n: 19px;
+        }
+        .text-xxs {
+          font-size: 10px;
+          line-height: 1.3;
+        }
+
+        .text-xs {
+          font-size: var(--text-xs-n);
+          line-height: 1.3;
+        }
+
+        .text-sm {
+          font-size: var(--text-sm-n);
+          line-height: 1.3;
+        }
+
+        .text-base {
+          font-size: var(--text-base-n);
+          line-height: 1.3;
+        }
+        .text-md {
+          font-size: var(--text-md-n);
+          line-height: 1.2;
+        }
+
+        .text-lg {
+          font-size: var(--text-lg-n);
+          line-height: 1.2;
+        }
+     /* 重置样式 start*/
+     #detail-section6-{{section.id}}  .h0 {
+      font-size: var(--text-h0-n) ;
+      line-height: 1;
+
+    }
+
+    #detail-section6-{{section.id}}  h1,
+    #detail-section6-{{section.id}}  .h1,
+    #detail-section6-{{section.id}}  .prose h1:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h1-n) ;
+      line-height: 1.1;
+
+    }
+
+    #detail-section6-{{section.id}}  h2,
+    #detail-section6-{{section.id}}  .h2,
+    #detail-section6-{{section.id}}  .prose h2:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h2-n);
+      line-height: 1.1;
+
+    }
+
+    #detail-section6-{{section.id}}  h3,
+    #detail-section6-{{section.id}}  .h3,
+    #detail-section6-{{section.id}}  .prose h3:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h3-n) ;
+      line-height: 1.2;
+    }
+
+    #detail-section6-{{section.id}}  h4,
+    #detail-section6-{{section.id}}  .h4,
+    #detail-section6-{{section.id}}  .prose h4:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h4-n) ;
+      line-height: 1.3;
+    }
+
+    #detail-section6-{{section.id}}  h5,
+    #detail-section6-{{section.id}}  .h5,
+    #detail-section6-{{section.id}}  .prose h5:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h5-n) ;
+      line-height: 1.4;
+    }
+
+    #detail-section6-{{section.id}}  h6,
+    #detail-section6-{{section.id}}  .h6,
+    #detail-section6-{{section.id}}  .prose h6:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h6-n) ;
+      line-height: 1.4;
+    }
+    /* 重置样式 end*/
+      /* 多个轮播 图文 */
+      #detail-section6-{{section.id}}{
+      background-color: {{section.settings.bg_color}};
+      }
+      #detail-section6-{{section.id}} .multiple-swiper-wrap {
+        position: relative;
+          {% if section.settings.show_full_width %}
+            max-width:100%;
+            padding: {{section.settings.padding_top}}px 50px {{section.settings.padding_bottom}}px 50px;
+          {% else %}
+          max-width:1200px;
+          margin:auto;
+          padding: {{section.settings.padding_top}}px 0 {{section.settings.padding_bottom}}px 0 ;
+          {% endif %}
+          {% if section.settings.swiper_button_position == '50' %}
+            padding-left: calc({{section.settings.swiper_button_margin}}px + {{section.settings.swiper_button_size}}px);
+            padding-right: calc({{section.settings.swiper_button_margin}}px + {{section.settings.swiper_button_size}}px);
+          {% endif %}
+
+      }
+
+      #detail-section6-{{section.id}} .multiple-swiper-wrap .heading {
+          text-align: center;
+          color: {{section.settings.heading_text}};
+          margin-bottom: {{section.settings.title_to_content_padding}}px;
+
+
+
+
+      }
+
+      #detail-section6-{{section.id}} .multiple-swiper-wrap .detail-section6-mySwiper-{{section.id}} {
+          margin-left: auto;
+          margin-right: auto;
+          position: relative;
+          overflow: hidden;
+          list-style: none;
+          z-index: 1;
+
+      }
+      {% if section.settings.swiper_button_position == '50' %}
+        .detail-section6-mySwiper-{{section.id}} .swiper-slide:first-child {
+          margin-left: 6px;
+        }
+      {% endif %}
+
+
+      #detail-section6-{{section.id}} .multiple-swiper-wrap .swiper-slide-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background: {{section.settings.card_bg_color}};
+          padding: {{section.settings.card_padding_top_bottom}}px {{section.settings.card_padding_left_right}}px;
+          border-radius: {{section.settings.card_radius_size}}px;
+          width:99%;
+      }
+
+
+
+      #detail-section6-{{section.id}} .multiple-swiper-wrap .swiper-slide-content .content {
+
+          text-align: {{ section.settings.text_position }};;
+          color: {{section.settings.desc_text}};
+          font-size:{{section.settings.desc_text_font_size}}px;
+          line-height: 1.2;
+
+      }
+      #detail-section6-{{section.id}} .multiple-swiper-wrap .swiper-slide-content .image-container{
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+      }
+      #detail-section6-{{section.id}} .multiple-swiper-wrap .swiper-slide-content .caption {
+        position: absolute;
+        bottom: {{section.settings.content_heading_top}}px;
+        left: 0;
+        right: 0;
+        color: white;
+        padding: 20px 0;
+        transform: translateY(100%);
+        transition: transform 0.3s ease-in-out;
+        text-align: center;
+        font-size: 15px;
+        letter-spacing: 1px;
+
+      }
+      #detail-section6-{{section.id}} .multiple-swiper-wrap .swiper-slide-content .caption svg, #detail-section6-{{section.id}} .multiple-flex-box-{{section.id}} .multiple-flex-item .caption svg{
+        fill: #fff;
+        width: 12px;
+        height: 12px;
+        padding: 5.5px;
+      }
+
+      #detail-section6-{{section.id}} .multiple-swiper-wrap .swiper-slide-content .image-container:hover .caption {
+        transform: translateY(0);
+      }
+      #detail-section6-{{section.id}} .multiple-swiper-wrap .swiper-slide img, #detail-section6-{{section.id}} .multiple-flex-box-{{section.id}} .multiple-flex-item img{
+          max-width: 100%;
+          max-height: 100%;
+          margin-bottom: {{section.settings.content_heading_top}}px;
+          border-radius: {{section.settings.image_radius_size}}px;
+          {% if section.settings.show_icon_model %}
+            margin-bottom:0;
+          {% else %}
+          width: 100%;
+          {% endif %}
+      }
+      #detail-section6-{{section.id}} .video-banner .video-link{
+        position:relative;
+
+      }
+      #detail-section6-{{section.id}} .video-banner .video-link .czvdo-play-icon-svg{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        font-size: 30px;
+        color: #fff;
+
+      }
+      #detail-section6-{{section.id}}  .icon-image-wrap{
+      min-height:{{  section.settings.icon_height_size }}px;
+      }
+      #detail-section6-{{section.id}}  .icon-image-container{
+        padding: 12px;
+        display: flex;
+        {% if section.settings.show_icon_background %}
+          background:{{  section.settings.icon_bg_color }};
+        {% else %}
+
+        {% endif %}
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+      }
+
+
+      /* 修改swiper 前进 后退按钮样式 */
+      #detail-section6-{{section.id}} .swiper-button-next ,
+      #detail-section6-{{section.id}} .swiper-button-prev  {
+      position: absolute;
+      top: {{ section.settings.swiper_button_position }}%;
+      width: {{section.settings.swiper_button_size}}px;
+      height: {{section.settings.swiper_button_size}}px;
+      margin-top: 0;
+      background-color: {{ section.settings.swiper_button_bg_color }};
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      {% if section.settings.swiper_button_position == 50 %}
+        transform: translateY(-50%);
+      {% endif %}
+
+
+      }
+      #detail-section6-{{section.id}} .swiper-button-next svg,
+      #detail-section6-{{section.id}} .swiper-button-prev svg {
+
+          width: {{section.settings.swiper_button_icon_size}}px;
+          height: {{section.settings.swiper_button_icon_size}}px;
+
+      }
+      #detail-section6-{{section.id}} .swiper-button-next svg path,
+      #detail-section6-{{section.id}} .swiper-button-prev svg path {
+        stroke: {{ section.settings.swiper_button_icon_color }};
+
+
+      }
+
+      {%- assign num = section.settings.display_number_per_line | plus: 0 -%}
+
+      {% if section.blocks.size > num %}
+        #detail-section6-{{section.id}}  .swiper-button-next.swiper-button-disabled, #detail-section6-{{section.id}}  .swiper-button-prev.swiper-button-disabled {
+          opacity: 1;
+          cursor: auto;
+          pointer-events: none;
+      }
+      {% endif %}
+
+    #detail-section6-{{section.id}} .swiper-button-next.swiper-button-disabled svg,
+    #detail-section6-{{section.id}} .swiper-button-prev.swiper-button-disabled svg {
+
+        width: {{section.settings.swiper_button_icon_size}}px;
+        height: {{section.settings.swiper_button_icon_size}}px;
+
+    }
+    #detail-section6-{{section.id}} .swiper-button-next.swiper-button-disabled svg path,
+    #detail-section6-{{section.id}} .swiper-button-prev.swiper-button-disabled svg path {
+      stroke: {{ section.settings.swiper_button_icon_color }};
+
+    }
+      #detail-section6-{{section.id}} .swiper-button-next{
+
+          {% if section.settings.swiper_button_position == '50' %}
+            right: 0;
+            {% else  %}
+            right: 0;
+          {% endif %}
+      }
+
+      #detail-section6-{{section.id}} .swiper-button-prev {
+
+          {% if section.settings.swiper_button_position == '50' %}
+            left: 0;
+            {% else  %}
+            left: 0;
+          {% endif %}
+
+      }
+      #detail-section6-{{section.id}} .swiper-pagination-wrap{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 30px;
+        height: auto;
+      }
+      #detail-section6-{{section.id}} .swiper-pagination-wrap .swiper-pagination-{{section.id}}{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+      }
+      #detail-section6-{{section.id}} .swiper-pagination-{{section.id}} .swiper-pagination-bullet::before {
+          content: " ";
+          height: 100%;
+          display: block;
+          border-radius: 4px;
+          background: var(--color-body, #2c2d2e);
+        }
+
+        #detail-section6-{{section.id}} .swiper-pagination-{{section.id}} .swiper-pagination-bullet:not(.swiper-pagination-bullet-active)::before {
+          width: 100%;
+          background: rgba(216, 216, 216, 0.9);
+        }
+
+        #detail-section6-{{section.id}} .swiper-pagination-{{section.id}} .swiper-pagination-bullet-active::before {
+          animation: page-dot-progress 5s normal linear;
+          -webkit-animation: page-dot-progress 5s normal linear;
+        }
+
+        #detail-section6-{{section.id}} .swiper-pagination-{{section.id}}  .swiper-pagination-bullet {
+          width: 42px;
+          height: 3px;
+          display: inline-block;
+          border-radius: 0;
+          background: #000;
+          opacity: .2;
+      }
+        #detail-section6-{{section.id}} .swiper-pagination-{{section.id}} .swiper-pagination-bullet-active {
+          width: 72px !important;
+          border-radius: 0;
+          background: rgba(0, 0, 0, 0.2);
+          height: 3px;
+          opacity: 1;
+        }
+
+        #detail-section6-{{section.id}} .swiper-pagination-{{section.id}} .swiper-pagination-bullet.page-dot-progress::before {
+          animation: page-dot-progress 5s normal linear;
+          -webkit-animation: page-dot-progress 5s normal linear;
+      }
+
+      @keyframes page-dot-progress {
+          0% {
+            width: 0%;
+          }
+
+          100% {
+            width: 100%;
+          }
+        }
+      #detail-section6-{{section.id}} .show_desktop {
+          display: flex;
+        }
+        #detail-section6-{{section.id}} .show_mobile {
+          display: none;
+        }
+        #detail-section6-{{section.id}} .custom-heading-4 {
+          padding: {{section.settings.content_heading_padding_top}}px 0 {{section.settings.content_heading_padding_bottom}}px 0;
+          text-align: {{ section.settings.text_position }};
+          margin: 0;
+          color: {{section.settings.content_heading_color}};
+
+          width: 100%;
+
+          line-height: 1.2;
+
+
+
+
+        }
+        #detail-section6-{{section.id}} .multiple-flex-box-{{section.id}}{
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-start; /* 主轴上的对齐方式为从左到右 */
+          column-gap: 15px;
+          row-gap: 0;
+          margin-top:35px;
+
+        }
+        {% assign nums = 100 | divided_by: section.settings.display_number_per_line_flex_mobile | round %}
+        {% case section.settings.display_number_per_line_flex_mobile %}
+          {% when '1' %}
+            {% assign column_gap = 15 %}
+          {% when '2' %}
+            {% assign column_gap = 7.5 %}
+          {% when '3' %}
+            {% assign column_gap = 10 %}
+          {% when '4' %}
+            {% assign column_gap = 11.25 %}
+          {% else %}
+            {% assign column_gap = 15 %}
+        {% endcase %}
+        #detail-section6-{{section.id}} .multiple-flex-box-{{section.id}} .multiple-flex-item{
+          margin-bottom: 10px; /* 间距 */
+          flex-basis: calc(100% / {{ section.settings.display_number_per_line_flex_mobile | plus: 0 }} - {{ column_gap }}px); /* 计算每个项目的宽度，减去一半的间隙以确保总间隙为 15px */
+           box-sizing: border-box; /* 包含 padding 和 border 在元素的总宽高之内 */
+        }
+      @media screen and (min-width: 320px) and (max-width: 769px){
+        #detail-section6-{{section.id}} .multiple-swiper-wrap {
+          {% if section.settings.show_full_width %}
+            max-width:100%;
+            padding: {{section.settings.padding_top_mobile}}px 24px {{section.settings.padding_bottom_mobile}}px 24px;
+          {% else %}
+          margin:auto;
+          padding: {{section.settings.padding_top_mobile}}px 24px {{section.settings.padding_bottom_mobile}}px 24px ;
+          {% endif %}
+      }
+      #detail-section6-{{section.id}} .multiple-swiper-wrap .swiper-slide-content {
+
+          padding: {{section.settings.card_padding_top_bottom_mobile}}px {{section.settings.card_padding_left_right_mobile}}px;
+          border-radius: {{section.settings.card_radius_size_mobile}}px;
+      }
+      #detail-section6-{{section.id}}  .icon-image-container{
+        padding: 6px;
+
+      }
+        #detail-section6-{{section.id}} .multiple-swiper-wrap .heading {
+          font-size: 27px;
+          margin: 15px 0 0 0 ;
+          line-height: 34px;
+      }
+
+
+      #detail-section6-{{section.id}} .detail .custom-heading-4 {
+        padding: {{section.settings.content_heading_padding_top_mobile}}px 0 {{section.settings.content_heading_padding_bottom_mobile}}px 0;
+        font-size: {{section.settings.content_heading_size_mobile}}px;
+        line-height: 1.2;
+
+    }
+
+    #detail-section6-{{section.id}} .caption {
+      transform: translateY(0) !important;
+    }
+    #detail-section6-{{section.id}} .multiple-swiper-wrap .swiper-slide-content .content, #detail-section6-{{section.id}} .multiple-flex-box-{{section.id}} .multiple-flex-item .content{
+
+      font-size: {{section.settings.desc_text_font_size_mobile}}px;
+      line-height: 1.2;
+    }
+    #detail-section6-{{section.id}} .multiple-flex-box-{{section.id}} .multiple-flex-item .custom-heading-4{
+      padding-bottom:{{section.settings.content_heading_padding_bottom_mobile}}px;
+      padding-top:{{section.settings.content_heading_padding_top_mobile}}px;
+    }
+    #detail-section6-{{section.id}} .multiple-flex-box-{{section.id}} .multiple-flex-item .content{
+      padding-top:0;
+    }
+    #detail-section6-{{section.id}} .swiper-pagination-{{section.id}}  .swiper-pagination-bullet {
+      width: 30px;
+      height: 2px;
+      display: inline-block;
+      border-radius: 0;
+      background: #000;
+      opacity: .2;
+  }
+    #detail-section6-{{section.id}} .swiper-pagination-{{section.id}} .swiper-pagination-bullet-active {
+      width: 48px !important;
+      border-radius: 0;
+      background: rgba(0, 0, 0, 0.2);
+      height: 2px;
+      opacity: 1;
+    }
+          #detail-section6-{{section.id}} .show_desktop {
+              display: none;
+            }
+            #detail-section6-{{section.id}} .show_mobile {
+              display: block;
+            }
+      }
+</style>
+
+<!-- 多个轮播 图文 -->
+<div id="detail-section6-{{section.id}}">
+  <div class="multiple-swiper-wrap">
+    {% if section.settings.title != empty %}
+      <h3
+        class="heading wow fadeInUp {{ section.settings.title_size }} {{ section.settings.title_font_family }}"
+        data-wow-delay=".8s"
+      >
+        {{ section.settings.title }}
+      </h3>
+    {% endif %}
+
+    <!-- 多个轮播模式 -->
+    <div class="detail-section6-mySwiper-{{section.id}}">
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          {% case block.type %}
+            {%- when 'multipleImageTextSlider' -%}
+              {% style %}
+                #detail-section6-{{section.id}} .multiple-swiper-wrap .swiper-slide .img-wrap-{{block.id}}{
+
+                    {% if section.settings.show_icon_model %}
+                      width: {{block.settings.icon_width_size}}px;
+
+                    {% else %}
+
+                    {% endif %}
+                }
+                @media screen and (min-width: 320px) and (max-width: 769px){
+                  #detail-section6-{{section.id}}  .icon-image-wrap{
+                    min-height:{{  section.settings.icon_height_size_mobile  }}px;
+                  }
+                  #detail-section6-{{section.id}} .multiple-swiper-wrap .swiper-slide .img-wrap-{{block.id}}{
+
+                    {% if section.settings.show_icon_model %}
+                      width: {{ block.settings.icon_width_size_mobile }}px;
+
+                    {% else %}
+
+                    {% endif %}
+                    }
+                }
+              {% endstyle %}
+              <div class="swiper-slide">
+                <div class="swiper-slide-content">
+                  <!-- Required swiper-lazy class and image source specified in data-src attribute -->
+                  {%- if block.settings.button_link -%}
+                    <a
+                      class="image-container"
+                      href="{{block.settings.button_link}}"
+                    >
+                  {% endif %}
+                  {%- if section.settings.show_icon_model -%}
+                    <span
+                      class="icon-image-wrap"
+                    >
+                      <span
+                        class="icon-image-container"
+                      >
+                  {% endif %}
+                  {%- if block.settings.image_pc -%}
+                    {% assign image = block.settings.image_pc %}
+                    {% assign size = 100 | divided_by: section.settings.display_number_per_line | round %}
+                    <img
+                      style="aspect-ratio: {{ block.settings.image_pc.aspect_ratio }};"
+                      data-sizes="{{ size }}vw"
+                      width="{{ size }}vw"
+                      data-srcset="
+                        {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                        {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                        {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                        {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                        {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                        {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                        {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                        {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                        {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                        {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                        {{ image | image_url }} {{ image.width }}w
+                      "
+                      data-src="{{ image | image_url:width:750 }}"
+                      class="swiper-lazy show_desktop lazyload img-wrap-{{block.id}}"
+                    >
+                  {% endif %}
+                  {%- if block.settings.image_mobile -%}
+                    {% assign image = block.settings.image_mobile %}
+                    {% assign size = 100 | divided_by: section.settings.display_number_per_line_mobile | round %}
+                    <img
+                      style="aspect-ratio: {{ block.settings.image_mobile.aspect_ratio }};"
+                      width="{{ size }}vw"
+                      data-sizes="{{ size }}vw"
+                      data-srcset="
+                        {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                        {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                        {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                        {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                        {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                        {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                        {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                        {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                        {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                        {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                        {{ image | image_url }} {{ image.width }}w
+                      "
+                      data-src="{{image | image_url:width:750 }}"
+                      class="swiper-lazy show_mobile lazyload img-wrap-{{block.id}}"
+                    >
+                  {% endif %}
+                  {%- if section.settings.show_icon_model -%}
+                    </span>
+                    </span>
+                  {% endif %}
+                  {%- if block.settings.button_link -%}
+                    {%- if block.settings.button_text != empty -%}
+                      <div
+                        class="caption"
+                      >
+                        <span style="display:inline-block">{{- block.settings.button_text -}}</span>
+                        <i>
+                          <svg
+                            class="bi"
+                            width="40"
+                            height="70"
+                            fill="currentColor"
+                            viewBox="0 0 16 16"
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                          >
+                            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L10.293 8 4.646 2.354a.5.5 0 010-.708z">
+                            </path>
+                          </svg>
+                        </i>
+                      </div>
+                    {% endif %}
+                    </a>
+                  {% endif %}
+                  <div class="show_desktop detail" style="flex-direction: column;">
+                    {% unless block.settings.heading == empty %}
+                      <div class="custom-heading-4 {{ section.settings.content_heading_font_family }} {{ section.settings.content_heading_size }}">
+                        {{ block.settings.heading }}
+                      </div>
+                    {% endunless %}
+                    {% unless block.settings.desc == empty %}
+                      <div class="content {{ section.settings.desc_text_font_size }}">{{ block.settings.desc }}</div>
+                    {% endunless %}
+                  </div>
+                  <div class="show_mobile detail" style="flex-direction: column;">
+                    {% unless block.settings.heading_mobile == empty %}
+                      <div class="custom-heading-4 {{ section.settings.content_heading_font_family }}">
+                        {{ block.settings.heading_mobile }}
+                      </div>
+                    {% else %}
+                      <div class="custom-heading-4 {{ section.settings.content_heading_font_family }}">
+                        {{ block.settings.heading }}
+                      </div>
+                    {% endunless %}
+                    {% unless block.settings.desc_mobile == empty %}
+                      <div class="content">{{ block.settings.desc_mobile }}</div>
+                    {% else %}
+                      <div class="content">{{ block.settings.desc }}</div>
+                    {% endunless %}
+                  </div>
+                </div>
+              </div>
+            {%- when 'videoItem' -%}
+              <div class="swiper-slide">
+                {% if block.settings.video_url != null %}
+                  <div class="video-banner">
+                    <a
+                      class="video-link"
+                      href="{{block.settings.video_url}}"
+                      data-fancybox
+                      data-caption="{{ block.settings.caption_heading }}"
+                    >
+                      {% assign image_mobile = block.settings.video_image %}
+                      {% assign size = 100 | divided_by: section.settings.display_number_per_line | round %}
+                      <img
+                        data-sizes="{{ size }}vw"
+                        width="{{ size }}vw"
+                        data-sizes="auto"
+                        data-srcset="
+                          {%- if image_mobile.width >= 375 -%}{{ image_mobile | image_url: width: 375 }} 375w,{%- endif -%}
+                          {%- if image_mobile.width >= 750 -%}{{ image_mobile | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if image_mobile.width >= 1100 -%}{{ image_mobile | image_url: width: 1100 }} 1100w,{%- endif -%}
+                          {%- if image_mobile.width >= 1500 -%}{{ image_mobile | image_url: width: 1500 }} 1500w,{%- endif -%}
+                          {%- if image_mobile.width >= 1780 -%}{{ image_mobile | image_url: width: 1780 }} 1780w,{%- endif -%}
+                          {%- if image_mobile.width >= 2000 -%}{{ image_mobile | image_url: width: 2000 }} 2000w,{%- endif -%}
+                          {%- if image_mobile.width >= 3000 -%}{{ image_mobile | image_url: width: 3000 }} 3000w,{%- endif -%}
+                          {%- if image_mobile.width >= 3840 -%}{{ image_mobile | image_url: width: 3840 }} 3840w,{%- endif -%}
+
+                          {{ image_mobile | image_url }} {{ image_mobile.width }}w
+                        "
+                        data-src="{{ image_mobile | image_url: width: 1200 }}"
+                        style="max-width:100%;width:100%"
+                        class="lazyload"
+                        alt="{{ block.settings.caption_heading}}"
+                      >
+
+                      <i class="czvdo-play-icon-svg iconfont icon-bofang"></i>
+                    </a>
+                  </div>
+                  {% if block.settings.caption_heading != blank %}
+                    <div class="caption-body">
+                      <div class="overlay-content">
+                        <p class="caption-text text-xs">
+                          {{- block.settings.caption_heading -}}
+                        </p>
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endif %}
+              </div>
+          {%- endcase -%}
+        {% endfor %}
+      </div>
+      {% if section.settings.swiper_button_position == '0' %}
+        {% assign display_number_per_line = section.settings.display_number_per_line | plus: 0 %}
+        {% assign totalNums = section.blocks.size %}
+
+        {% if display_number_per_line != totalNums %}
+          <div class="swiper-button-next swiper-button-next-{{section.id}} show_desktop ">
+            <svg
+              class="bi"
+              width="40"
+              height="70"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L10.293 8 4.646 2.354a.5.5 0 010-.708z">
+              </path>
+            </svg>
+          </div>
+          <div class="swiper-button-prev swiper-button-prev-{{section.id}} show_desktop ">
+            <svg
+              class="bi"
+              width="40"
+              height="70"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z">
+              </path>
+            </svg>
+          </div>
+        {% endif %}
+        {% if section.settings.show_swiper_pagination %}
+          <div class="swiper-pagination-wrap">
+            <div class="swiper-pagination swiper-pagination-{{section.id}}"></div>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+    {% if section.settings.swiper_button_position == '50' %}
+      {% assign display_number_per_line = section.settings.display_number_per_line | plus: 0 %}
+      {% assign totalNums = section.blocks.size %}
+
+      {% if display_number_per_line != totalNums %}
+        <div class="swiper-button-next swiper-button-next-{{section.id}} show_desktop ">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="20" transform="matrix(-1 0 0 1 40 0)" fill="black"/>
+            <path d="M16 14C16.35 14.32 21.8125 17.8667 24 19.6L17 26" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="swiper-button-prev swiper-button-prev-{{section.id}} show_desktop ">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="20" fill="black"/>
+            <path d="M24 14C23.65 14.32 18.1875 17.8667 16 19.6L23 26" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      {% endif %}
+      {% if section.settings.show_swiper_pagination %}
+        <div class="swiper-pagination-wrap">
+          <div class="swiper-pagination swiper-pagination-{{section.id}}"></div>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if section.settings.show_swiper_mobile and section.settings.show_swiper_scrollbar %}
+      <div class="swiper-scrollbar swiper-scrollbar-{{section.id}} show_mobile" style="height: .5rem;"></div>
+    {% endif %}
+    <!-- 排版模式 -->
+    <div class="multiple-flex-box-{{section.id}}">
+      {%- for block in section.blocks -%}
+        {% style %}
+           #detail-section6-{{section.id}}  .icon-image-wrap{
+                 min-height:{{  section.settings.icon_height_size  }}px;
+               }
+          #detail-section6-{{section.id}} .multiple-flex-box-{{section.id}} .multiple-flex-item .img-wrap-{{block.id}}{
+
+               {% if section.settings.show_icon_model %}
+                 width: {{ block.settings.icon_width_size }}px;
+
+               {% else %}
+
+               {% endif %}
+           }
+           @media screen and (min-width: 320px) and (max-width: 769px){
+             #detail-section6-{{section.id}}  .icon-image-wrap{
+                   min-height:{{  section.settings.icon_height_size_mobile }}px;
+               }
+               #detail-section6-{{section.id}} .multiple-flex-box-{{section.id}} .multiple-flex-item .img-wrap-{{block.id}}{
+
+                 {% if section.settings.show_icon_model %}
+                   width: {{ block.settings.icon_width_size_mobile }}px;
+
+                 {% else %}
+
+                 {% endif %}
+                 }
+             }
+        {% endstyle %}
+        <div class="multiple-flex-item">
+          <div class="swiper-slide-content">
+            <!-- Required swiper-lazy class and image source specified in data-src attribute -->
+            {%- if block.settings.button_link -%}
+              <a
+                class="image-container"
+                href="{{block.settings.button_link}}"
+              >
+            {% endif %}
+            {%- if section.settings.show_icon_model -%}
+              <span
+                class="icon-image-wrap"
+              >
+                <span
+                  class="icon-image-container"
+                >
+            {% endif %}
+            {%- if block.settings.image_mobile -%}
+              {% assign image = block.settings.image_mobile %}
+              {% assign size = 100 | divided_by: section.settings.display_number_per_line_flex_mobile | round %}
+              <img
+                width="{{ size }}vw"
+                data-sizes="{{ size }}vw"
+                data-srcset="
+                  {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                  {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                  {{ image | image_url }} {{ image.width }}w
+                "
+                data-src="{{image | image_url:width:750 }}"
+                class="swiper-lazy show_mobile lazyload img-wrap-{{block.id}}"
+              >
+            {% endif %}
+            {%- if section.settings.show_icon_model -%}
+              </span>
+              </span>
+            {% endif %}
+            {%- if block.settings.button_link -%}
+              {% comment %}
+                {%- if block.settings.button_text != empty -%}
+                  <div
+                    class="caption"
+                  >
+                    <span style="display:inline-block">{{- block.settings.button_text -}}</span>
+                    <i>
+                      <svg
+                        class="bi"
+                        width="40"
+                        height="70"
+                        fill="currentColor"
+                        viewBox="0 0 16 16"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L10.293 8 4.646 2.354a.5.5 0 010-.708z">
+                        </path>
+                      </svg>
+                    </i>
+                  </div>
+                {% endif %}
+              {% endcomment %}
+              </a>
+            {% endif %}
+            <div class="show_desktop detail" style="flex-direction: column;">
+              {% unless block.settings.heading == empty %}
+                <div class="custom-heading-4 ">{{ block.settings.heading }}</div>
+              {% endunless %}
+              {% unless block.settings.desc == empty %}
+                <div class="content">{{ block.settings.desc }}</div>
+              {% endunless %}
+            </div>
+            <div class="show_mobile detail" style="flex-direction: column;">
+              {% unless block.settings.heading_mobile == empty %}
+                <div class="custom-heading-4 ">{{ block.settings.heading_mobile }}</div>
+              {% else %}
+                <div class="custom-heading-4 ">{{ block.settings.heading }}</div>
+              {% endunless %}
+              {% unless block.settings.desc_mobile == empty %}
+                <div class="content">{{ block.settings.desc_mobile }}</div>
+              {% else %}
+                <div class="content">{{ block.settings.desc }}</div>
+              {% endunless %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- 多个轮播 图文 -->
+<script defer type="text/javascript">
+  $(document).ready(function () {
+    const is_swiper_autoplay = {{section.settings.is_swiper_autoplay}};
+    const show_swiper_mobile = {{section.settings.show_swiper_mobile}};
+    const display_number_per_line = {{section.settings.display_number_per_line | plus: 0 }};
+    const display_number_per_line_mobile = {{section.settings.display_number_per_line_mobile | plus: 0 }};
+    const totalNums = {{section.blocks.size}};
+    console.log('totalNums==', totalNums)
+    console.log('display_number_per_line==', display_number_per_line)
+    console.log(
+      'display_number_per_line_mobile==',
+      display_number_per_line_mobile
+    )
+    console.log('show_swiper_mobile==', show_swiper_mobile)
+    // 鼠标悬停时显示文字
+    $('.detail-section6-mySwiper-{{section.id}} .image-container').hover(
+      function () {
+        $(this).find('.caption').stop().animate(
+          {
+            transform: 'translateY(0)',
+          },
+          300
+        )
+      },
+      function () {
+        $(this).find('.caption').stop().animate(
+          {
+            transform: 'translateY(100%)',
+          },
+          300
+        )
+      }
+    )
+    if (!show_swiper_mobile && isMobile()) {
+      console.log('移动端隐藏轮播')
+      $('.detail-section6-mySwiper-{{section.id}}').css('display', 'none')
+    } else {
+      console.log('PC端显示轮播')
+      $('.detail-section6-mySwiper-{{section.id}}').css('display', 'block')
+      $('.multiple-flex-box-{{section.id}}').css('display', 'none')
+    }
+
+    if (!isMobile() || (show_swiper_mobile && isMobile())) {
+
+      new Swiper('.detail-section6-mySwiper-{{section.id}}', {
+        loop: true,
+        loopedSlides: 10, // slidesPerView设置为非整数（如1.2）时，可能会出现循环问题添加此行，指定循环所需的额外幻灯片数量
+        observer: true, //开启动态检查器，监测swiper和slide
+        noSwiping: true,
+        {% comment %} autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        }, {% endcomment %}
+        slidesPerView: display_number_per_line,
+        spaceBetween: 24,
+        pagination: {
+          el: '.swiper-pagination-{{section.id}}',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next-{{section.id}}',
+          prevEl: '.swiper-button-prev-{{section.id}}',
+        },
+
+        scrollbar: {
+          el: '.swiper-scrollbar-{{section.id}}',
+          hide: false,
+        },
+        on: {
+          init: function (swiper) {
+            if (is_swiper_autoplay) {
+              // 禁用自动播放
+              this.autoplay.start()
+              this.params.autoplay.delay = 5000;
+            } else {
+              this.autoplay.stop()
+            }
+            if (!isMobile()) {
+              if (totalNums === display_number_per_line) {
+                console.log('禁止拖动')
+                // 禁止拖动
+                this.allowTouchMove = false
+              } else {
+                // 允许拖动
+                console.log('允许拖动')
+                this.allowTouchMove = true
+              }
+            } else {
+              if (totalNums === display_number_per_line_mobile) {
+                console.log('禁止拖动')
+                // 禁止拖动
+                this.allowTouchMove = false
+              } else {
+                // 允许拖动
+                console.log('允许拖动')
+                this.allowTouchMove = true
+              }
+            }
+          },
+          slideChangeTransitionEnd: function (swiper) {},
+          imagesReady: function () {
+            this.update(); // 更新 Swiper
+        },
+        slideChange: function () {
+            // 移除所有分页点的动画类
+            document.querySelectorAll('.swiper-pagination-{{section.id}} .swiper-pagination-bullet').forEach(bullet => {
+                bullet.classList.remove('page-dot-progress');
+            });
+            // 为当前活动的分页点添加动画类
+            const activeBullet = document.querySelector('.swiper-pagination-{{section.id}} .swiper-pagination-bullet-active');
+            if (activeBullet) {
+                activeBullet.classList.add('page-dot-progress');
+            }
+        }
+        },
+
+        breakpoints: {
+          //当宽度小于等于768时显示
+          768: {
+            spaceBetween: 15,
+            slidesPerView: display_number_per_line_mobile,
+          },
+        },
+      })
+
+      setTimeout(() => {
+        if (totalNums > display_number_per_line) {
+          $('.swiper-button-next-{{section.id}}').removeClass(
+            'swiper-button-disabled'
+          )
+        }
+      }, 0)
+
+    }
+  })
+</script>
+
+{% schema %}
+{
+  "name": "Product Multiple Slider 1",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_full_width",
+      "label": "全屏显示",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icon_model",
+      "label": "开启图标模式",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icon_background",
+      "label": "是否显示图标背景色",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "is_swiper_autoplay",
+      "label": "自动轮播切换",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_swiper_pc",
+      "label": "PC端是否显示轮播",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_swiper_mobile",
+      "label": "移动端是否显示轮播",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_swiper_scrollbar",
+      "label": "显示轮播滚动条",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_swiper_button",
+      "label": "显示轮播切换按钮",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_swiper_pagination",
+      "label": "显示轮播分页器",
+      "default": true
+    },
+
+    {
+      "type": "select",
+      "id": "display_number_per_line",
+      "label": "每行显示个数(PC端)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "display_number_per_line_mobile",
+      "label": "每行显示个数(移动端)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "1.5",
+          "label": "1.5"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "2.5",
+          "label": "2.5"
+        }
+      ],
+      "info": "仅在开启移动端轮播显示才生效",
+      "default": "1.5"
+    },
+    {
+      "type": "select",
+      "id": "display_number_per_line_flex_mobile",
+      "label": "每行显示个数(移动端)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ],
+      "info": "仅在关闭移动端轮播显示才生效",
+      "default": "2"
+    },
+    {
+      "type": "radio",
+      "id": "text_position",
+      "label": "文本对齐",
+      "options": [
+        {
+          "label": "左对齐",
+          "value": "start"
+        },
+        {
+          "label": "两端对齐",
+          "value": "justify"
+        },
+        {
+          "label": "居中对齐",
+          "value": "center"
+        },
+        {
+          "label": "右对齐",
+          "value": "end"
+        }
+      ],
+      "default": "start"
+    },
+    {
+      "type": "radio",
+      "id": "swiper_button_position",
+      "label": "轮播切换按钮位置",
+      "options": [
+        {
+          "label": "顶部",
+          "value": "0"
+        },
+        {
+          "label": "居中",
+          "value": "50"
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "type": "range",
+      "id": "image_radius_size",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "rem",
+      "label": "图片边框圆角",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "card_radius_size",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片容器边框圆角",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_radius_size_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片容器边框圆角（移动端）",
+      "default": 10
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "大标题",
+      "default": "Welcome to my shop!"
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": "大标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题字体大小（移动端）",
+      "default": 30
+    },
+    {
+      "type": "select",
+      "id": "content_heading_size",
+      "label": "主标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h3"
+    },
+    {
+      "type": "range",
+      "id": "content_heading_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "主标题字体大小（移动端）",
+      "default": 18
+    },
+    {
+      "type": "select",
+      "id": "title_font_family",
+      "label": "大标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-bold"
+    },
+    {
+      "type": "select",
+      "id": "content_heading_font_family",
+      "label": "主标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-bold"
+    },
+    {
+      "type": "range",
+      "id": "desc_text_font_size",
+      "min": 12,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "正文字体大小",
+      "default": 17
+    },
+
+    {
+      "type": "range",
+      "id": "desc_text_font_size_mobile",
+      "min": 12,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "正文字体大小(移动端)",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "icon_height_size",
+      "min": 50,
+      "max": 150,
+      "step": 1,
+      "unit": "px",
+      "label": "图标最小高度",
+      "default": 70,
+      "info": "仅在开启图标模式才生效"
+    },
+    {
+      "type": "range",
+      "id": "icon_height_size_mobile",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "px",
+      "label": "图标最小高度(移动端)",
+      "default": 40,
+      "info": "仅在开启图标模式才生效"
+    },
+    {
+      "type": "range",
+      "id": "swiper_button_size",
+      "min": 20,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "轮播切换按钮大小",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "swiper_button_icon_size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "轮播切换按钮内部图标大小",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "swiper_button_margin",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "轮播切换按钮距离卡片容器距离",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "swiper_button_icon_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "轮播切换按钮内部图标大小(移动端)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "swiper_button_size_mobile",
+      "min": 20,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "轮播切换按钮大小(移动端)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "content_heading_top",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "rem",
+      "label": "内容标题距离顶部位置",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "颜色填充"
+    },
+    {
+      "type": "color",
+      "id": "heading_text",
+      "label": "标题字体颜色",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "content_heading_color",
+      "label": "内容标题字体颜色",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "desc_text",
+      "label": "内容字体颜色",
+      "default": "#333333"
+    },
+
+    {
+      "type": "color",
+      "id": "swiper_button_icon_color",
+      "label": "轮播切换按钮内部图标颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "swiper_button_bg_color",
+      "label": "轮播切换按钮背景色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "卡片容器背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "color",
+      "id": "icon_bg_color",
+      "label": "图标背景色",
+      "default": "#F9F9F9",
+      "info": "仅在开启图标模式才生效"
+    },
+    {
+      "type": "header",
+      "content": "分区填充"
+    },
+    {
+      "type": "range",
+      "id": "title_to_content_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_heading_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "主标题顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_heading_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "主标题底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "card_padding_left_right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片容器左右填充",
+      "default": 76
+    },
+
+    {
+      "type": "range",
+      "id": "card_padding_top_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片容器上下填充",
+      "default": 50
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "title_to_content_padding_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_heading_padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "主标题顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_heading_padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "主标题底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "card_padding_left_right_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片容器左右填充（移动端）",
+      "default": 76
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片容器上下填充（移动端）",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "multipleImageTextSlider",
+      "name": "多个图文轮播切换",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_pc",
+          "label": "图片 PC端"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "图片 移动端"
+        },
+        {
+          "type": "range",
+          "id": "icon_width_size",
+          "min": 20,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "图标大小",
+          "default": 40,
+          "info": "仅在开启图标模式才生效"
+        },
+        {
+          "type": "range",
+          "id": "icon_width_size_mobile",
+          "min": 20,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "图标大小（移动端）",
+          "default": 20,
+          "info": "仅在开启图标模式才生效"
+        },
+
+        {
+          "type": "html",
+          "id": "heading",
+          "label": "主标题(PC端)"
+        },
+        {
+          "type": "html",
+          "id": "heading_mobile",
+          "label": "主标题(移动端)",
+          "info": "（可选）当前内容为空时，默认显示标题(PC端)"
+        },
+        {
+          "type": "html",
+          "id": "desc",
+          "label": "正文(PC端)"
+        },
+        {
+          "type": "html",
+          "id": "desc_mobile",
+          "label": "正文(移动端)",
+          "info": "（可选）当前内容为空时，默认显示正文(PC端)"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "按钮文本"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "URL",
+          "info": "点击图片或按钮跳转地址"
+        }
+      ]
+    },
+    {
+      "type": "videoItem",
+      "name": "视频",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "video_image",
+          "label": "视频封面"
+        },
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "label": "Product description video",
+          "accept": ["youtube", "vimeo"]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Multiple Slider 1",
+      "blocks": [
+        {
+          "type": "multipleImageTextSlider"
+        },
+        {
+          "type": "multipleImageTextSlider"
+        },
+        {
+          "type": "multipleImageTextSlider"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

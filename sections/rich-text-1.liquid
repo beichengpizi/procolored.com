@@ -1,0 +1,129 @@
+{% liquid
+  if section.settings.top == '17.5'
+    assign top = 'pt-8 md:pt-17.5'
+  elsif section.settings.top == '20'
+    assign top = 'pt-8 md:pt-20'
+  elsif section.settings.top == '24'
+    assign top = 'pt-8 md:pt-24'
+  elsif section.settings.top == '28'
+    assign top = 'pt-8 md:pt-28'
+  else
+    assign top = ''
+  endif
+
+  if section.settings.bottom == '17.5'
+    assign bottom = 'pb-8 md:pb-17.5'
+  elsif section.settings.bottom == '20'
+    assign bottom = 'pb-8 md:pb-20'
+  elsif section.settings.bottom == '24'
+    assign bottom = 'pb-8 md:pb-24'
+  elsif section.settings.bottom == '28'
+    assign bottom = 'pb-8 md:pb-28'
+  else
+    assign bottom = ''
+  endif
+%}
+
+<div class="container {{ top }} {{ bottom }}">
+  <div class="bg-white rounded-xl lg:rounded-2xl shadow p-4 lg:p-10">
+    <h2 class="text-center m-0 text-2xl md:text-3xl">{{ section.settings.headding }}</h2>
+    {%- if section.settings.descriptiton != blank -%}
+      <div class="flex flex-col gap-3 mt-4 md:mt-6 lg:mt-8 text-gray-700 text-sm md:text-base lg:text-xl">
+        {{ section.settings.descriptiton }}
+      </div>
+    {%- else -%}
+      <div class="flex flex-col gap-3 mt-4 md:mt-6 lg:mt-8 text-gray-700 text-sm md:text-base lg:text-xl">
+        Short-term printing needs only? New to digital printing? Worried the printer won't pay for itself? We understand
+        all your concerns about buying a printer, and now you're entitled to lease one instead!
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "简单文本",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "配置项"
+    },
+    {
+      "type": "select",
+      "id": "top",
+      "default": "20",
+      "label": "板块上边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bottom",
+      "default": "20",
+      "label": "板块下边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "内容配置"
+    },
+    {
+      "type": "text",
+      "id": "headding",
+      "label": "标题"
+    },
+    {
+      "type": "textarea",
+      "id": "descriptiton",
+      "label": "描述"
+    }
+  ],
+  "presets": [
+    {
+      "name": "简单文本"
+    }
+  ]
+}
+{% endschema %}

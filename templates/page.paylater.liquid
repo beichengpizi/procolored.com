@@ -1,0 +1,86 @@
+{{ 'page.paylater.css' | asset_url | stylesheet_tag }}
+<div class="paylater">
+  <div class="paylater-banner" style="background-image: url({{ 'paylater-banner.png' | asset_url }})">
+    <div class="text">
+      <div class="title">Shop Now<br/>Pay Later with Klarna</div>
+    </div>
+  </div>
+  <div class="paylater-sections">
+    <section class="paylater-section">
+      <div class="paylater-section-header">
+        <div class="paylater-section-title">Benefits Of Klarna Installment</div>
+      </div>
+      <div class="paylater-benefit-cards">
+        <div class="paylater-benefit-card" style="background-image: url({{ 'paylater-benefit-1.png' | asset_url }});">
+          <div class="text">Start your business earlier</div>
+        </div>
+        <div class="paylater-benefit-card" style="background-image: url({{ 'paylater-benefit-2.png' | asset_url }});">
+          <div class="text">Ease your payment pressure</div>
+        </div>
+        <div class="paylater-benefit-card" style="background-image: url({{ 'paylater-benefit-3.png' | asset_url }});">
+          <div class="text">No hidden fees</div>
+        </div>
+      </div>
+    </section>
+    <section class="paylater-section">
+      <div class="paylater-section-header">
+        <div class="paylater-section-title">How To Pay With Klarna</div>
+        <div class="paylater-section-subtitle" style="color: #b0b0b0;">Add to cart, go to check out, and complete the below steps to pay with Klarna</div>
+      </div>
+      <div class="paylater-how-to-cards">
+        <div class="paylater-how-to-card">
+          <img src="{{ 'paylater-how-1.png' | asset_url }}" />
+          <div class="text">
+            ① verify your phone
+          </div>
+        </div>
+        <div class="paylater-how-to-card">
+          <img src="{{ 'paylater-how-2.png' | asset_url }}" />
+          <div class="text">
+            ② fill in your email
+          </div>
+        </div>
+        <div class="paylater-how-to-card">
+          <img src="{{ 'paylater-how-3.png' | asset_url }}" />
+          <div class="text">
+            ③ confirm details
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="paylater-section-header">
+      <div class="paylater-section-title">Frequently Asked Questions</div>
+      <div class="paylater-section-subtitle" style="color: #b0b0b0;">Have questions? We’re here to help</div>
+    </div>
+    <section class="paylater-section faq">
+      <div class="faq-obj">
+        <div class="faq-obj-head">Can I use Klarna to make installment payments for any product?<div class="spacer"></div>
+          {% render 'full-menu-chevron-bottom' %}
+        </div>
+        <div class="faq-obj-content">Yes, any product on our website can be paid in installments, but items over $3,000 will be charged interest.</div>
+      </div>
+      <div class="faq-obj">
+        <div class="faq-obj-head">Is Klarna payment safe? Are there any additional fees?<div class="spacer"></div>
+          {% render 'full-menu-chevron-bottom' %}</div>
+        <div class="faq-obj-content">It is safe. You can see the fees you need to pay in each installment when making installments, and there will be no additional fees.</div>
+      </div>
+      <div class="faq-obj">
+        <div class="faq-obj-head">Can I purchase multiple products using Klarna?<div class="spacer"></div>
+          {% render 'full-menu-chevron-bottom' %}</div>
+        <div class="faq-obj-content">Yes, you can buy together at checkout and select Klarna to pay for your order</div>
+      </div>
+    </section>
+  </div>
+</div>
+{{ 'data-href-support.js' | asset_url | script_tag }}
+<script>
+  document.querySelectorAll('.faq-obj-head').forEach(el => {
+    el.addEventListener('click', () => {
+      if (el.parentElement.classList.contains('active')) {
+        el.parentElement.classList.remove('active');
+      } else {
+        el.parentElement.classList.add('active')
+      }
+    })
+  })
+</script>

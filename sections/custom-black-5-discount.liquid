@@ -1,0 +1,1540 @@
+<style>
+  .coupon-wrap {
+    background-color: #000;
+  }
+  .coupon-wrap .title {
+    width: 100%;
+    font-family: ItalianPlateNo2Expanded-Bold !important;
+    font-weight: bold;
+    font-size: 40px;
+    color: #fece67;
+    line-height: 1;
+    text-align: center;
+    font-style: normal;
+    text-transform: none;
+    margin-bottom: 24px;
+  }
+  .coupon-wrap .subtitle {
+    width: 100%;
+    font-family: ItalianPlateNo2Expanded-Regular !important;
+    font-weight: 400;
+    font-size: 24px;
+    color: #ffffff;
+    line-height: 1;
+    text-align: center;
+    font-style: normal;
+    text-transform: none;
+    margin-bottom: 32px;
+  }
+  .coupon-wrap .desc {
+    width: 100%;
+    font-family: ItalianPlateNo2Expanded-Regular !important;
+    font-weight: 400;
+    font-size: 16px;
+    color: #848484;
+    line-height: 1;
+    text-align: center;
+    font-style: normal;
+    text-transform: none;
+    margin-bottom: 45px;
+  }
+  .coupon-wrap .coupon-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+    font-family: ItalianPlateNo2Expanded-Bold !important;
+    font-weight: 700 !important;
+  }
+
+  .coupon-item {
+    position: relative;
+    box-sizing: border-box;
+    text-align: center;
+    height: 200px;
+    width: 100%;
+    flex: 1 1 calc(16.666% - 40px);
+  }
+
+  .bg-before,
+  .bg-after {
+    width: 100%;
+    height: 100%;
+  }
+  .bg-after {
+    display: none;
+  }
+  .coupon-bg-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  .coupon-content {
+    position: absolute;
+    z-index: 1;
+    padding: 24px 24px 12px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: space-between;
+    row-gap: 20px;
+    box-sizing: border-box;
+    height: 200px;
+    width: 184px;
+  }
+  .coupon-content-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 5px;
+    width: 100%;
+  }
+  .price {
+    display: flex;
+    align-items: start;
+    line-height: 1;
+  }
+  .currency-symbol {
+    font-size: 18px;
+    height: 100%;
+    line-height: 30px;
+  }
+  .discounts-price {
+    font-size: 70px;
+  }
+  .origin-price {
+    font-size: 18px;
+    line-height: 1;
+  }
+  .coupon-content-bottom {
+    width: 100%;
+  }
+  .coupon-content-bottom .button {
+    width: 134px;
+    height: 34px;
+    background: #171717;
+    border-radius: 25px 25px 25px 25px;
+    color: #fece67;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  /* 移动端媒体查询 */
+  @media (max-width: 768px) {
+    .coupon-wrap {
+      background-color: #000;
+      padding: 0 12px;
+    }
+    .coupon-wrap .title {
+      font-size: 30px;
+
+      margin-bottom: 12px;
+    }
+    .coupon-wrap .subtitle {
+      font-size: 14px;
+
+      margin-bottom: 16px;
+    }
+    .coupon-wrap .desc {
+      font-size: 12px;
+
+      margin-bottom: 34px;
+    }
+    .coupon-wrap .coupon-container {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 10px;
+      font-family: ItalianPlateNo2Expanded-Bold !important;
+      font-weight: 700 !important;
+    }
+
+    .coupon-item {
+      position: relative;
+      box-sizing: border-box;
+      text-align: center;
+      height: 120px;
+      width: 100%;
+      flex: 1 1 calc(33.333% - 20px);
+    }
+
+    .bg-before,
+    .bg-after {
+      width: 100%;
+      height: 100%;
+    }
+
+    .bg-before svg,
+    .bg-after svg {
+      height: 100%;
+      width: 100%;
+    }
+    .bg-after {
+      display: none;
+    }
+    .coupon-bg-container {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+    .coupon-content {
+      position: absolute;
+      z-index: 1;
+      padding: 14px 15px 8px 15px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      row-gap: 20px;
+      box-sizing: border-box;
+      height: 120px;
+      width: 100%;
+    }
+    .coupon-content-top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      row-gap: 5px;
+      width: 100%;
+    }
+    .price {
+      display: flex;
+      align-items: start;
+      line-height: 1;
+    }
+    .currency-symbol {
+      font-size: 12px;
+      height: 100%;
+      line-height: 30px;
+    }
+    .discounts-price {
+      font-size: 40px;
+    }
+    .origin-price {
+      font-size: 12px;
+      line-height: 1;
+    }
+    .coupon-content-bottom {
+      width: auto;
+    }
+    .coupon-content-bottom .button {
+      width: 75px;
+      height: 20px;
+      background: #171717;
+      border-radius: 30px;
+      color: #fece67;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 0;
+    }
+  }
+</style>
+<div id="{%- if section.settings.nav_id != empty %}custom-nav-{{- section.settings.nav_id -}}{% endif -%}">
+  <div class="coupon-wrap">
+    <div class="title">Grap Special Now!</div>
+    <div class="subtitle">July 8th - July 11st</div>
+    <div class="desc">The discount will be applied at the checkout automatically.</div>
+    <div class="coupon-container">
+      <div id="coupon-item-1" class="coupon-item">
+        <div class="coupon-bg-container">
+          <div class="bg-before">
+            <svg
+              width="184"
+              height="200"
+              viewBox="0 0 184 200"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M0 8C0 3.58173 3.58172 0 8 0H175.264C179.682 0 183.264 3.58172 183.264 8L183.264 128.402C176.708 128.402 171.393 133.945 171.393 140.782C171.393 147.619 176.708 153.161 183.264 153.161L183.264 192C183.264 196.418 179.682 200 175.264 200H8C3.58172 200 0 196.418 0 192L3.8147e-05 153.161C6.55642 153.161 11.8714 147.619 11.8714 140.782C11.8714 133.945 6.55642 128.402 3.8147e-05 128.402L0 8Z"
+                fill="url(#paint0_linear_2291_27_1)"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M183.264 170.184L183.264 153.161C181.225 153.161 179.306 152.625 177.63 151.681L151.35 200H167.048L183.264 170.184ZM183.264 66.5211L183.264 95.3826L126.364 200H110.667L183.264 66.5211ZM183.264 20.5823V8C183.264 4.699 181.265 1.86496 178.411 0.642722L69.983 200H85.6809L183.264 20.5823ZM138.077 0H153.775L44.9973 200H29.2994L138.077 0ZM1.52588e-05 179.069L0 192C0 195.242 1.92807 198.033 4.7 199.29L113.091 0H97.3935L1.52588e-05 179.069ZM72.4079 0H56.7104L3.05176e-05 104.268L3.8147e-05 128.402C0.832855 128.402 1.64565 128.492 2.43006 128.662L72.4079 0ZM7.62939e-06 29.467L1.52588e-05 58.3295L31.7247 0H16.0268L7.62939e-06 29.467Z"
+                fill="url(#paint1_linear_2291_27_1)"
+                fill-opacity="0.35"
+                style="mix-blend-mode: color-dodge"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M8 0.8C4.02355 0.8 0.8 4.02355 0.8 8L0.800038 127.628C7.4527 128.058 12.6714 133.812 12.6714 140.782C12.6714 147.751 7.4527 153.505 0.800037 153.935L0.8 192C0.8 195.976 4.02355 199.2 8 199.2H175.264C179.241 199.2 182.464 195.976 182.464 192L182.464 153.935C175.812 153.505 170.593 147.751 170.593 140.782C170.593 133.812 175.812 128.058 182.464 127.628L182.464 8C182.464 4.02355 179.241 0.8 175.264 0.8H8ZM183.264 8C183.264 3.58172 179.682 0 175.264 0H8C3.58172 0 0 3.58173 0 8L3.8147e-05 128.402C6.55642 128.402 11.8714 133.945 11.8714 140.782C11.8714 147.619 6.55642 153.161 3.8147e-05 153.161L0 192C0 196.418 3.58172 200 8 200H175.264C179.682 200 183.264 196.418 183.264 192L183.264 153.161C176.708 153.161 171.393 147.619 171.393 140.782C171.393 133.945 176.708 128.402 183.264 128.402L183.264 8Z"
+                fill="url(#paint2_diamond_2291_27_1)"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12.7485 140H11.75V139H12.7485V140ZM16.7426 140H14.7456V139H16.7426V140ZM20.7368 140H18.7397V139H20.7368V140ZM24.7309 140H22.7338V139H24.7309V140ZM28.725 140H26.7279V139H28.725V140ZM32.7191 140H30.722V139H32.7191V140ZM36.7132 140H34.7161V139H36.7132V140ZM40.7073 140H38.7103V139H40.7073V140ZM44.7014 140H42.7044V139H44.7014V140ZM48.6955 140H46.6985V139H48.6955V140ZM52.6897 140H50.6926V139H52.6897V140ZM56.6838 140H54.6867V139H56.6838V140ZM60.6779 140H58.6808V139H60.6779V140ZM64.672 140H62.6749V139H64.672V140ZM68.6661 140H66.669V139H68.6661V140ZM72.6602 140H70.6631V139H72.6602V140ZM76.6543 140H74.6573V139H76.6543V140ZM80.6484 140H78.6514V139H80.6484V140ZM84.6425 140H82.6455V139H84.6425V140ZM88.6366 140H86.6396V139H88.6366V140ZM92.6308 140H90.6337V139H92.6308V140ZM96.6249 140H94.6278V139H96.6249V140ZM100.619 140H98.6219V139H100.619V140ZM104.613 140H102.616V139H104.613V140ZM108.607 140H106.61V139H108.607V140ZM112.601 140H110.604V139H112.601V140ZM116.595 140H114.598V139H116.595V140ZM120.59 140H118.592V139H120.59V140ZM124.584 140H122.587V139H124.584V140ZM128.578 140H126.581V139H128.578V140ZM132.572 140H130.575V139H132.572V140ZM136.566 140H134.569V139H136.566V140ZM140.56 140H138.563V139H140.56V140ZM144.554 140H142.557V139H144.554V140ZM148.548 140H146.551V139H148.548V140ZM152.542 140H150.545V139H152.542V140ZM156.537 140H154.539V139H156.537V140ZM160.531 140H158.534V139H160.531V140ZM164.525 140H162.528V139H164.525V140ZM168.519 140H166.522V139H168.519V140ZM171.515 140H170.516V139H171.515V140Z"
+                fill="black"
+              />
+              <defs>
+                <linearGradient
+                  id="paint0_linear_2291_27_1"
+                  x1="106.597"
+                  y1="5.75691e-08"
+                  x2="112.199"
+                  y2="199.843"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop offset="0.14626" stop-color="#FFEFC8" />
+                  <stop offset="0.752721" stop-color="#FECE67" />
+                </linearGradient>
+                <linearGradient
+                  id="paint1_linear_2291_27_1"
+                  x1="4.15568"
+                  y1="-1.24001e-06"
+                  x2="22.8124"
+                  y2="161.919"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#FECE67" />
+                  <stop offset="1" stop-color="#FECE67" stop-opacity="0" />
+                </linearGradient>
+                <radialGradient
+                  id="paint2_diamond_2291_27_1"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(188.714 192.567) rotate(-133.599) scale(265.908 253.784)"
+                >
+                  <stop stop-color="white" stop-opacity="0" />
+                  <stop offset="1" stop-color="white" />
+                </radialGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="bg-after">
+            <svg
+              version="1.1"
+              id="图层_1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="184"
+              height="200"
+              viewBox="0 0 184 200"
+              xml:space="preserve"
+            >
+              <style type="text/css">
+                .st0_1 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_6_1);
+                }
+
+                .st1_1 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_000000852366942445287641700000051933270006582616486_1);
+                  fill-opacity: 0.35;
+                }
+                .st2_1 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_000000319277283821616011700000075905024239546590036_1);
+                }
+                .st3_1 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                }
+              </style>
+              <linearGradient
+                id="SVGID_6_1"
+                gradientUnits="userSpaceOnUse"
+                x1="91.632"
+                y1="202"
+                x2="91.632"
+                y2="2"
+                gradientTransform="matrix(1 0 0 -1 0 202)"
+              >
+                <stop offset="0" style="stop-color: #999999" />
+                <stop offset="1" style="stop-color: #ffffff" />
+              </linearGradient>
+              <path
+                class="st0_1"
+                d="M0,8c0-4.4,3.6-8,8-8h167.3c4.4,0,8,3.6,8,8v120.4c-6.6,0-11.9,5.5-11.9,12.4c0,6.8,5.3,12.4,11.9,12.4V192
+              c0,4.4-3.6,8-8,8H8c-4.4,0-8-3.6-8-8l0-38.8c6.6,0,11.9-5.5,11.9-12.4c0-6.8-5.3-12.4-11.9-12.4L0,8z"
+              />
+              <linearGradient
+                id="SVGID_00000168101007170611766040000000139779569681623449_1"
+                gradientUnits="userSpaceOnUse"
+                x1="79.1146"
+                y1="210.637"
+                x2="97.7713"
+                y2="48.718"
+                gradientTransform="matrix(1 0 0 -1 0 202)"
+              >
+                <stop offset="0" style="stop-color: #fefefe" />
+                <stop
+                  offset="1"
+                  style="stop-color: #fefefe; stop-opacity: 0"
+                />
+              </linearGradient>
+              <path
+                style="
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_00000168101007170611766040000000139779569681623449_1);
+                  fill-opacity: 0.35;
+                "
+                d="
+              M183.3,170.2v-17c-2,0-4-0.5-5.6-1.5L151.4,200H167L183.3,170.2z M183.3,66.5v28.9L126.4,200h-15.7L183.3,66.5z M183.3,20.6V8
+              c0-3.3-2-6.1-4.9-7.4L70,200h15.7L183.3,20.6z M138.1,0h15.7L45,200H29.3L138.1,0z M0,179.1L0,192c0,3.2,1.9,6,4.7,7.3L113.1,0H97.4
+              L0,179.1z M72.4,0H56.7L0,104.3l0,24.1c0.8,0,1.6,0.1,2.4,0.3L72.4,0z M0,29.5l0,28.9L31.7,0H16L0,29.5z"
+              />
+              <radialGradient
+                id="SVGID_00000088823780171639937860000003309457503836498847_1"
+                cx="-450.4987"
+                cy="1062.0586"
+                r="1"
+                gradientTransform="matrix(-183.372 -192.5663 -183.7863 175.0112 112771.6875 -272430.4375)"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop
+                  offset="0"
+                  style="stop-color: #ffffff; stop-opacity: 0"
+                />
+                <stop offset="1" style="stop-color: #ffffff" />
+              </radialGradient>
+              <path
+                style="
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_00000088823780171639937860000003309457503836498847_1);
+                "
+                d="
+              M8,0.8C4,0.8,0.8,4,0.8,8l0,119.6c6.7,0.4,11.9,6.2,11.9,13.2c0,7-5.2,12.7-11.9,13.2l0,38.1c0,4,3.2,7.2,7.2,7.2h167.3
+              c4,0,7.2-3.2,7.2-7.2v-38.1c-6.7-0.4-11.9-6.2-11.9-13.2c0-7,5.2-12.7,11.9-13.2V8c0-4-3.2-7.2-7.2-7.2H8z M183.3,8c0-4.4-3.6-8-8-8
+              H8C3.6,0,0,3.6,0,8l0,120.4c6.6,0,11.9,5.5,11.9,12.4c0,6.8-5.3,12.4-11.9,12.4L0,192c0,4.4,3.6,8,8,8h167.3c4.4,0,8-3.6,8-8v-38.8
+              c-6.6,0-11.9-5.5-11.9-12.4c0-6.8,5.3-12.4,11.9-12.4V8z"
+              />
+              <path
+                class="st3_1"
+                d="M12.7,140h-1v-1h1V140z M16.7,140h-2v-1h2V140z M20.7,140h-2v-1h2V140z M24.7,140h-2v-1h2V140z M28.7,140h-2v-1
+              h2V140z M32.7,140h-2v-1h2V140z M36.7,140h-2v-1h2V140z M40.7,140h-2v-1h2V140z M44.7,140h-2v-1h2V140z M48.7,140h-2v-1h2V140z
+               M52.7,140h-2v-1h2V140z M56.7,140h-2v-1h2V140z M60.7,140h-2v-1h2V140z M64.7,140h-2v-1h2V140z M68.7,140h-2v-1h2V140z M72.7,140
+              h-2v-1h2V140z M76.7,140h-2v-1h2V140z M80.6,140h-2v-1h2V140z M84.6,140h-2v-1h2V140z M88.6,140h-2v-1h2V140z M92.6,140h-2v-1h2V140
+              z M96.6,140h-2v-1h2V140z M100.6,140h-2v-1h2V140z M104.6,140h-2v-1h2V140z M108.6,140h-2v-1h2V140z M112.6,140h-2v-1h2V140z
+               M116.6,140h-2v-1h2V140z M120.6,140h-2v-1h2V140z M124.6,140h-2v-1h2V140z M128.6,140h-2v-1h2V140z M132.6,140h-2v-1h2V140z
+               M136.6,140h-2v-1h2V140z M140.6,140h-2v-1h2V140z M144.6,140h-2v-1h2V140z M148.5,140h-2v-1h2V140z M152.5,140h-2v-1h2V140z
+               M156.5,140h-2v-1h2V140z M160.5,140h-2v-1h2V140z M164.5,140h-2v-1h2V140z M168.5,140h-2v-1h2V140z M171.5,140h-1v-1h1V140z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="coupon-content">
+          <div class="coupon-content-top">
+            <div class="price">
+              <div class="currency-symbol">$</div>
+              <div class="discounts-price">395</div>
+            </div>
+            <div class="origin-price">OFF $7899</div>
+          </div>
+          <div class="coupon-content-bottom">
+            <div class="button">Get</div>
+          </div>
+        </div>
+      </div>
+      <div id="coupon-item-2" class="coupon-item">
+        <div class="coupon-bg-container">
+          <div class="bg-before">
+            <svg
+              width="184"
+              height="200"
+              viewBox="0 0 184 200"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M0 8C0 3.58173 3.58172 0 8 0H175.264C179.682 0 183.264 3.58172 183.264 8L183.264 128.402C176.708 128.402 171.393 133.945 171.393 140.782C171.393 147.619 176.708 153.161 183.264 153.161L183.264 192C183.264 196.418 179.682 200 175.264 200H8C3.58172 200 0 196.418 0 192L3.8147e-05 153.161C6.55642 153.161 11.8714 147.619 11.8714 140.782C11.8714 133.945 6.55642 128.402 3.8147e-05 128.402L0 8Z"
+                fill="url(#paint0_linear_2291_27_2)"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M183.264 170.184L183.264 153.161C181.225 153.161 179.306 152.625 177.63 151.681L151.35 200H167.048L183.264 170.184ZM183.264 66.5211L183.264 95.3826L126.364 200H110.667L183.264 66.5211ZM183.264 20.5823V8C183.264 4.699 181.265 1.86496 178.411 0.642722L69.983 200H85.6809L183.264 20.5823ZM138.077 0H153.775L44.9973 200H29.2994L138.077 0ZM1.52588e-05 179.069L0 192C0 195.242 1.92807 198.033 4.7 199.29L113.091 0H97.3935L1.52588e-05 179.069ZM72.4079 0H56.7104L3.05176e-05 104.268L3.8147e-05 128.402C0.832855 128.402 1.64565 128.492 2.43006 128.662L72.4079 0ZM7.62939e-06 29.467L1.52588e-05 58.3295L31.7247 0H16.0268L7.62939e-06 29.467Z"
+                fill="url(#paint1_linear_2291_27_2)"
+                fill-opacity="0.35"
+                style="mix-blend-mode: color-dodge"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M8 0.8C4.02355 0.8 0.8 4.02355 0.8 8L0.800038 127.628C7.4527 128.058 12.6714 133.812 12.6714 140.782C12.6714 147.751 7.4527 153.505 0.800037 153.935L0.8 192C0.8 195.976 4.02355 199.2 8 199.2H175.264C179.241 199.2 182.464 195.976 182.464 192L182.464 153.935C175.812 153.505 170.593 147.751 170.593 140.782C170.593 133.812 175.812 128.058 182.464 127.628L182.464 8C182.464 4.02355 179.241 0.8 175.264 0.8H8ZM183.264 8C183.264 3.58172 179.682 0 175.264 0H8C3.58172 0 0 3.58173 0 8L3.8147e-05 128.402C6.55642 128.402 11.8714 133.945 11.8714 140.782C11.8714 147.619 6.55642 153.161 3.8147e-05 153.161L0 192C0 196.418 3.58172 200 8 200H175.264C179.682 200 183.264 196.418 183.264 192L183.264 153.161C176.708 153.161 171.393 147.619 171.393 140.782C171.393 133.945 176.708 128.402 183.264 128.402L183.264 8Z"
+                fill="url(#paint2_diamond_2291_27_2)"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12.7485 140H11.75V139H12.7485V140ZM16.7426 140H14.7456V139H16.7426V140ZM20.7368 140H18.7397V139H20.7368V140ZM24.7309 140H22.7338V139H24.7309V140ZM28.725 140H26.7279V139H28.725V140ZM32.7191 140H30.722V139H32.7191V140ZM36.7132 140H34.7161V139H36.7132V140ZM40.7073 140H38.7103V139H40.7073V140ZM44.7014 140H42.7044V139H44.7014V140ZM48.6955 140H46.6985V139H48.6955V140ZM52.6897 140H50.6926V139H52.6897V140ZM56.6838 140H54.6867V139H56.6838V140ZM60.6779 140H58.6808V139H60.6779V140ZM64.672 140H62.6749V139H64.672V140ZM68.6661 140H66.669V139H68.6661V140ZM72.6602 140H70.6631V139H72.6602V140ZM76.6543 140H74.6573V139H76.6543V140ZM80.6484 140H78.6514V139H80.6484V140ZM84.6425 140H82.6455V139H84.6425V140ZM88.6366 140H86.6396V139H88.6366V140ZM92.6308 140H90.6337V139H92.6308V140ZM96.6249 140H94.6278V139H96.6249V140ZM100.619 140H98.6219V139H100.619V140ZM104.613 140H102.616V139H104.613V140ZM108.607 140H106.61V139H108.607V140ZM112.601 140H110.604V139H112.601V140ZM116.595 140H114.598V139H116.595V140ZM120.59 140H118.592V139H120.59V140ZM124.584 140H122.587V139H124.584V140ZM128.578 140H126.581V139H128.578V140ZM132.572 140H130.575V139H132.572V140ZM136.566 140H134.569V139H136.566V140ZM140.56 140H138.563V139H140.56V140ZM144.554 140H142.557V139H144.554V140ZM148.548 140H146.551V139H148.548V140ZM152.542 140H150.545V139H152.542V140ZM156.537 140H154.539V139H156.537V140ZM160.531 140H158.534V139H160.531V140ZM164.525 140H162.528V139H164.525V140ZM168.519 140H166.522V139H168.519V140ZM171.515 140H170.516V139H171.515V140Z"
+                fill="black"
+              />
+              <defs>
+                <linearGradient
+                  id="paint0_linear_2291_27_2"
+                  x1="106.597"
+                  y1="5.75691e-08"
+                  x2="112.199"
+                  y2="199.843"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop offset="0.14626" stop-color="#FFEFC8" />
+                  <stop offset="0.752721" stop-color="#FECE67" />
+                </linearGradient>
+                <linearGradient
+                  id="paint1_linear_2291_27_2"
+                  x1="4.15568"
+                  y1="-1.24001e-06"
+                  x2="22.8124"
+                  y2="161.919"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#FECE67" />
+                  <stop offset="1" stop-color="#FECE67" stop-opacity="0" />
+                </linearGradient>
+                <radialGradient
+                  id="paint2_diamond_2291_27_2"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(188.714 192.567) rotate(-133.599) scale(265.908 253.784)"
+                >
+                  <stop stop-color="white" stop-opacity="0" />
+                  <stop offset="1" stop-color="white" />
+                </radialGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="bg-after">
+            <svg
+              version="1.1"
+              id="图层_1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="184"
+              height="200"
+              viewBox="0 0 184 200"
+              xml:space="preserve"
+            >
+              <style type="text/css">
+                .st0_2 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_6_2);
+                }
+
+                .st1_2 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_000000852366942445287641700000051933270006582616486_2);
+                  fill-opacity: 0.35;
+                }
+                .st2_2 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_000000319277283821616011700000075905024239546590036_2);
+                }
+                .st3_2 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                }
+              </style>
+              <linearGradient
+                id="SVGID_6_2"
+                gradientUnits="userSpaceOnUse"
+                x1="91.632"
+                y1="202"
+                x2="91.632"
+                y2="2"
+                gradientTransform="matrix(1 0 0 -1 0 202)"
+              >
+                <stop offset="0" style="stop-color: #999999" />
+                <stop offset="1" style="stop-color: #ffffff" />
+              </linearGradient>
+              <path
+                class="st0_2"
+                d="M0,8c0-4.4,3.6-8,8-8h167.3c4.4,0,8,3.6,8,8v120.4c-6.6,0-11.9,5.5-11.9,12.4c0,6.8,5.3,12.4,11.9,12.4V192
+              c0,4.4-3.6,8-8,8H8c-4.4,0-8-3.6-8-8l0-38.8c6.6,0,11.9-5.5,11.9-12.4c0-6.8-5.3-12.4-11.9-12.4L0,8z"
+              />
+              <linearGradient
+                id="SVGID_00000168101007170611766040000000139779569681623449_2"
+                gradientUnits="userSpaceOnUse"
+                x1="79.1146"
+                y1="210.637"
+                x2="97.7713"
+                y2="48.718"
+                gradientTransform="matrix(1 0 0 -1 0 202)"
+              >
+                <stop offset="0" style="stop-color: #fefefe" />
+                <stop
+                  offset="1"
+                  style="stop-color: #fefefe; stop-opacity: 0"
+                />
+              </linearGradient>
+              <path
+                style="
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_00000168101007170611766040000000139779569681623449_2);
+                  fill-opacity: 0.35;
+                "
+                d="
+              M183.3,170.2v-17c-2,0-4-0.5-5.6-1.5L151.4,200H167L183.3,170.2z M183.3,66.5v28.9L126.4,200h-15.7L183.3,66.5z M183.3,20.6V8
+              c0-3.3-2-6.1-4.9-7.4L70,200h15.7L183.3,20.6z M138.1,0h15.7L45,200H29.3L138.1,0z M0,179.1L0,192c0,3.2,1.9,6,4.7,7.3L113.1,0H97.4
+              L0,179.1z M72.4,0H56.7L0,104.3l0,24.1c0.8,0,1.6,0.1,2.4,0.3L72.4,0z M0,29.5l0,28.9L31.7,0H16L0,29.5z"
+              />
+              <radialGradient
+                id="SVGID_00000088823780171639937860000003309457503836498847_2"
+                cx="-450.4987"
+                cy="1062.0586"
+                r="1"
+                gradientTransform="matrix(-183.372 -192.5663 -183.7863 175.0112 112771.6875 -272430.4375)"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop
+                  offset="0"
+                  style="stop-color: #ffffff; stop-opacity: 0"
+                />
+                <stop offset="1" style="stop-color: #ffffff" />
+              </radialGradient>
+              <path
+                style="
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_00000088823780171639937860000003309457503836498847_2);
+                "
+                d="
+              M8,0.8C4,0.8,0.8,4,0.8,8l0,119.6c6.7,0.4,11.9,6.2,11.9,13.2c0,7-5.2,12.7-11.9,13.2l0,38.1c0,4,3.2,7.2,7.2,7.2h167.3
+              c4,0,7.2-3.2,7.2-7.2v-38.1c-6.7-0.4-11.9-6.2-11.9-13.2c0-7,5.2-12.7,11.9-13.2V8c0-4-3.2-7.2-7.2-7.2H8z M183.3,8c0-4.4-3.6-8-8-8
+              H8C3.6,0,0,3.6,0,8l0,120.4c6.6,0,11.9,5.5,11.9,12.4c0,6.8-5.3,12.4-11.9,12.4L0,192c0,4.4,3.6,8,8,8h167.3c4.4,0,8-3.6,8-8v-38.8
+              c-6.6,0-11.9-5.5-11.9-12.4c0-6.8,5.3-12.4,11.9-12.4V8z"
+              />
+              <path
+                class="st3_2"
+                d="M12.7,140h-1v-1h1V140z M16.7,140h-2v-1h2V140z M20.7,140h-2v-1h2V140z M24.7,140h-2v-1h2V140z M28.7,140h-2v-1
+              h2V140z M32.7,140h-2v-1h2V140z M36.7,140h-2v-1h2V140z M40.7,140h-2v-1h2V140z M44.7,140h-2v-1h2V140z M48.7,140h-2v-1h2V140z
+               M52.7,140h-2v-1h2V140z M56.7,140h-2v-1h2V140z M60.7,140h-2v-1h2V140z M64.7,140h-2v-1h2V140z M68.7,140h-2v-1h2V140z M72.7,140
+              h-2v-1h2V140z M76.7,140h-2v-1h2V140z M80.6,140h-2v-1h2V140z M84.6,140h-2v-1h2V140z M88.6,140h-2v-1h2V140z M92.6,140h-2v-1h2V140
+              z M96.6,140h-2v-1h2V140z M100.6,140h-2v-1h2V140z M104.6,140h-2v-1h2V140z M108.6,140h-2v-1h2V140z M112.6,140h-2v-1h2V140z
+               M116.6,140h-2v-1h2V140z M120.6,140h-2v-1h2V140z M124.6,140h-2v-1h2V140z M128.6,140h-2v-1h2V140z M132.6,140h-2v-1h2V140z
+               M136.6,140h-2v-1h2V140z M140.6,140h-2v-1h2V140z M144.6,140h-2v-1h2V140z M148.5,140h-2v-1h2V140z M152.5,140h-2v-1h2V140z
+               M156.5,140h-2v-1h2V140z M160.5,140h-2v-1h2V140z M164.5,140h-2v-1h2V140z M168.5,140h-2v-1h2V140z M171.5,140h-1v-1h1V140z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="coupon-content">
+          <div class="coupon-content-top">
+            <div class="price">
+              <div class="currency-symbol">$</div>
+              <div class="discounts-price">300</div>
+            </div>
+
+            <div class="origin-price">OFF $5999</div>
+          </div>
+          <div class="coupon-content-bottom">
+            <div class="button">Get</div>
+          </div>
+        </div>
+      </div>
+      <div id="coupon-item-3" class="coupon-item">
+        <div class="coupon-bg-container">
+          <div class="bg-before">
+            <svg
+              width="184"
+              height="200"
+              viewBox="0 0 184 200"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M0 8C0 3.58173 3.58172 0 8 0H175.264C179.682 0 183.264 3.58172 183.264 8L183.264 128.402C176.708 128.402 171.393 133.945 171.393 140.782C171.393 147.619 176.708 153.161 183.264 153.161L183.264 192C183.264 196.418 179.682 200 175.264 200H8C3.58172 200 0 196.418 0 192L3.8147e-05 153.161C6.55642 153.161 11.8714 147.619 11.8714 140.782C11.8714 133.945 6.55642 128.402 3.8147e-05 128.402L0 8Z"
+                fill="url(#paint0_linear_2291_27_3)"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M183.264 170.184L183.264 153.161C181.225 153.161 179.306 152.625 177.63 151.681L151.35 200H167.048L183.264 170.184ZM183.264 66.5211L183.264 95.3826L126.364 200H110.667L183.264 66.5211ZM183.264 20.5823V8C183.264 4.699 181.265 1.86496 178.411 0.642722L69.983 200H85.6809L183.264 20.5823ZM138.077 0H153.775L44.9973 200H29.2994L138.077 0ZM1.52588e-05 179.069L0 192C0 195.242 1.92807 198.033 4.7 199.29L113.091 0H97.3935L1.52588e-05 179.069ZM72.4079 0H56.7104L3.05176e-05 104.268L3.8147e-05 128.402C0.832855 128.402 1.64565 128.492 2.43006 128.662L72.4079 0ZM7.62939e-06 29.467L1.52588e-05 58.3295L31.7247 0H16.0268L7.62939e-06 29.467Z"
+                fill="url(#paint1_linear_2291_27_3)"
+                fill-opacity="0.35"
+                style="mix-blend-mode: color-dodge"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M8 0.8C4.02355 0.8 0.8 4.02355 0.8 8L0.800038 127.628C7.4527 128.058 12.6714 133.812 12.6714 140.782C12.6714 147.751 7.4527 153.505 0.800037 153.935L0.8 192C0.8 195.976 4.02355 199.2 8 199.2H175.264C179.241 199.2 182.464 195.976 182.464 192L182.464 153.935C175.812 153.505 170.593 147.751 170.593 140.782C170.593 133.812 175.812 128.058 182.464 127.628L182.464 8C182.464 4.02355 179.241 0.8 175.264 0.8H8ZM183.264 8C183.264 3.58172 179.682 0 175.264 0H8C3.58172 0 0 3.58173 0 8L3.8147e-05 128.402C6.55642 128.402 11.8714 133.945 11.8714 140.782C11.8714 147.619 6.55642 153.161 3.8147e-05 153.161L0 192C0 196.418 3.58172 200 8 200H175.264C179.682 200 183.264 196.418 183.264 192L183.264 153.161C176.708 153.161 171.393 147.619 171.393 140.782C171.393 133.945 176.708 128.402 183.264 128.402L183.264 8Z"
+                fill="url(#paint2_diamond_2291_27_3)"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12.7485 140H11.75V139H12.7485V140ZM16.7426 140H14.7456V139H16.7426V140ZM20.7368 140H18.7397V139H20.7368V140ZM24.7309 140H22.7338V139H24.7309V140ZM28.725 140H26.7279V139H28.725V140ZM32.7191 140H30.722V139H32.7191V140ZM36.7132 140H34.7161V139H36.7132V140ZM40.7073 140H38.7103V139H40.7073V140ZM44.7014 140H42.7044V139H44.7014V140ZM48.6955 140H46.6985V139H48.6955V140ZM52.6897 140H50.6926V139H52.6897V140ZM56.6838 140H54.6867V139H56.6838V140ZM60.6779 140H58.6808V139H60.6779V140ZM64.672 140H62.6749V139H64.672V140ZM68.6661 140H66.669V139H68.6661V140ZM72.6602 140H70.6631V139H72.6602V140ZM76.6543 140H74.6573V139H76.6543V140ZM80.6484 140H78.6514V139H80.6484V140ZM84.6425 140H82.6455V139H84.6425V140ZM88.6366 140H86.6396V139H88.6366V140ZM92.6308 140H90.6337V139H92.6308V140ZM96.6249 140H94.6278V139H96.6249V140ZM100.619 140H98.6219V139H100.619V140ZM104.613 140H102.616V139H104.613V140ZM108.607 140H106.61V139H108.607V140ZM112.601 140H110.604V139H112.601V140ZM116.595 140H114.598V139H116.595V140ZM120.59 140H118.592V139H120.59V140ZM124.584 140H122.587V139H124.584V140ZM128.578 140H126.581V139H128.578V140ZM132.572 140H130.575V139H132.572V140ZM136.566 140H134.569V139H136.566V140ZM140.56 140H138.563V139H140.56V140ZM144.554 140H142.557V139H144.554V140ZM148.548 140H146.551V139H148.548V140ZM152.542 140H150.545V139H152.542V140ZM156.537 140H154.539V139H156.537V140ZM160.531 140H158.534V139H160.531V140ZM164.525 140H162.528V139H164.525V140ZM168.519 140H166.522V139H168.519V140ZM171.515 140H170.516V139H171.515V140Z"
+                fill="black"
+              />
+              <defs>
+                <linearGradient
+                  id="paint0_linear_2291_27_3"
+                  x1="106.597"
+                  y1="5.75691e-08"
+                  x2="112.199"
+                  y2="199.843"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop offset="0.14626" stop-color="#FFEFC8" />
+                  <stop offset="0.752721" stop-color="#FECE67" />
+                </linearGradient>
+                <linearGradient
+                  id="paint1_linear_2291_27_3"
+                  x1="4.15568"
+                  y1="-1.24001e-06"
+                  x2="22.8124"
+                  y2="161.919"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#FECE67" />
+                  <stop offset="1" stop-color="#FECE67" stop-opacity="0" />
+                </linearGradient>
+                <radialGradient
+                  id="paint2_diamond_2291_27_3"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(188.714 192.567) rotate(-133.599) scale(265.908 253.784)"
+                >
+                  <stop stop-color="white" stop-opacity="0" />
+                  <stop offset="1" stop-color="white" />
+                </radialGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="bg-after">
+            <svg
+              version="1.1"
+              id="图层_1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="184"
+              height="200"
+              viewBox="0 0 184 200"
+              xml:space="preserve"
+            >
+              <style type="text/css">
+                .st0_3 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_6_3);
+                }
+
+                .st1_3 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_000000852366942445287641700000051933270006582616486_3);
+                  fill-opacity: 0.35;
+                }
+                .st2_3 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_000000319277283821616011700000075905024239546590036_3);
+                }
+                .st3_3 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                }
+              </style>
+              <linearGradient
+                id="SVGID_6_3"
+                gradientUnits="userSpaceOnUse"
+                x1="91.632"
+                y1="202"
+                x2="91.632"
+                y2="2"
+                gradientTransform="matrix(1 0 0 -1 0 202)"
+              >
+                <stop offset="0" style="stop-color: #999999" />
+                <stop offset="1" style="stop-color: #ffffff" />
+              </linearGradient>
+              <path
+                class="st0_3"
+                d="M0,8c0-4.4,3.6-8,8-8h167.3c4.4,0,8,3.6,8,8v120.4c-6.6,0-11.9,5.5-11.9,12.4c0,6.8,5.3,12.4,11.9,12.4V192
+              c0,4.4-3.6,8-8,8H8c-4.4,0-8-3.6-8-8l0-38.8c6.6,0,11.9-5.5,11.9-12.4c0-6.8-5.3-12.4-11.9-12.4L0,8z"
+              />
+              <linearGradient
+                id="SVGID_00000168101007170611766040000000139779569681623449_3"
+                gradientUnits="userSpaceOnUse"
+                x1="79.1146"
+                y1="210.637"
+                x2="97.7713"
+                y2="48.718"
+                gradientTransform="matrix(1 0 0 -1 0 202)"
+              >
+                <stop offset="0" style="stop-color: #fefefe" />
+                <stop
+                  offset="1"
+                  style="stop-color: #fefefe; stop-opacity: 0"
+                />
+              </linearGradient>
+              <path
+                style="
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_00000168101007170611766040000000139779569681623449_3);
+                  fill-opacity: 0.35;
+                "
+                d="
+              M183.3,170.2v-17c-2,0-4-0.5-5.6-1.5L151.4,200H167L183.3,170.2z M183.3,66.5v28.9L126.4,200h-15.7L183.3,66.5z M183.3,20.6V8
+              c0-3.3-2-6.1-4.9-7.4L70,200h15.7L183.3,20.6z M138.1,0h15.7L45,200H29.3L138.1,0z M0,179.1L0,192c0,3.2,1.9,6,4.7,7.3L113.1,0H97.4
+              L0,179.1z M72.4,0H56.7L0,104.3l0,24.1c0.8,0,1.6,0.1,2.4,0.3L72.4,0z M0,29.5l0,28.9L31.7,0H16L0,29.5z"
+              />
+              <radialGradient
+                id="SVGID_00000088823780171639937860000003309457503836498847_3"
+                cx="-450.4987"
+                cy="1062.0586"
+                r="1"
+                gradientTransform="matrix(-183.372 -192.5663 -183.7863 175.0112 112771.6875 -272430.4375)"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop
+                  offset="0"
+                  style="stop-color: #ffffff; stop-opacity: 0"
+                />
+                <stop offset="1" style="stop-color: #ffffff" />
+              </radialGradient>
+              <path
+                style="
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_00000088823780171639937860000003309457503836498847_3);
+                "
+                d="
+              M8,0.8C4,0.8,0.8,4,0.8,8l0,119.6c6.7,0.4,11.9,6.2,11.9,13.2c0,7-5.2,12.7-11.9,13.2l0,38.1c0,4,3.2,7.2,7.2,7.2h167.3
+              c4,0,7.2-3.2,7.2-7.2v-38.1c-6.7-0.4-11.9-6.2-11.9-13.2c0-7,5.2-12.7,11.9-13.2V8c0-4-3.2-7.2-7.2-7.2H8z M183.3,8c0-4.4-3.6-8-8-8
+              H8C3.6,0,0,3.6,0,8l0,120.4c6.6,0,11.9,5.5,11.9,12.4c0,6.8-5.3,12.4-11.9,12.4L0,192c0,4.4,3.6,8,8,8h167.3c4.4,0,8-3.6,8-8v-38.8
+              c-6.6,0-11.9-5.5-11.9-12.4c0-6.8,5.3-12.4,11.9-12.4V8z"
+              />
+              <path
+                class="st3_3"
+                d="M12.7,140h-1v-1h1V140z M16.7,140h-2v-1h2V140z M20.7,140h-2v-1h2V140z M24.7,140h-2v-1h2V140z M28.7,140h-2v-1
+              h2V140z M32.7,140h-2v-1h2V140z M36.7,140h-2v-1h2V140z M40.7,140h-2v-1h2V140z M44.7,140h-2v-1h2V140z M48.7,140h-2v-1h2V140z
+               M52.7,140h-2v-1h2V140z M56.7,140h-2v-1h2V140z M60.7,140h-2v-1h2V140z M64.7,140h-2v-1h2V140z M68.7,140h-2v-1h2V140z M72.7,140
+              h-2v-1h2V140z M76.7,140h-2v-1h2V140z M80.6,140h-2v-1h2V140z M84.6,140h-2v-1h2V140z M88.6,140h-2v-1h2V140z M92.6,140h-2v-1h2V140
+              z M96.6,140h-2v-1h2V140z M100.6,140h-2v-1h2V140z M104.6,140h-2v-1h2V140z M108.6,140h-2v-1h2V140z M112.6,140h-2v-1h2V140z
+               M116.6,140h-2v-1h2V140z M120.6,140h-2v-1h2V140z M124.6,140h-2v-1h2V140z M128.6,140h-2v-1h2V140z M132.6,140h-2v-1h2V140z
+               M136.6,140h-2v-1h2V140z M140.6,140h-2v-1h2V140z M144.6,140h-2v-1h2V140z M148.5,140h-2v-1h2V140z M152.5,140h-2v-1h2V140z
+               M156.5,140h-2v-1h2V140z M160.5,140h-2v-1h2V140z M164.5,140h-2v-1h2V140z M168.5,140h-2v-1h2V140z M171.5,140h-1v-1h1V140z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="coupon-content">
+          <div class="coupon-content-top">
+            <div class="price">
+              <div class="currency-symbol">$</div>
+              <div class="discounts-price">270</div>
+            </div>
+
+            <div class="origin-price">OFF $5399</div>
+          </div>
+          <div class="coupon-content-bottom">
+            <div class="button">Get</div>
+          </div>
+        </div>
+      </div>
+      <div id="coupon-item-4" class="coupon-item">
+        <div class="coupon-bg-container">
+          <div class="bg-before">
+            <svg
+              width="184"
+              height="200"
+              viewBox="0 0 184 200"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M0 8C0 3.58173 3.58172 0 8 0H175.264C179.682 0 183.264 3.58172 183.264 8L183.264 128.402C176.708 128.402 171.393 133.945 171.393 140.782C171.393 147.619 176.708 153.161 183.264 153.161L183.264 192C183.264 196.418 179.682 200 175.264 200H8C3.58172 200 0 196.418 0 192L3.8147e-05 153.161C6.55642 153.161 11.8714 147.619 11.8714 140.782C11.8714 133.945 6.55642 128.402 3.8147e-05 128.402L0 8Z"
+                fill="url(#paint0_linear_2291_27_4)"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M183.264 170.184L183.264 153.161C181.225 153.161 179.306 152.625 177.63 151.681L151.35 200H167.048L183.264 170.184ZM183.264 66.5211L183.264 95.3826L126.364 200H110.667L183.264 66.5211ZM183.264 20.5823V8C183.264 4.699 181.265 1.86496 178.411 0.642722L69.983 200H85.6809L183.264 20.5823ZM138.077 0H153.775L44.9973 200H29.2994L138.077 0ZM1.52588e-05 179.069L0 192C0 195.242 1.92807 198.033 4.7 199.29L113.091 0H97.3935L1.52588e-05 179.069ZM72.4079 0H56.7104L3.05176e-05 104.268L3.8147e-05 128.402C0.832855 128.402 1.64565 128.492 2.43006 128.662L72.4079 0ZM7.62939e-06 29.467L1.52588e-05 58.3295L31.7247 0H16.0268L7.62939e-06 29.467Z"
+                fill="url(#paint1_linear_2291_27_4)"
+                fill-opacity="0.35"
+                style="mix-blend-mode: color-dodge"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M8 0.8C4.02355 0.8 0.8 4.02355 0.8 8L0.800038 127.628C7.4527 128.058 12.6714 133.812 12.6714 140.782C12.6714 147.751 7.4527 153.505 0.800037 153.935L0.8 192C0.8 195.976 4.02355 199.2 8 199.2H175.264C179.241 199.2 182.464 195.976 182.464 192L182.464 153.935C175.812 153.505 170.593 147.751 170.593 140.782C170.593 133.812 175.812 128.058 182.464 127.628L182.464 8C182.464 4.02355 179.241 0.8 175.264 0.8H8ZM183.264 8C183.264 3.58172 179.682 0 175.264 0H8C3.58172 0 0 3.58173 0 8L3.8147e-05 128.402C6.55642 128.402 11.8714 133.945 11.8714 140.782C11.8714 147.619 6.55642 153.161 3.8147e-05 153.161L0 192C0 196.418 3.58172 200 8 200H175.264C179.682 200 183.264 196.418 183.264 192L183.264 153.161C176.708 153.161 171.393 147.619 171.393 140.782C171.393 133.945 176.708 128.402 183.264 128.402L183.264 8Z"
+                fill="url(#paint2_diamond_2291_27_4)"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12.7485 140H11.75V139H12.7485V140ZM16.7426 140H14.7456V139H16.7426V140ZM20.7368 140H18.7397V139H20.7368V140ZM24.7309 140H22.7338V139H24.7309V140ZM28.725 140H26.7279V139H28.725V140ZM32.7191 140H30.722V139H32.7191V140ZM36.7132 140H34.7161V139H36.7132V140ZM40.7073 140H38.7103V139H40.7073V140ZM44.7014 140H42.7044V139H44.7014V140ZM48.6955 140H46.6985V139H48.6955V140ZM52.6897 140H50.6926V139H52.6897V140ZM56.6838 140H54.6867V139H56.6838V140ZM60.6779 140H58.6808V139H60.6779V140ZM64.672 140H62.6749V139H64.672V140ZM68.6661 140H66.669V139H68.6661V140ZM72.6602 140H70.6631V139H72.6602V140ZM76.6543 140H74.6573V139H76.6543V140ZM80.6484 140H78.6514V139H80.6484V140ZM84.6425 140H82.6455V139H84.6425V140ZM88.6366 140H86.6396V139H88.6366V140ZM92.6308 140H90.6337V139H92.6308V140ZM96.6249 140H94.6278V139H96.6249V140ZM100.619 140H98.6219V139H100.619V140ZM104.613 140H102.616V139H104.613V140ZM108.607 140H106.61V139H108.607V140ZM112.601 140H110.604V139H112.601V140ZM116.595 140H114.598V139H116.595V140ZM120.59 140H118.592V139H120.59V140ZM124.584 140H122.587V139H124.584V140ZM128.578 140H126.581V139H128.578V140ZM132.572 140H130.575V139H132.572V140ZM136.566 140H134.569V139H136.566V140ZM140.56 140H138.563V139H140.56V140ZM144.554 140H142.557V139H144.554V140ZM148.548 140H146.551V139H148.548V140ZM152.542 140H150.545V139H152.542V140ZM156.537 140H154.539V139H156.537V140ZM160.531 140H158.534V139H160.531V140ZM164.525 140H162.528V139H164.525V140ZM168.519 140H166.522V139H168.519V140ZM171.515 140H170.516V139H171.515V140Z"
+                fill="black"
+              />
+              <defs>
+                <linearGradient
+                  id="paint0_linear_2291_27_4"
+                  x1="106.597"
+                  y1="5.75691e-08"
+                  x2="112.199"
+                  y2="199.843"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop offset="0.14626" stop-color="#FFEFC8" />
+                  <stop offset="0.752721" stop-color="#FECE67" />
+                </linearGradient>
+                <linearGradient
+                  id="paint1_linear_2291_27_4"
+                  x1="4.15568"
+                  y1="-1.24001e-06"
+                  x2="22.8124"
+                  y2="161.919"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#FECE67" />
+                  <stop offset="1" stop-color="#FECE67" stop-opacity="0" />
+                </linearGradient>
+                <radialGradient
+                  id="paint2_diamond_2291_27_4"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(188.714 192.567) rotate(-133.599) scale(265.908 253.784)"
+                >
+                  <stop stop-color="white" stop-opacity="0" />
+                  <stop offset="1" stop-color="white" />
+                </radialGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="bg-after">
+            <svg
+              version="1.1"
+              id="图层_1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="184"
+              height="200"
+              viewBox="0 0 184 200"
+              xml:space="preserve"
+            >
+              <style type="text/css">
+                .st0_4 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_6_4);
+                }
+
+                .st1_4 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_000000852366942445287641700000051933270006582616486_4);
+                  fill-opacity: 0.35;
+                }
+                .st2_4 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_000000319277283821616011700000075905024239546590036_4);
+                }
+                .st3_4 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                }
+              </style>
+              <linearGradient
+                id="SVGID_6_4"
+                gradientUnits="userSpaceOnUse"
+                x1="91.632"
+                y1="202"
+                x2="91.632"
+                y2="2"
+                gradientTransform="matrix(1 0 0 -1 0 202)"
+              >
+                <stop offset="0" style="stop-color: #999999" />
+                <stop offset="1" style="stop-color: #ffffff" />
+              </linearGradient>
+              <path
+                class="st0_4"
+                d="M0,8c0-4.4,3.6-8,8-8h167.3c4.4,0,8,3.6,8,8v120.4c-6.6,0-11.9,5.5-11.9,12.4c0,6.8,5.3,12.4,11.9,12.4V192
+              c0,4.4-3.6,8-8,8H8c-4.4,0-8-3.6-8-8l0-38.8c6.6,0,11.9-5.5,11.9-12.4c0-6.8-5.3-12.4-11.9-12.4L0,8z"
+              />
+              <linearGradient
+                id="SVGID_00000168101007170611766040000000139779569681623449_4"
+                gradientUnits="userSpaceOnUse"
+                x1="79.1146"
+                y1="210.637"
+                x2="97.7713"
+                y2="48.718"
+                gradientTransform="matrix(1 0 0 -1 0 202)"
+              >
+                <stop offset="0" style="stop-color: #fefefe" />
+                <stop
+                  offset="1"
+                  style="stop-color: #fefefe; stop-opacity: 0"
+                />
+              </linearGradient>
+              <path
+                style="
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_00000168101007170611766040000000139779569681623449_4);
+                  fill-opacity: 0.35;
+                "
+                d="
+              M183.3,170.2v-17c-2,0-4-0.5-5.6-1.5L151.4,200H167L183.3,170.2z M183.3,66.5v28.9L126.4,200h-15.7L183.3,66.5z M183.3,20.6V8
+              c0-3.3-2-6.1-4.9-7.4L70,200h15.7L183.3,20.6z M138.1,0h15.7L45,200H29.3L138.1,0z M0,179.1L0,192c0,3.2,1.9,6,4.7,7.3L113.1,0H97.4
+              L0,179.1z M72.4,0H56.7L0,104.3l0,24.1c0.8,0,1.6,0.1,2.4,0.3L72.4,0z M0,29.5l0,28.9L31.7,0H16L0,29.5z"
+              />
+              <radialGradient
+                id="SVGID_00000088823780171639937860000003309457503836498847_4"
+                cx="-450.4987"
+                cy="1062.0586"
+                r="1"
+                gradientTransform="matrix(-183.372 -192.5663 -183.7863 175.0112 112771.6875 -272430.4375)"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop
+                  offset="0"
+                  style="stop-color: #ffffff; stop-opacity: 0"
+                />
+                <stop offset="1" style="stop-color: #ffffff" />
+              </radialGradient>
+              <path
+                style="
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_00000088823780171639937860000003309457503836498847_);
+                "
+                d="
+              M8,0.8C4,0.8,0.8,4,0.8,8l0,119.6c6.7,0.4,11.9,6.2,11.9,13.2c0,7-5.2,12.7-11.9,13.2l0,38.1c0,4,3.2,7.2,7.2,7.2h167.3
+              c4,0,7.2-3.2,7.2-7.2v-38.1c-6.7-0.4-11.9-6.2-11.9-13.2c0-7,5.2-12.7,11.9-13.2V8c0-4-3.2-7.2-7.2-7.2H8z M183.3,8c0-4.4-3.6-8-8-8
+              H8C3.6,0,0,3.6,0,8l0,120.4c6.6,0,11.9,5.5,11.9,12.4c0,6.8-5.3,12.4-11.9,12.4L0,192c0,4.4,3.6,8,8,8h167.3c4.4,0,8-3.6,8-8v-38.8
+              c-6.6,0-11.9-5.5-11.9-12.4c0-6.8,5.3-12.4,11.9-12.4V8z"
+              />
+              <path
+                class="st3_4"
+                d="M12.7,140h-1v-1h1V140z M16.7,140h-2v-1h2V140z M20.7,140h-2v-1h2V140z M24.7,140h-2v-1h2V140z M28.7,140h-2v-1
+              h2V140z M32.7,140h-2v-1h2V140z M36.7,140h-2v-1h2V140z M40.7,140h-2v-1h2V140z M44.7,140h-2v-1h2V140z M48.7,140h-2v-1h2V140z
+               M52.7,140h-2v-1h2V140z M56.7,140h-2v-1h2V140z M60.7,140h-2v-1h2V140z M64.7,140h-2v-1h2V140z M68.7,140h-2v-1h2V140z M72.7,140
+              h-2v-1h2V140z M76.7,140h-2v-1h2V140z M80.6,140h-2v-1h2V140z M84.6,140h-2v-1h2V140z M88.6,140h-2v-1h2V140z M92.6,140h-2v-1h2V140
+              z M96.6,140h-2v-1h2V140z M100.6,140h-2v-1h2V140z M104.6,140h-2v-1h2V140z M108.6,140h-2v-1h2V140z M112.6,140h-2v-1h2V140z
+               M116.6,140h-2v-1h2V140z M120.6,140h-2v-1h2V140z M124.6,140h-2v-1h2V140z M128.6,140h-2v-1h2V140z M132.6,140h-2v-1h2V140z
+               M136.6,140h-2v-1h2V140z M140.6,140h-2v-1h2V140z M144.6,140h-2v-1h2V140z M148.5,140h-2v-1h2V140z M152.5,140h-2v-1h2V140z
+               M156.5,140h-2v-1h2V140z M160.5,140h-2v-1h2V140z M164.5,140h-2v-1h2V140z M168.5,140h-2v-1h2V140z M171.5,140h-1v-1h1V140z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="coupon-content">
+          <div class="coupon-content-top">
+            <div class="price">
+              <div class="currency-symbol">$</div>
+              <div class="discounts-price">180</div>
+            </div>
+
+            <div class="origin-price">OFF $3599</div>
+          </div>
+          <div class="coupon-content-bottom">
+            <div class="button">Get</div>
+          </div>
+        </div>
+      </div>
+      <div id="coupon-item-5" class="coupon-item">
+        <div class="coupon-bg-container">
+          <div class="bg-before">
+            <svg
+              width="184"
+              height="200"
+              viewBox="0 0 184 200"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M0 8C0 3.58173 3.58172 0 8 0H175.264C179.682 0 183.264 3.58172 183.264 8L183.264 128.402C176.708 128.402 171.393 133.945 171.393 140.782C171.393 147.619 176.708 153.161 183.264 153.161L183.264 192C183.264 196.418 179.682 200 175.264 200H8C3.58172 200 0 196.418 0 192L3.8147e-05 153.161C6.55642 153.161 11.8714 147.619 11.8714 140.782C11.8714 133.945 6.55642 128.402 3.8147e-05 128.402L0 8Z"
+                fill="url(#paint0_linear_2291_27_5)"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M183.264 170.184L183.264 153.161C181.225 153.161 179.306 152.625 177.63 151.681L151.35 200H167.048L183.264 170.184ZM183.264 66.5211L183.264 95.3826L126.364 200H110.667L183.264 66.5211ZM183.264 20.5823V8C183.264 4.699 181.265 1.86496 178.411 0.642722L69.983 200H85.6809L183.264 20.5823ZM138.077 0H153.775L44.9973 200H29.2994L138.077 0ZM1.52588e-05 179.069L0 192C0 195.242 1.92807 198.033 4.7 199.29L113.091 0H97.3935L1.52588e-05 179.069ZM72.4079 0H56.7104L3.05176e-05 104.268L3.8147e-05 128.402C0.832855 128.402 1.64565 128.492 2.43006 128.662L72.4079 0ZM7.62939e-06 29.467L1.52588e-05 58.3295L31.7247 0H16.0268L7.62939e-06 29.467Z"
+                fill="url(#paint1_linear_2291_27_5)"
+                fill-opacity="0.35"
+                style="mix-blend-mode: color-dodge"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M8 0.8C4.02355 0.8 0.8 4.02355 0.8 8L0.800038 127.628C7.4527 128.058 12.6714 133.812 12.6714 140.782C12.6714 147.751 7.4527 153.505 0.800037 153.935L0.8 192C0.8 195.976 4.02355 199.2 8 199.2H175.264C179.241 199.2 182.464 195.976 182.464 192L182.464 153.935C175.812 153.505 170.593 147.751 170.593 140.782C170.593 133.812 175.812 128.058 182.464 127.628L182.464 8C182.464 4.02355 179.241 0.8 175.264 0.8H8ZM183.264 8C183.264 3.58172 179.682 0 175.264 0H8C3.58172 0 0 3.58173 0 8L3.8147e-05 128.402C6.55642 128.402 11.8714 133.945 11.8714 140.782C11.8714 147.619 6.55642 153.161 3.8147e-05 153.161L0 192C0 196.418 3.58172 200 8 200H175.264C179.682 200 183.264 196.418 183.264 192L183.264 153.161C176.708 153.161 171.393 147.619 171.393 140.782C171.393 133.945 176.708 128.402 183.264 128.402L183.264 8Z"
+                fill="url(#paint2_diamond_2291_27_5)"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12.7485 140H11.75V139H12.7485V140ZM16.7426 140H14.7456V139H16.7426V140ZM20.7368 140H18.7397V139H20.7368V140ZM24.7309 140H22.7338V139H24.7309V140ZM28.725 140H26.7279V139H28.725V140ZM32.7191 140H30.722V139H32.7191V140ZM36.7132 140H34.7161V139H36.7132V140ZM40.7073 140H38.7103V139H40.7073V140ZM44.7014 140H42.7044V139H44.7014V140ZM48.6955 140H46.6985V139H48.6955V140ZM52.6897 140H50.6926V139H52.6897V140ZM56.6838 140H54.6867V139H56.6838V140ZM60.6779 140H58.6808V139H60.6779V140ZM64.672 140H62.6749V139H64.672V140ZM68.6661 140H66.669V139H68.6661V140ZM72.6602 140H70.6631V139H72.6602V140ZM76.6543 140H74.6573V139H76.6543V140ZM80.6484 140H78.6514V139H80.6484V140ZM84.6425 140H82.6455V139H84.6425V140ZM88.6366 140H86.6396V139H88.6366V140ZM92.6308 140H90.6337V139H92.6308V140ZM96.6249 140H94.6278V139H96.6249V140ZM100.619 140H98.6219V139H100.619V140ZM104.613 140H102.616V139H104.613V140ZM108.607 140H106.61V139H108.607V140ZM112.601 140H110.604V139H112.601V140ZM116.595 140H114.598V139H116.595V140ZM120.59 140H118.592V139H120.59V140ZM124.584 140H122.587V139H124.584V140ZM128.578 140H126.581V139H128.578V140ZM132.572 140H130.575V139H132.572V140ZM136.566 140H134.569V139H136.566V140ZM140.56 140H138.563V139H140.56V140ZM144.554 140H142.557V139H144.554V140ZM148.548 140H146.551V139H148.548V140ZM152.542 140H150.545V139H152.542V140ZM156.537 140H154.539V139H156.537V140ZM160.531 140H158.534V139H160.531V140ZM164.525 140H162.528V139H164.525V140ZM168.519 140H166.522V139H168.519V140ZM171.515 140H170.516V139H171.515V140Z"
+                fill="black"
+              />
+              <defs>
+                <linearGradient
+                  id="paint0_linear_2291_27_5"
+                  x1="106.597"
+                  y1="5.75691e-08"
+                  x2="112.199"
+                  y2="199.843"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop offset="0.14626" stop-color="#FFEFC8" />
+                  <stop offset="0.752721" stop-color="#FECE67" />
+                </linearGradient>
+                <linearGradient
+                  id="paint1_linear_2291_27_5"
+                  x1="4.15568"
+                  y1="-1.24001e-06"
+                  x2="22.8124"
+                  y2="161.919"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#FECE67" />
+                  <stop offset="1" stop-color="#FECE67" stop-opacity="0" />
+                </linearGradient>
+                <radialGradient
+                  id="paint2_diamond_2291_27_5"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(188.714 192.567) rotate(-133.599) scale(265.908 253.784)"
+                >
+                  <stop stop-color="white" stop-opacity="0" />
+                  <stop offset="1" stop-color="white" />
+                </radialGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="bg-after">
+            <svg
+              version="1.1"
+              id="图层_1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="184"
+              height="200"
+              viewBox="0 0 184 200"
+              xml:space="preserve"
+            >
+              <style type="text/css">
+                .st0_5 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_6_5);
+                }
+
+                .st1_5 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_000000852366942445287641700000051933270006582616486_5);
+                  fill-opacity: 0.35;
+                }
+                .st2_5 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_000000319277283821616011700000075905024239546590036_5);
+                }
+                .st3_5 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                }
+              </style>
+              <linearGradient
+                id="SVGID_6_5"
+                gradientUnits="userSpaceOnUse"
+                x1="91.632"
+                y1="202"
+                x2="91.632"
+                y2="2"
+                gradientTransform="matrix(1 0 0 -1 0 202)"
+              >
+                <stop offset="0" style="stop-color: #999999" />
+                <stop offset="1" style="stop-color: #ffffff" />
+              </linearGradient>
+              <path
+                class="st0_5"
+                d="M0,8c0-4.4,3.6-8,8-8h167.3c4.4,0,8,3.6,8,8v120.4c-6.6,0-11.9,5.5-11.9,12.4c0,6.8,5.3,12.4,11.9,12.4V192
+              c0,4.4-3.6,8-8,8H8c-4.4,0-8-3.6-8-8l0-38.8c6.6,0,11.9-5.5,11.9-12.4c0-6.8-5.3-12.4-11.9-12.4L0,8z"
+              />
+              <linearGradient
+                id="SVGID_00000168101007170611766040000000139779569681623449_5"
+                gradientUnits="userSpaceOnUse"
+                x1="79.1146"
+                y1="210.637"
+                x2="97.7713"
+                y2="48.718"
+                gradientTransform="matrix(1 0 0 -1 0 202)"
+              >
+                <stop offset="0" style="stop-color: #fefefe" />
+                <stop
+                  offset="1"
+                  style="stop-color: #fefefe; stop-opacity: 0"
+                />
+              </linearGradient>
+              <path
+                style="
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_00000168101007170611766040000000139779569681623449_5);
+                  fill-opacity: 0.35;
+                "
+                d="
+              M183.3,170.2v-17c-2,0-4-0.5-5.6-1.5L151.4,200H167L183.3,170.2z M183.3,66.5v28.9L126.4,200h-15.7L183.3,66.5z M183.3,20.6V8
+              c0-3.3-2-6.1-4.9-7.4L70,200h15.7L183.3,20.6z M138.1,0h15.7L45,200H29.3L138.1,0z M0,179.1L0,192c0,3.2,1.9,6,4.7,7.3L113.1,0H97.4
+              L0,179.1z M72.4,0H56.7L0,104.3l0,24.1c0.8,0,1.6,0.1,2.4,0.3L72.4,0z M0,29.5l0,28.9L31.7,0H16L0,29.5z"
+              />
+              <radialGradient
+                id="SVGID_00000088823780171639937860000003309457503836498847_5"
+                cx="-450.4987"
+                cy="1062.0586"
+                r="1"
+                gradientTransform="matrix(-183.372 -192.5663 -183.7863 175.0112 112771.6875 -272430.4375)"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop
+                  offset="0"
+                  style="stop-color: #ffffff; stop-opacity: 0"
+                />
+                <stop offset="1" style="stop-color: #ffffff" />
+              </radialGradient>
+              <path
+                style="
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_00000088823780171639937860000003309457503836498847_5);
+                "
+                d="
+              M8,0.8C4,0.8,0.8,4,0.8,8l0,119.6c6.7,0.4,11.9,6.2,11.9,13.2c0,7-5.2,12.7-11.9,13.2l0,38.1c0,4,3.2,7.2,7.2,7.2h167.3
+              c4,0,7.2-3.2,7.2-7.2v-38.1c-6.7-0.4-11.9-6.2-11.9-13.2c0-7,5.2-12.7,11.9-13.2V8c0-4-3.2-7.2-7.2-7.2H8z M183.3,8c0-4.4-3.6-8-8-8
+              H8C3.6,0,0,3.6,0,8l0,120.4c6.6,0,11.9,5.5,11.9,12.4c0,6.8-5.3,12.4-11.9,12.4L0,192c0,4.4,3.6,8,8,8h167.3c4.4,0,8-3.6,8-8v-38.8
+              c-6.6,0-11.9-5.5-11.9-12.4c0-6.8,5.3-12.4,11.9-12.4V8z"
+              />
+              <path
+                class="st3_5"
+                d="M12.7,140h-1v-1h1V140z M16.7,140h-2v-1h2V140z M20.7,140h-2v-1h2V140z M24.7,140h-2v-1h2V140z M28.7,140h-2v-1
+              h2V140z M32.7,140h-2v-1h2V140z M36.7,140h-2v-1h2V140z M40.7,140h-2v-1h2V140z M44.7,140h-2v-1h2V140z M48.7,140h-2v-1h2V140z
+               M52.7,140h-2v-1h2V140z M56.7,140h-2v-1h2V140z M60.7,140h-2v-1h2V140z M64.7,140h-2v-1h2V140z M68.7,140h-2v-1h2V140z M72.7,140
+              h-2v-1h2V140z M76.7,140h-2v-1h2V140z M80.6,140h-2v-1h2V140z M84.6,140h-2v-1h2V140z M88.6,140h-2v-1h2V140z M92.6,140h-2v-1h2V140
+              z M96.6,140h-2v-1h2V140z M100.6,140h-2v-1h2V140z M104.6,140h-2v-1h2V140z M108.6,140h-2v-1h2V140z M112.6,140h-2v-1h2V140z
+               M116.6,140h-2v-1h2V140z M120.6,140h-2v-1h2V140z M124.6,140h-2v-1h2V140z M128.6,140h-2v-1h2V140z M132.6,140h-2v-1h2V140z
+               M136.6,140h-2v-1h2V140z M140.6,140h-2v-1h2V140z M144.6,140h-2v-1h2V140z M148.5,140h-2v-1h2V140z M152.5,140h-2v-1h2V140z
+               M156.5,140h-2v-1h2V140z M160.5,140h-2v-1h2V140z M164.5,140h-2v-1h2V140z M168.5,140h-2v-1h2V140z M171.5,140h-1v-1h1V140z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="coupon-content">
+          <div class="coupon-content-top">
+            <div class="price">
+              <div class="currency-symbol">$</div>
+              <div class="discounts-price">165</div>
+            </div>
+
+            <div class="origin-price">OFF $3299</div>
+          </div>
+          <div class="coupon-content-bottom">
+            <div class="button">Get</div>
+          </div>
+        </div>
+      </div>
+      <div id="coupon-item-6" class="coupon-item">
+        <div class="coupon-bg-container">
+          <div class="bg-before">
+            <svg
+              width="184"
+              height="200"
+              viewBox="0 0 184 200"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M0 8C0 3.58173 3.58172 0 8 0H175.264C179.682 0 183.264 3.58172 183.264 8L183.264 128.402C176.708 128.402 171.393 133.945 171.393 140.782C171.393 147.619 176.708 153.161 183.264 153.161L183.264 192C183.264 196.418 179.682 200 175.264 200H8C3.58172 200 0 196.418 0 192L3.8147e-05 153.161C6.55642 153.161 11.8714 147.619 11.8714 140.782C11.8714 133.945 6.55642 128.402 3.8147e-05 128.402L0 8Z"
+                fill="url(#paint0_linear_2291_27_6)"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M183.264 170.184L183.264 153.161C181.225 153.161 179.306 152.625 177.63 151.681L151.35 200H167.048L183.264 170.184ZM183.264 66.5211L183.264 95.3826L126.364 200H110.667L183.264 66.5211ZM183.264 20.5823V8C183.264 4.699 181.265 1.86496 178.411 0.642722L69.983 200H85.6809L183.264 20.5823ZM138.077 0H153.775L44.9973 200H29.2994L138.077 0ZM1.52588e-05 179.069L0 192C0 195.242 1.92807 198.033 4.7 199.29L113.091 0H97.3935L1.52588e-05 179.069ZM72.4079 0H56.7104L3.05176e-05 104.268L3.8147e-05 128.402C0.832855 128.402 1.64565 128.492 2.43006 128.662L72.4079 0ZM7.62939e-06 29.467L1.52588e-05 58.3295L31.7247 0H16.0268L7.62939e-06 29.467Z"
+                fill="url(#paint1_linear_2291_27_6)"
+                fill-opacity="0.35"
+                style="mix-blend-mode: color-dodge"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M8 0.8C4.02355 0.8 0.8 4.02355 0.8 8L0.800038 127.628C7.4527 128.058 12.6714 133.812 12.6714 140.782C12.6714 147.751 7.4527 153.505 0.800037 153.935L0.8 192C0.8 195.976 4.02355 199.2 8 199.2H175.264C179.241 199.2 182.464 195.976 182.464 192L182.464 153.935C175.812 153.505 170.593 147.751 170.593 140.782C170.593 133.812 175.812 128.058 182.464 127.628L182.464 8C182.464 4.02355 179.241 0.8 175.264 0.8H8ZM183.264 8C183.264 3.58172 179.682 0 175.264 0H8C3.58172 0 0 3.58173 0 8L3.8147e-05 128.402C6.55642 128.402 11.8714 133.945 11.8714 140.782C11.8714 147.619 6.55642 153.161 3.8147e-05 153.161L0 192C0 196.418 3.58172 200 8 200H175.264C179.682 200 183.264 196.418 183.264 192L183.264 153.161C176.708 153.161 171.393 147.619 171.393 140.782C171.393 133.945 176.708 128.402 183.264 128.402L183.264 8Z"
+                fill="url(#paint2_diamond_2291_27_6)"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12.7485 140H11.75V139H12.7485V140ZM16.7426 140H14.7456V139H16.7426V140ZM20.7368 140H18.7397V139H20.7368V140ZM24.7309 140H22.7338V139H24.7309V140ZM28.725 140H26.7279V139H28.725V140ZM32.7191 140H30.722V139H32.7191V140ZM36.7132 140H34.7161V139H36.7132V140ZM40.7073 140H38.7103V139H40.7073V140ZM44.7014 140H42.7044V139H44.7014V140ZM48.6955 140H46.6985V139H48.6955V140ZM52.6897 140H50.6926V139H52.6897V140ZM56.6838 140H54.6867V139H56.6838V140ZM60.6779 140H58.6808V139H60.6779V140ZM64.672 140H62.6749V139H64.672V140ZM68.6661 140H66.669V139H68.6661V140ZM72.6602 140H70.6631V139H72.6602V140ZM76.6543 140H74.6573V139H76.6543V140ZM80.6484 140H78.6514V139H80.6484V140ZM84.6425 140H82.6455V139H84.6425V140ZM88.6366 140H86.6396V139H88.6366V140ZM92.6308 140H90.6337V139H92.6308V140ZM96.6249 140H94.6278V139H96.6249V140ZM100.619 140H98.6219V139H100.619V140ZM104.613 140H102.616V139H104.613V140ZM108.607 140H106.61V139H108.607V140ZM112.601 140H110.604V139H112.601V140ZM116.595 140H114.598V139H116.595V140ZM120.59 140H118.592V139H120.59V140ZM124.584 140H122.587V139H124.584V140ZM128.578 140H126.581V139H128.578V140ZM132.572 140H130.575V139H132.572V140ZM136.566 140H134.569V139H136.566V140ZM140.56 140H138.563V139H140.56V140ZM144.554 140H142.557V139H144.554V140ZM148.548 140H146.551V139H148.548V140ZM152.542 140H150.545V139H152.542V140ZM156.537 140H154.539V139H156.537V140ZM160.531 140H158.534V139H160.531V140ZM164.525 140H162.528V139H164.525V140ZM168.519 140H166.522V139H168.519V140ZM171.515 140H170.516V139H171.515V140Z"
+                fill="black"
+              />
+              <defs>
+                <linearGradient
+                  id="paint0_linear_2291_27_6"
+                  x1="106.597"
+                  y1="5.75691e-08"
+                  x2="112.199"
+                  y2="199.843"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop offset="0.14626" stop-color="#FFEFC8" />
+                  <stop offset="0.752721" stop-color="#FECE67" />
+                </linearGradient>
+                <linearGradient
+                  id="paint1_linear_2291_27_6"
+                  x1="4.15568"
+                  y1="-1.24001e-06"
+                  x2="22.8124"
+                  y2="161.919"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#FECE67" />
+                  <stop offset="1" stop-color="#FECE67" stop-opacity="0" />
+                </linearGradient>
+                <radialGradient
+                  id="paint2_diamond_2291_27_6"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(188.714 192.567) rotate(-133.599) scale(265.908 253.784)"
+                >
+                  <stop stop-color="white" stop-opacity="0" />
+                  <stop offset="1" stop-color="white" />
+                </radialGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="bg-after">
+            <svg
+              version="1.1"
+              id="图层_1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="184"
+              height="200"
+              viewBox="0 0 184 200"
+              xml:space="preserve"
+            >
+              <style type="text/css">
+                .st0_6 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_6_6);
+                }
+
+                .st1_6 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_000000852366942445287641700000051933270006582616486_6);
+                  fill-opacity: 0.35;
+                }
+                .st2_6 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_000000319277283821616011700000075905024239546590036_6);
+                }
+                .st3_6 {
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                }
+              </style>
+              <linearGradient
+                id="SVGID_6_6"
+                gradientUnits="userSpaceOnUse"
+                x1="91.632"
+                y1="202"
+                x2="91.632"
+                y2="2"
+                gradientTransform="matrix(1 0 0 -1 0 202)"
+              >
+                <stop offset="0" style="stop-color: #999999" />
+                <stop offset="1" style="stop-color: #ffffff" />
+              </linearGradient>
+              <path
+                class="st0_6"
+                d="M0,8c0-4.4,3.6-8,8-8h167.3c4.4,0,8,3.6,8,8v120.4c-6.6,0-11.9,5.5-11.9,12.4c0,6.8,5.3,12.4,11.9,12.4V192
+              c0,4.4-3.6,8-8,8H8c-4.4,0-8-3.6-8-8l0-38.8c6.6,0,11.9-5.5,11.9-12.4c0-6.8-5.3-12.4-11.9-12.4L0,8z"
+              />
+              <linearGradient
+                id="SVGID_00000168101007170611766040000000139779569681623449_6"
+                gradientUnits="userSpaceOnUse"
+                x1="79.1146"
+                y1="210.637"
+                x2="97.7713"
+                y2="48.718"
+                gradientTransform="matrix(1 0 0 -1 0 202)"
+              >
+                <stop offset="0" style="stop-color: #fefefe" />
+                <stop
+                  offset="1"
+                  style="stop-color: #fefefe; stop-opacity: 0"
+                />
+              </linearGradient>
+              <path
+                style="
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_00000168101007170611766040000000139779569681623449_6);
+                  fill-opacity: 0.35;
+                "
+                d="
+              M183.3,170.2v-17c-2,0-4-0.5-5.6-1.5L151.4,200H167L183.3,170.2z M183.3,66.5v28.9L126.4,200h-15.7L183.3,66.5z M183.3,20.6V8
+              c0-3.3-2-6.1-4.9-7.4L70,200h15.7L183.3,20.6z M138.1,0h15.7L45,200H29.3L138.1,0z M0,179.1L0,192c0,3.2,1.9,6,4.7,7.3L113.1,0H97.4
+              L0,179.1z M72.4,0H56.7L0,104.3l0,24.1c0.8,0,1.6,0.1,2.4,0.3L72.4,0z M0,29.5l0,28.9L31.7,0H16L0,29.5z"
+              />
+              <radialGradient
+                id="SVGID_00000088823780171639937860000003309457503836498847_6"
+                cx="-450.4987"
+                cy="1062.0586"
+                r="1"
+                gradientTransform="matrix(-183.372 -192.5663 -183.7863 175.0112 112771.6875 -272430.4375)"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop
+                  offset="0"
+                  style="stop-color: #ffffff; stop-opacity: 0"
+                />
+                <stop offset="1" style="stop-color: #ffffff" />
+              </radialGradient>
+              <path
+                style="
+                  fill-rule: evenodd;
+                  clip-rule: evenodd;
+                  fill: url(#SVGID_00000088823780171639937860000003309457503836498847_6);
+                "
+                d="
+              M8,0.8C4,0.8,0.8,4,0.8,8l0,119.6c6.7,0.4,11.9,6.2,11.9,13.2c0,7-5.2,12.7-11.9,13.2l0,38.1c0,4,3.2,7.2,7.2,7.2h167.3
+              c4,0,7.2-3.2,7.2-7.2v-38.1c-6.7-0.4-11.9-6.2-11.9-13.2c0-7,5.2-12.7,11.9-13.2V8c0-4-3.2-7.2-7.2-7.2H8z M183.3,8c0-4.4-3.6-8-8-8
+              H8C3.6,0,0,3.6,0,8l0,120.4c6.6,0,11.9,5.5,11.9,12.4c0,6.8-5.3,12.4-11.9,12.4L0,192c0,4.4,3.6,8,8,8h167.3c4.4,0,8-3.6,8-8v-38.8
+              c-6.6,0-11.9-5.5-11.9-12.4c0-6.8,5.3-12.4,11.9-12.4V8z"
+              />
+              <path
+                class="st3_6"
+                d="M12.7,140h-1v-1h1V140z M16.7,140h-2v-1h2V140z M20.7,140h-2v-1h2V140z M24.7,140h-2v-1h2V140z M28.7,140h-2v-1
+              h2V140z M32.7,140h-2v-1h2V140z M36.7,140h-2v-1h2V140z M40.7,140h-2v-1h2V140z M44.7,140h-2v-1h2V140z M48.7,140h-2v-1h2V140z
+               M52.7,140h-2v-1h2V140z M56.7,140h-2v-1h2V140z M60.7,140h-2v-1h2V140z M64.7,140h-2v-1h2V140z M68.7,140h-2v-1h2V140z M72.7,140
+              h-2v-1h2V140z M76.7,140h-2v-1h2V140z M80.6,140h-2v-1h2V140z M84.6,140h-2v-1h2V140z M88.6,140h-2v-1h2V140z M92.6,140h-2v-1h2V140
+              z M96.6,140h-2v-1h2V140z M100.6,140h-2v-1h2V140z M104.6,140h-2v-1h2V140z M108.6,140h-2v-1h2V140z M112.6,140h-2v-1h2V140z
+               M116.6,140h-2v-1h2V140z M120.6,140h-2v-1h2V140z M124.6,140h-2v-1h2V140z M128.6,140h-2v-1h2V140z M132.6,140h-2v-1h2V140z
+               M136.6,140h-2v-1h2V140z M140.6,140h-2v-1h2V140z M144.6,140h-2v-1h2V140z M148.5,140h-2v-1h2V140z M152.5,140h-2v-1h2V140z
+               M156.5,140h-2v-1h2V140z M160.5,140h-2v-1h2V140z M164.5,140h-2v-1h2V140z M168.5,140h-2v-1h2V140z M171.5,140h-1v-1h1V140z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="coupon-content">
+          <div class="coupon-content-top">
+            <div class="price">
+              <div class="currency-symbol">$</div>
+              <div class="discounts-price">120</div>
+            </div>
+
+            <div class="origin-price">OFF $2399</div>
+          </div>
+          <div class="coupon-content-bottom">
+            <div class="button">Get</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    // 检查 localStorage 中的状态
+    $('.coupon-item').each(function () {
+      const couponId = $(this).attr('id');
+      if (localStorage.getItem(couponId) === 'true') {
+        console.log($(this), couponId);
+        $(this).find('.bg-before').hide();
+        $(this).find('.bg-after').show();
+        $(this).find('.button').text('Collected');
+        $(this).find('.button').css('cursor', 'not-allowed');
+      }
+    });
+
+    // 点击事件处理
+    $('.coupon-item .button').click(function () {
+      const $couponItem = $(this).closest('.coupon-item');
+      const couponId = $couponItem.attr('id');
+
+      // 切换显示和隐藏
+      $couponItem.find('.bg-before').hide();
+      $couponItem.find('.bg-after').show();
+
+      // 修改按钮文本
+      $(this).text('Collected');
+      $(this).css('cursor', 'not-allowed');
+
+      // 保存状态到 localStorage
+      localStorage.setItem(couponId, 'true');
+    });
+  });
+</script>
+{% schema %}
+{
+  "name": "black-5-discount",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "black-5-discount"
+    }
+  ]
+}
+{% endschema %}

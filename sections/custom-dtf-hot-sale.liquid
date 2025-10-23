@@ -1,0 +1,432 @@
+<style>
+    #hot-sale-{{ section.id }} .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+    #hot-sale-{{ section.id }} .title {
+        text-align: center;
+        margin-bottom: 69px;
+        font-size: 40px;
+
+    }
+    #hot-sale-{{ section.id }} .title h1 {
+        margin-bottom: 35px;
+        font-weight: 600;
+        line-height: 1;
+        font-size: 40px;
+    }
+    #hot-sale-{{ section.id }} .title p {
+        font-size: 18px;
+        color: #444444;
+
+    }
+    #hot-sale-{{ section.id }} .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+    #hot-sale-{{ section.id }} .card {
+        background-color: white;
+        border-radius: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        text-align: center;
+        text-decoration: none;
+        color: inherit;
+        padding: 10px 10px 20px 10px;
+    }
+    #hot-sale-{{ section.id }} .card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    #hot-sale-{{ section.id }} .card>img {
+        width: 100%;
+        height: 485px;
+        border-radius: 20px;
+        object-fit: cover;
+        object-position: center;
+    }
+    #hot-sale-{{ section.id }} .card-content {
+        padding-top: 20px;
+    }
+    #hot-sale-{{ section.id }} .card-content-inner{
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+    #hot-sale-{{ section.id }} .card-content-inner-image {
+        width: 66px;
+
+    }
+    #hot-sale-{{ section.id }} .card-content-inner-image img {
+        border-radius: 0;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+
+    }
+    #hot-sale-{{ section.id }} .card-content-inner-text {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        row-gap: 5px;
+        flex: 1;
+    }
+    #hot-sale-{{ section.id }} .card-content-inner-text h3 {
+        font-size: 30px;
+        font-weight: 600;
+        text-align: start;
+        line-height: 1;
+        margin-bottom: 0;
+    }
+    #hot-sale-{{ section.id }} .card-content-inner-text p {
+        font-size: 30px;
+        color: #444444;
+        margin: 0;
+        line-height: 1;
+    }
+    #hot-sale-{{ section.id }} .price {
+        color: #e74c3c;
+        font-weight: bold;
+        display: flex;
+        padding-left: 86px;
+        font-size: 30px;
+        align-items: end;
+        line-height: 1;
+        margin-top: 23px;
+    }
+    #hot-sale-{{ section.id }} .old-price {
+        text-decoration: line-through;
+        margin-left: 17px;
+        font-size: 18px;
+        color: #444444;
+        font-weight: 400;
+    }
+    #hot-sale-{{ section.id }} .wide {
+      grid-column: span 2;
+  }
+    #hot-sale-{{ section.id }}  .pc-image {
+      display: block;
+    }
+
+    #hot-sale-{{ section.id }}  .mobile-image {
+      display: none;
+    }
+    @media screen and (max-width: 768px) {
+        #hot-sale-{{ section.id }} .container {
+            padding-top: {{ section.settings.padding_top_mobile }}px;
+            padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+        }
+        #hot-sale-{{ section.id }} .title {
+            text-align: center;
+            margin-bottom: 34px;
+            font-size: 26px;
+
+        }
+        #hot-sale-{{ section.id }} .title h1 {
+            margin-bottom: 18px;
+            font-weight: 600;
+            line-height: 1;
+            font-size: 26px;
+        }
+        #hot-sale-{{ section.id }} .title p {
+            font-size: 13px;
+            color: #444444;
+
+        }
+        #hot-sale-{{ section.id }} .card-content {
+            padding-top: 10px;
+        }
+        #hot-sale-{{ section.id }} .card-content-inner-image {
+            width: 33px;
+
+        }
+        #hot-sale-{{ section.id }} .grid {
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 10px;
+        }
+        #hot-sale-{{ section.id }} .card {
+            border-radius: 10px;
+            padding: 6px 6px 10px 6px;
+        }
+        #hot-sale-{{ section.id }} .card>img {
+            width: 100%;
+            height: 196px;
+            border-radius: 10px;
+            object-fit: cover;
+            object-position: center;
+        }
+        #hot-sale-{{ section.id }} .card-content-inner{
+            gap: 10px;
+            flex-direction: column;
+            align-items: start;
+        }
+        #hot-sale-{{ section.id }} .card-content-inner-text h3 {
+            font-size: 15px;
+            font-weight: 600;
+            text-align: start;
+            line-height: 1;
+            margin-bottom: 0;
+        }
+        #hot-sale-{{ section.id }} .card-content-inner-text p {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 0;
+            line-height: 1;
+        }
+        #hot-sale-{{ section.id }} .price {
+            color: #e74c3c;
+            font-weight: bold;
+            display: flex;
+            padding-left: 0;
+            font-size: 15px;
+            align-items: end;
+            line-height: 1;
+            margin-top: 16px;
+        }
+        #hot-sale-{{ section.id }} .old-price {
+            text-decoration: line-through;
+            margin-left: 9px;
+            font-size: 12px;
+            color: #444444;
+            font-weight: 400;
+        }
+        #hot-sale-{{ section.id }}  .pc-image {
+          display: none;
+        }
+        #hot-sale-{{ section.id }}  .mobile-image {
+          display: block;
+        }
+    }
+    @media screen and (max-width: 320px) {
+        #hot-sale-{{ section.id }} .grid {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+    }
+</style>
+<div id="hot-sale-{{ section.id }}">
+  <div class="container">
+    <div class="title">
+      <h1>{{ section.settings.title }}</h1>
+      <p class="pc-image">
+        {{ section.settings.subtitle }}
+      </p>
+      <p class="mobile-image">
+        {{ section.settings.subtitle_mobile }}
+      </p>
+    </div>
+    <div class="grid">
+      {% for block in section.blocks %}
+        {% assign product = all_products[block.settings.product] %}
+        <a href="{{ product.url }}" class="card {% if forloop.index == 1 %}wide{% endif %}">
+          {%- if block.settings.pc_image != blank -%}
+            {% assign image = block.settings.pc_image %}
+            {% assign size = 100 %}
+            <img
+              style="aspect-ratio:{{ image.aspect_ratio }};"
+              data-sizes="{{ size }}vw"
+              data-srcset="
+                {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                {{ image | image_url }} {{ image.width }}w
+              "
+              data-src="{{ image | image_url:width:750 }}"
+              class="lazyload pc-image"
+              width="100%"
+              height="100%"
+              loading="lazy"
+              alt="{{ block.settings.title }}"
+            >
+          {%- endif -%}
+
+          {%- if block.settings.mobile_image != blank -%}
+            {% assign image = block.settings.mobile_image %}
+            {% assign size = 100 %}
+            <img
+              style="aspect-ratio:{{ image.aspect_ratio }};"
+              data-sizes="{{ size }}vw"
+              data-srcset="
+                {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                {{ image | image_url }} {{ image.width }}w
+              "
+              data-src="{{ image | image_url:width:750 }}"
+              class="lazyload mobile-image"
+              width="100%"
+              height="100%"
+              loading="lazy"
+              alt="{{ block.settings.title }}"
+            >
+          {%- endif -%}
+
+          <div class="card-content">
+            <div class="card-content-inner">
+              <div class="card-content-inner-image ">
+                {% assign image = product.selected_or_first_available_variant.image | default: product.featured_image %}
+                <img
+                  style="aspect-ratio:{{ image.aspect_ratio }};"
+                  data-sizes="100vw"
+                  data-srcset="
+                    {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                    {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ image | image_url }} {{ image.width }}w
+                  "
+                  data-src="{{ image | image_url:width:750 }}"
+                  class="lazyload"
+                  width="100%"
+                  height="100%"
+                  loading="lazy"
+                  alt="{{ block.settings.title }}"
+                >
+              </div>
+              <div class="card-content-inner-text">
+                {% if product.metafields.custom.name != blank %}
+                  <h3>{{ product.metafields.custom.name.value }}</h3>
+                {% else %}
+                  <h3>{{ product.title }}</h3>
+                {% endif %}
+                <p>{{ section.settings.product_type }}</p>
+              </div>
+            </div>
+            <div class="price">
+              {{ product.price | money }}
+              {% if product.compare_at_price > product.price %}
+                <span class="old-price">{{ product.compare_at_price | money }}</span>
+              {% endif %}
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "DTF Hot Sale",
+  "settings": [
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题",
+      "default": "Hot Sale"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题",
+      "default": "Update your design library with our ready-to-press DTF transfer, start your custom business in trendy style now!"
+    },
+    {
+      "type": "html",
+      "id": "subtitle_mobile",
+      "label": "小标题(移动端)",
+      "default": "Update your design library with our ready-to-press DTF transfer, start your custom business in trendy style now!"
+    },
+    {
+      "type": "html",
+      "id": "product_type",
+      "label": "产品类型名称",
+      "default": "DTF Transfer"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "pc_image",
+          "label": "PC Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "DTF Hot Sale"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,167 @@
+<style>
+  .shop-categories {
+    background-color: #f8f9fd;
+    padding: 60px 0;
+  }
+  .shop-categories p {
+    margin: 0;
+    padding: 0;
+  }
+  .shop-categories .sc-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .shop-categories p.title {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 26px;
+    text-align: left;
+  }
+  .shop-categories .categories-box {
+    margin: 40px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 136px);
+    gap: 28px 16px;
+  }
+  .shop-categories img.c-img {
+    max-width: 100%;
+    height: auto;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+  .shop-categories p.c-info {
+    color: #000;
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: 20px;
+    text-align: center;
+  }
+  .shop-categories .show-btn {
+    display: flex;
+    justify-content: center;
+  }
+  .btn-box-show-less {
+    display: none;
+  }
+  .btn-box-show-less svg {
+    transform: rotate(180deg);
+  }
+  .shop-categories .show-more,
+  .shop-categories .show-less {
+    padding: 10px 23px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 38px;
+  }
+  .show-btn span {
+    font-size: 14px;
+    line-height: 18px;
+    margin-right: 5px;
+  }
+  @media screen and (max-width: 1248px) {
+    .shop-categories {
+      padding: 30px 24px;
+    }
+    .shop-categories p.c-info {
+      font-size: 12px;
+      line-height: 14px;
+      margin-top: 10px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .shop-categories .categories-box {
+      margin: 20px 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px 9px;
+    }
+  }
+</style>
+<div class="shop-categories" id="{{ section.settings.id }}">
+  <div class="sc-wrapper">
+    <div class="sc-title">
+      <p class="title">Shop Categories</p>
+    </div>
+    <div class="categories">
+      <div class="categories-box">
+        {% for item in section.settings.collection_list %}
+          <a href="{{ item.url }}" class="coll-url">
+            <div class="c-item">
+              <img
+                class="c-img"
+                src="{{ item.metafields.custom.materials_page_collimg | image_url: width: master }}"
+                alt=""
+              >
+              <p class="c-info">{{ item.title }}</p>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+      <div class="show-btn">
+        <div class="btn-box-show-more">
+          <div class="show-more">
+            <span>Show More</span>
+            <svg
+              t="1725591892533"
+              class="icon"
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              p-id="5459"
+              width="10"
+              height="10"
+            >
+              <path d="M64.1 317.6l59.2-59.2L512 647.2l388.8-388.8 59.2 59.2-448 447.9L64.1 317.6z" fill="#000000" p-id="5460"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="btn-box-show-less">
+          <div class="show-less">
+            <span>Show Less</span>
+            <svg
+              t="1725591892533"
+              class="icon"
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              p-id="5459"
+              width="10"
+              height="10"
+            >
+              <path d="M64.1 317.6l59.2-59.2L512 647.2l388.8-388.8 59.2 59.2-448 447.9L64.1 317.6z" fill="#000000" p-id="5460"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Page Shop Categories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "id",
+      "label": "用于锚定的section的id",
+      "info": "页面唯一，不能重复，必须全英文"
+    },
+    {
+      "type": "collection_list",
+      "id": "collection_list",
+      "label": "Collections",
+      "limit": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Shop Categories"
+    }
+  ]
+}
+{% endschema %}

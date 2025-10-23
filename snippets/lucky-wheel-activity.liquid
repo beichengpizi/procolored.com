@@ -1,0 +1,2588 @@
+<style>
+/* 抽奖转盘 PC 端 */
+.lucky-wheel-activity-section{
+    background: #FFFBF5;
+    padding: 50px 0;
+  }
+  .lucky-wheel-activity-wrapper-pc {
+    display: block;
+  }
+  
+  .lucky-wheel-activity-wrapper-mb {
+    display: none;
+  }
+  
+  .lucky-wheel-activity-title {
+    text-align: center;
+    font-weight: 800;
+    font-size: 40px;
+    color: #000000;
+    line-height: 49px;
+    margin-bottom: 50px;
+  }
+  
+  .lucky-wheel-activity-container-pc {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin: 0 auto;
+    border-radius: 20px 20px 0 0;
+    padding-right: 36px;
+    padding-left: 45px;
+    overflow: hidden;
+    width: 1200px;
+    height: 522px;
+    background: url(https://cdn.shopify.com/s/files/1/0509/3454/6613/files/97128d96a1a4b8ba1f765bf30134f529_994aa6f7-ba9b-492e-beac-1935211cfb55.jpg?v=1755851465) no-repeat center / cover;
+  }
+  
+  .lucky-wheel-activity-container-pc-bottom {
+    width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 13px 40px;
+    background: #FC7D4F;
+    border-radius: 0 0 20px 20px;
+  }
+  
+  .lucky-wheel-activity-container-pc .panel-box {
+    padding: 34px;
+    height: 100%;
+    position: relative;
+    width: 520px;
+    box-sizing: border-box;
+  }
+  
+  .lucky-wheel-activity-container-pc .panel-box #my-lucky {
+    position: absolute;
+  }
+  
+  .lucky-wheel-activity-container-pc .panel-box .button-box {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 110px;
+    height: 110px;
+    color: rgba(0, 0, 0, 0.88);
+    cursor: pointer;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box {
+    flex: 1;
+    padding-left: 150px;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .before-winning-box .prize-item-title {
+    font-weight: bold;
+    font-size: 30px;
+    color: #000000;
+    line-height: 1.26;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .before-winning-box .prize-item-rules {}
+  
+  .lucky-wheel-activity-container-pc .right-box .before-winning-box .prize-item-rules .prize-item-rules-title {
+    font-weight: 400;
+    font-size: 16px;
+    color: #000000;
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .before-winning-box .prize-item-rules .prize-item-rules-desc {
+    font-weight: 400;
+    font-size: 14px;
+    color: #6D6D6D;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .before-winning-box .activity-button {
+    margin-top: 30px;
+    width: max-content;
+    border-radius: 99px;
+    background: linear-gradient(270deg, #FF9838 -19.72%, #FC7D4F 42.9%, #FF9838 102.64%);
+    box-shadow: 0 1px 8.5px 0 rgba(241, 117, 127, 0.85) inset;
+    border-radius: 99px;
+    padding: 20px 28px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+    color: #ffffff;
+    line-height: 1.47;
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .lucky-wheel-activity-section{
+    
+      padding: 25px 0;
+    }
+    .lucky-wheel-activity-wrapper-mb .right-box .before-winning-box {
+      display: flex;
+      flex-direction: column;
+      margin-top: 24px;
+    }
+  
+    .lucky-wheel-activity-wrapper-mb .right-box .before-winning-box .prize-item-title {
+      font-weight: 700;
+      font-size: 20px;
+      color: #000000;
+      line-height: 1.33;
+      width: 227px;
+      text-align: center;
+      margin-bottom: 16px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  
+    .lucky-wheel-activity-wrapper-mb .right-box .before-winning-box .prize-item-rules {
+      order: 3;
+    }
+  
+    .lucky-wheel-activity-wrapper-mb .right-box .before-winning-box .prize-item-rules .prize-item-rules-title {
+      font-weight: 400;
+      font-size: 14px;
+      color: #000000;
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+  
+    .lucky-wheel-activity-wrapper-mb .right-box .before-winning-box .prize-item-rules .prize-item-rules-desc {
+      font-weight: 400;
+      font-size: 12px;
+      color: #6D6D6D;
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }
+  
+    .lucky-wheel-activity-wrapper-mb .right-box .before-winning-box .activity-button {
+      width: max-content;
+      background: linear-gradient(90deg, #ffbc38 0%, #ff8628 51%, #ff909d 100%);
+      box-shadow: inset 0px 1px 9px 0px rgba(241, 117, 127, 0.85);
+      border-radius: 99px;
+      padding: 14px 26px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+      color: #ffffff;
+  
+      line-height: 1.37;
+      text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+      box-sizing: border-box;
+      cursor: pointer;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 22px;
+    }
+  }
+  
+  /* 已登录显示 */
+  .logined-winning-box {
+    display: none;
+  }
+  
+  .logined-winning-box-title {
+    color: #000;
+  
+    font-size: 30px;
+  
+    font-weight: 700;
+    line-height: 1.26;
+    /* 126% */
+    margin-bottom: 30px;
+  }
+  
+  .logined-winning-box-content {
+    display: flex;
+    width: 449px;
+    padding:  25px;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 20px;
+    background: #FFFEFD;
+  }
+  
+  .logined-winning-box-content-title {
+    color: #000;
+  
+    font-size: 16px;
+  
+    font-weight: 400;
+    line-height: 1.4;
+  
+  }
+  .logined-winning-box-content-title-content{
+    color: #DA291C;
+  }
+  .logined-winning-box-content-title>span {
+    color: #da291c;
+  }
+  .logined-winning-box-content-heading{
+    color: #000;
+  
+  font-size: 16px;
+  
+  font-weight: 400;
+  line-height: 1.4; /* 140% */
+  margin-bottom: 14px;
+  }
+  .logined-winning-box-content-desc {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #6D6D6D;
+  
+    font-size: 14px;
+  line-height: 1.4;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+  
+  .logined-winning-box-content-share-box {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  
+  .logined-winning-box-content-share-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  
+  .logined-winning-box-content-share-item-icon {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+  }
+  
+  .logined-winning-box-content-share-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .logined-winning-box-content-share-item-content-name {
+    color: #000;
+  
+    font-size: 14px;
+  
+    font-weight: 400;
+    line-height: 1.4;
+    /* 140% */
+  }
+  
+  .logined-winning-box-content-share-item-content-num {
+    color: #da291c;
+  
+    font-size: 14px;
+  
+    font-weight: 400;
+    line-height: 1.4;
+    /* 140% */
+  }
+  
+  @media screen and (max-width: 768px) {
+    .logined-winning-box-title {
+      margin-top: 50px;
+      color: #000;
+      text-align: center;
+      width: 227px;
+      font-size: 20px;
+  
+      font-weight: 700;
+      line-height: 1.3;
+      /* 126% */
+      margin-bottom: 20px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  
+    .logined-winning-box-content {
+      width: 100%;
+      padding: 0;
+      background-color: #FFF1D7;
+      border-radius: 0;
+    }
+    .logined-winning-box-content-heading{
+  
+  font-size: 14px;
+  
+  font-weight: 400;
+  line-height: 1.4; /* 140% */
+  margin-bottom: 10px;
+    }
+    .logined-winning-box-content-desc{
+      color: #6D6D6D;
+  
+  
+  font-size: 12px;
+  
+  font-weight: 400;
+  line-height: 1.4; /* 140% */
+  gap: 6px;
+  margin-bottom: 10px;
+    }
+  
+    .logined-winning-box-content-title {
+      font-size: 14px;
+    }
+  
+    .logined-winning-box-content-desc {
+      margin-bottom: 10px;
+    }
+  
+    .logined-winning-box-content-share-box {
+      display: flex;
+      align-items: center;
+      column-gap: 45px;
+      row-gap: 18px;
+      flex-wrap: wrap;
+    }
+  
+    .logined-winning-box-content-share-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+  
+    .logined-winning-box-content-share-item-icon {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+    }
+  
+    .logined-winning-box-content-share-item-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+  
+    .logined-winning-box-content-share-item-content-name {
+      color: #000;
+  
+      font-size: 14px;
+  
+      font-weight: 400;
+      line-height: 1.4;
+      /* 140% */
+    }
+  
+    .logined-winning-box-content-share-item-content-num {
+      color: var(---1, #da291c);
+  
+      font-size: 14px;
+  
+      font-weight: 400;
+      line-height: 1.4;
+      /* 140% */
+    }
+  }
+  
+  /* 已中奖显示 */
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box {
+    display: none;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box .prize-item-title {
+    display: flex;
+    font-weight: 700;
+    font-size: 30px;
+    color: #000000;
+    line-height: 1.26;
+    text-align: left;
+    margin-bottom: 16px;
+    gap: 19px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box .prize-item-title i {
+    display: block;
+    width: 46px;
+    height: 46px;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box .prize-item-title i img {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box .prize-item-desc {
+    color: #000;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    /* 140% */
+    margin-bottom: 18px;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box .prize-item-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 14px 15px 14px;
+    border-radius: 10px;
+    background: #fff;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box .prize-item-box .prize-img {
+    width: 123px;
+    height: 123px;
+    padding: 9px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box .prize-item-box .prize-img img {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box .prize-item-box .prize-item-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box .prize-item-box .prize-item-right .prize-item-name {
+    color: #000;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    /* 133% */
+    margin-bottom: 4px;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box .prize-item-box .prize-item-right .prize-item-rules {
+    color: #6d6d6d;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    /* 140% */
+    margin-bottom: 10px;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box .prize-item-box .prize-item-right .prize-item-rules>a {
+    color: #ff8f1c;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box .prize-item-box .discount-code-box {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box .discount-code-box .Discount-code-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box .discount-code-box .Discount-code-top-left {
+    color: #000;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+    /* 140% */
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box .discount-code-box .Discount-code-top-copy {
+    width: 30px;
+    height: 20px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box .discount-code-box .Discount-code-bottom {}
+  
+  .lucky-wheel-activity-container-pc .right-box .after-winning-box .discount-code-box .Discount-code-content {
+    color: #3d3d3d;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    /* 140% */
+  }
+  
+  /* 已中奖显示 移动端*/
+  @media screen and (max-width: 768px) {
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box {
+      display: none;
+    }
+  
+  
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box .prize-item-title {
+      display: flex;
+      font-weight: 700;
+      font-size: 20px;
+      color: #000000;
+      line-height: 1.3;
+      text-align: left;
+      margin-bottom: 20px;
+      gap: 0px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+  
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box .prize-item-title i {
+      display: none;
+      width: 46px;
+      height: 46px;
+    }
+  
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box .prize-item-title i img {
+      width: 100%;
+      max-width: 100%;
+    }
+  
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box .prize-item-desc {
+      color: #000;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.4;
+      /* 140% */
+      margin-bottom: 18px;
+      display: none;
+    }
+  
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box .prize-item-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: #fff;
+    }
+  
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box .prize-item-box .prize-img {
+      width: 78px;
+      height: 78px;
+      padding: 0px;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      border-radius: 10px;
+    }
+  
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box .prize-item-box .prize-img img {
+      width: 100%;
+      max-width: 100%;
+    }
+  
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box .prize-item-box .prize-item-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box .prize-item-box .prize-item-right .prize-item-name {
+      color: #000;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.3;
+      /* 133% */
+      margin-bottom: 4px;
+    }
+  
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box .prize-item-box .prize-item-right .prize-item-rules {
+      color: #6d6d6d;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.4;
+      /* 140% */
+      /* margin-bottom: 10px; */
+    }
+  
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box .prize-item-box .prize-item-right .prize-item-rules>a {
+      color: #ff8f1c;
+    }
+  
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box .prize-item-box .discount-code-box {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      display: none;
+    }
+  
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box .discount-code-box .Discount-code-top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+  
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box .discount-code-box .Discount-code-top-left {
+      color: #000;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.4;
+      /* 140% */
+    }
+  
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box .discount-code-box .Discount-code-top-copy {
+      width: 30px;
+      height: 20px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+  
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box .discount-code-box .Discount-code-bottom {}
+  
+    .lucky-wheel-activity-container-mb .right-box .after-winning-box .discount-code-box .Discount-code-content {
+      color: #3d3d3d;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.4;
+      /* 140% */
+    }
+  }
+  
+  /* 抽奖转盘 移动端 */
+  @media screen and (max-width: 768px) {
+    .lucky-wheel-activity-wrapper-pc {
+      display: none;
+    }
+  
+    .lucky-wheel-activity-wrapper-mb {
+      display: block;
+    }
+  
+    .lucky-wheel-activity-title {
+      text-align: left;
+  
+      font-size: 24px;
+      padding: 0 24px;
+      line-height: 1.3;
+      margin-bottom: 20px;
+    }
+  
+    .lucky-wheel-activity-container-mb {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      box-sizing: border-box;
+      padding: 0 0 24px 0;
+      overflow: hidden;
+      width: 100%;
+      min-height: auto;
+      /* background: url(https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20250822-182427.jpg?v=1755858294) no-repeat center;
+      background-size: 100% 100%;
+      min-height: 500px; */
+      background-color: #FFF1D7;
+    }
+  
+    .lucky-wheel-activity-container-mb .right-box {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+  
+    .lucky-wheel-activity-container-mb-bottom {
+      width: 100%;
+      border-radius: 0px 0px 10px 10px;
+  
+      box-sizing: border-box;
+      padding: 16px 24px;
+      background: #FC7D4F;
+    }
+  
+    .lucky-wheel-activity-container-mb .panel-box {
+      padding: 0;
+      height: 100%;
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+      background: url(https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20250822-182427.jpg?v=1755858294) no-repeat top;
+          background-size: cover;
+          min-height: 103.2vw;
+          padding-top: 27px;
+    }
+  
+    .lucky-wheel-activity-container-mb .panel-box #my-lucky-mb {
+      margin: 0 auto;
+    }
+  
+    .lucky-wheel-activity-container-mb .panel-box .button-box {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      color: rgba(0, 0, 0, 0.88);
+      cursor: pointer;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      /* 防止移动端点击时出现背景闪烁 */
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      background: transparent;
+    }
+  }
+  
+  /* 中奖底部内容 */
+  .lucky-wheel-activity-container-pc-bottom-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .lucky-wheel-activity-container-pc-bottom-content .notice-box-left {
+    display: flex;
+    gap: 10px;
+    width: 40%;
+  }
+  
+  .lucky-wheel-activity-container-pc-bottom-content .notice-box-left .notice-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+  
+  .lucky-wheel-activity-container-pc-bottom-content .notice-box-left .notice-content {
+    font-weight: 400;
+    font-size: 16px;
+    color: #ffffff;
+    line-height: 27px;
+    overflow: hidden;
+    flex: 1;
+  }
+  
+  .Winners-list {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  .lucky-wheel-activity-container-pc-bottom-content .notice-box-right {
+    display: flex;
+    gap: 37px;
+  }
+  
+  .lucky-wheel-activity-container-pc-bottom-content .notice-box-right .rules,
+  .lucky-wheel-activity-container-pc-bottom-content .notice-box-right .my-prize {
+    display: flex;
+    column-gap: 8px;
+    align-items: center;
+  }
+  
+  .lucky-wheel-activity-container-pc-bottom-content .notice-box-right .rules .rules-icon,
+  .lucky-wheel-activity-container-pc-bottom-content .notice-box-right .my-prize .my-prize-icon {
+    width: 24px;
+    height: 25px;
+    flex-shrink: 0;
+  }
+  
+  .lucky-wheel-activity-container-pc-bottom-content .notice-box-right .rules .rules-text,
+  .lucky-wheel-activity-container-pc-bottom-content .notice-box-right .my-prize .my-prize-text {
+    font-weight: 400;
+    font-size: 16px;
+    color: #ffffff;
+    line-height: 27px;
+    text-decoration-line: underline;
+    cursor: pointer;
+  }
+  
+  .notice-box-mb {
+    display: none;
+  }
+  
+  /* 中奖底部内容 移动端*/
+  @media screen and (max-width: 768px) {
+    .lucky-wheel-activity-container-pc-bottom-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .lucky-wheel-activity-container-pc-bottom-content .notice-box-left {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+    }
+  
+    .lucky-wheel-activity-container-pc-bottom-content .notice-box-left .notice-icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+  
+    .lucky-wheel-activity-container-pc-bottom-content .notice-box-left .notice-content {
+      font-weight: 400;
+      font-size: 14px;
+      color: #ffffff;
+      line-height: 1.35;
+      overflow: hidden;
+      flex: 1;
+    }
+  
+    .lucky-wheel-activity-container-pc-bottom-content .notice-box-right {
+      display: none;
+    }
+  
+    .lucky-wheel-activity-container-mb .notice-box-mb {
+      display: flex;
+      margin-top: 22px;
+      gap: 22px;
+      width: 100%;
+    }
+  
+    .lucky-wheel-activity-container-mb .notice-box-mb .rules,
+    .lucky-wheel-activity-container-mb .notice-box-mb .my-prize {
+      display: flex;
+      column-gap: 8px;
+      align-items: center;
+    }
+  
+    .lucky-wheel-activity-container-mb .notice-box-mb .rules .rules-icon,
+    .lucky-wheel-activity-container-mb .notice-box-mb .my-prize .my-prize-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+  
+    .lucky-wheel-activity-container-mb .notice-box-mb .rules .rules-text,
+    .lucky-wheel-activity-container-mb .notice-box-mb .my-prize .my-prize-text {
+      font-weight: 400;
+      font-size: 14px;
+      color: #3d3d3d;
+      line-height: 1.9;
+      text-decoration-line: underline;
+      cursor: pointer;
+    }
+  }
+  
+  /* 未登录 奖品列表 */
+  #rules-content,
+  #my-prize-content {
+    padding: 30px 20px;
+    position: relative;
+    max-width: 700px;
+    width: 700px;
+    cursor: auto;
+    border-radius: 10px;
+  }
+  
+  #my-prize-content {
+    min-height: 513px;
+  }
+  
+  #rules-content .rules-content-title,
+  #my-prize-content .my-prize-content-title {
+    font-weight: bold;
+    font-size: 18px;
+    color: #000000;
+    line-height: 25px;
+  }
+  
+  .fancybox-slide--html .fancybox-close-small {
+    right: 2px;
+    top: 2px;
+    padding: 10px;
+  }
+  
+  #rules-content .rules-content-desc,
+  #my-prize-content .my-prize-content-desc {
+    margin-top: 16px;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 16px;
+  }
+  
+  #rules-content .rules-content-desc-item {
+    font-weight: 400;
+    font-size: 14px;
+    color: #3d3d3d;
+    line-height: 20px;
+    text-align: left;
+  }
+  
+  #my-prize-content .my-prize-content-item-not-logged-in,
+  .my-prize-content-item-logged-in-no-prizes {
+    margin-top: 48px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .my-prize-content-item-logged-in.has-prizes {
+    display: none;
+  }
+  
+  .my-prize-content-item-logged-in-no-prizes {}
+  
+  #my-prize-content .my-prize-content-item-not-logged-in-icon {
+    width: 94px;
+    height: 94px;
+    max-width: 100%;
+    margin-bottom: 24px;
+  }
+  
+  #my-prize-content .my-prize-content-item-not-logged-in-text {
+    font-weight: bold;
+    font-size: 16px;
+    color: #000000;
+    line-height: 22px;
+    text-align: center;
+  }
+  
+  #my-prize-content .my-prize-content-item-not-logged-in .my-prize-content-item-not-logged-in-button {
+    color: #ff8f1c;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  @media screen and (max-width: 768px) {
+  
+    /* 未登录 奖品列表 */
+    #rules-content,
+    #my-prize-content {
+      padding: 30px 20px;
+      position: relative;
+      max-width: 87.2%;
+      width: 87.2%;
+  
+      border-radius: 10px;
+    }
+  
+    #my-prize-content {
+      min-height: 370px;
+    }
+  
+    #rules-content .rules-content-title,
+    #my-prize-content .my-prize-content-title {
+      font-weight: bold;
+      font-size: 16px;
+      color: #000000;
+      line-height: 1.4;
+    }
+  
+    #rules-content .fancybox-slide--html .fancybox-close-small {
+      right: 2px;
+      top: 18px;
+      padding: 10px;
+    }
+  
+    #rules-content .rules-content-desc,
+    #my-prize-content .my-prize-content-desc {
+      margin-top: 14px;
+      border-top: 1px solid #f0f0f0;
+      padding-top: 14px;
+    }
+  
+    #rules-content .rules-content-desc-item {
+      font-weight: 400;
+      font-size: 14px;
+      color: #3d3d3d;
+      line-height: 1.4;
+      text-align: left;
+    }
+  
+    #my-prize-content .my-prize-content-item-not-logged-in,
+    .my-prize-content-item-logged-in-no-prizes {
+      margin-top: 60px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .my-prize-content-item-logged-in-no-prizes {}
+  
+    #my-prize-content .my-prize-content-item-not-logged-in-icon {
+      width: 64px;
+      height: 64px;
+      max-width: 100%;
+      margin-bottom: 13px;
+    }
+  
+    #my-prize-content .my-prize-content-item-not-logged-in-text {
+      font-weight: bold;
+      font-size: 14px;
+      color: #000000;
+      line-height: 1.4;
+      text-align: center;
+    }
+  
+    #my-prize-content .my-prize-content-item-not-logged-in .my-prize-content-item-not-logged-in-button {
+      color: #ff8f1c;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+  
+  /* 已登录 奖品列表 */
+  .my-prize-content-item-logged-in {}
+  
+  .my-prize-content-item-logged-in .my-prize-content-item-logged-in-item:first-child {
+    margin-top: 0;
+  }
+  
+  .my-prize-content-item-logged-in-item {
+    background: #fe8f1c;
+    border-radius: 5px;
+    padding-top: 10px;
+    margin-top: 12px;
+  }
+  
+  .my-prize-content-item-logged-in-item.expired {
+    background-color: rgb(156 163 175);
+  }
+  
+  .my-prize-content-item-logged-in-item-content {
+    background: #fffdef;
+    border-radius: 0 0 5px 5px;
+    padding: 20px 18px 16px 18px;
+  }
+  
+  .my-prize-content-item-logged-in-item-content.expired {
+    background: rgb(249 250 251);
+  }
+  
+  .my-prize-content-item-logged-in .prize-detail {
+    display: flex;
+    align-items: start;
+    gap: 14px;
+  }
+  
+  .my-prize-content-item-logged-in .prize-detail .prize-img {
+    background-color: #fff;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    box-sizing: border-box;
+    width: 80px;
+    height: 80px;
+  }
+  
+  .my-prize-content-item-logged-in .prize-detail .prize-img img {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .my-prize-content-item-logged-in .prize-detail .prize-detail-box {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .my-prize-content-item-logged-in .prize-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .my-prize-content-item-logged-in .prize-name-value {
+    font-weight: bold;
+    font-size: 20px;
+    color: #ff8f1c;
+    line-height: 27px;
+    text-align: left;
+    font-style: normal;
+    text-transform: none;
+  }
+  
+  .my-prize-content-item-logged-in .prize-name-value.expired {
+    color: rgb(156 163 175);
+  }
+  
+  .my-prize-content-item-logged-in .prize-view {
+    text-decoration: none;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #ff8f1c;
+    padding: 6px 16px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #ff8f1c;
+  }
+  
+  .my-prize-content-item-logged-in .prize-view.expired {
+    border-color: rgb(156 163 175);
+    color: rgb(156 163 175);
+  }
+  
+  .my-prize-content-item-logged-in .prize-view-mb {
+    text-decoration: none;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #ff8f1c;
+    padding: 6px 16px;
+    font-weight: bold;
+    font-size: 12px;
+    color: #ff8f1c;
+    line-height: 1.25;
+    display: none;
+    margin-top: 10px;
+    width: max-content;
+  }
+  
+  .my-prize-content-item-logged-in .prize-view-mb {
+    border-color: rgb(156 163 175);
+    color: rgb(156 163 175);
+  }
+  
+  .my-prize-content-item-logged-in .prize-model {
+    font-weight: 400;
+    font-size: 16px;
+    color: #3d3d3d;
+    line-height: 25px;
+    text-align: left;
+  }
+  
+  .my-prize-content-item-logged-in .prize-discount,
+  .my-prize-content-item-logged-in .prize-expiration-date,
+  .my-prize-content-item-logged-in .prize-usage-scope {
+    font-weight: 400;
+    font-size: 12px;
+    color: #3d3d3d;
+    line-height: 17px;
+    text-align: left;
+  }
+  
+  .my-prize-content-item-logged-in .copy-icon {
+    width: 12px;
+    cursor: pointer;
+    display: inline-block;
+    padding-left: 0;
+    height: 12px;
+    margin-left: 5px;
+  }
+  
+  @media screen and (max-width: 768px) {
+  
+    /* 已登录 奖品列表 */
+    .my-prize-content-item-logged-in {}
+  
+    .my-prize-content-item-logged-in .my-prize-content-item-logged-in-item:first-child {
+      margin-top: 0;
+    }
+  
+    .my-prize-content-item-logged-in-item {
+      background: #fe8f1c;
+      border-radius: 5px;
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+  
+    .my-prize-content-item-logged-in-item-content {
+      background: #fffdef;
+      border-radius: 0 0 5px 5px;
+      padding: 10px;
+    }
+  
+    .my-prize-content-item-logged-in .prize-detail {
+      display: flex;
+      align-items: start;
+      gap: 14px;
+    }
+  
+    .my-prize-content-item-logged-in .prize-detail .prize-img {
+      background-color: #fff;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      box-sizing: border-box;
+      width: 68px;
+      height: 68px;
+    }
+  
+    .my-prize-content-item-logged-in .prize-detail .prize-img img {
+      width: 100%;
+      max-width: 100%;
+    }
+  
+    .my-prize-content-item-logged-in .prize-detail .prize-detail-box {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: 0;
+    }
+  
+    .my-prize-content-item-logged-in .prize-name {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .my-prize-content-item-logged-in .prize-name-value {
+      font-weight: bold;
+      font-size: 14px;
+      color: #ff8f1c;
+      line-height: 1.4;
+      text-align: left;
+      font-style: normal;
+      text-transform: none;
+    }
+  
+    .my-prize-content-item-logged-in .prize-view {
+      text-decoration: none;
+      box-sizing: border-box;
+      border-radius: 4px;
+      border: 1px solid #ff8f1c;
+      padding: 6px 16px;
+      font-weight: bold;
+      font-size: 14px;
+      color: #ff8f1c;
+      display: none;
+    }
+  
+    .my-prize-content-item-logged-in .prize-view-mb {
+      text-decoration: none;
+      box-sizing: border-box;
+      border-radius: 4px;
+      border: 1px solid #ff8f1c;
+      padding: 6px 16px;
+      font-weight: bold;
+      font-size: 12px;
+      color: #ff8f1c;
+      line-height: 1.25;
+      display: block;
+      margin-top: 10px;
+      width: max-content;
+    }
+  
+    .my-prize-content-item-logged-in .prize-model {
+      font-weight: 400;
+      font-size: 12px;
+      color: #3d3d3d;
+      line-height: 1.25;
+      text-align: left;
+    }
+  
+    .my-prize-content-item-logged-in .prize-discount,
+    .my-prize-content-item-logged-in .prize-expiration-date,
+    .my-prize-content-item-logged-in .prize-usage-scope {
+      font-weight: 400;
+      font-size: 10px;
+      color: #3d3d3d;
+      line-height: 1.25;
+      text-align: left;
+      margin-top: 10px;
+    }
+  
+    .my-prize-content-item-logged-in .copy-icon {
+      width: 12px;
+      cursor: copy;
+      display: inline-block;
+      padding-left: 0;
+      height: 12px;
+      margin-left: 5px;
+    }
+  }
+  
+  /* facebook 群组 */
+  .facebook-group-wrapper {
+    background: #f8f9fd;
+    padding-top: 100px;
+    padding-bottom: 80px;
+  }
+  
+  .facebook-group-title {
+    text-align: center;
+    color: #000;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 48.8px;
+    /* 122% */
+    margin-bottom: 50px;
+  }
+  
+  .facebook-group-container {
+    position: relative;
+    max-width: 1200px;
+    height: 20.31vw;
+    margin: 0 auto;
+    border-radius: 20px;
+    background: #f5fefe;
+    background: url(https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20250721-155711.png?v=1753084727) no-repeat center / cover;
+  }
+  
+  .facebook-group-item-box {
+    position: absolute;
+    top: 50%;
+    left: 8.333%;
+    transform: translateY(-50%);
+  }
+  
+  .facebook-group-item-title.pc {
+    display: block;
+  }
+  
+  .facebook-group-item-title.mobile {
+    display: none;
+  }
+  
+  .facebook-group-item-title {
+    color: #000;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 37.8px;
+    /* 126% */
+    margin-bottom: 10px;
+  }
+  
+  .facebook-group-item-title>span {
+    color: #0164ff;
+  }
+  
+  .facebook-group-item-subtitle {
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22.4px;
+    /* 140% */
+    margin-bottom: 20px;
+  }
+  
+  .facebook-group-item-button {
+    display: inline-flex;
+    min-height: 46px;
+    padding: 8.918px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 8.918px;
+    color: #fff;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 700;
+    border-radius: 88.283px;
+    background: #0164ff;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .facebook-group-wrapper {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+  
+    .facebook-group-title {
+      font-size: 24px;
+      line-height: 1.3;
+      margin-bottom: 20px;
+    }
+  
+    .facebook-group-container {
+      position: relative;
+      height: 128.53vw;
+      border-radius: 0;
+      background: #f5fefe;
+      background: url(https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20250721-155808.png?v=1753084727) no-repeat center / cover;
+    }
+  
+    .facebook-group-item-box {
+      position: static;
+      width: 100%;
+      transform: none;
+      text-align: center;
+      padding-top: 50px;
+    }
+  
+    .facebook-group-item-title.pc {
+      display: none;
+    }
+  
+    .facebook-group-item-title.mobile {
+      display: block;
+    }
+  
+    .facebook-group-item-title {
+      font-size: 20px;
+      line-height: 1.3;
+      /* 126% */
+      margin-bottom: 0;
+    }
+  
+    .facebook-group-item-subtitle {
+      margin-bottom: 14px;
+    }
+  
+    .facebook-group-item-button {
+      display: inline-flex;
+      min-height: 46px;
+      padding: 8.918px 32px;
+      justify-content: center;
+      align-items: center;
+      gap: 8.918px;
+      color: #fff;
+      font-size: 16px;
+      line-height: 1;
+      font-weight: 700;
+      border-radius: 88.283px;
+      background: #0164ff;
+      text-decoration: none;
+      box-sizing: border-box;
+    }
+  }
+  
+  /* FAQ start*/
+  .ugc-faq-wrapper {
+    background: #FFFBF5;
+    padding-top: 50px;
+    padding-bottom: 100px;
+  }
+  
+  .ugc-faq-container {
+    max-width: 1248px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  
+  .ugc-faq-container-title {
+    color: #000;
+    text-align: center;
+  
+    font-size: 40px;
+  
+    font-weight: 800;
+    line-height: 1.22;
+    /* 122% */
+    margin-bottom: 50px;
+  }
+  
+  .ugc-faq-container-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .ugc-faq-container-content-item {
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(204, 204, 204, 0.4);
+  }
+  
+  .ugc-faq-container-content-item-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  
+  .ugc-faq-container-content-item-question-title {
+    color: #000;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.38;
+    /* 138% */
+  }
+  
+  .ugc-faq-container-content-item-question-icon-plus {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-left: 20px;
+  }
+  
+  .ugc-faq-container-content-item-question-icon-minu {
+    width: 18px;
+    height: 18px;
+    margin-left: 20px;
+    flex-shrink: 0;
+    display: none;
+  }
+  
+  .ugc-faq-container-content-item.active .ugc-faq-container-content-item-question-icon-minu {
+    display: block;
+  }
+  
+  .ugc-faq-container-content-item.active .ugc-faq-container-content-item-question-icon-plus {
+    display: none;
+  }
+  
+  .ugc-faq-container-content-item:nth-child(1) {
+    padding-top: 0;
+  }
+  
+  .ugc-faq-container-content-item-answer {
+    display: none;
+  }
+  
+  .ugc-faq-container-content-item.active .ugc-faq-container-content-item-answer {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .ugc-faq-container-content-item-answer-item {
+    color: #2c2d2e;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    /* 140% */
+    padding-right: 100px;
+  }
+  
+  .ugc-faq-container-content-item-answer-item:nth-child(1) {
+    padding-top: 20px;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .ugc-faq-wrapper {
+      padding-top: 25px;
+      padding-bottom: 30px;
+    }
+  
+    .ugc-faq-container {
+      max-width: 1248px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+  
+    .ugc-faq-container-title {
+      font-size: 24px;
+  
+      line-height: 1.3;
+      /* 122% */
+      margin-bottom: 20px;
+    }
+  
+    .ugc-faq-container-content {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .ugc-faq-container-content-item {
+      padding: 20px 0;
+    }
+  
+    .ugc-faq-container-content-item:last-child {
+      border-bottom: none;
+    }
+  
+    .ugc-faq-container-content-item-question {
+      align-items: start;
+      cursor: pointer;
+    }
+  
+    .ugc-faq-container-content-item-question-title {
+      font-size: 14px;
+  
+      line-height: 1.4;
+      /* 138% */
+    }
+  
+    .ugc-faq-container-content-item-question-icon-plus {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      margin-left: 10px;
+    }
+  
+    .ugc-faq-container-content-item-question-icon-minu {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      margin-left: 10px;
+      display: none;
+    }
+  
+    .ugc-faq-container-content-item.active .ugc-faq-container-content-item-question-icon-minu {
+      display: block;
+    }
+  
+    .ugc-faq-container-content-item.active .ugc-faq-container-content-item-question-icon-plus {
+      display: none;
+    }
+  
+    .ugc-faq-container-content-item:nth-child(1) {
+      padding-top: 0;
+    }
+  
+    .ugc-faq-container-content-item-answer {
+      display: none;
+    }
+  
+    .ugc-faq-container-content-item.active .ugc-faq-container-content-item-answer {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .ugc-faq-container-content-item-answer-item {
+      color: #2c2d2e;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.4;
+      /* 140% */
+      padding-right: 30px;
+    }
+  
+    .ugc-faq-container-content-item-answer-item:nth-child(1) {
+      padding-top: 14px;
+    }
+  }
+  
+  /* FAQ end*/
+  /* 移动端 中奖弹窗 start*/
+  #pop-up-box-after-winning {
+    width: 82.2vw;
+    min-height: auto;
+    flex-shrink: 0;
+    border-radius: 10px;
+    padding: 56px 16px 30px 16px;
+    background: linear-gradient(180deg, #ffe5e3 0.38%, #fff 80.54%);
+  }
+  
+  #pop-up-box-after-winning .fancybox-slide--html .fancybox-close-small {
+    right: 12px;
+    top: 12px;
+    padding: 0;
+    width: 22px;
+    height: 22px;
+  }
+  
+  .pop-up-box-after-winning-wrapper-title-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+  }
+  
+  .pop-up-box-after-winning-wrapper-title-box-text {
+    color: #000;
+    text-align: center;
+  
+    font-size: 20px;
+  
+    font-weight: 700;
+    line-height: 1.3;
+    /* 133% */
+  }
+  
+  .pop-up-box-after-winning-wrapper-title-box-left-icon,
+  .pop-up-box-after-winning-wrapper-title-box-right-icon {
+    width: 32px;
+    height: 33px;
+  }
+  
+  .pop-up-box-after-winning-wrapper-subtitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    text-align: center;
+  
+    font-size: 14px;
+  
+    font-weight: 400;
+    line-height: 1.4;
+    /* 140% */
+    margin-top: 6px;
+    margin-bottom: 20px;
+  }
+  
+  .pop-up-box-after-winning-wrapper-prize-img {
+    width: 135px;
+    min-height: 92px;
+    /* padding: 16px 10px 16px 10px; */
+    border-radius: 5px;
+    background: #fff;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .pop-up-box-after-winning-wrapper-prize-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+  
+  .pop-up-box-after-winning-wrapper-prize-content-title {
+    color: #000;
+    text-align: center;
+  
+    font-size: 16px;
+  
+    font-weight: 700;
+    line-height: 1.4;
+    /* 140% */
+  }
+  
+  .pop-up-box-after-winning-wrapper-prize-content-desc {
+    color: #6d6d6d;
+    text-align: center;
+  
+    font-size: 12px;
+  
+    font-weight: 400;
+    line-height: 1.4;
+    max-width: 225px;
+    /* 140% */
+  }
+  
+  .pop-up-box-after-winning-wrapper-prize-discount-box {
+    width: 100%;
+    min-height: 65px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background: #FFF9E6;
+    padding: 12px 12px 12px 17px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .pop-up-box-after-winning-wrapper-prize-discount-box-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .pop-up-box-after-winning-wrapper-prize-discount-box-top-name {
+    color: #000;
+  
+    font-size: 14px;
+  
+    font-weight: 400;
+    line-height: 1.4;
+    /* 140% */
+  }
+  
+  .pop-up-box-after-winning-wrapper-prize-discount-box-copy-icon {
+    width: 30px;
+    height: 20px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  
+  .pop-up-box-after-winning-wrapper-prize-discount-box-code {
+    color: #3d3d3d;
+  
+    font-size: 12px;
+  
+    font-weight: 400;
+    line-height: 140%;
+    /* 16.8px */
+  }
+</style>
+<!-- 转盘模块 start-->
+<section class="lucky-wheel-activity-wrapper">
+
+    <!-- 转盘抽奖 -->
+    <section class="lucky-wheel-activity-section">
+      <div class="lucky-wheel-activity-title">Win Surprise Rewards</div>
+      <div class="lucky-wheel-activity-wrapper-pc">
+        <div class="lucky-wheel-activity-container-pc">
+          <div class="panel-box">
+            <div id="my-lucky"></div>
+            <div class="button-box">&nbsp;</div>
+          </div>
+
+          <div class="right-box">
+            <!--PC 端 未登录显示 -->
+            <div class="before-winning-box">
+              <div class="prize-item-title">
+                Try Your Luck - Spin the Wheel!
+              </div>
+              <div class="prize-item-rules">
+                <div class="prize-item-rules-title">How to Earn Draw Chances:</div>
+                <div class="prize-item-rules-desc">
+                  1.Place an order during the Back-to-School Event (Aug 26 – Aug 31, 2025) with each order with an amount of no less than $100 US dollars will be eligible for 2 chances to enter the lottery
+                </div>
+                <div class="prize-item-rules-desc">
+                  2.During the event period, each user can earn draw chances from a maximum of 3 orders per day, resulting in a daily limit of 6 draw chances.
+                </div>
+              </div>
+              <div class="activity-button activity-button-pc">Log in to join the lucky draw</div>
+            </div>
+            <!-- PC 已登录显示 -->
+            <div class="logined-winning-box">
+              <div class="logined-winning-box-title">
+                Spin the wheel now to claim prizes!
+              </div>
+              <div class="logined-winning-box-content">
+                <div class="logined-winning-box-content-heading">How to Earn Draw Chances:</div>
+                <div class="logined-winning-box-content-desc">
+                  <div class="logined-winning-box-content-desc-item">
+                    1.Place an order during the Back-to-School Event (Aug 26 – Aug 31, 2025) with each order with an amount of no less than $100 US dollars will be eligible for 2 chances to enter the lottery
+                  </div>
+                  <div class="logined-winning-box-content-desc-item">
+                    2.During the event period, each user can earn draw chances from a maximum of 3 orders per day, resulting in a daily limit of 6 draw chances.
+                  </div>
+                </div>
+                <div class="logined-winning-box-content-title">Remaining lottery draw opportunities：
+                  <span class="logined-winning-box-content-title-content">
+                  (<span class="Used-opportunities">0</span>/<span class="available-chance">0</span>)</span></div>
+               
+                <div class="logined-winning-box-content-share-box">
+                  <!-- <div class="logined-winning-box-content-share-item fb">
+                    <div class="logined-winning-box-content-share-item-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="31" height="30" viewBox="0 0 31 30" fill="none">
+                        <path
+                          d="M30.9987 15.0924C30.9987 6.75638 24.0596 0 15.4994 0C6.93912 0 0 6.75638 0 15.0924C0 22.6236 5.66807 28.8668 13.0774 29.9987V19.4542H9.1428V15.0912H13.0774V11.7671C13.0774 7.9839 15.3921 5.89486 18.9315 5.89486C20.6275 5.89486 22.401 6.18916 22.401 6.18916V9.90316H20.4479C18.5233 9.90316 17.9226 11.0665 17.9226 12.2601V15.0924H22.2215L21.5343 19.4554H17.9226V30C25.3319 28.8681 31 22.6248 31 15.0924H30.9987Z"
+                          fill="#0069FF" />
+                      </svg>
+                    </div>
+                    <div class="logined-winning-box-content-share-item-content fb">
+                      <div class="logined-winning-box-content-share-item-content-name">Facebook</div>
+                      <div class="logined-winning-box-content-share-item-content-num">(<span>0</span>/1)</div>
+                    </div>
+                  </div> -->
+                  <!-- <div class="logined-winning-box-content-share-item">
+                    <div class="logined-winning-box-content-share-item-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                        <path
+                          d="M0 15.0005C0 23.2846 6.71536 30 15.0005 30C23.2846 30 30 23.2846 30 15.0005C30 6.71636 23.2846 0 15.0005 0C6.71636 0 0 6.71536 0 15.0005Z"
+                          fill="#170B1A" />
+                        <path
+                          d="M15.0163 9.85487C15.0303 8.28009 15.0163 6.69029 15.0303 5.1145H18.2559C18.2409 5.39964 18.2859 5.66978 18.3309 5.93991L16.1258 6.12L16.3059 18.7503C16.3209 19.2906 15.9307 20.5052 15.6606 20.9704C15.2404 21.6908 13.9658 22.3501 13.1253 22.4252C12.6011 22.4702 12.2109 22.3351 11.7306 22.08C11.3705 21.8849 11.1754 20.8053 11.0703 20.5192C11.8957 20.9854 12.9763 20.9394 13.7717 20.4152C14.1581 20.1687 14.4769 19.8297 14.6993 19.429C14.9217 19.0282 15.0406 18.5783 15.0453 18.12C15.0153 15.3596 15.0153 12.6002 15.0153 9.85587L15.0163 9.85487ZM20.3259 8.94041C20.7762 9.22456 21.2864 9.45067 21.8107 9.55472C22.1258 9.62976 22.426 9.65977 22.7411 9.65977V10.5302C21.8107 10.3201 19.8007 9.73481 20.3259 8.93941V8.94041Z"
+                          fill="#25F4EE" />
+                        <path
+                          d="M9.19558 12.9755C10.3639 12.2511 11.7492 11.959 13.1105 12.1501V13.1406C11.8509 13.1706 10.8014 13.7109 9.78088 14.4602C9.0165 15.0305 8.49023 15.6148 8.08603 16.4852C7.69584 17.3097 7.53075 18 7.54576 18.9155C7.54576 19.92 7.8159 20.6403 8.29614 21.5248C8.52125 21.93 8.95647 22.5453 8.85141 22.9955C8.16405 22.5092 7.59055 21.8794 7.17057 21.1496C6.59985 20.1729 6.31424 19.0558 6.34616 17.925C6.38363 16.8807 6.68813 15.8635 7.2306 14.9705C7.71341 14.1554 8.38794 13.4706 9.19558 12.9755Z"
+                          fill="#25F4EE" />
+                        <path
+                          d="M15.9452 5.93994H18.3604C18.7356 6.58526 18.7056 6.82538 18.9157 7.23059C19.2459 7.87491 19.5 8.11503 20.2204 8.83539C20.2625 8.86249 20.2983 8.89831 20.3254 8.94044C20.9557 9.6608 21.8102 10.1701 22.7406 10.3802C23.2809 10.7704 22.9057 12.3451 22.9057 13.1846C21.3299 13.1996 19.7251 12.5843 18.4505 11.6548C18.4505 13.6658 18.4505 15.5247 18.4655 17.5497C18.4655 17.8199 18.4805 18.075 18.4655 18.3602C18.3904 19.3346 17.9402 20.7604 17.445 21.5998C17.0228 22.3441 16.4508 22.9927 15.7651 23.5047C14.8773 24.1606 13.8091 24.5274 12.7056 24.5552C12.1469 24.5781 11.5875 24.5328 11.0398 24.4202C10.2754 24.2551 9.54002 23.4897 8.89569 23.0395L8.85067 22.9955C8.53551 22.6653 8.25037 22.2901 8.04027 21.8699C7.56003 20.9995 7.28989 20.01 7.28989 19.0055C7.27464 18.0884 7.46973 17.1801 7.86018 16.3501C8.26538 15.4797 8.86568 14.6993 9.61505 14.129C10.6213 13.3738 11.8372 12.9498 13.0948 12.9154C13.44 13.0795 13.1998 15.6148 13.1998 15.6148C12.7956 15.4797 12.2554 15.5247 11.8352 15.6298C11.3249 15.7348 11.0548 16.035 10.6646 16.3652C10.4245 16.5753 10.2144 16.8004 10.0803 17.0855C9.82516 17.5658 9.84017 17.6258 9.88519 18.1651C9.94522 18.6753 10.0353 19.2296 10.3804 19.6198C10.6056 19.9049 10.7556 20.3401 11.0548 20.5352C11.2949 20.9254 11.6101 21.2096 11.9552 21.3757C12.4355 21.6298 12.9757 21.7358 13.5 21.6898C14.3404 21.6298 15.1208 21.1195 15.541 20.3852C15.8112 19.9049 15.9302 19.2896 15.9302 18.7644C15.9302 14.3401 15.9452 5.93994 15.9452 5.93994Z"
+                          fill="white" />
+                        <path
+                          d="M18.3289 5.93994C18.615 5.95495 18.8851 5.93994 19.1843 5.93994C19.1843 6.87041 19.4844 7.81488 20.0247 8.58026C20.0998 8.68531 20.1598 8.77536 20.2348 8.8504C19.6195 8.47521 19.1393 7.88992 18.8101 7.24459C18.6 6.8544 18.4349 6.40417 18.3299 5.93994H18.3289ZM22.7401 10.3802C23.0542 10.4552 23.3544 10.4852 23.6705 10.4852V13.7398C22.0797 13.7548 20.4889 13.2296 19.1843 12.2851V18.7503C19.1993 19.2446 19.1543 19.7248 19.0492 20.2051C18.7357 21.6624 17.8912 22.9509 16.68 23.8199C16.0429 24.2794 15.3172 24.6013 14.549 24.7654C13.6195 24.9755 12.66 24.9605 11.7596 24.7203C10.6663 24.433 9.67771 23.8394 8.91016 23.0095C9.55448 23.4747 10.2898 23.7749 11.0692 23.9399C11.6095 24.06 12.1798 24.09 12.7351 24.075C13.8386 24.0471 14.9067 23.6804 15.7946 23.0245C16.4802 22.5121 17.0524 21.8636 17.4754 21.1195C17.97 20.2663 18.267 19.3132 18.3449 18.3301C18.3599 18.0602 18.3599 17.7897 18.3449 17.5197C18.3149 15.5247 18.3149 13.5147 18.3149 11.5047C19.6081 12.4335 21.1629 12.9275 22.7551 12.9154C22.7401 12.075 22.7551 11.2196 22.7401 10.3802Z"
+                          fill="#FE2C55" />
+                        <path
+                          d="M13.1109 12.9004C13.4261 12.9004 13.7562 12.9154 14.0564 12.9604V16.3051C13.6003 16.1577 13.1127 16.137 12.6457 16.2451C11.7612 16.4402 11.0259 17.1155 10.7117 17.9699C10.3966 18.8103 10.5166 19.8008 11.0419 20.5202C10.7267 20.3401 10.4716 20.1 10.2465 19.8148C9.91631 19.4247 9.6912 18.9144 9.63117 18.4041C9.57114 17.8799 9.66119 17.3096 9.91631 16.8454C10.0514 16.5602 10.2615 16.3201 10.5016 16.11C10.8918 15.7798 11.386 15.5697 11.8663 15.4347C12.2715 15.3446 12.7067 15.3296 13.0969 15.4647C13.1109 15.3296 13.1109 13.2296 13.1109 12.9004Z"
+                          fill="#FE2C55" />
+                      </svg>
+                    </div>
+                    <div class="logined-winning-box-content-share-item-content">
+                      <div class="logined-winning-box-content-share-item-content-name">TikTok</div>
+                      <div class="logined-winning-box-content-share-item-content-num">(0/1)</div>
+                    </div>
+                  </div>
+                  <div class="logined-winning-box-content-share-item">
+                    <div class="logined-winning-box-content-share-item-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                        <circle cx="15" cy="15" r="15" fill="url(#paint0_linear_4718_184179)" />
+                        <path
+                          d="M22.6355 11.9472C22.5971 11.16 22.4691 10.6224 22.2771 10.1488C22.0787 9.66241 21.8163 9.24641 21.3939 8.83681C21.0059 8.45849 20.541 8.16817 20.0307 7.98561C19.5443 7.80001 18.9811 7.67841 18.1683 7.64001C17.3491 7.60161 17.0867 7.59521 15.0003 7.59521C12.9139 7.59521 12.6515 7.60161 11.8323 7.64001C11.0195 7.67841 10.4563 7.80641 9.96991 7.99201C9.46431 8.18401 9.03551 8.43361 8.60671 8.84321C8.18431 9.25281 7.92191 9.66881 7.72351 10.1552C7.53151 10.6288 7.40351 11.1664 7.36511 11.9536C7.32671 12.7408 7.32031 12.9904 7.32031 15C7.32031 17.0096 7.32671 17.2592 7.36511 18.0528C7.40351 18.84 7.53151 19.3776 7.72351 19.8512C7.92191 20.3376 8.18431 20.7536 8.60671 21.1632C9.03551 21.5728 9.46431 21.8288 9.96991 22.0144C10.4563 22.2 11.0195 22.3216 11.8323 22.36C12.6515 22.3984 12.9139 22.4048 15.0003 22.4048C17.0867 22.4048 17.3491 22.3984 18.1683 22.36C18.9875 22.3216 19.5443 22.2 20.0307 22.0144C20.5363 21.8224 20.9651 21.5728 21.3939 21.1632C21.8227 20.7536 22.0851 20.3376 22.2771 19.8512C22.4691 19.3776 22.5971 18.84 22.6355 18.0528C22.6739 17.2656 22.6803 17.0096 22.6803 15C22.6803 12.9904 22.6739 12.7408 22.6355 11.9472ZM21.2531 17.9888C21.2211 18.712 21.0931 19.1024 20.9907 19.3648C20.8499 19.7104 20.6835 19.9536 20.4147 20.216C20.1459 20.472 19.8899 20.6384 19.5315 20.7728C19.2627 20.8752 18.8531 20.9968 18.1043 21.0288C17.2915 21.0672 17.0547 21.0736 15.0003 21.0736C12.9523 21.0736 12.7091 21.0672 11.8963 21.0288C11.1475 20.9968 10.7379 20.8752 10.4691 20.7728C10.1107 20.6384 9.85471 20.4784 9.58591 20.216C9.31711 19.96 9.15071 19.7104 9.00991 19.3648C8.90751 19.1024 8.77951 18.712 8.74751 17.9888C8.70911 17.208 8.70271 16.9776 8.70271 15C8.70271 13.0224 8.70911 12.792 8.74751 12.0112C8.78591 11.288 8.90751 10.8976 9.01631 10.6352C9.15711 10.2896 9.32351 10.0464 9.59231 9.78401C9.86111 9.52801 10.1171 9.36801 10.4755 9.23361C10.7443 9.13121 11.1539 9.00961 11.9027 8.97761C12.7091 8.93921 12.9523 8.93281 15.0003 8.93281C17.0483 8.93281 17.2915 8.93921 18.1043 8.97761C18.8531 9.00961 19.2563 9.13121 19.5315 9.23361C19.8899 9.36801 20.1459 9.52801 20.4147 9.78401C20.6835 10.04 20.8499 10.2896 20.9907 10.6352C21.0931 10.8976 21.2211 11.288 21.2531 12.0112C21.2915 12.792 21.2979 13.0224 21.2979 15C21.2979 16.9776 21.2915 17.208 21.2531 17.9888ZM15.0003 11.1984C12.8243 11.1984 11.0579 12.9008 11.0579 15C11.0579 17.0992 12.8243 18.8016 15.0003 18.8016C17.1763 18.8016 18.9427 17.0992 18.9427 15C18.9427 12.9008 17.1763 11.1984 15.0003 11.1984ZM15.0003 17.464C13.5859 17.464 12.4403 16.3568 12.4403 15C12.4403 13.6368 13.5859 12.536 15.0003 12.536C16.4147 12.536 17.5603 13.6432 17.5603 15C17.5603 16.3632 16.4147 17.464 15.0003 17.464ZM19.1027 10.1616C18.5907 10.1616 18.1811 10.5584 18.1811 11.0512C18.1811 11.544 18.5907 11.9408 19.1027 11.9408C19.6147 11.9408 20.0243 11.544 20.0243 11.0512C20.0243 10.5584 19.6083 10.1616 19.1027 10.1616Z"
+                          fill="white" />
+                        <defs>
+                          <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_4718_184179" x1="22" y1="2"
+                            x2="9.5" y2="26.5" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#B72AFF" />
+                            <stop offset="1" stop-color="#FFAF35" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    </div>
+                    <div class="logined-winning-box-content-share-item-content">
+                      <div class="logined-winning-box-content-share-item-content-name">Instagram</div>
+                      <div class="logined-winning-box-content-share-item-content-num">(0/1)</div>
+                    </div>
+                  </div> -->
+                </div>
+
+              </div>
+
+            </div>
+            <!-- 已中奖显示 -->
+            <div class="after-winning-box">
+              <div class="prize-item-title">
+                <i><img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Layer_1_1.png?v=1753088388"
+                    alt=""></i>
+                <span>Winning the Prize</span>
+                <i><img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Layer_1_2.png?v=1753088388  "
+                    alt=""></i>
+              </div>
+              <div class="prize-item-desc">Congrats! You've Won!</div>
+              <div class="prize-item-box">
+                <div class="prize-img">
+                  <img src="" alt=""></img>
+                </div>
+                <div class="prize-item-right">
+                  <div class="prize-item-name">Printer model</div>
+                  <div class="prize-item-rules">Go to Personal <a href="https://www.procolored.com/account?view=coupon"
+                      target="_blank">Coupon</a> to view your discount code</div>
+                  <div class="discount-code-box">
+                    <div class="Discount-code-top">
+                      <div class="Discount-code-top-left">Code</div>
+                      <div class="Discount-code-top-copy">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" viewBox="0 0 30 20" fill="none">
+                          <rect width="100%" height="100%" rx="10" fill="#FF8F1C" />
+                          <path
+                            d="M19.7249 14.2C19.5214 14.2 19.3263 14.1192 19.1824 13.9753C19.0386 13.8315 18.9578 13.6363 18.9578 13.4329C18.9578 13.2295 19.0386 13.0343 19.1824 12.8905C19.3263 12.7466 19.5214 12.6658 19.7249 12.6658C19.9216 12.6658 20.1102 12.5877 20.2493 12.4486C20.3884 12.3095 20.4666 12.1208 20.4666 11.9241V5.27592C20.4666 5.0792 20.3884 4.89054 20.2493 4.75144C20.1102 4.61234 19.9216 4.53419 19.7249 4.53419H13.0767C12.88 4.53419 12.6913 4.61234 12.5522 4.75144C12.4131 4.89054 12.335 5.0792 12.335 5.27592C12.335 5.47937 12.2542 5.67448 12.1103 5.81834C11.9664 5.9622 11.7713 6.04302 11.5679 6.04302C11.3644 6.04302 11.1693 5.9622 11.0255 5.81834C10.8816 5.67448 10.8008 5.47937 10.8008 5.27592C10.8021 4.67272 11.0423 4.09461 11.4689 3.66808C11.8954 3.24155 12.4735 3.00134 13.0767 3H19.7249C20.3281 3.00134 20.9062 3.24155 21.3327 3.66808C21.7592 4.09461 21.9994 4.67272 22.0008 5.27592V11.9241C21.9994 12.5273 21.7592 13.1054 21.3327 13.5319C20.9062 13.9584 20.3281 14.1987 19.7249 14.2Z"
+                            fill="white" />
+                          <path
+                            d="M16.7904 17H10.4091C10.0927 17.0004 9.7792 16.9385 9.48673 16.8179C9.19425 16.6972 8.92851 16.5202 8.70473 16.2969C8.48094 16.0736 8.3035 15.8085 8.18257 15.5167C8.06164 15.2249 7.9996 14.9122 8 14.5964V8.20457C7.99947 7.88873 8.06141 7.57589 8.18228 7.28398C8.30314 6.99207 8.48056 6.72683 8.70437 6.50345C8.92817 6.28007 9.19395 6.10295 9.48649 5.98224C9.77903 5.86153 10.0926 5.7996 10.4091 5.8H16.7904C17.1069 5.7996 17.4204 5.8615 17.7128 5.98215C18.0053 6.10279 18.2711 6.27982 18.4948 6.50309C18.7186 6.72636 18.8961 6.99149 19.017 7.28328C19.1379 7.57507 19.2 7.8878 19.1996 8.20355V14.5954C19.225 15.9256 18.1236 17 16.7904 17ZM10.4091 7.33405C10.2944 7.33311 10.1807 7.35495 10.0745 7.39831C9.96833 7.44167 9.87188 7.50568 9.79076 7.58661C9.70965 7.66754 9.64549 7.76377 9.60203 7.86969C9.55856 7.97561 9.53667 8.0891 9.53762 8.20355V14.5954C9.53667 14.7099 9.55856 14.8234 9.60203 14.9293C9.64549 15.0352 9.70965 15.1314 9.79076 15.2124C9.87188 15.2933 9.96833 15.3573 10.0745 15.4007C10.1807 15.444 10.2944 15.4659 10.4091 15.4649H16.7904C16.9051 15.4659 17.0189 15.444 17.1251 15.4007C17.2312 15.3573 17.3277 15.2933 17.4088 15.2124C17.4899 15.1314 17.5541 15.0352 17.5975 14.9293C17.641 14.8234 17.6629 14.7099 17.662 14.5954V8.20355C17.6629 8.0891 17.641 7.97561 17.5975 7.86969C17.5541 7.76377 17.4899 7.66754 17.4088 7.58661C17.3277 7.50568 17.2312 7.44167 17.1251 7.39831C17.0189 7.35495 16.9051 7.33311 16.7904 7.33405H10.4091Z"
+                            fill="white" />
+                        </svg>
+                      </div>
+
+                    </div>
+                    <div class="Discount-code-bottom">
+                      <div class="Discount-code-content"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lucky-wheel-activity-container-pc-bottom">
+          <div class="lucky-wheel-activity-container-pc-bottom-content">
+            <div class="notice-box-left">
+              <svg class="notice-icon" width="100%" height="100%" viewBox="0 0 28 28" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <g id="volume-2">
+                  <path id="Vector" d="M12.832 5.83334L6.9987 10.5H2.33203V17.5H6.9987L12.832 22.1667V5.83334Z"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path id="Vector_2"
+                    d="M22.2472 5.75168C24.4344 7.9395 25.6631 10.9064 25.6631 14C25.6631 17.0936 24.4344 20.0605 22.2472 22.2483M18.1289 9.87001C19.2225 10.9639 19.8368 12.4474 19.8368 13.9942C19.8368 15.541 19.2225 17.0244 18.1289 18.1183"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+              </svg>
+
+              <div class="notice-content notice-content-pc">
+                <div class="swiper-wrapper">
+                </div>
+              </div>
+            </div>
+            <div class="notice-box-right">
+              <div class="rules">
+                <svg class="rules-icon" width="100%" height="100%" viewBox="0 0 24 25" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <g id="file-minus">
+                    <path id="Vector"
+                      d="M14 2.5H6C5.46957 2.5 4.96086 2.71071 4.58579 3.08579C4.21071 3.46086 4 3.96957 4 4.5V20.5C4 21.0304 4.21071 21.5391 4.58579 21.9142C4.96086 22.2893 5.46957 22.5 6 22.5H18C18.5304 22.5 19.0391 22.2893 19.4142 21.9142C19.7893 21.5391 20 21.0304 20 20.5V8.5L14 2.5Z"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path id="Vector_2" d="M14 2.5V8.5H20" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path id="Vector_3" d="M9 15.5H15" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </g>
+                </svg>
+
+                <a data-fancybox data-src="#rules-content" href="javascript:;" class="rules-text">Rules</a>
+              </div>
+              <div class="my-prize">
+                <svg class="my-prize-icon" width="100%" height="100%" viewBox="0 0 24 25" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <g id="gift">
+                    <path id="Vector"
+                      d="M20 12.5V21.5C20 22.0523 19.5523 22.5 19 22.5H5C4.44772 22.5 4 22.0523 4 21.5V12.5"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path id="Vector_2"
+                      d="M21 7.5H3C2.44772 7.5 2 7.94772 2 8.5V11.5C2 12.0523 2.44772 12.5 3 12.5H21C21.5523 12.5 22 12.0523 22 11.5V8.5C22 7.94772 21.5523 7.5 21 7.5Z"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path id="Vector_3" d="M12 22.5V7.5" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path id="Vector_4"
+                      d="M12 7.5H7.5C6.83696 7.5 6.20107 7.23661 5.73223 6.76777C5.26339 6.29893 5 5.66304 5 5C5 4.33696 5.26339 3.70107 5.73223 3.23223C6.20107 2.76339 6.83696 2.5 7.5 2.5C11 2.5 12 7.5 12 7.5Z"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path id="Vector_5"
+                      d="M12 7.5H16.5C17.163 7.5 17.7989 7.23661 18.2678 6.76777C18.7366 6.29893 19 5.66304 19 5C19 4.33696 18.7366 3.70107 18.2678 3.23223C17.7989 2.76339 17.163 2.5 16.5 2.5C13 2.5 12 7.5 12 7.5Z"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </g>
+                </svg>
+
+                <a data-fancybox data-src="#my-prize-content" href="javascript:;" class="my-prize-text">My Prizes</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lucky-wheel-activity-wrapper-mb">
+        <div class="lucky-wheel-activity-container-mb">
+          <div class="panel-box">
+            <div id="my-lucky-mb"></div>
+            <div class="button-box">&nbsp;</div>
+          </div>
+
+          <div class="right-box">
+            <!-- 未登录显示 -->
+            <div class="before-winning-box">
+              <div class="prize-item-title">
+                Try Your Luck - Spin the Wheel!
+              </div>
+              <div class="prize-item-rules">
+                <div class="prize-item-rules-title">How to Earn Draw Chances:</div>
+                <div class="prize-item-rules-desc">
+                  1.Place an order during the Back-to-School Event (Aug 26 – Aug 31, 2025) with each order with an amount of no less than $100 US dollars will be eligible for 2 chances to enter the lottery
+                </div>
+                <div class="prize-item-rules-desc">
+                  2.During the event period, each user can earn draw chances from a maximum of 3 orders per day, resulting in a daily limit of 6 draw chances.
+                </div>
+              </div>
+              <div class="activity-button activity-button-mb">Log in to join the lucky draw</div>
+            </div>
+            <!-- 移动 已登录显示 -->
+            <div class="logined-winning-box">
+              <div class="logined-winning-box-title">
+                Spin the wheel now to claim prizes!
+              </div>
+              <div class="logined-winning-box-content">
+                <div class="logined-winning-box-content-heading">How to Earn Draw Chances:</div>
+                <div class="logined-winning-box-content-desc">
+                  <div class="logined-winning-box-content-desc-item">
+                    1.Place an order during the Back-to-School Event (Aug 26 – Aug 31, 2025) with each order with an amount of no less than $100 US dollars will be eligible for 2 chances to enter the lottery
+                  </div>
+                  <div class="logined-winning-box-content-desc-item">
+                    2.During the event period, each user can earn draw chances from a maximum of 3 orders per day, resulting in a daily limit of 6 draw chances.
+                  </div>
+                </div>
+                <div class="logined-winning-box-content-title">Remaining lottery draw opportunities：
+                  <span class="logined-winning-box-content-title-content">
+                  (<span class="Used-opportunities">0</span>/<span class="available-chance">0</span>)</span></div>
+           
+                <div class="logined-winning-box-content-share-box">
+                  <!-- <div class="logined-winning-box-content-share-item fb">
+                    <div class="logined-winning-box-content-share-item-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="31" height="30" viewBox="0 0 31 30" fill="none">
+                        <path
+                          d="M30.9987 15.0924C30.9987 6.75638 24.0596 0 15.4994 0C6.93912 0 0 6.75638 0 15.0924C0 22.6236 5.66807 28.8668 13.0774 29.9987V19.4542H9.1428V15.0912H13.0774V11.7671C13.0774 7.9839 15.3921 5.89486 18.9315 5.89486C20.6275 5.89486 22.401 6.18916 22.401 6.18916V9.90316H20.4479C18.5233 9.90316 17.9226 11.0665 17.9226 12.2601V15.0924H22.2215L21.5343 19.4554H17.9226V30C25.3319 28.8681 31 22.6248 31 15.0924H30.9987Z"
+                          fill="#0069FF" />
+                      </svg>
+                    </div>
+                    <div class="logined-winning-box-content-share-item-content fb">
+                      <div class="logined-winning-box-content-share-item-content-name">Facebook</div>
+                      <div class="logined-winning-box-content-share-item-content-num">(<span>0</span>/1)</div>
+                    </div>
+                  </div> -->
+                  <!-- <div class="logined-winning-box-content-share-item">
+                    <div class="logined-winning-box-content-share-item-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                        <path d="M0 15.0005C0 23.2846 6.71536 30 15.0005 30C23.2846 30 30 23.2846 30 15.0005C30 6.71636 23.2846 0 15.0005 0C6.71636 0 0 6.71536 0 15.0005Z" fill="#170B1A"/>
+                        <path d="M15.0163 9.85487C15.0303 8.28009 15.0163 6.69029 15.0303 5.1145H18.2559C18.2409 5.39964 18.2859 5.66978 18.3309 5.93991L16.1258 6.12L16.3059 18.7503C16.3209 19.2906 15.9307 20.5052 15.6606 20.9704C15.2404 21.6908 13.9658 22.3501 13.1253 22.4252C12.6011 22.4702 12.2109 22.3351 11.7306 22.08C11.3705 21.8849 11.1754 20.8053 11.0703 20.5192C11.8957 20.9854 12.9763 20.9394 13.7717 20.4152C14.1581 20.1687 14.4769 19.8297 14.6993 19.429C14.9217 19.0282 15.0406 18.5783 15.0453 18.12C15.0153 15.3596 15.0153 12.6002 15.0153 9.85587L15.0163 9.85487ZM20.3259 8.94041C20.7762 9.22456 21.2864 9.45067 21.8107 9.55472C22.1258 9.62976 22.426 9.65977 22.7411 9.65977V10.5302C21.8107 10.3201 19.8007 9.73481 20.3259 8.93941V8.94041Z" fill="#25F4EE"/>
+                        <path d="M9.19558 12.9755C10.3639 12.2511 11.7492 11.959 13.1105 12.1501V13.1406C11.8509 13.1706 10.8014 13.7109 9.78088 14.4602C9.0165 15.0305 8.49023 15.6148 8.08603 16.4852C7.69584 17.3097 7.53075 18 7.54576 18.9155C7.54576 19.92 7.8159 20.6403 8.29614 21.5248C8.52125 21.93 8.95647 22.5453 8.85141 22.9955C8.16405 22.5092 7.59055 21.8794 7.17057 21.1496C6.59985 20.1729 6.31424 19.0558 6.34616 17.925C6.38363 16.8807 6.68813 15.8635 7.2306 14.9705C7.71341 14.1554 8.38794 13.4706 9.19558 12.9755Z" fill="#25F4EE"/>
+                        <path d="M15.9452 5.93994H18.3604C18.7356 6.58526 18.7056 6.82538 18.9157 7.23059C19.2459 7.87491 19.5 8.11503 20.2204 8.83539C20.2625 8.86249 20.2983 8.89831 20.3254 8.94044C20.9557 9.6608 21.8102 10.1701 22.7406 10.3802C23.2809 10.7704 22.9057 12.3451 22.9057 13.1846C21.3299 13.1996 19.7251 12.5843 18.4505 11.6548C18.4505 13.6658 18.4505 15.5247 18.4655 17.5497C18.4655 17.8199 18.4805 18.075 18.4655 18.3602C18.3904 19.3346 17.9402 20.7604 17.445 21.5998C17.0228 22.3441 16.4508 22.9927 15.7651 23.5047C14.8773 24.1606 13.8091 24.5274 12.7056 24.5552C12.1469 24.5781 11.5875 24.5328 11.0398 24.4202C10.2754 24.2551 9.54002 23.4897 8.89569 23.0395L8.85067 22.9955C8.53551 22.6653 8.25037 22.2901 8.04027 21.8699C7.56003 20.9995 7.28989 20.01 7.28989 19.0055C7.27464 18.0884 7.46973 17.1801 7.86018 16.3501C8.26538 15.4797 8.86568 14.6993 9.61505 14.129C10.6213 13.3738 11.8372 12.9498 13.0948 12.9154C13.44 13.0795 13.1998 15.6148 13.1998 15.6148C12.7956 15.4797 12.2554 15.5247 11.8352 15.6298C11.3249 15.7348 11.0548 16.035 10.6646 16.3652C10.4245 16.5753 10.2144 16.8004 10.0803 17.0855C9.82516 17.5658 9.84017 17.6258 9.88519 18.1651C9.94522 18.6753 10.0353 19.2296 10.3804 19.6198C10.6056 19.9049 10.7556 20.3401 11.0548 20.5352C11.2949 20.9254 11.6101 21.2096 11.9552 21.3757C12.4355 21.6298 12.9757 21.7358 13.5 21.6898C14.3404 21.6298 15.1208 21.1195 15.541 20.3852C15.8112 19.9049 15.9302 19.2896 15.9302 18.7644C15.9302 14.3401 15.9452 5.93994 15.9452 5.93994Z" fill="white"/>
+                        <path d="M18.3289 5.93994C18.615 5.95495 18.8851 5.93994 19.1843 5.93994C19.1843 6.87041 19.4844 7.81488 20.0247 8.58026C20.0998 8.68531 20.1598 8.77536 20.2348 8.8504C19.6195 8.47521 19.1393 7.88992 18.8101 7.24459C18.6 6.8544 18.4349 6.40417 18.3299 5.93994H18.3289ZM22.7401 10.3802C23.0542 10.4552 23.3544 10.4852 23.6705 10.4852V13.7398C22.0797 13.7548 20.4889 13.2296 19.1843 12.2851V18.7503C19.1993 19.2446 19.1543 19.7248 19.0492 20.2051C18.7357 21.6624 17.8912 22.9509 16.68 23.8199C16.0429 24.2794 15.3172 24.6013 14.549 24.7654C13.6195 24.9755 12.66 24.9605 11.7596 24.7203C10.6663 24.433 9.67771 23.8394 8.91016 23.0095C9.55448 23.4747 10.2898 23.7749 11.0692 23.9399C11.6095 24.06 12.1798 24.09 12.7351 24.075C13.8386 24.0471 14.9067 23.6804 15.7946 23.0245C16.4802 22.5121 17.0524 21.8636 17.4754 21.1195C17.97 20.2663 18.267 19.3132 18.3449 18.3301C18.3599 18.0602 18.3599 17.7897 18.3449 17.5197C18.3149 15.5247 18.3149 13.5147 18.3149 11.5047C19.6081 12.4335 21.1629 12.9275 22.7551 12.9154C22.7401 12.075 22.7551 11.2196 22.7401 10.3802Z" fill="#FE2C55"/>
+                        <path d="M13.1109 12.9004C13.4261 12.9004 13.7562 12.9154 14.0564 12.9604V16.3051C13.6003 16.1577 13.1127 16.137 12.6457 16.2451C11.7612 16.4402 11.0259 17.1155 10.7117 17.9699C10.3966 18.8103 10.5166 19.8008 11.0419 20.5202C10.7267 20.3401 10.4716 20.1 10.2465 19.8148C9.91631 19.4247 9.6912 18.9144 9.63117 18.4041C9.57114 17.8799 9.66119 17.3096 9.91631 16.8454C10.0514 16.5602 10.2615 16.3201 10.5016 16.11C10.8918 15.7798 11.386 15.5697 11.8663 15.4347C12.2715 15.3446 12.7067 15.3296 13.0969 15.4647C13.1109 15.3296 13.1109 13.2296 13.1109 12.9004Z" fill="#FE2C55"/>
+                      </svg>
+                    </div>
+                    <div class="logined-winning-box-content-share-item-content">
+                      <div class="logined-winning-box-content-share-item-content-name">TikTok</div>
+                      <div class="logined-winning-box-content-share-item-content-num">(0/1)</div>
+                    </div>
+                  </div>
+                  <div class="logined-winning-box-content-share-item">
+                    <div class="logined-winning-box-content-share-item-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                        <circle cx="15" cy="15" r="15" fill="url(#paint0_linear_4718_18417)"/>
+                        <path d="M22.6355 11.9472C22.5971 11.16 22.4691 10.6224 22.2771 10.1488C22.0787 9.66241 21.8163 9.24641 21.3939 8.83681C21.0059 8.45849 20.541 8.16817 20.0307 7.98561C19.5443 7.80001 18.9811 7.67841 18.1683 7.64001C17.3491 7.60161 17.0867 7.59521 15.0003 7.59521C12.9139 7.59521 12.6515 7.60161 11.8323 7.64001C11.0195 7.67841 10.4563 7.80641 9.96991 7.99201C9.46431 8.18401 9.03551 8.43361 8.60671 8.84321C8.18431 9.25281 7.92191 9.66881 7.72351 10.1552C7.53151 10.6288 7.40351 11.1664 7.36511 11.9536C7.32671 12.7408 7.32031 12.9904 7.32031 15C7.32031 17.0096 7.32671 17.2592 7.36511 18.0528C7.40351 18.84 7.53151 19.3776 7.72351 19.8512C7.92191 20.3376 8.18431 20.7536 8.60671 21.1632C9.03551 21.5728 9.46431 21.8288 9.96991 22.0144C10.4563 22.2 11.0195 22.3216 11.8323 22.36C12.6515 22.3984 12.9139 22.4048 15.0003 22.4048C17.0867 22.4048 17.3491 22.3984 18.1683 22.36C18.9875 22.3216 19.5443 22.2 20.0307 22.0144C20.5363 21.8224 20.9651 21.5728 21.3939 21.1632C21.8227 20.7536 22.0851 20.3376 22.2771 19.8512C22.4691 19.3776 22.5971 18.84 22.6355 18.0528C22.6739 17.2656 22.6803 17.0096 22.6803 15C22.6803 12.9904 22.6739 12.7408 22.6355 11.9472ZM21.2531 17.9888C21.2211 18.712 21.0931 19.1024 20.9907 19.3648C20.8499 19.7104 20.6835 19.9536 20.4147 20.216C20.1459 20.472 19.8899 20.6384 19.5315 20.7728C19.2627 20.8752 18.8531 20.9968 18.1043 21.0288C17.2915 21.0672 17.0547 21.0736 15.0003 21.0736C12.9523 21.0736 12.7091 21.0672 11.8963 21.0288C11.1475 20.9968 10.7379 20.8752 10.4691 20.7728C10.1107 20.6384 9.85471 20.4784 9.58591 20.216C9.31711 19.96 9.15071 19.7104 9.00991 19.3648C8.90751 19.1024 8.77951 18.712 8.74751 17.9888C8.70911 17.208 8.70271 16.9776 8.70271 15C8.70271 13.0224 8.70911 12.792 8.74751 12.0112C8.78591 11.288 8.90751 10.8976 9.01631 10.6352C9.15711 10.2896 9.32351 10.0464 9.59231 9.78401C9.86111 9.52801 10.1171 9.36801 10.4755 9.23361C10.7443 9.13121 11.1539 9.00961 11.9027 8.97761C12.7091 8.93921 12.9523 8.93281 15.0003 8.93281C17.0483 8.93281 17.2915 8.93921 18.1043 8.97761C18.8531 9.00961 19.2563 9.13121 19.5315 9.23361C19.8899 9.36801 20.1459 9.52801 20.4147 9.78401C20.6835 10.04 20.8499 10.2896 20.9907 10.6352C21.0931 10.8976 21.2211 11.288 21.2531 12.0112C21.2915 12.792 21.2979 13.0224 21.2979 15C21.2979 16.9776 21.2915 17.208 21.2531 17.9888ZM15.0003 11.1984C12.8243 11.1984 11.0579 12.9008 11.0579 15C11.0579 17.0992 12.8243 18.8016 15.0003 18.8016C17.1763 18.8016 18.9427 17.0992 18.9427 15C18.9427 12.9008 17.1763 11.1984 15.0003 11.1984ZM15.0003 17.464C13.5859 17.464 12.4403 16.3568 12.4403 15C12.4403 13.6368 13.5859 12.536 15.0003 12.536C16.4147 12.536 17.5603 13.6432 17.5603 15C17.5603 16.3632 16.4147 17.464 15.0003 17.464ZM19.1027 10.1616C18.5907 10.1616 18.1811 10.5584 18.1811 11.0512C18.1811 11.544 18.5907 11.9408 19.1027 11.9408C19.6147 11.9408 20.0243 11.544 20.0243 11.0512C20.0243 10.5584 19.6083 10.1616 19.1027 10.1616Z" fill="white"/>
+                        <defs>
+                          <linearGradient id="paint0_linear_4718_18417" x1="22" y1="2" x2="9.5" y2="26.5" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#B72AFF"/>
+                            <stop offset="1" stop-color="#FFAF35"/>
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    </div>
+                    <div class="logined-winning-box-content-share-item-content">
+                      <div class="logined-winning-box-content-share-item-content-name">Instagram</div>
+                      <div class="logined-winning-box-content-share-item-content-num">(0/1)</div>
+                    </div>
+                  </div> -->
+                </div>
+
+              </div>
+
+            </div>
+            <!-- 已中奖显示 -->
+            <div class="after-winning-box">
+              <div class="prize-item-title">
+                <i><img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Layer_1_1.png?v=1753088388"
+                    alt=""></i>
+                <span>Winning the Prize</span>
+                <i><img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Layer_1_2.png?v=1753088388  "
+                    alt=""></i>
+              </div>
+              <div class="prize-item-desc">Congrats! You've Won!</div>
+              <div class="prize-item-box">
+                <div class="prize-img">
+                  <img src="" alt=""></img>
+                </div>
+                <div class="prize-item-right">
+                  <div class="prize-item-name">Printer model</div>
+                  <div class="prize-item-rules">Go to Personal <a
+                      href="https://www.procolored.com/account?view=coupon">Coupon</a> to view your discount code</div>
+                  <div class="discount-code-box">
+                    <div class="Discount-code-top">
+                      <div class="Discount-code-top-left">Code</div>
+                      <div class="Discount-code-top-copy">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" viewBox="0 0 30 20" fill="none">
+                          <rect width="100%" height="100%" rx="10" fill="#FF8F1C" />
+                          <path
+                            d="M19.7249 14.2C19.5214 14.2 19.3263 14.1192 19.1824 13.9753C19.0386 13.8315 18.9578 13.6363 18.9578 13.4329C18.9578 13.2295 19.0386 13.0343 19.1824 12.8905C19.3263 12.7466 19.5214 12.6658 19.7249 12.6658C19.9216 12.6658 20.1102 12.5877 20.2493 12.4486C20.3884 12.3095 20.4666 12.1208 20.4666 11.9241V5.27592C20.4666 5.0792 20.3884 4.89054 20.2493 4.75144C20.1102 4.61234 19.9216 4.53419 19.7249 4.53419H13.0767C12.88 4.53419 12.6913 4.61234 12.5522 4.75144C12.4131 4.89054 12.335 5.0792 12.335 5.27592C12.335 5.47937 12.2542 5.67448 12.1103 5.81834C11.9664 5.9622 11.7713 6.04302 11.5679 6.04302C11.3644 6.04302 11.1693 5.9622 11.0255 5.81834C10.8816 5.67448 10.8008 5.47937 10.8008 5.27592C10.8021 4.67272 11.0423 4.09461 11.4689 3.66808C11.8954 3.24155 12.4735 3.00134 13.0767 3H19.7249C20.3281 3.00134 20.9062 3.24155 21.3327 3.66808C21.7592 4.09461 21.9994 4.67272 22.0008 5.27592V11.9241C21.9994 12.5273 21.7592 13.1054 21.3327 13.5319C20.9062 13.9584 20.3281 14.1987 19.7249 14.2Z"
+                            fill="white" />
+                          <path
+                            d="M16.7904 17H10.4091C10.0927 17.0004 9.7792 16.9385 9.48673 16.8179C9.19425 16.6972 8.92851 16.5202 8.70473 16.2969C8.48094 16.0736 8.3035 15.8085 8.18257 15.5167C8.06164 15.2249 7.9996 14.9122 8 14.5964V8.20457C7.99947 7.88873 8.06141 7.57589 8.18228 7.28398C8.30314 6.99207 8.48056 6.72683 8.70437 6.50345C8.92817 6.28007 9.19395 6.10295 9.48649 5.98224C9.77903 5.86153 10.0926 5.7996 10.4091 5.8H16.7904C17.1069 5.7996 17.4204 5.8615 17.7128 5.98215C18.0053 6.10279 18.2711 6.27982 18.4948 6.50309C18.7186 6.72636 18.8961 6.99149 19.017 7.28328C19.1379 7.57507 19.2 7.8878 19.1996 8.20355V14.5954C19.225 15.9256 18.1236 17 16.7904 17ZM10.4091 7.33405C10.2944 7.33311 10.1807 7.35495 10.0745 7.39831C9.96833 7.44167 9.87188 7.50568 9.79076 7.58661C9.70965 7.66754 9.64549 7.76377 9.60203 7.86969C9.55856 7.97561 9.53667 8.0891 9.53762 8.20355V14.5954C9.53667 14.7099 9.55856 14.8234 9.60203 14.9293C9.64549 15.0352 9.70965 15.1314 9.79076 15.2124C9.87188 15.2933 9.96833 15.3573 10.0745 15.4007C10.1807 15.444 10.2944 15.4659 10.4091 15.4649H16.7904C16.9051 15.4659 17.0189 15.444 17.1251 15.4007C17.2312 15.3573 17.3277 15.2933 17.4088 15.2124C17.4899 15.1314 17.5541 15.0352 17.5975 14.9293C17.641 14.8234 17.6629 14.7099 17.662 14.5954V8.20355C17.6629 8.0891 17.641 7.97561 17.5975 7.86969C17.5541 7.76377 17.4899 7.66754 17.4088 7.58661C17.3277 7.50568 17.2312 7.44167 17.1251 7.39831C17.0189 7.35495 16.9051 7.33311 16.7904 7.33405H10.4091Z"
+                            fill="white" />
+                        </svg>
+                      </div>
+
+                    </div>
+                    <div class="Discount-code-bottom">
+                      <div class="Discount-code-content"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="notice-box-mb">
+              <div class="rules">
+
+                <svg class="rules-icon" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+                  viewBox="0 0 18 19" fill="none">
+                  <path
+                    d="M10.5 2H4.5C4.10218 2 3.72064 2.15804 3.43934 2.43934C3.15804 2.72064 3 3.10218 3 3.5V15.5C3 15.8978 3.15804 16.2794 3.43934 16.5607C3.72064 16.842 4.10218 17 4.5 17H13.5C13.8978 17 14.2794 16.842 14.5607 16.5607C14.842 16.2794 15 15.8978 15 15.5V6.5L10.5 2Z"
+                    stroke="#FF8F1C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M10.5 2V6.5H15" stroke="#FF8F1C" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M6.75 11.75H11.25" stroke="#FF8F1C" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+
+                <a data-fancybox data-src="#rules-content" href="javascript:;" class="rules-text">Rules</a>
+              </div>
+              <div class="my-prize">
+                <svg class="my-prize-icon" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+                  viewBox="0 0 18 19" fill="none">
+                  <path d="M15 9.5V16C15 16.5523 14.5523 17 14 17H4C3.44772 17 3 16.5523 3 16V9.5" stroke="#FF8F1C"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M15.5 5.75H2.5C1.94772 5.75 1.5 6.19772 1.5 6.75V8.5C1.5 9.05229 1.94772 9.5 2.5 9.5H15.5C16.0523 9.5 16.5 9.05229 16.5 8.5V6.75C16.5 6.19772 16.0523 5.75 15.5 5.75Z"
+                    stroke="#FF8F1C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M9 17V5.75" stroke="#FF8F1C" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path
+                    d="M9 5.75H5.625C5.12772 5.75 4.65081 5.55246 4.29917 5.20083C3.94754 4.84919 3.75 4.37228 3.75 3.875C3.75 3.37772 3.94754 2.90081 4.29917 2.54917C4.65081 2.19754 5.12772 2 5.625 2C8.25 2 9 5.75 9 5.75Z"
+                    stroke="#FF8F1C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M9 5.75H12.375C12.8723 5.75 13.3492 5.55246 13.7008 5.20083C14.0525 4.84919 14.25 4.37228 14.25 3.875C14.25 3.37772 14.0525 2.90081 13.7008 2.54917C13.3492 2.19754 12.8723 2 12.375 2C9.75 2 9 5.75 9 5.75Z"
+                    stroke="#FF8F1C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+                <a data-fancybox data-src="#my-prize-content" href="javascript:;" class="my-prize-text">My Prizes</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lucky-wheel-activity-container-mb-bottom">
+          <div class="lucky-wheel-activity-container-pc-bottom-content">
+            <div class="notice-box-left">
+              <svg class="notice-icon" width="100%" height="100%" viewBox="0 0 28 28" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <g id="volume-2">
+                  <path id="Vector" d="M12.832 5.83334L6.9987 10.5H2.33203V17.5H6.9987L12.832 22.1667V5.83334Z"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path id="Vector_2"
+                    d="M22.2472 5.75168C24.4344 7.9395 25.6631 10.9064 25.6631 14C25.6631 17.0936 24.4344 20.0605 22.2472 22.2483M18.1289 9.87001C19.2225 10.9639 19.8368 12.4474 19.8368 13.9942C19.8368 15.541 19.2225 17.0244 18.1289 18.1183"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+              </svg>
+
+              <div class="notice-content notice-content-mb">
+                <div class="swiper-wrapper">
+                </div>
+
+              </div>
+            </div>
+            <div class="notice-box-right">
+              <div class="rules">
+                <svg class="rules-icon" width="100%" height="100%" viewBox="0 0 24 25" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <g id="file-minus">
+                    <path id="Vector"
+                      d="M14 2.5H6C5.46957 2.5 4.96086 2.71071 4.58579 3.08579C4.21071 3.46086 4 3.96957 4 4.5V20.5C4 21.0304 4.21071 21.5391 4.58579 21.9142C4.96086 22.2893 5.46957 22.5 6 22.5H18C18.5304 22.5 19.0391 22.2893 19.4142 21.9142C19.7893 21.5391 20 21.0304 20 20.5V8.5L14 2.5Z"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path id="Vector_2" d="M14 2.5V8.5H20" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path id="Vector_3" d="M9 15.5H15" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </g>
+                </svg>
+
+                <a data-fancybox data-src="#rules-content" href="javascript:;" class="rules-text">Rules</a>
+              </div>
+              <div class="my-prize">
+                <svg class="my-prize-icon" width="100%" height="100%" viewBox="0 0 24 25" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <g id="gift">
+                    <path id="Vector"
+                      d="M20 12.5V21.5C20 22.0523 19.5523 22.5 19 22.5H5C4.44772 22.5 4 22.0523 4 21.5V12.5"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path id="Vector_2"
+                      d="M21 7.5H3C2.44772 7.5 2 7.94772 2 8.5V11.5C2 12.0523 2.44772 12.5 3 12.5H21C21.5523 12.5 22 12.0523 22 11.5V8.5C22 7.94772 21.5523 7.5 21 7.5Z"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path id="Vector_3" d="M12 22.5V7.5" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path id="Vector_4"
+                      d="M12 7.5H7.5C6.83696 7.5 6.20107 7.23661 5.73223 6.76777C5.26339 6.29893 5 5.66304 5 5C5 4.33696 5.26339 3.70107 5.73223 3.23223C6.20107 2.76339 6.83696 2.5 7.5 2.5C11 2.5 12 7.5 12 7.5Z"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path id="Vector_5"
+                      d="M12 7.5H16.5C17.163 7.5 17.7989 7.23661 18.2678 6.76777C18.7366 6.29893 19 5.66304 19 5C19 4.33696 18.7366 3.70107 18.2678 3.23223C17.7989 2.76339 17.163 2.5 16.5 2.5C13 2.5 12 7.5 12 7.5Z"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </g>
+                </svg>
+
+                <a data-fancybox data-src="#my-prize-content" href="javascript:;" class="my-prize-text">My Prizes</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 抽奖规则弹出框 -->
+      <div style="display: none" id="rules-content">
+        <div class="rules-content-title">Rules</div>
+        <div class="rules-content-desc">
+          <div class="rules-content-desc-item">
+            1. Place an order during the Back-to-School Event (Aug 26 – Aug 31, 2025), with each order with an amount of no less than $100 US dollars will be eligible for 2 chances to enter the lottery.
+          </div>
+          <div class="rules-content-desc-item">
+            2. During the event period, each user can earn draw chances from a maximum of 3 orders per day, resulting in a daily limit of 6 draw chances.
+          </div>
+          <div class="rules-content-desc-item">3. Users who win physical prizes can copy the gift code and click to jump to the product information page for redemption.</div>
+          <div class="rules-content-desc-item">
+            4. Limited-Time Rewards： The physical prizes won from the spin expire in 7 days. The gift card won from the spin expires in 3 months. Please check it in time and use it before its expiration.
+          </div>
+
+        </div>
+      </div>
+      <!-- 奖品规则弹出框 -->
+      <div style="display: none" id="my-prize-content">
+        <div class="my-prize-content-title">My Prizes</div>
+        <div class="my-prize-content-desc"></div>
+        <!-- 未登录 -->
+        <div class="my-prize-content-item-not-logged-in">
+          <img class="my-prize-content-item-not-logged-in-icon"
+            src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/1_1_2x_a121f25b-591c-483a-8b60-53c293b8e735.webp?v=1753062046"
+            alt="not logged in" />
+          <div class="my-prize-content-item-not-logged-in-text">
+            Please
+            <span class="my-prize-content-item-not-logged-in-button">log in</span>
+            to view your prize records.
+          </div>
+
+        </div>
+        <!-- 已登录 无奖品 -->
+        <div class="my-prize-content-item-logged-in-no-prizes">
+          <img class="my-prize-content-item-not-logged-in-icon"
+            src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/1_1_2x_a121f25b-591c-483a-8b60-53c293b8e735.webp?v=1753062046"
+            alt="not logged in" />
+
+          <div class="my-prize-content-item-not-logged-in-text">
+            You haven't won any prizes yet.
+          </div>
+        </div>
+        <!-- 已登录 有奖品 -->
+        <div class="my-prize-content-item-logged-in has-prizes">
+
+        </div>
+        <!-- 已登录 转盘抽奖停止时，弹出中奖奖品 -->
+        <!-- <div class="my-prize-content-item-logged-in has-prizes">
+          <div class="my-prize-content-item-logged-in-item">
+            <div class="my-prize-content-item-logged-in-item-content">
+              <div class="prize-detail">
+                <div class="prize-img">
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Mask_group_2x_5cec4cac-595e-4258-8370-460bb935f133.webp?v=1752917845"
+                    alt="">
+                </div>
+                <div class="prize-detail-box">
+                  <div class="prize-name">
+                    <span class="prize-name-value">$499 OFF</span>
+                    <a href="#" class="prize-view">View Now></a>
+                  </div>
+                  <div class="prize-model">Printer Model Coupon</div>
+                  <div class="prize-discount">
+                    Code:<span class="discount-value">LY-JDTPZYBIT</span>
+                    <span class="copy-icon" onClick="handleCopy">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="Group 55019">
+                          <path id="Vector"
+                            d="M10.0511 9.5994C9.87671 9.5994 9.70948 9.53013 9.58618 9.40683C9.46288 9.28353 9.39361 9.1163 9.39361 8.94193C9.39361 8.76756 9.46288 8.60033 9.58618 8.47703C9.70948 8.35373 9.87671 8.28446 10.0511 8.28446C10.2197 8.28446 10.3814 8.21748 10.5006 8.09826C10.6198 7.97904 10.6868 7.81734 10.6868 7.64873V1.95067C10.6868 1.78206 10.6198 1.62036 10.5006 1.50114C10.3814 1.38192 10.2197 1.31494 10.0511 1.31494H4.35301C4.1844 1.31494 4.0227 1.38192 3.90348 1.50114C3.78426 1.62036 3.71728 1.78206 3.71728 1.95067C3.71728 2.12504 3.64801 2.29227 3.52471 2.41557C3.40141 2.53887 3.23418 2.60814 3.05981 2.60814C2.88544 2.60814 2.71821 2.53887 2.59491 2.41557C2.47161 2.29227 2.40234 2.12504 2.40234 1.95067C2.40349 1.43367 2.60938 0.938178 2.97495 0.572605C3.34052 0.207033 3.83601 0.00114863 4.35301 0H10.0511C10.5681 0.00114863 11.0636 0.207033 11.4291 0.572605C11.7947 0.938178 12.0006 1.43367 12.0017 1.95067V7.64873C12.0006 8.16573 11.7947 8.66122 11.4291 9.02679C11.0636 9.39237 10.5681 9.59825 10.0511 9.5994Z"
+                            fill="#FF8F1C" />
+                          <path id="Vector_2"
+                            d="M7.53419 11.9995H2.06484C1.79359 11.9999 1.52493 11.9468 1.27426 11.8434C1.02358 11.74 0.79582 11.5883 0.604013 11.3969C0.412206 11.2056 0.260125 10.9783 0.156479 10.7282C0.0528325 10.4781 -0.00034121 10.2101 2.9502e-06 9.93949V4.46107C-0.000455982 4.19037 0.0526329 3.92225 0.156228 3.67205C0.259822 3.42186 0.411886 3.19452 0.603704 3.00307C0.795522 2.81161 1.02332 2.6598 1.27405 2.55634C1.52478 2.45288 1.79351 2.3998 2.06484 2.40015H7.53419C7.80544 2.3998 8.0741 2.45286 8.32477 2.55626C8.57545 2.65967 8.80321 2.8114 8.99502 3.00276C9.18682 3.19412 9.33891 3.42136 9.44255 3.67145C9.5462 3.92154 9.59937 4.18958 9.59903 4.46021V9.93862C9.62082 11.0786 8.67687 11.9995 7.53419 11.9995ZM2.06484 3.71497C1.96652 3.71416 1.86903 3.73288 1.77803 3.77004C1.68704 3.80721 1.60437 3.86207 1.53484 3.93143C1.46532 4.0008 1.41033 4.08328 1.37308 4.17406C1.33583 4.26484 1.31706 4.36211 1.31788 4.46021V9.93862C1.31706 10.0367 1.33583 10.134 1.37308 10.2248C1.41033 10.3155 1.46532 10.398 1.53484 10.4674C1.60437 10.5368 1.68704 10.5916 1.77803 10.6288C1.86903 10.6659 1.96652 10.6847 2.06484 10.6839H7.53419C7.63251 10.6847 7.73001 10.6659 7.821 10.6288C7.91199 10.5916 7.99466 10.5368 8.06419 10.4674C8.13371 10.398 8.1887 10.3155 8.22595 10.2248C8.2632 10.134 8.28197 10.0367 8.28116 9.93862V4.46021C8.28197 4.36211 8.2632 4.26484 8.22595 4.17406C8.1887 4.08328 8.13371 4.0008 8.06419 3.93143C7.99466 3.86207 7.91199 3.80721 7.821 3.77004C7.73001 3.73288 7.63251 3.71416 7.53419 3.71497H2.06484Z"
+                            fill="#FF8F1C" />
+                        </g>
+                      </svg>
+                    </span>
+
+
+
+
+                  </div>
+                  <a href="#" class="prize-view-mb">View Now></a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="my-prize-content-item-logged-in-item">
+            <div class="my-prize-content-item-logged-in-item-content">
+              <div class="prize-detail">
+                <div class="prize-img">
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Mask_group_2x_5cec4cac-595e-4258-8370-460bb935f133.webp?v=1752917845"
+                    alt="">
+                </div>
+                <div class="prize-detail-box">
+                  <div class="prize-name">
+                    <span class="prize-name-value">$499 OFF</span>
+                    <a href="#" class="prize-view">View Now></a>
+                  </div>
+                  <div class="prize-model">Printer Model Coupon</div>
+                  <div class="prize-discount">
+                    Code:<span class="discount-value">LY-JDTPZwd2ds</span>
+                    <span class="copy-icon" onClick="handleCopy">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="Group 55019">
+                          <path id="Vector"
+                            d="M10.0511 9.5994C9.87671 9.5994 9.70948 9.53013 9.58618 9.40683C9.46288 9.28353 9.39361 9.1163 9.39361 8.94193C9.39361 8.76756 9.46288 8.60033 9.58618 8.47703C9.70948 8.35373 9.87671 8.28446 10.0511 8.28446C10.2197 8.28446 10.3814 8.21748 10.5006 8.09826C10.6198 7.97904 10.6868 7.81734 10.6868 7.64873V1.95067C10.6868 1.78206 10.6198 1.62036 10.5006 1.50114C10.3814 1.38192 10.2197 1.31494 10.0511 1.31494H4.35301C4.1844 1.31494 4.0227 1.38192 3.90348 1.50114C3.78426 1.62036 3.71728 1.78206 3.71728 1.95067C3.71728 2.12504 3.64801 2.29227 3.52471 2.41557C3.40141 2.53887 3.23418 2.60814 3.05981 2.60814C2.88544 2.60814 2.71821 2.53887 2.59491 2.41557C2.47161 2.29227 2.40234 2.12504 2.40234 1.95067C2.40349 1.43367 2.60938 0.938178 2.97495 0.572605C3.34052 0.207033 3.83601 0.00114863 4.35301 0H10.0511C10.5681 0.00114863 11.0636 0.207033 11.4291 0.572605C11.7947 0.938178 12.0006 1.43367 12.0017 1.95067V7.64873C12.0006 8.16573 11.7947 8.66122 11.4291 9.02679C11.0636 9.39237 10.5681 9.59825 10.0511 9.5994Z"
+                            fill="#FF8F1C" />
+                          <path id="Vector_2"
+                            d="M7.53419 11.9995H2.06484C1.79359 11.9999 1.52493 11.9468 1.27426 11.8434C1.02358 11.74 0.79582 11.5883 0.604013 11.3969C0.412206 11.2056 0.260125 10.9783 0.156479 10.7282C0.0528325 10.4781 -0.00034121 10.2101 2.9502e-06 9.93949V4.46107C-0.000455982 4.19037 0.0526329 3.92225 0.156228 3.67205C0.259822 3.42186 0.411886 3.19452 0.603704 3.00307C0.795522 2.81161 1.02332 2.6598 1.27405 2.55634C1.52478 2.45288 1.79351 2.3998 2.06484 2.40015H7.53419C7.80544 2.3998 8.0741 2.45286 8.32477 2.55626C8.57545 2.65967 8.80321 2.8114 8.99502 3.00276C9.18682 3.19412 9.33891 3.42136 9.44255 3.67145C9.5462 3.92154 9.59937 4.18958 9.59903 4.46021V9.93862C9.62082 11.0786 8.67687 11.9995 7.53419 11.9995ZM2.06484 3.71497C1.96652 3.71416 1.86903 3.73288 1.77803 3.77004C1.68704 3.80721 1.60437 3.86207 1.53484 3.93143C1.46532 4.0008 1.41033 4.08328 1.37308 4.17406C1.33583 4.26484 1.31706 4.36211 1.31788 4.46021V9.93862C1.31706 10.0367 1.33583 10.134 1.37308 10.2248C1.41033 10.3155 1.46532 10.398 1.53484 10.4674C1.60437 10.5368 1.68704 10.5916 1.77803 10.6288C1.86903 10.6659 1.96652 10.6847 2.06484 10.6839H7.53419C7.63251 10.6847 7.73001 10.6659 7.821 10.6288C7.91199 10.5916 7.99466 10.5368 8.06419 10.4674C8.13371 10.398 8.1887 10.3155 8.22595 10.2248C8.2632 10.134 8.28197 10.0367 8.28116 9.93862V4.46021C8.28197 4.36211 8.2632 4.26484 8.22595 4.17406C8.1887 4.08328 8.13371 4.0008 8.06419 3.93143C7.99466 3.86207 7.91199 3.80721 7.821 3.77004C7.73001 3.73288 7.63251 3.71416 7.53419 3.71497H2.06484Z"
+                            fill="#FF8F1C" />
+                        </g>
+                      </svg>
+                    </span>
+
+
+
+
+                  </div>
+                  <a href="#" class="prize-view-mb">View Now></a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+      <!-- 转盘停止，中奖后弹出框 -->
+      <div style="display: none" id="pop-up-box-after-winning">
+        <div class="pop-up-box-after-winning-wrapper">
+          <div class="pop-up-box-after-winning-wrapper-title-box">
+            <div class="pop-up-box-after-winning-wrapper-title-box-left-icon">
+              <img style="width: 100%;max-width: 100%;flex-shrink: 0;"
+                src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/294b4e54cb5b16bddc59d19fe6004792.png?v=1754294592"
+                alt="">
+            </div>
+            <div class="pop-up-box-after-winning-wrapper-title-box-text">Winning the Prize</div>
+            <div class="pop-up-box-after-winning-wrapper-title-box-right-icon">
+              <img style="width: 100%;max-width: 100%;flex-shrink: 0;"
+                src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/1_a7dc8ae7-0899-47cc-ae80-3fb1f060a0b3.png?v=1754294646"
+                alt="">
+            </div>
+          </div>
+          <div class="pop-up-box-after-winning-wrapper-subtitle">Congrats! You've Won!</div>
+          <div class="pop-up-box-after-winning-wrapper-prize-img">
+            <img style="width: 100%;max-width: 100%;" src="" alt="">
+          </div>
+          <div class="pop-up-box-after-winning-wrapper-prize-content">
+            <div class="pop-up-box-after-winning-wrapper-prize-content-title"></div>
+            <div class="pop-up-box-after-winning-wrapper-prize-content-desc">
+              Go to Personal <a href="https://www.procolored.com/account?view=coupon" target="_blank"
+                style="color:  #FF8F1C;text-decoration-line: underline;outline: none;">Coupon</a> to view your discount
+              code
+
+            </div>
+          </div>
+          <div class="pop-up-box-after-winning-wrapper-prize-discount-box">
+            <div class="pop-up-box-after-winning-wrapper-prize-discount-box-top">
+              <div class="pop-up-box-after-winning-wrapper-prize-discount-box-top-name">Code</div>
+              <div class="pop-up-box-after-winning-wrapper-prize-discount-box-copy-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 30 20" fill="none">
+                  <rect width="30" height="20" rx="10" fill="#FF8F1C" />
+                  <path
+                    d="M19.7249 14.2C19.5214 14.2 19.3263 14.1192 19.1824 13.9753C19.0386 13.8315 18.9578 13.6363 18.9578 13.4329C18.9578 13.2295 19.0386 13.0343 19.1824 12.8905C19.3263 12.7466 19.5214 12.6658 19.7249 12.6658C19.9216 12.6658 20.1102 12.5877 20.2493 12.4486C20.3884 12.3095 20.4666 12.1208 20.4666 11.9241V5.27592C20.4666 5.0792 20.3884 4.89054 20.2493 4.75144C20.1102 4.61234 19.9216 4.53419 19.7249 4.53419H13.0767C12.88 4.53419 12.6913 4.61234 12.5522 4.75144C12.4131 4.89054 12.335 5.0792 12.335 5.27592C12.335 5.47937 12.2542 5.67448 12.1103 5.81834C11.9664 5.9622 11.7713 6.04302 11.5679 6.04302C11.3644 6.04302 11.1693 5.9622 11.0255 5.81834C10.8816 5.67448 10.8008 5.47937 10.8008 5.27592C10.8021 4.67272 11.0423 4.09461 11.4689 3.66808C11.8954 3.24155 12.4735 3.00134 13.0767 3H19.7249C20.3281 3.00134 20.9062 3.24155 21.3327 3.66808C21.7592 4.09461 21.9994 4.67272 22.0008 5.27592V11.9241C21.9994 12.5273 21.7592 13.1054 21.3327 13.5319C20.9062 13.9584 20.3281 14.1987 19.7249 14.2Z"
+                    fill="white" />
+                  <path
+                    d="M16.7904 17H10.4091C10.0927 17.0004 9.7792 16.9385 9.48673 16.8178C9.19425 16.6972 8.92851 16.5202 8.70473 16.2969C8.48094 16.0736 8.3035 15.8085 8.18257 15.5167C8.06164 15.2249 7.9996 14.9122 8 14.5964V8.20456C7.99947 7.88872 8.06141 7.57588 8.18228 7.28397C8.30314 6.99206 8.48056 6.72682 8.70437 6.50344C8.92817 6.28006 9.19395 6.10294 9.48649 5.98223C9.77903 5.86152 10.0926 5.79959 10.4091 5.79999H16.7904C17.1069 5.79959 17.4204 5.86149 17.7128 5.98213C18.0053 6.10278 18.2711 6.27981 18.4948 6.50308C18.7186 6.72635 18.8961 6.99147 19.017 7.28327C19.1379 7.57506 19.2 7.88779 19.1996 8.20354V14.5954C19.225 15.9255 18.1236 17 16.7904 17ZM10.4091 7.33404C10.2944 7.33309 10.1807 7.35494 10.0745 7.3983C9.96833 7.44166 9.87188 7.50567 9.79076 7.5866C9.70965 7.66753 9.64549 7.76376 9.60203 7.86968C9.55856 7.9756 9.53667 8.08909 9.53762 8.20354V14.5954C9.53667 14.7099 9.55856 14.8234 9.60203 14.9293C9.64549 15.0352 9.70965 15.1314 9.79076 15.2124C9.87188 15.2933 9.96833 15.3573 10.0745 15.4007C10.1807 15.444 10.2944 15.4659 10.4091 15.4649H16.7904C16.9051 15.4659 17.0189 15.444 17.1251 15.4007C17.2312 15.3573 17.3277 15.2933 17.4088 15.2124C17.4899 15.1314 17.5541 15.0352 17.5975 14.9293C17.641 14.8234 17.6629 14.7099 17.662 14.5954V8.20354C17.6629 8.08909 17.641 7.9756 17.5975 7.86968C17.5541 7.76376 17.4899 7.66753 17.4088 7.5866C17.3277 7.50567 17.2312 7.44166 17.1251 7.3983C17.0189 7.35494 16.9051 7.33309 16.7904 7.33404H10.4091Z"
+                    fill="white" />
+                </svg>
+              </div>
+            </div>
+            <div class="pop-up-box-after-winning-wrapper-prize-discount-box-code"></div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+  </section>
+<!-- 转盘模块 end-->
+
+  <!-- FAQ Section start-->
+  <section id="lucky-wheel-activity-faq-section">
+    <div class="ugc-faq-wrapper">
+      <div class="ugc-faq-container">
+        <div class="ugc-faq-container-title">FAQ</div>
+        <div class="ugc-faq-container-content">
+          <div class="ugc-faq-container-content-item active">
+            <div class="ugc-faq-container-content-item-question">
+              <div class="ugc-faq-container-content-item-question-title">Q1: When does the event take place?</div>
+              <div class="ugc-faq-container-content-item-question-icon-plus">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 19" fill="none">
+                  <path d="M0.898438 9.5L17.0984 9.35586" stroke="black" stroke-width="2" />
+                  <path d="M9 17.6016L9.14414 1.40156" stroke="black" stroke-width="2" />
+                </svg>
+              </div>
+              <div class="ugc-faq-container-content-item-question-icon-minu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+                  <path d="M0.898438 9L17.0984 8.85586" stroke="black" stroke-width="2" />
+                </svg>
+              </div>
+            </div>
+            <div class="ugc-faq-container-content-item-answer">
+              <div class="ugc-faq-container-content-item-answer-item">
+                The event runs from <b>August 26, 2025, 00:00 to August 31, 2025, 23:59 (PST).</b>
+              </div>
+            </div>
+          </div>
+          <div class="ugc-faq-container-content-item">
+            <div class="ugc-faq-container-content-item-question">
+              <div class="ugc-faq-container-content-item-question-title">Q2: How can one obtain lottery opportunities?</div>
+              <div class="ugc-faq-container-content-item-question-icon-plus">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 19" fill="none">
+                  <path d="M0.898438 9.5L17.0984 9.35586" stroke="black" stroke-width="2" />
+                  <path d="M9 17.6016L9.14414 1.40156" stroke="black" stroke-width="2" />
+                </svg>
+              </div>
+              <div class="ugc-faq-container-content-item-question-icon-minu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+                  <path d="M0.898438 9L17.0984 8.85586" stroke="black" stroke-width="2" />
+                </svg>
+              </div>
+            </div>
+            <div class="ugc-faq-container-content-item-answer">
+              <div class="ugc-faq-container-content-item-answer-item">
+                During the Back-to-School event, anyone who places an order on the Procolored official website (Each order must be at least enough $100) will automatically receive  <b>2 lottery entries.</b>  Each user can earn draw chances from up to <b>3 separate orders</b>  during the event period, for a <b>maximum of 6 draw chances in total.</b>  
+              </div>
+            </div>
+          </div>
+          <div class="ugc-faq-container-content-item">
+            <div class="ugc-faq-container-content-item-question">
+              <div class="ugc-faq-container-content-item-question-title">Q3: What prizes are available in the lottery?
+              </div>
+              <div class="ugc-faq-container-content-item-question-icon-plus">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 19" fill="none">
+                  <path d="M0.898438 9.5L17.0984 9.35586" stroke="black" stroke-width="2" />
+                  <path d="M9 17.6016L9.14414 1.40156" stroke="black" stroke-width="2" />
+                </svg>
+              </div>
+              <div class="ugc-faq-container-content-item-question-icon-minu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+                  <path d="M0.898438 9L17.0984 8.85586" stroke="black" stroke-width="2" />
+                </svg>
+              </div>
+            </div>
+            <div class="ugc-faq-container-content-item-answer">
+              <div class="ugc-faq-container-content-item-answer-item">
+                Prizes include <b>$10 gift cards, $50 gift cards, $200 gift cards, tote bags, and backpacks</b> (physical prizes applicable only to the United States region).
+              </div>
+            </div>
+          </div>
+          <div class="ugc-faq-container-content-item">
+            <div class="ugc-faq-container-content-item-question">
+              <div class="ugc-faq-container-content-item-question-title">Q4: What are the differences between the combo discount and the standalone discount?</div>
+              <div class="ugc-faq-container-content-item-question-icon-plus">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 19" fill="none">
+                  <path d="M0.898438 9.5L17.0984 9.35586" stroke="black" stroke-width="2" />
+                  <path d="M9 17.6016L9.14414 1.40156" stroke="black" stroke-width="2" />
+                </svg>
+              </div>
+              <div class="ugc-faq-container-content-item-question-icon-minu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+                  <path d="M0.898438 9L17.0984 8.85586" stroke="black" stroke-width="2" />
+                </svg>
+              </div>
+            </div>
+            <div class="ugc-faq-container-content-item-answer">
+              <div class="ugc-faq-container-content-item-answer-item">
+                The standalone discount applies only to a single device. The combo discount, on the other hand, offers a package deal (printer + equipment such as oven, heat press, or powder shaker machine) with a greater discount. VF13 Pro also comes with an extra ink set as a bonus.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+   <!-- FAQ Section end-->
+   <script src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/lucky-canvas_1.7.25.umd.js?v=1751940211"></script>
+   {% assign customerId = '' %}
+   {% assign isLogin = 0 %}
+   {% if customer %}
+        {% assign isLogin = 1 %}
+       {% assign customerId = customer.id %}
+     {% endif %}
+ <script>
+       let customerId = ''; 
+       let customerIdString =''
+       let isLogin = {{ isLogin }};
+       let customerEmail = "";
+       if(isLogin === 1){
+           console.log('已登录帐号')
+           customerIdString = "{{customerId}}";
+           customerId = customerIdString - 0;
+           customerEmail="{{customer.email}}";
+       }else{
+           console.log('未登录帐号')
+       }
+       
+       
+       console.log('customerId==',customerId)
+  
+ </script>
+   <script src="{{ 'lucky-wheel-activity.js' | asset_url }}"></script>
+   <script>
+    <!-- faq 事件 -->
+
+// 解决移动端点击时背景闪烁问题，使用 touchstart 阻止点击高亮
+document.addEventListener('DOMContentLoaded', function () {
+
+  var faqItems = document.querySelectorAll('.ugc-faq-container-content-item');
+  faqItems.forEach(function (item) {
+    var question = item.querySelector('.ugc-faq-container-content-item-question');
+    // 阻止移动端点击高亮（闪烁）
+    question.addEventListener('touchstart', function (e) {
+      e.preventDefault(); // 阻止默认的点击高亮
+      // 手动触发点击事件
+      this.click();
+    }, { passive: false });
+    question.addEventListener('click', function (e) {
+      // 如果当前item已激活，则移除active，实现随时切换
+      if (item.classList.contains('active')) {
+        item.classList.remove('active');
+      } else {
+        // 移除所有的active
+        faqItems.forEach(function (i) {
+          i.classList.remove('active');
+        });
+        // 给当前点击的item添加active
+        item.classList.add('active');
+      }
+    });
+  });
+});
+   </script>

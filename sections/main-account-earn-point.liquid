@@ -1,0 +1,173 @@
+<member-account class="block lg:py-24" client:idle>
+  <div class="lg:container">
+    <div class="grid lg:grid-cols-4 gap-4">
+      <div class="lg:col-span-1 lg:bg-white lg:rounded-2xl lg:px-6 lg:py-8 hidden lg:block">
+        {% comment %} 标题 {% endcomment %}
+        <a href="/account" class="gap-x-4 items-center hidden lg:inline-flex">
+          {% render 'member-icons', icon: 'account', class: 'w-4 h-4' %}
+          <span class="text-lg font-normal">Account Overview</span>
+        </a>
+
+        {% comment %} 菜单 {% endcomment %}
+        <div class="flex flex-col px-6 lg:px-0 mt-6 lg:mt-8 bg-white lg:gap-3">
+          <h3 class="text-xl mb-2 hidden lg:block text-heading">My Account</h3>
+          <a href="/account/addresses" class="flex items-center justify-between">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'address' %}
+              <span class="text-sm lg:text-base font-normal">My Address</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+          <hr
+            class="m-0 border-gray-200 lg:hidden"
+          >
+          <a href="/account?view=order-all" class="flex items-center justify-between">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'order' %}
+              <span class="text-sm lg:text-base font-normal">My Order</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+        </div>
+
+        <div class="flex flex-col px-6 lg:px-0 mt-6 lg:mt-8 bg-white lg:gap-3">
+          <h3 class="text-xl mb-2 hidden lg:block">My Assets</h3>
+          <a href="/account?view=rewards" class="flex items-center justify-between text-accent-hover">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'star' %}
+              <span class="text-sm lg:text-base font-normal">My Rewards</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+          <hr
+            class="m-0 border-gray-200 lg:hidden"
+          >
+          <a href="/account?view=gift-card" class="flex items-center justify-between">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'lw' %}
+              <span class="text-sm lg:text-base font-normal">My Gift Card</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+          <hr
+            class="m-0 border-gray-200 lg:hidden"
+          >
+          <a href="/account?view=coupon" class="flex items-center justify-between">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'coupon' %}
+              <span class="text-sm lg:text-base font-normal">My Coupon</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+        </div>
+      </div>
+      <div class="bg-white lg:rounded-2xl px-4 md:px-6 py-8 col-span-3">
+        <div class="flex flex-wrap lg:flex-row flex-col lg:justify-between gap-y-4 lg:items-center">
+          <a class="flex items-center gap-x-2 lg:hidden" href="/account">
+            {% render 'member-icons', icon: 'left-arrow' %}
+            <span class="text-xl font-bold">My Rewards</span>
+          </a>
+          <h3 class="m-0 text-heading text-xl font-bold hidden lg:block">My Rewards</h3>
+
+          <div class="flex items-center gap-x-4">
+            <div class="flex items-center gap-1">
+              <div class="flex items-center">
+                {% render 'member-icons', icon: 'jb', class: 'size-4' %}
+                <span class="ml-2">My Point Balance:</span>
+              </div>
+              <span class="font-bold" data-points>0</span>
+            </div>
+            <hr class="w-px h-2 lg:h-4 bg-gray-200">
+            <div class="flex items-center">
+              <button class="flex items-center transition-colors hover:text-accent-hover" data-renew="earn-point">
+                {% render 'member-icons', icon: 'renew' %}
+                <span class="ml-1">Renew</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative flex items-center gap-x-8 border-0 border-b-2 border-gray-100 border-solid">
+          {%- assign active = 'earn-poin' -%}
+          {%- assign links = 'rewards,earn-point,point-store' | split: ',' -%}
+          {%- assign items = 'My Point,Earn Point,Point Store' | split: ',' -%}
+
+          {%- for item in items -%}
+            {%- assign param = links[forloop.index0] -%}
+            <a
+              href="/account?view={{- param -}}"
+              title="{{ item }}"
+              class="block py-2 text-base border-0 border-b-2 border-solid hover:border-accent -mb-px transition-colors ease-in-out {% if param contains active %}border-accent text-accent-hover {% else %}border-transparent{% endif %}"
+            >
+              {{- item -}}
+            </a>
+          {%- endfor -%}
+        </div>
+
+        {% comment %} 积分详情 {% endcomment %}
+        <member-earn-point
+          class="relative mt-6 grid md:grid-cols-2 lg:grid-cols-3 items-center gap-2 md:gap-4"
+          client:idle
+        >
+          {%- for item in (0..2) -%}
+            <div class="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
+              <div class="animate-pulse flex space-x-4">
+                <div class="rounded-full bg-slate-200 h-10 w-10"></div>
+                <div class="flex-1 space-y-6 py-1">
+                  <div class="h-2 bg-slate-200 rounded"></div>
+                  <div class="space-y-3">
+                    <div class="grid grid-cols-3 gap-4">
+                      <div class="h-2 bg-slate-200 rounded col-span-2"></div>
+                      <div class="h-2 bg-slate-200 rounded col-span-1"></div>
+                    </div>
+                    <div class="h-2 bg-slate-200 rounded"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+
+          {%- comment -%}
+            {%- for item in (0..8) -%}
+              <div class="p-4 bg-[#F8F9FC] space-y-12 rounded-lg">
+                <div class="flex items-center justify-between">
+                  <div class="flex flex-col">
+                    <h4 class="font-extrabold text-xl m-0">Create an account</h4>
+                    <div class="flex items-center text-accent">
+                      {% render 'member-icons', icon: 'jb' %}
+                      <span class="text-base ml-2">500 points</span>
+                    </div>
+                  </div>
+
+                  {% render 'member-icons', icon: 'jb', class: 'w-5 h-5' %}
+                </div>
+
+                <div class="flex items-center bg-white rounded-full p-2">
+                  <div class="bg-accent rounded-full w-6 h-6 flex items-center justify-center text-white">
+                    {% render 'member-icons', icon: 'jb' %}
+                  </div>
+                  <span class="ml-2">Got the Points</span>
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endcomment -%}
+        </member-earn-point>
+      </div>
+    </div>
+  </div>
+</member-account>

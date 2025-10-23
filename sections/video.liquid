@@ -1,0 +1,539 @@
+{{- 'video.css' | asset_url | stylesheet_tag -}}
+<style>
+  .video-sections-wrap-{{ section.id }}{
+    margin: 0;
+    max-width: none;
+    padding: {{ section.settings.padding_top_mobile }}px  24px {{ section.settings.padding_bottom_mobile }}px 24px;
+    background-color: {{ section.settings.background_color }};
+  }
+  .video-sections-wrap-{{ section.id }}  .video-section--container {
+
+    overflow: hidden;
+  }
+
+  .video-sections-wrap-{{ section.id }}  .section-header{
+    padding:0 !important;
+  }
+  .section-{{ section.id }}-padding {
+    padding: 0 !important;
+
+  }
+  .video-sections-wrap-{{ section.id }}	.section-header--title{
+    font-size:{{ section.settings.headding_size_mobile }}px;
+    color: {{ section.settings.heading_color }};
+    padding-top: {{ section.settings.padding_header_top_mobile }}px !important;
+    padding-bottom: {{ section.settings.padding_header_bottom_mobile  }}px !important;
+    margin-bottom: 0;
+    line-height: 1.1;
+    text-align: {{ section.settings.title_text_alignment_mobile }};
+
+  }
+  .video-sections-wrap-{{ section.id }}  .section-header--description{
+    font-size:{{ section.settings.subtitle_size_mobile }}px;
+    padding-top: {{ section.settings.subtitle_padding_top_mobile }}px !important;
+    padding-bottom: {{ section.settings.subtitle_padding_bottom_mobile }}px !important;
+    line-height: 1.2;
+    text-align: {{ section.settings.title_text_alignment_mobile }};
+
+  }
+  .section-{{ section.id }}-padding .left{
+    text-align: left;
+  }
+  .section-{{ section.id }}-padding .center{
+    text-align: center;
+  }
+  .section-{{ section.id }}-padding .right{
+    text-align: right;
+  }
+  @media screen and (min-width: 750px) {
+    .video-sections-wrap-{{ section.id }}{
+      padding: {{ section.settings.padding_top }}px  0 {{ section.settings.padding_bottom }}px  0;
+    }
+    .video-sections-wrap-{{ section.id }}  .section-header{
+      padding:0 !important;
+    }
+
+    .section-{{ section.id }}-padding {
+      padding: 0 !important;
+
+    }
+    .video-sections-wrap-{{ section.id }}  .video-section{
+      {% if section.settings.section_max_width != 'none' %}
+        max-width: {{ section.settings.section_max_width }}px;
+        margin: 0 auto;
+      {% endif %}
+    }
+    .video-sections-wrap-{{ section.id }}	.section-header--title{
+      font-size:{{ section.settings.headding_size }}px;
+      color: {{ section.settings.heading_color }};
+      padding-top: {{ section.settings.padding_header_top }}px !important;
+      padding-bottom: {{ section.settings.padding_header_bottom }}px !important;
+      margin-bottom: 0;
+      text-align: {{ section.settings.title_text_alignment }};
+    }
+    .video-sections-wrap-{{ section.id }}  .section-header--description{
+      font-size:{{ section.settings.subtitle_size }}px;
+      color: {{ section.settings.subtitle_color }};
+      padding-top: {{ section.settings.subtitle_padding_top }}px !important;
+      padding-bottom: {{ section.settings.subtitle_padding_bottom }}px !important;
+      line-height: 1.2;
+      text-align: {{ section.settings.title_text_alignment }};
+    }
+  }
+</style>
+{%- liquid
+  assign section_heading = section.settings.heading
+  assign marker_style = section.settings.marker_style
+  assign section_description = section.settings.description
+  assign full_width = section.settings.full_width
+  assign video = section.settings.video
+  assign video_hosted = section.settings.video_hosted
+  assign video_autoplay = section.settings.video_autoplay
+  assign aspect_ratio = section.settings.aspect_ratio
+
+  assign marker_color = section.settings.marker_color
+-%}
+<div class="video-sections-wrap-{{ section.id }} row {% if full_width %} full-width-row-full{% endif %}">
+  <div class="small-12 columns section-{{ section.id }}-padding">
+    <div class="video-section section-spacing">
+      <div class="video-section--inner {{ section.settings.content_alignment }}">
+        {% render 'section-header',
+          section_heading: section_heading,
+          section_description: section_description,
+          marker_color: marker_color,
+          marker_style: marker_style
+        %}
+      </div>
+      <div class="video-section--container video-aspect--{{ aspect_ratio }}">
+        {%- if video_hosted != blank -%}
+          {%- liquid
+            assign sizes = '1280x'
+            if full_width
+              assign sizes = '1600x'
+            endif
+          -%}
+          {{
+            video_hosted
+            | video_tag: autoplay: video_autoplay, loop: true, controls: true, muted: video_autoplay, image_size: sizes
+          }}
+        {%- elsif video != blank -%}
+          {%- if video.type == 'youtube' -%}
+            <iframe
+              data-src="https://www.youtube.com/embed/{{ video.id }}?loop=1{%- if video_autoplay -%}&autoplay=1&mute=1{%- endif -%}&playlist={{ video.id }}&iv_load_policy=3&disablekb=1&controls=1&playsinline=1"
+              frameborder="0"
+              class="lazyload"
+              allow="autoplay; encrypted-media"
+              allowfullscreen
+              title="{{ section.settings.heading | escape }}"
+              tabindex="-1"
+            ></iframe>
+          {%- else -%}
+            <iframe
+              data-src="https://player.vimeo.com/video/{{ video.id }}{%- if video_autoplay -%}?background=1{%- endif -%}"
+              frameborder="0"
+              class="lazyload"
+              allow="autoplay; encrypted-media"
+              allowfullscreen
+              title="{{ section.settings.heading | escape }}"
+              tabindex="-1"
+            ></iframe>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Video",
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_max_width",
+      "label": "模块最大宽度",
+      "options": [
+        {
+          "value": "none",
+          "label": "全屏"
+        },
+        {
+          "value": "1200",
+          "label": "1200px"
+        },
+        {
+          "value": "980",
+          "label": "980px"
+        }
+      ],
+      "default": "1200"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "left"
+        },
+        {
+          "value": "center",
+          "label": "center"
+        },
+        {
+          "value": "right",
+          "label": "right"
+        }
+      ],
+      "default": "center",
+      "label": "center"
+    },
+    {
+      "type": "select",
+      "id": "marker_style",
+      "options": [
+        {
+          "value": "style1",
+          "label": "Basic"
+        },
+        {
+          "value": "style2",
+          "label": "Double"
+        },
+        {
+          "value": "style3",
+          "label": "Squiggle"
+        },
+        {
+          "value": "style4",
+          "label": "Zigzag"
+        }
+      ],
+      "default": "style1",
+      "label": "Marker"
+    },
+    {
+      "type": "select",
+      "id": "title_text_alignment",
+      "label": "大标题及小标题文本对齐方式",
+      "options": [
+        {
+          "value": "start",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中对齐"
+        },
+        {
+          "value": "end",
+          "label": "右对齐"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "title_text_alignment_mobile",
+      "label": "大标题及小标题文本对齐方式(移动端)",
+      "options": [
+        {
+          "value": "start",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中对齐"
+        },
+        {
+          "value": "end",
+          "label": "右对齐"
+        }
+      ],
+      "default": "start"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "大标题",
+      "default": "Video"
+    },
+    {
+      "type": "html",
+      "id": "description",
+      "label": "小标题"
+    },
+    {
+      "type": "range",
+      "id": "headding_size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题字体大小",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "headding_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题字体大小（移动端）",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题字体大小",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题字体大小（移动端）",
+      "default": 16
+    },
+
+    {
+      "type": "video_url",
+      "id": "video",
+      "label": "Video URL",
+      "accept": ["youtube", "vimeo"],
+      "placeholder": "Use a YouTube or Vimeo URL",
+      "default": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc"
+    },
+    {
+      "type": "video",
+      "id": "video_hosted",
+      "label": "Shopify-hosted video",
+      "info": "Overrides the Video URL setting."
+    },
+    {
+      "type": "checkbox",
+      "id": "video_autoplay",
+      "default": true,
+      "label": "Autoplay",
+      "info": "Video will be muted"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "options": [
+        {
+          "value": "16-9",
+          "label": "16/9"
+        },
+        {
+          "value": "9-16",
+          "label": "9/16"
+        },
+        {
+          "value": "4-3",
+          "label": "4/3"
+        },
+        {
+          "value": "3-4",
+          "label": "3/4"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        }
+      ],
+      "default": "16-9",
+      "label": "Video aspect ratio"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "header",
+      "content": "颜色"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "大标题字体颜色",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "小标题字体颜色",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "marker_color",
+      "label": "Marker",
+      "default": "#FD6262"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "背景颜色",
+      "default": "#fff"
+    },
+
+    {
+      "type": "header",
+      "content": "边距填充"
+    },
+    {
+      "type": "header",
+      "content": "PC端设置"
+    },
+    {
+      "type": "range",
+      "id": "padding_header_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题顶部边距",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_header_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题底部边距",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "subtitle_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题顶部边距",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "subtitle_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题底部边距",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部边距",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部边距",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "移动端设置"
+    },
+
+    {
+      "type": "range",
+      "id": "padding_header_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题顶部边距(移动端)",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "padding_header_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题底部边距(移动端)",
+      "default": 20
+    },
+
+    {
+      "type": "range",
+      "id": "subtitle_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题顶部边距(移动端)",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "subtitle_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题底部边距(移动端)",
+      "default": 40
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部边距(移动端)",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部边距(移动端)",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video"
+    }
+  ]
+}
+{% endschema %}

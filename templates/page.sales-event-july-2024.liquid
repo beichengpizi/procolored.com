@@ -1,0 +1,121 @@
+{{ 'page.sales-event-july-2024.css' | asset_url | stylesheet_tag }}
+<div class="sales-event-page">
+  <div class="banner">
+    <picture>
+      <source
+        media="(min-width: 769px)"
+        srcset="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/p-0713.png"
+      >
+      <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/kv-m-0713.png" alt="sales event">
+    </picture>
+  </div>
+  <section class="gift-cards-section">
+    <h2>Gift Card</h2>
+    <div class="section-wrapper">
+      <img class="gift-card-decor decor-0" src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/decor-0.png">
+      <img class="gift-card-decor decor-1" src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/decor-1.png">
+      <img class="gift-card-decor decor-2" src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/decor-2.png">
+      <div class="flex-wrapper">
+        <div class="card">
+          <div class="img-wrapper">
+            <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/gift_card-50.png" alt="gift card 50">
+          </div>
+          <div class="info-wrapper">
+            <h4>$50 gift card</h4>
+            <p>Purchases under $3,000</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="img-wrapper">
+            <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/gift_card-200.png" alt="gift card 200">
+          </div>
+          <div class="info-wrapper">
+            <h4>$200 gift card</h4>
+            <p>Purchases between $3,000 - $5,000</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="img-wrapper">
+            <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/gift_card-400.png" alt="gift card 400">
+          </div>
+          <div class="info-wrapper">
+            <h4>$400 gift card</h4>
+            <p>Purchases over $5,000</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="sale-list-section">
+    <div class="section-wrapper">
+      {% for product_obj in page.metafields.custom.sales_event_july_2024_products.value %}
+        <a class="products-grid-item" target="_blank" href="{{ product_obj.product.value.url }}">
+          <div class="img-wrapper">
+            <img src="{{ product_obj.img.value | image_url  }}" alt="{{ product_obj.title }}">
+          </div>
+          <div class="products-grid-item-content">
+            <div>
+              <h3>{{ product_obj.title }}</h3>
+              <p>{{ product_obj.desc }}</p>
+            </div>
+            <div class="shop-btn">
+              <form method="post" action="/cart/add">
+                <input type="hidden" name="id" value="{{ product_obj.product.value.variants.first.id }}">
+                <input min="1" type="number" id="quantity" name="quantity" value="1">
+                <input type="submit" value="Shop Now" class="btn">
+              </form>
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </section>
+  <section class="event-intro-section">
+    <h2>Sales Event Introduction</h2>
+    <div class="section-wrapper">
+      <ul>
+        <li>
+          1. Event Date
+          <p class="grey-text">July 5 - July 31, 2024 (Eastern Standard Time - EST, UTC/GMT -4.00)</p>
+          <br>
+          <p>
+            The Procolored F13 DTF printer offers an excellent performance and a range of advanced features that make it
+            well-suited for small to medium-sized businesses (20~50 pcs/day) of sports event-related products (e.g.
+            T-shirts, hats, flags, masks and jerseys). To encourage people to expand their business into sports niches,
+            we are offering gift cards for their purchase.
+          </p>
+          <br>
+        </li>
+        <li>
+          2. Customers who purchase the Procolored F13 DTF printer (13" L1800 Single Head Panda Version) will receive a
+          gift card based on the purchase amount
+          <ul class="grey-text">
+            <li>a. Purchases under $3,000 [$50 gift card]</li>
+            <li>b. Purchases between $3,000 - $5,000 [$200 gift card]</li>
+            <li>c. Purchases over $5,000 [$400 gift card]</li>
+          </ul>
+          <br>
+          <p>
+            The gift cards will be distributed starting on July 31st. They are activated immediately and are valid till
+            Dec. 31st, 2024.
+          </p>
+          <br>
+        </li>
+        <li>
+          3. Key benefits of the Procolored F13 DTF printer
+          <ul class="grey-text">
+            <li>a. Versatile applications for sports event-related products</li>
+            <li>b. Protective film cutter for smooth workflow</li>
+            <li>c. White ink circulation system for longer printhead lifespan</li>
+            <li>d. Enhanced productivity with high-quality output</li>
+          </ul>
+          <br>
+          <p>
+            Don't miss this opportunity to start your business operating in the sports event. Take advantage of our
+            limited-time promotion and let the Procolored F13 DTF printer be the catalyst for your business growth.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>

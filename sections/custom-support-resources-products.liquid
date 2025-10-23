@@ -1,0 +1,2528 @@
+<style>
+              li {
+                list-style: none;
+              }
+              .support-products{
+                background: #ffffff;}
+              .s-tab {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 100px 0 100px;
+              }
+
+              .title-box {
+                position: relative;
+              }
+
+              .s-tab .tab-title {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+
+              .title-item {
+                cursor: pointer;
+
+                margin: 0 25px;
+                padding-bottom: 3px;
+                border-bottom: 1px solid transparent;
+                z-index: 1;
+                color: #000;
+
+  font-size: 20px;
+
+  font-weight: 400;
+  line-height:1.3; /* 133% */
+              }
+
+              .title-item.active {
+                color: #DA291C;
+                border-bottom: 2px solid #da291c;
+                {% comment %} font-weight: 700; {% endcomment %}
+                {% comment %} font-size: 24px; {% endcomment %}
+              }
+
+              .title-item {
+                position: relative;
+                transition: color 0.3s ease;
+              }
+
+              .title-item::after {
+                content: '';
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background-color: #DA291C;
+                transition: width 0.3s ease;
+              }
+
+
+
+              .title-item:hover::after {
+                width: 100%;
+              }
+
+              .tab-title-span {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 1px;
+                background-color: rgba(204, 204, 204, 0.22);
+              }
+
+              .s-tab .content-box {
+                padding-top: 50px;
+              }
+
+              .mod-box {
+                display: none;
+                max-width: 1400px;
+                margin: 0 auto;
+              }
+
+              .content-box .mod-box:first-child {
+                display: block;
+              }
+
+              .tab-mod {
+                display: flex;
+                flex-wrap: wrap;
+                row-gap: 50px;
+              }
+              .tab-mod .mod-item-wrap{
+                width:50%
+              }
+
+              .tab-mod .item-link:hover {
+                {% comment %} color: inherit; {% endcomment %}
+              }
+
+              .mod-item {
+                display: flex;
+                width: 100%;
+                {% comment %} height: 250px; {% endcomment %}
+
+                text-align: center;
+                background-color: #fff;
+
+                {% comment %} overflow: hidden; {% endcomment %}
+              }
+
+              .mod-item .item-text {
+                color: #000;
+                font-size: 26px;
+                font-weight: 700;
+                line-height: 1.3;
+                width: 100%;
+      text-align: left;
+      margin-bottom: 8px;
+              }
+              .mod-item .item-params-text{
+                color: #3D3D3D;
+
+
+        font-size: 14px;
+
+        font-weight: 400;
+        line-height: 1.4; /* 140% */
+        overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 15.625vw;
+    text-align: left;
+
+              }
+              .mod-item .item-button-text{
+                color: #1677FF;
+
+      font-size: 14px;
+
+      font-weight: 600;
+      line-height: 1.4; /* 140% */
+      text-align: left;
+      width: 100%;
+      margin-bottom: 4px;
+              }
+              .mod-item .item-params-text:last-of-type{
+                margin-bottom: 16px;
+                }
+              {% comment %} .mod-item .item-button-text.frist{
+                margin-top: 16px;
+              } {% endcomment %}
+              .mod-item .item-button-text:last-child{
+                margin-bottom: 0;
+              }
+            .item-content{
+              display: flex
+          ;
+              flex-direction: column;
+              width: 100%;
+              align-items: start;
+              padding: 53px 1.875vw;
+            }
+              .item-img {
+                width:300px;
+                max-width: 300px;
+                flex-shrink: 0;
+              overflow: hidden;
+
+              border-radius: 20px;
+
+
+              }
+              .mod-item img{
+                background-color: rgb(249,249,249);
+              }
+              .item-img  img{
+                height: auto;
+                max-width: 100%;
+
+
+              }
+
+              .select-tab {
+                display: none;
+              }
+
+              .select-tab {
+                max-width: 375px;
+                margin: 0 auto;
+              }
+
+              .select-box {
+                position: relative;
+              }
+
+              .dropbtn {
+                width: auto;
+                background-color: #fff;
+                color: #000;
+                padding: 15px 16px;
+                font-size: 22px;
+                line-height: 1;
+                font-weight: bold;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                cursor: pointer;
+                text-align: left;
+
+              }
+
+              .drop-svg {
+                width: 16px;
+                line-height: 1;
+                height: 16px;
+                position: absolute;
+                top: 50%;
+                right: 15px;
+                transform: translateY(-50%);
+              }
+
+              .dropdown-content {
+                width: 100%;
+                display: none;
+                position: absolute;
+                background-color: #fff;
+                color: #000;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+                margin-top: 3px;
+                z-index: 1;
+              }
+
+              .dropdown-content ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+              }
+
+              .dropdown-content li {
+                font-weight: bold;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                color: #000;
+                cursor: pointer;
+                text-align: left;
+                font-weight: 700;
+                font-size: 20px;
+                line-height: 1;
+
+                border: none;
+              }
+              .modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0, 0, 0, 0.8);
+              }
+              .modal.active {
+                display: block;
+              }
+
+              .modal-tab {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 2px;
+                width: max-content;
+                margin: 133px auto 38px auto;
+                border-radius: 50px;
+                background: #fff;
+              }
+              .modal-item-tab {
+                border-radius: 50px;
+                padding: 15px 23px;
+                box-sizing: border-box;
+                line-height: 1;
+              }
+              .modal-item-tab.active {
+                background: #000;
+              }
+
+              .modal-item-tab-link {
+                color: #b0b0b0;
+                font-size: 18px;
+                font-weight: 700;
+                line-height: 1;
+              }
+              .modal-item-tab.active .modal-item-tab-link {
+                color: #fff;
+              }
+              .modal-content {
+                max-width: 1200px;
+
+                margin: 0 auto 15% auto;
+                padding: 52px 0 46px 0;
+                width: 62.5%;
+                border-radius: 20px;
+                background: #fff;
+              }
+              .modal-content-item {
+                display: none;
+              }
+              .modal-content-item.active {
+                display: block;
+              }
+              .modal-content-item-title {
+                color: #000;
+                font-size: 34px;
+                font-weight: 700;
+                line-height: 1.1;
+                margin-bottom: 55px;
+                text-align: center;
+                padding: 0 88px;
+              }
+              .modal-content-item-content {
+              }
+              .modal-close {
+                max-width: 1200px;
+                margin: 0 auto;
+                text-align: right;
+                padding-top: 23px;
+              }
+              .modal-close svg {
+                width: 44px;
+                height: 44px;
+              }
+              .content-tab {
+                display: flex;
+                gap: 35px;
+                margin-bottom: 54px;
+                border-bottom: 1px solid #ddd;
+                align-items: center;
+                justify-content: center;
+              }
+              .content-tab-item {
+                cursor: pointer;
+                {% comment %} transition: all 0.3s ease; {% endcomment %}
+                transition: left 0.3s ease, transform 0.3s ease,
+              top 0.3s ease;
+                line-height: 1;
+                color: #b0b0b0;
+                font-size: 14px;
+                padding-bottom: 12px;
+              }
+              .content-tab-item:hover {
+                color: #000;
+              }
+              .content-tab-item.active {
+                border-bottom: 2px solid #da291c;
+                color: #000;
+              }
+              .content-panels {
+                border-radius: 4px;
+                padding: 0 88px;
+              }
+              .content-panel {
+                display: none;
+              }
+              .content-panel.active {
+                display: block;
+              }
+              .modal-content-item-form {
+                margin-top: 78px;
+                padding: 0 88px;
+              }
+              .software-download,
+              .user-manual-download {
+                text-align: center;
+                margin-bottom: 20px;
+              }
+              .software-download a,
+              .user-manual-download a {
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                color: #fff;
+                font-size: 20px;
+                font-weight: 700;
+                border-radius: 5px;
+                background: #000;
+                padding: 20px 48px;
+                line-height: 1;
+                column-gap: 10px;
+              }
+
+              .content-tab-mb {
+                display: none;
+              }
+              .globo-form-app .globo-heading {
+                color: var(--gfb-color-textColor, #000);
+
+                text-align: left;
+                margin: 0;
+              }
+              .globo-form-app .header .title {
+                margin-bottom: 33px;
+                font-weight: 700;
+                line-height: 1;
+                font-size: 24px;
+              }
+              .globo-form-app .header .description {
+                display: none;
+              }
+              .globo-form-id-37686 .globo-form-app .globo-form-control label.globo-label span.label-content {
+                font-size: 20px;
+                font-weight: 700;
+              }
+              .globo-form-control label {
+                margin-bottom: 10px;
+                line-height: 1;
+              }
+              .globo-form-app .footer button,
+              .globo-form-app .gfb__footer button {
+                width: auto !important;
+                padding: 13px 70px;
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 1;
+                border-radius: 5px;
+              }
+              .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+              }
+              .close:hover,
+              .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+              }
+              @media only screen and (max-width: 1450px){
+                .s-tab {
+                  max-width: 1200px;
+
+                }
+                .mod-box {
+
+                  max-width: 1200px;
+
+                }
+
+              }
+              @media only screen and (max-width: 1068px){
+                .tab-mod .mod-item-wrap{
+                  width:100%
+                }
+                .mod-item .item-params-text{
+
+      width: auto;
+
+
+                }
+                .s-tab .content-box {
+
+                  padding: 50px 24px 0 24px;
+              }
+              }
+              @media only screen and (max-width: 768px) {
+                .modal {
+                  overflow-x: hidden;
+                }
+                .s-tab {
+                  max-width: 100%;
+                  margin: 0 24px;
+                  padding: 30px 0 50px;
+                }
+                .s-tab .tab-title,
+                .tab-title-span {
+                  display: none;
+                }
+                .s-tab .content-box {
+                  padding: 20px 0 0;
+                }
+                .tab-mod {
+
+                  row-gap: 37px;
+              }
+                .dropbtn {
+                  font-size: 20px;
+                  padding: 12px 24px;
+
+                  line-height: 1.25;
+                }
+                .drop-svg {
+                  right: 24px;
+                }
+                .item-link {
+                  width: 50%;
+                }
+                .mod-item {
+                  width: auto;
+                  height: auto;
+                  gap: 10px;
+                }
+                .mod-item .item-params-text {
+                  width: 198px;
+                  font-size: 12px;
+              }
+                .item-img {
+                  width: 119px;
+                  max-width: 119px;
+                  overflow: hidden;
+                  border-radius: 10px;
+                }
+                .item-content {
+
+                  padding: 0;
+              }
+                .mod-item img {
+                  border-radius: 10px;
+                  transform: scale(1) !important;
+
+                }
+                .mod-item .item-text {
+                  font-size: 16px;
+                  line-height: 1.4;
+                  padding: 0;
+                  margin-bottom: 4px;
+                }
+                .mod-item .item-params-text:last-of-type{
+                  margin-bottom: 8px;
+                }
+                {% comment %} .mod-item .item-button-text.frist {
+                  margin-top: 8px;
+              } {% endcomment %}
+              .mod-item .item-button-text {
+
+                font-size: 12px;
+
+                margin-bottom: 0;
+            }
+                .select-tab {
+                  display: block;
+                  max-width: 100%;
+                }
+                .dropdown-content {
+                  margin-top: 0;
+                  top: 57px;
+                }
+                .modal-close {
+                  padding: 33px 24px 0;
+                  text-align: right;
+                  width: 100%;
+                  background: #fff;
+                  margin-top: 24px;
+                  border-top-left-radius: 20px;
+                  border-top-right-radius: 20px;
+                }
+                .modal-tab {
+                  margin: 0;
+                  border-radius: 0;
+                  padding: 52px 24px 40px 24px;
+                  justify-content: start;
+                  column-gap: 14px;
+                  width: 100%;
+                  overflow-x: auto;
+                  -webkit-overflow-scrolling: touch;
+                  scrollbar-width: none; /* Firefox */
+                  -ms-overflow-style: none; /* IE and Edge */
+                }
+                .modal-item-tab {
+                  border-radius: 50px;
+                  padding: 15px 25px;
+                  box-sizing: border-box;
+                  line-height: 1;
+                  background: #f5f5f5;
+                }
+                .modal-item-tab-link {
+                  font-size: 18px;
+                  width: max-content;
+                  display: block;
+                }
+                .modal-content {
+                  margin: 0;
+                  width: 100%;
+                  border-top-left-radius: 0;
+                  border-top-right-radius: 0;
+                  height: 100%;
+                  padding: 0;
+                  border: 0;
+                  border-radius: 0;
+                }
+                .modal-content-item-title {
+                  font-size: 22px;
+
+                  margin-bottom: 20px;
+
+                  padding: 0 24px;
+                }
+                .modal-content-item-content {
+                  height: 100%;
+                  background: #fff;
+                }
+                .content-tab-mb {
+                  display: block;
+                  padding: 0 24px;
+                }
+                .content-tab-mb .content-tab-item.active {
+                  background: #ffe5e3;
+                  border: none;
+                }
+                .content-panels {
+                  border-radius: 0;
+                  padding: 0 24px;
+                  margin-top: 20px;
+                }
+                .content-tab-pc {
+                  display: none;
+                }
+              }
+</style>
+<div class="s-tab">
+  <div class="title-box">
+    <div class="tab-title">
+      {% for block in section.blocks %}
+        <div class="title-item {% if forloop.first %}active{% endif %}">{{ block.settings.products_tab_t }}</div>
+      {% endfor %}
+    </div>
+    <div class="select-tab p-select-tab">
+      <div class="select-box">
+        <div class="dropbtn p-drop">DTF</div>
+        <div class="drop-svg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 6.05469L8.05469 11.1094L13.1094 6.05469" stroke="black" stroke-opacity="0.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="dropdown-content pdc">
+          <ul>
+            {% for block in section.blocks %}
+              <li>{{ block.settings.products_tab_t }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tab-title-span"></div>
+  </div>
+
+  <div class="content-box">
+    {% for block in section.blocks %}
+      <div class="mod-box">
+        <div class="tab-mod">
+          {% for i in (1..16) %}
+            {% assign img_t = 'img_t_' | append: i %}
+            {% assign params_t = 'params_t_' | append: i %}
+            {% assign params_t_1 = params_t | append: '_1' %}
+            {% assign params_t_2 = params_t | append: '_2' %}
+            {% assign params_t_3 = params_t | append: '_3' %}
+            {% assign detail_software_url = 'detail_software_url_' | append: i %}
+            {% assign detail_user_manual_url = 'detail_user_manual_url_' | append: i %}
+            {% assign img = 'img_' | append: i %}
+            {% if block.settings[img_t] != blank %}
+              <div class="mod-item-wrap">
+                <div class="mod-item">
+                  <div class="item-img">
+                    {% assign image = block.settings[img] %}
+                    {% assign size = 100 | divided_by: 4 | round %}
+                    <img
+                      width="{{ image.width }}"
+                      height="{{ image.height }}"
+                      style="aspect-ratio: {{ image.aspect_ratio }};width: 100%;"
+                      data-sizes="{{ size }}vw"
+                      data-srcset="
+                        {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                        {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                        {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                        {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                        {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                        {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                        {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                        {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                        {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                        {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                        {{ image | image_url }} {{ image.width }}w
+                      "
+                      data-src="{{ image | image_url:width:750 }}"
+                      class="lazyload"
+                      alt="{{ block.settings[img_t] }}"
+                    >
+                  </div>
+                  <div class="item-content">
+                    <div class="item-text">{{ block.settings[img_t] }}</div>
+                    {% if block.settings[params_t_1] != blank -%}
+                      <div class="item-params-text " title="{{ block.settings[params_t_1] }}">
+                        {{ block.settings[params_t_1] }}
+                      </div>
+                    {% endif %}
+                    {% if block.settings[params_t_2] != blank -%}
+                      <div class="item-params-text" title="{{ block.settings[params_t_2] }}">
+                        {{ block.settings[params_t_2] }}
+                      </div>
+                    {% endif %}
+                    {% if block.settings[params_t_3] != blank -%}
+                      <div class="item-params-text " title="{{ block.settings[params_t_3] }}">
+                        {{ block.settings[params_t_3] }}
+                      </div>
+                    {% endif %}
+                    {% if block.settings[detail_user_manual_url] -%}
+                      <a
+                        class="item-button-text frist"
+                        href="{{block.settings[detail_user_manual_url] }}"
+                        target="_blank"
+                        >User Manual ></a
+                      >
+                    {% endif %}
+                    {% if block.settings[detail_software_url] -%}
+                      <a class="item-button-text" href="{{ block.settings[detail_software_url] }}" target="_blank"
+                        >Software Download ></a
+                      >
+                    {% endif %}
+                    <a
+                      class="item-button-text item-link item-link-{{ forloop.index }}"
+                      data-index="{{ forloop.index }}"
+                      >Video tutorials ></a
+                    >
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <!-- Modal Structure -->
+        <div class="modal">
+          <div class="modal-close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <circle cx="18" cy="18" r="18" fill="#F5F5F5"/>
+              <path d="M12.2734 12.2725L23.728 23.727M23.728 12.2725L12.2734 23.727" stroke="#666666" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="modal-tab">
+            {% for i in (1..16) %}
+              {% assign img_t = 'img_t_' | append: i %}
+              {% if block.settings[img_t] != blank %}
+                <div class="modal-item-tab modal-item-tab-{{ forloop.index }}">
+                  <a
+                    class="modal-item-tab-link modal-item-tab-link-{{ forloop.index }}"
+                  >
+                    {{- block.settings[img_t] -}}
+                  </a>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <div class="modal-content">
+            {% for i in (1..16) %}
+              {% assign img_t = 'img_t_' | append: i %}
+              {% assign detail_title_t = 'detail_title_' | append: i %}
+              {% assign detail_introduction_video_url = 'detail_introduction_video_url_' | append: i %}
+
+              {% assign detail_set_up_video_url = 'detail_set_up_video_url_' | append: i %}
+
+              {% assign detail_printing_video_url = 'detail_printing_video_url_' | append: i %}
+
+              {% assign detail_maintenance_video_url = 'detail_maintenance_video_url_' | append: i %}
+
+              {% assign detail_troubleshoot_video_url = 'detail_troubleshoot_video_url_' | append: i %}
+
+              {% assign detail_software_video_url = 'detail_software_video_url_' | append: i %}
+
+              {% assign detail_software_url = 'detail_software_url_' | append: i %}
+              {% assign detail_user_manual_url = 'detail_user_manual_url_' | append: i %}
+
+              {% if block.settings[img_t] != blank %}
+                <div
+                  class="modal-content-item modal-content-item-{{ forloop.index }}"
+                  data-index="{{ forloop.index }}"
+                >
+                  {% if block.settings[detail_title_t] != blank %}
+                    <div class="modal-content-item-title">{{ block.settings[detail_title_t] }}</div>
+                  {% endif %}
+                  {% assign tab_urls = '' %}
+
+                  {% if block.settings[detail_introduction_video_url] != empty -%}
+                    {% assign videos_url = '' %}
+                    {% assign videos_url = videos_url | append: block.settings[detail_introduction_video_url] %}
+                    {%- assign tab_urls = tab_urls
+                      | append: videos_url
+                      | append: '|'
+                      | append: 'Introduction'
+                      | append: ','
+                    -%}
+                  {%- endif %}
+                  {% if block.settings[detail_set_up_video_url] != empty -%}
+                    {% assign videos_url = '' %}
+                    {% assign videos_url = videos_url | append: block.settings[detail_set_up_video_url] %}
+
+                    {%- assign tab_urls = tab_urls
+                      | append: videos_url
+                      | append: '|'
+                      | append: 'Setup'
+                      | append: ','
+                    -%}
+                  {%- endif %}
+                  {% if block.settings[detail_software_video_url] != empty -%}
+                    {% assign videos_url = '' %}
+                    {% assign videos_url = videos_url | append: block.settings[detail_software_video_url] %}
+
+                    {%- assign tab_urls = tab_urls
+                      | append: videos_url
+                      | append: '|'
+                      | append: 'Software'
+                      | append: ','
+                    -%}
+                  {%- endif %}
+                  {% if block.settings[detail_printing_video_url] != empty -%}
+                    {% assign videos_url = '' %}
+                    {% assign videos_url = videos_url | append: block.settings[detail_printing_video_url] %}
+
+                    {%- assign tab_urls = tab_urls
+                      | append: videos_url
+                      | append: '|'
+                      | append: 'Printing'
+                      | append: ','
+                    -%}
+                  {%- endif %}
+                  {% if block.settings[detail_maintenance_video_url] != empty -%}
+                    {% assign videos_url = '' %}
+                    {% assign videos_url = videos_url | append: block.settings[detail_maintenance_video_url] %}
+
+                    {%- assign tab_urls = tab_urls
+                      | append: videos_url
+                      | append: '|'
+                      | append: 'Maintenance'
+                      | append: ','
+                    -%}
+                  {%- endif %}
+                  {% if block.settings[detail_troubleshoot_video_url] != empty -%}
+                    {% assign videos_url = '' %}
+                    {% assign videos_url = videos_url | append: block.settings[detail_troubleshoot_video_url] %}
+
+                    {%- assign tab_urls = tab_urls
+                      | append: videos_url
+                      | append: '|'
+                      | append: 'Troubleshooting'
+                      | append: ','
+                    -%}
+                  {%- endif %}
+
+                  {% if block.settings[detail_software_url] -%}
+                    {%- assign tab_urls = tab_urls
+                      | append: block.settings[detail_software_url]
+                      | append: '|'
+                      | append: 'Software_url'
+                      | append: ','
+                    -%}
+                  {%- endif %}
+
+                  {% if block.settings[detail_user_manual_url] and section.settings.show_detail_user_manual_url -%}
+                    {%- assign tab_urls = tab_urls
+                      | append: block.settings[detail_user_manual_url]
+                      | append: '|'
+                      | append: 'User Manual'
+                    -%}
+                  {%- endif %}
+
+                  {% assign tab_urls_array = tab_urls | split: ',' %}
+                  <div class="modal-content-item-content">
+                    <div class=" content-tab-mb">
+                      <div class="select-box">
+                        <div class="dropbtn content-tab-mb-drop" onclick="handleDropBtnClick2(event)">Introduction</div>
+                        <div class="drop-svg">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                          >
+                            <path d="M3 6.05469L8.05469 11.1094L13.1094 6.05469" stroke="black" stroke-opacity="0.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </div>
+                        <div class="dropdown-content content-tab-dropdown-content" style="display:none;">
+                          <ul>
+                            {% for url in tab_urls_array %}
+                              {% assign tab_name = url | split: '|' %}
+                              {% if tab_name[1] == 'Software_url' %}
+                                {% continue %}
+                              {% endif %}
+                              <li
+                                class="content-tab-item {% if forloop.first %}active{% endif %}"
+                                data-tab="{{ forloop.index }}"
+                                data-tab-name="{{ tab_name[1] }}"
+                              >
+                                {{ tab_name[1] }}
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="content-tab content-tab-pc">
+                      {% for url in tab_urls_array %}
+                        {% assign tab_name = url | split: '|' %}
+                        {% if tab_name[1] == 'Software_url' %}
+                          {% continue %}
+                        {% endif %}
+                        <div
+                          class="content-tab-item {% if forloop.first %}active{% endif %}"
+                          data-tab="{{ forloop.index }}"
+                          data-tab-name="{{ tab_name[1] }}"
+                        >
+                          {{ tab_name[1] }}
+                        </div>
+                      {% endfor %}
+                    </div>
+                    <div class="content-panels">
+                      {% for url in tab_urls_array %}
+                        {% assign videos_url = '' %}
+                        {% assign video_url = url | split: '|' %}
+                        {% if video_url[0] contains '^' %}
+                          {% assign videos_url = video_url[0] | split: '^' %}
+                        {% endif %}
+                        {% if video_url[1] == 'Software_url' %}
+                          {% continue %}
+                        {% endif %}
+                        <div
+                          class="content-panel {% if forloop.first %}active{% endif %}"
+                          data-panel="{{ forloop.index }}"
+                        >
+                          {% comment %} videos_url== {{ videos_url }}={{ videos_url.size }} {% endcomment %}
+                          {% if video_url[1] == 'Software'
+                            and block.settings[detail_software_url]
+                            and section.settings.show_detail_software_url
+                          %}
+                            <div class="software-download">
+                              <a href="{{ block.settings[detail_software_url] }}" target="_blank">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="22"
+                                  height="22"
+                                  viewBox="0 0 22 22"
+                                  fill="none"
+                                >
+                                  <path d="M7.03125 2C7.03125 1.44772 7.47897 1 8.03125 1H13.4209C13.9732 1 14.4209 1.44772 14.4209 2V9.06143H7.03125V2Z" fill="white"/>
+                                  <path d="M11.3778 15.2233C11.0035 15.5434 10.452 15.5434 10.0778 15.2233L4.9313 10.8214C4.22537 10.2176 4.65237 9.06144 5.58129 9.06144L15.8742 9.06144C16.8032 9.06144 17.2302 10.2176 16.5242 10.8214L11.3778 15.2233Z" fill="white"/>
+                                  <path d="M1 18.1818C1 17.6872 1.40102 17.2861 1.89571 17.2861H19.1043C19.599 17.2861 20 17.6872 20 18.1818C20 18.6765 19.599 19.0776 19.1043 19.0776H1.89571C1.40102 19.0776 1 18.6765 1 18.1818Z" fill="white"/>
+                                </svg>
+                                <span> Download software </span>
+                              </a>
+                            </div>
+                          {% endif %}
+                          {% if video_url[1] != 'User Manual' %}
+                            {% if videos_url == blank %}
+                              <div style="width:100%; position:relative; padding-bottom:56.25%;">
+                                <iframe
+                                  class="lazyload"
+                                  style="position:absolute; top:0; left:0; width:100%; height:100%;"
+                                  data-src="https://www.youtube.com/embed/{{ video_url[0] | split: '=' | last }}"
+                                  frameborder="0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                  allowfullscreen
+                                >
+                                </iframe>
+                              </div>
+                            {% else %}
+                              {% for video in videos_url %}
+                                {% comment %} video--------------{{ video }} {% endcomment %}
+                                <div style="width:100%; position:relative; padding-bottom:56.25%; {% unless forloop.last %}margin-bottom: 40px;{% endunless %}">
+                                  <iframe
+                                    class="lazyload"
+                                    style="position:absolute; top:0; left:0; width:100%; height:100%;"
+                                    data-src="https://www.youtube.com/embed/{{ video | split: '=' | last }}"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen
+                                  >
+                                  </iframe>
+                                </div>
+                              {% endfor %}
+                            {% endif %}
+                          {% else %}
+                            {% if block.settings[detail_user_manual_url] %}
+                              <div class="user-manual-download">
+                                <a href="{{ block.settings[detail_user_manual_url] }}" target="_blank">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="22"
+                                    height="22"
+                                    viewBox="0 0 22 22"
+                                    fill="none"
+                                  >
+                                    <path d="M7.03125 2C7.03125 1.44772 7.47897 1 8.03125 1H13.4209C13.9732 1 14.4209 1.44772 14.4209 2V9.06143H7.03125V2Z" fill="white"/>
+                                    <path d="M11.3778 15.2233C11.0035 15.5434 10.452 15.5434 10.0778 15.2233L4.9313 10.8214C4.22537 10.2176 4.65237 9.06144 5.58129 9.06144L15.8742 9.06144C16.8032 9.06144 17.2302 10.2176 16.5242 10.8214L11.3778 15.2233Z" fill="white"/>
+                                    <path d="M1 18.1818C1 17.6872 1.40102 17.2861 1.89571 17.2861H19.1043C19.599 17.2861 20 17.6872 20 18.1818C20 18.6765 19.599 19.0776 19.1043 19.0776H1.89571C1.40102 19.0776 1 18.6765 1 18.1818Z" fill="white"/>
+                                  </svg>
+                                  <span> Download User Manual </span>
+                                </a>
+                              </div>
+                            {% endif %}
+                          {% endif %}
+                        </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  {% comment %}
+                    <script>
+                        document.querySelectorAll('.content-tab-item').forEach((tab) => {
+                          tab.addEventListener('click', (e) => {
+                            const currentTab = e.currentTarget;
+                            const container = currentTab.closest('.modal-content-item-content');
+                            {% comment %} const modalContentItem = container.closest('.modal-content-item');
+                            const form = modalContentItem.querySelector('.modal-content-item-form'); {% endcomment %}
+
+                            // 移除所有active类
+                            container.querySelectorAll('.content-tab-item.active').forEach((tab) => {
+                              tab.classList.remove('active');
+                            });
+                            container.querySelectorAll('.content-panel.active').forEach((panel) => {
+                              panel.classList.remove('active');
+                            });
+
+                            // 添加active类到当前tab和对应的panel
+                            currentTab.classList.add('active');
+                            const panelNum = currentTab.getAttribute('data-tab');
+                            container.querySelector(`.content-panel[data-panel="${panelNum}"]`).classList.add('active');
+
+                            // 当点击User Manual标签时隐藏表单
+                            {% comment %} const tabName = currentTab.getAttribute('data-tab-name');
+                            if (tabName === 'User Manual') {
+                              form.style.display = 'none';
+                            } else {
+                              form.style.display = 'block';
+                            } {% endcomment %}
+                          });
+                        });
+                    </script>
+                  {% endcomment %}
+
+                  {% comment %}
+                    <div class="modal-content-item-form">
+                      <div class="globo-formbuilder" data-id="Mzc2ODY="></div>
+                    </div>
+                  {% endcomment %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+<script>
+  function handleDropBtnClick2(e) {
+    e.preventDefault(); // 阻止默认行为
+    console.log('点击了按钮');
+    const dropdownContent2 = e.currentTarget.closest('.select-box').querySelector('.content-tab-dropdown-content');
+    dropdownContent2.style.display = dropdownContent2.style.display === 'none' ? 'block' : 'none';
+  }
+</script>
+<script>
+  document.querySelectorAll('.content-tab-item').forEach((tab) => {
+    // 添加 touchstart 和 click 事件监听器
+    tab.addEventListener('touchstart', handleTabClick);
+    tab.addEventListener('click', handleTabClick);
+
+    function handleTabClick(e) {
+      e.preventDefault(); // 阻止默认行为
+      const currentTab = e.currentTarget;
+      const container = currentTab.closest('.modal-content-item-content');
+      console.log('点击了下拉类');
+
+      // 移除所有active类
+      container.querySelectorAll('.content-tab-item.active').forEach((tab) => {
+        tab.classList.remove('active');
+      });
+      container.querySelectorAll('.content-panel.active').forEach((panel) => {
+        panel.classList.remove('active');
+      });
+
+      // 添加active类到当前tab和对应的panel
+      currentTab.classList.add('active');
+      const panelNum = currentTab.getAttribute('data-tab');
+      container.querySelector(`.content-panel[data-panel="${panelNum}"]`).classList.add('active');
+      
+      if (window.innerWidth <= 768) {
+        console.log('点击了移动下拉类');
+        const dropBtnContent = e.currentTarget.closest('.select-box').querySelector('.content-tab-mb-drop');
+        const dropdownContent2 = e.currentTarget.closest('.content-tab-dropdown-content');
+        dropBtnContent.textContent = this.textContent;
+        dropdownContent2.style.display = 'none';
+      }
+      // 当点击User Manual标签时隐藏表单
+      {% comment %} const tabName = currentTab.getAttribute('data-tab-name');
+      if (tabName === 'User Manual') {
+        form.style.display = 'none';
+      } else {
+        form.style.display = 'block';
+      } {% endcomment %}
+    }
+  });
+</script>
+<script>
+  // 处理模态框标签页切换
+  document.querySelectorAll('.modal-item-tab-link').forEach((link) => {
+    // 添加点击和触摸事件监听器
+    link.addEventListener('click', handleTabSwitch);
+    link.addEventListener('touchstart', handleTabSwitch);
+
+    function handleTabSwitch(e) {
+      e.preventDefault(); // 阻止默认行为
+      const modal = this.closest('.modal');
+      const tabIndex = this.classList[1].split('-').pop();
+
+      // 隐藏所有内容并显示目标内容
+      const allContentItems = modal.querySelectorAll('.modal-content-item');
+      const targetContent = modal.querySelector(`.modal-content-item-${tabIndex}`);
+
+      allContentItems.forEach((item) => (item.style.display = 'none'));
+      if (targetContent) targetContent.style.display = 'block';
+
+      // 更新标签页激活状态
+      const allTabs = modal.querySelectorAll('.modal-item-tab');
+      allTabs.forEach((tab) => tab.classList.remove('active'));
+      this.closest('.modal-item-tab').classList.add('active');
+    }
+  });
+</script>
+
+<script>
+  /**
+   * 节流函数 - 限制函数的执行频率
+   * @param {Function} func - 需要执行的函数
+   * @param {number} limit - 时间间隔(毫秒)
+   * @returns {Function} 返回节流后的函数
+   */
+  function throttle(func, limit) {
+    let inThrottle = false;
+    return function (...args) {
+      if (!inThrottle) {
+        func.apply(this, args);
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), limit);
+      }
+    };
+  }
+
+  // 页面加载完成后初始化
+  document.addEventListener('DOMContentLoaded', function () {
+    const dropBtn = document.querySelector('.p-drop');
+    const contentBox = document.querySelector('.content-box');
+    const modBoxes = contentBox.querySelectorAll('.mod-box');
+    const firstLi = document.querySelector('.pdc ul li:first-child');
+
+    // 初始化下拉菜单和内容显示
+    dropBtn.textContent = firstLi.textContent;
+    modBoxes[0].style.display = 'block';
+
+    // 处理标签切换 - 同时支持点击和触摸
+    document.querySelectorAll('.tab-title .title-item').forEach((item) => {
+      const handleClick = function (e) {
+        e.preventDefault();
+        const index = Array.from(this.parentNode.children).indexOf(this);
+
+        // 更新标签和内容显示状态
+        const allTitleItems = document.querySelectorAll('.tab-title .title-item');
+        allTitleItems.forEach((el) => el.classList.remove('active'));
+        this.classList.add('active');
+
+        modBoxes.forEach((box, i) => {
+          box.style.display = i === index ? 'block' : 'none';
+        });
+      };
+
+      item.addEventListener('click', handleClick);
+      item.addEventListener('touchstart', handleClick);
+    });
+
+    // 处理下拉菜单选项点击 - 合并重复代码并优化移动端支持
+    document.querySelectorAll('.pdc li').forEach((li) => {
+      const handleSelect = function (e) {
+        e.preventDefault();
+        const selectedText = this.textContent;
+        const selectedIndex = Array.from(this.parentNode.children).indexOf(this);
+        const pdc = document.querySelector('.pdc');
+
+        // 更新下拉按钮文本并隐藏菜单
+        dropBtn.textContent = selectedText;
+        pdc.style.display = 'none';
+
+        // 显示对应内容
+        modBoxes.forEach((box, i) => {
+          box.style.display = i === selectedIndex ? 'block' : 'none';
+        });
+      };
+
+      li.addEventListener('click', handleSelect);
+      li.addEventListener('touchstart', handleSelect);
+    });
+
+    // 下拉按钮点击处理 - 优化移动端支持
+    const toggleDropdown = throttle(function (e) {
+      e.preventDefault();
+      const pdc = document.querySelector('.pdc');
+      pdc.style.display = pdc.style.display === 'none' ? 'block' : 'none';
+    }, 500);
+
+    dropBtn.addEventListener('click', toggleDropdown);
+    dropBtn.addEventListener('touchstart', toggleDropdown);
+
+    // 点击其他区域关闭下拉菜单
+    document.addEventListener('click', function (e) {
+      if (!dropBtn.contains(e.target) && !document.querySelector('.pdc').contains(e.target)) {
+        document.querySelector('.pdc').style.display = 'none';
+      }
+    });
+
+    document.addEventListener('touchstart', function (e) {
+      if (!dropBtn.contains(e.target) && !document.querySelector('.pdc').contains(e.target)) {
+        document.querySelector('.pdc').style.display = 'none';
+      }
+    });
+  });
+
+  // 处理产品项点击事件
+  document.querySelectorAll('.item-link').forEach((link) => {
+    const handleItemClick = function (event) {
+      event.preventDefault();
+      const index = this.getAttribute('data-index');
+      const modal = this.closest('.mod-box').querySelector('.modal');
+
+      // 更新标签页状态
+      const modalTabs = modal.querySelectorAll('.modal-item-tab');
+      modalTabs.forEach((tab) => tab.classList.remove('active'));
+
+      const correspondingTab = modal.querySelector(`.modal-item-tab-${index}`);
+      if (correspondingTab) {
+        correspondingTab.classList.add('active');
+        // 触发标签页点击事件
+        const modalItemTabLink = correspondingTab.querySelector('.modal-item-tab-link');
+        modalItemTabLink?.click();
+      }
+
+      // 更新内容显示
+      const allModalItems = modal.querySelectorAll('.modal-item');
+      allModalItems.forEach((item) => (item.style.display = 'none'));
+
+      const targetModalItem = modal.querySelector(`.modal-item[data-index="${index}"]`);
+      if (targetModalItem) targetModalItem.style.display = 'block';
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
+
+    // 添加点击和触摸事件监听器
+    link.addEventListener('click', handleItemClick);
+  });
+
+  // 处理关闭按钮点击
+  document.querySelectorAll('.close').forEach((closeBtn) => {
+    closeBtn.addEventListener('click', function () {
+      this.closest('.modal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    });
+  });
+
+  // 点击模态框背景或关闭图标关闭
+  window.addEventListener('click', function (event) {
+    if (event.target.classList.contains('modal') || event.target.closest('.modal-close')) {
+      const modal = event.target.classList.contains('modal') ? event.target : event.target.closest('.modal');
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+  });
+</script>
+{% schema %}
+{
+  "name": "Support Products",
+  "class": "support-products",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_detail_user_manual_url",
+      "label": "弹出框显示用户手册链接",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_detail_software_url",
+      "label": "弹出框显示软件下载链接",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Products-Tab",
+      "type": "products_tab",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "以下为产品卡位的相关配置，每个Tab栏最多可配置8个产品卡位，每个产品卡位需要设置对应的图片，文案，链接；产品文案是控制该卡位是否显示的重要字段，如果不想让该产品卡位显示，请留空;若有多个视频请使用^符号隔开,如：https://www.youtube.com/watch?v=123^https://www.youtube.com/watch?v=456"
+        },
+        {
+          "type": "text",
+          "label": "Tab标题",
+          "id": "products_tab_t",
+          "default": "DTF"
+        },
+        {
+          "type": "paragraph",
+          "content": "注意：选取的图片最好是透明（或白底），尺寸180*180（或等比例翻倍）的图，以达到最佳效果"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_1",
+          "label": "图1"
+        },
+        {
+          "type": "text",
+          "id": "img_t_1",
+          "label": "文1"
+        },
+        {
+          "type": "text",
+          "id": "params_t_1_1",
+          "label": "参数1"
+        },
+        {
+          "type": "text",
+          "id": "params_t_1_2",
+          "label": "参数2"
+        },
+        {
+          "type": "text",
+          "id": "params_t_1_3",
+          "label": "参数3"
+        },
+        {
+          "type": "text",
+          "id": "detail_title_1",
+          "label": "详情-标题1"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_introduction_video_url_1",
+          "label": "详情-介绍-视频1"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_set_up_video_url_1",
+          "label": "详情-设置-视频1"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_printing_video_url_1",
+          "label": "详情-打印-视频1"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_maintenance_video_url_1",
+          "label": "详情-维护-视频1"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_troubleshoot_video_url_1",
+          "label": "详情-故障排除-视频1"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_software_video_url_1",
+          "label": "详情-软件-视频1"
+        },
+
+        {
+          "type": "url",
+          "id": "detail_software_url_1",
+          "label": "详情-软件-下载链接1"
+        },
+        {
+          "type": "url",
+          "id": "detail_user_manual_url_1",
+          "label": "详情-用户手册-下载链接1"
+        },
+
+        {
+          "type": "image_picker",
+          "id": "img_2",
+          "label": "图2"
+        },
+        {
+          "type": "text",
+          "id": "img_t_2",
+          "label": "文2"
+        },
+        {
+          "type": "text",
+          "id": "params_t_2_1",
+          "label": "参数1"
+        },
+        {
+          "type": "text",
+          "id": "params_t_2_2",
+          "label": "参数2"
+        },
+        {
+          "type": "text",
+          "id": "params_t_2_3",
+          "label": "参数3"
+        },
+        {
+          "type": "text",
+          "id": "detail_title_2",
+          "label": "详情-标题2"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_introduction_video_url_2",
+          "label": "详情-介绍-视频2"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_set_up_video_url_2",
+          "label": "详情-设置-视频2"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_printing_video_url_2",
+          "label": "详情-打印-视频2"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_maintenance_video_url_2",
+          "label": "详情-维护-视频2"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_troubleshoot_video_url_2",
+          "label": "详情-故障排除-视频2"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_software_video_url_2",
+          "label": "详情-软件-视频2"
+        },
+
+        {
+          "type": "url",
+          "id": "detail_software_url_2",
+          "label": "详情-软件-下载链接2"
+        },
+        {
+          "type": "url",
+          "id": "detail_user_manual_url_2",
+          "label": "详情-用户手册-下载链接2"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_3",
+          "label": "图3"
+        },
+        {
+          "type": "text",
+          "id": "img_t_3",
+          "label": "文3"
+        },
+        {
+          "type": "text",
+          "id": "params_t_3_1",
+          "label": "参数1"
+        },
+        {
+          "type": "text",
+          "id": "params_t_3_2",
+          "label": "参数2"
+        },
+        {
+          "type": "text",
+          "id": "params_t_3_3",
+          "label": "参数3"
+        },
+        {
+          "type": "text",
+          "id": "detail_title_3",
+          "label": "详情-标题3"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_introduction_video_url_3",
+          "label": "详情-介绍-视频3"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_set_up_video_url_3",
+          "label": "详情-设置-视频3"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_printing_video_url_3",
+          "label": "详情-打印-视频3"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_maintenance_video_url_3",
+          "label": "详情-维护-视频3"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_troubleshoot_video_url_3",
+          "label": "详情-故障排除-视频3"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_software_video_url_3",
+          "label": "详情-软件-视频3"
+        },
+
+        {
+          "type": "url",
+          "id": "detail_software_url_3",
+          "label": "详情-软件-下载链接3"
+        },
+        {
+          "type": "url",
+          "id": "detail_user_manual_url_3",
+          "label": "详情-用户手册-下载链接3"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_4",
+          "label": "图4"
+        },
+
+        {
+          "type": "text",
+          "id": "img_t_4",
+          "label": "文4"
+        },
+        {
+          "type": "text",
+          "id": "params_t_4_1",
+          "label": "参数1"
+        },
+        {
+          "type": "text",
+          "id": "params_t_4_2",
+          "label": "参数2"
+        },
+        {
+          "type": "text",
+          "id": "params_t_4_3",
+          "label": "参数3"
+        },
+
+        {
+          "type": "text",
+          "id": "detail_title_4",
+          "label": "详情-标题4"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_introduction_video_url_4",
+          "label": "详情-介绍-视频4"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_set_up_video_url_4",
+          "label": "详情-设置-视频4"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_printing_video_url_4",
+          "label": "详情-打印-视频4"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_maintenance_video_url_4",
+          "label": "详情-维护-视频4"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_troubleshoot_video_url_4",
+          "label": "详情-故障排除-视频4"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_software_video_url_4",
+          "label": "详情-软件-视频4"
+        },
+
+        {
+          "type": "url",
+          "id": "detail_software_url_4",
+          "label": "详情-软件-下载链接4"
+        },
+        {
+          "type": "url",
+          "id": "detail_user_manual_url_4",
+          "label": "详情-用户手册-下载链接4"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_5",
+          "label": "图5"
+        },
+        {
+          "type": "text",
+          "id": "img_t_5",
+          "label": "文5"
+        },
+        {
+          "type": "text",
+          "id": "params_t_5_1",
+          "label": "参数1"
+        },
+        {
+          "type": "text",
+          "id": "params_t_5_2",
+          "label": "参数2"
+        },
+        {
+          "type": "text",
+          "id": "params_t_5_3",
+          "label": "参数3"
+        },
+        {
+          "type": "text",
+          "id": "detail_title_5",
+          "label": "详情-标题5"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_introduction_video_url_5",
+          "label": "详情-介绍-视频5"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_set_up_video_url_5",
+          "label": "详情-设置-视频5"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_printing_video_url_5",
+          "label": "详情-打印-视频5"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_maintenance_video_url_5",
+          "label": "详情-维护-视频5"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_troubleshoot_video_url_5",
+          "label": "详情-故障排除-视频5"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_software_video_url_5",
+          "label": "详情-软件-视频5"
+        },
+
+        {
+          "type": "url",
+          "id": "detail_software_url_5",
+          "label": "详情-软件-下载链接5"
+        },
+        {
+          "type": "url",
+          "id": "detail_user_manual_url_5",
+          "label": "详情-用户手册-下载链接5"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_6",
+          "label": "图6"
+        },
+        {
+          "type": "text",
+          "id": "img_t_6",
+          "label": "文6"
+        },
+        {
+          "type": "text",
+          "id": "params_t_6_1",
+          "label": "参数1"
+        },
+        {
+          "type": "text",
+          "id": "params_t_6_2",
+          "label": "参数2"
+        },
+        {
+          "type": "text",
+          "id": "params_t_6_3",
+          "label": "参数3"
+        },
+        {
+          "type": "text",
+          "id": "detail_title_6",
+          "label": "详情-标题6"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_introduction_video_url_6",
+          "label": "详情-介绍-视频6"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_set_up_video_url_6",
+          "label": "详情-设置-视频6"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_printing_video_url_6",
+          "label": "详情-打印-视频6"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_maintenance_video_url_6",
+          "label": "详情-维护-视频6"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_troubleshoot_video_url_6",
+          "label": "详情-故障排除-视频6"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_software_video_url_6",
+          "label": "详情-软件-视频6"
+        },
+
+        {
+          "type": "url",
+          "id": "detail_software_url_6",
+          "label": "详情-软件-下载链接6"
+        },
+        {
+          "type": "url",
+          "id": "detail_user_manual_url_6",
+          "label": "详情-用户手册-下载链接6"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_7",
+          "label": "图7"
+        },
+        {
+          "type": "text",
+          "id": "img_t_7",
+          "label": "文7"
+        },
+        {
+          "type": "text",
+          "id": "params_t_7_1",
+          "label": "参数1"
+        },
+        {
+          "type": "text",
+          "id": "params_t_7_2",
+          "label": "参数2"
+        },
+        {
+          "type": "text",
+          "id": "params_t_7_3",
+          "label": "参数3"
+        },
+        {
+          "type": "text",
+          "id": "detail_title_7",
+          "label": "详情-标题7"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_introduction_video_url_7",
+          "label": "详情-介绍-视频7"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_set_up_video_url_7",
+          "label": "详情-设置-视频7"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_printing_video_url_7",
+          "label": "详情-打印-视频7"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_maintenance_video_url_7",
+          "label": "详情-维护-视频7"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_troubleshoot_video_url_7",
+          "label": "详情-故障排除-视频7"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_software_video_url_7",
+          "label": "详情-软件-视频7"
+        },
+
+        {
+          "type": "url",
+          "id": "detail_software_url_7",
+          "label": "详情-软件-下载链接7"
+        },
+        {
+          "type": "url",
+          "id": "detail_user_manual_url_7",
+          "label": "详情-用户手册-下载链接7"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_8",
+          "label": "图8"
+        },
+        {
+          "type": "text",
+          "id": "img_t_8",
+          "label": "文8"
+        },
+        {
+          "type": "text",
+          "id": "params_t_8_1",
+          "label": "参数1"
+        },
+        {
+          "type": "text",
+          "id": "params_t_8_2",
+          "label": "参数2"
+        },
+        {
+          "type": "text",
+          "id": "params_t_8_3",
+          "label": "参数3"
+        },
+        {
+          "type": "text",
+          "id": "detail_title_8",
+          "label": "详情-标题8"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_introduction_video_url_8",
+          "label": "详情-介绍-视频8"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_set_up_video_url_8",
+          "label": "详情-设置-视频8"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_printing_video_url_8",
+          "label": "详情-打印-视频8"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_maintenance_video_url_8",
+          "label": "详情-维护-视频8"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_troubleshoot_video_url_8",
+          "label": "详情-故障排除-视频8"
+        },
+
+        {
+          "type": "textarea",
+          "id": "detail_software_video_url_8",
+          "label": "详情-软件-视频8；每个视频地址使用'^'符号来分割。"
+        },
+
+        {
+          "type": "url",
+          "id": "detail_software_url_8",
+          "label": "详情-软件-下载链接8"
+        },
+        {
+          "type": "url",
+          "id": "detail_user_manual_url_8",
+          "label": "详情-用户手册-下载链接8"
+        },
+
+        {
+          "type": "image_picker",
+          "id": "img_9",
+          "label": "图9"
+        },
+        {
+          "type": "text",
+          "id": "img_t_9",
+          "label": "文9"
+        },
+        {
+          "type": "text",
+          "id": "params_t_9_1",
+          "label": "参数1"
+        },
+        {
+          "type": "text",
+          "id": "params_t_9_2",
+          "label": "参数2"
+        },
+        {
+          "type": "text",
+          "id": "params_t_9_3",
+          "label": "参数3"
+        },
+        {
+          "type": "text",
+          "id": "detail_title_9",
+          "label": "详情-标题9"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_introduction_video_url_9",
+          "label": "详情-介绍-视频9"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_set_up_video_url_9",
+          "label": "详情-设置-视频9"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_printing_video_url_9",
+          "label": "详情-打印-视频9"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_maintenance_video_url_9",
+          "label": "详情-维护-视频9"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_troubleshoot_video_url_9",
+          "label": "详情-故障排除-视频9"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_software_video_url_9",
+          "label": "详情-软件-视频9；每个视频地址使用'^'符号来分割。"
+        },
+        {
+          "type": "url",
+          "id": "detail_software_url_9",
+          "label": "详情-软件-下载链接9"
+        },
+        {
+          "type": "url",
+          "id": "detail_user_manual_url_9",
+          "label": "详情-用户手册-下载链接9"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_10",
+          "label": "图10"
+        },
+        {
+          "type": "text",
+          "id": "img_t_10",
+          "label": "文10"
+        },
+        {
+          "type": "text",
+          "id": "params_t_10_1",
+          "label": "参数1"
+        },
+        {
+          "type": "text",
+          "id": "params_t_10_2",
+          "label": "参数2"
+        },
+        {
+          "type": "text",
+          "id": "params_t_10_3",
+          "label": "参数3"
+        },
+        {
+          "type": "text",
+          "id": "detail_title_10",
+          "label": "详情-标题10"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_introduction_video_url_10",
+          "label": "详情-介绍-视频10"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_set_up_video_url_10",
+          "label": "详情-设置-视频10"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_printing_video_url_10",
+          "label": "详情-打印-视频10"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_maintenance_video_url_10",
+          "label": "详情-维护-视频10"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_troubleshoot_video_url_10",
+          "label": "详情-故障排除-视频10"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_software_video_url_10",
+          "label": "详情-软件-视频10；每个视频地址使用'^'符号来分割。"
+        },
+        {
+          "type": "url",
+          "id": "detail_software_url_10",
+          "label": "详情-软件-下载链接10"
+        },
+        {
+          "type": "url",
+          "id": "detail_user_manual_url_10",
+          "label": "详情-用户手册-下载链接10"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_11",
+          "label": "图11"
+        },
+        {
+          "type": "text",
+          "id": "img_t_11",
+          "label": "文11"
+        },
+        {
+          "type": "text",
+          "id": "params_t_11_1",
+          "label": "参数1"
+        },
+        {
+          "type": "text",
+          "id": "params_t_11_2",
+          "label": "参数2"
+        },
+        {
+          "type": "text",
+          "id": "params_t_11_3",
+          "label": "参数3"
+        },
+        {
+          "type": "text",
+          "id": "detail_title_11",
+          "label": "详情-标题11"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_introduction_video_url_11",
+          "label": "详情-介绍-视频11"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_set_up_video_url_11",
+          "label": "详情-设置-视频11"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_printing_video_url_11",
+          "label": "详情-打印-视频11"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_maintenance_video_url_11",
+          "label": "详情-维护-视频11"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_troubleshoot_video_url_11",
+          "label": "详情-故障排除-视频11"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_software_video_url_11",
+          "label": "详情-软件-视频11；每个视频地址使用'^'符号来分割。"
+        },
+        {
+          "type": "url",
+          "id": "detail_software_url_11",
+          "label": "详情-软件-下载链接11"
+        },
+        {
+          "type": "url",
+          "id": "detail_user_manual_url_11",
+          "label": "详情-用户手册-下载链接11"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_12",
+          "label": "图12"
+        },
+        {
+          "type": "text",
+          "id": "img_t_12",
+          "label": "文12"
+        },
+        {
+          "type": "text",
+          "id": "params_t_12_1",
+          "label": "参数1"
+        },
+        {
+          "type": "text",
+          "id": "params_t_12_2",
+          "label": "参数2"
+        },
+        {
+          "type": "text",
+          "id": "params_t_12_3",
+          "label": "参数3"
+        },
+        {
+          "type": "text",
+          "id": "detail_title_12",
+          "label": "详情-标题12"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_introduction_video_url_12",
+          "label": "详情-介绍-视频12"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_set_up_video_url_12",
+          "label": "详情-设置-视频12"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_printing_video_url_12",
+          "label": "详情-打印-视频12"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_maintenance_video_url_12",
+          "label": "详情-维护-视频12"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_troubleshoot_video_url_12",
+          "label": "详情-故障排除-视频12"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_software_video_url_12",
+          "label": "详情-软件-视频12；每个视频地址使用'^'符号来分割。"
+        },
+        {
+          "type": "url",
+          "id": "detail_software_url_12",
+          "label": "详情-软件-下载链接12"
+        },
+        {
+          "type": "url",
+          "id": "detail_user_manual_url_12",
+          "label": "详情-用户手册-下载链接12"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_13",
+          "label": "图13"
+        },
+        {
+          "type": "text",
+          "id": "img_t_13",
+          "label": "文13"
+        },
+        {
+          "type": "text",
+          "id": "params_t_13_1",
+          "label": "参数1"
+        },
+        {
+          "type": "text",
+          "id": "params_t_13_2",
+          "label": "参数2"
+        },
+        {
+          "type": "text",
+          "id": "params_t_13_3",
+          "label": "参数3"
+        },
+        {
+          "type": "text",
+          "id": "detail_title_13",
+          "label": "详情-标题13"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_introduction_video_url_13",
+          "label": "详情-介绍-视频13"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_set_up_video_url_13",
+          "label": "详情-设置-视频13"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_printing_video_url_13",
+          "label": "详情-打印-视频13"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_maintenance_video_url_13",
+          "label": "详情-维护-视频13"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_troubleshoot_video_url_13",
+          "label": "详情-故障排除-视频13"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_software_video_url_13",
+          "label": "详情-软件-视频13；每个视频地址使用'^'符号来分割。"
+        },
+        {
+          "type": "url",
+          "id": "detail_software_url_13",
+          "label": "详情-软件-下载链接13"
+        },
+        {
+          "type": "url",
+          "id": "detail_user_manual_url_13",
+          "label": "详情-用户手册-下载链接13"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_14",
+          "label": "图14"
+        },
+        {
+          "type": "text",
+          "id": "img_t_14",
+          "label": "文14"
+        },
+        {
+          "type": "text",
+          "id": "params_t_14_1",
+          "label": "参数1"
+        },
+        {
+          "type": "text",
+          "id": "params_t_14_2",
+          "label": "参数2"
+        },
+        {
+          "type": "text",
+          "id": "params_t_14_3",
+          "label": "参数3"
+        },
+        {
+          "type": "text",
+          "id": "detail_title_14",
+          "label": "详情-标题14"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_introduction_video_url_14",
+          "label": "详情-介绍-视频14"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_set_up_video_url_14",
+          "label": "详情-设置-视频14"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_printing_video_url_14",
+          "label": "详情-打印-视频14"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_maintenance_video_url_14",
+          "label": "详情-维护-视频14"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_troubleshoot_video_url_14",
+          "label": "详情-故障排除-视频14"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_software_video_url_14",
+          "label": "详情-软件-视频14；每个视频地址使用'^'符号来分割。"
+        },
+        {
+          "type": "url",
+          "id": "detail_software_url_14",
+          "label": "详情-软件-下载链接14"
+        },
+        {
+          "type": "url",
+          "id": "detail_user_manual_url_14",
+          "label": "详情-用户手册-下载链接14"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_15",
+          "label": "图15"
+        },
+        {
+          "type": "text",
+          "id": "img_t_15",
+          "label": "文15"
+        },
+        {
+          "type": "text",
+          "id": "params_t_15_1",
+          "label": "参数1"
+        },
+        {
+          "type": "text",
+          "id": "params_t_15_2",
+          "label": "参数2"
+        },
+        {
+          "type": "text",
+          "id": "params_t_15_3",
+          "label": "参数3"
+        },
+        {
+          "type": "text",
+          "id": "detail_title_15",
+          "label": "详情-标题15"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_introduction_video_url_15",
+          "label": "详情-介绍-视频15"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_set_up_video_url_15",
+          "label": "详情-设置-视频15"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_printing_video_url_15",
+          "label": "详情-打印-视频15"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_maintenance_video_url_15",
+          "label": "详情-维护-视频15"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_troubleshoot_video_url_15",
+          "label": "详情-故障排除-视频15"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_software_video_url_15",
+          "label": "详情-软件-视频15；每个视频地址使用'^'符号来分割。"
+        },
+        {
+          "type": "url",
+          "id": "detail_software_url_15",
+          "label": "详情-软件-下载链接15"
+        },
+        {
+          "type": "url",
+          "id": "detail_user_manual_url_15",
+          "label": "详情-用户手册-下载链接15"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_16",
+          "label": "图16"
+        },
+        {
+          "type": "text",
+          "id": "img_t_16",
+          "label": "文16"
+        },
+        {
+          "type": "text",
+          "id": "params_t_16_1",
+          "label": "参数1"
+        },
+        {
+          "type": "text",
+          "id": "params_t_16_2",
+          "label": "参数2"
+        },
+        {
+          "type": "text",
+          "id": "params_t_16_3",
+          "label": "参数3"
+        },
+        {
+          "type": "text",
+          "id": "detail_title_16",
+          "label": "详情-标题16"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_introduction_video_url_16",
+          "label": "详情-介绍-视频16"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_set_up_video_url_16",
+          "label": "详情-设置-视频16"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_printing_video_url_16",
+          "label": "详情-打印-视频16"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_maintenance_video_url_16",
+          "label": "详情-维护-视频16"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_troubleshoot_video_url_16",
+          "label": "详情-故障排除-视频16"
+        },
+        {
+          "type": "textarea",
+          "id": "detail_software_video_url_16",
+          "label": "详情-软件-视频16；每个视频地址使用'^'符号来分割。"
+        },
+        {
+          "type": "url",
+          "id": "detail_software_url_16",
+          "label": "详情-软件-下载链接16"
+        },
+        {
+          "type": "url",
+          "id": "detail_user_manual_url_16",
+          "label": "详情-用户手册-下载链接16"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Support Products",
+      "blocks": [
+        {
+          "type": "products_tab",
+          "settings": {
+            "products_tab_t": "DTF"
+          }
+        },
+        {
+          "type": "products_tab",
+          "settings": {
+            "products_tab_t": "UV DTF"
+          }
+        },
+        {
+          "type": "products_tab",
+          "settings": {
+            "products_tab_t": "UV"
+          }
+        },
+        {
+          "type": "products_tab",
+          "settings": {
+            "products_tab_t": "DTG"
+          }
+        },
+        {
+          "type": "products_tab",
+          "settings": {
+            "products_tab_t": "SOFTWARE"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

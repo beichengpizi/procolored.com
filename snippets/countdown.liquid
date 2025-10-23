@@ -1,0 +1,26 @@
+{{ 'countdown.css' | asset_url | stylesheet_tag }}
+
+{% assign now_in_sec = 'now' | date: '%s' %}
+{% assign ending_in_sec = ending_time | date: '%s' %}
+{% if ending_in_sec > now_in_sec %}
+  <div id="coupon_countdown" class="grid-container">
+    <div class="grid-value days">1</div>
+    <div class="grid-colon">:</div>
+    <div class="grid-value hours">2</div>
+    <div class="grid-colon">:</div>
+    <div class="grid-value mins">3</div>
+    <div class="grid-colon">:</div>
+    <div class="grid-value secs">4</div>
+    <div class="grid-label">DAYS</div>
+    <div></div>
+    <div class="grid-label">HRS</div>
+    <div></div>
+    <div class="grid-label">MIN</div>
+    <div></div>
+    <div class="grid-label">SEC</div>
+  </div>
+  <script>
+    var countDownDate = new Date("{{ ending_time }}").getTime();
+  </script>
+{% endif %}
+{{ 'countdown.js' | asset_url | script_tag }}

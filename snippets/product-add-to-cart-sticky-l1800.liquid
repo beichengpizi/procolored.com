@@ -1,0 +1,409 @@
+{%- assign product_form_id = 'product-form-' | append: section.id -%}
+<style>
+  .right-box-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+  }
+  .right-box-product--container-info-product-info-klarna-pc {
+    display: flex;
+  }
+  .bottom-nav-jump-container-info-product-info-klarna-container {
+    display: none;
+  }
+  .right-box-container klarna-placement::part(osm-container) {
+    background: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  product-add-to-cart-sticky .product-price {
+    margin: 0;
+  }
+  .klarna-osm-wrapper{
+    line-height:1;
+  }
+  @media (max-width: 768px) {
+    .right-box-container {
+      align-items: start;
+    }
+    .product-add-to-cart-sticky-l1800.sticky--visible,
+    .product-add-to-cart-sticky-l1800 {
+      flex-direction: column;
+    }
+    .right-box-product--container-info-product-info-klarna-pc {
+      display: none;
+    }
+    .bottom-nav-jump-container-info-product-info-klarna-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0px 24px;
+      background-color: #f9f9f9;
+      min-height: 16px;
+    }
+    .product-add-to-cart-sticky-l1800:not(html) .inner {
+      padding: 10px 24px 10px;
+      flex-direction: column;
+      gap: 0;
+      width: 100vw;
+    }
+    .product-add-to-cart-sticky-l1800 .left-box .product-name:not(html) {
+      display: none;
+    }
+    .bottom-nav-jump-container-info-product-info-klarna-mb klarna-placement::part(osm-container) {
+      background: transparent;
+      border: none;
+      margin: 0;
+      padding: 0;
+      font-size: 10px;
+    }
+    .bottom-nav-jump-container-info-product-info-klarna-mb klarna-placement::part(osm-message) {
+      margin-left: 0;
+    }
+    .bottom-nav-jump-container-info-product-info-klarna-mb klarna-placement::part(osm-logo) {
+      font-size: 10px;
+    }
+      .bottom-nav-jump-container-info-product-info-klarna-mb klarna-placement::part(osm-cta) {
+      font-size: 10px;
+      line-height: 1;
+    }
+  }
+</style>
+<product-add-to-cart-sticky class="product-add-to-cart-sticky-l1800 no-js-hidden" data-section="{{ section.id }}">
+  <div class="bottom-nav-jump-container-info-product-info-klarna-container">
+    <div class="bottom-nav-jump-container-info-product-info-klarna-mb">
+      {% assign klarna_id = 'shopify-block-AbFBFd0QvcXlzYkYva__klarna_on_site_messaging_app_block_gcU6LY' %}
+      <!-- DO NOT DELETE -->
+      {% comment %} <klarna-placement id="{{ klarna_id }}"></klarna-placement> {% endcomment %}
+      <div class="klarna-osm-wrapper">
+        <klarna-placement
+          id="{{ klarna_id }}"
+          data-key="credit-promotion-auto-size"
+          data-theme="light"
+          data-message-prefix=""
+          data-integration-style="app-blocks"
+          data-locale="en-US"
+          data-purchase-amount="{{ product.price }}"
+          data-preloaded="true"
+        >
+        </klarna-placement>
+      </div>
+    </div>
+    <svg
+      class="bottom-nav-jump-container-info-product-info-klarna-mb-close-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+    >
+      <g clip-path="url(#clip0_7529_22184)">
+        <path d="M3.5502 12.8305L12.1037 4.27694M3.5502 4.27694L12.1037 12.8305" stroke="#3D3D3D" stroke-width="1.5" stroke-linecap="round"/>
+      </g>
+      <defs>
+        <clipPath id="clip0_7529_22184">
+          <rect width="16" height="16" fill="white"/>
+        </clipPath>
+      </defs>
+    </svg>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var closeIcon = document.querySelector('.bottom-nav-jump-container-info-product-info-klarna-mb-close-icon');
+      var klarnaContainer = document.querySelector('.bottom-nav-jump-container-info-product-info-klarna-container');
+      if (closeIcon && klarnaContainer) {
+        closeIcon.addEventListener('click', function () {
+          klarnaContainer.style.display = 'none';
+        });
+      }
+    });
+  </script>
+  <div class="inner">
+    <div class="left-box">
+      <div class="product-name">{{ product.title }}</div>
+    </div>
+    <div class="spacer"></div>
+    <div class="right-box">
+      <div class="right-box-container">
+        <div class="right-box-product-price-container">
+          <div class="product-price">
+            <div class="activity-price-display">
+              <span class="price ">
+                <ins
+                  ><span class="amount "> <span class="money"></span> </span
+                ></ins>
+                <del>
+                  {% if settings.currency_code_enabled %}
+                    {{ product.price | money_with_currency }}
+                  {% else %}
+                    {{ product.price | money }}
+                  {% endif %}
+                </del>
+
+                <small class="unit-price {% if product.selected_or_first_available_variant.unit_price_measurement == nil %} hidden{% endif %}">
+                  <span>{{- product.selected_or_first_available_variant.unit_price | money -}}</span>
+                  <span class="unit-price-separator">/</span>
+                  <span>
+                    {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value != 1 -%}
+                      {{- product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
+                    {%- endif -%}
+                    {{ product.selected_or_first_available_variant.unit_price_measurement.reference_unit }}
+                  </span>
+                </small>
+              </span>
+            </div>
+            {% render 'product-price-new', product: product, use_variant: true, show_badges: false %}
+            {% if product.selected_or_first_available_variant.compare_at_price
+                > product.selected_or_first_available_variant.price
+            %}
+              <span class="discount_amount color-{{ settings.sale_badge_color_scheme }}">
+                {% assign da = product.selected_or_first_available_variant.compare_at_price
+                  | minus: product.selected_or_first_available_variant.price
+                  | divided_by: 100.00
+                %}
+                {% assign da_split = da | round: 2 | split: '.' %}
+                {% assign da_int = da_split[0] %}
+                {% assign da_frac = da_split[1] | append: '00' | truncate: 2, '' %}
+                -${{ da_int }}.{{ da_frac }}
+              </span>
+            {% endif -%}
+          </div>
+        </div>
+        <div class="right-box-product--container-info-product-info-klarna-pc">
+          {% assign klarna_id = 'shopify-block-AbFBFd0QvcXlzYkYva__klarna_on_site_messaging_app_block_gcU6LY' %}
+          <!-- DO NOT DELETE -->
+          {% comment %} <klarna-placement id="{{ klarna_id }}"></klarna-placement> {% endcomment %}
+          <div class="klarna-osm-wrapper">
+            <klarna-placement
+              id="{{ klarna_id }}"
+              data-key="credit-promotion-auto-size"
+              data-theme="light"
+              data-message-prefix=""
+              data-integration-style="app-blocks"
+              data-locale="en-US"
+              data-purchase-amount="{{ product.selected_or_first_available_variant.price }}"
+              data-preloaded="true"
+            >
+            </klarna-placement>
+          </div>
+        </div>
+      </div>
+      {%- if product != blank -%}
+        <product-form
+          class="product-form"
+          data-sticky="1"
+          data-section="{{ section.id }}"
+        >
+          <div
+            class="product-form__error-message-wrapper form-notification error"
+            role="alert"
+            hidden
+          >
+            {% render 'svg-icons' with 'thb-error' %}
+            <span class="product-form__error-message"></span>
+          </div>
+
+          <style>
+            .product-add-to-cart-sticky-l1800 .product-add-to-cart-container .single-add-to-cart-button--text {
+              font-size: 14px !important;
+            }
+
+            @media (max-width: 768px) {
+              .product-add-to-cart-sticky-l1800 .product-add-to-cart-container .single-add-to-cart-button--text {
+                font-size: 16px !important;
+              }
+            }
+            .product-add-to-cart-sticky-l1800 .product-add-to-cart-container {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+            }
+            .product-add-to-cart-sticky-l1800 .right-box {
+              align-items: center;
+              gap: 16px;
+            }
+
+            .product-add-to-cart-sticky-l1800 .shopify-payment-button__more-options {
+              display: none !important;
+            }
+
+            .product-add-to-cart-sticky-l1800
+              .product-form
+              .product-add-to-cart-container
+              button.single-add-to-cart-button.button:not(html),
+            .product-add-to-cart-sticky-l1800
+              .shopify-payment-button__button.shopify-payment-button__button--branded
+              .shopify-cleanslate
+              div[role='button'],
+            .product-add-to-cart-sticky-l1800
+              .shopify-payment-button__button.shopify-payment-button__button--unbranded {
+              height: 44px !important;
+              min-height: 44px !important;
+              padding: 0 33px !important;
+              font-size: 14px !important;
+            }
+
+            @media (min-width: 768px) {
+              .product-add-to-cart-sticky-l1800
+                .product-form
+                .product-add-to-cart-container
+                button.single-add-to-cart-button.button:not(html),
+              .product-add-to-cart-sticky-l1800
+                .shopify-payment-button__button.shopify-payment-button__button--branded
+                .shopify-cleanslate
+                div[role='button'],
+              .product-add-to-cart-sticky-l1800
+                .shopify-payment-button__button.shopify-payment-button__button--unbranded {
+                width: 150px !important;
+              }
+            }
+
+            .product-add-to-cart-sticky-l1800
+              .shopify-payment-button__button.shopify-payment-button__button--branded
+              .shopify-cleanslate
+              div[role='button']
+              svg {
+              height: 15px !important;
+            }
+
+            .product-add-to-cart-sticky-l1800 .add_to_cart_holder {
+              width: 150px;
+            }
+            .product-add-to-cart-sticky-l1800 .product-add-to-cart-container form {
+              width: 150px;
+            }
+
+            @media (max-width: 768px) {
+              .product-add-to-cart-sticky-l1800 .add_to_cart_holder {
+                width: 100%;
+              }
+            }
+          </style>
+
+          <div class="product-add-to-cart-container">
+            <div class="form-notification error" style="display:none;"></div>
+            <div class="add_to_cart_holder">
+              <button
+                type="submit"
+                name="add"
+                id="AddToCartSticky"
+                class="single-add-to-cart-button button accent {% unless product.selected_or_first_available_variant.available %}sold-out{% endunless %}"
+                {% if product.selected_or_first_available_variant.available == false %}
+                  disabled
+                {% endif %}
+                form="{{ product_form_id }}"
+              >
+                <span class="single-add-to-cart-button--text">
+                  {%- if product.selected_or_first_available_variant.available -%}
+                    {{ 'products.product.add_to_cart' | t }}
+                  {%- else -%}
+                    {{ 'products.product.sold_out' | t }}
+                  {%- endif -%}
+                </span>
+                <span class="loading-overlay">
+                  {% render 'svg-icons' with 'thb-loading' %}
+                </span>
+              </button>
+            </div>
+          </div>
+        </product-form>
+      {%- else -%}
+        <div class="product-form">
+          <div class="product-form__buttons form">
+            <button
+              type="submit"
+              name="add"
+              class="single_add_to_cart_button button sold-out"
+              disabled
+            >
+              <span class="single-add-to-cart-button--text">{{ 'products.product.sold_out' | t }}</span>
+            </button>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</product-add-to-cart-sticky>
+{{ '20240802product-add-to-cart-sticky.js' | asset_url | script_tag }}
+{% comment %}
+  <product-add-to-cart-sticky class="product-add-to-cart-sticky no-js-hidden" data-section="{{ section.id }}">
+                              	<button class="product-add-to-cart-sticky--inner">
+                              		<div class="product-add-to-cart-sticky--image" id="product-image-{{ section.id }}--sticky">
+                              			{%- if media -%}
+                              				{%- render 'responsive-image', image: media, sizes: '160x0' -%}
+                              			{%- endif -%}
+                              		</div>
+                              		<div class="product-add-to-cart-sticky--info">
+                              			<div class="product-add-to-cart-sticky--title">{{ product.title }}</div>
+                              			<div id="price-{{ section.id }}--sticky">
+                              				{% render 'product-price', product: product, use_variant: true, show_badges: false %}
+                              			</div>
+                              		</div>
+                              		<span class="plus">{%- render 'svg-icons' with 'thb-collapsible-arrow' -%}</span>
+                              	</button>
+                              	<div class="product-add-to-cart-sticky--content">
+                              		{%- unless product.has_only_default_variant -%}
+                              		<variant-selects  id="variant-selects-{{ section.id }}--sticky" class="no-js-hidden variant-selects--sticky" data-section="{{ section.id }}" data-url="{{ product.url }}" data-sticky="1" data-is-disabled="{{ is_disabled }}">
+                              			<div class="variations">
+                              				{%- for option in product.options_with_values -%}
+                              					{%- liquid
+                              						assign option_name = option.name | downcase | escape
+                              						assign option_type = picker_type
+
+                              						if color_picker
+                                            if option_name contains 'color' or option_name contains 'colour' or option_name contains 'couleur' or option_name contains 'farbe'
+                              								assign option_type = 'color'
+                              							endif
+                              						endif
+                              					-%}
+                              					{% render 'product-option', option_type: option_type, product: product, option: option, forloop: forloop, product_form_id: product_form_id, sticky: true %}
+                              				{%- endfor -%}
+                              			</div>
+                              			<script type="application/json">
+                              				{{ product.variants | json }}
+                              			</script>
+                              		</variant-selects>
+                              		{%- endunless -%}
+                              		{%- if product != blank -%}
+                              		  <product-form class="product-form" data-sticky="1" data-section="{{ section.id }}">
+                              				<div class="product-form__error-message-wrapper form-notification error" role="alert" hidden>
+                              		      {% render 'svg-icons' with 'thb-error' %}
+                              		      <span class="product-form__error-message"></span>
+                              		    </div>
+                              				<div class="product-add-to-cart-container">
+                              					<div class="form-notification error" style="display:none;"></div>
+                              				  <div class="add_to_cart_holder">
+                              				    <button type="submit" name="add" id="AddToCartSticky" class="single-add-to-cart-button button accent {% unless product.selected_or_first_available_variant.available %}sold-out{% endunless %}" {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %} form="{{ product_form_id }}">
+                              							<span class="single-add-to-cart-button--text">
+                              								{%- if product.selected_or_first_available_variant.available -%}
+                              				          {{ 'products.product.add_to_cart' | t }}
+                              				        {%- else -%}
+                              				          {{ 'products.product.sold_out' | t }}
+                              				        {%- endif -%}
+                              							</span>
+                              							<span class="loading-overlay">
+                              								{% render 'svg-icons' with 'thb-loading' %}
+                              							</span>
+                              						</button>
+                              				  </div>
+                              				</div>
+                              			</product-form>
+                              		{%- else -%}
+                              	    <div class="product-form">
+                              	      <div class="product-form__buttons form">
+                              	        <button
+                              	          type="submit"
+                              	          name="add"
+                              	          class="single_add_to_cart_button button sold-out"
+                              	          disabled
+                              	        >
+                              	          <span class="single-add-to-cart-button--text">{{ 'products.product.sold_out' | t }}</span>
+                              	        </button>
+                              	      </div>
+                              	    </div>
+                              	  {%- endif -%}
+                              	</div>
+  </product-add-to-cart-sticky>
+{% endcomment %}

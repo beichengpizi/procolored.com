@@ -1,0 +1,291 @@
+{% comment %}
+  渲染产品对比页面的产品信息。
+
+  接受参数:
+  - model_series: 产品系列列表
+  - printer_type: 打印机类型,可选值: 'dtf' | 'uv_dtf' | 'uv' | 'dtg'
+
+  使用示例:
+  {% render 'product-comparison-meta', model_series: dtf_printer_series.value, printer_type: 'dtf' %}
+{% endcomment %}
+
+<div class="comparison-wrapper">
+  <!-- 产品基本信息对比区域 -->
+  <div class="comparison-section">
+    <div class="comparison-content">
+      {% for printer_series in model_series %}
+        {% assign product_size = collections[printer_series.handle].products.size %}
+
+        <!-- 每个产品系列的对比区块 -->
+        <div
+          id="{{ printer_type }}-comparison-{{ forloop.index0 }}"
+          class="{{ printer_type }}-comparison-{{ forloop.index0 }}-section compared-product"
+          data-products="{{ product_size }}"
+        >
+          <!-- 产品选择器 -->
+          <div class="printer-selector-wrapper">
+            <select
+              class="printer-selector"
+              onchange="handleSelectChange(event, {{ forloop.index0 }},'{{ printer_type }}')"
+            >
+              {%- for printer in collections[printer_series.handle].products -%}
+                <option
+                  value="{{ printer.id }}"
+                  {% if forloop.first %}
+                    selected
+                  {% endif %}
+                >
+                  {% comment %} {{ printer.title }} {% endcomment %}
+                  {{ printer.metafields.custom.name | default: printer.title }}
+                </option>
+              {%- endfor -%}
+            </select>
+          </div>
+
+          <!-- 产品详细信息展示 -->
+          {%- for product in collections[printer_series.handle].products -%}
+            <div
+              class="product-info-wrapper"
+              data-product-id="{{ product.id }}"
+              data-product-index="{{ forloop.index0 }}"
+              data-product-active="{% if forloop.first %}true{% else %}false{% endif %}"
+            >
+              <!-- 产品图片和价格 -->
+              <div>
+                <a
+                  href="{{ product.url | split: '?' | first }}"
+                  title="{{- product.title | escape -}}"
+                  class="product-img"
+                >
+                  {% assign image = product.featured_image %}
+                  {% assign size = 100 | divided_by: forloop.length | round %}
+                  <img
+                    width="{{ image.width }}"
+                    height="{{ image.height }}"
+                    style="aspect-ratio: {{ image.aspect_ratio }};width: 100%;"
+                    data-sizes="{{ size }}vw"
+                    data-srcset="
+                      {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                      {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                      {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                      {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                      {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                      {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                      {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                      {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                      {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                      {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                      {{ image | image_url }} {{ image.width }}w
+                    "
+                    data-src="{{ image | image_url:width:750 }}"
+                    class="lazyload"
+                    alt="{{ product.title | escape }}"
+                  >
+                </a>
+                <div class="price">{% render 'product-price', product: product, use_variant: true %}</div>
+              </div>
+
+              <!-- 购买按钮和了解更多链接 -->
+              <div>
+                <form method="post" action="/cart/add">
+                  <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                  <input min="1" type="number" id="quantity" name="quantity" value="1">
+                  <input type="submit" value="Buy Now" class="btn">
+                </form>
+                <a class="learn-more" href="{{ product.url }}">Learn More</a>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- 产品详细参数对比区域 -->
+  <div class="comparison-section">
+    <h2>Details</h2>
+
+    <!-- 额外设备需求 -->
+    <hr>
+    <h3>Extra Equipment Needed</h3>
+    <div class="comparison-content">
+      {% for printer_series in model_series %}
+        <div class="{{ printer_type }}-comparison-{{ forloop.index0 }}-section compared-product">
+          {%- for product in collections[printer_series.handle].products -%}
+            <div
+              class="product-info-wrapper"
+              data-product-id="{{ product.id }}"
+              data-product-index="{{ forloop.index }}"
+              data-product-active="{% if forloop.first %}true{% else %}false{% endif %}"
+            >
+              <p>
+                {% if product.metafields.custom.printer_description == blank -%}
+                  —
+                {%- else -%}
+                  {{- product.metafields.custom.printer_description -}}
+                {%- endif %}
+              </p>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <!-- 适合的企业规模 -->
+    <hr>
+    <h3>Suitable Business Size</h3>
+    <div class="comparison-content">
+      {% for printer_series in model_series %}
+        <div class="{{ printer_type }}-comparison-{{ forloop.index0 }}-section compared-product">
+          {%- for product in collections[printer_series.handle].products -%}
+            <div
+              class="product-info-wrapper"
+              data-product-id="{{ product.id }}"
+              data-product-index="{{ forloop.index }}"
+              data-product-active="{% if forloop.first %}true{% else %}false{% endif %}"
+            >
+              <p>
+                {% if product.metafields.custom.printer_suitable_business_size == blank -%}
+                  —
+                {%- else -%}
+                  {{- product.metafields.custom.printer_suitable_business_size -}}
+                {%- endif %}
+              </p>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <!-- 每小时打印量 -->
+    <hr>
+    <h3>Prints Per Hour</h3>
+    <div class="comparison-content">
+      {% for printer_series in model_series %}
+        <div class="{{ printer_type }}-comparison-{{ forloop.index0 }}-section compared-product">
+          {%- for product in collections[printer_series.handle].products -%}
+            <div
+              class="product-info-wrapper"
+              data-product-id="{{ product.id }}"
+              data-product-index="{{ forloop.index }}"
+              data-product-active="{% if forloop.first %}true{% else %}false{% endif %}"
+            >
+              <p>
+                {% if product.metafields.custom.prints_per_hour == blank -%}
+                  —
+                {%- else -%}
+                  {{- product.metafields.custom.prints_per_hour -}}
+                {%- endif %}
+              </p>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <!-- 打印头 -->
+    <hr>
+    <h3>Printer Head</h3>
+    <div class="comparison-content">
+      {% for printer_series in model_series %}
+        <div class="{{ printer_type }}-comparison-{{ forloop.index0 }}-section compared-product">
+          {%- for product in collections[printer_series.handle].products -%}
+            <div
+              class="product-info-wrapper"
+              data-product-id="{{ product.id }}"
+              data-product-index="{{ forloop.index }}"
+              data-product-active="{% if forloop.first %}true{% else %}false{% endif %}"
+            >
+              <p>
+                {% if product.metafields.custom.Printer_head == blank -%}
+                  —
+                {%- else -%}
+                  {{- product.metafields.custom.Printer_head -}}
+                {%- endif %}
+              </p>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <!-- 打印速度 -->
+    <hr>
+    <h3>Printing speed</h3>
+    <div class="comparison-content">
+      {% for printer_series in model_series %}
+        <div class="{{ printer_type }}-comparison-{{ forloop.index0 }}-section compared-product">
+          {%- for product in collections[printer_series.handle].products -%}
+            <div
+              class="product-info-wrapper"
+              data-product-id="{{ product.id }}"
+              data-product-index="{{ forloop.index }}"
+              data-product-active="{% if forloop.first %}true{% else %}false{% endif %}"
+            >
+              <p>
+                {% if product.metafields.custom.print_speed == blank -%}
+                  —
+                {%- else -%}
+                  {{- product.metafields.custom.print_speed -}}
+                {%- endif %}
+              </p>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <!-- 打印尺寸 -->
+    <hr>
+    <h3>Print Size</h3>
+    <div class="comparison-content">
+      {% for printer_series in model_series %}
+        <div class="{{ printer_type }}-comparison-{{ forloop.index0 }}-section compared-product">
+          {%- for product in collections[printer_series.handle].products -%}
+            <div
+              class="product-info-wrapper"
+              data-product-id="{{ product.id }}"
+              data-product-index="{{ forloop.index }}"
+              data-product-active="{% if forloop.first %}true{% else %}false{% endif %}"
+            >
+              <p>
+                {% if product.metafields.custom.print_size == blank -%}
+                  —
+                {%- else -%}
+                  {{- product.metafields.custom.print_size -}}
+                {%- endif %}
+              </p>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <!-- 支持的材料厚度 -->
+    <hr>
+    <h3>Substrate Thickness Allows</h3>
+    <div class="comparison-content">
+      {% for printer_series in model_series %}
+        <div class="{{ printer_type }}-comparison-{{ forloop.index0 }}-section compared-product">
+          {%- for product in collections[printer_series.handle].products -%}
+            <div
+              class="product-info-wrapper"
+              data-product-id="{{ product.id }}"
+              data-product-index="{{ forloop.index }}"
+              data-product-active="{% if forloop.first %}true{% else %}false{% endif %}"
+            >
+              <p>
+                {% if product.metafields.custom.substrate_thickness_allows == blank -%}
+                  —
+                {%- else -%}
+                  {{- product.metafields.custom.substrate_thickness_allows -}}
+                {%- endif %}
+              </p>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+    <hr>
+  </div>
+</div>

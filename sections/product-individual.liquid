@@ -1,0 +1,214 @@
+{% assign product = section.settings.pi_product %}
+{% assign product_form_id = 'product-form-' | append: section.id %}
+<style>
+  .product-individual {
+    padding: 60px 0;
+    background-color: #f8f9fd;
+  }
+  .product-individual p {
+    margin: 0;
+    padding: 0;
+  }
+  .pi-wrapper {
+    background-color: #fff;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 52px;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+
+  .pi-box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .pi-img img {
+    max-width: 488px;
+    height: auto;
+  }
+
+  .pi-info {
+    color: #000;
+    margin-left: 60px;
+  }
+  .pi-title {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+  }
+  .pi-desc {
+    margin: 20px 0 30px;
+  }
+  .pi-desc li {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  .pi-btn {
+    display: flex;
+    align-items: center;
+  }
+  .pi-btn a.viewmore {
+    font-size: 14px;
+    line-height: 18px;
+    margin-right: 10px;
+    padding: 10px 22px 9px;
+    border: 1px solid #ccc;
+    border-radius: 35px;
+  }
+  .pi-btn button.btn-adt {
+    background-color: #ffe8d1;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 10px 22px 9px;
+    border-radius: 35px;
+  }
+  @media screen and (max-width: 1248px) {
+    .product-individual {
+      padding: 30px 24px;
+    }
+    .pi-box {
+      justify-content: center;
+    }
+  }
+  @media screen and (max-width: 1024px) {
+    .pi-img img {
+      max-width: 330px;
+    }
+    .pi-info {
+      margin-left: 15px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .pi-wrapper {
+      border-radius: 10px;
+      padding: 16px 12px 40px;
+    }
+    .pi-box {
+      flex-direction: column;
+    }
+    .pi-info {
+      margin-left: 0;
+    }
+    .pi-img img {
+      max-width: 302px;
+    }
+    .pi-title {
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 22px;
+    }
+    .pi-desc {
+      margin: 20px 0;
+    }
+    .pi-desc ul.desc-box {
+      margin-left: 12px;
+      margin-bottom: 0;
+    }
+    .pi-desc li {
+      font-size: 12px;
+      line-height: 14px;
+    }
+  }
+</style>
+<div class="product-individual pi" id="{{ section.settings.id }}">
+  <div class="pi-wrapper">
+    <div class="pi-box">
+      <div class="pi-img">
+        <img src="{{ product.featured_image |  image_url: width: mater }}" alt="">
+      </div>
+      <div class="pi-info">
+        <p class="pi-title">{{ section.settings.pi_product_title }}</p>
+        <div class="pi-desc">
+          <ul class="desc-box">
+            {% if section.settings.pi_product_desc_1 != blank %}
+              <li class="desc">{{ section.settings.pi_product_desc_1 }}</li>
+            {% endif %}
+            {% if section.settings.pi_product_desc_2 != blank %}
+              <li class="desc">{{ section.settings.pi_product_desc_2 }}</li>
+            {% endif %}
+            {% if section.settings.pi_product_desc_3 != blank %}
+              <li class="desc">{{ section.settings.pi_product_desc_3 }}</li>
+            {% endif %}
+          </ul>
+        </div>
+        <div class="pi-btn">
+          <div class="pi-btn-viewmore">
+            <a href="{{ section.settings.pi_product.url }}" class="viewmore">View More</a>
+          </div>
+          <div class="pi-btn-adt">
+            {% render 'product-btn-adt', product: product, product_form_id: product_form_id %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Product Individual",
+  "settings": [
+    {
+      "type": "text",
+      "id": "id",
+      "label": "用于锚定的section的id",
+      "info": "页面唯一，不能重复，必须全英文"
+    },
+    {
+      "type": "number",
+      "id": "pi_width",
+      "label": "内容区域宽度",
+      "default": 1200,
+      "info": "内容区域的最大宽度就是PC端图片的最大宽度"
+    },
+    {
+      "type": "product",
+      "id": "pi_product",
+      "label": "产品选择"
+    },
+    {
+      "type": "textarea",
+      "id": "pi_product_title",
+      "label": "产品标题"
+    },
+    {
+      "type": "textarea",
+      "id": "pi_product_desc_1",
+      "label": "产品简述1"
+    },
+    {
+      "type": "textarea",
+      "id": "pi_product_desc_2",
+      "label": "产品简述2"
+    },
+    {
+      "type": "textarea",
+      "id": "pi_product_desc_3",
+      "label": "产品简述3"
+    },
+    {
+      "type": "color",
+      "id": "pi_bg",
+      "label": "模块背景色",
+      "default": "#f8f9fd"
+    },
+    {
+      "type": "color",
+      "id": "pi_content_bg",
+      "label": "内容区背景色",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "pi_adt_bg",
+      "label": "加购按钮背景色",
+      "default": "#ffe8d1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Individual"
+    }
+  ]
+}
+{% endschema %}

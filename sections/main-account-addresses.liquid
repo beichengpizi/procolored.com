@@ -1,0 +1,526 @@
+<script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+
+<account-address class="block relative lg:py-24" client:idle>
+  <div class="lg:container">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+      <div class="lg:col-span-1 lg:bg-white lg:rounded-2xl lg:px-6 lg:py-8 hidden lg:block">
+        {% comment %} 标题 {% endcomment %}
+        <a href="/account" class="gap-x-4 items-center hidden lg:inline-flex">
+          {% render 'member-icons', icon: 'account', class: 'w-4 h-4' %}
+          <span class="text-lg font-normal">Account Overview</span>
+        </a>
+
+        {% comment %} 菜单 {% endcomment %}
+        <div class="flex flex-col px-6 lg:px-0 mt-6 lg:mt-8 bg-white lg:gap-3">
+          <h3 class="text-xl mb-2 hidden lg:block text-heading">My Account</h3>
+          <a href="/account/addresses" class="flex items-center justify-between text-accent-hover">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'address' %}
+              <span class="text-sm lg:text-base font-normal">My Address</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+          <hr
+            class="m-0 border-gray-200 lg:hidden"
+          >
+          <a href="/account?view=order-all" class="flex items-center justify-between">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'order' %}
+              <span class="text-sm lg:text-base font-normal">My Order</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+        </div>
+
+        <div class="flex flex-col px-6 lg:px-0 mt-6 lg:mt-8 bg-white lg:gap-3">
+          <h3 class="text-xl mb-2 hidden lg:block">My Assets</h3>
+          <a href="/account?view=rewards" class="flex items-center justify-between">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'star' %}
+              <span class="text-sm lg:text-base font-normal">My Rewards</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+          <hr
+            class="m-0 border-gray-200 lg:hidden"
+          >
+          <a href="/account?view=gift-card" class="flex items-center justify-between">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'lw' %}
+              <span class="text-sm lg:text-base font-normal">My Gift Card</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+          <hr
+            class="m-0 border-gray-200 lg:hidden"
+          >
+          <a href="/account?view=coupon" class="flex items-center justify-between">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'coupon' %}
+              <span class="text-sm lg:text-base font-normal">My Coupon</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-white lg:rounded-2xl col-span-3">
+        <div class="flex flex-wrap lg:flex-row flex-col lg:justify-between gap-1 px-4 md:px-6 pt-8 pb-4 lg:items-center border-b border-x-0 border-t-0 border-solid border-gray-200">
+          <a class="flex items-center gap-x-2 md:hidden" href="/account">
+            {% render 'member-icons', icon: 'left-arrow' %}
+            <span class="text-xl font-bold">My Address</span>
+          </a>
+          <div class="hidden md:block">
+            <span class="text-xl font-bold">My Address</span>
+          </div>
+          {%- if customer.addresses.size > 0 -%}
+            <div class="flex lg:items-center flex-col lg:justify-between lg:flex-row gap-2 w-full">
+              <div class="flex items-center gap-1">
+                <span class="text-base text-gray-400">You have created {{ customer.addresses.size }} addresses.</span>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="mt-6 grid lg:grid-cols-2 gap-4 px-4 md:px-6 pb-6">
+          {%- for address in customer.addresses -%}
+            <address-card class="block bg-gray-100 p-6 rounded-lg shadow-sm border border-gray-200" client:idle>
+              <div class="flex items-center justify-between gap-2">
+                <h2 class="text-lg font-semibold text-gray-800 mb-0">{{ address.address1 }}</h2>
+                <div class="flex items-center gap-x-2">
+                  <button
+                    class="flex items-center justify-center text-accent hover:text-accent-hover transition-all"
+                    aria-label="{{ 'customer.addresses.edit_address' | t }} {{ forloop.index }}"
+                    aria-controls="EditAddress_{{ address.id }}"
+                    data-edit="EditAddress_{{ address.id }}"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="size-5 pointer-events-none"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                    </svg>
+
+                    <span class="sr-only">{{ 'customer.addresses.edit' | t }}</span>
+                  </button>
+                  <button
+                    class="flex items-center justify-center text-red-500 hover:text-red-600 transition-all"
+                    type="button"
+                    aria-label="{{ 'customer.addresses.delete' | t }} {{ forloop.index }}"
+                    data-delete="{{ address.url }}"
+                    data-confirm-message="{{ 'customer.addresses.delete_confirm' | t }}"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="size-5 pointer-events-none"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                    </svg>
+
+                    <span class="sr-only">{{ 'customer.addresses.delete' | t }}</span>
+                  </button>
+                </div>
+              </div>
+              <hr class="border-gray-300 mb-4">
+
+              <div class="grid grid-cols-2 gap-y-2 gap-x-4 text-sm">
+                <div class="font-bold text-gray-600">NAME:</div>
+                <div class="text-gray-800">
+                  {{- address.first_name }} &nbsp;
+                  {{ address.last_name -}}
+                </div>
+
+                <div class="font-bold text-gray-600">E-MAIL:</div>
+                <div class="text-gray-800">{{ customer.email }}</div>
+
+                <div class="font-bold text-gray-600">ADDRESS:</div>
+                <div class="text-gray-800">{{ address.address1 }}</div>
+
+                <div class="font-bold text-gray-600">ADDRESS 2:</div>
+                <div class="text-gray-800">{{ address.address2 }}</div>
+
+                <div class="font-bold text-gray-600">COUNTRY:</div>
+                <div class="text-gray-800">{{ address.country }}</div>
+
+                <div class="font-bold text-gray-600">ZIP:</div>
+                <div class="text-gray-800">{{ address.zip }}</div>
+
+                <div class="font-bold text-gray-600">PHONE:</div>
+
+                <div class="text-gray-800">{{ address.phone }}</div>
+              </div>
+
+              {%- if address == customer.default_address -%}
+                <div class="mt-4 flex justify-end">
+                  <span class="inline-flex items-center px-3 py-1 bg-white text-black text-sm font-medium rounded-full">
+                    <svg
+                      class="w-4 h-4 mr-1 bg-green-500 text-white rounded-full"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Default
+                  </span>
+                </div>
+              {%- endif -%}
+
+              <div
+                id="EditAddress_{{ address.id }}"
+                class="edit-address side-panel"
+                style="--bg-body: {{ settings.color_drawer_bg }}"
+              >
+                <div class="side-panel-header">
+                  <div>
+                    <span class="h6">{{ 'customer.addresses.edit_address' | t }}</span>
+                    <side-panel-close class="side-panel-close">
+                      {%- render 'svg-icons' with 'close' -%}
+                    </side-panel-close>
+                  </div>
+                </div>
+                <div class="side-panel-content">
+                  {%- form 'customer_address', address -%}
+                    <div class="fields">
+                      <div class="field">
+                        <input
+                          type="text"
+                          id="AddressFirstName_{{ form.id }}"
+                          name="address[first_name]"
+                          value="{{ form.first_name }}"
+                          autocomplete="given-name"
+                          placeholder="{{ 'customer.addresses.first_name' | t }}"
+                          class="full"
+                        >
+                        <label for="AddressFirstName_{{ form.id }}">{{ 'customer.addresses.first_name' | t }}</label>
+                      </div>
+                      <div class="field">
+                        <input
+                          type="text"
+                          id="AddressLastName_{{ form.id }}"
+                          name="address[last_name]"
+                          value="{{ form.last_name }}"
+                          autocomplete="family-name"
+                          placeholder="{{ 'customer.addresses.last_name' | t }}"
+                          class="full"
+                        >
+                        <label for="AddressLastName_{{ form.id }}">{{ 'customer.addresses.last_name' | t }}</label>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <input
+                        type="text"
+                        id="AddressCompany_{{ form.id }}"
+                        name="address[company]"
+                        value="{{ form.company }}"
+                        autocomplete="organization"
+                        placeholder="{{ 'customer.addresses.company' | t }}"
+                        class="full"
+                      >
+                      <label for="AddressCompany_{{ form.id }}">{{ 'customer.addresses.company' | t }}</label>
+                    </div>
+                    <div class="field">
+                      <input
+                        type="text"
+                        id="AddressAddress1_{{ form.id }}"
+                        name="address[address1]"
+                        value="{{ form.address1 }}"
+                        autocomplete="address-line1"
+                        placeholder="{{ 'customer.addresses.address1' | t }}"
+                        class="full"
+                      >
+                      <label for="AddressAddress1_{{ form.id }}">{{ 'customer.addresses.address1' | t }}</label>
+                    </div>
+                    <div class="field">
+                      <input
+                        type="text"
+                        id="AddressAddress2_{{ form.id }}"
+                        name="address[address2]"
+                        value="{{ form.address2 }}"
+                        autocomplete="address-line2"
+                        placeholder="{{ 'customer.addresses.address2' | t }}"
+                        class="full"
+                      >
+                      <label for="AddressAddress2_{{ form.id }}">{{ 'customer.addresses.address2' | t }}</label>
+                    </div>
+                    <div class="field">
+                      <input
+                        type="text"
+                        id="AddressCity_{{ form.id }}"
+                        name="address[city]"
+                        value="{{ form.city }}"
+                        autocomplete="address-level2"
+                        placeholder="{{ 'customer.addresses.city' | t }}"
+                        class="full"
+                      >
+                      <label for="AddressCity_{{ form.id }}">{{ 'customer.addresses.city' | t }}</label>
+                    </div>
+                    <div class="field">
+                      <select
+                        id="AddressCountry_{{ form.id }}"
+                        name="address[country]"
+                        data-address-country-select
+                        data-default="{{ form.country }}"
+                        data-form-id="{{ form.id }}"
+                        autocomplete="country"
+                        class="full"
+                      >
+                        {{ all_country_option_tags }}
+                      </select>
+                      <label for="AddressCountry_{{ form.id }}">
+                        {{ 'customer.addresses.country' | t }}
+                      </label>
+                      <div class="select-arrow">{%- render 'svg-icons' with 'thb-select' -%}</div>
+                    </div>
+                    <div class="field" id="AddressProvinceContainer_{{ form.id }}" style="display:none;">
+                      <select
+                        id="AddressProvince_{{ form.id }}"
+                        name="address[province]"
+                        data-default="{{ form.province }}"
+                        autocomplete="address-level1"
+                        class="full"
+                      ></select>
+                      <label for="AddressProvince_{{ form.id }}">
+                        {{ 'customer.addresses.province' | t }}
+                      </label>
+                      <div class="select-arrow">{%- render 'svg-icons' with 'thb-select' -%}</div>
+                    </div>
+                    <div class="field">
+                      <input
+                        type="text"
+                        id="AddressZip_{{ form.id }}"
+                        name="address[zip]"
+                        value="{{ form.zip }}"
+                        autocapitalize="characters"
+                        autocomplete="postal-code"
+                        placeholder="{{ 'customer.addresses.zip' | t }}"
+                        class="full"
+                      >
+                      <label for="AddressZip_{{ form.id }}">{{ 'customer.addresses.zip' | t }}</label>
+                    </div>
+                    <div class="field">
+                      <input
+                        type="tel"
+                        id="AddressPhone_{{ form.id }}"
+                        name="address[phone]"
+                        value="{{ form.phone }}"
+                        autocomplete="tel"
+                        placeholder="{{ 'customer.addresses.phone' | t }}"
+                        class="full"
+                      >
+                      <label for="AddressPhone_{{ form.id }}">{{ 'customer.addresses.phone' | t }}</label>
+                    </div>
+                    <div>
+                      {{ form.set_as_default_checkbox }}
+                      <label for="address_default_address_{{ form.id }}">
+                        {{ 'customer.addresses.set_default' | t }}
+                      </label>
+                    </div>
+                    <button class="button full mt-3">
+                      <span>{{ 'customer.addresses.update' | t }}</span>
+                    </button>
+                  {%- endform -%}
+                </div>
+              </div>
+            </address-card>
+          {%- endfor -%}
+
+          <div class="w-full min-h-80 bg-gray-100 p-6 rounded-lg shadow-sm border border-gray-200">
+            <div class="flex items-center justify-center w-full h-full">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-8"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+              </svg>
+
+              <button
+                type="button"
+                aria-expanded="false"
+                aria-controls="AddAddress"
+                class="text-accent hover:text-accent-hover hover:underline transition-all"
+                data-add-address
+              >
+                {{ 'customer.addresses.add_new' | t }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</account-address>
+
+<div class="side-panel" id="Side-Panel-Add-Address" style="--bg-body: {{ settings.color_drawer_bg }}">
+  <div class="side-panel-header">
+    <div>
+      <span class="h6">{{ 'customer.addresses.add_new' | t }}</span>
+      <side-panel-close class="side-panel-close">{%- render 'svg-icons' with 'close' -%}</side-panel-close>
+    </div>
+  </div>
+  <div class="side-panel-content">
+    {%- form 'customer_address', customer.new_address, aria-labelledBy: 'AddressNewHeading' -%}
+      <div class="fields">
+        <div class="field">
+          <input
+            type="text"
+            id="AddressFirstNameNew"
+            name="address[first_name]"
+            value="{{ form.first_name }}"
+            autocomplete="given-name"
+            placeholder="{{ 'customer.addresses.first_name' | t }}"
+            class="full"
+          >
+          <label for="AddressFirstNameNew">{{ 'customer.addresses.first_name' | t }}</label>
+        </div>
+        <div class="field">
+          <input
+            type="text"
+            id="AddressLastNameNew"
+            name="address[last_name]"
+            value="{{ form.last_name }}"
+            autocomplete="family-name"
+            placeholder="{{ 'customer.addresses.last_name' | t }}"
+            class="full"
+          >
+          <label for="AddressLastNameNew">{{ 'customer.addresses.last_name' | t }}</label>
+        </div>
+      </div>
+      <div class="field">
+        <input
+          type="text"
+          id="AddressCompanyNew"
+          name="address[company]"
+          value="{{ form.company }}"
+          autocomplete="organization"
+          placeholder="{{ 'customer.addresses.company' | t }}"
+          class="full"
+        >
+        <label for="AddressCompanyNew">{{ 'customer.addresses.company' | t }}</label>
+      </div>
+      <div class="field">
+        <input
+          type="text"
+          id="AddressAddress1New"
+          name="address[address1]"
+          value="{{ form.address1 }}"
+          autocomplete="address-line1"
+          placeholder="{{ 'customer.addresses.address1' | t }}"
+          class="full"
+        >
+        <label for="AddressAddress1New">{{ 'customer.addresses.address1' | t }}</label>
+      </div>
+      <div class="field">
+        <input
+          type="text"
+          id="AddressAddress2New"
+          name="address[address2]"
+          value="{{ form.address2 }}"
+          autocomplete="address-line2"
+          placeholder="{{ 'customer.addresses.address2' | t }}"
+          class="full"
+        >
+        <label for="AddressAddress2New">{{ 'customer.addresses.address2' | t }}</label>
+      </div>
+      <div class="field">
+        <input
+          type="text"
+          id="AddressCityNew"
+          name="address[city]"
+          value="{{ form.city }}"
+          autocomplete="address-level2"
+          placeholder="{{ 'customer.addresses.city' | t }}"
+          class="full"
+        >
+        <label for="AddressCityNew">{{ 'customer.addresses.city' | t }}</label>
+      </div>
+      <div class="field">
+        <select
+          id="AddressCountryNew"
+          name="address[country]"
+          data-default="{{ form.country }}"
+          autocomplete="country"
+          class="full"
+        >
+          {{ all_country_option_tags }}
+        </select>
+        <label for="AddressCountryNew">{{ 'customer.addresses.country' | t }}</label>
+        <div class="select-arrow">{%- render 'svg-icons' with 'thb-select' -%}</div>
+      </div>
+      <div id="AddressProvinceContainerNew" class="field" style="display: none">
+        <select
+          id="AddressProvinceNew"
+          name="address[province]"
+          data-default="{{ form.province }}"
+          autocomplete="address-level1"
+          class="full"
+        ></select>
+        <label for="AddressProvinceNew">{{ 'customer.addresses.province' | t }}</label>
+        <div class="select-arrow">{%- render 'svg-icons' with 'thb-select' -%}</div>
+      </div>
+      <div class="field">
+        <input
+          type="text"
+          id="AddressZipNew"
+          name="address[zip]"
+          value="{{ form.zip }}"
+          autocapitalize="characters"
+          autocomplete="postal-code"
+          placeholder="{{ 'customer.addresses.zip' | t }}"
+          class="full"
+        >
+        <label for="AddressZipNew">{{ 'customer.addresses.zip' | t }}</label>
+      </div>
+      <div class="field">
+        <input
+          type="tel"
+          id="AddressPhoneNew"
+          name="address[phone]"
+          value="{{ form.phone }}"
+          autocomplete="tel"
+          placeholder="{{ 'customer.addresses.phone' | t }}"
+          class="full"
+        >
+        <label for="AddressPhoneNew">{{ 'customer.addresses.phone' | t }}</label>
+      </div>
+      <div>
+        {{ form.set_as_default_checkbox }}
+        <label for="address_default_address_new">{{ 'customer.addresses.set_default' | t }}</label>
+      </div>
+      <div class="field mt-3">
+        <button class="button full">
+          <span>{{ 'customer.addresses.add' | t }}</span>
+        </button>
+      </div>
+    {%- endform -%}
+  </div>
+</div>

@@ -1,0 +1,96 @@
+{%- liquid
+  assign lazy_loading = setting.lazy_loading
+  assign image_sizes = sizes | split: ','
+
+  if priority
+    assign fetchpriority = priority
+  else
+    assign fetchpriority = 'auto'
+  endif
+
+  assign desktop_image = image
+  assign mobile_image = image_mobile
+-%}
+
+{%- comment %} Generate srcsets for desktop and mobile {%- endcomment %}
+{%- capture desktop_srcset -%}
+  {%- for size in image_sizes -%}
+    {%- liquid
+      assign size_array = size | split: "x"
+      assign size_width = size_array[0]
+      assign size_x = size_width | append: 'x'
+      if size_width == "0"
+        assign size_width = desktop_image.width | times: size_array[1] | divided_by: desktop_image.height | floor
+      endif
+    -%}
+    {{- desktop_image.src | img_url: size_x, crop: 'center' }} {{ size_width }}w,
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- capture mobile_srcset -%}
+  {%- if mobile_image -%}
+    {%- for size in image_sizes -%}
+      {%- liquid
+        assign size_array = size | split: "x"
+        assign size_width = size_array[0]
+        assign size_x = size_width | append: 'x'
+        if size_width == "0"
+          assign size_width = mobile_image.width | times: size_array[1] | divided_by: mobile_image.height | floor
+        endif
+      -%}
+      {{- mobile_image.src | img_url: size_x, crop: 'center' }} {{ size_width }}w,
+    {%- endfor -%}
+  {%- else -%}
+    {{- desktop_srcset -}}
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- liquid
+  assign l = desktop_srcset | size | minus: 1
+  assign w = desktop_image.width
+  assign h = desktop_image.height
+  if retina
+    assign w = desktop_image.width | divided_by: 2
+    assign h = desktop_image.height | divided_by: 2
+  endif
+
+  assign focal_point = desktop_image.presentation.focal_point
+
+  capture src
+    if lazy_loading
+      echo desktop_image.src | img_url: '20x', crop: 'center'
+    else
+      echo desktop_image.src | img_url: image_sizes[0], crop: 'center'
+    endif
+  endcapture
+-%}
+
+{% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
+<picture>
+  <source media="(min-width: 768px)" data-srcset="{{ desktop_srcset | slice: 0, l | strip_newlines }}" data-sizes="auto">
+  <source media="(max-width: 767px)" data-srcset="{{ mobile_srcset | slice: 0, l | strip_newlines }}" data-sizes="auto">
+  <img
+    class="lazyload{% unless lazy_loading %} no-blur{% endunless %}{% if retina %} retina_size{% endif %} {{ class | escape }}"
+    width="{{ w }}"
+    height="{{ h }}"
+    data-src="{{- src -}}"
+    alt="{{ desktop_image.alt | escape }}"
+    fetchpriority="{{ fetchpriority }}"
+    {% if focal_point -%}
+      style="object-position: {{ focal_point }};"
+    {% endif %}
+  >
+</picture>
+<noscript>
+  <img
+    class="lazyload"
+    width="{{ desktop_image.width }}"
+    height="{{ desktop_image.height }}"
+    data-src="{{- desktop_image.src | img_url: image_sizes[0], crop: 'center' -}}"
+    alt="{{ desktop_image.alt | escape }}"
+    {% if focal_point -%}
+      style="object-position: {{ focal_point }};"
+    {% endif %}
+  >
+</noscript>
+{% comment %}theme-check-enable ImgLazyLoading{% endcomment %}

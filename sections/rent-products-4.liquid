@@ -1,0 +1,1281 @@
+<style>
+    .rent-products-{{ section.id }} {
+      /* background: #fff; */
+      padding-bottom: 60px;
+    }
+
+    .rent-products-{{ section.id }} .main-card {
+      max-width: 1200px;
+      margin: 0 auto 0 auto;
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px 40px 27px 40px;
+      display: flex;
+      row-gap: 15px;
+      flex-direction: column;
+    }
+
+    .rent-products-{{ section.id }} .main-card-header {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .rent-products-{{ section.id }} .rent-title {
+      color: #ff8f1c;
+      flex: 1;
+      font-family: Mulish;
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .rent-products-{{ section.id }} .rent-title.pc {
+      display: block;
+    }
+
+    .rent-products-{{ section.id }} .rent-title.mb {
+      display: none;
+    }
+
+    .rent-products-{{ section.id }} .lease-tip {
+      color: #000;
+      font-family: Mulish;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.38;
+      text-align: left;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .rent-products-{{ section.id }} .lease-tip .sub {
+      color: #000;
+      font-size: 14px;
+      line-height: 1.2;
+      font-weight: 400;
+    }
+
+    .rent-products-{{ section.id }} .main-card-content {
+      display: flex;
+      gap: 40px;
+    }
+
+    .rent-products-{{ section.id }} .img-area {
+      width: 50%;
+    }
+
+    .rent-products-{{ section.id }} .img-area img {
+      max-width: 100%;
+      object-fit: cover;
+      width: 100%;
+      aspect-ratio: 1;
+    }
+
+    .rent-products-{{ section.id }} .info-area {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .rent-products-{{ section.id }} .deposit {
+      margin-bottom: 4px;
+      color: #000;
+      font-family: Mulish;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.38;
+    }
+
+    .rent-products-{{ section.id }} .period {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #000;
+      font-family: Mulish;
+      font-size: 18px;
+      flex-wrap: wrap;
+      font-weight: 400;
+      line-height: 1.38;
+      padding-bottom: 12px;
+    }
+
+    .rent-products-{{ section.id }} .free-tag {
+      color: #ff8f1c;
+      border-radius: 5px;
+      padding: 2px 10px;
+      border: 1px solid #ff8f1c;
+      font-family: Mulish;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.25;
+    }
+
+    .rent-products-{{ section.id }} .product-option-area {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      width: 100%;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .rent-products-{{ section.id }} .product-option-item {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #F9F9F9;
+      background: #F9F9F9;
+      cursor: pointer;
+      color: #000;
+      text-align: center;
+      justify-content: center;
+      min-width: 154px;
+      min-height: 50px;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1; /* 140% */
+    }
+
+    .rent-products-{{ section.id }} .product-option-item.active {
+      border: 1px solid #FF8F1C;
+      font-weight: 700;
+    }
+
+    .rent-products-{{ section.id }} .desc-area {
+      color: #000;
+      font-family: Mulish;
+      font-size: 14px;
+      font-weight: 400;
+      padding: 18px 0;
+    }
+    .rent-products-{{ section.id }} .desc-tips{
+      font-family: Mulish;
+      font-size: 14px;
+      font-weight: 400;
+      padding-bottom: 10px;
+    }
+    .rent-products-{{ section.id }} .desc-tips span{
+      color: #000;
+
+    }
+
+    .rent-products-{{ section.id }} .desc-title {
+      margin-bottom: 8px;
+      color: #000;
+      text-decoration: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: Mulish;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.38;
+    }
+
+    .rent-products-{{ section.id }} .desc-list {
+      margin: 0;
+      padding: 20px 17px;
+      list-style: none;
+      border-radius: 10px;
+      background: #fffbf7;
+    }
+
+    .rent-products-{{ section.id }} .desc-list li {
+      display: flex;
+      gap: 4px;
+      flex-direction: column;
+    }
+
+    .rent-products-{{ section.id }} .desc-list li:first-child {
+      margin-bottom: 14px;
+    }
+
+    .rent-products-{{ section.id }} .desc-list li div {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #6d6d6d;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.77;
+    }
+
+    .rent-products-{{ section.id }} .desc-list li div:first-child {
+      color: #000;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    .rent-products-{{ section.id }} .desc-list svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    .rent-products-{{ section.id }} .btn-group-wrapper{
+      display: flex;
+      gap: 10px;
+      align-items: center;
+  }
+    .rent-products-{{ section.id }} .add-cart-btn ,.rent-products-{{ section.id }} .signpanda-custom-btn {
+      background: #ff8f1c;
+      color: #fff;
+      border: none;
+      border-radius: 99px;
+      font-family: Mulish;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1;
+      padding: 10px 24px;
+      cursor: pointer;
+      display: inline-flex;
+      min-height: 40px;
+      justify-content: center;
+      align-items: center;
+      width: max-content;
+      height: auto;
+      margin: 0;
+    }
+
+    .rent-products-{{ section.id }} .signpanda-custom-btn{
+      position: relative;
+      margin-left: 0 !important;
+      background-color:#aba59f;
+      color: transparent !important;
+      display:none !important;
+    }
+    /* signpanda-custom-btn 的文本值替换为Sign Contract */
+    .rent-products-{{ section.id }} .signpanda-custom-btn::after {
+      content: "Sign Contract";
+      position: absolute;
+      color: #fff;
+      font-size: inherit;
+      font-family: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      background: none;
+      border: none;
+      margin-left: 0;
+      padding: 0;
+    }
+    .rent-products-{{ section.id }} .signpanda-custom-btn svg{
+      position: absolute;
+      width: 20px;
+      height: 20px;
+    }
+    .rent-products-{{ section.id }}  #signpanda-btn{
+      background: #ff8f1c !important;
+    }
+    .rent-products-{{ section.id }}  .product-card--add-to-cart-button-wrapper{
+      padding-top: 0;
+    }
+
+    #hidden-content-{{ section.id }} {
+      max-width: 560px;
+      padding: 30px 20px;
+      border-radius: 10px;
+    }
+
+    .fancybox-slide--html .fancybox-close-small {
+      padding: 0;
+      width: 22px;
+      height: 22px;
+      top: 30px;
+      right: 20px;
+      color: #000;
+    }
+
+    #hidden-content-{{ section.id }} .modal-title {
+      color: #000;
+      /* MB/H4四级标题 */
+      font-family: Mulish;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.38; /* 138% */
+      padding-bottom: 16px;
+      border-bottom: 1px solid #F0F0F0;
+    }
+
+    #hidden-content-{{ section.id }} .modal-content {
+      color: #3D3D3D;
+      padding-top: 16px;
+      /* PC/小文本 */
+      font-family: Mulish;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.4; /* 140% */
+    }
+
+    .img-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 0 80px;
+    }
+
+    .gallery-thumbs {
+      {% comment %} height: 48px; {% endcomment %}
+      box-sizing: border-box;
+      width: max-content;
+    }
+
+    .gallery-thumb-img-wrapper {
+      width: 48px;
+    }
+
+    .gallery-thumbs .swiper-slide {
+    }
+
+    .gallery-thumbs .swiper-slide-active .gallery-thumb-img-wrapper {
+      border-radius: 5px;
+      border: 1px solid #FF8F1C;
+      overflow: hidden;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      width: 40px;
+      height: 40px;
+      background-size: 100%;
+    }
+
+    .swiper-button-prev,
+    .swiper-container-rtl .swiper-button-next {
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%20viewBox='0%200%2040%2040'%20fill='none'%3E%3Ccircle%20cx='20'%20cy='20'%20r='20'%20fill='black'%20fill-opacity='0.3'/%3E%3Cpath%20d='M23%2013.5C22.65%2013.82%2018.1875%2017.8667%2016%2019.6L23%2026'%20stroke='white'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E");
+      left: 0;
+      right: auto;
+    }
+
+    .swiper-button-next,
+    .swiper-container-rtl .swiper-button-prev {
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%20viewBox='0%200%2040%2040'%20fill='none'%3E%3Ccircle%20cx='20'%20cy='20'%20r='20'%20transform='matrix(-1%200%200%201%2040%200)'%20fill='black'%20fill-opacity='0.3'/%3E%3Cpath%20d='M17%2013C17.35%2013.32%2021.8125%2017.8667%2024%2019.6L17%2026'%20stroke='white'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E");
+      right: 25px;
+      left: auto;
+    }
+
+    .swiper-pagination-{{ section.id }} {
+      display: none;
+    }
+
+    @media (max-width: 1068px) {
+      .rent-products-{{ section.id }} {
+        padding: 0 24px 20px 24px;
+      }
+
+      .rent-products-{{ section.id }} .rent-title.pc {
+        display: none;
+      }
+
+      .rent-products-{{ section.id }} .lease-tip {
+        width: 100%;
+        justify-content: center;
+        font-size: 14px;
+        line-height: 1.4;
+        gap: 0;
+      }
+
+      .rent-products-{{ section.id }} .lease-tip .sub {
+        font-size: 12px;
+        line-height: 1.4;
+      }
+
+      .rent-products-{{ section.id }} .main-card {
+        margin: 0;
+        border-radius: 10px;
+        padding: 14px 10px 20px 10px;
+        max-width: 100vw;
+        gap: 0;
+      }
+
+      .rent-products-{{ section.id }} .main-card-content {
+        display: flex;
+        gap: 0;
+        flex-direction: column;
+      }
+
+      .rent-products-{{ section.id }} .img-wrapper {
+        padding: 0 40px;
+        padding-bottom: 14px;
+      }
+
+      .rent-products-{{ section.id }} .img-area {
+        border-radius: 0;
+        min-height: auto;
+        padding: 10px 0;
+        border: none;
+        width: 100%;
+      }
+
+      {% comment %} .rent-products-{{ section.id }} .img-area img{
+        aspect-ratio: 1;
+      } {% endcomment %}
+
+      .rent-products-{{ section.id }} .rent-title.mb {
+        display: block;
+        text-align: center;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.33;
+      }
+
+      .rent-products-{{ section.id }} .deposit {
+        font-size: 14px;
+        line-height: 1.4;
+        text-align: center;
+      }
+
+      .rent-products-{{ section.id }} .period {
+        align-items: center;
+        gap: 4px;
+        font-size: 14px;
+        line-height: 1.4;
+        padding-bottom: 16px;
+        flex-direction: column;
+      }
+
+      .rent-products-{{ section.id }} .desc-area {
+        padding: 14px 0;
+      }
+
+      .rent-products-{{ section.id }} .desc-title {
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      .rent-products-{{ section.id }} .desc-list {
+        padding: 14px 12px;
+        border-radius: 5px;
+      }
+
+      .rent-products-{{ section.id }} .desc-list li {
+        gap: 6px;
+      }
+
+      .rent-products-{{ section.id }} .desc-list li div {
+        align-items: start;
+        gap: 6px;
+        line-height: 1.4;
+        font-size: 14px;
+      }
+
+      .rent-products-{{ section.id }} .desc-list li div:first-child {
+        font-size: 14px;
+      }
+
+      .rent-products-{{ section.id }} .add-cart-btn {
+        margin-top: 0;
+        width: 100%;
+      }
+
+      .rent-products-{{ section.id }} .product-card--add-to-cart-button-wrapper {
+        padding: 0;
+      }
+
+      #hidden-content-{{ section.id }} {
+        max-width: 100%;
+        margin-left: 24px;
+        margin-right: 24px;
+      }
+
+      .fancybox-slide--html .fancybox-close-small {
+        padding: 0;
+        width: 22px;
+        height: 22px;
+        top: 30px;
+        right: 20px;
+      }
+
+      #hidden-content-{{ section.id }} .modal-title {
+        font-size: 16px;
+        line-height: 1.4; /* 138% */
+        padding-bottom: 14px;
+      }
+
+      #hidden-content-{{ section.id }} .modal-content {
+        padding-top: 14px;
+        font-size: 14px;
+      }
+
+      .rent-products-{{ section.id }} .product-option-area {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        width: calc(100% - 10px) / 2;
+        align-items: center;
+        padding-bottom: 14px;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .rent-products-{{ section.id }} .product-option-item {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #F9F9F9;
+        background: #F9F9F9;
+        cursor: pointer;
+        color: #000;
+        text-align: center;
+        justify-content: center;
+        min-width: 140px;
+        min-height: 40px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1; /* 140% */
+      }
+
+      .rent-products-{{ section.id }} .swiper-button-prev,
+      .rent-products-{{ section.id }} .swiper-button-next {
+        display: none;
+      }
+
+      .rent-products-{{ section.id }} .gallery-thumbs {
+        display: none;
+      }
+
+      .swiper-pagination-{{ section.id }} {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+      }
+
+      .swiper-pagination-{{ section.id }} .swiper-pagination-bullet {
+        width: 48px;
+        height: 3px;
+        display: inline-block;
+        border-radius: 0;
+        background: rgba(235, 235, 235, 1);
+        opacity: 1;
+        margin: 0 !important;
+      }
+
+      .swiper-pagination-{{ section.id }} .swiper-pagination-bullet-active {
+        opacity: 1;
+        background: #FF8F1C;
+      }
+      .rent-products-{{ section.id }} .btn-group-wrapper{
+        flex-direction: column;
+      }
+      .rent-products-{{ section.id }} .signpanda-custom-btn{
+        width:100%;
+      }
+      .rent-products-{{ section.id }} .btn-group-wrapper product-card{
+        width:100%;
+      }
+      .rent-products-{{ section.id }} .desc-tips{
+        font-size: 12px;
+
+      }
+    }
+</style>
+{%- if section.settings.headding != blank -%}
+{%- endif -%}
+{% assign available = false %}
+{% for deposit_as_discount in shop.metaobjects.deposit_as_discount.values limit: 1 %}
+  {% assign original_deposit = deposit_as_discount.original_deposit.value %}
+{% endfor %}
+{% for product in section.settings.product_list limit: 1 -%}
+  {% assign variant_id = product.selected_or_first_available_variant.id %}
+  {% assign price = product.selected_or_first_available_variant.price %}
+  {% assign deposit = product.metafields.custom.deposit.value | default: original_deposit %}
+  {% assign available = product.selected_or_first_available_variant.available %}
+{%- endfor -%}
+
+<div class="rent-products-{{ section.id }}">
+  <div class="main-card">
+    <div class="main-card-header">
+      <div class="lease-tip">
+        {%- if section.settings.product_img_headding != blank -%}
+          <span class="title">{{- section.settings.product_img_headding -}}</span>
+        {%- endif -%}
+        {%- if section.settings.product_img_subheadding != blank -%}
+          <span class="sub">{{- section.settings.product_img_subheadding -}}</span>
+        {%- endif -%}
+      </div>
+      <div class="rent-title pc">
+        Rent: <span> {{ price | money_without_trailing_zeros -}}</span>
+      </div>
+    </div>
+    <div class="main-card-content">
+      <div class="img-area">
+        <div class="gallery-top swiper-container ">
+          <div class="swiper-wrapper">
+            {% for product in section.settings.product_list -%}
+              {% assign option_image = 'image_' | append: forloop.index %}
+              {% assign image = section.settings[option_image] %}
+              <div class="swiper-slide">
+                <div class="img-wrapper">
+                  {%- if image -%}
+                    <img
+                      data-sizes="100vw"
+                      data-srcset="
+                        {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                        {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                        {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                        {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                        {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                        {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                        {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                        {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                        {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                        {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                        {{ image | image_url }} {{ image.width }}w
+                      "
+                      data-src="{{ image | image_url:width:750 }}"
+                      class="lazyload "
+                    >
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+          <div class="swiper-button-next swiper-button-white"></div>
+          <div class="swiper-button-prev swiper-button-white"></div>
+          <div class="swiper-pagination swiper-pagination-{{ section.id }}"></div>
+        </div>
+        <div class="gallery-thumbs swiper-container">
+          <div class="swiper-wrapper">
+            {% for product in section.settings.product_list -%}
+              {% assign option_name = 'product_option_name_' | append: forloop.index %}
+              {% assign option_image = 'image_' | append: forloop.index %}
+              {% assign product_option_name = section.settings[option_name] %}
+              {% assign image = section.settings[option_image] %}
+
+              <div class="swiper-slide">
+                <div class="gallery-thumb-img-wrapper">
+                  {%- if image -%}
+                    <img
+                      data-sizes="10vw"
+                      data-srcset="
+                        {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                        {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                        {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                        {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                        {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                        {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                        {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                        {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                        {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                        {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                        {{ image | image_url }} {{ image.width }}w
+                      "
+                      data-src="{{ image | image_url:width:750 }}"
+                      class="lazyload "
+                    >
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+      <!-- 信息区域 -->
+      <div class="info-area">
+        <div class="rent-title mb">
+          Rent: <span>{{ price | money_without_trailing_zeros -}}</span>
+        </div>
+        <div class="deposit">
+          {{- deposit | money_without_trailing_zeros }}
+          Deposit
+        </div>
+        <div class="period">
+          {%- if section.settings.rental_period_heading != blank -%}
+            <span>{{- section.settings.rental_period_heading -}}</span>
+          {%- endif -%}
+          {%- if section.settings.rental_period_description != blank -%}
+            <span class="free-tag">{{- section.settings.rental_period_description -}}</span>
+          {%- endif -%}
+        </div>
+        <div class="product-option-area">
+          {% for product in section.settings.product_list %}
+            {% assign option_name = 'product_option_name_' | append: forloop.index %}
+            {% assign option_image = 'image_' | append: forloop.index %}
+            {% assign product_option_name = section.settings[option_name] %}
+            {% assign product_option_image = section.settings[option_image] | image_url %}
+            {% assign product_option_price = product.selected_or_first_available_variant.price %}
+            {% if product_option_name != blank and product_option_image != blank %}
+              <div
+                class="product-option-item {% if forloop.first %}active{% endif %}"
+                data-product-option-id="{{ product.selected_or_first_available_variant.id }}"
+                data-product-option-price="{{ product_option_price}}"
+                data-product-option-image="{{ product_option_image }}"
+                data-product-option-name="{{ product_option_name }}"
+                onclick="selectProductOption({{forloop.index0}})"
+              >
+                <div class="product-option-item-name">
+                  <span>{{ product_option_name }}</span>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="desc-area">
+          <a
+            class="desc-title"
+            data-fancybox
+            data-src="#hidden-content-{{ section.id }}"
+            href="javascript:;"
+          >
+            {%- if section.settings.rental_description_area_heading != blank -%}
+              <span>{{ section.settings.rental_description_area_heading }}</span>
+            {%- endif -%}
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+            >
+              <path
+                d="M7 4L12 9L7 14"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+
+          <ul class="desc-list">
+            <li>
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                >
+                  <g clip-path="url(#clip0_2175_1703)">
+                    <path
+                      d="M6.54545 0H11.4545C15.8182 0 18 2.18182 18 6.54545V11.4545C18 15.8182 15.8182 18 11.4545 18H6.54545C2.18182 18 0 15.8182 0 11.4545V6.54545C0 2.18182 2.18182 0 6.54545 0Z"
+                      fill="#FF8F1C"
+                    />
+                    <rect
+                      x="3.5"
+                      y="6.07239"
+                      width="11"
+                      height="2.42857"
+                      rx="1"
+                      stroke="white"
+                    />
+                    <path
+                      d="M13.6436 8.64221V12.9996C13.6434 13.8278 12.9717 14.4994 12.1436 14.4996H5.85742C5.02909 14.4996 4.35757 13.8279 4.35742 12.9996V8.64221H13.6436Z"
+                      stroke="white"
+                    />
+                    <path
+                      d="M9 6.6001V13.8001"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M7.28516 3.50012C7.95565 3.50012 8.49977 4.04355 8.5 4.71399V5.92883H7.28516C6.61472 5.92861 6.07129 5.38448 6.07129 4.71399C6.07152 4.04369 6.61486 3.50035 7.28516 3.50012Z"
+                      stroke="white"
+                    />
+                    <path
+                      d="M10.7148 3.50012C10.0444 3.50012 9.50023 4.04355 9.5 4.71399V5.92883H10.7148C11.3853 5.92861 11.9287 5.38448 11.9287 4.71399C11.9285 4.04369 11.3851 3.50035 10.7148 3.50012Z"
+                      stroke="white"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_2175_1703">
+                      <rect width="18" height="18" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+                {%- if section.settings.rent_end_heading != blank -%}
+                  <span>{{- section.settings.rent_end_heading -}}</span>
+                {%- endif -%}
+              </div>
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                >
+                  <path
+                    d="M3.75 9.5L7.25 12.5L14.25 5.5"
+                    stroke="#FF8F1C"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                {%- if section.settings.rent_end_desc != blank -%}
+                  <span>{{- section.settings.rent_end_desc -}}</span>
+                {%- endif -%}
+              </div>
+            </li>
+            <li>
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                >
+                  <g clip-path="url(#clip0_2175_1699)">
+                    <path
+                      d="M6.54545 0H11.4545C15.8182 0 18 2.18182 18 6.54545V11.4545C18 15.8182 15.8182 18 11.4545 18H6.54545C2.18182 18 0 15.8182 0 11.4545V6.54545C0 2.18182 2.18182 0 6.54545 0Z"
+                      fill="#FF8F1C"
+                    />
+                    <path
+                      d="M7.59277 3.56348C8.38882 3.02141 9.41976 2.98747 10.2451 3.46191L10.4072 3.56348L13.4072 5.60547C14.0908 6.07096 14.4998 6.84487 14.5 7.67188V12C14.5 13.3807 13.3807 14.5 12 14.5H6C4.61929 14.5 3.5 13.3807 3.5 12V7.67188C3.50015 6.89671 3.85978 6.16882 4.46777 5.69727L4.59277 5.60547L7.59277 3.56348Z"
+                      stroke="white"
+                    />
+                    <path
+                      d="M11 7H7.5C7.22386 7 7 7.22386 7 7.5V8.5C7 8.77614 7.22386 9 7.5 9H10.5C10.7761 9 11 9.22386 11 9.5V10.5C11 10.7761 10.7761 11 10.5 11H7"
+                      stroke="white"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M8.95215 6V6.73214"
+                      stroke="white"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M8.95215 11.125V12.5"
+                      stroke="white"
+                      stroke-linecap="round"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_2175_1699">
+                      <rect width="18" height="18" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+                {%- if section.settings.consideration_heading != blank -%}
+                  <span>{{- section.settings.consideration_heading -}}</span>
+                {%- endif -%}
+              </div>
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                >
+                  <path
+                    d="M3.75 9.5L7.25 12.5L14.25 5.5"
+                    stroke="#FF8F1C"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+
+                <span>Own the equipment: Deposit {{ deposit | money_without_trailing_zeros }} is non-refundable</span>
+              </div>
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                >
+                  <path
+                    d="M3.75 9.5L7.25 12.5L14.25 5.5"
+                    stroke="#FF8F1C"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+
+                <span
+                  >Returning the device: Full deposit {{ deposit | money_without_trailing_zeros }} will be refunded</span
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+        {% comment %}
+          <div class="desc-tips">
+            For your rental to be processed securely, please sign the contract by clicking the "<span>
+              Sign & Add To Cart</span
+            >" button below.
+          </div>
+        {% endcomment %}
+        <div class="btn-group-wrapper">
+          <div class="signpanda-custom-btn" data-signpanda-document-id="28250" type="embed">
+            Sign Contract{% render 'svg-icons' with 'thb-loading' %}
+          </div>
+
+          <product-card>
+            <div class="product-card--add-to-cart-button-wrapper">
+              <button
+                class=" add-cart-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                data-product-id="{{ variant_id }}"
+                tabindex="-1"
+                {% unless available %}
+                  disabled
+                {% endunless %}
+              >
+                {% render 'svg-icons' with 'thb-loading' %}
+                <span class="product-card--add-to-cart-text">
+                  {%- if available -%}
+                    {%- if section.settings.button_text != blank -%}
+                      {{- section.settings.button_text -}}
+
+                    {%- else -%}
+                      {{- 'products.product.add_to_cart' | t -}}
+                    {%- endif -%}
+
+                  {%- else -%}
+                    {{- 'products.product.sold_out' | t -}}
+                  {%- endif -%}
+                </span>
+              </button>
+            </div>
+          </product-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="display: none" id="hidden-content-{{ section.id }}">
+    {%- if section.settings.rental_description_area_heading != blank -%}
+      <div class="modal-title">{{ section.settings.rental_description_area_heading }}</div>
+    {%- endif -%}
+    <div class="modal-content">
+      The printer requires a {{ deposit | money_without_trailing_zeros }} deposit and a rental fee of
+      <span class="price-span-{{ section.id }}"> {{ price | money_without_trailing_zeros }}</span> for 3 months. Early
+      termination is allowed, but only the deposit will be refunded. After the initial rental period, there's a 3-month
+      consideration period with no additional fee. At the end of this period, you can either keep the device (the
+      deposit will not be refunded) or return it for a full deposit refund.
+    </div>
+  </div>
+</div>
+
+<script>
+      // 格式化货币
+      // 格式化金额为货币字符串
+      function formatMoney(cents, format) {
+        // 如果 cents 是字符串类型，去除小数点
+        if (typeof cents === 'string') {
+          cents = cents.replace('.', '');
+        }
+        let value = '';
+        // 占位符正则，用于匹配格式字符串中的 {{ amount }} 等
+        const placeholderRegex = /\{\{\s*(\w+)\s*\}\}/;
+        // 如果未传入 format，则使用 moneyFormat 变量
+        const formatString = format || moneyFormat;
+      
+        // 内部函数：根据分隔符和精度格式化数字
+        function formatWithDelimiters(
+          number,
+          precision = 2,
+          thousands = ',',
+          decimal = '.'
+        ) {
+          // 非数字或空值时返回0
+          if (isNaN(number) || number == null) {
+            return 0;
+          }
+          // 将分单位转换为元单位，并保留指定小数位
+          number = (number / 100.0).toFixed(precision);
+      
+          const parts = number.split('.');
+          // 千分位分隔
+          const dollarsAmount = parts[0].replace(
+            /(\d)(?=(\d\d\d)+(?!\d))/g,
+            `$1${thousands}`
+          );
+          // 小数部分
+          const centsAmount = parts[1] ? decimal + parts[1] : '';
+      
+          return dollarsAmount + centsAmount;
+        }
+      
+        // 根据格式字符串中的占位符类型选择不同的格式化方式
+        switch (formatString.match(placeholderRegex)[1]) {
+          case 'amount':
+            // 2位小数，千分位逗号
+            value = formatWithDelimiters(cents, 2);
+            break;
+          case 'amount_no_decimals':
+            // 无小数，千分位逗号
+            value = formatWithDelimiters(cents, 0);
+            break;
+          case 'amount_with_comma_separator':
+            // 2位小数，千分位点，小数逗号
+            value = formatWithDelimiters(cents, 2, '.', ',');
+            break;
+          case 'amount_no_decimals_with_comma_separator':
+            // 无小数，千分位点
+            value = formatWithDelimiters(cents, 0, '.', ',');
+            break;
+          case "amount_with_apostrophe_separator":
+            // 2位小数，千分位撇号
+            value = formatWithDelimiters(cents, 2, "'", ".");
+            break;
+        }
+      
+        // 用格式化后的金额替换格式字符串中的占位符
+        return formatString.replace(placeholderRegex, value);
+      }
+      // 格式化货币代码
+      const currency_code_enabled = theme.settings.currency_code_enabled
+      let format = theme.settings.money_format;
+      if(currency_code_enabled){
+        format = theme.settings.money_format;
+      }else{
+        format = theme.settings.money_format;
+      }
+      // 如果 this.format 包含 <span class="money"></span>，则提取 > 和 < 之间的内容作为格式
+      const moneySpanMatch = format.match(
+        /<span\s+class=["']money["']>(.*?)<\/span>/i
+      );
+      if (moneySpanMatch) {
+        format = moneySpanMatch[1];
+      }
+    // Swiper 4.x 及以上版本推荐使用controller.control方式进行联动
+    const galleryTop = new Swiper('.gallery-top', {
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      pagination: {
+        el: '.swiper-pagination-{{ section.id }}',
+        clickable: true,
+      },
+     
+      spaceBetween: 10,
+    });
+    const galleryThumbs = new Swiper('.gallery-thumbs', {
+      spaceBetween: 10,
+      slidesPerView: 2,
+      slideToClickedSlide: true,
+    });
+    // 使用controller.control实现联动，避免params.control失效
+    galleryTop.controller && (galleryTop.controller.control = galleryThumbs);
+    galleryThumbs.controller && (galleryThumbs.controller.control = galleryTop);
+    // galleryThumbs.slideTo(index); 无法触发，改用手动触发点击事件
+    function selectProductOption(index) {
+      // 先移除所有的激活状态
+      document.querySelectorAll('.product-option-item').forEach(function (item) {
+        item.classList.remove('active');
+      });
+      // 当前点击的添加
+      const currentItem = document.querySelectorAll('.product-option-item')[index];
+      currentItem.classList.add('active');
+
+      // 获取当前元素的data-product-option-name
+      const productOptionName = currentItem.getAttribute('data-product-option-name');
+      console.log('当前选中产品选项名称:', productOptionName);
+      // 获取当前元素的data-product-option-price
+      const productOptionPrice = currentItem.getAttribute('data-product-option-price');
+      console.log('当前选中产品选项价格:', productOptionPrice);
+      // 获取当前元素的data-product-option-id
+      const productOptionId = currentItem.getAttribute('data-product-option-id');
+      console.log('当前选中产品选项id:', productOptionId);
+
+      // 设置 .product-card--add-to-cart-button-wrapper 的 data-product-id 属性为 productOptionId
+      document.querySelectorAll('.rent-products-{{ section.id }}  .add-cart-btn').forEach(function(wrapper) {
+        wrapper.setAttribute('data-product-id', productOptionId);
+      });
+      document.querySelectorAll('.rent-title span').forEach(function(wrapper) {
+        
+        wrapper.textContent = window.formatMoney(productOptionPrice, format);
+      }); 
+      document.querySelectorAll('.rent-products-{{ section.id }} .price-span-{{ section.id }}').forEach(function(wrapper) {
+        wrapper.textContent = window.formatMoney(productOptionPrice, format);
+      }); 
+      // 手动触发缩略图点击事件，确保联动
+      const thumbSlides = document.querySelectorAll('.gallery-thumbs .swiper-slide');
+      if (thumbSlides[index]) {
+        thumbSlides[index].click();
+      }
+    }
+    // galleryThumbs 增加点击切换功能
+    // 同时激活.gallery-thumbs .swiper-slide 对应的
+    document.querySelectorAll('.gallery-thumbs .swiper-slide').forEach(function (slide, idx) {
+      slide.addEventListener('click', function () {
+        galleryTop.slideTo(idx);
+        // 移除所有缩略图的激活状态
+        document.querySelectorAll('.gallery-thumbs .swiper-slide').forEach(function (s) {
+          s.classList.remove('swiper-slide-active');
+        });
+        // 给当前点击的缩略图添加激活状态
+        slide.classList.add('swiper-slide-active');
+      });
+    });
+  {% comment %} 监听galleryTop的swiper-button-next和swiper-button-prev按钮，触发gallery-thumbs的切换 {% endcomment %}
+    // 监听主图swiper的切换按钮，联动缩略图swiper
+    document.querySelector('.swiper-button-next').addEventListener('click', function() {
+      setTimeout(function() {
+        var activeIndex = galleryTop.activeIndex;
+        galleryThumbs.slideTo(activeIndex);
+        // 激活对应缩略图
+        document.querySelectorAll('.gallery-thumbs .swiper-slide').forEach(function (s, idx) {
+          if(idx === activeIndex){
+            s.classList.add('swiper-slide-active');
+          }else{
+            s.classList.remove('swiper-slide-active');
+          }
+        });
+      }, 0);
+    });
+    document.querySelector('.swiper-button-prev').addEventListener('click', function() {
+      setTimeout(function() {
+        var activeIndex = galleryTop.activeIndex;
+        galleryThumbs.slideTo(activeIndex);
+        // 激活对应缩略图
+        document.querySelectorAll('.gallery-thumbs .swiper-slide').forEach(function (s, idx) {
+          if(idx === activeIndex){
+            s.classList.add('swiper-slide-active');
+          }else{
+            s.classList.remove('swiper-slide-active');
+          }
+        });
+      }, 0);
+    });
+</script>
+{% schema %}
+{
+  "name": "租赁产品3",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "产品租金及押金",
+      "info": "为满足不同货币之间换算，需要在产品元字段分别配置：rent price和deposit才可显示"
+    },
+    {
+      "type": "text",
+      "id": "product_img_headding",
+      "label": "产品图片顶部标题",
+      "default": "Lease available only in California, USA"
+    },
+    {
+      "type": "text",
+      "id": "product_img_subheadding",
+      "label": "产品图片顶部副标题",
+      "default": "(More regions are unlocked soon!)"
+    },
+    {
+      "type": "text",
+      "id": "rental_period_heading",
+      "label": "租期文案标题",
+      "default": "Rental Period: 3 months"
+    },
+    {
+      "type": "text",
+      "id": "rental_period_description",
+      "label": "租期文案描述",
+      "default": "Three months of free use after expiration"
+    },
+    {
+      "type": "text",
+      "id": "rental_description_area_heading",
+      "label": "租赁说明文案",
+      "default": "Rental Description Area"
+    },
+
+    {
+      "type": "text",
+      "id": "rent_end_heading",
+      "label": "租期结束文案标题",
+      "default": "At the end of the 3-month lease, you will receive:"
+    },
+    {
+      "type": "text",
+      "id": "rent_end_desc",
+      "label": "租期结束文案内容",
+      "default": "3-month consideration period (rent-free)"
+    },
+    {
+      "type": "text",
+      "id": "consideration_heading",
+      "label": "考虑期内文案标题",
+      "default": "During the consideration period:"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "产品图片1"
+    },
+    {
+      "type": "text",
+      "id": "product_option_name_1",
+      "label": "产品选项名称1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "产品图片2"
+    },
+    {
+      "type": "text",
+      "id": "product_option_name_2",
+      "label": "产品选项名称2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "产品图片3"
+    },
+    {
+      "type": "text",
+      "id": "product_option_name_3",
+      "label": "产品选项名称3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "产品图片4"
+    },
+    {
+      "type": "text",
+      "id": "product_option_name_4",
+      "label": "产品选项名称4"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5",
+      "label": "产品图片5"
+    },
+    {
+      "type": "text",
+      "id": "product_option_name_5",
+      "label": "产品选项名称5"
+    },
+    {
+      "type": "product_list",
+      "id": "product_list",
+      "label": "产品列表",
+      "limit": 5
+    },
+
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "按钮文本"
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "租赁产品3"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,254 @@
+{% liquid
+  if section.settings.row_tablet == 1
+    assign row_tablet = 'md:grid-cols-1'
+  endif
+
+  if section.settings.row_tablet == 2
+    assign row_tablet = 'md:grid-cols-2'
+  endif
+
+  if section.settings.row_tablet == 3
+    assign row_tablet = 'md:grid-cols-3'
+  endif
+
+  if section.settings.row == 1
+    assign row = 'lg:grid-cols-1'
+  endif
+
+  if section.settings.row == 2
+    assign row = 'lg:grid-cols-2'
+  endif
+
+  if section.settings.row == 3
+    assign row = 'lg:grid-cols-3'
+  endif
+
+  if section.settings.row == 4
+    assign row = 'lg:grid-cols-4'
+  endif
+
+  if section.settings.row == 5
+    assign row = 'lg:grid-cols-5'
+  endif
+
+  if section.settings.top == '17.5'
+    assign top = 'pt-8 md:pt-17.5'
+  elsif section.settings.top == '20'
+    assign top = 'pt-8 md:pt-20'
+  elsif section.settings.top == '24'
+    assign top = 'pt-8 md:pt-24'
+  elsif section.settings.top == '28'
+    assign top = 'pt-8 md:pt-28'
+  else
+    assign top = ''
+  endif
+
+  if section.settings.bottom == '17.5'
+    assign bottom = 'pb-8 md:pb-17.5'
+  elsif section.settings.bottom == '20'
+    assign bottom = 'pb-8 md:pb-20'
+  elsif section.settings.bottom == '24'
+    assign bottom = 'pb-8 md:pb-24'
+  elsif section.settings.bottom == '28'
+    assign bottom = 'pb-8 md:pb-28'
+  else
+    assign bottom = ''
+  endif
+%}
+<style>
+  .icon-with-text-{{ section.id }}  .title {
+      min-height: 56px;
+    }
+    @media only screen and (max-width: 768px) {
+      .icon-with-text-{{ section.id }}  .title {
+        min-height: 40px;
+      }
+    }
+</style>
+<div class="{{ top }} {{ bottom }} icon-with-text-{{ section.id }}" data-section-type="icon-with-text">
+  <div class="container">
+    {% if section.settings.headding != blank or section.settings.descriptiton != blank %}
+      <div class="mb-8 lg:mb-10 text-center max-w-4xl mx-auto px-4 lg:px-10">
+        {%- if section.settings.headding != blank -%}
+          <h2 class="text-3xl md:text-4xl">{{ section.settings.headding }}</h2>
+        {%- endif -%}
+        {% if section.settings.descriptiton != blank %}
+          <p class="m-0 text-sm md:text-base">{{ section.settings.descriptiton }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="w-full inline-grid grid-cols-2 gap-4 {{ row_tablet }} {{ row }}">
+      {%- for block in section.blocks -%}
+        <div class="md:rounded-2xl rounded-xl relative bg-white p-5 md:p-8 hover:bg-slate-50 shadow transition-colors">
+          {%- if block.settings.image -%}
+            {%- liquid
+              assign image = block.settings.image
+            -%}
+            <div class="rounded-full aspect-square w-10 h-10 md:w-14 md:h-14 bg-red-600 shadow overflow-hidden">
+              <img
+                data-src="{{ image | image_url }}"
+                class="lazyload w-full h-full object-cover object-center {% unless settings.lazy_loading %} no-blur{% endunless %}"
+                width="{{ image.src.width }}"
+                height="{{ image.src.height }}"
+                alt="{{ image.alt }}"
+              >
+            </div>
+          {%- else -%}
+            {{ 'collection-1' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+          {%- endif -%}
+          <h3 class="title text-sm md:text-xl leading-5 lg:text-2xl font-bold my-2 lg:my-4 lg:leading-7 md:tracking-wide">
+            {{ block.settings.headding }}
+          </h3>
+          <div class="text-sm md:text-sm lg:text-lg first:*:leading-5 font-normal first:*:m-0">
+            {{ block.settings.description }}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  [data-section-type='icon-with-text'] .placeholder_svg_tag {
+    width: 56px;
+    height: 56px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "图标带文案",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "配置项"
+    },
+    {
+      "type": "select",
+      "id": "top",
+      "default": "20",
+      "label": "板块上边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bottom",
+      "default": "20",
+      "label": "板块下边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "内容配置"
+    },
+    {
+      "type": "text",
+      "id": "headding",
+      "label": "标题",
+      "default": "Member Benefits"
+    },
+    {
+      "type": "textarea",
+      "id": "descriptiton",
+      "label": "描述"
+    },
+    {
+      "type": "header",
+      "content": "配置项",
+      "info": "配置卡片"
+    },
+    {
+      "type": "range",
+      "id": "row",
+      "label": "一行显示n个(电脑端)",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "N",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "row_tablet",
+      "label": "一行显示n个(平板端)",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "unit": "N",
+      "default": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "卡片",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "图标"
+        },
+        {
+          "type": "text",
+          "id": "headding",
+          "label": "标题"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "描述"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "图标带文案"
+    }
+  ]
+}
+{% endschema %}

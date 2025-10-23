@@ -1,0 +1,591 @@
+<style>
+  .how-procolored-make-your-creations-wrapper {
+    background-color: #fff;
+    padding-top: 10px;
+    padding-bottom: 80px;
+  }
+
+  .how-procolored-make-your-creations-container {
+    max-width: 1248px;
+    margin: 0 auto;
+    padding: 0 24px;
+    box-sizing: border-box;
+  }
+
+  .how-procolored-make-your-creations-header {
+    text-align: center;
+    padding: 0;
+  }
+
+  .how-procolored-make-your-creations-main-title {
+    color: #000;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.22;
+    /* 122% */
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .how-procolored-make-your-creations-tab-container {
+    display: flex;
+    justify-content: center;
+    gap: 104px;
+    margin-bottom: 50px;
+    border-bottom: 1px solid #e7e7e7;
+    max-width: max-content;
+    margin: 0 auto 50px auto;
+  }
+
+  .how-procolored-make-your-creations-tab-button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.27;
+    color: #3d3d3d;
+    cursor: pointer;
+    position: relative;
+    padding: 10px 0;
+    transition: all 0.3s ease;
+    /* 修复移动端点击高亮背景 */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
+
+  /* 下划线动画效果 */
+  .how-procolored-make-your-creations-tab-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ff8f1c;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+
+  .how-procolored-make-your-creations-tab-button.active::after {
+    transform: scaleX(1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .how-procolored-make-your-creations-tab-button.active {
+    color: #000;
+    font-weight: 700;
+  }
+
+  .how-procolored-make-your-creations-tab-button:hover::after {
+    transform: scaleX(1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .how-procolored-make-your-creations-swiper-container {
+    width: 100%;
+    padding: 0;
+  }
+
+  /* PC端所有step-card在一个slide里，默认一行3个，超出自动换行，左右间距17px，上下间距40px */
+  .how-procolored-make-your-creations-wrapper .pc-steps-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px 17px;
+    /* row-gap column-gap */
+    justify-content: start;
+  }
+
+  .how-procolored-make-your-creations-wrapper .pc-steps-grid .step-card {
+    flex: 0 1 calc((100% - 34px) / 3);
+    /* 3列，2个17px间距 */
+    margin: 0;
+    max-width: calc((100% - 34px) / 3);
+    min-width: 220px;
+    box-sizing: border-box;
+  }
+
+  /* 针对uv tab的4列布局 */
+  .how-procolored-make-your-creations-wrapper .pc-steps-grid.uv-steps-grid .step-card {
+    /* flex: 0 1 calc((100% - 51px) / 4); */
+    /* 4列，3个17px间距 */
+    /* max-width: calc((100% - 51px) / 4); */
+  }
+
+  .how-procolored-make-your-creations-wrapper .swiper-slide {
+    text-align: center;
+    padding: 0;
+    background: none;
+  }
+
+  /* PC端 swiper-slide 100%宽度 */
+  @media (min-width: 769px) {
+    .how-procolored-make-your-creations-wrapper .swiper-slide {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 100% !important;
+    }
+  }
+
+  .how-procolored-make-your-creations-wrapper .step-card {
+    /* background: white; */
+    /* padding: 30px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* transition: transform 0.3s ease; */
+  }
+
+  /* .how-procolored-make-your-creations-wrapper .step-card:hover {
+        transform: translateY(-5px);
+    } */
+
+  .how-procolored-make-your-creations-wrapper .step-image {
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+    overflow: hidden;
+  }
+
+  .how-procolored-make-your-creations-wrapper .step-number {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff8f1c;
+    margin-bottom: 10px;
+  }
+
+  .how-procolored-make-your-creations-wrapper .step-title {
+    font-size: 18px;
+    font-weight: 400;
+    color: #000;
+    line-height: 1.27;
+    margin-bottom: 4px;
+  }
+
+  .how-procolored-make-your-creations-wrapper .step-description {
+    font-size: 14px;
+    font-weight: 400;
+    color: #3d3d3d;
+    line-height: 1.28;
+  }
+
+  /* 移动端适配 */
+  @media (max-width: 768px) {
+    .how-procolored-make-your-creations-container {
+      max-width: 100%;
+
+      padding: 0;
+    }
+
+    .how-procolored-make-your-creations-wrapper {
+      padding-top: 0px;
+      padding-bottom: 50px;
+    }
+
+    .how-procolored-make-your-creations-main-title {
+      text-align: left;
+      font-size: 24px;
+
+      line-height: 1.3;
+      /* 122% */
+      margin-bottom: 20px;
+      max-width: 100%;
+      padding: 0 24px;
+    }
+
+    .how-procolored-make-your-creations-tab-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+
+      max-width: 100%;
+      margin: 0 24px 20px 24px;
+    }
+
+    .how-procolored-make-your-creations-tab-button {
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 0 0 6px 0;
+    }
+
+    .how-procolored-make-your-creations-wrapper .step-image {
+      border-radius: 10px;
+      margin-bottom: 10px;
+      min-height: 124px;
+    }
+
+    .how-procolored-make-your-creations-wrapper .step-title {
+      font-size: 13px;
+      line-height: 1.4;
+      margin-bottom: 0;
+    }
+
+    .how-procolored-make-your-creations-wrapper .step-description {
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    /* 移动端下每个slide只显示一个step-card，左右间距17px，上下间距40px */
+    .how-procolored-make-your-creations-wrapper .pc-steps-grid {
+      display: block !important;
+      margin: 0 !important;
+      gap: 0 !important;
+    }
+
+    .how-procolored-make-your-creations-wrapper .pc-steps-grid .step-card {
+      margin: 0 !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+    }
+  }
+
+  /* 隐藏非活动标签页内容 */
+  .how-procolored-make-your-creations-tab-content {
+    display: none;
+  }
+
+  .how-procolored-make-your-creations-tab-content.active {
+    display: block;
+  }
+</style>
+<div class="how-procolored-make-your-creations-wrapper">
+  <div class="how-procolored-make-your-creations-container">
+    <div class="how-procolored-make-your-creations-header">
+      <div class="how-procolored-make-your-creations-main-title">{{ section.settings.title }}</div>
+
+      <div class="how-procolored-make-your-creations-tab-container">
+        <button class="how-procolored-make-your-creations-tab-button active" data-tab="dtf">DTF Printing</button>
+        <button class="how-procolored-make-your-creations-tab-button" data-tab="uv-dtf">UV DTF Printing</button>
+        <button class="how-procolored-make-your-creations-tab-button" data-tab="uv">UV Printing</button>
+      </div>
+    </div>
+
+    <!-- DTF Printing Tab -->
+    <div id="dtf" class="how-procolored-make-your-creations-tab-content active">
+      <div class="swiper-container how-procolored-make-your-creations-swiper-container">
+        <div class="swiper-wrapper how-procolored-make-your-creations-swiper-wrapper">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- UV DTF Printing Tab -->
+    <div id="uv-dtf" class="how-procolored-make-your-creations-tab-content">
+      <div class="swiper-container how-procolored-make-your-creations-swiper-container">
+        <div class="swiper-wrapper how-procolored-make-your-creations-swiper-wrapper">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- UV Printing Tab -->
+    <div id="uv" class="how-procolored-make-your-creations-tab-content">
+      <div class="swiper-container how-procolored-make-your-creations-swiper-container">
+        <div class="swiper-wrapper how-procolored-make-your-creations-swiper-wrapper">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // 判断是否为移动端
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
+
+  // 预处理：将所有step-card单独存储，便于移动端动态生成slide
+  const stepData = {
+    dtf: [
+      {
+        image:
+          'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/1_82aee4ec-e457-4d3a-bac5-08e60ccfc25c.jpg?v=1755317661',
+        title: 'Step1: RIP Process (Win/Mac)',
+        desc: 'Arrange images in the RIP program',
+      },
+      {
+        image:
+          'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/2_145a2a91-3ad9-45c0-9970-d812c957bf27.jpg?v=1755317661',
+        title: 'Step2: Printing',
+        desc: 'Print designs on the film',
+      },
+      {
+        image:
+          'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/3_d0dc91da-252f-4470-835b-521a9ad0e686.jpg?v=1755317661',
+        title: 'Step3: Powdering',
+        desc: 'Apply adhesive powder on the prints',
+      },
+      {
+        image:
+          'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/4_6c99d984-b828-4607-8080-b81776c0ccfd.jpg?v=1755317661',
+        title: 'Step4: Curing',
+        desc: 'Bake the prints in the oven',
+      },
+      {
+        image:
+          'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/5_f38b5727-e672-49cc-b730-54b0cf6efe8c.jpg?v=1755317661',
+        title: 'Step5: Heat Transfer',
+        desc: 'Transfer the prints onto fabric',
+      },
+      {
+        image:
+          'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/6_082c16dc-998c-4cca-ba12-67e0f7746038.jpg?v=1755317661',
+        title: 'Step6: Peeling',
+        desc: 'After cooling, peel off the transfer film',
+      },
+    ],
+    'uv-dtf': [
+      {
+        image:
+          'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/1_da9963fd-fce6-4e69-9800-15d12ce303d6.jpg?v=1755317940',
+        title: 'Step1: Cut',
+        desc: '',
+      },
+      {
+        image:
+          'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/2_da82ca30-6fe8-425b-9c8e-f660c9966055.jpg?v=1755317940',
+        title: 'Step2: Stick',
+        desc: '',
+      },
+      {
+        image:
+          'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/3_12866f28-8b05-48dc-a1b1-29e35f1cd473.jpg?v=1755317941',
+        title: 'Step3: Peel',
+        desc: '',
+      },
+      {
+        image:
+          'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/4_673b80f4-3e06-4162-8bc1-24339d3422d2.jpg?v=1755317940',
+        title: 'Step4: Done!',
+        desc: '',
+      },
+    ],
+    uv: [
+      {
+        image:
+          'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/1_3686df84-639a-496d-b644-04bc07414382.jpg?v=1755317990',
+        title: 'Step1: Design Arrangement',
+        desc: 'Arrange designs in the RIP program',
+      },
+      {
+        image:
+          'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/2_710daa6d-8183-48b8-9eac-7fe3706ba333.jpg?v=1755317990',
+        title: 'Step2: Align Items',
+        desc: 'Align the printable items on the printing platform',
+      },
+      {
+        image:
+          'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/3_6fef6587-18d2-4170-9489-8ae825b87cc8.jpg?v=1755317991',
+        title: 'Step3: Printing',
+        desc: 'Configurate the printer and start printing',
+      },
+      {
+        image:
+          'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/4_3bd5ece7-d91a-44fa-9844-9cfc07394589.jpg?v=1755317990',
+        title: 'Step4: Finish',
+        desc: 'See how our design has turned out on your materials',
+      },
+    ],
+  };
+
+  // 生成PC端结构：所有step-card在一个slide里，默认一行3个，超出自动换行
+  function renderPC(tabId) {
+    const steps = stepData[tabId];
+    const wrapper = document.querySelector(`#${tabId} .swiper-wrapper`);
+    wrapper.innerHTML = '';
+    let gridClass = 'pc-steps-grid';
+    if (tabId === 'uv') {
+      gridClass += ' uv-steps-grid';
+    }
+    let html = `
+            <div class="swiper-slide">
+                <div class="${gridClass}">
+        `;
+    steps.forEach((step) => {
+      if (!step.title && !step.image && !step.number && !step.desc) return;
+      html += `
+                <div class="step-card">
+                    <div class="step-image"><img class="lazyload" data-src="${step.image}" alt="${step.title}" style="width: 100%; max-width: 100%;"> </div>
+                 <div class="step-title">${step.title}</div>
+                    <div class="step-description">${step.desc}</div>
+                </div>
+            `;
+    });
+    html += `
+                </div>
+            </div>
+        `;
+    wrapper.innerHTML = html;
+  }
+
+  // 生成移动端结构：每个slide一个step-card
+  function renderMobile(tabId) {
+    const steps = stepData[tabId];
+    const wrapper = document.querySelector(`#${tabId} .swiper-wrapper`);
+    wrapper.innerHTML = '';
+    steps.forEach((step) => {
+      // 跳过空白step
+      if (!step.title && !step.image && !step.number && !step.desc) return;
+      wrapper.innerHTML += `
+                <div class="swiper-slide">
+                    <div class="step-card">
+                        <div class="step-image"><img class="lazyload" data-src="${step.image}" alt="${step.title}" style="width: 100%; max-width: 100%;"></div>
+                  <div class="step-title">${step.title}</div>
+                        <div class="step-description">${step.desc}</div>
+                    </div>
+                </div>
+            `;
+    });
+  }
+
+  // 初始化所有Swiper实例
+  let creationsSwipers = [];
+
+  function creationsInitSwipers() {
+    // 销毁现有的Swiper实例
+    creationsSwipers.forEach((swiper) => {
+      if (swiper) {
+        swiper.destroy(true, true);
+      }
+    });
+    creationsSwipers = [];
+
+    // 根据屏幕宽度渲染结构
+    document.querySelectorAll('.how-procolored-make-your-creations-tab-content').forEach((tabContent, index) => {
+      const tabId = tabContent.id;
+      if (isMobile()) {
+        renderMobile(tabId);
+      } else {
+        renderPC(tabId);
+      }
+    });
+
+    // 为每个标签页内容初始化Swiper
+    document.querySelectorAll('.how-procolored-make-your-creations-tab-content').forEach((tabContent, index) => {
+      const swiperContainer = tabContent.querySelector('.how-procolored-make-your-creations-swiper-container');
+      if (swiperContainer) {
+        let config;
+        if (isMobile()) {
+          config = {
+            slidesPerView: 2.5,
+            spaceBetween: 10,
+            loop: false,
+            slidesOffsetBefore: 24,
+            slidesOffsetAfter: 24,
+          };
+        } else {
+          config = {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            loop: false,
+            simulateTouch: false, // 禁止PC端鼠标拖动
+            allowTouchMove: false, // 禁止PC端鼠标拖动
+          };
+        }
+        const swiper = new Swiper(swiperContainer, config);
+        creationsSwipers[index] = swiper;
+      }
+    });
+
+    // PC端禁止swiper-wrapper鼠标拖动（防止浏览器默认行为）
+    if (!isMobile()) {
+      document.querySelectorAll('.how-procolored-make-your-creations-swiper-wrapper').forEach((wrapper) => {
+        wrapper.style.cursor = 'default';
+        wrapper.onmousedown = function (e) {
+          e.preventDefault();
+          return false;
+        };
+      });
+    }
+  }
+
+  // 修复移动端tab切换闪烁问题
+  // 方案：切换tab时，先渲染内容再显示tab，避免先显示空白
+  document.querySelectorAll('.how-procolored-make-your-creations-tab-button').forEach((button) => {
+    // 修复移动端点击tab-button时出现高亮背景
+    button.addEventListener('touchstart', function (e) {
+      button.style.backgroundColor = 'transparent';
+    });
+    button.addEventListener('focus', function (e) {
+      button.style.backgroundColor = 'transparent';
+    });
+    button.addEventListener('click', () => {
+      // 如果已经是激活状态则不处理
+      if (button.classList.contains('active')) return;
+
+      // 移除所有活动状态
+      document.querySelectorAll('.how-procolored-make-your-creations-tab-button').forEach((btn) => {
+        btn.classList.remove('active');
+        btn.style.backgroundColor = 'transparent';
+      });
+      document
+        .querySelectorAll('.how-procolored-make-your-creations-tab-content')
+        .forEach((content) => content.classList.remove('active'));
+
+      // 添加当前活动状态
+      button.classList.add('active');
+      button.style.backgroundColor = 'transparent';
+      const tabId = button.getAttribute('data-tab');
+
+      // 先渲染内容（同步），再显示tab（同步），最后初始化Swiper（异步）
+      if (isMobile()) {
+        renderMobile(tabId);
+      } else {
+        renderPC(tabId);
+      }
+      document.getElementById(tabId).classList.add('active');
+
+      // 重新初始化Swiper
+      setTimeout(() => {
+        creationsInitSwipers();
+      }, 0);
+    });
+  });
+
+  // 页面加载完成后初始化
+  document.addEventListener('DOMContentLoaded', function () {
+    creationsInitSwipers();
+  });
+
+  // 窗口大小改变时重新初始化
+  window.addEventListener('resize', function () {
+    setTimeout(() => {
+      creationsInitSwipers();
+    }, 100);
+  });
+</script>
+{% schema %}
+{
+  "name": "index-printer-process",
+
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "How Procolored Make Your Creations Turn Into Life",
+      "label": "大标题"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "index-printer-process",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

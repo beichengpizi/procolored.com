@@ -1,0 +1,643 @@
+{% comment %}
+  区块：按类别选购2
+  - 标签通过类型为 "tab" 的区块定义。使用设置项 "shop-by-category-2-tab" 作为标签显示名称。
+  - 每个产品区块通过 "tab_handle" 字段与标签关联。需设置为目标标签的 handle。
+    标签的 handle 会根据标签名自动生成，也可通过标签的 handle 字段自定义。
+  - 每个产品区块：
+    - 可选择一个 Shopify 产品，或留空以自定义全部内容。
+    - 如未填写自定义名称，则默认使用产品标题。
+    - 副标题为自定义内容。
+    - 图片优先级（桌面/移动端）：自定义桌面/移动端图片 > 产品主图。如无产品且无自定义图片，则图片为空。
+    - “了解更多”按钮默认链接到所选产品页，可通过自定义链接覆盖。
+{% endcomment %}
+{% assign section_id = section.id %}
+<style>
+    /* Scoped styles for this section instance */
+    #shop-by-category-2-{{ section_id }} {
+      background-color: #fff;
+      padding: 50px 0;
+    }
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-container {
+      margin-left: 8.33%;
+      margin-right: 8.33%;
+    }
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-title {
+      font-size: 40px;
+      font-weight: 800;
+      color: #000;
+      line-height: 1.2;
+      margin-bottom: 40px;
+      text-align: left;
+    }
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 50px;
+      border-radius: 10px;
+      background: #f9f9f9;
+      width: fit-content;
+    }
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-tab {
+      padding: 14px 42px;
+      border-radius: 10px;
+      color: #000;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.4;
+      border: none;
+      background: transparent;
+    }
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-tab.active {
+      background: #000;
+      color: #fff;
+    }
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-products {
+      display: none;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+    }
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-products.active {
+      display: grid;
+    }
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-product-card {
+      border-radius: 20px;
+      padding: 3.125vw 1.56vw;
+      background: #f9f9f9;
+      width: 100%;
+
+
+    }
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-product-name {
+      font-size: clamp(20px, 2vw, 30px);
+      font-weight: 700;
+      line-height: 1.26;
+      color: #000;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-product-tagline {
+      font-size: clamp(14px, 1.2vw, 18px);
+      color: #666;
+      line-height: 1.38;
+      margin-bottom: 3.854vw;
+      text-align: center;
+    }
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-product-image {
+      width: 100%;
+    aspect-ratio: 3/2;
+      background: #f9f9f9;
+      margin-bottom: 3.854vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-product-image img {
+      max-width: 100%;
+     max-height: 100%;
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-product-buttons {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      align-items: center;
+    }
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-button {
+      min-width: 8.645vw;
+      min-height: 46px;
+      padding: 10px 1.666vw;
+      border-radius: 5px;
+      background: #fffefd;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: flex
+  ;
+      width: max-content;
+      align-items: center;
+      justify-content: center;
+    }
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-button.learn-more {
+      color: #000;
+    }
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-button.learn-more:hover {
+      color: #000;
+    }
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-button.coming-soon {
+      background: #ff8f1c;
+      color: #fff;
+    }
+
+    #shop-by-category-2-{{ section_id }}  .shop-by-category-2-button.coming-soon:hover {
+      background: #ff8f1c;
+      color: #fff;
+    }
+    @media (max-width: 1200px) {
+      #shop-by-category-2-{{ section_id }} .shop-by-category-2-products {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      #shop-by-category-2-{{ section_id }} .shop-by-category-2-products {
+        grid-template-columns: 1fr;
+      }
+      #shop-by-category-2-{{ section_id }} .shop-by-category-2-product-card {
+        max-width: 90vw;
+      }
+    }
+    @media (max-width: 768px) {
+      #shop-by-category-2-{{ section_id }}{
+        margin: 0;
+        padding: 25px 0;
+      }
+      #shop-by-category-2-{{ section_id }} .shop-by-category-2-container {
+        margin: 0;
+      }
+      #shop-by-category-2-{{ section_id }} .shop-by-category-2-title {
+        font-size: 24px;
+        line-height: 1.3;
+        margin-bottom: 20px;
+        text-align: left;
+        padding: 0 24px;
+      }
+      #shop-by-category-2-{{ section_id }} .shop-by-category-2-tabs {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        width: 100%;
+        margin-bottom: 20px;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding: 0 24px;
+        border-radius: 0;
+        background: #fff;
+      }
+      #shop-by-category-2-{{ section_id }} .shop-by-category-2-tabs::-webkit-scrollbar {
+        display: none;
+      }
+      #shop-by-category-2-{{ section_id }} .shop-by-category-2-tab {
+        min-width: auto;
+        height: 40px;
+        text-align: center;
+        border-radius: 4px;
+        white-space: nowrap;
+        border: none;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.6;
+        padding: 10px 20px;
+        background: #f9f9f9;
+      }
+      #shop-by-category-2-{{ section_id }} .shop-by-category-2-products {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 24px;
+      }
+      #shop-by-category-2-{{ section_id }} .shop-by-category-2-product-card {
+          padding: 30px 20px;
+        border-radius: 10px;
+        max-width: 100%;
+      }
+      #shop-by-category-2-{{ section_id }} .shop-by-category-2-product-name {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.3;
+        margin-bottom: 6px;
+      }
+      #shop-by-category-2-{{ section_id }} .shop-by-category-2-product-tagline {
+        font-size: 18px;
+        color: #000;
+        line-height: 1.4;
+        margin-bottom: 28px;
+        text-align: center;
+      }
+      #shop-by-category-2-{{ section_id }} .shop-by-category-2-product-image {
+        margin-bottom: 30px;
+      }
+      #shop-by-category-2-{{ section_id }} .shop-by-category-2-product-buttons {
+        gap: 14px;
+      }
+      #shop-by-category-2-{{ section_id }} product-card{
+        height: 30px;
+    }
+      #shop-by-category-2-{{ section_id }} .shop-by-category-2-button {
+        min-width: 108px;
+        min-height: 30px;
+
+        padding: 8px 16px;
+        border-radius: 5px;
+        background: #fffefd;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.25;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 0;
+      }
+    }
+</style>
+
+<div class="shop-by-category-2-wrapper" id="shop-by-category-2-{{ section_id }}">
+  <div class="shop-by-category-2-container">
+    {% if section.settings.title != blank %}
+      <div class="shop-by-category-2-title">{{ section.settings.title }}</div>
+    {% endif %}
+
+    {%- comment -%} Build tabs list and a lookup of tab handles {%- endcomment -%}
+    {% assign tabs = section.blocks | where: 'type', 'tab' %}
+    {% assign tab_handles = '' %}
+    <div class="shop-by-category-2-tabs" role="tablist">
+      {%- for tab in tabs -%}
+        {% assign tab_label = tab.settings.shop_by_category_2_tab | default: 'Tab ' %}
+        {% assign tab_handle = tab.settings.tab_handle | default: tab_label | handle %}
+        <button
+          class="shop-by-category-2-tab{% if forloop.first %} active{% endif %}"
+          role="tab"
+          data-category="{{ tab_handle }}"
+          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+        >
+          {{ tab_label }}
+        </button>
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} Group products by tab handle {%- endcomment -%}
+    {% assign product_blocks = section.blocks | where: 'type', 'product' %}
+
+    {%- for tab in tabs -%}
+      {% assign tab_label = tab.settings.shop_by_category_2_tab | default: 'Tab ' %}
+      {% assign tab_handle = tab.settings.tab_handle | default: tab_label | handle %}
+      <div class="shop-by-category-2-products {% if forloop.first %}active{% endif %}" data-category="{{ tab_handle }}">
+        {%- for block in product_blocks -%}
+          {% assign product_tab_handle = block.settings.tab_handle | handle %}
+          {% if product_tab_handle == tab_handle %}
+            {% assign chosen_product = block.settings.product %}
+            {% assign variant_index = block.settings.product_variant_location | default: '0' | plus: 0 %}
+            {% assign variant = chosen_product.variants[variant_index] %}
+            {% if chosen_product %}
+              {% assign has_product = true %}
+            {% else %}
+              {% assign has_product = false %}
+            {% endif %}
+
+            {%- comment -%} Title resolution {%- endcomment -%}
+            {% assign product_name = block.settings.shop_by_category_2_product_name %}
+            {% if product_name == blank and has_product %}
+              {% assign product_name = chosen_product.title %}
+            {% endif %}
+
+            {%- comment -%} Tagline {%- endcomment -%}
+            {% assign product_tagline = block.settings.shop_by_category_2_product_tagline %}
+
+            {%- comment -%} Image selection priority: custom desktop/mobile > product featured {%- endcomment -%}
+            {% assign desktop_image = block.settings.desktop_image %}
+            {% assign mobile_image = block.settings.mobile_image %}
+
+            {% assign fallback_image = '' %}
+            {% if has_product and chosen_product.featured_image != blank %}
+              {% assign fallback_image = chosen_product.featured_image %}
+            {% endif %}
+
+            {% assign desktop_final = desktop_image | default: fallback_image %}
+            {% assign mobile_final = mobile_image | default: fallback_image %}
+
+            {%- comment -%} Link: custom override or product url {%- endcomment -%}
+            {% assign learn_more_url = block.settings.learn_more_url %}
+            {% unless learn_more_url %}
+              {% assign learn_more_url = variant.url %}
+            {% endunless %}
+
+            <div class="shop-by-category-2-product-card" {{ block.shopify_attributes }}>
+              {% if product_name != blank %}
+                <div class="shop-by-category-2-product-name">{{ product_name }}</div>
+              {% endif %}
+              {% if product_tagline != blank %}
+                <div class="shop-by-category-2-product-tagline">{{ product_tagline }}</div>
+              {% endif %}
+              <div class="shop-by-category-2-product-image">
+                {%- if desktop_final != blank or mobile_final != blank -%}
+                  <picture>
+                    {%- if mobile_final != blank -%}
+                      <source
+                        media="(max-width: 768px)"
+                        data-srcset="
+                          {%- if mobile_final.width >= 200 -%}{{ mobile_final | image_url: width: 200 }} 200w,{%- endif -%}
+                          {%- if mobile_final.width >= 375 -%}{{ mobile_final | image_url: width: 375 }} 375w,{%- endif -%}
+                          {%- if mobile_final.width >= 550 -%}{{ mobile_final | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if mobile_final.width >= 750 -%}{{ mobile_final | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if mobile_final.width >= 1100 -%}{{ mobile_final | image_url: width: 1100 }} 1100w,{%- endif -%}
+                          {%- if mobile_final.width >= 1500 -%}{{ mobile_final | image_url: width: 1500 }} 1500w,{%- endif -%}
+                          {%- if mobile_final.width >= 1780 -%}{{ mobile_final | image_url: width: 1780 }} 1780w,{%- endif -%}
+                          {%- if mobile_final.width >= 2000 -%}{{ mobile_final | image_url: width: 2000 }} 2000w,{%- endif -%}
+                          {%- if mobile_final.width >= 3000 -%}{{ mobile_final | image_url: width: 3000 }} 3000w,{%- endif -%}
+                          {%- if mobile_final.width >= 3840 -%}{{ mobile_final | image_url: width: 3840 }} 3840w,{%- endif -%}
+                          {{ mobile_final | image_url }} {{ mobile_final.width }}w
+                        "
+                      >
+                    {%- endif -%}
+                    {%- if desktop_final != blank -%}
+                      <img
+                        class="lazyload"
+                        style="aspect-ratio: {{ desktop_final.aspect_ratio}};"
+                        data-src="{{ desktop_final | image_url }}"
+                        alt="{{ product_name | escape }}"
+                        data-srcset="
+                          {%- if desktop_final.width >= 200 -%}{{ desktop_final | image_url: width: 200 }} 200w,{%- endif -%}
+                          {%- if desktop_final.width >= 375 -%}{{ desktop_final | image_url: width: 375 }} 375w,{%- endif -%}
+                          {%- if desktop_final.width >= 550 -%}{{ desktop_final | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if desktop_final.width >= 750 -%}{{ desktop_final | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if desktop_final.width >= 1100 -%}{{ desktop_final | image_url: width: 1100 }} 1100w,{%- endif -%}
+                          {%- if desktop_final.width >= 1500 -%}{{ desktop_final | image_url: width: 1500 }} 1500w,{%- endif -%}
+                          {%- if desktop_final.width >= 1780 -%}{{ desktop_final | image_url: width: 1780 }} 1780w,{%- endif -%}
+                          {%- if desktop_final.width >= 2000 -%}{{ desktop_final | image_url: width: 2000 }} 2000w,{%- endif -%}
+                          {%- if desktop_final.width >= 3000 -%}{{ desktop_final | image_url: width: 3000 }} 3000w,{%- endif -%}
+                          {%- if desktop_final.width >= 3840 -%}{{ desktop_final | image_url: width: 3840 }} 3840w,{%- endif -%}
+                          {{ desktop_final | image_url }} {{ desktop_final.width }}w
+                        "
+                      >
+                    {%- else -%}
+                      {%- if mobile_final != blank -%}
+                        <img
+                          style="aspect-ratio: {{ mobile_final.aspect_ratio}};"
+                          class="lazyload"
+                          data-src="{{ mobile_final | image_url }}"
+                          alt="{{ product_name | escape }}"
+                          data-srcset="
+                            {%- if mobile_final.width >= 200 -%}{{ mobile_final | image_url: width: 200 }} 200w,{%- endif -%}
+                            {%- if mobile_final.width >= 375 -%}{{ mobile_final | image_url: width: 375 }} 375w,{%- endif -%}
+                            {%- if mobile_final.width >= 550 -%}{{ mobile_final | image_url: width: 550 }} 550w,{%- endif -%}
+                            {%- if mobile_final.width >= 750 -%}{{ mobile_final | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if mobile_final.width >= 1100 -%}{{ mobile_final | image_url: width: 1100 }} 1100w,{%- endif -%}
+                            {%- if mobile_final.width >= 1500 -%}{{ mobile_final | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {%- if mobile_final.width >= 1780 -%}{{ mobile_final | image_url: width: 1780 }} 1780w,{%- endif -%}
+                            {%- if mobile_final.width >= 2000 -%}{{ mobile_final | image_url: width: 2000 }} 2000w,{%- endif -%}
+                            {%- if mobile_final.width >= 3000 -%}{{ mobile_final | image_url: width: 3000 }} 3000w,{%- endif -%}
+                            {%- if mobile_final.width >= 3840 -%}{{ mobile_final | image_url: width: 3840 }} 3840w,{%- endif -%}
+                            {{ mobile_final | image_url }} {{ mobile_final.width }}w
+                          "
+                        >
+                      {%- endif -%}
+                    {%- endif -%}
+                  </picture>
+                {%- endif -%}
+              </div>
+              <div class="shop-by-category-2-product-buttons">
+                {%- if learn_more_url != blank -%}
+                  <a href="{{ learn_more_url }}" target="_blank" class="shop-by-category-2-button learn-more">
+                    {{- block.settings.learn_more_label -}}
+                  </a>
+                {%- endif -%}
+                {%- if learn_more_url != blank -%}
+                  <product-card>
+                    <div
+                      class=" shop-by-category-2-button coming-soon product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                      data-product-id="{{ variant.id }}"
+                      tabindex="-1"
+                      {% if variant.available == false %}
+                        disabled
+                      {% endif %}
+                    >
+                      {% render 'svg-icons' with 'thb-loading' %}
+                      <span class="product-card--add-to-cart-text">
+                        {%- if variant.available -%}
+                          {{- block.settings.buy_now_label -}}
+                        {%- else -%}
+                          {{- 'products.product.sold_out' | t -}}
+                        {%- endif -%}
+                      </span>
+                    </div>
+                  </product-card>
+                {%- endif -%}
+              </div>
+            </div>
+          {% endif %}
+        {%- endfor -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+<script>
+  (function () {
+    const shopByCategoryRoot = document.getElementById('shop-by-category-2-{{ section_id }}');
+    if (!shopByCategoryRoot) return;
+
+    const tabElements = shopByCategoryRoot.querySelectorAll('.shop-by-category-2-tab');
+    const productGroups = shopByCategoryRoot.querySelectorAll('.shop-by-category-2-products');
+
+    function showCategory(categoryHandle) {
+      productGroups.forEach(function (groupEl) {
+        if (groupEl.getAttribute('data-category') === categoryHandle) {
+          groupEl.classList.add('active');
+        } else {
+          groupEl.classList.remove('active');
+        }
+      });
+      tabElements.forEach(function (tabEl) {
+        if (tabEl.getAttribute('data-category') === categoryHandle) {
+          tabEl.classList.add('active');
+          tabEl.setAttribute('aria-selected', 'true');
+        } else {
+          tabEl.classList.remove('active');
+          tabEl.setAttribute('aria-selected', 'false');
+        }
+      });
+    }
+
+    tabElements.forEach(function (tabEl) {
+      tabEl.addEventListener('click', function () {
+        const categoryHandle = tabEl.getAttribute('data-category');
+        showCategory(categoryHandle);
+        // 移动端居中滚动
+        const tabsContainerEl = shopByCategoryRoot.querySelector('.shop-by-category-2-tabs');
+        if (tabsContainerEl) {
+          const containerRect = tabsContainerEl.getBoundingClientRect();
+          const tabRect = tabEl.getBoundingClientRect();
+          const scrollLeft = tabsContainerEl.scrollLeft;
+          const tabLeft = tabRect.left - containerRect.left + scrollLeft;
+          const tabWidth = tabRect.width;
+          const containerWidth = containerRect.width;
+          const targetScrollLeft = tabLeft - (containerWidth - tabWidth) / 2;
+          tabsContainerEl.scrollTo({ left: Math.max(0, targetScrollLeft), behavior: 'smooth' });
+        }
+      });
+    });
+
+    // 初始化
+    const firstActiveTab = shopByCategoryRoot.querySelector('.shop-by-category-2-tab.active');
+    if (firstActiveTab) {
+      showCategory(firstActiveTab.getAttribute('data-category'));
+    } else if (tabElements.length > 0) {
+      showCategory(tabElements[0].getAttribute('data-category'));
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Shop By Category 2",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Shop By Category"
+    }
+
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "shop_by_category_2_tab",
+          "label": "shop-by-category-2-tab (标签名称)",
+          "default": "Personal Studio"
+        },
+        {
+          "type": "text",
+          "id": "tab_handle",
+          "label": "Tab handle (用于关联，留空则自动)",
+          "info": "产品块的 tab_handle 必须与此处一致（或自动由名称生成的 handle）。"
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_handle",
+          "label": "关联的 Tab handle",
+          "info": "输入需要归属的 Tab 的 handle（与标签块的 handle 相同）。",
+          "default": "personal-studio"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "选择产品（可选）"
+        },
+        {
+          "type": "radio",
+          "id": "product_variant_location",
+          "label": "产品变体",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体"
+            }
+          ],
+          "default": "0",
+          "info": "查看对应产品后台，选择对应的变体所在位置，从上到下依次排序"
+        },
+        {
+          "type": "text",
+          "id": "shop_by_category_2_product_name",
+          "label": "产品名称或自定义名称"
+        },
+        {
+          "type": "text",
+          "id": "shop_by_category_2_product_tagline",
+          "label": "自定义副标题"
+        },
+        {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "产品图 (PC 图片，留空则用产品图)"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "产品图 (移动端图片，留空则用产品图)"
+        },
+        {
+          "type": "url",
+          "id": "learn_more_url",
+          "label": "产品页 (链接)"
+        },
+        {
+          "type": "text",
+          "id": "learn_more_label",
+          "label": "产品页按钮文案",
+          "default": "Learn More"
+        },
+        {
+          "type": "text",
+          "id": "buy_now_label",
+          "label": "加购按钮文案",
+          "default": "Buy Now"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [
+    {
+      "name": "Shop By Category 2",
+      "blocks": [
+        { "type": "tab", "settings": { "shop_by_category_2_tab": "Personal Studio", "tab_handle": "personal-studio" } },
+        { "type": "tab", "settings": { "shop_by_category_2_tab": "Hobbyist Use", "tab_handle": "hobbyist-use" } },
+        {
+          "type": "tab",
+          "settings": { "shop_by_category_2_tab": "Small-scale Factory", "tab_handle": "small-scale-factory" }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "tab_handle": "personal-studio",
+            "shop_by_category_2_product_name": "Procolored K13 Lite",
+            "shop_by_category_2_product_tagline": "User-friendly"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "tab_handle": "personal-studio",
+            "shop_by_category_2_product_name": "Procolored F13",
+            "shop_by_category_2_product_tagline": "High-quality and Easy-to-use"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "tab_handle": "personal-studio",
+            "shop_by_category_2_product_name": "Procolored P13",
+            "shop_by_category_2_product_tagline": "High-Performance Print Head"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

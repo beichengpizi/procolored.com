@@ -1,0 +1,255 @@
+<{%- if customer -%}div class="relative aspect-[3/4] lg:aspect-[8/3] overflow-hidden"{%- else -%}modal-login class="member-banner-wrap-{{ section.id }} block relative aspect-[3/4] lg:aspect-[8/3] overflow-hidden cursor-pointer" data-return="/pages/our-brand-procolored?view=member"{%- endif -%}>
+
+<div class="absolute inset-0  w-full h-full">
+  {% comment %} {%- if customer == blank -%}
+  {%- else -%}
+    {%- if section.settings.logined_image -%}
+      {%- liquid
+        assign image = section.settings.logined_image
+      -%}
+      <img
+        data-src="{{ image | image_url }}"
+        class="lazyload object-cover object-bottom w-full h-full hidden lg:block {% unless settings.lazy_loading %} no-blur{% endunless %}"
+        width="{{ image.src.width }}"
+        height="{{ image.src.height }}"
+        alt="{{ image.alt }}"
+      >
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+    {%- endif -%}
+    {%- if section.settings.logined_mobile_image -%}
+      {%- liquid
+        assign image = section.settings.logined_mobile_image
+      -%}
+      <img
+        data-src="{{ image | image_url }}"
+        class="lazyload object-cover object-center w-full h-full lg:hidden {% unless settings.lazy_loading %} no-blur{% endunless %}"
+        width="{{ image.src.width }}"
+        height="{{ image.src.height }}"
+        alt="{{ image.alt }}"
+      >
+    {%- endif -%}
+  {%- endif -%} {% endcomment %}
+
+  {%- if section.settings.image -%}
+    {%- liquid
+      assign image = section.settings.image
+    -%}
+    <img
+      data-src="{{ image | image_url }}"
+      class="lazyload object-cover object-bottom w-full h-full hidden lg:block {% unless settings.lazy_loading %} no-blur{% endunless %}"
+      width="{{ image.src.width }}"
+      height="{{ image.src.height }}"
+      alt="{{ image.alt }}"
+    >
+  {%- else -%}
+    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+  {%- endif -%}
+  {%- if section.settings.mobile_image -%}
+    {%- liquid
+      assign image = section.settings.mobile_image
+    -%}
+    <img
+      data-src="{{ image | image_url }}"
+      class="lazyload object-cover object-center w-full h-full lg:hidden {% unless settings.lazy_loading %} no-blur{% endunless %}"
+      width="{{ image.src.width }}"
+      height="{{ image.src.height }}"
+      alt="{{ image.alt }}"
+    >
+  {%- endif -%}
+</div>
+
+  <div class="relative z-10 flex justify-center lg:justify-start lg:items-center h-full">
+    <div class="container-{{ section.id }}">
+      <div class="content-wrap py-10 md:py-10 text-center lg:text-left " >
+        {% if customer %}
+          <h2 class="headding text-3xl font-bold mb-2 md:mb-4 md:text-4xl lg:text-5xl" style="color:#fff">
+            {{ section.settings.logined_headding }}
+          </h2>
+          <p class="descriptiton leading-tight text-base xl:text-lg" style="color:#fff">
+            {{ section.settings.logined_descriptiton }}
+          </p>
+          <div class="mt-3 flex items-center justify-center flex-wrap md:flex-row gap-2 lg:justify-start lg:gap-4">
+            <a
+              style="color:#fff"
+              href="/account?view=rewards"
+              class="button-item-sign button-item px-8 py-2 text-center text-sm lg:text-base lg:px-20 lg:py-4 font-semibold rounded-full shadow bg-accent text-white hover:bg-accent-hover hover:text-white active:text-white transition-colors">
+              Check My Points
+            </a>
+          </div>
+        {% else %}
+          <h2 class="headding text-3xl font-bold mb-2 md:mb-4 md:text-4xl lg:text-5xl" style="color:#fff">{{ section.settings.headding }}</h2>
+          <p class="descriptiton leading-tight text-base xl:text-lg" style="color:#fff">
+            {{ section.settings.descriptiton }}
+          </p>
+          <div class="button-wrap mt-3 flex items-center justify-center flex-wrap md:flex-row gap-2 lg:justify-start lg:gap-4">
+            <a
+              style="color:#fff"
+              href="/account/register?return_to=/pages/our-brand-procolored?view=member"
+              class="button-item-join button-item px-8 py-2 text-center text-sm lg:text-base lg:px-20 lg:py-4 w-32 md:w-40 lg:w-auto font-semibold rounded-full shadow bg-accent text-white hover:bg-accent-hover hover:text-white active:text-white transition-colors"
+              data-join>
+              Join Now
+            </a>
+            <a
+              style="color:#fff"
+              href="/account/login?return_to=/pages/our-brand-procolored?view=member"
+              class="button-item-sign button-item px-8 py-2 text-center text-sm lg:text-base lg:px-20 lg:py-4 w-32 md:w-40 lg:w-auto font-semibold rounded-full shadow bg-accent text-white hover:bg-accent-hover hover:text-white active:text-white transition-colors"
+              data-login
+              >
+                Sign in
+              </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</{%- if customer -%}div{%- else -%}modal-login{%- endif -%}>
+
+ <style>  
+.member-banner-wrap-{{ section.id }}{
+  aspect-ratio:{{ section.settings.image.aspect_ratio }};
+  background:#000;
+}
+.container-{{ section.id }}{
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+.container-{{ section.id }} .content-wrap{
+  width:38%;
+}
+.container-{{ section.id }} h2.headding{
+  font-size: 58px;
+  margin-bottom: 14px;
+  line-height: 1.2;
+}
+.container-{{ section.id }} p.descriptiton{
+  font-size: 16px;
+  color: #000;
+  margin-bottom: 42px;
+  line-height: 1.2;
+}
+.container-{{ section.id }} .button-wrap{
+  gap: 20px;
+}
+.container-{{ section.id }}  .button-item{
+  font-size: 14px;
+  padding: 10px 60px;
+  min-width: 188px;
+}
+.container-{{ section.id }}  .button-item.button-item-join{
+  background: transparent;
+  border: 1.5px solid #DA291C;
+}
+.container-{{ section.id }}  .button-item.button-item-sign{
+  background: #DA291C;
+}
+  /* 移动设备 */
+  @media screen and (min-width: 320px) and (max-width: 480px) {
+    .member-banner-wrap-{{ section.id }}{
+      aspect-ratio:{{ section.settings.mobile_image.aspect_ratio }};
+    }
+    .container-{{ section.id }}{
+      max-width: none;
+      padding-right: 50px;
+      padding-left: 50px;
+    }
+    .container-{{ section.id }} .content-wrap{
+      width:100%;
+      padding-top: 35px;
+    padding-bottom: 0;
+    }
+    .container-{{ section.id }} h2.headding{
+      font-size: 38px;
+      margin-bottom: 8px;
+      line-height: 1.1;
+    }
+    .container-{{ section.id }} p.descriptiton{
+      font-size: 12px;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      max-width: none;
+      padding: 0;
+    }
+    .container-{{ section.id }} .button-wrap{
+      gap: 12px;
+    }
+    .container-{{ section.id }}  .button-item{
+      font-size: 12px;
+      padding: 2px 24px;
+      min-width: 88px;
+  
+      width: auto;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Banner",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "未登录内容设置"
+    },
+    {
+      "type": "html",
+      "id": "headding",
+      "label": "标题",
+      "default": "Procolored Loyalty Program"
+    },
+    {
+      "type": "html",
+      "id": "descriptiton",
+      "label": "描述",
+      "default": "Join now to earn points, and enjoy member benefits like point redemption, discounts and more!"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "电脑端图片",
+      "info": "建议全屏布局使用 2800 x 1050 .jpg。"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "移动端图片",
+      "info": "建议全屏布局使用 768 x 1024 .jpg。"
+    },
+    {
+      "type": "header",
+      "content": "已登录内容设置"
+    },
+    {
+      "type": "text",
+      "id": "logined_headding",
+      "label": "标题",
+      "default": "Hi"
+    },
+    {
+      "type": "textarea",
+      "id": "logined_descriptiton",
+      "label": "描述",
+      "default": "Welcome to Procolored Membership Club! Kindly check yourmembership benefits below."
+    },
+    {
+      "type": "image_picker",
+      "id": "logined_image",
+      "label": "电脑端图片",
+      "info": "建议全屏布局使用 2800 x 1050 .jpg。"
+    },
+    {
+      "type": "image_picker",
+      "id": "logined_mobile_image",
+      "label": "移动端图片",
+      "info": "建议全屏布局使用 768 x 1024 .jpg。"
+    }
+  ],
+  "presets": [
+    {
+      "name": "会员 Banner"
+    }
+  ]
+}
+{% endschema %}

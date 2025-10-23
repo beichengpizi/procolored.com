@@ -1,0 +1,145 @@
+<style>
+  .mkt-select-country__popup__language-selector-popup-mask {
+    display: none;
+    position: fixed;
+    inset: 0px;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+  }
+  .mkt-select-country__popup__language-selector-popup {
+    z-index: 999;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgb(204, 204, 204);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 10px;
+    padding: 0px 40px;
+    width: 960px;
+    max-height: 950px;
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    height: auto;
+    margin: 307px 704px 0px 13px;
+  }
+  .mkt-select-country__popup__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-family: gotham-medium, sans-serif;
+    padding-top: 8px;
+    margin-bottom: 10px;
+    line-height: 62px;
+    border-bottom: 1px solid rgb(221, 221, 221);
+    color: #000;
+  }
+  .mkt-select-country__popup__close-button {
+    line-height: 0;
+    cursor: pointer;
+  }
+  .mkt-select-country__popup__content {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 24px -24px 24px 0px;
+    font-size: 14px;
+    gap: 16px;
+    max-height: 592px;
+    overflow: hidden auto;
+  }
+  .mkt-select-country__popup__country-item {
+    width: calc(50% - 20px);
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    line-height: 26px;
+    text-decoration: none;
+    color: rgb(20, 20, 20);
+    background: rgb(247, 248, 249);
+    border-radius: 4px;
+    font-family: gotham-medium, sans-serif;
+  }
+  .mkt-select-country__popup__country-name {
+    font-family: gotham-medium, sans-serif;
+    flex: 1 1 0%;
+    text-align: left;
+  }
+  .mkt-select-country__popup__country-language {
+    font-family: gotham-medium, sans-serif;
+    flex: 1 1 0%;
+    text-align: right;
+    color: rgb(144, 144, 144);
+  }
+  @media screen and (min-width: 320px) and (max-width: 480px) {
+    .mkt-select-country__popup__language-selector-popup {
+      width: 90vw;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0px 20px;
+    }
+    .mkt-select-country__popup__content {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .mkt-select-country__popup__country-item {
+      width: 100%;
+    }
+  }
+</style>
+<div class="mkt-select-country__popup__language-selector-popup-mask" style="display: block;">
+  <div class="mkt-select-country__popup__language-selector-popup">
+    <div class="mkt-select-country__popup__title">
+      <span>Select Your Country/Region</span>
+      <div class="mkt-select-country__popup__close-button">
+        <svg
+          class="icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+        >
+          <path d="M606.831242 520.060515c0.001007-2.168803-0.104715-4.337605-0.299041-6.499359l368.741734-375.125303c27.44532-27.916536 27.44532-73.131134 0-101.072842-13.711584-13.920007-31.683244-20.917768-49.661953-20.917768-17.974681 0-35.94332 6.997761-49.66598 20.917768L518.067411 401.478167 154.187862 37.503972c-14.052914-14.013646-32.449474-21.05873-50.856103-21.05873-18.403608 0-36.810237 7.045084-50.849055 21.05873-28.106835 28.124958-28.106835 73.649673 0 101.759529L433.187086 520.033329 52.481698 900.822288c-28.106835 28.106835-28.106835 73.624502 0 101.713213 28.092738 28.11791 73.609399 28.11791 101.705158 0l367.220351-367.274722 354.538797 360.676689c27.437265 27.930632 71.889661 27.930632 99.327933 0 27.44532-27.90546 27.44532-73.120059 0-101.036594L606.831242 520.060515z"></path>
+        </svg>
+      </div>
+    </div>
+    <div class="mkt-select-country__popup__content">
+      <a class="mkt-select-country__popup__country-item" href="https://www.procolored.com/">
+        <span class="mkt-select-country__popup__country-name">US</span>
+        <span class="mkt-select-country__popup__country-language">English&nbsp;/&nbsp;$USD</span>
+      </a>
+      {% comment %}
+        <a class="mkt-select-country__popup__country-item" href="https://uk.1more.com/">
+          <span class="mkt-select-country__popup__country-name">United&nbsp;Kingdom</span>
+          <span class="mkt-select-country__popup__country-language">English&nbsp;/&nbsp;£GBP</span>
+        </a>
+      {% endcomment %}
+      <a class="mkt-select-country__popup__country-item" href="https://procolored.eu/">
+        <span class="mkt-select-country__popup__country-name">Europe</span>
+        <span class="mkt-select-country__popup__country-language">Multi-language&nbsp;/&nbsp;€EUR</span>
+      </a>
+      <!--
+        <a class="mkt-select-country__popup__country-item" href="https://jp.1more.com/">
+          <span class="mkt-select-country__popup__country-name">Japan</span>
+          <span class="mkt-select-country__popup__country-language">日本語&nbsp;/&nbsp;￥JPY</span>
+        </a>
+      -->
+    </div>
+  </div>
+</div>
+<script>
+  $(function () {
+    setTimeout(function () {
+      $('.mkt-select-country__popup__language-selector-popup-mask').show();
+    }, 2000);
+    $('.mkt-select-country__popup__close-button').on('click', function () {
+      console.log('关闭');
+      $('.mkt-select-country__popup__language-selector-popup-mask').hide();
+    });
+  });
+</script>

@@ -1,0 +1,136 @@
+{% liquid
+  assign product = section.settings.hs_product
+  assign product_form_id = 'product-form-' | append: section.id
+%}
+<div class="hot-selling">
+  <div class="hs-wrapper">
+    <div class="hs-title">
+      <div class="title-img-l">
+        <picture>
+          <source
+            media="(min-width: 769px)"
+            srcset="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/p07185.png"
+          >
+          <source
+            media="(max-width: 768px)"
+            srcset="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/m07188.png"
+          >
+          <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/p07185.png">
+        </picture>
+      </div>
+      <div class="title">Hot Selling</div>
+      <div class="title-img-r">
+        <picture>
+          <source
+            media="(min-width: 769px)"
+            srcset="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/p07183.png"
+          >
+          <source
+            media="(max-width: 768px)"
+            srcset="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/m07186.png"
+          >
+          <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/p07183.png" alt="">
+        </picture>
+      </div>
+    </div>
+    <div class="hs-product">
+      <div class="product-box">
+        <div class="box-l">
+          <div class="l-video">
+            {{ section.settings.product_video | video_tag: autoplay: true, loop: true, controls: true, muted: true }}
+          </div>
+        </div>
+        <div class="box-r">
+          <div class="r-content">
+            <img class="r-img" src="{{ product.featured_image | image_url: width: master }}" alt="">
+            <p class="r-title">{{ product.title }}</p>
+            <div class="r-price">
+              <span class="new-price">$5399</span>
+              <span class="old-price">$5999</span>
+            </div>
+            <div class="btn-info">
+              <div class="btn-l">
+                  <div class="btn-adt">
+                    <product-form
+                      class="product-form"
+                      data-section="{{ section.id }}"
+                      data-hide-errors="{{ gift_card_recipient_feature_active }}"
+                    >
+                      {%- form 'product',
+                        product,
+                        id: product_form_id,
+                        class: 'form',
+                        novalidate: 'novalidate',
+                        data-type: 'add-to-cart-form'
+                      -%}
+                        <input type="hidden" name="id" value="43087910174901" disabled>
+                        <button
+                          type="submit"
+                          name="add"
+                          id="AddToCart"
+                          class="btn-adt"
+                        >
+                          <span class="adt-info">Shop Now</span>
+                          <span class="adt-icon">
+                            <?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="20px" height="18px" viewBox="0 0 20 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <title>购物车</title>
+                                <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="8月活动落地页-pc" transform="translate(-1203, -1318)" fill="#FEFEFE">
+                                        <g id="shop" transform="translate(1098, 1312)">
+                                            <g id="购物车" transform="translate(105, 6)">
+                                                <path d="M16.1945868,11.3449795 L6.02739536,11.3449795 L4.24963679,4.36316966 L17.9723453,4.36316966 L16.1945868,11.3449795 Z M17.7508178,12.4286185 L19.9734775,3.70227914 C20.0399358,3.44106124 19.9799388,3.16507484 19.811024,2.95370064 C19.6430323,2.7414034 19.3845835,2.61771719 19.1104431,2.61771719 L3.80473563,2.61771719 L3.30629865,0.660890518 C3.20753429,0.272294278 2.85216718,0 2.44418728,0 L0.888879286,0 C0.397826555,0 0,0.390442303 0,0.87226472 C0,1.35501017 0.397826555,1.74545247 0.888879286,1.74545247 L1.75006763,1.74545247 L4.47024131,12.4286185 C4.56992871,12.8172147 4.92529581,13.090432 5.33327571,13.090432 L16.8887064,13.090432 C17.2966863,13.090432 17.6520534,12.8172147 17.7508178,12.4286185 L17.7508178,12.4286185 Z" id="Fill-1"></path>
+                                                <path d="M5.33309111,14.8356999 C5.57769444,14.8356999 5.77706923,15.0323056 5.77706923,15.2722938 C5.77706923,15.5122819 5.57769444,15.7088876 5.33309111,15.7088876 C5.08756474,15.7088876 4.88818995,15.5122819 4.88818995,15.2722938 C4.88818995,15.0323056 5.08756474,14.8356999 5.33309111,14.8356999 M3.11043138,15.2722938 C3.11043138,16.4750037 4.10822837,17.4534171 5.33309111,17.4534171 C6.55795384,17.4534171 7.55575084,16.4750037 7.55575084,15.2722938 C7.55575084,14.0686607 6.55795384,13.0902474 5.33309111,13.0902474 C4.10822837,13.0902474 3.11043138,14.0686607 3.11043138,15.2722938" id="Fill-3"></path>
+                                                <path d="M16.8885218,14.8356999 C17.1340482,14.8356999 17.3324999,15.0323056 17.3324999,15.2722938 C17.3324999,15.5122819 17.1340482,15.7088876 16.8885218,15.7088876 C16.6429955,15.7088876 16.4436207,15.5122819 16.4436207,15.2722938 C16.4436207,15.0323056 16.6429955,14.8356999 16.8885218,14.8356999 M14.6658621,15.2722938 C14.6658621,16.4750037 15.6636591,17.4534171 16.8885218,17.4534171 C18.1133846,17.4534171 19.1111816,16.4750037 19.1111816,15.2722938 C19.1111816,14.0686607 18.1133846,13.0902474 16.8885218,13.0902474 C15.6636591,13.0902474 14.6658621,14.0686607 14.6658621,15.2722938" id="Fill-5"></path>
+                                                <path d="M12.888565,6.98153297 L11.9996858,6.98153297 L11.9996858,6.10834522 C11.9996858,5.62652281 11.6018592,5.2360805 11.1108065,5.2360805 C10.6197537,5.2360805 10.2219272,5.62652281 10.2219272,6.10834522 L10.2219272,6.98153297 L9.33304789,6.98153297 C8.84199516,6.98153297 8.44416861,7.37197528 8.44416861,7.85379769 C8.44416861,8.33654314 8.84199516,8.72698544 9.33304789,8.72698544 L10.2219272,8.72698544 L10.2219272,9.60017319 C10.2219272,10.0819956 10.6197537,10.4724379 11.1108065,10.4724379 C11.6018592,10.4724379 11.9996858,10.0819956 11.9996858,9.60017319 L11.9996858,8.72698544 L12.888565,8.72698544 C13.3796178,8.72698544 13.7774443,8.33654314 13.7774443,7.85379769 C13.7774443,7.37197528 13.3796178,6.98153297 12.888565,6.98153297" id="Fill-7"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                          </span>
+                        </button>
+                      {%- endform -%}
+                    </product-form>
+                  </div>
+              </div>
+              <a class="btn-r" href="{{ product.url }}">Learn VF 13 Pro &gt;</a>
+            </div>
+          </div>
+          <div class="r-sale">
+            <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/m07187.png" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('productVideo').play();
+  document.getElementById("productVideo").muted = true;
+  document.getElementById("productVideo").autoplay = true;
+</script>
+
+{% schema %}
+{
+  "name": "VF13Pro Hot Selling",
+  "settings": [
+    {
+      "type": "product",
+      "id": "hs_product",
+      "label": "产品选择"
+    },
+    {
+      "type": "video",
+      "id": "product_video",
+      "label": "视频选择"
+    }
+  ],
+  "presets": [
+    {
+      "name": "VF13Pro Hot Selling"
+    }
+  ]
+}
+{% endschema %}

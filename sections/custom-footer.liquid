@@ -1,0 +1,1715 @@
+{%- liquid
+  assign copyright_text = section.settings.copyright_text
+  assign show_language_switcher = section.settings.show_language_switcher
+  assign show_currency_switcher = section.settings.show_currency_switcher
+  assign show_payment_icons = section.settings.show_payment_icons
+  assign footer_reveal_animation = section.settings.footer_reveal_animation
+-%}
+<style>
+          .footer-{{ section.id }} .thb-widget-menu .sub-menu {
+            transition: all 0.25s cubic-bezier(0.104, 0.204, 0.492, 1);
+          }
+
+          .footer-{{ section.id }} {
+            display: block;
+            background: #131313 !important;
+            padding: 50px 0 !important;
+            font-size: 16px !important;
+            color: #fff !important;
+            font-weight: 700 !important;
+            line-height: 1.4 !important;
+          }
+          @media only screen and (max-width: 1200px) {
+            .footer-{{ section.id }} .row {
+
+              column-gap: 0 !important;
+              row-gap: 20px;
+
+            }
+        }
+          @media only screen and (min-width: 768px) {
+            .footer-{{ section.id }} {
+              padding: 50px 0 !important;
+            }
+            .footer-{{ section.id }} .row {
+                max-width: 1248px;
+
+                padding: 50px 24px;
+                justify-content: start;
+              column-gap: 47px;
+
+            }
+            .footer-{{ section.id }}  .row .columns {
+                padding: 0;
+            }
+          }
+          .footer-{{ section.id }} a {
+              color: rgba(255, 255, 255, 0.5) !important;
+          }
+          .footer-{{ section.id }}   a:focus,
+          .footer-{{ section.id }} a:hover {
+            color: #fff !important;
+            text-decoration: underline;
+          }
+          .footer-{{ section.id }} .custom-select--button {
+            color: #fff !important;
+          }
+          .footer-{{ section.id }} .custom-select--arrow svg path {
+            stroke: #fff !important;
+          }
+          @media only screen and (max-width: 768px) {
+            .footer-{{ section.id }} .custom-select--item {
+              max-width: 250px;
+            }
+          }
+          .footer-{{ section.id }} .custom-select--item button {
+            display: block;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
+            text-overflow: ellipsis;
+          }
+          @media only screen and (max-width: 768px) {
+            .footer-{{ section.id }} .custom-select + .custom-select--currency .custom-select--list {
+              left: 50%;
+              right: auto;
+              transform: translateX(-50%);
+            }
+          }
+          .footer-{{ section.id }} .widget {
+            margin-bottom: 0 !important;
+          }
+          .footer-{{ section.id }} .widget img {
+            margin-bottom: 20px;
+          }
+          .footer-{{ section.id }} .widget button {
+            color: #fff !important;
+          }
+          .footer-{{ section.id }} .widget .text-button path {
+            stroke: #fff !important;
+          }
+          @media only screen and (max-width: 767px) {
+            .footer .widget--menu {
+              margin-bottom: 0;
+              border-top: 1px solid var(--color-footer-border) !important;
+            }
+          }
+          @media only screen and (max-width: 767px) {
+            .footer-{{ section.id }} .widget--menu-column + .columns:not(.widget--menu-column) {
+              margin-top: 40px;
+            }
+          }
+          .footer-{{ section.id }} .widget--text .text-button {
+            margin-bottom: 20px;
+          }
+          .footer-{{ section.id }} .widget--text .text-size--medium {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+          }
+          .footer-{{ section.id }} .widget--text .text-size--large {
+            font-size: 1.5rem;
+            line-height: 2rem;
+          }
+          .footer-{{ section.id }} .widget--text.text-right .rte {
+            margin-left: auto;
+          }
+          .footer-{{ section.id }} .widget--text.text-center .rte {
+            margin: 0 auto;
+          }
+          .footer-{{ section.id }} .widget--text .rte {
+            max-width: 450px;
+          }
+          .footer-{{ section.id }} .widget--text .rte.text-size--large {
+            max-width: 600px;
+          }
+          .footer-{{ section.id }} .widget--text p {
+            font-size: inherit;
+            line-height: inherit;
+          }
+          .footer-{{ section.id }} .widget--text .social-links li {
+            display: inline-flex;
+          }
+          .footer-{{ section.id }} .widget--text .social-links li a {
+            justify-content: flex-start;
+          }
+          .footer-{{ section.id }} .widget--text .social-links li span {
+            display: none;
+          }
+          .footer-{{ section.id }} .thb-widget-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            line-height: 1;
+            font-size: 1.0625rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+            width: 100%;
+            color: var(--color-footer-heading, #fff);
+          }
+          .footer-{{ section.id }} .thb-widget-title.collapsible {
+            font-family: Mulish;
+            font-size: 16px !important;
+            font-weight: 700 !important;
+            line-height: 1.4 !important;
+            margin-bottom: 16px !important;
+            color: #fff !important;
+          }
+
+        }
+          .footer-{{ section.id }} .thb-widget-title.collapsible span {
+            display: block;
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+          }
+          .footer-{{ section.id }} .thb-widget-title.collapsible span svg {
+            transform: rotateX(180deg);
+          }
+          .footer-{{ section.id }} .thb-widget-title.collapsible span svg path {
+            stroke: var(--color-footer-heading, #fff);
+          }
+          .footer-{{ section.id }} .footer-section-bottom-content{
+              width: 100%;
+          }
+
+          .footer-{{ section.id }} .footer-section-bottom-content .row{
+              width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0;
+      margin: 10px 0 0 0 ;
+
+          }
+          .footer-{{ section.id }} .country-switcher-footer .country-switcher{
+            padding-top: 24px;
+
+        }
+          .footer-{{ section.id }} .country-switcher-footer .country-switcher>a{
+              display: flex
+              ;
+                  align-items: center;
+          }
+          .footer-{{ section.id }} .country-switcher-footer .country-switcher>a>img{
+            width: 30px !important;
+    height: 30px !important;
+        }
+          .footer-{{ section.id }} .country-switcher-footer .country-switcher>a>.current_country_name{
+              color: #FFF;
+
+  /* MB/小文本 */
+  font-family: Mulish;
+  font-size: 14px;
+
+  font-weight: 400;
+  line-height: 1.4; /* 140% */
+
+          }
+          .footer-{{ section.id }} .footer-section-bottom-content .row p{
+              margin: 0;
+              font-size: 14px;
+              font-weight: 400;
+              line-height: 1.4;
+              text-align: left;
+              color: rgba(255, 255, 255, 0.50);
+
+
+          }
+          .footer-{{ section.id }} .footer-section-bottom-content .row .footer-payment-icons{
+              padding: 0;
+          }
+          @media only screen and (min-width: 768px) {
+            .footer-{{ section.id }} .thb-widget-title.collapsible {
+              margin-bottom: 20px;
+              padding: 0;
+            }
+            .footer-{{ section.id }} .thb-widget-title.collapsible span {
+              display: none;
+            }
+          }
+          .footer-{{ section.id }} .thb-widget-title.active span svg {
+            transform: rotateX(0deg);
+          }
+          .footer-{{ section.id }} .thb-widget-title.active + .thb-widget-menu {
+            display: block;
+          }
+          .footer-{{ section.id }} .social-links svg path {
+            fill: var(--color-footer-link, #fff);
+          }
+          .footer-{{ section.id }} .thb-widget-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0 0 30px;
+            display: none;
+            overflow: hidden;
+          }
+          .footer-{{ section.id }} .footer-policy{
+          }
+          .footer-{{ section.id }} .footer-policy .row{
+              padding: 0 24px;
+              margin-bottom: 24px;
+        }
+          .footer-{{ section.id }} .footer-policy .footer-policy-list{
+              list-style: none;
+          margin: 0;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          flex-wrap: wrap;
+          }
+          .footer-{{ section.id }} .footer-policy .footer-policy-list .footer-policy-item{
+            font-family: Mulish;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.4;
+        text-align: left;
+        display: flex
+    ;
+        align-items: center;
+        column-gap: 10px;
+
+        }
+        .footer-{{ section.id }} .footer-policy .footer-policy-list .footer-policy-item span{
+            height: 10px;
+        width: 1px;
+        background: rgba(255, 255, 255, 0.5);
+        }
+          @media only screen and (min-width: 768px) {
+            .footer-{{ section.id }} .thb-widget-menu {
+              padding: 0;
+              display: block !important;
+            }
+          }
+          .footer-{{ section.id }} .thb-widget-menu li {
+              margin-bottom: 12px !important;
+              color: rgba(255, 255, 255, 0.5) !important;
+              font-family: Mulish !important;
+              font-size: 14px !important;
+              font-weight: 400 !important;
+              line-height: 1.4 !important;
+
+
+            }
+            .footer-{{ section.id }} .thb-widget-menu li.contact-info  .contact-info-title{
+
+              color: #fff !important;
+
+              font-weight: 700 !important;
+              line-height: 1.4 !important;
+
+
+            }
+            .footer-{{ section.id }} .thb-widget-menu li:hover {
+
+              text-decoration-line: underline !important;
+            }
+            .footer-{{ section.id }} .thb-widget-menu li:hover a {
+              color: #fff !important;
+            }
+            .footer-{{ section.id }} .thb-widget-menu li.contact-info:hover {
+
+              text-decoration-line: none !important;
+            }
+            .footer-{{ section.id }} .thb-widget-menu li.contact-info:hover .contact-info-text{
+              color: rgba(255, 255, 255, 0.5) !important;
+              text-decoration-line: none !important;
+            }
+
+          .footer-{{ section.id }} .thb-widget-menu li:last-child {
+            margin-bottom: 0 !important;
+          }
+          .footer-{{ section.id }} .thb-widget-menu li.menu-item-has-children a {
+            display: inline-flex;
+            vertical-align: middle;
+            word-break: break-all;
+          }
+          .footer-{{ section.id }} .thb-widget-menu li.menu-item-has-children:focus-within > .sub-menu {
+            display: block;
+          }
+          .footer-{{ section.id }} .thb-widget-menu li .thb-arrow {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 8px;
+            width: 24px;
+            height: 24px;
+            position: relative;
+            vertical-align: middle;
+          }
+          [dir='rtl'] .footer-{{ section.id }} .thb-widget-menu li .thb-arrow {
+            margin-left: 0;
+            margin-right: 8px;
+          }
+          .footer-{{ section.id }} .thb-widget-menu li .thb-arrow svg path {
+            stroke: var(--color-footer-link, #fff);
+          }
+          .footer-{{ section.id }} .thb-widget-menu li .thb-arrow:focus-visible + .sub-menu {
+            display: block;
+          }
+          .footer-{{ section.id }} .thb-widget-menu .sub-menu {
+            list-style: none;
+            margin: 5px 0 0 15px;
+            padding: 0;
+            display: none;
+            overflow: hidden;
+          }
+          .footer-{{ section.id }} .thb-widget-menu .sub-menu.active {
+            display: block;
+          }
+          .footer-{{ section.id }} .signup-container button {
+            border-color: var(--color-footer-border, --color-form-border);
+          }
+          .footer-{{ section.id }} .signup-container button svg path {
+            stroke: var(--color-footer-text, #fff);
+          }
+          .footer-{{ section.id }} .signup-container input {
+            color: var(--color-footer-text, --color-body);
+            border-color: var(--color-footer-border, --color-form-border);
+          }
+          .footer-{{ section.id }} .signup-container input:focus + label,
+          .footer-{{ section.id }} .signup-container input:not(:placeholder-shown) + label {
+            background: var(--color-footer-bg, #2c2d2e);
+            color: var(--color-footer-text, #fff);
+          }
+          .footer-{{ section.id }} .signup-container .field label {
+            color: var(--color-footer-text, #fff);
+          }
+
+          .footer-{{ section.id }}  .sub-footer {
+            margin-top: 0 !important;
+            color: #fff;
+          }
+          .footer-{{ section.id }}   .sub-footer .row{
+              padding: 0 24px ;
+          }
+          .footer-{{ section.id }}  .sub-footer a {
+            color: var(--color-footer-link, #fff);
+          }
+          .footer-{{ section.id }}  .sub-footer a:focus,
+          .footer-{{ section.id }}  .sub-footer a:hover {
+            color: var(--color-footer-link-hover, #fff);
+          }
+          .footer-{{ section.id }}  .sub-footer hr {
+            border-color: var(--color-footer-border);
+            opacity: 0.5;
+          }
+          .footer-{{ section.id }}  .sub-footer p {
+            font-size: 0.875rem;
+            opacity: 0.8;
+          }
+          .footer-{{ section.id }}  .sub-footer p a {
+            text-decoration: underline;
+            text-underline-offset: 2px;
+          }
+          .footer-{{ section.id }}  .sub-footer .thb-localization-forms {
+            text-align: left;
+          }
+          [dir='rtl'] .footer-{{ section.id }}  .sub-footer .thb-localization-forms {
+            text-align: right;
+          }
+          .footer-{{ section.id }}  .sub-footer .thb-localization-forms .shopify-localization-form > div {
+            margin: 0 15px 0 0;
+          }
+          .footer-{{ section.id }}  .sub-footer .thb-localization-forms .custom-select--list {
+            top: auto;
+            bottom: 100%;
+            right: auto;
+            left: 0;
+          }
+          .footer-{{ section.id }}  .sub-footer .thb-localization-forms select {
+            color: inherit;
+            padding: 12px 24px 12px 17px;
+            border: 1px solid rgba(var(--color-footer-border-rgb, #fff), 0.4);
+          }
+
+          @media only screen and (min-width: 768px) {
+            .footer-payment-icons {
+              text-align: right;
+            }
+          }
+
+          @media only screen and (min-width: 1068px) {
+            .footer-payment-icons {
+              padding: 15px 0 0;
+            }
+          }
+
+          .footer-payment-icons figure {
+            display: inline-flex;
+            margin-left: 5px;
+          }
+          .footer-payment-icons figure:first-child {
+            margin-left: 0;
+          }
+
+          .signup-container {
+            margin-bottom: 0;
+          }
+          .signup-container .form-notification {
+            margin-bottom: 10px;
+          }
+          .signup-container fieldset {
+            position: relative;
+          }
+          .signup-container input {
+            padding-right: 40px;
+            width: 100%;
+            margin-bottom: 0;
+          }
+          [dir='rtl'] .signup-container input {
+            padding-left: 40px;
+            padding-right: 17px;
+          }
+          .signup-container button {
+            position: absolute;
+            bottom: 1px;
+            right: 0;
+            top: 1px;
+            max-height: 52px;
+            width: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-left: 1px solid var(--color-form-border);
+          }
+          [dir='rtl'] .signup-container button {
+            right: auto;
+            left: 0;
+            border-left: 0;
+            border-right: 1px solid var(--color-form-border);
+          }
+          [dir='rtl'] .signup-container button svg {
+            transform: rotateZ(180deg);
+          }
+          .signup-container--terms {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 10px;
+          }
+          .signup-container--terms input {
+            width: auto;
+            margin-right: 8px;
+          }
+
+          .social-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+          }
+          .social-links li {
+            margin-bottom: 5px;
+          }
+          .social-links li a {
+            display: inline-flex;
+            align-items: center;
+            width: 44px;
+            height: 44px;
+            justify-content: center;
+          }
+          .social-links svg {
+            width: 16px;
+            height: auto;
+            flex-shrink: 0;
+          }
+          .social-links span {
+            margin-left: 15px;
+          }
+          .social-links--has-label li a {
+            width: auto;
+            height: auto;
+          }
+          .footer-{{ section.id }} .thb-widget-title.collapsible span svg path {
+            stroke: #fff !important;
+        }
+        .footer-payment-icons figure {
+
+            margin-left: 0 !important;
+        }
+        .footer-{{ section.id }} .footer-section-bottom-content .row .footer-payment-icons {
+            padding: 0 !important;
+            display: flex;
+            gap: 10px !important;
+            flex-wrap: wrap;
+        }
+        .footer-{{ section.id }} .footer-section-bottom-content .row {
+
+
+            padding: 0;
+        }
+          @media only screen and (max-width: 768px) {
+            .footer-{{ section.id }} .contact-info-widget .contact-info-list{
+                display: block;
+            }
+            .footer-{{ section.id }} .row {
+
+                row-gap:0;
+
+              }
+            .footer-{{ section.id }}  .row .columns {
+                padding: 0 !important;
+            }
+            .footer-{{ section.id }} .thb-widget-title.collapsible {
+
+                margin-bottom: 0 !important;
+                color: #fff !important;
+                padding: 18px 0 !important;
+            }
+            .footer-{{ section.id }} .thb-widget-title.collapsible.active {
+
+
+                padding-bottom: 14px !important;
+            }
+            .footer-{{ section.id }} .widget--menu {
+
+                border-top: none !important;
+
+            }
+            .footer-{{ section.id }} .thb-widget-title.collapsible .collapsible-arrow {
+                display: block;
+            }
+            .footer-{{ section.id }} .thb-widget-title.collapsible .expand-arrow {
+                display: none;
+            }
+            .footer-{{ section.id }} .thb-widget-title.active .collapsible-arrow  {
+                display: none;
+             }
+            .footer-{{ section.id }} .thb-widget-title.active .expand-arrow {
+               display: block;
+            }
+            .footer-{{ section.id }} .thb-widget-title {
+
+                line-height: 1.4 !important;
+                font-size: 16px !important;
+                margin-bottom: 14px !important;
+                font-weight: 700 !important;
+
+
+            }
+            .footer-{{ section.id }} .contact-info-widget .thb-widget-title {
+
+                font-size: 14px !important;
+                margin-bottom: 16px !important;
+
+                padding-top: 30px !important;
+            }
+            .footer-{{ section.id }} .thb-widget-title.active+.thb-widget-menu {
+
+                padding: 0 0 18px !important;
+            }
+            .footer-{{ section.id }}  .contact-info-widget li {
+                margin-bottom: 14px !important;
+
+            }
+            .footer-{{ section.id }} .footer-policy .footer-policy-list .footer-policy-item {
+
+                font-size: 12px;
+
+            }
+            .footer-{{ section.id }}  .footer-policy .row {
+
+                margin-bottom: 16px;
+            }
+            .footer-{{ section.id }}  .footer-policy .footer-section-bottom-border {
+
+               display: none;
+            }
+            .footer-{{ section.id }}  .country-switcher-footer .country-switcher {
+                padding-top: 0;
+            }
+            .footer-{{ section.id }}  .country-switcher-footer .country-switcher>a {
+
+                margin: 0;
+            }
+            .footer-{{ section.id }} .country-switcher-footer .country-switcher>a>.current_country_name {
+
+                margin-left: 7px !important;
+            }
+            .footer-{{ section.id }} .footer-section-bottom-content .row {
+
+                margin: 12px 0 0 0;
+                padding: 0;
+            }
+            .footer-{{ section.id }}  .footer-section-bottom-content .row p {
+
+                font-size: 12px;
+
+                margin-bottom: 16px;
+            }
+
+          }
+</style>
+<style>
+    .footer-top-section {
+      color: #ffffff;
+      padding: 0;
+      line-height: 1.4;
+      background: #131313;
+    }
+
+    .footer-top-section .footer-container {
+      max-width: 1248px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 46px;
+    }
+
+    .footer-top-section .footer-section {
+      flex: 1;
+    }
+
+    .footer-top-section .footer-section .footer-section-title {
+      color: #fff;
+
+      font-family: Mulish;
+      font-size: 16px;
+
+      font-weight: 700;
+      line-height: 1.4; /* 140% */
+      margin-bottom: 40px;
+    }
+
+    .footer-top-section .service-features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* 一行两列 */
+      gap: 20px; /* 增加间距 */
+    }
+
+    .footer-top-section .feature {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-top-section .feature .icon {
+      width: 24px;
+      height: 24px;
+      min-width: 24px; /* 添加最小宽度确保图标不会被压缩 */
+      color: #ffffff;
+    }
+    .footer-top-section .feature span {
+      font-size: 14px; /* 可以适当调整文字大小 */
+      white-space: nowrap; /* 防止文字换行 */
+      overflow: hidden;
+      text-overflow: ellipsis; /* 文字过长时显示省略号 */
+      color: rgba(255, 255, 255, 0.5);
+
+      font-weight: 400;
+      line-height: 1.4; /* 140% */
+    }
+    .footer-top-section .footer-section-right-title {
+      color: #fff;
+
+      /* MB/H5五级标题 */
+      font-family: Mulish;
+      font-size: 16px;
+
+      font-weight: 700;
+      line-height: 1.4; /* 140% */
+      margin-bottom: 14px;
+    }
+    .footer-top-section .subscribe-form {
+      display: flex;
+      gap: 0;
+      margin-bottom: 20px;
+      min-height: 50px;
+    }
+    .footer-top-section .input-wrapper {
+      position: relative;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border-radius: 5px 0 0 5px;
+    }
+
+    .footer-top-section .email-icon {
+      position: absolute;
+      left: 14px;
+    }
+
+    .footer-top-section .input-wrapper input {
+      width: 100%;
+      padding: 14px 14px 14px 48px; /* 左侧padding增加，为图标留出空间 */
+      border: none;
+      background: transparent;
+      color: #000;
+      font-size: 14px;
+      height: 100%;
+      margin: 0;
+    }
+    .footer-top-section .input-wrapper input::placeholder {
+      color: rgba(0, 0, 0, 0.3);
+    }
+    .footer-top-section .input-wrapper input:focus {
+      background: none;
+      border: none;
+      /* 重点是 outline: none;  */
+      outline: none;
+    }
+
+    .footer-top-section .subscribe-form button {
+      padding: 14px 24px;
+      background-color: #ff8f1c;
+      color: white;
+      border: none;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s;
+      font-size: 14px;
+    }
+
+    .footer-top-section .subscribe-form button:hover {
+      background-color: #ff8f1c;
+    }
+
+    .footer-top-section .social-links {
+      display: flex;
+      gap: 10px;
+    }
+
+    .footer-top-section .social-link {
+      color: #ffffff;
+      transition: opacity 0.3s;
+      width: 28px;
+      height: 28px;
+    }
+    .footer-top-section .social-link svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .footer-top-section .social-link:hover {
+      opacity: 0.8;
+    }
+    .footer-section-bottom-border.pc {
+      display: block;
+    }
+    .footer-section-bottom-border.mb {
+      display: none;
+    }
+    .footer-section-bottom-border {
+      max-width: 1200px;
+      height: 0;
+      position: relative;
+      margin: 0 auto;
+    }
+    .footer-section-bottom-border::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+
+      transform: scaleY(0.5);
+    }
+    .footer-{{ section.id }} .footer-section-right{
+      margin-left: 40px;
+  }
+    /* 移动端响应式布局 */
+    @media (max-width: 768px) {
+      .footer-top-section .footer-container {
+        flex-direction: column-reverse;
+        padding: 0 24px;
+      }
+      .footer-top-section .footer-container {
+        max-width: none;
+
+        gap: 0;
+        margin-bottom: 18px;
+      }
+
+      .footer-top-section .footer-section {
+        width: 100%;
+
+      }
+      .footer-{{ section.id }} .footer-section-right{
+          margin-left: 0;
+      }
+
+      .footer-top-section .subscribe-form {
+        gap: 0;
+        margin-bottom: 30px;
+        min-height: 40px;
+        max-width: 100%;
+        overflow: hidden;
+      }
+      .footer-top-section .input-wrapper {
+        width: 100%;
+      }
+
+      .footer-top-section .input-wrapper input {
+        width: max-content;
+        padding: 12px 12px 12px 38px;
+
+        font-size: 14px;
+      }
+      .footer-top-section .email-icon {
+        left: 12px;
+      }
+      .footer-top-section .subscribe-form button {
+        width: auto;
+        padding: 12px 10px;
+        font-size: 14px;
+      }
+      .footer-top-section .footer-section .footer-section-title {
+        font-size: 14px;
+
+        margin-bottom: 16px;
+        margin-top: 18px;
+      }
+
+      .footer-top-section .social-links {
+        justify-content: center;
+        margin-top: 0;
+        margin-bottom: 30px;
+        justify-content: start;
+      }
+
+      .footer-top-section .feature .icon {
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+      }
+      .footer-top-section .service-features {
+        grid-template-columns: 1fr; /* 改为一列 */
+        gap: 14px; /* 移动端可以适当减小间距 */
+      }
+
+      .footer-top-section .feature span {
+        white-space: normal; /* 移动端允许文字换行 */
+      }
+      .footer-section-bottom-border.pc {
+        display: none;
+      }
+      .footer-section-bottom-border.mb {
+        display: block;
+      }
+    }
+</style>
+<theme-footer class="footer footer-{{ section.id }}" id="footer">
+  <div class="footer-top-section">
+    <div class="footer-container">
+      <!-- 左侧部分 -->
+      <div class="footer-section">
+        <div class="footer-section-title">Buy on the Procolored store</div>
+        <div class="service-features">
+          <div class="feature">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+              <path d="M9.29492 13.0711C10.0749 14.7039 11.3693 16.0168 12.979 16.7911C13.2279 16.909 13.5101 16.8921 13.7258 16.7406L16.0823 15.1416C16.298 14.9901 16.5635 14.9732 16.7959 15.0742L21.2101 16.9931C21.5255 17.1278 21.708 17.4476 21.6582 17.7843C21.3761 20.0735 19.4511 21.7904 17.161 21.7904C10.0749 21.7904 4.33301 15.9663 4.33301 8.77884C4.33301 6.47277 6.0257 4.52019 8.28262 4.21721C8.61452 4.16671 8.92983 4.3687 9.06259 4.67169L10.9544 9.16599C11.054 9.40164 11.0374 9.67096 10.9046 9.88979L9.32811 12.3137C9.21194 12.5493 9.19535 12.8355 9.29492 13.0711Z" stroke="white" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15 8.66286C15.7287 8.76648 17.0613 9.40891 16.5616 11.1497M15.6246 6.48686C17.0821 6.90133 19.7473 8.41417 18.7479 11.1497M15.937 4C18.1232 4.41448 22.2458 6.54903 21.2464 11.7714" stroke="white" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span>24*6 Customer Support</span>
+          </div>
+          <div class="feature">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+              <path d="M20.7414 13.5652C21.2523 13.7492 21.7631 13.8781 22.3105 13.9517C22.5659 14.007 22.7666 14.2094 22.7483 14.4488C22.7483 15.7373 22.6206 17.1916 22.128 18.4434C21.9821 18.8299 21.7996 19.1981 21.5624 19.5479C20.9786 20.4315 20.0846 21.131 19.0994 21.4807C18.7163 21.628 18.3149 21.3519 17.9683 21.1678C17.6399 21.0205 17.3662 20.8364 17.1473 20.6524C16.4358 20.0817 15.9249 19.3086 15.5783 18.4618C15.0857 17.1916 15.0127 15.7557 15.0127 14.4672C15.0127 14.2094 15.2134 13.9885 15.4688 13.9517C15.9979 13.8781 16.527 13.7492 17.0378 13.5652L18.5521 12.5527C18.7528 12.4238 18.99 12.4238 19.1907 12.5527C19.7015 12.9025 20.632 13.5283 20.7414 13.5652Z" stroke="white" stroke-opacity="0.5" stroke-width="1.5" stroke-miterlimit="10"/>
+              <path d="M17.3145 16.0361L18.7678 18.0819L20.3831 16.0361" stroke="white" stroke-opacity="0.5" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M10.949 2.5C13.9228 2.5 16.2602 4.98209 16.4763 8.02051H17.197L17.2742 8.02441C17.6522 8.063 17.947 8.38231 17.947 8.77051C17.947 9.1587 17.6522 9.47802 17.2742 9.5166L17.197 9.52051H15.8943C15.681 12.2262 13.6017 14.4609 10.949 14.4609C10.9248 14.4609 10.9007 14.4594 10.8767 14.459C10.871 14.4591 10.8648 14.46 10.8591 14.46C7.31674 14.4604 4.36607 17.2249 4.0017 20.8047H14.2908L14.3679 20.8086C14.7459 20.847 15.0405 21.1666 15.0408 21.5547C15.0408 21.943 14.7461 22.2633 14.3679 22.3018L14.2908 22.3047H3.96263C3.07238 22.3044 2.43932 21.5366 2.50463 20.6982V20.6914L2.5056 20.6836C2.83445 17.3366 5.0492 14.542 8.05638 13.4512C6.90207 12.5474 6.13046 11.1215 6.0056 9.52051H4.70287C4.28887 9.52025 3.95287 9.18456 3.95287 8.77051C3.95287 8.35645 4.28887 8.02076 4.70287 8.02051H5.42357C5.63965 4.98237 7.97552 2.50046 10.949 2.5ZM7.51049 9.52051C7.71473 11.5207 9.23767 12.9605 10.949 12.9609C12.6582 12.9609 14.1827 11.5091 14.3884 9.52051H7.51049ZM10.949 4C10.6597 4.00007 10.3761 4.03504 10.1013 4.10059V5.86621C10.1012 6.28032 9.76544 6.61621 9.35131 6.61621C8.93739 6.61595 8.60143 6.28016 8.60131 5.86621V4.83496C7.68863 5.55508 7.04741 6.68744 6.9265 8.02051H14.9734C14.8524 6.68705 14.2109 5.55407 13.2976 4.83398V5.86621C13.2975 6.28032 12.9617 6.61621 12.5476 6.61621C12.1337 6.61595 11.7977 6.28016 11.7976 5.86621V4.09961C11.5227 4.03408 11.2383 4 10.949 4Z" fill="white" fill-opacity="0.5"/>
+            </svg>
+            <span>Local Engineers</span>
+          </div>
+          <div class="feature">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+              <path d="M6.17871 7.68701H14.2548" stroke="white" stroke-opacity="0.5" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"/>
+              <path d="M6.17871 11.1475H11.6456" stroke="white" stroke-opacity="0.5" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"/>
+              <path d="M6.17871 14.6104H10.2079" stroke="white" stroke-opacity="0.5" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"/>
+              <path d="M18.6745 9.41696V4.95397C18.6745 4.01324 17.9112 3.25 16.9705 3.25H4.95397C4.01324 3.25 3.25 4.01324 3.25 4.95397V20.3075C3.25 21.2482 4.01324 22.0114 4.95397 22.0114H11.6939" stroke="white" stroke-opacity="0.5" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"/>
+              <path d="M22.2955 13.459C22.2644 13.4038 22.1877 13.3987 22.1478 13.448V13.448L20.35 15.678C20.2814 15.7631 20.1572 15.7774 20.0711 15.71L18.4237 14.4214C18.3358 14.3526 18.3212 14.2252 18.3913 14.1383L20.1854 11.9129V11.9129C20.2248 11.8642 20.2031 11.7912 20.1428 11.7741C18.8033 11.3938 17.2952 11.8276 16.3832 12.9834C15.402 14.1953 15.3816 15.8718 16.1993 17.104L15.8518 17.5281L13.7871 20.0934C13.3987 20.5782 13.4805 21.2851 13.9711 21.6891C14.4617 22.0729 15.1772 21.9921 15.586 21.5073L17.712 18.8815L18.0186 18.4977C19.4086 18.9825 21.0235 18.5785 22.0047 17.3666C22.897 16.2106 22.9815 14.6746 22.2955 13.459Z" stroke="white" stroke-opacity="0.5" stroke-width="1.2" stroke-miterlimit="10"/>
+            </svg>
+            <span>6-Month Print Head Warranty</span>
+          </div>
+          <div class="feature">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+              <path d="M12.7834 2.5C16.9134 2.50019 20.3469 5.57004 20.922 9.54492C21.9306 9.58156 22.7927 10.0689 23.4162 10.751L23.5421 10.8955L23.5607 10.917L23.5763 10.9395L23.6974 11.1191C24.2712 12.0263 24.3664 13.0218 24.3664 13.9756C24.3664 14.8671 24.3987 16.2607 23.4328 17.2715L23.4337 17.2725C22.758 18.0829 21.6848 18.6249 20.5832 18.625H20.4708C19.2897 21.7227 16.2875 23.9334 12.7834 23.9336C12.3692 23.9336 12.0335 23.5977 12.0334 23.1836C12.0334 22.7694 12.3692 22.4336 12.7834 22.4336C16.4856 22.4334 19.508 19.4103 19.508 15.708V10.7246C19.5077 7.02246 16.4855 4.00021 12.7834 4C9.02304 4.00002 6.38314 6.97016 6.38296 10.7246V17.875C6.38296 18.2892 6.04717 18.625 5.63296 18.625C5.61455 18.625 5.59635 18.6234 5.57827 18.6221L5.52456 18.625H5.19937C4.10649 18.6247 3.04187 18.0909 2.36538 17.291C1.38193 16.2788 1.41615 14.8723 1.41616 13.9756C1.41616 12.9585 1.52481 11.8937 2.2062 10.9395L2.22183 10.917L2.24038 10.8955L2.36636 10.751C3.00987 10.0469 3.90843 9.54957 4.95913 9.54199C5.4699 5.60562 8.51363 2.50002 12.7834 2.5ZM21.008 15.708C21.008 16.1816 20.9653 16.6456 20.8878 17.0977C21.4192 17.0136 21.9392 16.7219 22.2814 16.3115L22.3039 16.2861L22.3273 16.2617C22.8294 15.7596 22.8663 15.0195 22.8664 13.9756C22.8664 13.0538 22.7584 12.3902 22.3683 11.832C21.9926 11.3916 21.5202 11.1142 21.008 11.0547V15.708ZM4.88296 11.0479C4.3292 11.0788 3.81517 11.3605 3.41323 11.832C3.02357 12.39 2.91616 13.0542 2.91616 13.9756C2.91618 14.9544 2.94851 15.6662 3.36636 16.165L3.45523 16.2617L3.47866 16.2861L3.50112 16.3115L3.66519 16.4873C3.99521 16.8024 4.43494 17.0222 4.88296 17.0957V11.0479Z" fill="white" fill-opacity="0.5"/>
+              <path d="M9.75 15.1665C10.8333 16.7915 14.0833 17.3332 15.7083 15.1665" stroke="white" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span>Lifetime Customer Support</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧部分 -->
+      <div class="footer-section footer-section-right">
+        <div class="footer-section-right-title">
+          Get the latest on Procolored products, chance of free trials, and more.
+        </div>
+        {% form 'customer' %}
+          {%- if form.errors -%}
+            <div class="form-notification error" id="Newsletter-error--{{ section.id }}">
+              {% render 'svg-icons' with 'thb-error' %}
+              {{ form.errors.translated_fields.email | capitalize }}
+              {{ form.errors.messages.email }}
+            </div>
+          {%- endif -%}
+          {%- if form.posted_successfully? -%}
+            <div class="form-notification success" id="Newsletter-success--{{ section.id }}">
+              {% render 'svg-icons' with 'thb-success' %}
+              {{ 'newsletter.success' | t }}
+            </div>
+          {%- endif -%}
+          <div class="subscribe-form">
+            <input name="contact[tags]" type="hidden" value="newsletter">
+            <div class="input-wrapper">
+              <svg
+                class="email-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path d="M17.1661 19.3183L20.9188 16.0122L19.0425 14.123L15.2898 17.4291V19.3183H17.1661Z" stroke="black" stroke-opacity="0.3" stroke-width="1.5" stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M20.9189 12.6121V7.1335C20.9189 6.47229 20.4499 6 19.7931 6H4.1258C3.46908 6 3 6.47229 3 7.1335V18.0907C3 18.7519 3.46908 19.2242 4.1258 19.2242H12.6631" stroke="black" stroke-opacity="0.3" stroke-width="1.5" stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4.73535 6.75L12.0078 11.7949L19.3633 6.75H19.793C20.0307 6.75 20.1689 6.88196 20.1689 7.13379V8.01562L12.4307 13.3242C12.2059 13.4784 11.9176 13.4976 11.6777 13.3809L11.5781 13.3223L3.75 7.8916V7.13379C3.75 6.88196 3.88829 6.75 4.12598 6.75H4.73535Z" fill="black" fill-opacity="0.3"/>
+              </svg>
+              <input
+                type="email"
+                id="NewsletterForm--{{ section.id }}"
+                name="contact[email]"
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                value="{{ form.email }}"
+                pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+                title="xxx@xxx.xxx"
+                {% if form.errors %}
+                  autofocus
+                  aria-invalid="true"
+                  aria-describedby="Newsletter-error--{{ section.id }}"
+                {% elsif form.posted_successfully? %}
+                  aria-describedby="Newsletter-success--{{ section.id }}"
+                {% endif %}
+                required
+                placeholder="Enter Your Email"
+              >
+            </div>
+
+            <button
+              class="submit"
+              type="submit"
+            >
+              SUBSCRIBE
+            </button>
+
+            {%- if settings.email_terms_conditions_enable -%}
+              <div class="signup-container--terms">
+                <input type="checkbox" id="NewsletterTerms-{{ form.id }}" required>
+                <label for="NewsletterTerms-{{ form.id }}">
+                  {{ 'sections.signup.i_agree' | t }}
+                </label>
+              </div>
+            {%- endif -%}
+          </div>
+        {% endform %}
+        <div class="social-links">
+          {% if settings.social_facebook_link != blank %}
+            <a href="{{ settings.social_facebook_link }}" class="social-link facebook">
+              <svg
+                class="icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 28 28"
+                fill="none"
+              >
+                <rect width="28" height="28" rx="14" fill="white"/>
+                <path d="M21.9321 14.0458C21.9321 9.92168 18.5895 6.5791 14.466 6.5791C10.3426 6.5791 7 9.92168 7 14.0458C7 17.7716 9.73031 20.8603 13.2994 21.4203V16.2036H11.4041V14.0451H13.2994V12.4006C13.2994 10.529 14.4144 9.49546 16.1193 9.49546C16.9363 9.49546 17.7906 9.64106 17.7906 9.64106V11.4785H16.8498C15.9227 11.4785 15.6333 12.054 15.6333 12.6445V14.0458H17.7041L17.3731 16.2043H15.6333V21.421C19.2024 20.861 21.9327 17.7723 21.9327 14.0458H21.9321Z" fill="black"/>
+              </svg>
+            </a>
+          {% endif %}
+          {% if settings.social_twitter_link != blank %}
+            <a href="{{ settings.social_twitter_link }}" class="social-link twitter">
+              <svg
+                class="icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 28 28"
+                fill="none"
+              >
+                <g clip-path="url(#clip0_2527_6764)">
+                  <circle cx="14" cy="14" r="14" fill="white"/>
+                  <path d="M21 19.9619C20.0071 19.9619 19.0684 19.9619 18.1298 19.9619C17.7609 19.9619 17.3322 20.0721 17.0338 19.9178C16.7245 19.7634 16.5401 19.35 16.3122 19.0468C15.5363 18.0216 14.7659 16.9908 13.99 15.96C13.952 15.9104 13.9086 15.8608 13.8435 15.7836C13.4908 16.1915 13.1436 16.5884 12.8018 16.9853C12.0042 17.9223 11.2066 18.8594 10.3927 19.7855C10.3114 19.8792 10.154 19.9508 10.0346 19.9563C9.46494 19.9729 8.89524 19.9619 8.26043 19.9619C9.83389 18.1373 11.3694 16.3514 12.9211 14.5434C11.288 12.3771 9.66027 10.2163 8 8.00588C8.13022 8.00588 8.20618 8.00588 8.28214 8.00588C9.48664 8.00588 10.6857 8.0114 11.8902 8.00037C12.053 8.00037 12.1507 8.04998 12.2483 8.18227C13.0893 9.3233 13.9357 10.4588 14.7821 11.5888C14.8364 11.6605 14.8907 11.7321 14.9666 11.8203C15.4821 11.2195 15.9866 10.6352 16.4912 10.0509C17.023 9.43355 17.5547 8.8272 18.0755 8.20432C18.2058 8.04998 18.3414 7.99486 18.5422 8.00037C19.0902 8.0114 19.6381 8.00588 20.2458 8.00588C19.8172 8.50749 19.4265 8.9595 19.0359 9.4115C18.043 10.5635 17.0501 11.7211 16.0463 12.8676C15.9053 13.0275 15.9161 13.1157 16.0355 13.2811C17.6578 15.4529 19.2746 17.6302 20.8969 19.802C20.9186 19.8351 20.9457 19.8737 21 19.9619ZM18.6561 18.7492C18.553 18.6114 18.4825 18.5177 18.4174 18.4239C16.1657 15.3977 13.914 12.3715 11.6624 9.35086C11.6081 9.27369 11.5213 9.16896 11.4508 9.16345C11.0927 9.14691 10.74 9.15794 10.3276 9.15794C10.7671 9.74223 11.174 10.2824 11.5755 10.8171C13.5179 13.3968 15.4604 15.982 17.4082 18.5618C17.4733 18.6444 17.5818 18.7326 17.6795 18.7381C17.9887 18.7657 18.2926 18.7492 18.6561 18.7492Z" fill="black"/>
+                </g>
+                <defs>
+                  <clipPath id="clip0_2527_6764">
+                    <rect width="28" height="28" fill="white"/>
+                  </clipPath>
+                </defs>
+              </svg>
+            </a>
+          {% endif %}
+          {% if settings.social_instagram_link != blank %}
+            <a href="{{ settings.social_instagram_link }}" class="social-link instagram">
+              <svg
+                class="icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 28 28"
+                fill="none"
+              >
+                <rect width="28" height="28" rx="14" fill="white"/>
+                <path d="M14.5628 10.0716C12.4434 10.0716 10.7329 11.7825 10.7329 13.9024C10.7329 16.0222 12.4434 17.7331 14.5628 17.7331C16.6822 17.7331 18.3927 16.0222 18.3927 13.9024C18.3927 11.7825 16.6822 10.0716 14.5628 10.0716ZM14.5628 16.3921C13.1922 16.3921 12.0737 15.2733 12.0737 13.9024C12.0737 12.5314 13.1922 11.4127 14.5628 11.4127C15.9334 11.4127 17.052 12.5314 17.052 13.9024C17.052 15.2733 15.9334 16.3921 14.5628 16.3921ZM18.5496 9.02197C18.0547 9.02197 17.6551 9.42167 17.6551 9.91662C17.6551 10.4116 18.0547 10.8113 18.5496 10.8113C19.0444 10.8113 19.444 10.4134 19.444 9.91662C19.4422 9.4198 19.0444 9.02197 18.5496 9.02197Z" fill="black"/>
+                <path d="M21.9325 13.9999C21.9325 12.9688 21.9418 11.947 21.8839 10.9178C21.826 9.72231 21.5533 8.66133 20.6791 7.78714C19.8031 6.91108 18.744 6.64023 17.5486 6.58232C16.5175 6.52442 15.4957 6.53376 14.4665 6.53376C13.4354 6.53376 12.4137 6.52442 11.3845 6.58232C10.1891 6.64023 9.12809 6.91295 8.25391 7.78714C7.37787 8.6632 7.10703 9.72231 7.04912 10.9178C6.99122 11.9489 7.00056 12.9706 7.00056 13.9999C7.00056 15.0291 6.99122 16.0527 7.04912 17.082C7.10703 18.2774 7.37974 19.3384 8.25391 20.2126C9.12995 21.0887 10.1891 21.3595 11.3845 21.4174C12.4156 21.4753 13.4373 21.466 14.4665 21.466C15.4976 21.466 16.5193 21.4753 17.5486 21.4174C18.744 21.3595 19.805 21.0868 20.6791 20.2126C21.5552 19.3365 21.826 18.2774 21.8839 17.082C21.9437 16.0527 21.9325 15.031 21.9325 13.9999ZM20.2888 18.4044C20.1524 18.7444 19.988 18.9984 19.7246 19.26C19.4613 19.5233 19.2091 19.6877 18.8692 19.8241C17.8866 20.2145 15.5536 20.1267 14.4647 20.1267C13.3757 20.1267 11.0408 20.2145 10.0583 19.8259C9.71834 19.6896 9.46431 19.5252 9.2028 19.2618C8.93943 18.9984 8.77505 18.7463 8.6387 18.4063C8.25018 17.4219 8.33797 15.0889 8.33797 13.9999C8.33797 12.9109 8.25018 10.576 8.6387 9.59343C8.77505 9.25346 8.93943 8.99942 9.2028 8.73791C9.46618 8.4764 9.71834 8.31016 10.0583 8.1738C11.0408 7.78527 13.3757 7.87306 14.4647 7.87306C15.5536 7.87306 17.8885 7.78527 18.871 8.1738C19.211 8.31016 19.465 8.47454 19.7265 8.73791C19.9899 9.00129 20.1543 9.25346 20.2906 9.59343C20.6791 10.576 20.5914 12.9109 20.5914 13.9999C20.5914 15.0889 20.6791 17.4219 20.2888 18.4044Z" fill="black"/>
+              </svg>
+            </a>
+          {% endif %}
+          {% if settings.social_youtube_link != blank %}
+            <a href="{{ settings.social_youtube_link }}" class="social-link youtube">
+              <svg
+                class="icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 28 28"
+                fill="none"
+              >
+                <rect width="28" height="28" rx="14" fill="white"/>
+                <path d="M22.4494 8.89535C22.3537 8.52833 22.1662 8.19364 21.9056 7.92475C21.645 7.65587 21.3204 7.46224 20.9644 7.36323C19.6537 7 14.4 7 14.4 7C14.4 7 9.14625 7 7.83562 7.3613C7.47941 7.45998 7.15467 7.65351 6.89401 7.92244C6.63335 8.19137 6.44595 8.52624 6.35063 8.89342C6 10.2459 6 13.0667 6 13.0667C6 13.0667 6 15.8875 6.35063 17.238C6.54375 17.9838 7.11375 18.5711 7.83562 18.7701C9.14625 19.1333 14.4 19.1333 14.4 19.1333C14.4 19.1333 19.6537 19.1333 20.9644 18.7701C21.6881 18.5711 22.2563 17.9838 22.4494 17.238C22.8 15.8875 22.8 13.0667 22.8 13.0667C22.8 13.0667 22.8 10.2459 22.4494 8.89535ZM12.7312 15.6556V10.4777L17.0813 13.0473L12.7312 15.6556Z" fill="black"/>
+              </svg>
+            </a>
+          {% endif %}
+          {% if settings.social_pinterest_link != blank %}
+            <a href="{{ settings.social_pinterest_link }}" class="social-link pinterest">
+              <svg
+                class="icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 28 28"
+                fill="none"
+              >
+                <rect width="28" height="28" rx="14" fill="white"/>
+                <path d="M21.9333 13.9865C21.9333 17.6008 19.3742 20.6861 15.8512 21.3363C14.6647 21.5567 13.4965 21.4979 12.3355 21.1563C12.2041 21.1159 12.1712 21.0792 12.2296 20.9469C12.3209 20.7376 12.445 20.5502 12.5582 20.3556C13.0292 19.5328 13.2993 18.6439 13.4672 17.7146C13.4819 17.6302 13.5001 17.5457 13.5147 17.4612C13.5439 17.3106 13.6242 17.2702 13.7593 17.3473C13.7849 17.362 13.8104 17.3841 13.8323 17.4024C14.986 18.2803 16.3623 18.2399 17.4575 17.2849C18.2059 16.6311 18.6294 15.7863 18.8704 14.835C19.02 14.2399 19.0821 13.6376 18.9945 13.0352C18.8886 12.2785 18.4907 11.6504 18.0051 11.0848C16.3294 9.13441 13.6936 9.05728 11.777 10.4163C11.076 10.9122 10.4882 11.5145 10.1816 12.3447C9.63031 13.8286 10.1305 15.5329 11.39 16.4805C11.4812 16.5466 11.5104 16.5283 11.5433 16.4364C11.5725 16.3556 11.609 16.2785 11.6419 16.2014C11.7624 15.9295 11.7514 15.6981 11.5835 15.4153C11.0103 14.4603 10.9008 13.4355 11.3717 12.4108C11.8646 11.3419 12.7554 10.7506 13.898 10.5853C15.0115 10.4273 16.0045 10.7542 16.8296 11.5403C17.337 12.0214 17.5634 12.6312 17.6364 13.3143C17.6875 13.7992 17.6875 14.284 17.5561 14.7505C17.3443 15.5108 17.0194 16.216 16.3878 16.7376C15.8585 17.1747 14.9312 17.2518 14.2923 16.5834C13.9564 16.2344 13.9711 15.834 14.0842 15.4227C14.2157 14.9342 14.3726 14.453 14.515 13.9681C14.5917 13.7074 14.6209 13.4392 14.6063 13.1711C14.5771 12.6532 14.3325 12.4034 13.7922 12.3447C13.2884 12.2859 12.9379 12.5246 12.7225 12.9911C12.5071 13.4502 12.5509 13.9241 12.6385 14.3942C12.759 15.0407 12.6896 15.6688 12.5108 16.2932C12.2698 17.1453 11.996 17.9901 11.9011 18.879C11.85 19.3565 11.9047 19.8303 11.923 20.3078C11.9303 20.4988 11.9266 20.6861 11.9376 20.8771C11.9449 21.013 11.9084 21.0277 11.7843 20.98C10.5978 20.5172 9.59016 19.8046 8.76509 18.8313C5.18736 14.6073 7.32304 8.04719 12.7006 6.74693C16.4901 5.83234 20.2795 7.92598 21.5427 11.6321C21.8056 12.3961 21.9333 13.1748 21.9333 13.9865Z" fill="black"/>
+              </svg>
+            </a>
+          {% endif %}
+          {% if settings.social_tiktok_link != blank %}
+            <a href="{{ settings.social_tiktok_link }}" class="social-link tikTok">
+              <svg
+                class="icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 28 28"
+                fill="none"
+              >
+                <rect width="28" height="28" rx="14" fill="white"/>
+                <path d="M20 12.8111C18.7128 12.8245 17.5543 12.4614 16.4673 11.7888V16.5103C16.4673 18.6087 14.9512 20.4113 12.7916 20.8821C9.84535 21.5143 7.35675 19.51 7.04209 17.1157C6.71315 14.7213 8.34358 12.6228 10.8322 12.152C11.3185 12.0578 12.0336 12.0578 12.4341 12.1385V14.6675C12.3196 14.6405 12.2052 14.6137 12.0908 14.6002C11.1182 14.4388 10.1743 14.8962 9.78808 15.7302C9.40195 16.5641 9.65935 17.5326 10.446 18.0976C11.1039 18.5819 11.8333 18.6491 12.577 18.3262C13.3208 18.0169 13.7213 17.4519 13.807 16.6852C13.8214 16.5776 13.8214 16.4565 13.8214 16.3355V7.25555C13.8214 7 13.8214 7 14.0931 7H16.2241C16.3814 7 16.4387 7.02688 16.453 7.20177C16.5674 8.76215 17.826 10.0939 19.4422 10.2956C19.6138 10.3226 19.7998 10.336 20 10.3494L20 12.8111Z" fill="black"/>
+              </svg>
+            </a>
+          {% endif %}
+        </div>
+        <div class="footer-section-bottom-border mb"></div>
+      </div>
+    </div>
+    <div class="footer-section-bottom-border pc"></div>
+  </div>
+  <div class="row" id="program">
+    {%- for block in section.blocks -%}
+      {% if block.type == 'text' %}
+        {%- liquid
+          assign column_class = 'small-12 medium-4 large-2'
+          case block.settings.column_size
+            when 'medium'
+              assign column_class = 'small-12 medium-3'
+            when 'large'
+              assign column_class = 'small-12 medium-4'
+          endcase
+        -%}
+        <div class="{{ column_class | escape }} columns" {{ block.shopify_attributes }}>
+          <div class="widget widget--text text-{{ block.settings.text_alignment }}">
+            {%- if block.settings.title != blank -%}
+              <div class="thb-widget-title">{{ block.settings.title }}</div>
+            {%- endif -%}
+            {%- if block.settings.image != blank -%}
+              {% assign image = block.settings.image %}
+              {% assign master_width = image.src.width | append: 'x' | append: image.src.height %}
+              {%- render 'responsive-image', image: image, sizes: master_width, retina: 1, priority: 'low' -%}
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <div class="rte text-size--{{ block.settings.text_size }}">
+                {{ block.settings.text }}
+              </div>
+            {%- endif -%}
+            {%- if block.settings.button_text != blank -%}
+              {% render 'text-button', url: block.settings.button_link, title: block.settings.button_text %}
+            {%- endif -%}
+            {%- if block.settings.show_social_links -%}
+              {%- render 'social-links', show_label: false -%}
+            {%- endif -%}
+          </div>
+        </div>
+      {% endif %}
+      {%- if block.type == 'menu' -%}
+        {%- liquid
+          assign column_class = 'small-12 medium-4 large-2'
+          case block.settings.column_size
+            when 'medium'
+              assign column_class = 'small-12 medium-3'
+            when 'large'
+              assign column_class = 'small-12 medium-4'
+          endcase
+        -%}
+        <div class="{{ column_class | escape }} columns widget--menu-column" {{ block.shopify_attributes }}>
+          <div class="footer-section-bottom-border mb"></div>
+          <div class="widget widget--menu">
+            <button class="thb-widget-title collapsible" tabindex="0">
+              {{ block.settings.title }}
+              <span class="collapsible-arrow">{%- render 'svg-icons' with 'thb-collapsible-arrow' -%}</span>
+              <span class="expand-arrow">{%- render 'svg-icons' with 'thb-expand-arrow' -%}</span>
+            </button>
+            {%- if block.settings.menu != blank -%}
+              <ul class="thb-widget-menu">
+                {% for link in block.settings.menu.links %}
+                  {% assign has_sub_menu = false %}
+                  {% if link.links.size > 0 %}
+                    {% assign has_sub_menu = true %}
+                  {% endif %}
+                  <li class="{% if has_sub_menu %}menu-item-has-children{% endif %}{% if link.active %} active{% endif %}">
+                    <a
+                      href="{{ link.url }}"
+                      title="{{ link.title | escape }}"
+                      {%- if link.active %}
+                        aria-current="page"
+                      {% endif -%}
+                    >
+                      {{- link.title -}}
+                    </a>
+                    {%- if has_sub_menu -%}
+                      <span class="thb-arrow" tabindex="0">{%- render 'svg-icons' with 'thb-dropdown-bottom' -%}</span>
+                    {%- endif %}
+                    {% if has_sub_menu %}
+                      <ul class="sub-menu" tabindex="-1">
+                        {% for l in link.links %}
+                          {% assign has_sub_menu = false %}
+                          {% if l.links.size > 0 %}
+                            {% assign has_sub_menu = true %}
+                          {% endif %}
+                          <li
+                            class="{% if has_sub_menu %}menu-item-has-children{% endif %}{% if l.active %} active{% endif %}"
+                            role="none"
+                          >
+                            <a href="{{ l.url }}" title="{{ l.title | escape }}" role="menuitem">{{ l.title }}</a>
+                            {%- if has_sub_menu -%}
+                              <span class="thb-arrow" tabindex="0">
+                                {%- render 'svg-icons' with 'thb-dropdown-bottom' -%}
+                              </span>
+                            {%- endif %}
+                            {% if has_sub_menu %}
+                              <ul class="sub-menu" role="menu">
+                                {% for sub_link in l.links %}
+                                  {% assign has_sub_menu = false %}
+                                  {% if sub_link.links.size > 0 %}
+                                    {% assign has_sub_menu = true %}
+                                  {% endif %}
+                                  <li
+                                    class="{% if has_sub_menu %}menu-item-has-children{% endif %}{% if sub_link.active %} active{% endif %}"
+                                    role="none"
+                                  >
+                                    <a href="{{ sub_link.url }}" title="{{ sub_link.title | escape }}" role="menuitem">
+                                      {{- sub_link.title -}}
+                                    </a>
+                                  </li>
+                                {% endfor %}
+                              </ul>
+                            {% endif %}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+      {%- if block.type == 'contact' -%}
+        {%- liquid
+          assign column_class = 'small-12 medium-4 large-2'
+          case block.settings.column_size
+            when 'medium'
+              assign column_class = 'small-12 medium-3'
+            when 'large'
+              assign column_class = 'small-12 medium-4'
+          endcase
+        -%}
+        <div class="{{ column_class | escape }} columns widget--menu-column" {{ block.shopify_attributes }}>
+          <div class="widget widget--menu contact-info-widget">
+            <div class="footer-section-bottom-border mb"></div>
+            <button class="thb-widget-title" tabindex="0">
+              {{ block.settings.title }}
+              {% comment %} <span>{%- render 'svg-icons' with 'thb-collapsible-arrow' -%}</span> {% endcomment %}
+            </button>
+            {%- if block.settings.title != blank -%}
+              <ul class="thb-widget-menu contact-info-list">
+                <li class="contact-info">
+                  <div class="contact-info-title">Before-sales:</div>
+                  <a class="contact-info-text" href="mailto:Sales@procolored.com">Sales@procolored.com</a>
+                </li>
+                <li class="contact-info">
+                  <div class="contact-info-title">After-sales:</div>
+                  <a class="contact-info-text" href="mailto:Sales@procolored.com">Support@procolored.com</a>
+                </li>
+                <li class="contact-info">
+                  <div class="contact-info-title">Phone Service:</div>
+                  <div class="contact-info-text">Monday to Sunday 9:00AM - 5:00PM (PT)</div>
+                </li>
+                <li class="contact-info">
+                  <div class="contact-info-title">Call:</div>
+                  <a class="contact-info-text" href="tel:0016463622251">1- 646-362-2251</a>
+                </li>
+              </ul>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+      {%- if block.type == 'signup' -%}
+        {%- liquid
+          assign column_class = 'small-12 medium-4 large-2'
+          case block.settings.column_size
+            when 'medium'
+              assign column_class = 'small-12 medium-3'
+            when 'large'
+              assign column_class = 'small-12 medium-4'
+          endcase
+        -%}
+        <div class="{{ column_class | escape }} columns" {{ block.shopify_attributes }}>
+          <div class="widget widget--signup">
+            {% if block.settings.title != blank %}
+              <div class="thb-widget-title">{{ block.settings.title }}</div>
+            {% endif %}
+            {% if block.settings.text != blank %}
+              {{ block.settings.text }}
+            {% endif %}
+            {% render 'email-signup-form' %}
+          </div>
+        </div>
+      {%- endif -%}
+      {%- if block.type == 'social' -%}
+        {%- liquid
+          assign column_class = 'small-6 medium-4 large-2'
+          case block.settings.column_size
+            when 'medium'
+              assign column_class = 'small-12 medium-3'
+            when 'large'
+              assign column_class = 'small-12 medium-4'
+          endcase
+        -%}
+        <div class="{{ column_class | escape }} columns" {{ block.shopify_attributes }}>
+          <div class="widget widget--social">
+            {% if block.settings.title != blank %}
+              <div class="thb-widget-title">{{ block.settings.title }}</div>
+            {% endif %}
+            {% render 'social-links', show_label: true %}
+          </div>
+        </div>
+      {%- endif -%}
+      {%- if block.type == 'custom_liquid' -%}
+        {%- liquid
+          assign column_class = 'small-6 medium-4 large-2'
+          case block.settings.column_size
+            when 'medium'
+              assign column_class = 'small-12 medium-3'
+            when 'large'
+              assign column_class = 'small-12 medium-6'
+          endcase
+        -%}
+        <div class="{{ column_class | escape }} columns" {{ block.shopify_attributes }}>
+          <div class="widget widget--custom">
+            {% if block.settings.title != blank %}
+              <div class="thb-widget-title">{{ block.settings.title }}</div>
+            {% endif %}
+            {{ block.settings.custom_liquid }}
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  <div class="footer-policy">
+    <div class="row">
+      <ul class="footer-policy-list">
+        <li class="footer-policy-item">
+          <a href="/policies/privacy-policy">Privacy Policy </a>
+          <span></span>
+        </li>
+        <li class="footer-policy-item">
+          <a href="/policies/shipping-policy">Shipping Policy </a>
+          <span></span>
+        </li>
+        <li class="footer-policy-item">
+          <a href="/policies/refund-policy">Refund Policy </a>
+          <span></span>
+        </li>
+        <li class="footer-policy-item">
+          <a href="/policies/terms-of-service">Terms of Service </a>
+          <span></span>
+        </li>
+        <li class="footer-policy-item">
+          <a href="/pages/payment-methods">Payment Methods </a>
+          <span></span>
+        </li>
+        <li class="footer-policy-item">
+          <a href="/pages/intellectual-property-rights">INTELLECTUAL PROPERTY RIGHTS </a>
+        </li>
+      </ul>
+    </div>
+    <div class="footer-section-bottom-border"></div>
+  </div>
+  <div class="sub-footer">
+    <div class="row">
+      <div class="small-12 medium-8 columns">
+        {% render 'localization',
+          id: 'FooterLocalization',
+          show_language_switcher: show_language_switcher,
+          show_currency_switcher: show_currency_switcher,
+          open_top: true
+        %}
+      </div>
+      {% if section.settings.show_country_switcher %}
+        <div class="small-12 medium-8 columns country-switcher-footer">
+          {% render 'country-switcher' %}
+        </div>
+      {% endif %}
+      <div class="footer-section-bottom-content">
+        <div class="row">
+          <p>
+            &copy; {{ 'now' | date: '%Y' }}
+            {{ shop.name }}, {{ copyright_text }}
+             {% comment %} {{ powered_by_link }} {% endcomment %}
+          </p>
+          {%- if show_payment_icons -%}
+            <div class="footer-payment-icons">
+              {%- unless shop.enabled_payment_types == empty -%}
+                {%- for type in shop.enabled_payment_types -%}
+                  <figure>{{ type | payment_type_svg_tag: class: 'payment-icons__icon' }}</figure>
+                {%- endfor -%}
+                <figure>
+                  <img
+                    style="width: 38px;"
+                    width="38px"
+                    class="lazyload"
+                    data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Klarna_Payment_Badge_svg.png?v=1749782611"
+                    alt="Klarna_Payment"
+                  >
+                </figure>
+              {%- endunless -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</theme-footer>
+{% if footer_reveal_animation %}
+  <script src="{{ 'footer.js' | asset_url }}" defer="defer"></script>
+{% endif %}
+<script>
+  $(document).ready(function () {
+    $('.country-switcher-footer').click(function (event) {
+      event.stopPropagation(); // 阻止事件冒泡
+      console.log('被点击', $(this));
+      if ($(this).hasClass('active')) {
+        $(this).removeClass('active');
+        $(this).children('#countrybox').removeClass('ht-dropdownsearchshow');
+      } else {
+        $(this).addClass('active');
+        $(this).children('#countrybox').addClass('ht-dropdownsearchshow');
+      }
+    });
+    // 新增的代码：当鼠标移开时移除类
+    $('.country-switcher-footer').mouseleave(function () {
+      $(this).removeClass('active');
+      $(this).children('#countrybox').removeClass('ht-dropdownsearchshow');
+    });
+    $('.countrtItem').click(function () {
+      $('.country-switcher-footer #countrybox').removeClass('ht-dropdownsearchshow');
+    });
+  });
+</script>
+{% schema %}
+{
+  "name": "New Footer",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "footer_reveal_animation",
+      "default": false,
+      "label": "Enable reveal animation"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Additional copyright text",
+      "default": "All rights reserved."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_language_switcher",
+      "label": "Enable language switcher",
+      "default": true,
+      "info": "To add a language, go to your [language settings](/admin/settings/languages)."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_currency_switcher",
+      "label": "Enable currency switcher",
+      "default": true,
+      "info": "To add a country/region, go to your [payment settings](/admin/settings/payments)."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_country_switcher",
+      "label": "显示国家切换",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show payment icons",
+      "default": true,
+      "info": "By default your theme shows the icons that are associated with the payment gateway you have enabled in the [payment settings](/admin/settings/payments)."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "select",
+          "id": "column_size",
+          "label": "Column size",
+          "options": [
+            { "value": "small", "label": "Small" },
+            { "value": "medium", "label": "Medium" },
+            { "value": "large", "label": "Large" }
+          ],
+          "default": "small"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left",
+          "label": "Text alignment"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "240 x 100 px .png recommended."
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Add company info here.</p>"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "label": "Text size",
+          "options": [
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            }
+          ],
+          "default": "medium"
+        },
+        {
+          "id": "button_text",
+          "type": "text",
+          "label": "Button label",
+          "default": "Explore",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "id": "button_link",
+          "type": "url",
+          "label": "Button link"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_social_links",
+          "label": "Show social links",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "select",
+          "id": "column_size",
+          "label": "Column size",
+          "options": [
+            { "value": "small", "label": "Small" },
+            { "value": "medium", "label": "Medium" },
+            { "value": "large", "label": "Large" }
+          ],
+          "default": "small"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "default": "footer",
+          "label": "Menu",
+          "info": "Select navigation to display"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact",
+      "settings": [
+        {
+          "type": "select",
+          "id": "column_size",
+          "label": "Column size",
+          "options": [
+            { "value": "small", "label": "Small" },
+            { "value": "medium", "label": "Medium" },
+            { "value": "large", "label": "Large" }
+          ],
+          "default": "small"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Title"
+        }
+      ]
+    },
+    {
+      "type": "social",
+      "name": "Social links",
+      "settings": [
+        {
+          "type": "select",
+          "id": "column_size",
+          "label": "Column size",
+          "options": [
+            { "value": "small", "label": "Small" },
+            { "value": "medium", "label": "Medium" },
+            { "value": "large", "label": "Large" }
+          ],
+          "default": "small"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Title"
+        }
+      ]
+    },
+    {
+      "type": "signup",
+      "name": "Email signup",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "column_size",
+          "label": "Column size",
+          "options": [
+            { "value": "small", "label": "Small" },
+            { "value": "medium", "label": "Medium" },
+            { "value": "large", "label": "Large" }
+          ],
+          "default": "small"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Add a text to attract more customers to <strong>sign up!</strong></p>"
+        }
+      ]
+    },
+    {
+      "type": "custom_liquid",
+      "name": "Custom liquid",
+      "settings": [
+        {
+          "type": "select",
+          "id": "column_size",
+          "label": "Column size",
+          "options": [
+            { "value": "small", "label": "Small" },
+            { "value": "medium", "label": "Medium" },
+            { "value": "large", "label": "Large" }
+          ],
+          "default": "small"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Custom liquid",
+          "info": "Add app snippets or other Liquid code to create advanced customizations."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "New Footer"
+    }
+  ]
+}
+{% endschema %}

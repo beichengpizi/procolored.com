@@ -1,0 +1,267 @@
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+<style>
+  #our-value-section h2 {
+    font-size: 34px;
+    text-align: center;
+    margin-bottom: 15px;
+    line-height: 1;
+  }
+
+  #our-value-section .ourValueSwiper-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  #our-value-section .swiper {
+    max-width: 900px;
+    width: calc(100% - 48px);
+    height: 335px;
+    margin: 0 auto;
+    padding: 45px 0;
+  }
+
+  #our-value-section .swiper-slide {
+    text-align: center;
+    padding: 60px 129px;
+    font-size: 20px;
+    background: transparent;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    color: white;
+    line-height: 1.2;
+  }
+
+  #our-value-section .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #our-value-section .swiper-pagination-bullet {
+    position: relative;
+    overflow: hidden;
+    width: var(--swiper-pagination-bullet-width, var(--swiper-pagination-bullet-size, 6px));
+    height: var(--swiper-pagination-bullet-height, var(--swiper-pagination-bullet-size, 6px));
+  }
+
+  #our-value-section .swiper-pagination-bullet::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  #our-value-section .swiper-pagination-bullet-active {
+    width: 50px;
+    text-align: center;
+    padding: 1px;
+    background: #ccc;
+    border-radius: 30px;
+    /* box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25),
+      0 1px rgba(255, 255, 255, 0.08); */
+  }
+
+  #our-value-section .swiper-pagination-bullet-active::before {
+    background-color: black;
+    animation: slide-progress 5s cubic-bezier(0.3, 0, 0.3, 1) forwards;
+
+    .swiper-paused & {
+      animation-play-state: paused;
+    }
+  }
+
+  #our-value-section .swiper-button-prev,
+  #our-value-section .swiper-button-next {
+    width: 40px;
+    height: 40px;
+    background: #000;
+    border-radius: 50%;
+  }
+
+  #our-value-section .swiper-button-prev::after,
+  #our-value-section .swiper-button-next::after {
+    color: white;
+    scale: 0.4;
+  }
+
+  #our-value-section .swiper-button-next::after {
+    padding-left: 5px;
+  }
+
+  #our-value-section .swiper-button-prev::after {
+    padding-right: 5px;
+  }
+
+  @keyframes slide-progress {
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  #our-value-section .swiper-bg {
+    background-color: #DA291C;
+    border-radius: 20px;
+    width: 100%;
+    height: 245px;
+    position: absolute;
+  }
+
+  #our-value-section .swiper-tabs-wrapper {
+    margin-top: 60px;
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+  }
+
+  #our-value-section .swiper-tabs-wrapper .swiper-tab-item {
+    z-index: 1;
+    font-size: 30px;
+    line-height: 1;
+    color: white;
+    font-weight: 700;
+    font-family: 'ItalianPlate2';
+    opacity: 0.5;
+  }
+
+  #our-value-section .swiper-tabs-wrapper .swiper-tab-item.active {
+    opacity: 1;
+  }
+
+  @media screen and (max-width: 899px) and (min-width: 580px) {
+    #our-value-section .swiper-slide {
+      font-size: 16px;
+    }
+  }
+
+  @media screen and (max-width: 579px) {
+    #our-value-section .swiper-slide {
+      font-size: 12px;
+      line-height: 16px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    #our-value-section h2 {
+      font-size: 22px;
+      margin-bottom: 0;
+    }
+
+    #our-value-section .swiper-button-prev,
+    #our-value-section .swiper-button-next,
+    #our-value-section .swiper-pagination-bullet {
+      display: none;
+    }
+
+    #our-value-section .swiper-pagination-bullet.swiper-pagination-bullet-active {
+      display: block;
+      margin: auto;
+    }
+
+    #our-value-section .swiper-slide {
+      padding: 22px 20px;
+    }
+
+    #our-value-section .swiper-slide br {
+      display: none;
+    }
+
+    #our-value-section .swiper {
+      height: 166px;
+      padding-top: 18px;
+      padding-bottom: 20px;
+    }
+
+    #our-value-section .swiper-bg {
+      height: 130px;
+      border-radius: 10px;
+    }
+
+    #our-value-section .swiper-tabs-wrapper {
+      margin-top: 20px;
+      gap: 7%;
+    }
+
+    #our-value-section .swiper-tabs-wrapper .swiper-tab-item {
+      font-size: 16px;
+    }
+  }
+</style>
+<div id="our-value-section">
+  <h2>Our Values</h2>
+  <div class="ourValueSwiper-wrapper">
+    <div class="swiper ourValueSwiper">
+      <div class="swiper-bg"></div>
+      <div class="swiper-tabs-wrapper">
+        <div class="swiper-tab-item" data-slide-no="0">Friendly</div>
+        <div class="swiper-tab-item" data-slide-no="1">Trustworthy</div>
+        <div class="swiper-tab-item" data-slide-no="2">Lightweight</div>
+      </div>
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          "We are friendly, being your partner. <br>
+          We are always by your side and provide the services you need. <br>
+          Create a friendly user experience that brings us joy in lightweight printing."
+        </div>
+        <div class="swiper-slide">
+          "We are reliable, providing professional services. <br>
+          We are improving our products and services to become your reliable partner."
+        </div>
+        <div class="swiper-slide">
+          "Starting from the functionality of the product, <br>
+          we prioritize the concept of lightweight, which made us an expert <br>
+          in creating products that are low-investment and family-friendly."
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+</div>
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}"></script>
+<script>
+  let tabs = Array.from(document.querySelectorAll('.swiper-tabs-wrapper .swiper-tab-item'));
+  var swiper = new Swiper(".ourValueSwiper", {
+    spaceBetween: 30,
+    centeredSlides: true,
+    loop: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: "#our-value-section .swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: "#our-value-section .swiper-button-next",
+      prevEl: "#our-value-section .swiper-button-prev",
+    },
+    on: {
+      slideChange: function() {
+        tabs.forEach(function(tab, index) {
+          tab.classList.remove('active');
+        });
+        tabs[this.realIndex].classList.add('active');
+      }
+    }
+  });
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => {
+      swiper.slideToLoop(tab.getAttribute("data-slide-no"), 500, function() {})
+    })
+  });
+</script>

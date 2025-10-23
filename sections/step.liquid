@@ -1,0 +1,234 @@
+{% liquid
+  if section.settings.top == '17.5'
+    assign top = 'pt-8 md:pt-17.5'
+  elsif section.settings.top == '20'
+    assign top = 'pt-8 md:pt-20'
+  elsif section.settings.top == '24'
+    assign top = 'pt-8 md:pt-24'
+  elsif section.settings.top == '28'
+    assign top = 'pt-8 md:pt-28'
+  else
+    assign top = ''
+  endif
+
+  if section.settings.bottom == '17.5'
+    assign bottom = 'pb-8 md:pb-17.5'
+  elsif section.settings.bottom == '20'
+    assign bottom = 'pb-8 md:pb-20'
+  elsif section.settings.bottom == '24'
+    assign bottom = 'pb-8 md:pb-24'
+  elsif section.settings.bottom == '28'
+    assign bottom = 'pb-8 md:pb-28'
+  else
+    assign bottom = ''
+  endif
+
+  if section.settings.row == 3
+    assign row = 'lg:grid-cols-3'
+  endif
+
+  if section.settings.row == 4
+    assign row = 'lg:grid-cols-4'
+  endif
+%}
+
+<div class="{{ top }} {{ bottom }}" data-section-type="step" style="background-color: {{ section.settings.bg_color }};">
+  <div class="container">
+    {%- if section.settings.headding != blank -%}
+      <h2 class="text-center m-0 text-3xl md:text-[44px]">{{ section.settings.headding }}</h2>
+    {%- endif -%}
+    {% if section.settings.descriptiton != blank %}
+      <p>{{ section.settings.descriptiton }}</p>
+    {% endif %}
+
+    <div class="w-full mt-4 lg:mt-10 inline-grid grid-cols-2 gap-4 {{ row }}">
+      {%- for block in section.blocks -%}
+        <style>
+          [data-section-type="step"] [data-block-id="block-{{ block.id }}"] {
+            {%- if block.settings.bg_image != blank -%}
+              background-image: url({{ block.settings.bg_image | image_url: width: '140' }});
+              background-repeat: no-repeat;
+              background-position: 110px 14px;
+              background-size: 24%;
+            {%- endif -%}
+            background-color: {{ block.settings.bg_color }};
+          }
+          @media (min-width:768px) {
+            [data-section-type="step"] [data-block-id="block-{{ block.id }}"] {
+              {%- if block.settings.bg_image != blank -%}
+                background-position: 200px 20px;
+                background-size: 24%;
+              {%- endif -%}
+            }
+          }
+        </style>
+        <div
+          class="md:rounded-2xl rounded-xl relative p-4 md:px-8 md:py-10 flex flex-col w-full"
+          data-block-id="block-{{ block.id }}"
+        >
+          {%- if block.settings.icon -%}
+            {%- liquid
+              assign image = block.settings.icon
+            -%}
+            <img
+              data-src="{{ image | image_url }}"
+              class="lazyload aspect-square w-10 h-10 md:w-16 md:h-16 {% unless settings.lazy_loading %} no-blur{% endunless %}"
+              width="{{ image.src.width }}"
+              height="{{ image.src.height }}"
+              alt="{{ image.alt }}"
+            >
+          {%- else -%}
+            {{ 'collection-1' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+          {%- endif -%}
+          <h3 class="text-base md:text-xl mt-4 mb-0">{{ block.settings.title }}</h3>
+          {%- if block.settings.description != blank -%}
+            <div class="prose prose-sm text-center space-y-1 prose-p:m-0">
+              {{ block.settings.description }}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "步骤",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "配置项"
+    },
+    {
+      "type": "select",
+      "id": "top",
+      "default": "17.5",
+      "label": "板块上边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bottom",
+      "default": "17.5",
+      "label": "板块下边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "背景颜色",
+      "default": "#fff"
+    },
+    {
+      "type": "text",
+      "id": "headding",
+      "label": "标题",
+      "default": "Find Repair Engineer Near"
+    },
+    {
+      "type": "textarea",
+      "id": "descriptiton",
+      "label": "描述"
+    },
+    {
+      "type": "header",
+      "content": "配置项",
+      "info": "配置卡片"
+    },
+    {
+      "type": "range",
+      "id": "row",
+      "label": "一行显示n个",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "unit": "N",
+      "default": 3
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "步骤",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "背景图"
+        },
+        {
+          "type": "color_background",
+          "id": "bg_color",
+          "label": "背景颜色",
+          "default": "#F5F5F5"
+        },
+        {
+          "id": "link",
+          "type": "url",
+          "label": "跳转链接"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "标题",
+          "default": "Submit Application From"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "描述"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "图标"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

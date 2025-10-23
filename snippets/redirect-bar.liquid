@@ -1,0 +1,385 @@
+<style>
+  .plugin-redirect-bar {
+    display: none;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1001;
+    background-color: rgb(66, 66, 69);
+    padding: 10px 30px 10px 20px;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.92);
+    box-sizing: border-box;
+  }
+  @keyframes slip_in {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0px);
+    }
+  }
+  .plugin-redirect-bar__second-step {
+    min-height: 36px;
+    animation: 0.3s ease 0s 1 normal none running slip_in;
+  }
+  .plugin-redirect-bar__first-step {
+    min-height: 36px;
+  }
+  .plugin-redirect-bar__text {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .plugin-redirect-bar__country-name {
+    height: 36px;
+    line-height: 36px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.56);
+    display: inline-block;
+    text-align: center;
+    margin-right: 10px;
+  }
+  .plugin-redirect-bar__jump-btn {
+    height: 36px;
+    min-width: 66px;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-radius: 8px;
+    background-color: rgb(0, 113, 227);
+    color: rgb(255, 255, 255);
+    display: inline-block;
+    cursor: pointer;
+    line-height: 36px;
+    font-size: 17px;
+    text-align: center;
+    margin-top: 4px;
+  }
+  .plugin-redirect-bar__first-step .plugin-redirect-bar__country-name,
+  .plugin-redirect-bar__second-step .plugin-redirect-bar__country-name {
+    min-width: 200px;
+  }
+  .plugin-redirect-bar__second-step .plugin-redirect-bar__country-name {
+    padding: 0 24px;
+  }
+  .plugin-redirect-bar__btn-wrapper-icon {
+    display: inline-block;
+  }
+  .plugin-redirect-bar__close-wrapper {
+    display: inline-block;
+    position: relative;
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  .plugin-redirect-bar__close-icon::before {
+    transform: rotate(45deg);
+  }
+  .plugin-redirect-bar__close-icon::after {
+    transform: rotate(-45deg);
+  }
+  .plugin-redirect-bar__close-icon::after,
+  .plugin-redirect-bar__close-icon::before {
+    position: absolute;
+    content: ' ';
+    background-color: rgba(255, 255, 255, 0.56);
+    top: 1px;
+    left: 7px;
+    width: 1px;
+    height: 16px;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  @media screen and (max-width: 1380px) {
+    .plugin-redirect-bar__btn-wrapper-icon {
+      display: block;
+    }
+    .plugin-redirect-bar__close-wrapper {
+      display: block;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+    }
+  }
+</style>
+<!-- 重定向提示栏 -->
+<div class="plugin-redirect-bar"></div>
+<script>
+  $(function () {
+    // 初始化countryInfo对象，用于存储重定向提示栏的文本和按钮文本
+    let countryInfo = {
+        jumpText: '',
+        countryName: '',
+        jumpBtnText: '',
+        secondConfirmJumpText: '',
+        secondConfirmStayBtnText: '',
+        secondConfirmJumpBtnText: '',
+      },
+      siteUrl = '',
+      currentStep = 0;
+
+    // 定义站点URL
+    const siteUrls = {
+        US: 'https://www.procolored.com/',
+        EU: 'https://procolored.eu/',
+        FR: 'https://fr.procolored.com/',
+      },
+      // 定义文本内容
+      textContent = {
+        JUMP_TEXT: {
+          EN: 'Click here to be redirected to the more applicable version of our website for your region/country.',
+          DE: 'Wählen Sie ein anderes Land oder eine andere Region aus, um für Ihren Standort spezifische Inhalte anzuzeigen und online einzukaufen.',
+          EU: 'Click here to be redirected to the more applicable version of our website for your region/country.',
+          ES: 'Por favor haga clic en el botón para ser redirigido al sitio web correcto de su ubicación con más contenido aplicable y más opciones de compra.',
+          FR: 'Cliquez ici pour être redirigé vers la version la plus applicable de notre site Web pour votre région/pays.',
+          JP: 'こちらをクリックして、お住まいの地域/国に適したバージョンのウェブサイトにリダイレクトされます。',
+          CA: 'Click here to be redirected to the more applicable version of our website for your region/country.',
+        },
+        JUMP_BUTTON: {
+          EN: 'Go',
+          DE: 'Go',
+          ES: 'Go',
+          FR: 'Go',
+          JP: 'クリック',
+          CA: 'Go',
+        },
+        SECOND_CONFIRM_TEXT: {
+          EN: "Are you sure? You won't be able to place an order on this website.",
+          DE: 'Sind Sie sicher? Auf dieser Website können Sie keine Bestellung abschließen.',
+          EU: "Are you sure? You won't be able to place an order on this website.",
+          ES: '¿Está seguro? No podrá hacer un pedido en este sitio web.',
+          FR: 'Êtes-vous sûr? Vous ne pourrez pas passer de commande sur ce site.',
+          JP: 'このウェブサイトでは注文できません。',
+          CA: "Are you sure? You won't be able to place an order on this website.",
+        },
+        SECOND_CONFIRM_JUMP_BUTTON_TEXT: {
+          EN: 'No, go to the right website',
+          DE: 'Nein, zur richtigen Website.',
+          EU: 'No, go to the right website',
+          ES: 'No, quiero ir al sitio web correcto.',
+          FR: 'Non, allez sur le bon site',
+          JP: 'いいえ、適切な Web サイトへ',
+          CA: 'No, go to the right website',
+        },
+        SECOND_CONFIRM_STAY_BUTTON_TEXT: {
+          EN: "Yes, I'm just taking a look",
+          DE: 'Ja, ich möchte die Website nur stöbern.',
+          EU: "Yes, I'm just taking a look",
+          ES: 'Sí, solo estoy echando un vistazo.',
+          FR: 'Oui, je regarde juste',
+          JP: 'はい、ただ見てるだけ',
+          CA: "Yes, I'm just taking a look",
+        },
+        COUNTRY: {
+          ES: 'España',
+          DE: 'Deutschland',
+          EU: 'Europe',
+          FR: 'France',
+          JP: '日本',
+          CA: 'Canada',
+        },
+      };
+
+    // 获取当前站点的标识（如US或EU）
+    function getCurrentSite() {
+      const { hostname } = window.location;
+      console.log('hostname', hostname);
+      let siteCode = '';
+      if (hostname.includes('procolored.com')) {
+        siteCode = 'US';
+      } else if (hostname.includes('procolored.eu')) {
+        siteCode = 'EU';
+      } else if (hostname.includes('fr.procolored.com')) {
+        siteCode = 'FR';
+      }
+
+      return (
+        Object.entries(siteUrls).forEach(([code, url]) => {
+          console.log(code, url.indexOf(hostname));
+          url.indexOf(hostname) > -1 && (siteCode = code);
+        }),
+        siteCode
+      );
+    }
+
+    // 根据用户的地理信息返回对应的站点信息
+    function countryToSite(geoInfo) {
+      const siteInfo = {};
+      Object.keys(siteUrls).forEach((code) => {
+        siteInfo[code] = {
+          code: code,
+          url: siteUrls[code] || siteUrls.US,
+          name: `${code}站`,
+        };
+      });
+      if (!geoInfo) return null;
+      // 用户IP在欧洲
+     
+      if (geoInfo.continentCode === 'EU') {
+        console.log('用户IP在欧洲geoInfo.countryISO', geoInfo.countryISO);
+         // 访问美国站点
+        if (getCurrentSite() === 'US') {
+          // 用户IP在法国/比利时/瑞士
+          if (
+            geoInfo.countryISO === 'BE' ||
+            geoInfo.countryISO === 'FR' ||
+            geoInfo.countryISO === 'CH' 
+            
+          ) {
+            return siteInfo.FR; // 如果当前站点是US且用户在法国/比利时/瑞士的话，则提示跳转到FR
+          }
+          return siteInfo.EU; // 如果当前站点是US且用户在欧洲，则提示跳转到EU
+           // 访问欧洲站点
+        } else if (getCurrentSite() === 'EU') {
+          // 用户IP在法国/比利时/瑞士
+          if (
+            geoInfo.countryISO === 'BE' ||
+            geoInfo.countryISO === 'FR' ||
+            geoInfo.countryISO === 'CH' 
+           
+          ) {
+            return siteInfo.FR; // 如果当前站点是EU且用户在法国/比利时/瑞士的话，则提示跳转到FR
+          }
+        } else if (getCurrentSite() === 'FR') {
+          // 用户IP在法国/比利时/瑞士
+          if (['BE', 'FR', 'CH'].indexOf(geoInfo.countryISO) === -1) {
+            return siteInfo.EU; // 如果当前站点是US且用户在法国/比利时/瑞士的话，则提示跳转到FR
+          }
+        }
+        return null; // 如果当前站点是EU且用户在欧洲其他国家，则不提示
+      } else {
+        if (getCurrentSite() === 'EU' || getCurrentSite() === 'FR') {
+          return siteInfo.US; // 如果当前站点是EU且用户不在欧洲，则提示跳转到US
+        }
+      }
+      return null; // 其他情况不提示
+    }
+
+    // 检查和设置会话存储，以决定是否忽略IP检查
+    function isSessionIgnore() {
+      return 'yes' === sessionStorage.getItem('ip-ignore');
+    }
+
+    function sessionIgnore() {
+      sessionStorage.setItem('ip-ignore', 'yes');
+    }
+
+    // 通过API获取用户的IP和地理信息，并根据此信息决定是否显示重定向提示。
+    function getIp() {
+      let geoInfo = {
+        ip: '',
+        countryName: '',
+        countryISO: '',
+        continentCode: '',
+      };
+      fetch('https://dtc.mblock.cc/shopify/ip', {
+        method: 'GET',
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (0 !== data.code) return;
+          console.log('geoInfo===================', geoInfo);
+          console.log('data===================', data);
+          let { data: geoData } = data;
+          geoInfo.countryName = geoData.country_name;
+          geoInfo.countryISO = geoData.country_iso_code;
+          geoInfo.continentCode = geoData.continent_code;
+          let currentSite = getCurrentSite(),
+            targetSite = countryToSite(geoInfo);
+          console.log('currentSite==========================', currentSite);
+          console.log('targetSite===========================', targetSite);
+          if (targetSite) {
+            siteUrl = targetSite.url;
+            updateCountryInfo(geoInfo);
+          }
+        })
+        .catch((error) => {
+          console.error('err', error);
+        });
+    }
+
+    // 更新countryInfo对象并显示提示栏。
+    function updateCountryInfo(geoInfo) {
+      const { code } = countryToSite(geoInfo);
+      if (geoInfo.countryISO) {
+        countryInfo = {
+          countryName: textContent.COUNTRY[code] || geoInfo.countryName,
+          jumpText: textContent.JUMP_TEXT[code] || textContent.JUMP_TEXT.EN,
+          jumpBtnText: textContent.JUMP_BUTTON[code] || textContent.JUMP_BUTTON.EN,
+          secondConfirmJumpText: textContent.SECOND_CONFIRM_TEXT[code] || textContent.SECOND_CONFIRM_TEXT.EN,
+          secondConfirmStayBtnText:
+            textContent.SECOND_CONFIRM_STAY_BUTTON_TEXT[code] || textContent.SECOND_CONFIRM_STAY_BUTTON_TEXT.EN,
+          secondConfirmJumpBtnText:
+            textContent.SECOND_CONFIRM_JUMP_BUTTON_TEXT[code] || textContent.SECOND_CONFIRM_JUMP_BUTTON_TEXT.EN,
+        };
+        currentStep = 1;
+      }
+      console.log('countryInfo==================================', countryInfo);
+      $('.plugin-redirect-bar').show();
+      renderModal();
+    }
+
+    // 处理用户点击跳转按钮和关闭图标的事件
+    function handleJumpBtnClick() {
+      window.location.href = siteUrl;
+    }
+
+    function handleCloseIconClick() {
+      currentStep = 2;
+    }
+
+    function handleSecondConfirmSubmitClick() {
+      window.location.href = siteUrl;
+    }
+
+    function handleSecondConfirmCloseClick() {
+      currentStep = 0;
+      sessionIgnore();
+    }
+
+    // 检查会话存储中是否已设置忽略IP检查，如果未设置，则调用getIp()获取IP信息
+    if (!isSessionIgnore()) getIp();
+
+    // 渲染第一步和第二步的提示栏内容
+    function renderModal() {
+      if (currentStep === 1) {
+        $('.plugin-redirect-bar').append(`<div class="plugin-redirect-bar__first-step">
+          <div class="plugin-redirect-bar__text">${countryInfo.jumpText || ''}</div>
+          <div class="plugin-redirect-bar__btn-wrapper-icon">
+              <div class="plugin-redirect-bar__country-name">${countryInfo.countryName || ''}</div>
+              <div class="plugin-redirect-bar__jump-btn">${countryInfo.jumpBtnText || ''}</div>
+          </div>
+          <div class="plugin-redirect-bar__close-wrapper">
+              <div class="plugin-redirect-bar__close-icon"></div>
+          </div>
+      </div>`);
+      }
+      $('.plugin-redirect-bar__first-step .plugin-redirect-bar__jump-btn').on('click', handleJumpBtnClick);
+      $('.plugin-redirect-bar__first-step .plugin-redirect-bar__close-wrapper').on('click', function () {
+        handleCloseIconClick();
+        renderSecondModal();
+      });
+    }
+
+    // 渲染第二步的提示栏内容
+    function renderSecondModal() {
+      if (currentStep === 2) {
+        $('.plugin-redirect-bar').empty();
+        $('.plugin-redirect-bar').append(`<div class="plugin-redirect-bar__second-step">
+          <div class="plugin-redirect-bar__second-step_text">${countryInfo.secondConfirmJumpText || ''}</div>
+          <div class="plugin-redirect-bar__btn-wrapper-icon">
+              <div class="plugin-redirect-bar__country-name" style='cursor: pointer;'>${
+                countryInfo.secondConfirmStayBtnText || ''
+              }</div>
+              <div class="plugin-redirect-bar__jump-btn">${countryInfo.secondConfirmJumpBtnText || ''}</div>
+          </div>
+      </div>`);
+      }
+      $('.plugin-redirect-bar__second-step .plugin-redirect-bar__country-name').on('click', function () {
+        handleSecondConfirmCloseClick();
+        $('.plugin-redirect-bar').hide();
+      });
+      $('.plugin-redirect-bar__second-step .plugin-redirect-bar__jump-btn').on('click', handleSecondConfirmSubmitClick);
+    }
+  });
+</script>

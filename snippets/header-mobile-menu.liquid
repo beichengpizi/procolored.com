@@ -1,0 +1,666 @@
+{{ 'full-menu.mobile.css' | asset_url | stylesheet_tag }}
+<style>
+  .product-section-item-mobile .badge-on-sale,
+  .product-section-item-mobile .badge-hot,
+  .product-section-item-mobile .badge-new,
+  .product-section-item-mobile .badge-save,
+  .product-section-item-mobile .badge-starting,
+  .product-section-item-mobile .badge-free-oven,
+  .product-section-item-mobile .badge-sold-out,
+  .product-section-item-mobile .badge-new-arrival {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    text-transform: uppercase;
+    gap: 4px;
+  }
+  .product-section-item-mobile .prod-badge {
+    position: relative;
+    display: flex;
+    color: #ff8f1c;
+
+    font-size: 12px;
+    border-radius: 0;
+    font-weight: 700;
+    line-height: 1.4;
+    text-transform: uppercase;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 4px;
+    align-items: center;
+    text-align: center;
+    min-height: 17px;
+  }
+  .product-section-item-mobile .prod-badge-placeholder {
+    min-height: 17px;
+    margin-bottom: 4px;
+  }
+  .product-section-mobile.frist .product-section-item-mobile .prod-badge,
+  .product-section-mobile.second .product-section-item-mobile .prod-badge,
+  .product-section-mobile.third .product-section-item-mobile .prod-badge {
+    margin-bottom: 6px;
+  }
+  .product-section-mobile.frist .product-section-item-mobile .prod-badge-placeholder,
+  .product-section-mobile.second .product-section-item-mobile .prod-badge-placeholder,
+  .product-section-mobile.third .product-section-item-mobile .prod-badge-placeholder {
+    margin-bottom: 6px;
+  }
+
+  .product-section-mobile .badge-sold-out {
+    color: #666 !important;
+  }
+
+  .product-section-item-mobile .badge-new-arrival {
+    color: #da291c;
+  }
+  .mobile-menu li > a.machine-omparison {
+    width: max-content;
+    gap: 5px;
+    border-radius: 50px;
+    align-items: center;
+  }
+  .product-section-item-mobile .prod-badge .best-seller {
+    display: flex;
+    gap: 4px;
+    align-items: start;
+    justify-content: center;
+  }
+  .mobile-menu li > a.machine-omparison svg {
+    width: 25px;
+    height: 25px;
+    fill: #da291c;
+  }
+</style>
+<nav
+  id="mobile-menu"
+  class="mobile-menu-drawer"
+  role="dialog"
+  tabindex="-1"
+>
+  <div class="mobile-menu-drawer--inner">
+    {%- if header_settings.menu -%}
+      <ul class="mobile-menu">
+        {%- for link in header_settings.menu.links -%}
+          {%- liquid
+            assign parent_index = forloop.index
+            assign has_sub_menu = false
+            assign has_mega_menu = false
+            assign has_menu_badge = false
+            assign mega_menu_block_index = false
+            assign mega_menu_blocks = blocks | where: 'type', 'megamenu'
+            assign menu_badge_index = false
+            assign menu_badge_blocks = blocks | where: 'type', 'menu_badge'
+
+            if link.links.size > 0
+              assign has_sub_menu = true
+            endif
+            for block in mega_menu_blocks
+              assign position = block.settings.position | plus: 0
+              if position == parent_index
+                assign has_mega_menu = true
+                assign mega_menu_block_index = forloop.index0
+              endif
+            endfor
+            for block in menu_badge_blocks
+              assign badge_position = block.settings.badge_position | plus: 0
+              if badge_position == parent_index
+                assign has_menu_badge = true
+
+                assign menu_badge_index = forloop.index0
+              endif
+            endfor
+          -%}
+          <li>
+            {%- if has_sub_menu == true or has_mega_menu == true -%}
+              {%- liquid
+                assign mega_menu_block = mega_menu_blocks[mega_menu_block_index]
+              -%}
+              <details class="link-container">
+                <summary class="parent-link">
+                  {{ link.title }}
+                  {%- if has_menu_badge -%}
+                    {%- assign menu_badge_block = menu_badge_blocks[menu_badge_index] -%}
+                    <span
+                      class="menu-item-badge"
+                      style="--menu-badge-bg: {{ menu_badge_block.settings.color_bg }};--menu-badge-text: {{ menu_badge_block.settings.color_text }};"
+                    >
+                      {{- menu_badge_block.settings.text -}}
+                    </span>
+                  {%- endif -%}
+                  <span class="link-forward">{%- render 'svg-icons' with 'thb-mobile-menu-forward-2' -%}</span>
+                </summary>
+                <ul class="sub-menu">
+                  <li class="parent-link-back">
+                    <button class="parent-link-back--button">
+                      <span>{%- render 'svg-icons' with 'thb-mobile-menu-back-2' -%}</span>
+                      {{ link.title }}
+                    </button>
+                  </li>
+                  {%- if link.links.size > 0 -%}
+                    {%- for l in link.links -%}
+                      {%- liquid
+                        assign has_sub_menu = false
+                        if l.links.size > 0
+                          assign has_sub_menu = true
+                        endif
+                      -%}
+                      <li data-target-title="{{ l.title }}">
+                        {%- if link.title == 'Products' -%}
+                          <details class="full-menu-mobile-details" data-target-title="{{ l.title }}">
+                            <summary>
+                              <div class="full-menu-mobile-summary">
+                                {{ l.title }}
+                                {% render 'full-menu-chevron-bottom' %}
+                              </div>
+                            </summary>
+                            {% if forloop.first %}
+                              <div class="series-name-mobile first">F Series</div>
+                            {% endif %}
+                            <div
+                              class="full-menu-mobile product-section-mobile {% if forloop.first -%}frist{%- endif -%}"
+                            >
+                              {% for collection in collections %}
+                                {% if collection.url == l.url %}
+                                  {% assign show_badge = false %}
+                                  {% for prod in collection.products limit: 3 %}
+                                    {% assign prod_tags = prod.tags | downcase %}
+
+                                    {% if prod_tags contains 'save'
+                                      or prod_tags contains 'new arrival'
+                                      or prod_tags contains 'new'
+                                      or prod_tags contains 'best seller'
+                                      or prod_tags contains 'hot'
+                                      or prod_tags contains 'free oven'
+                                      or prod_tags contains 'starting'
+                                      or prod.selected_or_first_available_variant.available == false
+                                    %}
+                                      {% assign show_badge = true %}
+
+                                      {% break %}
+                                    {% endif %}
+                                  {% endfor %}
+
+                                  {% unless show_badge %}
+                                    <style>
+                                      .product-section-mobile .product-section-item-mobile-{{ collection.id }} .prod-badge {
+                                        min-height: auto;
+                                      }
+                                      .product-section-mobile .product-section-item-mobile-{{ collection.id }} .prod-badge-placeholder {
+                                        min-height: auto;
+                                        margin-bottom: 0;
+                                      }
+                                    </style>
+                                  {% endunless %}
+                                  {% for prod in collection.products limit: 3 %}
+                                    <div
+                                      class="product-section-item-mobile product-section-item-mobile-{{ collection.id }}"
+                                      data-link="{{ prod.url }}"
+                                    >
+                                      {{ prod.images[0] | image_url: width: 300 | image_tag }}
+                                      {% assign prod_tags = prod.tags | downcase %}
+                                      {% if prod_tags contains 'save'
+                                        or prod_tags contains 'new arrival'
+                                        or prod_tags contains 'new'
+                                        or prod_tags contains 'best seller'
+                                        or prod_tags contains 'top'
+                                        or prod_tags contains 'hot'
+                                        or prod_tags contains 'free oven'
+                                        or prod_tags contains 'starting'
+                                        or prod.selected_or_first_available_variant.available == false
+                                      %}
+                                        <div class="prod-badge">
+                                          {% if prod_tags contains 'save' %}
+                                            {% if prod.selected_or_first_available_variant.price
+                                                < prod.selected_or_first_available_variant.compare_at_price
+                                            %}
+                                              {%- capture save_num -%}
+                                              {{ prod.selected_or_first_available_variant.compare_at_price | minus: prod.selected_or_first_available_variant.price | money | remove: '.00' | remove: '.10'| remove: '.91'  }}
+                                            {%- endcapture -%}
+                                              <div class="badge-save">Save {{ save_num }}</div>
+                                            {% endif %}
+                                          {% elsif prod_tags contains 'new arrival' or prod_tags contains 'new' %}
+                                            <div class="badge-new-arrival">New Arrival</div>
+                                          {% elsif prod_tags contains 'best seller' or prod_tags contains 'top' %}
+                                            <div class="best-seller">
+                                              <svg
+                                                class="best-seller-icon"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="11"
+                                                height="15"
+                                                viewBox="0 0 11 15"
+                                                fill="none"
+                                                role="presentation"
+                                                aria-hidden="true"
+                                                focusable="false"
+                                              >
+                                                <g clip-path="url(#clip0_2839_13895)">
+                                                  <path d="M3.10808 14.0378C2.86895 13.969 2.64975 13.8511 2.44051 13.7332C1.59359 13.2518 0.916052 12.6034 0.477646 11.7487C-0.0902888 10.6287 -0.150072 9.46938 0.27837 8.29043C0.497573 7.67149 0.776559 7.07219 0.96587 6.44342C1.15518 5.81464 1.25482 5.17605 1.24486 4.5178C1.24486 4.46868 1.24486 4.42938 1.24486 4.38026C1.24486 4.34096 1.23489 4.29184 1.27475 4.27219C1.32457 4.25254 1.37438 4.28201 1.40428 4.31149C1.50391 4.40973 1.60355 4.50798 1.68326 4.61605C2.20138 5.28412 2.49033 6.04061 2.62982 6.86587C2.63978 6.93464 2.64975 6.99359 2.65971 7.07219C2.71949 7.06236 2.72946 7.01324 2.73942 6.98377C3.02837 6.35499 3.40699 5.76552 3.75573 5.16622C4.14431 4.48833 4.51297 3.80061 4.74214 3.05394C4.99123 2.26798 5.0012 1.48201 4.83181 0.686223C4.82185 0.627275 4.77203 0.548679 4.82185 0.50938C4.88163 0.460258 4.95138 0.52903 5.0012 0.558503C5.36986 0.774644 5.69866 1.03991 6.0175 1.32482C6.705 1.94377 7.26297 2.66096 7.65156 3.50587C8.24939 4.79289 8.4088 6.12903 8.08996 7.51429C8.07004 7.62236 8.03018 7.72061 8.00029 7.81885C7.99033 7.8385 7.98036 7.8778 8.00029 7.88763C8.01025 7.89745 8.04015 7.88763 8.06007 7.8778C8.84721 7.59289 9.32547 7.04271 9.49486 6.2371C9.53471 6.05043 9.55464 5.86377 9.55464 5.66728C9.55464 5.60833 9.54468 5.52973 9.59449 5.51008C9.66424 5.49043 9.69413 5.56903 9.73399 5.61815C10.3019 6.35499 10.6507 7.19991 10.8599 8.10377C11.1588 9.41043 11.0492 10.6778 10.4016 11.8764C10.013 12.5838 9.46496 13.1438 8.78743 13.576C8.52837 13.7431 8.25935 13.8904 7.9704 13.9985C7.94051 13.9297 7.99033 13.8806 8.03018 13.8413C8.47855 13.3992 8.7675 12.8687 8.89703 12.2596C8.96678 11.955 8.9867 11.6504 8.96678 11.336C8.91696 10.8055 8.78743 10.2946 8.72765 9.77394C8.70772 9.6364 8.71768 9.49885 8.70772 9.36131C8.70772 9.32201 8.71768 9.26306 8.66786 9.24341C8.61804 9.22377 8.58815 9.27289 8.55826 9.31219C8.2992 9.6364 7.99033 9.91149 7.69141 10.2062C7.54196 10.3536 7.48217 10.3634 7.34268 10.1866C6.80464 9.50868 6.40609 8.77184 6.29649 7.89745C6.22674 7.36692 6.30645 6.86587 6.4858 6.36482C6.50573 6.30587 6.52565 6.24692 6.54558 6.18798C6.55554 6.1585 6.57547 6.12903 6.54558 6.09956C6.51569 6.07991 6.4858 6.09956 6.45591 6.10938C5.76841 6.36482 5.20047 6.77745 4.76207 7.3571C4.23399 8.05464 3.97493 8.86026 3.89522 9.71499C3.86533 10.0294 3.86533 10.3536 3.88525 10.668C3.88525 10.7367 3.91515 10.8252 3.83544 10.8645C3.75573 10.9038 3.69594 10.835 3.63616 10.7957C3.13797 10.4322 2.84902 9.93114 2.70953 9.34166C2.69957 9.28271 2.70953 9.18447 2.64975 9.17464C2.58 9.16482 2.56007 9.26306 2.53018 9.31219C2.15156 9.98026 2.02203 10.7073 2.05192 11.4736C2.07185 12.1613 2.28109 12.8097 2.64975 13.3992C2.75935 13.576 2.90881 13.7038 3.03833 13.861C3.06823 13.9199 3.12801 13.9592 3.10808 14.0378Z" fill="url(#paint0_linear_2839_13895)"/>
+                                                  <path d="M3.1076 14.0379C3.05778 13.979 3.00796 13.92 2.95814 13.8611C2.49981 13.3895 2.23079 12.8197 2.09129 12.1909C1.93187 11.4835 1.97173 10.7762 2.16104 10.0786C2.24075 9.78388 2.37028 9.5088 2.51974 9.23371C2.5297 9.22388 2.5297 9.20424 2.53966 9.19441C2.57952 9.15511 2.60941 9.07652 2.66919 9.08634C2.71901 9.09617 2.71901 9.17476 2.71901 9.22388C2.80869 9.76424 3.05778 10.226 3.44637 10.6091C3.546 10.7074 3.66557 10.7958 3.82499 10.8744C3.82499 10.727 3.84492 10.5895 3.82499 10.4618C3.77517 10.1179 3.82499 9.78388 3.86485 9.44002C3.93459 8.8702 4.11394 8.32985 4.39292 7.81897C4.68187 7.28845 5.07046 6.84634 5.57861 6.50248C5.8576 6.31581 6.14655 6.1488 6.47535 6.05055C6.51521 6.04073 6.56503 6.00143 6.59492 6.05055C6.62481 6.08985 6.58495 6.11932 6.57499 6.15862C6.42553 6.56143 6.28604 6.98388 6.296 7.41617C6.296 8.02529 6.42553 8.60494 6.71448 9.15511C6.89383 9.48915 7.07318 9.80353 7.31231 10.0983C7.31231 10.0983 7.31231 10.1081 7.32227 10.1081C7.48169 10.3144 7.48169 10.3144 7.671 10.1376C7.95995 9.85266 8.26883 9.57757 8.51793 9.24353C8.53785 9.21406 8.56774 9.19441 8.59764 9.16494C8.65742 9.11581 8.69727 9.14529 8.7172 9.20424C8.72716 9.22388 8.72716 9.24353 8.72716 9.27301C8.7172 9.75441 8.81684 10.2358 8.90651 10.7074C8.99619 11.1888 9.04601 11.6702 8.94637 12.1614C8.81684 12.8 8.53785 13.36 8.07952 13.8218C8.0297 13.8709 7.96992 13.92 7.94999 13.9888C7.53151 14.1853 7.09311 14.3032 6.63477 14.3818C5.72807 14.539 4.83133 14.4997 3.94456 14.2934C3.66557 14.2541 3.37662 14.1755 3.1076 14.0379Z" fill="#FFDF99"/>
+                                                </g>
+                                                <defs>
+                                                  <linearGradient id="paint0_linear_2839_13895" x1="0" y1="6.48352" x2="11" y2="6.51242" gradientUnits="userSpaceOnUse">
+                                                    <stop stop-color="#FFBF00"/>
+                                                    <stop offset="0.850962" stop-color="#FF1100"/>
+                                                    <stop offset="1" stop-color="#FF00E0"/>
+                                                  </linearGradient>
+                                                  <clipPath id="clip0_2839_13895">
+                                                    <rect width="11" height="14" fill="white" transform="translate(0 0.5)"/>
+                                                  </clipPath>
+                                                </defs>
+                                              </svg>
+                                              <span>Best Seller</span>
+                                            </div>
+                                          {% elsif prod_tags contains 'hot' %}
+                                            <div class="badge-hot">Hot</div>
+
+                                          {% elsif prod_tags contains 'free oven' %}
+                                            <div class="badge-free-oven">Free Oven</div>
+                                          {% elsif prod_tags contains 'starting' %}
+                                            {%- capture starting_num -%}
+                                            {{ prod.price_min | money }}
+                                          {%- endcapture -%}
+                                            <div class="badge-starting">Starting at {{ starting_num }}</div>
+                                          {% else %}
+                                            {%- unless prod.selected_or_first_available_variant.available -%}
+                                              <div class="badge-sold-out">Coming Soon</div>
+                                            {%- endunless -%}
+                                          {% endif %}
+                                        </div>
+                                      {% else %}
+                                        <div class="prod-badge-placeholder"></div>
+                                      {% endif %}
+                                      {% if prod.metafields.custom.menu_bar_product_name != blank %}
+                                        <div class="name-mobile">
+                                          {{ prod.metafields.custom.menu_bar_product_name.value }}
+                                        </div>
+                                      {% else %}
+                                        <div class="name-mobile">{{ prod.title }}</div>
+                                      {% endif %}
+                                    </div>
+                                  {% endfor %}
+                                {% endif %}
+                              {% endfor %}
+                            </div>
+                            {% if forloop.first %}
+                              <div class="series-name-mobile ">P Series</div>
+                              <div class="full-menu-mobile product-section-mobile second">
+                                {% for collection in collections %}
+                                  {% if collection.url == l.url %}
+                                    {% for prod in collection.products offset: 3 limit: 1 %}
+                                      <div class="product-section-item-mobile" data-link="{{ prod.url }}">
+                                        {{ prod.images[0] | image_url: width: 500 | image_tag }}
+                                        {% assign prod_tags = prod.tags | downcase %}
+                                        {% if prod_tags contains 'save'
+                                          or prod_tags contains 'new arrival'
+                                          or prod_tags contains 'new'
+                                          or prod_tags contains 'best seller'
+                                          or prod_tags contains 'top'
+                                          or prod_tags contains 'hot'
+                                          or prod_tags contains 'free oven'
+                                          or prod_tags contains 'starting'
+                                          or prod.selected_or_first_available_variant.available == false
+                                        %}
+                                          <div class="prod-badge">
+                                            {% if prod_tags contains 'save' %}
+                                              {% if prod.selected_or_first_available_variant.price
+                                                  < prod.selected_or_first_available_variant.compare_at_price
+                                              %}
+                                                {%- capture save_num -%}
+                                                {{ prod.selected_or_first_available_variant.compare_at_price | minus: prod.selected_or_first_available_variant.price | money | remove: '.00' | remove: '.10'| remove: '.91'  }}
+                                              {%- endcapture -%}
+                                                <div class="badge-save">Save {{ save_num }}</div>
+                                              {% endif %}
+                                            {% elsif prod_tags contains 'new arrival' or prod_tags contains 'new' %}
+                                              <div class="badge-new-arrival">New Arrival</div>
+                                            {% elsif prod_tags contains 'best seller' or prod_tags contains 'top' %}
+                                              <div class="best-seller">
+                                                <svg
+                                                  class="best-seller-icon"
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="11"
+                                                  height="15"
+                                                  viewBox="0 0 11 15"
+                                                  fill="none"
+                                                  role="presentation"
+                                                  aria-hidden="true"
+                                                  focusable="false"
+                                                >
+                                                  <g clip-path="url(#clip0_2839_13895)">
+                                                    <path d="M3.10808 14.0378C2.86895 13.969 2.64975 13.8511 2.44051 13.7332C1.59359 13.2518 0.916052 12.6034 0.477646 11.7487C-0.0902888 10.6287 -0.150072 9.46938 0.27837 8.29043C0.497573 7.67149 0.776559 7.07219 0.96587 6.44342C1.15518 5.81464 1.25482 5.17605 1.24486 4.5178C1.24486 4.46868 1.24486 4.42938 1.24486 4.38026C1.24486 4.34096 1.23489 4.29184 1.27475 4.27219C1.32457 4.25254 1.37438 4.28201 1.40428 4.31149C1.50391 4.40973 1.60355 4.50798 1.68326 4.61605C2.20138 5.28412 2.49033 6.04061 2.62982 6.86587C2.63978 6.93464 2.64975 6.99359 2.65971 7.07219C2.71949 7.06236 2.72946 7.01324 2.73942 6.98377C3.02837 6.35499 3.40699 5.76552 3.75573 5.16622C4.14431 4.48833 4.51297 3.80061 4.74214 3.05394C4.99123 2.26798 5.0012 1.48201 4.83181 0.686223C4.82185 0.627275 4.77203 0.548679 4.82185 0.50938C4.88163 0.460258 4.95138 0.52903 5.0012 0.558503C5.36986 0.774644 5.69866 1.03991 6.0175 1.32482C6.705 1.94377 7.26297 2.66096 7.65156 3.50587C8.24939 4.79289 8.4088 6.12903 8.08996 7.51429C8.07004 7.62236 8.03018 7.72061 8.00029 7.81885C7.99033 7.8385 7.98036 7.8778 8.00029 7.88763C8.01025 7.89745 8.04015 7.88763 8.06007 7.8778C8.84721 7.59289 9.32547 7.04271 9.49486 6.2371C9.53471 6.05043 9.55464 5.86377 9.55464 5.66728C9.55464 5.60833 9.54468 5.52973 9.59449 5.51008C9.66424 5.49043 9.69413 5.56903 9.73399 5.61815C10.3019 6.35499 10.6507 7.19991 10.8599 8.10377C11.1588 9.41043 11.0492 10.6778 10.4016 11.8764C10.013 12.5838 9.46496 13.1438 8.78743 13.576C8.52837 13.7431 8.25935 13.8904 7.9704 13.9985C7.94051 13.9297 7.99033 13.8806 8.03018 13.8413C8.47855 13.3992 8.7675 12.8687 8.89703 12.2596C8.96678 11.955 8.9867 11.6504 8.96678 11.336C8.91696 10.8055 8.78743 10.2946 8.72765 9.77394C8.70772 9.6364 8.71768 9.49885 8.70772 9.36131C8.70772 9.32201 8.71768 9.26306 8.66786 9.24341C8.61804 9.22377 8.58815 9.27289 8.55826 9.31219C8.2992 9.6364 7.99033 9.91149 7.69141 10.2062C7.54196 10.3536 7.48217 10.3634 7.34268 10.1866C6.80464 9.50868 6.40609 8.77184 6.29649 7.89745C6.22674 7.36692 6.30645 6.86587 6.4858 6.36482C6.50573 6.30587 6.52565 6.24692 6.54558 6.18798C6.55554 6.1585 6.57547 6.12903 6.54558 6.09956C6.51569 6.07991 6.4858 6.09956 6.45591 6.10938C5.76841 6.36482 5.20047 6.77745 4.76207 7.3571C4.23399 8.05464 3.97493 8.86026 3.89522 9.71499C3.86533 10.0294 3.86533 10.3536 3.88525 10.668C3.88525 10.7367 3.91515 10.8252 3.83544 10.8645C3.75573 10.9038 3.69594 10.835 3.63616 10.7957C3.13797 10.4322 2.84902 9.93114 2.70953 9.34166C2.69957 9.28271 2.70953 9.18447 2.64975 9.17464C2.58 9.16482 2.56007 9.26306 2.53018 9.31219C2.15156 9.98026 2.02203 10.7073 2.05192 11.4736C2.07185 12.1613 2.28109 12.8097 2.64975 13.3992C2.75935 13.576 2.90881 13.7038 3.03833 13.861C3.06823 13.9199 3.12801 13.9592 3.10808 14.0378Z" fill="url(#paint0_linear_2839_13895)"/>
+                                                    <path d="M3.1076 14.0379C3.05778 13.979 3.00796 13.92 2.95814 13.8611C2.49981 13.3895 2.23079 12.8197 2.09129 12.1909C1.93187 11.4835 1.97173 10.7762 2.16104 10.0786C2.24075 9.78388 2.37028 9.5088 2.51974 9.23371C2.5297 9.22388 2.5297 9.20424 2.53966 9.19441C2.57952 9.15511 2.60941 9.07652 2.66919 9.08634C2.71901 9.09617 2.71901 9.17476 2.71901 9.22388C2.80869 9.76424 3.05778 10.226 3.44637 10.6091C3.546 10.7074 3.66557 10.7958 3.82499 10.8744C3.82499 10.727 3.84492 10.5895 3.82499 10.4618C3.77517 10.1179 3.82499 9.78388 3.86485 9.44002C3.93459 8.8702 4.11394 8.32985 4.39292 7.81897C4.68187 7.28845 5.07046 6.84634 5.57861 6.50248C5.8576 6.31581 6.14655 6.1488 6.47535 6.05055C6.51521 6.04073 6.56503 6.00143 6.59492 6.05055C6.62481 6.08985 6.58495 6.11932 6.57499 6.15862C6.42553 6.56143 6.28604 6.98388 6.296 7.41617C6.296 8.02529 6.42553 8.60494 6.71448 9.15511C6.89383 9.48915 7.07318 9.80353 7.31231 10.0983C7.31231 10.0983 7.31231 10.1081 7.32227 10.1081C7.48169 10.3144 7.48169 10.3144 7.671 10.1376C7.95995 9.85266 8.26883 9.57757 8.51793 9.24353C8.53785 9.21406 8.56774 9.19441 8.59764 9.16494C8.65742 9.11581 8.69727 9.14529 8.7172 9.20424C8.72716 9.22388 8.72716 9.24353 8.72716 9.27301C8.7172 9.75441 8.81684 10.2358 8.90651 10.7074C8.99619 11.1888 9.04601 11.6702 8.94637 12.1614C8.81684 12.8 8.53785 13.36 8.07952 13.8218C8.0297 13.8709 7.96992 13.92 7.94999 13.9888C7.53151 14.1853 7.09311 14.3032 6.63477 14.3818C5.72807 14.539 4.83133 14.4997 3.94456 14.2934C3.66557 14.2541 3.37662 14.1755 3.1076 14.0379Z" fill="#FFDF99"/>
+                                                  </g>
+                                                  <defs>
+                                                    <linearGradient id="paint0_linear_2839_13895" x1="0" y1="6.48352" x2="11" y2="6.51242" gradientUnits="userSpaceOnUse">
+                                                      <stop stop-color="#FFBF00"/>
+                                                      <stop offset="0.850962" stop-color="#FF1100"/>
+                                                      <stop offset="1" stop-color="#FF00E0"/>
+                                                    </linearGradient>
+                                                    <clipPath id="clip0_2839_13895">
+                                                      <rect width="11" height="14" fill="white" transform="translate(0 0.5)"/>
+                                                    </clipPath>
+                                                  </defs>
+                                                </svg>
+                                                <span>Best Seller</span>
+                                              </div>
+                                            {% elsif prod_tags contains 'hot' %}
+                                              <div class="badge-hot">Hot</div>
+
+                                            {% elsif prod_tags contains 'free oven' %}
+                                              <div class="badge-free-oven">Free Oven</div>
+                                            {% elsif prod_tags contains 'starting' %}
+                                              {%- capture starting_num -%}
+                                              {{ prod.price_min | money }}
+                                            {%- endcapture -%}
+                                              <div class="badge-starting">Starting at {{ starting_num }}</div>
+                                            {% else %}
+                                              {%- unless prod.selected_or_first_available_variant.available -%}
+                                                <div class="badge-sold-out">Coming Soon</div>
+                                              {%- endunless -%}
+                                            {% endif %}
+                                          </div>
+                                        {% endif %}
+                                        {% if prod.metafields.custom.menu_bar_product_name != blank %}
+                                          <div class="name-mobile">
+                                            {{ prod.metafields.custom.menu_bar_product_name.value }}
+                                          </div>
+                                        {% else %}
+                                          <div class="name-mobile">{{ prod.title }}</div>
+                                        {% endif %}
+                                      </div>
+                                    {% endfor %}
+                                  {% endif %}
+                                {% endfor %}
+                              </div>
+                            {% endif %}
+                            {% if forloop.first %}
+                              <div class="series-name-mobile">K Series</div>
+                              <div class="full-menu-mobile product-section-mobile third">
+                                {% for collection in collections %}
+                                  {% if collection.url == l.url %}
+                                    {% for prod in collection.products offset: 4 limit: 1 %}
+                                      <div class="product-section-item-mobile" data-link="{{ prod.url }}">
+                                        {{ prod.images[0] | image_url: width: 500 | image_tag }}
+
+                                        {% assign prod_tags = prod.tags | downcase %}
+                                        {% if prod_tags contains 'save'
+                                          or prod_tags contains 'new arrival'
+                                          or prod_tags contains 'new'
+                                          or prod_tags contains 'best seller'
+                                          or prod_tags contains 'top'
+                                          or prod_tags contains 'hot'
+                                          or prod_tags contains 'free oven'
+                                          or prod_tags contains 'starting'
+                                          or prod.selected_or_first_available_variant.available == false
+                                        %}
+                                          <div class="prod-badge">
+                                            {% if prod_tags contains 'save' %}
+                                              {% if prod.selected_or_first_available_variant.price
+                                                  < prod.selected_or_first_available_variant.compare_at_price
+                                              %}
+                                                {%- capture save_num -%}
+                                                {{ prod.selected_or_first_available_variant.compare_at_price | minus: prod.selected_or_first_available_variant.price | money | remove: '.00' | remove: '.10'| remove: '.91'  }}
+                                              {%- endcapture -%}
+                                                <div class="badge-save">Save {{ save_num }}</div>
+                                              {% endif %}
+                                            {% elsif prod_tags contains 'new arrival' or prod_tags contains 'new' %}
+                                              <div class="badge-new-arrival">New Arrival</div>
+                                            {% elsif prod_tags contains 'best seller' or prod_tags contains 'top' %}
+                                              <div class="best-seller">
+                                                <svg
+                                                  class="best-seller-icon"
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="11"
+                                                  height="15"
+                                                  viewBox="0 0 11 15"
+                                                  fill="none"
+                                                  role="presentation"
+                                                  aria-hidden="true"
+                                                  focusable="false"
+                                                >
+                                                  <g clip-path="url(#clip0_2839_13895)">
+                                                    <path d="M3.10808 14.0378C2.86895 13.969 2.64975 13.8511 2.44051 13.7332C1.59359 13.2518 0.916052 12.6034 0.477646 11.7487C-0.0902888 10.6287 -0.150072 9.46938 0.27837 8.29043C0.497573 7.67149 0.776559 7.07219 0.96587 6.44342C1.15518 5.81464 1.25482 5.17605 1.24486 4.5178C1.24486 4.46868 1.24486 4.42938 1.24486 4.38026C1.24486 4.34096 1.23489 4.29184 1.27475 4.27219C1.32457 4.25254 1.37438 4.28201 1.40428 4.31149C1.50391 4.40973 1.60355 4.50798 1.68326 4.61605C2.20138 5.28412 2.49033 6.04061 2.62982 6.86587C2.63978 6.93464 2.64975 6.99359 2.65971 7.07219C2.71949 7.06236 2.72946 7.01324 2.73942 6.98377C3.02837 6.35499 3.40699 5.76552 3.75573 5.16622C4.14431 4.48833 4.51297 3.80061 4.74214 3.05394C4.99123 2.26798 5.0012 1.48201 4.83181 0.686223C4.82185 0.627275 4.77203 0.548679 4.82185 0.50938C4.88163 0.460258 4.95138 0.52903 5.0012 0.558503C5.36986 0.774644 5.69866 1.03991 6.0175 1.32482C6.705 1.94377 7.26297 2.66096 7.65156 3.50587C8.24939 4.79289 8.4088 6.12903 8.08996 7.51429C8.07004 7.62236 8.03018 7.72061 8.00029 7.81885C7.99033 7.8385 7.98036 7.8778 8.00029 7.88763C8.01025 7.89745 8.04015 7.88763 8.06007 7.8778C8.84721 7.59289 9.32547 7.04271 9.49486 6.2371C9.53471 6.05043 9.55464 5.86377 9.55464 5.66728C9.55464 5.60833 9.54468 5.52973 9.59449 5.51008C9.66424 5.49043 9.69413 5.56903 9.73399 5.61815C10.3019 6.35499 10.6507 7.19991 10.8599 8.10377C11.1588 9.41043 11.0492 10.6778 10.4016 11.8764C10.013 12.5838 9.46496 13.1438 8.78743 13.576C8.52837 13.7431 8.25935 13.8904 7.9704 13.9985C7.94051 13.9297 7.99033 13.8806 8.03018 13.8413C8.47855 13.3992 8.7675 12.8687 8.89703 12.2596C8.96678 11.955 8.9867 11.6504 8.96678 11.336C8.91696 10.8055 8.78743 10.2946 8.72765 9.77394C8.70772 9.6364 8.71768 9.49885 8.70772 9.36131C8.70772 9.32201 8.71768 9.26306 8.66786 9.24341C8.61804 9.22377 8.58815 9.27289 8.55826 9.31219C8.2992 9.6364 7.99033 9.91149 7.69141 10.2062C7.54196 10.3536 7.48217 10.3634 7.34268 10.1866C6.80464 9.50868 6.40609 8.77184 6.29649 7.89745C6.22674 7.36692 6.30645 6.86587 6.4858 6.36482C6.50573 6.30587 6.52565 6.24692 6.54558 6.18798C6.55554 6.1585 6.57547 6.12903 6.54558 6.09956C6.51569 6.07991 6.4858 6.09956 6.45591 6.10938C5.76841 6.36482 5.20047 6.77745 4.76207 7.3571C4.23399 8.05464 3.97493 8.86026 3.89522 9.71499C3.86533 10.0294 3.86533 10.3536 3.88525 10.668C3.88525 10.7367 3.91515 10.8252 3.83544 10.8645C3.75573 10.9038 3.69594 10.835 3.63616 10.7957C3.13797 10.4322 2.84902 9.93114 2.70953 9.34166C2.69957 9.28271 2.70953 9.18447 2.64975 9.17464C2.58 9.16482 2.56007 9.26306 2.53018 9.31219C2.15156 9.98026 2.02203 10.7073 2.05192 11.4736C2.07185 12.1613 2.28109 12.8097 2.64975 13.3992C2.75935 13.576 2.90881 13.7038 3.03833 13.861C3.06823 13.9199 3.12801 13.9592 3.10808 14.0378Z" fill="url(#paint0_linear_2839_13895)"/>
+                                                    <path d="M3.1076 14.0379C3.05778 13.979 3.00796 13.92 2.95814 13.8611C2.49981 13.3895 2.23079 12.8197 2.09129 12.1909C1.93187 11.4835 1.97173 10.7762 2.16104 10.0786C2.24075 9.78388 2.37028 9.5088 2.51974 9.23371C2.5297 9.22388 2.5297 9.20424 2.53966 9.19441C2.57952 9.15511 2.60941 9.07652 2.66919 9.08634C2.71901 9.09617 2.71901 9.17476 2.71901 9.22388C2.80869 9.76424 3.05778 10.226 3.44637 10.6091C3.546 10.7074 3.66557 10.7958 3.82499 10.8744C3.82499 10.727 3.84492 10.5895 3.82499 10.4618C3.77517 10.1179 3.82499 9.78388 3.86485 9.44002C3.93459 8.8702 4.11394 8.32985 4.39292 7.81897C4.68187 7.28845 5.07046 6.84634 5.57861 6.50248C5.8576 6.31581 6.14655 6.1488 6.47535 6.05055C6.51521 6.04073 6.56503 6.00143 6.59492 6.05055C6.62481 6.08985 6.58495 6.11932 6.57499 6.15862C6.42553 6.56143 6.28604 6.98388 6.296 7.41617C6.296 8.02529 6.42553 8.60494 6.71448 9.15511C6.89383 9.48915 7.07318 9.80353 7.31231 10.0983C7.31231 10.0983 7.31231 10.1081 7.32227 10.1081C7.48169 10.3144 7.48169 10.3144 7.671 10.1376C7.95995 9.85266 8.26883 9.57757 8.51793 9.24353C8.53785 9.21406 8.56774 9.19441 8.59764 9.16494C8.65742 9.11581 8.69727 9.14529 8.7172 9.20424C8.72716 9.22388 8.72716 9.24353 8.72716 9.27301C8.7172 9.75441 8.81684 10.2358 8.90651 10.7074C8.99619 11.1888 9.04601 11.6702 8.94637 12.1614C8.81684 12.8 8.53785 13.36 8.07952 13.8218C8.0297 13.8709 7.96992 13.92 7.94999 13.9888C7.53151 14.1853 7.09311 14.3032 6.63477 14.3818C5.72807 14.539 4.83133 14.4997 3.94456 14.2934C3.66557 14.2541 3.37662 14.1755 3.1076 14.0379Z" fill="#FFDF99"/>
+                                                  </g>
+                                                  <defs>
+                                                    <linearGradient id="paint0_linear_2839_13895" x1="0" y1="6.48352" x2="11" y2="6.51242" gradientUnits="userSpaceOnUse">
+                                                      <stop stop-color="#FFBF00"/>
+                                                      <stop offset="0.850962" stop-color="#FF1100"/>
+                                                      <stop offset="1" stop-color="#FF00E0"/>
+                                                    </linearGradient>
+                                                    <clipPath id="clip0_2839_13895">
+                                                      <rect width="11" height="14" fill="white" transform="translate(0 0.5)"/>
+                                                    </clipPath>
+                                                  </defs>
+                                                </svg>
+                                                <span>Best Seller</span>
+                                              </div>
+                                            {% elsif prod_tags contains 'hot' %}
+                                              <div class="badge-hot">Hot</div>
+
+                                            {% elsif prod_tags contains 'free oven' %}
+                                              <div class="badge-free-oven">Free Oven</div>
+                                            {% elsif prod_tags contains 'starting' %}
+                                              {%- capture starting_num -%}
+                                              {{ prod.price_min | money }}
+                                            {%- endcapture -%}
+                                              <div class="badge-starting">Starting at {{ starting_num }}</div>
+                                            {% else %}
+                                              {%- unless prod.selected_or_first_available_variant.available -%}
+                                                <div class="badge-sold-out">Coming Soon</div>
+                                              {%- endunless -%}
+                                            {% endif %}
+                                          </div>
+                                        {% endif %}
+                                        {% if prod.metafields.custom.menu_bar_product_name != blank %}
+                                          <div class="name-mobile">
+                                            {{ prod.metafields.custom.menu_bar_product_name.value }}
+                                          </div>
+                                        {% else %}
+                                          <div class="name-mobile">{{ prod.title }}</div>
+                                        {% endif %}
+                                      </div>
+                                    {% endfor %}
+                                  {% endif %}
+                                {% endfor %}
+                              </div>
+                            {% endif %}
+                            <div class="product-section-bottom-mobile">
+                              <button class="view-all-button-mobile" onclick="location.href='{{ l.url }}'">
+                                View all
+                              </button>
+                            </div>
+                          </details>
+                        {% else %}
+                          <a href="{{ l.url }}" title="{{ l.title | escape }}">{{ l.title }}</a>
+                        {% endif %}
+                      </li>
+                    {%- endfor -%}
+                  {%- endif -%}
+                </ul>
+              </details>
+            {%- else -%}
+              <a href="{{ link.url }}" title="{{ link.title | escape }}">
+                {{- link.title }}
+                {%- if has_menu_badge -%}
+                  {%- assign menu_badge_block = menu_badge_blocks[menu_badge_index] -%}
+                  <span
+                    class="menu-item-badge"
+                    style="--menu-badge-bg: {{ menu_badge_block.settings.color_bg }};--menu-badge-text: {{ menu_badge_block.settings.color_text }};"
+                  >
+                    {{- menu_badge_block.settings.text -}}
+                  </span>
+                {%- endif -%}
+              </a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+        <li>
+          <a href="https://www.procolored.com/pages/compare" target="_blank" class="machine-omparison">
+            <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="36" height="36" rx="4"></rect>
+              <path d="M10 13.5714C10 12.7036 10.7036 12 11.5714 12H21V28H11.5714C10.7036 28 10 27.2964 10 26.4286V13.5714Z" fill="white" stroke="white" stroke-width="1.57143"></path>
+              <rect x="19" y="9" width="2" height="22" rx="0.785714" fill="white"></rect>
+              <path d="M21 12H28.4286C29.2964 12 30 12.7036 30 13.5714V26.4286C30 27.2964 29.2964 28 28.4286 28H21" stroke="white" stroke-width="1.57143" stroke-linecap="round"></path>
+            </svg>
+
+            <span>Machine Comparison</span>
+          </a>
+        </li>
+      </ul>
+    {%- endif -%}
+    {%- if header_settings.mobile_secondary_menu != blank -%}
+      <ul class="mobile-secondary-menu">
+        {%- for link in header_settings.mobile_secondary_menu.links -%}
+          <li class="{% if link.active %} active{% endif %}">
+            <a href="{{ link.url }}" title="{{ link.title | escape }}">{{ link.title }}</a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    {%- if header_settings.show_social_links -%}
+      {%- render 'social-links', show_label: false -%}
+    {%- endif -%}
+    <div class="no-js-hidden">
+      {%- render 'localization',
+        id: 'MobileMenuLocalization',
+        show_language_switcher: header_settings.show_language_switcher,
+        show_currency_switcher: header_settings.show_currency_switcher,
+        open_top: true
+      -%}
+    </div>
+    {% comment %}
+      {%- if header_settings.show_country_switcher -%}
+        {% render 'country-switcher' %}
+      {%- endif -%}
+    {% endcomment %}
+  </div>
+
+  <div class="thb-mobile-menu-footer">
+    {%- if shop.customer_accounts_enabled -%}
+      {% comment %}
+        {%- if customer -%}
+            {%- assign profile_link = routes.account_url -%}
+            {%- capture profile_text -%}
+          {{ 'sections.header.my_account' | t }}
+        {%- endcapture -%}
+          {%- else -%}
+            {%- assign profile_link = routes.account_login_url -%}
+            {%- capture profile_text -%}
+          {{ 'sections.header.login' | t }}
+        {%- endcapture -%}
+          {%- endif -%}
+
+          <a
+            class="thb-mobile-account-link"
+            href="{{ profile_link | escape }}"
+            title="{{ profile_text | escape }}"
+          >
+            {%- render 'svg-icons' with 'myaccount' %}
+            {{ profile_text -}}
+          </a>
+      {% endcomment %}
+
+      {% comment %}
+        {%- if customer -%}
+          <div class="bg-gray-50">
+            <div class="px-4 py-3 text-gray-900">
+              <h3 class="text-lg font-semibold m-0 text-left">My Account</h3>
+            </div>
+            <ul class="pb-2 text-base text-gray-700 list-none m-0 !border-0">
+              <li>
+                <a href="/account?view=order" class="flex items-center gap-x-2 px-4 py-2 hover:bg-gray-100">
+                  <svg
+                    class="w-4 h-4"
+                    viewBox="0 0 48 48"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <path d="M31,4 C32.6568542,4 34,5.34314575 34,7 L37,7 C38.6568542,7 40,8.34314575 40,10 L40,40 C40,41.6568542 38.6568542,43 37,43 L11,43 C9.34314575,43 8,41.6568542 8,40 L8,10 C8,8.34314575 9.34314575,7 11,7 L14,7 C14,5.34314575 15.3431458,4 17,4 L31,4 Z M14.1710242,10.0009007 L11,10 L11,40 L37,40 L37,10 L33.8289758,10.0009007 C33.4168852,11.1656226 32.3058822,12 31,12 L17,12 C15.6941178,12 14.5831148,11.1656226 14.1710242,10.0009007 Z M22.9931965,31 C23.8216236,31 24.4931965,31.6715729 24.4931965,32.5 C24.4931965,33.3284271 23.8216236,34 22.9931965,34 L16.9931965,34 C16.1647693,34 15.4931965,33.3284271 15.4931965,32.5 C15.4931965,31.6715729 16.1647693,31 16.9931965,31 L22.9931965,31 Z M30.9931965,24 C31.8216236,24 32.4931965,24.6715729 32.4931965,25.5 C32.4931965,26.3284271 31.8216236,27 30.9931965,27 L16.9931965,27 C16.1647693,27 15.4931965,26.3284271 15.4931965,25.5 C15.4931965,24.6715729 16.1647693,24 16.9931965,24 L30.9931965,24 Z M30.9931965,17 C31.8216236,17 32.4931965,17.6715729 32.4931965,18.5 C32.4931965,19.3284271 31.8216236,20 30.9931965,20 L16.9931965,20 C16.1647693,20 15.4931965,19.3284271 15.4931965,18.5 C15.4931965,17.6715729 16.1647693,17 16.9931965,17 L30.9931965,17 Z M31,7 L17,7 L17,9 L31,9 L31,7 Z" fill="currentColor" fill-rule="nonzero"></path>
+                    </g>
+                  </svg>
+
+                  My order
+                </a>
+              </li>
+              <li>
+                <a href="/account?view=rewards" class="flex items-center gap-x-2 px-4 py-2 hover:bg-gray-100">
+                  {% comment %} {% render 'member-icons', icon: 'jb', class: 'w-3 h-3' %} {% endcomment %}
+                  <svg
+                    class="w-4 h-4"
+                    viewBox="0 0 48 48"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g transform="translate(8.546634, 5.384615)" fill="currentColor" fill-rule="nonzero">
+                            <path d="M15.6153846,1.77635684e-15 C24.125056,1.77635684e-15 31.2307692,3.55285662 31.2307692,8.61538462 L31.2307692,8.61538462 L31.2307692,18.2750548 C31.2307692,18.3893785 31.2273706,18.5029844 31.220633,18.6158493 L31.2307692,18.6153846 L31.2307692,28.2750548 C31.2307692,33.5035945 24.122036,37.2307692 15.6153846,37.2307692 C7.23383106,37.2307692 0.209382707,33.6124112 0.00459390509,28.5047445 L0,28.2750548 L0,18.6153846 L0.010136196,18.6158493 C0.00793009087,18.5788935 0.00608196198,18.5418583 0.00459390509,18.5047445 L0,18.2750548 L0,8.61538462 L0.00459197457,8.39302375 C0.20929519,3.44912919 7.23085547,1.77635684e-15 15.6153846,1.77635684e-15 Z M15.6153846,27.2307692 C10.618932,27.2307692 6.10474691,25.9449319 3.23002692,23.8242789 L3.23076923,28.2750548 C3.23076923,31.1544195 8.658063,34 15.6153846,34 C22.4527524,34 27.8123971,31.2516971 27.9951799,28.4239429 L28,28.2750548 L28.0008011,23.8242356 C25.1260839,25.9449144 20.6118713,27.2307692 15.6153846,27.2307692 Z M28.0007214,13.9683443 C25.1265157,16.0053334 20.6130737,17.2307692 15.6153846,17.2307692 C10.6177322,17.2307692 6.10431985,16.0053514 3.23011117,13.9683891 L3.23076923,18.2750548 C3.23076923,21.1544195 8.658063,24 15.6153846,24 C22.4527524,24 27.8123971,21.2516971 27.9951799,18.4239429 L28,18.2750548 Z M15.6153846,3.23076923 C8.66108299,3.23076923 3.23076923,5.94592611 3.23076923,8.61538462 C3.23076923,11.2848431 8.66108299,14 15.6153846,14 C22.5696862,14 28,11.2848431 28,8.61538462 C28,5.94592611 22.5696862,3.23076923 15.6153846,3.23076923 Z"></path>
+                        </g>
+                    </g>
+                  </svg>
+                  My Rewards
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/account/logout"
+                  class="flex items-center gap-x-2 px-4 py-2 text-base hover:bg-gray-100"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    viewBox="0 0 48 48"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <path d="M23,7.5 C23.8284271,7.5 24.5,8.17157288 24.5,9 C24.5,9.77969612 23.9051119,10.4204487 23.14446,10.4931334 L23,10.5 L10.5,10.5 L10.5,37.5 L23,37.5 C23.7796961,37.5 24.4204487,38.0948881 24.4931334,38.85554 L24.5,39 C24.5,39.7796961 23.9051119,40.4204487 23.14446,40.4931334 L23,40.5 L10,40.5 C8.6745166,40.5 7.58996133,39.4684641 7.50531768,38.1643757 L7.5,38 L7.5,10 C7.5,8.6745166 8.53153594,7.58996133 9.83562431,7.50531768 L10,7.5 L23,7.5 Z M32.3542217,14.938671 C32.9037428,14.3898427 33.7728267,14.3560675 34.3616842,14.836967 L34.4755416,14.9400091 L41.768881,22.2425557 L41.8906068,22.3733175 C42.7020714,23.3091834 42.7030332,24.7041685 41.8940702,25.6410989 L41.7666514,25.7780884 L34.4742026,33.06133 L34.3602151,33.1642282 C33.8100486,33.6123735 33.0163399,33.6118722 32.46674,33.1630322 L32.3528826,33.05999 L32.2499843,32.9460025 C31.801839,32.395836 31.8023404,31.6021273 32.2511804,31.0525274 L32.3542226,30.93867 L37.783,25.516 L18.9987409,25.5 C18.1703141,25.4993041 17.4993051,24.8271677 17.4999989,23.9987409 C17.500655,23.2190451 18.0960807,22.5787921 18.8567934,22.5067458 L19.0012591,22.5 L37.803,22.516 L32.3528836,17.0599909 L32.2499852,16.9460035 C31.769829,16.3565398 31.8047006,15.4874992 32.3542217,14.938671 Z" fill="currentColor" fill-rule="nonzero"></path>
+                    </g>
+                  </svg>
+                  Log out
+                </a>
+              </li>
+            </ul>
+          </div>
+        {%- else -%}
+          <div class="bg-gray-50">
+            <div class="px-4 py-3 text-gray-900">
+              <h3 class="text-lg font-semibold m-0">Unlock Membership Benefits</h3>
+            </div>
+            <div class="!border-x-0 !border-b-0">
+              <ul class="p-4 ml-4 list-none m-0 text-sm text-gray-600">
+                <li>Poins rewards</li>
+                <li>10% off consumables</li>
+                <li>Free Training Class</li>
+                <li>Free Trials</li>
+              </ul>
+            </div>
+
+            <div class="flex justify-between gap-x-4 p-4 !border-x-0 !border-b-0">
+              <a
+                class="bg-accent text-white font-semibold hover:bg-accent-hover hover:text-white border border-solid border-transparent text-center text-sm px-4 py-2 rounded-3xl w-full focus:outline-none focus:shadow-outline"
+                href="/account/register"
+                >Sign Up</a
+              >
+              <a
+                class="bg-white text-accent font-semibold hover:bg-yellow-50 border border-solid border-accent text-center text-sm px-4 py-2 rounded-3xl w-full focus:outline-none focus:shadow-outline"
+                href="/account/login"
+                >Login In</a
+              >
+            </div>
+          </div>
+        {%- endif -%}
+      {% endcomment %}
+    {%- endif -%}
+  </div>
+</nav>
+<link
+  rel="stylesheet"
+  href="{{ 'mobile-menu.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'"
+>
+<noscript>{{- 'mobile-menu.css' | asset_url | stylesheet_tag -}}</noscript>

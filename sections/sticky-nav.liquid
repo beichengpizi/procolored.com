@@ -1,0 +1,209 @@
+<style>
+  .page-sticky-nav {
+    background-color: #ffebdd;
+    letter-spacing: 0;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 5;
+  }
+  .page-sticky-nav li {
+    list-style: none;
+  }
+  .page-sticky-nav p {
+    margin: 0;
+  }
+  .page-sticky-nav .nav-container.nav-mb {
+    display: none;
+  }
+  .nav-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+  .nav-slide {
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 400;
+    color: #000;
+    line-height: 16px;
+    padding: 20px 30px;
+  }
+  .nav-slide.nav-active {
+    font-weight: bold;
+    border-bottom: 4px solid #000;
+  }
+  @media screen and (max-width: 768px) {
+    .page-sticky-nav .nav-container.nav-mb {
+      display: block;
+      width: 100%;
+    }
+    .page-sticky-nav .nav-container.nav-pc {
+      display: none;
+    }
+    .swiper-slide {
+      width: auto;
+    }
+  }
+</style>
+<div class="page-sticky-nav-content">
+  <div class="nav-container nav-pc">
+    <ul class="nav-content">
+      {% for block in section.blocks %}
+        <li class="nav-slide nav-slide-pc" data-target-node="{{- block.settings.nav_node -}}">
+          {{- block.settings.nav_text -}}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="nav-container nav-mb">
+    <div class="swiper swiper-sticky-nav">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="nav-slide swiper-slide nav-slide-mb" data-target-node="{{- block.settings.nav_node -}}">
+            {{- block.settings.nav_text -}}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  !(function () {
+    const navTop = 0;
+    const targetSectionNodes = [
+      { title: "What's New", node: '#shopify-section-collection-tabs-new1' },
+      { title: 'Weekly Sale', node: '#shopify-section-collection-tabs-new2' },
+      { title: 'Discount Card', node: '#shopify-section-product-individual' },
+      { title: 'Shop Categories', node: '#shopify-section-shop-categories' },
+      { title: 'Materials', node: '#shopify-section-materials-tab' },
+    ];
+    const $section = $(document.currentScript).closest('.page-sticky-nav');
+    const tabHeight = $section.height();
+    $section.on('click', '.nav-slide-pc', function () {
+      $(this).siblings().removeClass('nav-active');
+      $(this).addClass('nav-active');
+      const node = $(this).attr('data-target-node');
+      if (node) {
+        handlefloorTabItemClick(node);
+      }
+    });
+    $section.on('click', '.nav-slide-mb', function () {
+      $(this).siblings().removeClass('nav-active');
+      $(this).addClass('nav-active');
+      const node = $(this).attr('data-target-node');
+      if (node) {
+        handlefloorTabItemClick(node);
+      }
+    });
+    // 点击滑动对应节点
+    function handlefloorTabItemClick(node) {
+      const element = document.querySelector(node);
+      if (!element) {
+        return;
+      }
+      const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
+      const elTop = element?.getBoundingClientRect().top || 0;
+      const scrollIntoView = scrollTop + elTop - navTop - tabHeight;
+      window.scrollTo({
+        top: scrollIntoView,
+        behavior: 'smooth',
+      });
+    }
+
+    // 获取节点
+    function getElementByNode(node) {
+      // 默认第一个元素
+      let element = document.querySelector(node);
+      // 适配存在多个相同选择器的情况
+      const firstElement = adaptMultipleSameSelector(node);
+      if (firstElement) {
+        element = firstElement;
+      }
+      return element;
+    }
+
+    // 处理存在多个相同选择器的问题
+    function adaptMultipleSameSelector(node) {
+      // 如果存在多个相同选择器元素，则取首个可见元素
+      const nodeList = document.querySelectorAll(node);
+      const len = nodeList.length;
+      if (len > 1) {
+        for (let i = 0; i < len; i++) {
+          // 计算样式
+          const curNode = nodeList[i];
+          // 首个可见元素
+          if (getComputedStyle(curNode).display === 'block') {
+            return curNode;
+          }
+        }
+      }
+    }
+
+    window.theme.debounce = function (fn, wait) {
+      let t;
+      return (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn.apply(this, args), wait);
+      };
+    };
+
+    const handleScroll = theme.debounce(() => {
+      const anchors = targetSectionNodes.map((anchor, index) => ({
+        anchor,
+        index,
+        element: getElementByNode(anchor.node), // 根据node获取相应元素
+      }));
+      // 获取在可视范围内的sections
+      const activeAnchor = anchors.filter(({ element }) => {
+        const rect = element?.getBoundingClientRect();
+        // console.log(element, rect?.top, rect?.bottom, "activeAnchor======");
+        return rect && Math.floor(rect.top) <= navTop + tabHeight && rect.bottom >= navTop + tabHeight;
+      });
+      const lastActiveAnchor = activeAnchor.length >= 2 ? activeAnchor[activeAnchor.length - 1] : activeAnchor[0];
+      if (lastActiveAnchor) {
+        $('.nav-slide-pc').removeClass('nav-active').eq(lastActiveAnchor.index).addClass('nav-active');
+        $('.nav-slide-mb').removeClass('nav-active').eq(lastActiveAnchor.index).addClass('nav-active');
+      }
+    }, 50);
+    window.addEventListener('scroll', handleScroll);
+  })();
+</script>
+{% schema %}
+{
+  "name": "Page Sticky Nav",
+  "class": "page-sticky-nav",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "nav_text",
+      "name": "Nav text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "nav_id",
+          "label": "用于锚定的section的id",
+          "info": "跟需要锚定的section的id必须保持一致"
+        },
+        {
+          "type": "text",
+          "id": "nav_text",
+          "label": "导航菜单文案"
+        },
+        {
+          "type": "text",
+          "id": "nav_node",
+          "label": "需要导航到的section的ID"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mother Day Nav 2024"
+    }
+  ]
+}
+{% endschema %}

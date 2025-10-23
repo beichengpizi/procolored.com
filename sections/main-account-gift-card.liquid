@@ -1,0 +1,150 @@
+<member-account class="block lg:py-24" client:idle>
+  <div class="lg:container">
+    <div class="grid lg:grid-cols-4 gap-4">
+      <div class="lg:col-span-1 lg:bg-white lg:rounded-2xl lg:px-6 lg:py-8 hidden lg:block">
+        {% comment %} 标题 {% endcomment %}
+        <a href="/account" class="gap-x-4 items-center hidden lg:inline-flex">
+          {% render 'member-icons', icon: 'account', class: 'w-4 h-4' %}
+          <span class="text-lg font-normal">Account Overview</span>
+        </a>
+
+        {% comment %} 菜单 {% endcomment %}
+        <div class="flex flex-col px-6 lg:px-0 mt-6 lg:mt-8 bg-white lg:gap-3">
+          <h3 class="text-xl mb-2 hidden lg:block text-heading">My Account</h3>
+          <a href="/account/addresses" class="flex items-center justify-between">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'address' %}
+              <span class="text-sm lg:text-base font-normal">My Address</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+          <hr
+            class="m-0 border-gray-200 lg:hidden"
+          >
+          <a href="/account?view=order-all" class="flex items-center justify-between">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'order' %}
+              <span class="text-sm lg:text-base font-normal">My Order</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+        </div>
+
+        <div class="flex flex-col px-6 lg:px-0 mt-6 lg:mt-8 bg-white lg:gap-3">
+          <h3 class="text-xl mb-2 hidden lg:block">My Assets</h3>
+          <a href="/account?view=rewards" class="flex items-center justify-between">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'star' %}
+              <span class="text-sm lg:text-base font-normal">My Rewards</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+          <hr
+            class="m-0 border-gray-200 lg:hidden"
+          >
+          <a href="/account?view=gift-card" class="flex items-center justify-between text-accent-hover">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'lw' %}
+              <span class="text-sm lg:text-base font-normal">My Gift Card</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+          <hr
+            class="m-0 border-gray-200 lg:hidden"
+          >
+          <a href="/account?view=coupon" class="flex items-center justify-between">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'coupon' %}
+              <span class="text-sm lg:text-base font-normal">My Coupon</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+        </div>
+      </div>
+      <div class="bg-white lg:rounded-2xl px-4 md:px-6 py-8 col-span-3">
+        <div class="flex flex-wrap lg:flex-row flex-col lg:justify-between gap-y-4 lg:items-center">
+          <a class="flex items-center gap-x-2 lg:hidden" href="/account">
+            {% render 'member-icons', icon: 'left-arrow' %}
+            <span class="text-xl font-bold">My Gift Card</span>
+          </a>
+          <h3 class="m-0 text-heading text-xl font-bold hidden lg:block">My Gift Card</h3>
+
+          {% comment %}
+            <div class="flex items-center gap-x-4">
+              <div class="flex items-center gap-1">
+                <div class="flex items-center">
+                  {% render 'member-icons', icon: 'jb' %}
+                  <span class="ml-1">My Point Balance:</span>
+                </div>
+                <span class="font-bold" data-points>xxxx</span>
+              </div>
+              <hr class="w-px h-2 lg:h-4 bg-gray-200">
+              <div class="flex items-center">
+                <button class="flex items-center transition-colors hover:text-accent-hover" data-renew="earn-point">
+                  {% render 'member-icons', icon: 'renew' %}
+                  <span class="ml-1">Renew</span>
+                </button>
+              </div>
+            </div>
+          {% endcomment %}
+        </div>
+
+        {% comment %}
+          <div class="relative flex items-center gap-x-8 border-0 border-b-2 border-gray-100 border-solid">
+            {%- assign active = 'earn-poin' -%}
+            {%- assign links = 'rewards,earn-point,point-store' | split: ',' -%}
+            {%- assign items = 'My Point,Earn Point,Point Store' | split: ',' -%}
+
+            {%- for item in items -%}
+              {%- assign param = links[forloop.index0] -%}
+              <a
+                href="/account?view={{- param -}}"
+                title="{{ item }}"
+                class="block py-2 text-base border-0 border-b-2 border-solid hover:border-accent -mb-px transition-colors ease-in-out {% if param contains active %}border-accent text-accent-hover {% else %}border-transparent{% endif %}"
+              >
+                {{- item -}}
+              </a>
+            {%- endfor -%}
+          </div>
+        {% endcomment %}
+
+        {% comment %} 积分详情 {% endcomment %}
+        <member-gift-card class="relative grid md:grid-cols-2 gap-4 mt-6" client:idle>
+          {%- for item in (0..1) -%}
+            <div class="bg-white border border-solid border-gray-200 hover:shadow-lg rounded-lg p-6 animate-pulse">
+              <div class="flex justify-between gap-6">
+                <div class="space-y-2 flex-1">
+                  <div class="w-full h-3 bg-slate-200 rounded"></div>
+
+                  <div class="w-full h-2 bg-slate-200 rounded"></div>
+
+                  <div class="w-full h-2 bg-slate-200 rounded"></div>
+
+                  <div class="w-full h-2 bg-slate-200 rounded"></div>
+
+                  <div class="h-6 bg-slate-200 rounded"></div>
+                </div>
+                <div class="rounded-full bg-slate-200 h-12 w-12"></div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </member-gift-card>
+      </div>
+    </div>
+  </div>
+</member-account>

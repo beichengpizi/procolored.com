@@ -1,0 +1,242 @@
+{% liquid
+  if section.settings.top == '17.5'
+    assign top = 'pt-8 md:pt-17.5'
+  elsif section.settings.top == '20'
+    assign top = 'pt-8 md:pt-20'
+  elsif section.settings.top == '24'
+    assign top = 'pt-8 md:pt-24'
+  elsif section.settings.top == '28'
+    assign top = 'pt-8 md:pt-28'
+  else
+    assign top = ''
+  endif
+
+  if section.settings.bottom == '17.5'
+    assign bottom = 'pb-8 md:pb-17.5'
+  elsif section.settings.bottom == '20'
+    assign bottom = 'pb-8 md:pb-20'
+  elsif section.settings.bottom == '24'
+    assign bottom = 'pb-8 md:pb-24'
+  elsif section.settings.bottom == '28'
+    assign bottom = 'pb-8 md:pb-28'
+  else
+    assign bottom = ''
+  endif
+%}
+
+<div
+  class="{{ top }} {{ bottom }}"
+  data-section-type="folding-cards"
+  data-section-id="{{ section.id }}"
+  style="background-color: {{ section.settings.bg_color }};"
+>
+  <div class="container">
+    {%- if section.settings.headding != blank -%}
+      <h2 class="text-center m-0 text-3xl md:text-[44px]">{{ section.settings.headding }}</h2>
+    {%- endif -%}
+    {% if section.settings.descriptiton != blank %}
+      <p>{{ section.settings.descriptiton }}</p>
+    {% endif %}
+
+    <div class="w-full mt-4 lg:mt-10 flex flex-col md:flex-row gap-4">
+      {%- for block in section.blocks -%}
+        <style>
+          [data-section-type="folding-cards"] [data-block-id="block-{{ block.id }}"] {
+            background-color: {{ block.settings.bg_color }};
+          }
+        </style>
+        <div class="md:rounded-2xl rounded-xl relative flex flex-col w-full md:w-1/2 bg-[#F5F5F5]">
+          <div
+            class="md:rounded-2xl rounded-xl relative pl-4 py-4 md:pl-8 md:py-4 flex gap-4 items-center"
+            data-block-id="block-{{ block.id }}"
+          >
+            <div class="order-1">
+              <h3 class="text-xl md:text-2xl mb-0 text-white">{{ block.settings.title }}</h3>
+              {%- if block.settings.description != blank -%}
+                <div class="text-white text-sm md:text-base">
+                  {{ block.settings.description }}
+                </div>
+              {%- endif -%}
+            </div>
+            <div class="-order-1 flex-shrink-0 md:order-3 md:ml-auto sm-max:aspect-square sm-max:overflow-hidden sm-max:p-2 sm-max:rounded-full sm-max:bg-gray-50/10">
+              {%- if block.settings.bg_image -%}
+                {%- liquid
+                  assign image = block.settings.bg_image
+                -%}
+                <img
+                  data-src="{{ image | image_url }}"
+                  class="lazyload md:aspect-[408/300] w-14 md:w-48 object-cover object-center {% unless settings.lazy_loading %} no-blur{% endunless %}"
+                  width="{{ image.src.width }}"
+                  height="{{ image.src.height }}"
+                  alt="{{ image.alt }}"
+                >
+              {%- endif -%}
+            </div>
+            <button
+              class="w-8 h-8 flex-shrink-0 ml-auto bg-black/5 rounded-full flex items-center justify-center order-2 mr-4 md:hidden"
+              data-btn-id="{{ block.id }}"
+              style="--color-header-links:#fff"
+            >
+              <span class="sr-only">toggle</span>
+              {% render 'svg-icons', svg-icons: 'thb-dropdown-bottom' %}
+            </button>
+          </div>
+
+          <div class="p-4 md:px-8 md:py-10 hidden lg:block" data-content="{{ block.id }}">
+            <div class="prose">
+              {{ block.settings.more_description }}
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    if (isMobile()) {
+      $('[data-section-id="{{ section.id }}"] button:first svg').css({
+        transform: 'rotate(-90deg)'
+      })
+      $('[data-section-id="{{ section.id }}"] [data-content]').first().show()
+    }
+
+    $('[data-section-id="{{ section.id }}"] button').click(function () {
+      if ($(this).children('svg').css('transform') == 'matrix(0, -1, 1, 0, 0, 0)') {
+        $(this).children('svg').css({
+          transform: 'rotate(0deg)'
+        })
+      } else {
+        $(this).children('svg').css({
+          transform: 'rotate(-90deg)'
+        })
+      }
+      var id = $(this).data().btnId
+      if (id) {
+        $(`[data-content="${id}"]`).slideToggle()
+      }
+    })
+  })
+</script>
+
+{% schema %}
+{
+  "name": "折叠卡片",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "配置项"
+    },
+    {
+      "type": "select",
+      "id": "top",
+      "default": "17.5",
+      "label": "板块上边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bottom",
+      "default": "17.5",
+      "label": "板块下边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "背景颜色",
+      "default": "#fff"
+    },
+    {
+      "type": "text",
+      "id": "headding",
+      "label": "标题",
+      "default": "What we offer"
+    },
+    {
+      "type": "textarea",
+      "id": "descriptiton",
+      "label": "描述"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "卡片",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "背景图"
+        },
+        {
+          "type": "color_background",
+          "id": "bg_color",
+          "label": "背景颜色",
+          "default": "#DA2A1C"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "标题",
+          "default": "Compensation"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "描述"
+        },
+        {
+          "type": "html",
+          "id": "more_description",
+          "label": "更多描述"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,444 @@
+{{- 'facets.css' | asset_url | stylesheet_tag -}}
+{%- liquid
+  assign enable_filtering = section.settings.enable_filtering
+  assign enable_sorting = section.settings.enable_sorting
+  assign show_counts = section.settings.show_counts
+  assign filter_color_swatches = section.settings.filter_color_swatches
+  assign pagination_type = section.settings.pagination_type
+  assign products_per_page = section.settings.products_per_page
+  assign columns_desktop = section.settings.columns_desktop
+  assign facets_desktop = section.settings.facets_desktop
+
+  unless enable_filtering
+    assign facets_desktop = 'drawer'
+  endunless
+-%}
+{%- for filter in collection.filters limit: 1 -%}
+{%- endfor -%}
+{%- comment -%} This is just to get rid of the "this theme does not support filters" message in the shopify admin {%- endcomment -%}
+{%- render 'facets-mobile',
+  results: collection,
+  enable_filtering: enable_filtering,
+  enable_sorting: enable_sorting,
+  show_counts: show_counts,
+  filter_color_swatches: filter_color_swatches
+-%}
+<div class="row main-collection-product-grid-{{ section.id }}">
+  <div class="small-12 columns">
+    {%- paginate collection.products by products_per_page -%}
+      <div class="collection-container section-spacing-bottom">
+        <div id="ProductGridContainer">
+          <div class="sidebar-container facets--{{ facets_desktop }} results--{{ collection.products.size }}">
+            {%- if facets_desktop == 'sidebar' -%}
+              {%- render 'facets-desktop',
+                results: collection,
+                enable_filtering: enable_filtering,
+                enable_sorting: enable_sorting,
+                show_counts: show_counts,
+                filter_color_swatches: filter_color_swatches
+              -%}
+            {%- endif -%}
+            <div>
+              {%- render 'facets-bar',
+                results: collection,
+                enable_filtering: enable_filtering,
+                enable_sorting: enable_sorting,
+                facets_desktop: facets_desktop,
+                filter_color_swatches: filter_color_swatches
+              -%}
+
+              <ul
+                id="product-grid"
+                data-id="{{ section.id }}"
+                class="products collection row small-up-2 medium-up-{{ columns_desktop }} pagination--{{ pagination_type }}{% if collection.products.size == 0 %} collection--empty{%- endif -%}"
+              >
+                {%- if collection.products.size == 0 -%}
+                  <div class="collection-empty">
+                    {% render 'svg-icons' with 'thb-no-products' %}
+                    <p>
+                      {{ 'sections.collection_template.empty' | t -}}
+                      <br>
+                      {%- if collection.terms -%}
+                        {{ 'sections.collection_template.use_fewer_filters_html' | t: link: collection.url }}
+                      {%- endif -%}
+                    </p>
+                  </div>
+                {%- else -%}
+                  {%- for product in collection.products -%}
+                    {%- assign product_loop = forloop -%}
+                    {%- for block in section.blocks -%}
+                      {%- liquid
+                        assign display_promotion = false
+                        if product_loop.index == block.settings.promotion_position
+                          assign display_promotion = true
+                        endif
+
+                        if block.settings.promotion_collection != blank
+                          if collection.handle == block.settings.promotion_collection.handle and product_loop.index == block.settings.promotion_position
+                            assign display_promotion = true
+                          else
+                            assign display_promotion = false
+                          endif
+                        endif
+                      -%}
+                      {%- if display_promotion -%}
+                        {{- 'gallery.css' | asset_url | stylesheet_tag -}}
+                        <li class="promotion-column column promotion-column-width--{{ block.settings.promotion_width }} product-columns-{{ columns_desktop }}">
+                          {%- render 'product-promotion', block: block -%}
+                        </li>
+                      {%- endif -%}
+                    {%- endfor -%}
+                    <li class="column">
+                      {%- render 'product-card', product_card_product: product, enable_klarna: true -%}
+                    </li>
+                  {%- endfor -%}
+                {%- endif -%}
+              </ul>
+              {% render 'pagination', paginate: paginate, pagination_type: pagination_type, id: section.id %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {%- endpaginate -%}
+  </div>
+</div>
+
+{%- if enable_filtering -%}
+  {{ 'nouislider.js' | asset_url | script_tag }}
+  <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{% javascript %}
+  const shadowHost = document.querySelector('klarna-placement[data-key="credit-promotion-badge"]');
+  // Access the shadow root
+  const shadowRoot = shadowHost.shadowRoot;
+
+  // Find the element inside the shadow DOM and apply styles
+  const osmContainer = shadowRoot.querySelector('.osm-container');
+  osmContainer.style.backgroundColor = 'lightblue'; // Example style
+  osmContainer.style.padding = '10px'; // Example style
+{% endjavascript %}
+<script>
+  // 自动化折扣定时显示
+  function formatUtcTime(v) {
+    let date = new Date(v);
+    return (
+      date.getFullYear() +
+      '/' +
+      (date.getMonth() + 1) +
+      '/' +
+      (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+      ' ' +
+      (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+      ':' +
+      (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+      ':' +
+      (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+    );
+  }
+
+  // 遍历 .featured-collection- section.id 下的所有 product-card，检查 data-discount 是否有值
+  $('.main-collection-product-grid-{{ section.id }} product-card').each(function () {
+    const discount = $(this).attr('data-discount');
+    const UTCDate = $(this).data('countdown');
+    const UTCDate_end = $(this).data('countdown-end');
+    const current_product_id = $(this).attr('data-current-product-id');
+    if (discount && discount !== 'null' && discount !== '') {
+      const finalDate = formatUtcTime(UTCDate);
+      const finalDate_end = formatUtcTime(UTCDate_end);
+      const timestamp = new Date(finalDate).getTime();
+      const timestamp_end = finalDate_end ? new Date(finalDate_end).getTime() : null;
+      const currentTimestamp = new Date().getTime();
+      let show_discount_value = false;
+      if (UTCDate === '' && UTCDate_end === '') {
+        show_discount_value = true;
+      } else {
+        if (UTCDate !== '' && UTCDate_end === '' && currentTimestamp >= timestamp) {
+          show_discount_value = true;
+        } else if (
+          UTCDate !== '' &&
+          UTCDate_end !== '' &&
+          timestamp_end > currentTimestamp &&
+          currentTimestamp >= timestamp
+        ) {
+          show_discount_value = true;
+        } else if (UTCDate === '' && UTCDate_end !== '' && timestamp_end > currentTimestamp) {
+          show_discount_value = true;
+        } else {
+          show_discount_value = false;
+        }
+      }
+      console.log('show_discount_value========', show_discount_value);
+      if (show_discount_value) {
+        console.log('product-card 存在 data-discount:', discount);
+        // 设置 activity-price-display 可见，daily-price-display 不可见
+        $(this).find('.activity-price-display').css('display', 'block');
+        $(this).find('.daily-price-display').css('display', 'none');
+        // 这里可以根据需要进行后续处理
+        // 获取当前 product-card 下 custom-automatic-discount-reminder 元素
+        const $reminder = $(this).find('custom-automatic-discount-reminder');
+        // 在 custom-automatic-discount-reminder 下查找 data-final-price 属性的元素
+
+        const $finalPrice = $reminder.find('[data-final-price]');
+        const $originPrice = $reminder.find('[data-origin-price]');
+        {% comment %} 获取自定义属性data-product-price {% endcomment %}
+        const productPrice = $(this).attr('data-product-price');
+        console.log('当前 product-card 的 data-product-price:', productPrice);
+
+        // 在 data-final-price 元素下查找 .money 子元素，并获取其文本值
+        let moneyValue = '';
+        if ($finalPrice.find('.money').length > 0) {
+          moneyValue = $finalPrice.find('.money').text();
+        } else {
+          moneyValue = $finalPrice.text().replace(':', '');
+        }
+        let originMoneyValue = '';
+        if ($originPrice.find('.money').length > 0) {
+          originMoneyValue = $originPrice.find('.money').text();
+        } else {
+          originMoneyValue = $originPrice.text().replace(':', '');
+        }
+        // 隐藏 custom-automatic-discount-reminder 下的 [data-final-price] 元素
+        $finalPrice.css('display', 'none');
+        $(this).find('.badge.onsale').css('display', 'none');
+        console.log('custom-automatic-discount-reminder 下 data-final-price 的 .money 值:', moneyValue);
+        console.log('custom-automatic-discount-reminder 下 data-origin-price 的 .money 值:', originMoneyValue);
+        // 将 moneyValue 的值替换掉当前元素 .product-card-price-and-button 下的 ins 下的 .money 元素的值
+        const $productCardInfo = $(this).find('.product-card-info');
+        $productCardInfo.find('ins .money').text(moneyValue);
+        $productCardInfo.find('del .money').text(originMoneyValue);
+      }
+    } else {
+      console.log('product-card data-discount 为空');
+    }
+  });
+</script>
+{% schema %}
+{
+  "name": "Product grid",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 2,
+      "max": 48,
+      "step": 1,
+      "label": "Number of products",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "label": "Number of columns on desktop",
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "pagination_type",
+      "options": [
+        {
+          "value": "paginated",
+          "label": "Paginated"
+        },
+        {
+          "value": "loadmore",
+          "label": "Click to load"
+        },
+        {
+          "value": "infinite",
+          "label": "Infinite"
+        }
+      ],
+      "default": "paginated",
+      "label": "Pagination",
+      "info": "Choose how additional pages of products are navigated."
+    },
+    {
+      "type": "header",
+      "content": "Filtering and sorting"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "default": true,
+      "label": "Enable filtering",
+      "info": "Customize [filters](/admin/menus)"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "default": true,
+      "label": "Enable sorting"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_counts",
+      "default": true,
+      "label": "Show filter values count"
+    },
+    {
+      "type": "checkbox",
+      "id": "filter_color_swatches",
+      "default": true,
+      "label": "Show color swatches"
+    },
+    {
+      "type": "select",
+      "id": "facets_desktop",
+      "options": [
+        {
+          "value": "sidebar",
+          "label": "Sidebar"
+        },
+        {
+          "value": "drawer",
+          "label": "Drawer"
+        }
+      ],
+      "default": "sidebar",
+      "label": "Desktop position",
+      "info": "Position of filters on desktop"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "promotion",
+      "name": "Promotion",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "promotion_collection",
+          "label": "Collection",
+          "info": "Show on specific collection only"
+        },
+        {
+          "type": "range",
+          "id": "promotion_position",
+          "min": 1,
+          "max": 24,
+          "step": 1,
+          "label": "Show in position",
+          "default": 1
+        },
+        {
+          "type": "select",
+          "id": "promotion_width",
+          "options": [
+            {
+              "value": "1",
+              "label": "1 column"
+            },
+            {
+              "value": "2",
+              "label": "2 columns"
+            }
+          ],
+          "default": "1",
+          "label": "Width"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Promotion",
+          "label": "Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "default": "Advertise a promotion or a sale",
+          "label": "Description"
+        },
+        {
+          "id": "link_label",
+          "type": "text",
+          "label": "Button label",
+          "default": "Explore",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "type": "select",
+          "id": "content_position",
+          "label": "Content position",
+          "options": [
+            { "value": "top-left", "label": "Top left" },
+            { "value": "top-center", "label": "Top center" },
+            { "value": "top-right", "label": "Top right" },
+            { "value": "middle-left", "label": "Middle left" },
+            { "value": "middle-center", "label": "Middle center" },
+            { "value": "middle-right", "label": "Middle right" },
+            { "value": "bottom-left", "label": "Bottom left" },
+            { "value": "bottom-center", "label": "Bottom center" },
+            { "value": "bottom-right", "label": "Bottom right" }
+          ],
+          "default": "bottom-left"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left",
+          "label": "Content alignment"
+        },
+        {
+          "id": "link",
+          "type": "url",
+          "label": "Button link"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_text_button",
+          "label": "Use text button",
+          "default": false
+        },
+        {
+          "id": "block_link",
+          "type": "url",
+          "label": "Link",
+          "info": "This will allow you to set a link to the promotion"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "Overlay",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Overlay opacity",
+          "default": 70
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,3804 @@
+{{- 'product-l1800.css' | asset_url | stylesheet_tag -}}
+{{- 'image-with-text-l1800.css' | asset_url | stylesheet_tag -}}
+{{- 'misc-l1800.css' | asset_url | stylesheet_tag -}}
+{{- 'product-add-to-cart-sticky-l1800.css' | asset_url | stylesheet_tag -}}
+{{- 'mobile-l1800.css' | asset_url | stylesheet_tag }}
+{%- render 'product-uv-dtf-mini-css' -%}
+{%- liquid
+  assign first_3d_model = product.media | where: 'media_type', 'model' | first
+  assign thumbnail_position = section.settings.thumbnail_position
+  assign media_aspect_ratio = section.settings.media_aspect_ratio
+
+  assign image_index = -1
+
+  assign display_captions = section.settings.display_captions
+  assign hide_variants = section.settings.hide_variants
+  assign featured_media = product.selected_or_first_available_variant.featured_media
+
+  assign first_image = null
+  assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'
+
+  assign sizes = '345x345,610x610,1220x1220'
+  if media_aspect_ratio == 'adapt'
+    assign sizes = '345x0,610x0,1220x0'
+  elsif media_aspect_ratio == 'portrait'
+    assign sizes = '345x430,640x765,1220x1525'
+  elsif media_aspect_ratio == 'landscape'
+    assign sizes = '345x255,610x450,1220x900'
+  endif
+-%}
+
+<style>
+  .product-grid-container-left-placeholder{
+    min-height: 327px !important;
+    width: 100%;
+    background: linear-gradient(90deg, #f3f3f3 25%, #e1e1e1 50%, #f3f3f3 75%);
+    background-size: 400% 100%;
+    animation: placeholderShimmer 1.5s ease-in-out infinite;
+  }
+  #ProductInfo-{{ section.id }} custom-automatic-discount-reminder,product-recommendations custom-automatic-discount-reminder{
+    border-radius: 18px;
+    font-size: 14px;
+    opacity: 0;
+  }
+  #ProductInfo-{{ section.id }} custom-automatic-discount-reminder{
+    align-items: center !important;
+  }
+  #variant-selects-{{ section.id }}{
+    opacity: 0;
+  }
+  @keyframes placeholderShimmer {
+    0% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: -100% 0;
+    }
+  }
+  custom-automatic-discount-reminder{
+    border-radius: 13px;
+    font-size: 14px;
+
+  }
+
+  @media only screen and (min-width: 1068px) {
+    .product-grid-container-left-placeholder{
+      min-height: 628px !important;
+
+    }
+    .product-grid-container {
+      display: grid;
+      align-items: start;
+      /* grid-gap: clamp(30px, 5%, 40px); */
+      /* grid-template-columns: minmax(45%, 740px) clamp(360px, 45%, 500px); */
+      grid-gap: clamp(30px, 5%, 108px);
+      grid-template-columns: minmax(45%, 628px) clamp(360px, 45%, 452px);
+    }
+  }
+
+  .product-gallery__tabs.show {
+    display: flex;
+    margin-top: 24px;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+
+  .product-image-container {
+    position: absolute !important;
+    opacity: 0;
+    visibility: collapse;
+  }
+  .product-image-container.show {
+    position: relative !important;
+    opacity: 1;
+    visibility: visible;
+  }
+  .product-price-container .price .amount:not(html) {
+    color: #da291c;
+    /* font-size: calc(var(--font-heading-scale)* 1.4rem); */
+    font-size: 26px;
+  }
+
+  @media (max-width: 768px) {
+    custom-automatic-discount-reminder{
+      border-radius: 13px;
+      font-size: 12px;
+    }
+    #ProductInfo-{{ section.id }} custom-automatic-discount-reminder{
+      align-items: start !important;
+    }
+    #ProductInfo-{{ section.id }} custom-automatic-discount-reminder .
+    .product-price-container .price .amount:not(html) {
+      font-size: 24px;
+    }
+  }
+
+  .product-title-container .product-price-container .no-js-hidden {
+    display: flex;
+  }
+
+  .product-title-container .product-price-container span.discount_amount.color-,
+  .product-price span.discount_amount,
+  .product-price.duplicate span.discount_amount.color-:not(html) {
+    background: #f7e7e3;
+    border-radius: 16px;
+    padding: 4px 10px;
+    color: #da291c;
+    line-height: 20px;
+    height: 25px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    font-weight: normal;
+    /* height: auto; */
+  }
+
+  @media (max-width: 768px) {
+    .product-title-container .product-price-container span.discount_amount.color-,
+    .product-price span.discount_amount,
+    .product-price.duplicate span.discount_amount.color-:not(html) {
+      font-size: 12px;
+      padding: 0 8px;
+    }
+  }
+
+  .product-price .product-price {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .price ins .amount:not(html) {
+    font-size: 24px;
+  }
+
+  .price span.del {
+    font-size: 14px;
+    text-decoration: line-through;
+    font-weight: normal;
+    margin-left: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .price span.del {
+      font-size: 12px;
+    }
+
+    .price ins .amount:not(html) {
+      font-size: 18px;
+    }
+  }
+
+  .side-panel-links .text-button {
+    text-decoration: none;
+  }
+
+  .flickity-nav {
+    background: rgba(0, 0, 0, 0.4) !important;
+    opacity: 0.2 !important;
+  }
+
+  .flickity-nav:hover {
+    background: rgba(0, 0, 0, 0.4) !important;
+    opacity: 0.6 !important;
+  }
+
+  .flickity-nav svg {
+    fill: rgba(255, 255, 255, 0.2);
+  }
+
+  .flickity-nav:hover svg {
+    fill: white !important;
+  }
+  .flickity-nav.flickity-next {
+    transform: rotate(180deg);
+  }
+  .product-image-container.product-image-container-video .flickity-viewport {
+    border-radius: 0 !important;
+  }
+
+  .side-panel,
+  .thb-full-menu .sub-menu,
+  .custom-select--list,
+  .flickity-nav,
+  .has-shadow--true {
+    box-shadow: none !important;
+  }
+  .add_to_cart_holder--multi {
+    {% if section.settings.show_pre_order_button %}
+      grid-template-columns: auto !important;
+    {%- else -%}
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+    {%- endif -%}
+  }
+</style>
+{%- if first_3d_model -%}
+  <link
+    id="ModelViewerStyle"
+    rel="stylesheet"
+    href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"
+    media="print"
+    onload="this.media='all'"
+  >
+  <link
+    id="ModelViewerOverride"
+    rel="stylesheet"
+    href="{{ 'product-model-viewer-ui.css' | asset_url }}"
+    media="print"
+    onload="this.media='all'"
+  >
+{%- endif -%}
+<div class="thb-product-detail product">
+  <div class="row">
+    <div class="small-12">
+      <div class="product-grid-container">
+        <div class="product-gallery-sticky">
+          <!-- 产品主图占位框 -->
+          <div class="product-grid-container-left-placeholder"></div>
+          <div class="product-gallery-container thumbnails-{{ thumbnail_position }}" id="MediaGallery-{{ section.id }}">
+            <!-- 默认显示产品主图 -->
+            <div
+              class="product-image-container product-image-container-packages"
+            >
+              <div class="mobile-item-number"></div>
+              <product-slider
+                id="Product-Slider"
+                class="product-images static-dots"
+                data-captions="{{ display_captions }}"
+                data-hide-variants="{{ hide_variants }}"
+              >
+                {%- if featured_media != null -%}
+                  {%- liquid
+                    assign image_index = image_index | plus: 1
+                    assign first_image = featured_media.preview_image
+                  -%}
+                  {%- render 'product-media-l1800',
+                    product: product,
+                    section: section,
+                    forloop: false,
+                    media: featured_media,
+                    sizes: sizes,
+                    variant_images: variant_images,
+                    media_aspect_ratio: media_aspect_ratio,
+                    hide_variants: hide_variants
+                  -%}
+                {%- endif -%}
+                {%- assign i = 0 -%}
+
+                {%- for media in product.media -%}
+                  {%- unless media.id == featured_media.id -%}
+                    {%- liquid
+                      if media.media_type == 'image'
+                        assign image_index = image_index | default: 0 | plus: 1
+                        assign i = i | plus: 1
+                      endif
+                      if image_index == 0
+                        assign first_image = media.preview_image
+                      endif
+                    -%}
+                    {% comment %} modification-20240802 {% endcomment %}
+                    {%- if i > 1 or media.media_type != 'image' -%}
+                      {%- render 'product-media-l1800',
+                        product: product,
+                        section: section,
+                        forloop: forloop,
+                        media: media,
+                        sizes: sizes,
+                        variant_images: variant_images,
+                        media_aspect_ratio: media_aspect_ratio,
+                        hide_variants: hide_variants
+                      -%}
+                    {%- endif -%}
+                  {%- endunless -%}
+                {%- endfor -%}
+                {%- if product.media.size > 1 -%}
+                  <div class="flickity-nav flickity-prev" tabindex="0">
+                    {% comment %} {%- render 'svg-icons' with 'carousel-prev' -%} {% endcomment %}
+                    <svg
+                      width="8px"
+                      height="13px"
+                      viewBox="0 0 8 13"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                      <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <g id="产品页-主图优化-pc端" transform="translate(-368, -449)" fill="#FFFFFF">
+                              <g id="主图框" transform="translate(332, 142)">
+                                  <g id="往左-点击效果" transform="translate(20, 294)">
+                                      <path d="M25.8536719,16.8610304 L20.3800342,22.8660228 C20.275729,22.9723116 20.1372126,23.0167081 19.9994094,23.0102671 C19.8628097,23.0167081 19.7249842,22.9723116 19.6199881,22.8660228 L14.1463281,16.8610304 C13.951224,16.6645444 13.951224,16.3457227 14.1463281,16.1473199 C14.2405371,16.0530218 14.3683333,16 14.5016344,16 C14.6348241,16 14.7626425,16.0530218 14.8568292,16.1473199 L19.9994094,21.7909884 L25.143193,16.1473199 C25.2373797,16.0530218 25.3651982,16 25.4983879,16 C25.631689,16 25.7594852,16.0530218 25.8536719,16.1473199 C26.048776,16.3457227 26.048776,16.6645444 25.8536719,16.8610304" id="Fill-1备份-9" transform="translate(20, 19.5054) rotate(90) translate(-20, -19.5054)"></path>
+                                  </g>
+                              </g>
+                          </g>
+                      </g>
+                    </svg>
+                  </div>
+                  <div class="flickity-nav flickity-next" tabindex="0">
+                    {% comment %} {%- render 'svg-icons' with 'carousel-next' -%} {% endcomment %}
+                    <svg
+                      width="8px"
+                      height="13px"
+                      viewBox="0 0 8 13"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                      <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <g id="产品页-主图优化-pc端" transform="translate(-368, -449)" fill="#FFFFFF">
+                              <g id="主图框" transform="translate(332, 142)">
+                                  <g id="往左-点击效果" transform="translate(20, 294)">
+                                      <path d="M25.8536719,16.8610304 L20.3800342,22.8660228 C20.275729,22.9723116 20.1372126,23.0167081 19.9994094,23.0102671 C19.8628097,23.0167081 19.7249842,22.9723116 19.6199881,22.8660228 L14.1463281,16.8610304 C13.951224,16.6645444 13.951224,16.3457227 14.1463281,16.1473199 C14.2405371,16.0530218 14.3683333,16 14.5016344,16 C14.6348241,16 14.7626425,16.0530218 14.8568292,16.1473199 L19.9994094,21.7909884 L25.143193,16.1473199 C25.2373797,16.0530218 25.3651982,16 25.4983879,16 C25.631689,16 25.7594852,16.0530218 25.8536719,16.1473199 C26.048776,16.3457227 26.048776,16.6645444 25.8536719,16.8610304" id="Fill-1备份-9" transform="translate(20, 19.5054) rotate(90) translate(-20, -19.5054)"></path>
+                                  </g>
+                              </g>
+                          </g>
+                      </g>
+                    </svg>
+                  </div>
+                {%- endif -%}
+              </product-slider>
+              <scroll-shadow class="scroll-shadow-thumbnails">
+                <div
+                  id="Product-Thumbnails"
+                  class="product-thumbnail-container"
+                  data-hide-variants="{{ hide_variants }}"
+                >
+                  {%- if featured_media != null -%}
+                    {%- render 'product-thumbnail',
+                      product: product,
+                      media: featured_media,
+                      forloop: false,
+                      variant_images: variant_images,
+                      media_aspect_ratio: media_aspect_ratio,
+                      hide_variants: hide_variants
+                    -%}
+                  {%- endif -%}
+                  {%- assign i = 0 -%}
+                  {%- for media in product.media -%}
+                    {%- unless media.id == featured_media.id -%}
+                      {%- liquid
+                        if media.media_type == 'image'
+                          assign i = i | plus: 1
+                        endif
+                      -%}
+                      {% comment %} modification-20240802 {% endcomment %}
+                      {%- if i > 1 or media.media_type != 'image' -%}
+                        {%- render 'product-thumbnail',
+                          product: product,
+                          media: media,
+                          forloop: forloop,
+                          variant_images: variant_images,
+                          media_aspect_ratio: media_aspect_ratio,
+                          hide_variants: hide_variants
+                        -%}
+                      {%- endif -%}
+                    {%- endunless -%}
+                  {%- endfor -%}
+                </div>
+              </scroll-shadow>
+            </div>
+            <!-- 显示产品特色图 -->
+            {% if product.metafields.custom.second_gallary != blank %}
+              <div class="product-image-container product-image-container-features ">
+                <div class="mobile-item-number"></div>
+                <product-slider
+                  id="Product-Slider"
+                  class="product-images static-dots"
+                  data-captions="{{ display_captions }}"
+                  data-hide-variants="{{ hide_variants }}"
+                >
+                  {%- if featured_media != null -%}
+                    {%- liquid
+                      assign image_index = image_index | plus: 1
+                      assign first_image = featured_media.preview_image
+                    -%}
+                    {%- render 'product-media-l1800',
+                      product: product,
+                      section: section,
+                      forloop: false,
+                      media: featured_media,
+                      sizes: sizes,
+                      variant_images: variant_images,
+                      media_aspect_ratio: media_aspect_ratio,
+                      hide_variants: hide_variants
+                    -%}
+                  {%- endif -%}
+                  {%- for media in product.metafields.custom.second_gallary.value -%}
+                    {%- unless media.id == featured_media.id -%}
+                      {%- liquid
+                        if media.media_type == 'image'
+                          assign image_index = image_index | default: 0 | plus: 1
+                        endif
+                        if image_index == 0
+                          assign first_image = media.preview_image
+                        endif
+                      -%}
+                      {%- render 'product-media-l1800',
+                        product: product,
+                        section: section,
+                        forloop: forloop,
+                        media: media,
+                        sizes: sizes,
+                        variant_images: variant_images,
+                        media_aspect_ratio: media_aspect_ratio,
+                        hide_variants: hide_variants
+                      -%}
+                    {%- endunless -%}
+                  {%- endfor -%}
+                  {%- if product.media.size > 1 -%}
+                    <div class="flickity-nav flickity-prev" tabindex="0">
+                      {% comment %} {%- render 'svg-icons' with 'carousel-prev' -%} {% endcomment %}
+                      <svg
+                        width="8px"
+                        height="13px"
+                        viewBox="0 0 8 13"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="产品页-主图优化-pc端" transform="translate(-368, -449)" fill="#FFFFFF">
+                                <g id="主图框" transform="translate(332, 142)">
+                                    <g id="往左-点击效果" transform="translate(20, 294)">
+                                        <path d="M25.8536719,16.8610304 L20.3800342,22.8660228 C20.275729,22.9723116 20.1372126,23.0167081 19.9994094,23.0102671 C19.8628097,23.0167081 19.7249842,22.9723116 19.6199881,22.8660228 L14.1463281,16.8610304 C13.951224,16.6645444 13.951224,16.3457227 14.1463281,16.1473199 C14.2405371,16.0530218 14.3683333,16 14.5016344,16 C14.6348241,16 14.7626425,16.0530218 14.8568292,16.1473199 L19.9994094,21.7909884 L25.143193,16.1473199 C25.2373797,16.0530218 25.3651982,16 25.4983879,16 C25.631689,16 25.7594852,16.0530218 25.8536719,16.1473199 C26.048776,16.3457227 26.048776,16.6645444 25.8536719,16.8610304" id="Fill-1备份-9" transform="translate(20, 19.5054) rotate(90) translate(-20, -19.5054)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <div class="flickity-nav flickity-next" tabindex="0">
+                      {% comment %} {%- render 'svg-icons' with 'carousel-next' -%} {% endcomment %}
+                      <svg
+                        width="8px"
+                        height="13px"
+                        viewBox="0 0 8 13"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="产品页-主图优化-pc端" transform="translate(-368, -449)" fill="#FFFFFF">
+                                <g id="主图框" transform="translate(332, 142)">
+                                    <g id="往左-点击效果" transform="translate(20, 294)">
+                                        <path d="M25.8536719,16.8610304 L20.3800342,22.8660228 C20.275729,22.9723116 20.1372126,23.0167081 19.9994094,23.0102671 C19.8628097,23.0167081 19.7249842,22.9723116 19.6199881,22.8660228 L14.1463281,16.8610304 C13.951224,16.6645444 13.951224,16.3457227 14.1463281,16.1473199 C14.2405371,16.0530218 14.3683333,16 14.5016344,16 C14.6348241,16 14.7626425,16.0530218 14.8568292,16.1473199 L19.9994094,21.7909884 L25.143193,16.1473199 C25.2373797,16.0530218 25.3651982,16 25.4983879,16 C25.631689,16 25.7594852,16.0530218 25.8536719,16.1473199 C26.048776,16.3457227 26.048776,16.6645444 25.8536719,16.8610304" id="Fill-1备份-9" transform="translate(20, 19.5054) rotate(90) translate(-20, -19.5054)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                      </svg>
+                    </div>
+                  {%- endif -%}
+                </product-slider>
+                <scroll-shadow class="scroll-shadow-thumbnails">
+                  <div
+                    id="Product-Thumbnails"
+                    class="product-thumbnail-container"
+                    data-hide-variants="{{ hide_variants }}"
+                  >
+                    {%- if featured_media != null -%}
+                      {%- render 'product-thumbnail',
+                        product: product,
+                        media: featured_media,
+                        forloop: false,
+                        variant_images: variant_images,
+                        media_aspect_ratio: media_aspect_ratio,
+                        hide_variants: hide_variants
+                      -%}
+                    {%- endif -%}
+                    {%- for media in product.metafields.custom.second_gallary.value -%}
+                      {%- unless media.id == featured_media.id -%}
+                        {%- render 'product-thumbnail',
+                          product: product,
+                          media: media,
+                          forloop: forloop,
+                          variant_images: variant_images,
+                          media_aspect_ratio: media_aspect_ratio,
+                          hide_variants: hide_variants
+                        -%}
+                      {%- endunless -%}
+                    {%- endfor -%}
+                  </div>
+                </scroll-shadow>
+              </div>
+            {% endif %}
+            <!-- 显示产品特色视频 -->
+            {% if product.metafields.custom.video_list != blank %}
+              <div class="product-image-container product-image-container-video ">
+                <div class="mobile-item-number"></div>
+                <product-slider
+                  id="Product-Slider"
+                  class="product-images static-dots"
+                  data-captions="{{ display_captions }}"
+                  data-hide-variants="{{ hide_variants }}"
+                >
+                  {%- if featured_media != null -%}
+                    {%- liquid
+                      assign image_index = image_index | plus: 1
+                      assign first_image = featured_media.preview_image
+                    -%}
+                    {%- render 'product-media-l1800',
+                      product: product,
+                      section: section,
+                      forloop: false,
+                      media: featured_media,
+                      sizes: sizes,
+                      variant_images: variant_images,
+                      media_aspect_ratio: media_aspect_ratio,
+                      hide_variants: hide_variants
+                    -%}
+                  {%- endif -%}
+                  {%- for media in product.metafields.custom.video_list.value -%}
+                    {%- unless media.id == featured_media.id -%}
+                      {%- liquid
+                        if media.media_type == 'image'
+                          assign image_index = image_index | default: 0 | plus: 1
+                        endif
+                        if image_index == 0
+                          assign first_image = media.preview_image
+                        endif
+                      -%}
+                      {%- render 'product-media-l1800',
+                        product: product,
+                        section: section,
+                        forloop: forloop,
+                        media: media,
+                        sizes: sizes,
+                        variant_images: variant_images,
+                        media_aspect_ratio: media_aspect_ratio,
+                        hide_variants: hide_variants
+                      -%}
+                    {%- endunless -%}
+                  {%- endfor -%}
+                  {%- if product.media.size > 1 -%}
+                    <div class="flickity-nav flickity-prev" tabindex="0">
+                      {% comment %} {%- render 'svg-icons' with 'carousel-prev' -%} {% endcomment %}
+                      <svg
+                        width="8px"
+                        height="13px"
+                        viewBox="0 0 8 13"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="产品页-主图优化-pc端" transform="translate(-368, -449)" fill="#FFFFFF">
+                                <g id="主图框" transform="translate(332, 142)">
+                                    <g id="往左-点击效果" transform="translate(20, 294)">
+                                        <path d="M25.8536719,16.8610304 L20.3800342,22.8660228 C20.275729,22.9723116 20.1372126,23.0167081 19.9994094,23.0102671 C19.8628097,23.0167081 19.7249842,22.9723116 19.6199881,22.8660228 L14.1463281,16.8610304 C13.951224,16.6645444 13.951224,16.3457227 14.1463281,16.1473199 C14.2405371,16.0530218 14.3683333,16 14.5016344,16 C14.6348241,16 14.7626425,16.0530218 14.8568292,16.1473199 L19.9994094,21.7909884 L25.143193,16.1473199 C25.2373797,16.0530218 25.3651982,16 25.4983879,16 C25.631689,16 25.7594852,16.0530218 25.8536719,16.1473199 C26.048776,16.3457227 26.048776,16.6645444 25.8536719,16.8610304" id="Fill-1备份-9" transform="translate(20, 19.5054) rotate(90) translate(-20, -19.5054)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <div class="flickity-nav flickity-next" tabindex="0">
+                      {% comment %} {%- render 'svg-icons' with 'carousel-next' -%} {% endcomment %}
+                      <svg
+                        width="8px"
+                        height="13px"
+                        viewBox="0 0 8 13"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="产品页-主图优化-pc端" transform="translate(-368, -449)" fill="#FFFFFF">
+                                <g id="主图框" transform="translate(332, 142)">
+                                    <g id="往左-点击效果" transform="translate(20, 294)">
+                                        <path d="M25.8536719,16.8610304 L20.3800342,22.8660228 C20.275729,22.9723116 20.1372126,23.0167081 19.9994094,23.0102671 C19.8628097,23.0167081 19.7249842,22.9723116 19.6199881,22.8660228 L14.1463281,16.8610304 C13.951224,16.6645444 13.951224,16.3457227 14.1463281,16.1473199 C14.2405371,16.0530218 14.3683333,16 14.5016344,16 C14.6348241,16 14.7626425,16.0530218 14.8568292,16.1473199 L19.9994094,21.7909884 L25.143193,16.1473199 C25.2373797,16.0530218 25.3651982,16 25.4983879,16 C25.631689,16 25.7594852,16.0530218 25.8536719,16.1473199 C26.048776,16.3457227 26.048776,16.6645444 25.8536719,16.8610304" id="Fill-1备份-9" transform="translate(20, 19.5054) rotate(90) translate(-20, -19.5054)"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                      </svg>
+                    </div>
+                  {%- endif -%}
+                </product-slider>
+                <scroll-shadow class="scroll-shadow-thumbnails">
+                  <div
+                    id="Product-Thumbnails"
+                    class="product-thumbnail-container"
+                    data-hide-variants="{{ hide_variants }}"
+                  >
+                    {%- if featured_media != null -%}
+                      {%- render 'product-thumbnail',
+                        product: product,
+                        media: featured_media,
+                        forloop: false,
+                        variant_images: variant_images,
+                        media_aspect_ratio: media_aspect_ratio,
+                        hide_variants: hide_variants
+                      -%}
+                    {%- endif -%}
+                    {%- for media in product.metafields.custom.video_list.value -%}
+                      {%- unless media.id == featured_media.id -%}
+                        {%- render 'product-thumbnail',
+                          product: product,
+                          media: media,
+                          forloop: forloop,
+                          variant_images: variant_images,
+                          media_aspect_ratio: media_aspect_ratio,
+                          hide_variants: hide_variants
+                        -%}
+                      {%- endunless -%}
+                    {%- endfor -%}
+                  </div>
+                </scroll-shadow>
+              </div>
+            {% endif %}
+
+            <!-- 主图下方的媒体类型展示按钮 -->
+            {% if product.metafields.custom.second_gallary != blank or product.metafields.custom.video_list != blank %}
+              <div class="product-gallery__tabs show">
+                <div class="product-gallery__tabs_item selected" data-filter="packages">
+                  <i>
+                    <svg
+                      width="16px"
+                      height="10px"
+                      viewBox="0 0 16 10"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                      <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <g id="产品页-主图优化-pc端" transform="translate(-729, -817)" fill="#000000">
+                              <g id="主图切换按钮" transform="translate(532, 808)">
+                                  <g id="包装未点击" transform="translate(197, 7)">
+                                      <g id="包装箱icon" transform="translate(0, 2)">
+                                          <path d="M10.6279816,2.91113946 L9.08108138,0.432438354 L9.08108138,9.51351944 L13.5494843,9.51351944 C13.9469752,9.51351944 14.2702706,9.18414325 14.2702706,8.77915778 L14.2702706,3.39486186 L11.3544585,3.39486186 C11.0395037,3.39486186 10.7543777,3.2050346 10.6279816,2.91113946" id="Fill-1"></path>
+                                          <path d="M6.07087268,3.42175842 L1.72973002,3.42175842 L1.72973002,8.78237945 C1.72973002,9.18558418 2.0621893,9.51352678 2.47080088,9.51352678 L8.64864894,9.51352678 L8.64864894,0.432438354 L6.79102994,2.99165966 C6.66269038,3.25049445 6.38279049,3.42175842 6.07087268,3.42175842" id="Fill-3"></path>
+                                          <path d="M0.561491014,3.02703295 L5.92242394,3.02703295 C6.13629235,3.02703295 6.32816439,2.9074102 6.42330536,2.71472578 L8.18846329,0.234197064 C8.25817739,0.136218925 8.18853691,0 8.06873467,0 L1.64889839,0 C1.60022367,0 1.5546997,0.0241910362 1.52727048,0.0646229334 L0.0384954319,2.25933027 C-0.0264336407,2.41359624 -0.00998788695,2.61297242 0.0936188894,2.77247929 C0.197225666,2.93183811 0.372166083,3.02703295 0.561491014,3.02703295" id="Fill-5"></path>
+                                          <path d="M15.9054994,2.77247854 C16.0127735,2.61298601 16.0298014,2.41360924 15.9510646,2.23916382 L14.4211167,0.064525411 C14.3927013,0.0241526146 14.3455965,5.92191827e-06 14.2952446,5.92191827e-06 L9.23377292,5.92191827e-06 C9.11352592,5.92191827e-06 9.0406277,0.128867242 9.10509583,0.227437861 L10.7052894,2.67387832 C10.8066945,2.8950182 11.0147334,3.02703295 11.2445563,3.02703295 L15.4210662,3.02703295 C15.6170926,3.02703295 15.7982253,2.93185264 15.9054994,2.77247854" id="Fill-7"></path>
+                                      </g>
+                                  </g>
+                              </g>
+                          </g>
+                      </g>
+                    </svg>
+                  </i>
+                  <i>
+                    <svg
+                      width="16px"
+                      height="10px"
+                      viewBox="0 0 16 10"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                      <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <g id="产品页-主图优化-pc端" transform="translate(-729, -817)" fill="#fff">
+                              <g id="主图切换按钮" transform="translate(532, 808)">
+                                  <g id="包装未点击" transform="translate(197, 7)">
+                                      <g id="包装箱icon" transform="translate(0, 2)">
+                                          <path d="M10.6279816,2.91113946 L9.08108138,0.432438354 L9.08108138,9.51351944 L13.5494843,9.51351944 C13.9469752,9.51351944 14.2702706,9.18414325 14.2702706,8.77915778 L14.2702706,3.39486186 L11.3544585,3.39486186 C11.0395037,3.39486186 10.7543777,3.2050346 10.6279816,2.91113946" id="Fill-1"></path>
+                                          <path d="M6.07087268,3.42175842 L1.72973002,3.42175842 L1.72973002,8.78237945 C1.72973002,9.18558418 2.0621893,9.51352678 2.47080088,9.51352678 L8.64864894,9.51352678 L8.64864894,0.432438354 L6.79102994,2.99165966 C6.66269038,3.25049445 6.38279049,3.42175842 6.07087268,3.42175842" id="Fill-3"></path>
+                                          <path d="M0.561491014,3.02703295 L5.92242394,3.02703295 C6.13629235,3.02703295 6.32816439,2.9074102 6.42330536,2.71472578 L8.18846329,0.234197064 C8.25817739,0.136218925 8.18853691,0 8.06873467,0 L1.64889839,0 C1.60022367,0 1.5546997,0.0241910362 1.52727048,0.0646229334 L0.0384954319,2.25933027 C-0.0264336407,2.41359624 -0.00998788695,2.61297242 0.0936188894,2.77247929 C0.197225666,2.93183811 0.372166083,3.02703295 0.561491014,3.02703295" id="Fill-5"></path>
+                                          <path d="M15.9054994,2.77247854 C16.0127735,2.61298601 16.0298014,2.41360924 15.9510646,2.23916382 L14.4211167,0.064525411 C14.3927013,0.0241526146 14.3455965,5.92191827e-06 14.2952446,5.92191827e-06 L9.23377292,5.92191827e-06 C9.11352592,5.92191827e-06 9.0406277,0.128867242 9.10509583,0.227437861 L10.7052894,2.67387832 C10.8066945,2.8950182 11.0147334,3.02703295 11.2445563,3.02703295 L15.4210662,3.02703295 C15.6170926,3.02703295 15.7982253,2.93185264 15.9054994,2.77247854" id="Fill-7"></path>
+                                      </g>
+                                  </g>
+                              </g>
+                          </g>
+                      </g>
+                    </svg>
+                  </i>
+                  <span>Packages</span>
+                </div>
+                {% if product.metafields.custom.video_list != blank %}
+                  <div class="product-gallery__tabs_item" data-filter="video">
+                    <i>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M12.9175 8.2772L5.85173 12.9877C5.69856 13.0899 5.4916 13.0485 5.38948 12.8953C5.35298 12.8405 5.3335 12.7762 5.3335 12.7104V3.28939C5.3335 3.10529 5.48274 2.95605 5.66683 2.95605C5.73264 2.95605 5.79698 2.97553 5.85173 3.01204L12.9175 7.72254C13.0706 7.82467 13.112 8.0316 13.0099 8.1848C12.9855 8.2214 12.9541 8.2528 12.9175 8.2772Z" fill="black"></path>
+                      </svg>
+                    </i>
+                    <i>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M12.9173 8.2772L5.85158 12.9877C5.6984 13.0899 5.49144 13.0485 5.38932 12.8953C5.35282 12.8405 5.33334 12.7762 5.33334 12.7104V3.28939C5.33334 3.10529 5.48258 2.95605 5.66668 2.95605C5.73248 2.95605 5.79682 2.97553 5.85158 3.01204L12.9173 7.72254C13.0705 7.82467 13.1119 8.0316 13.0097 8.1848C12.9853 8.2214 12.9539 8.2528 12.9173 8.2772Z" fill="white"></path>
+                      </svg>
+                    </i>
+                    <span>Videos</span>
+                  </div>
+                {% endif %}
+                {% if product.metafields.custom.second_gallary != blank %}
+                  <div class="product-gallery__tabs_item " data-filter="features">
+                    <i>
+                      <svg
+                        width="16px"
+                        height="13px"
+                        viewBox="0 0 16 13"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="产品页-主图优化-pc端" transform="translate(-546, -816)" fill="#000">
+                                <g id="主图切换按钮" transform="translate(532, 808)">
+                                    <g id="图片icon" transform="translate(14, 8)">
+                                        <path d="M14.9757436,10.7058671 C14.9757436,10.9992049 14.7306842,11.2378487 14.4294604,11.2378487 L1.57054612,11.2378487 C1.26932236,11.2378487 1.02426295,10.9992049 1.02426295,10.7058671 L1.02426295,10.1869309 L1.02426295,1.52939136 C1.02426295,1.23607906 1.26932236,0.997435248 1.57054612,0.997435248 L14.4294604,0.997435248 C14.7306842,0.997435248 14.9757436,1.23607906 14.9757436,1.52939136 L14.9757436,7.77655695 L14.9757436,10.7058671 Z M14.4294604,0 L1.57054612,0 C0.704522882,0 0,0.68607865 0,1.52940411 L0,10.1869309 L0,10.7058671 C0,11.549218 0.704522882,12.2352967 1.57054612,12.2352967 L14.4294604,12.2352967 C15.2954837,12.2352967 16,11.549218 16,10.7058671 L16,7.7765697 L16,1.52939136 C16,0.68607865 15.2954837,0 14.4294604,0 L14.4294604,0 Z" id="Fill-1"></path>
+                                        <path d="M2.29585125,2.23702772 C2.84718232,1.68569664 3.74105297,1.68569664 4.29238405,2.23702772 C4.84371512,2.78835879 4.84371512,3.68222944 4.29238405,4.23356052 C3.74105297,4.78489159 2.84718232,4.78489159 2.29585125,4.23356052 C1.74452017,3.68222944 1.74452017,2.78835879 2.29585125,2.23702772" id="Fill-3"></path>
+                                        <path d="M12.0846002,2.92477812 C11.8922066,2.71132052 11.5804377,2.71137642 11.3880442,2.92477812 L7.58166969,7.14902475 L5.60181848,4.95183565 C5.5094187,4.84934861 5.38417463,4.79175294 5.25354047,4.79175294 C5.12290631,4.79175294 4.99766224,4.84934861 4.90526247,4.95186361 L2.02660086,8.14655783 C1.93425146,8.24910077 1.88235294,8.38809349 1.88235294,8.533068 L1.88235294,9.74752476 C1.88235294,10.0493814 2.10288074,10.2941176 2.37487887,10.2941176 L13.6251337,10.2941176 C13.8971319,10.2941176 14.1176471,10.0493814 14.1176471,9.74752476 L14.1176471,5.40737399 C14.1176471,5.26239948 14.0657485,5.12337881 13.9733991,5.02086381 L12.0846002,2.92477812 Z" id="Fill-5"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                      </svg>
+                    </i>
+                    <i>
+                      <svg
+                        width="16px"
+                        height="13px"
+                        viewBox="0 0 16 13"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                      >
+                        <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="产品页-主图优化-pc端" transform="translate(-546, -816)" fill="#fff">
+                                <g id="主图切换按钮" transform="translate(532, 808)">
+                                    <g id="图片icon" transform="translate(14, 8)">
+                                        <path d="M14.9757436,10.7058671 C14.9757436,10.9992049 14.7306842,11.2378487 14.4294604,11.2378487 L1.57054612,11.2378487 C1.26932236,11.2378487 1.02426295,10.9992049 1.02426295,10.7058671 L1.02426295,10.1869309 L1.02426295,1.52939136 C1.02426295,1.23607906 1.26932236,0.997435248 1.57054612,0.997435248 L14.4294604,0.997435248 C14.7306842,0.997435248 14.9757436,1.23607906 14.9757436,1.52939136 L14.9757436,7.77655695 L14.9757436,10.7058671 Z M14.4294604,0 L1.57054612,0 C0.704522882,0 0,0.68607865 0,1.52940411 L0,10.1869309 L0,10.7058671 C0,11.549218 0.704522882,12.2352967 1.57054612,12.2352967 L14.4294604,12.2352967 C15.2954837,12.2352967 16,11.549218 16,10.7058671 L16,7.7765697 L16,1.52939136 C16,0.68607865 15.2954837,0 14.4294604,0 L14.4294604,0 Z" id="Fill-1"></path>
+                                        <path d="M2.29585125,2.23702772 C2.84718232,1.68569664 3.74105297,1.68569664 4.29238405,2.23702772 C4.84371512,2.78835879 4.84371512,3.68222944 4.29238405,4.23356052 C3.74105297,4.78489159 2.84718232,4.78489159 2.29585125,4.23356052 C1.74452017,3.68222944 1.74452017,2.78835879 2.29585125,2.23702772" id="Fill-3"></path>
+                                        <path d="M12.0846002,2.92477812 C11.8922066,2.71132052 11.5804377,2.71137642 11.3880442,2.92477812 L7.58166969,7.14902475 L5.60181848,4.95183565 C5.5094187,4.84934861 5.38417463,4.79175294 5.25354047,4.79175294 C5.12290631,4.79175294 4.99766224,4.84934861 4.90526247,4.95186361 L2.02660086,8.14655783 C1.93425146,8.24910077 1.88235294,8.38809349 1.88235294,8.533068 L1.88235294,9.74752476 C1.88235294,10.0493814 2.10288074,10.2941176 2.37487887,10.2941176 L13.6251337,10.2941176 C13.8971319,10.2941176 14.1176471,10.0493814 14.1176471,9.74752476 L14.1176471,5.40737399 C14.1176471,5.26239948 14.0657485,5.12337881 13.9733991,5.02086381 L12.0846002,2.92477812 Z" id="Fill-5"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                      </svg>
+                    </i>
+                    <span>Features</span>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+          <script>
+            $(function () {
+              $('.product-gallery__tabs_item').click(function () {
+                $('.product-gallery__tabs_item').removeClass('selected');
+                $(this).addClass('selected');
+                $('.product-image-container').removeClass('show');
+                $('.product-image-container-' + $(this).data('filter')).addClass('show');
+              });
+            });
+          </script>
+          {%- assign info_boxes = section.blocks | where: 'type', 'info_box' -%}
+          {%- if info_boxes.size > 0 -%}
+            {{- 'info-box.css' | asset_url | stylesheet_tag -}}
+            <div class="product--infobox-container">
+              {%- for info_box in info_boxes %}
+                <div
+                  class="product--infobox"
+                  style="--info-box-bg: {{ info_box.settings.info_box_bg }};--info-box-color: {{ info_box.settings.info_box_color }};"
+                >
+                  {% if info_box.settings.image %}
+                    <span class="product--infobox-image">
+                      {%- render 'responsive-image', image: info_box.settings.image, sizes: '24x24,48x48' -%}
+                    </span>
+                  {%- else -%}
+                    <span class="product--infobox-image">
+                      {% render 'svg-icons-inline', icon: info_box.settings.icon %}
+                    </span>
+                  {%- endif -%}
+                  <span>{{ info_box.settings.text }}</span>
+                  {% if info_box.settings.link %}
+                    <a href="{{ info_box.settings.link }}" class="product--infobox-link"></a>
+                  {%- endif -%}
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+        <div class="product-information">
+          <div id="ProductInfo-{{ section.id }}" class="product-information--inner">
+            {%- render 'product-information-l1800',
+              product: product,
+              section: section,
+              update_url: true,
+              pickup: true,
+              first_image: first_image,
+              hide_variants: hide_variants
+            -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="side-panel side-availability" id="Pickup-Availability"></div>
+<!--
+  {%- form 'product', product, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+  	<input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
+
+  	<div class="product-add-to-cart-container">
+  		<div class="form-notification error" style="display:none;"></div>
+  		<div class="add_to_cart_holder">
+  			<button type="submit" name="add" id="AddToCart" class="single-add-to-cart-button button accent {% unless product.selected_or_first_available_variant.available %}sold-out{% endunless %}" {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}>
+  				<span class="single-add-to-cart-button--text">
+  					{%- if product.selected_or_first_available_variant.available -%}
+  						{{ 'products.product.add_to_cart' | t }}
+  					{%- else -%}
+  						{{ 'products.product.sold_out' | t }}
+  					{%- endif -%}
+  				</span>
+  				<span class="loading-overlay">
+  					{% render 'svg-icons' with 'thb-loading' %}
+  				</span>
+  			</button>
+
+  				{{ form | payment_button }}
+
+  		</div>
+  	</div>
+  {%- endform -%}
+-->
+{%- assign side_panels = section.blocks | where: 'type', 'side_panel' -%}
+{%- if side_panels.size > 0 -%}
+  <div class="side-panel product-information-drawer" id="Product-Information-Drawer" tabindex="-1">
+    <div class="side-panel-inner">
+      <div class="side-panel-header">
+        <div>
+          <span class="h6">{{ 'products.product.product_information' | t }}</span>
+          <side-panel-close class="side-panel-close">{%- render 'svg-icons' with 'close' -%}</side-panel-close>
+        </div>
+      </div>
+      <div class="side-panel-content side-panel-content--has-tabs">
+        {%- assign block = side_panels[0] -%}
+
+        <side-panel-content-tabs class="side-panel-content--tabs">
+          {%- if settings.product_info_text_1 != empty and block.settings.side_panel_1_open_type == '3' -%}
+            <button class="tab-active">{{ settings.product_info_text_1 }}</button>
+          {%- endif -%}
+          {%- if settings.product_info_text_2 != empty and block.settings.side_panel_2_open_type == '3' -%}
+            <button>{{ settings.product_info_text_2 }}</button>
+          {%- endif -%}
+          {%- if settings.product_info_text_3 != empty and block.settings.side_panel_3_open_type == '3' -%}
+            <button>{{ settings.product_info_text_3 }}</button>
+          {%- endif -%}
+          {%- if settings.product_info_text_4 != empty and block.settings.side_panel_4_open_type == '3' -%}
+            <button>{{ settings.product_info_text_4 }}</button>
+          {%- endif -%}
+        </side-panel-content-tabs>
+        <div class="side-panel-content--inner">
+          {%- if settings.product_info_text_1 != empty and block.settings.side_panel_1_open_type == '3' -%}
+            <div class="side-panel-content--tab-panel rte tab-active">
+              {% if block.settings.side_panel_1_page == blank %}
+                {% assign side_panel_1_page_default_handle = block.settings.side_panel_1_url_default
+                  | split: '/'
+                  | last
+                %}
+                {% assign side_panel_1_page_default_content = pages[side_panel_1_page_default_handle].content %}
+                {{ side_panel_1_page_default_content }}
+              {% else %}
+                {{ block.settings.side_panel_1_page.content }}
+              {% endif %}
+            </div>
+          {%- endif -%}
+          {%- if settings.product_info_text_2 != empty and block.settings.side_panel_2_open_type == '3' -%}
+            <div class="side-panel-content--tab-panel rte">
+              {% if block.settings.side_panel_2_page == blank %}
+                {% assign side_panel_2_page_default_handle = block.settings.side_panel_2_url_default
+                  | split: '/'
+                  | last
+                %}
+                {% assign side_panel_2_page_default_content = pages[side_panel_2_page_default_handle].content %}
+                {{ side_panel_2_page_default_content }}
+              {% else %}
+                {{ block.settings.side_panel_2_page.content }}
+              {% endif %}
+            </div>
+          {%- endif -%}
+          {%- if settings.product_info_text_3 != empty and block.settings.side_panel_3_open_type == '3' -%}
+            <div class="side-panel-content--tab-panel rte">
+              {% if block.settings.side_panel_3_page == blank %}
+                {% assign side_panel_3_page_default_handle = block.settings.side_panel_3_url_default
+                  | split: '/'
+                  | last
+                %}
+                {% assign side_panel_3_page_default_content = pages[side_panel_3_page_default_handle].content %}
+                {{ side_panel_3_page_default_content }}
+              {% else %}
+                {{ block.settings.side_panel_3_page.content }}
+              {% endif %}
+            </div>
+          {%- endif -%}
+          {%- if settings.product_info_text_4 != empty and block.settings.side_panel_4_open_type == '3' -%}
+            <div class="side-panel-content--tab-panel rte">
+              {% if block.settings.side_panel_4_page == blank %}
+                {% assign side_panel_4_page_default_handle = block.settings.side_panel_4_url_default
+                  | split: '/'
+                  | last
+                %}
+                {% assign side_panel_4_page_default_content = pages[side_panel_4_page_default_handle].content %}
+                {{ side_panel_4_page_default_content }}
+              {% else %}
+                {{ block.settings.side_panel_4_page.content }}
+              {% endif %}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+{%- if section.settings.lightbox != blank -%}
+  {% render 'photoswipe' %}
+  <link rel="stylesheet" href="{{ 'photoswipe.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endif -%}
+<script src="{{ 'product.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'misc-l1800.js' |  asset_url }}"></script>
+
+{%- if first_3d_model -%}
+  <script type="application/json" id="ProductJSON-{{ product.id }}">
+    {{ product.media | where: 'media_type', 'model' | json }}
+  </script>
+
+  <script src="{{ 'product-model.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{%- liquid
+  if product.selected_or_first_available_variant.featured_media
+    assign seo_media = product.selected_or_first_available_variant.featured_media
+  else
+    assign seo_media = product.featured_media
+  endif
+-%}
+<!-- 当元对象不存在时，单独控制产品变体折扣显示或隐藏 -->
+{% assign variants_display_custom_discounts = false %}
+{%- if product.metafields.custom.variants_display_custom_discounts -%}
+  {% assign variants_display_custom_discounts = true %}
+{%- endif -%}
+<!-- 针对元对象显示 -->
+{% assign startDate = null %}
+{% assign endDate = null %}
+{% assign custom_discount = null %}
+
+{% for discount in shop.metaobjects.discount.values %}
+  <!-- 按产品系列筛选 -->
+  {%- if discount.collection != blank -%}
+    {% for product_name in discount.collection.value.products %}
+      {% assign product_id = product_name.id %}
+      {%- if product_id == product.id -%}
+        {%- if discount.value != blank -%}
+          {% comment %} 百分比折扣值 {% endcomment %}
+          {% assign custom_discount = discount.value %}
+        {%- elsif discount.value1 != empty -%}
+          {% comment %} 固定折扣值 {% endcomment %}
+          {% assign custom_discount = discount.value1.value %}
+        {%- endif -%}
+        {%- if discount.start_date != blank -%}
+          {% assign startDate = discount.start_date %}
+        {%- endif -%}
+        {%- if discount.end_date != blank -%}
+          {% assign endDate = discount.end_date %}
+        {%- endif -%}
+
+        {% break %}
+      {%- endif -%}
+    {% endfor %}
+    {% break %}
+  {%- elsif discount.product_name != blank -%}
+    <!-- 按产品筛选 -->
+    {% for product_name in discount.product_name.value %}
+      {% assign product_id = product_name.id %}
+      {%- if product_id == product.id -%}
+        {%- if discount.value != blank -%}
+          {% comment %} 百分比折扣值 {% endcomment %}
+          {% assign custom_discount = discount.value %}
+        {%- elsif discount.value1 != empty -%}
+          {% comment %} 固定折扣值 {% endcomment %}
+          {% assign custom_discount = discount.value1.value %}
+        {%- endif -%}
+        {%- if discount.start_date != blank -%}
+          {% assign startDate = discount.start_date %}
+        {%- endif -%}
+        {%- if discount.end_date != blank -%}
+          {% assign endDate = discount.end_date %}
+        {%- endif -%}
+        {% break %}
+      {%- endif -%}
+    {% endfor %}
+  {%- else -%}
+    <!-- 按产品变体筛选 -->
+    {% comment %} 产品变体=={{ discount.product_variants }} {% endcomment %}
+    {%- if discount.product_variants != blank -%}
+      {% comment %} {{ discount.product_variants.value | json }} {% endcomment %}
+      {% for selectedVariant in discount.product_variants.value %}
+        {% assign selected_variant_id = selectedVariant.id %}
+        {% for variant in product.variants %}
+          {%- if selected_variant_id == variant.id -%}
+            {%- if discount.value != blank -%}
+              {% comment %} 百分比折扣值 {% endcomment %}
+              {% assign custom_discount = discount.value %}
+            {%- elsif discount.value1 != empty -%}
+              {% comment %} 固定折扣值 {% endcomment %}
+              {% assign custom_discount = discount.value1.value %}
+            {%- endif -%}
+            {%- if discount.start_date != blank -%}
+              {% assign startDate = discount.start_date %}
+            {%- endif -%}
+            {%- if discount.end_date != blank -%}
+              {% assign endDate = discount.end_date %}
+            {%- endif -%}
+            {% break %}
+          {%- endif -%}
+        {% endfor %}
+      {% endfor %}
+    {%- endif -%}
+  {%- endif -%}
+{% endfor %}
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "url": {{ request.origin | append: product.url | json }},
+    {% if seo_media -%}
+      "image": [
+        {{ seo_media | image_url: width: seo_media.preview_image.width | prepend: "https:" | json }}
+      ],
+    {%- endif %}
+    "description": {{ product.description | strip_html | json }},
+    {% if product.selected_or_first_available_variant.sku != blank -%}
+      "sku": {{ product.selected_or_first_available_variant.sku | json }},
+    {%- endif %}
+    "brand": {
+      "@type": "Brand",
+      "name": {{ product.vendor | json }}
+    },
+    "offers": [
+      {%- for variant in product.variants -%}
+        {
+          "@type" : "Offer",
+          {%- if variant.sku != blank -%}
+            "sku": {{ variant.sku | json }},
+          {%- endif -%}
+          {%- if variant.barcode.size == 12 -%}
+            "gtin12": {{ variant.barcode }},
+          {%- endif -%}
+          {%- if variant.barcode.size == 13 -%}
+            "gtin13": {{ variant.barcode }},
+          {%- endif -%}
+          {%- if variant.barcode.size == 14 -%}
+            "gtin14": {{ variant.barcode }},
+          {%- endif -%}
+          "availability" : "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+          "price" : {{ variant.price | divided_by: 100.00 | json }},
+          "priceCurrency" : {{ cart.currency.iso_code | json }},
+          "url" : {{ request.origin | append: variant.url | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  }
+</script>
+
+<script>
+  $(document).ready(function () {
+    $('#ProductInfo-{{ section.id }} #variant-selects-{{ section.id }}').css({'opacity': '1'});
+    // 检查第一个 <product-slider> 是否已经加载完成
+    function checkFirstProductSliderLoaded() {
+      const firstProductSlider = $('product-slider').first();
+
+      if (firstProductSlider.length && firstProductSlider[0].offsetHeight > 0) {
+        // 第一个 <product-slider> 已经加载完成，隐藏占位符
+        $('.product-grid-container-left-placeholder').hide();
+        firstProductSlider.parents('.product-image-container').addClass('show');
+      } else {
+        // 第一个 <product-slider> 尚未加载完成，继续检查
+        setTimeout(checkFirstProductSliderLoaded, 100);
+      }
+    }
+
+    // 开始检查第一个 <product-slider> 是否加载完成
+    checkFirstProductSliderLoaded();
+    // 主产品自动化折扣定时显示
+   // 倒计时格式化时间 兼容ios时间格式
+    function formatUtcTime(v) {
+      let date = new Date(v);
+      console.log('date==',date);
+      return (
+        date.getFullYear() +
+        '/' +
+        (date.getMonth() + 1) +
+        '/' +
+        (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+        ' ' +
+        (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+        ':' +
+        (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+        ':' +
+        (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+      );
+    }
+    {% comment %} console.log('产品ID==',{{ product.id }}) {% endcomment %}
+    const UTCDate_main = '{{ startDate  }}'
+    const UTCDate_end_main = '{{ endDate  }}'
+    const custom_discount = '{{ custom_discount}}'
+    const $reminder = $('#ProductInfo-{{ section.id }} custom-automatic-discount-reminder');
+    const variants_display_custom_discounts = {{ variants_display_custom_discounts }};
+    console.log('UTC Date_main-活动开始倒计时：', UTCDate_main);
+    console.log('UTC Date_end_main-活动截止倒计时：', UTCDate_end_main);
+    console.log('custom_discount-自定义折扣：', custom_discount);
+    console.log('单独显示变体自定义折扣：', variants_display_custom_discounts);
+  if(custom_discount !== ''  ){
+
+      finalDate_main = formatUtcTime(UTCDate_main);
+      finalDate_end_main = formatUtcTime(UTCDate_end_main);
+      const finalDate1_main = finalDate_main;
+      const finalDate2_main = finalDate_end_main ? finalDate_end_main : null;
+      const timestamp_main = new Date(finalDate1_main).getTime();
+      const timestamp_end_main = finalDate2_main ? new Date(finalDate2_main).getTime() : null;
+
+      function updateDiscountReminder() {
+        const currentTimestamp = new Date().getTime();
+        console.log('活动开始本地时间==', finalDate_main);
+        console.log('活动截止本地时间==', finalDate_end_main);
+        console.log('本地时间开始时间戳==', timestamp_main);
+        console.log('本地时间结束时间戳==', timestamp_end_main);
+        console.log('当前时间戳==', currentTimestamp);
+
+
+
+        if ( UTCDate_main === '' && UTCDate_end_main === '') {
+          console.log('不设置任何活动时间');
+          {% comment %} $reminder.attr('style', 'display: flex !important;'); {% endcomment %}
+          $reminder.css({'display': 'inline-flex'});
+          $reminder.css({'opacity': '1'});
+          clearInterval(intervalId);
+        } else if (UTCDate_main !== '' && UTCDate_end_main === '' && currentTimestamp >= timestamp_main) {
+          console.log('仅开始时间存在时，当前时间大于活动开始时间');
+          {% comment %} $reminder.attr('style', 'display: flex !important;'); {% endcomment %}
+          $reminder.css({'display': 'inline-flex'});
+          $reminder.css({'opacity': '1'});
+          clearInterval(intervalId);
+        } else if (UTCDate_main !== '' && UTCDate_end_main !== '' && timestamp_end_main > currentTimestamp && currentTimestamp >= timestamp_main) {
+          console.log('仅开始时间和结束时间同时存在时，当前时间大于开始时间且小于结束时间');
+          {% comment %} $reminder.attr('style', 'display: flex !important;'); {% endcomment %}
+          $reminder.css({'display': 'inline-flex'});
+          $reminder.css({'opacity': '1'});
+
+        } else if (UTCDate_main === '' && UTCDate_end_main !== '' && timestamp_end_main > currentTimestamp) {
+          console.log('仅结束时间存在时，且当前时间小于结束时间');
+          {% comment %} $reminder.attr('style', 'display: flex !important;'); {% endcomment %}
+          $reminder.css({'display': 'inline-flex'});
+          $reminder.css({'opacity': '1'});
+
+        } else {
+          console.log('活动未开始');
+          $reminder.css({'display': '1'});
+          {% comment %} $reminder.attr('style', 'display: none !important;'); {% endcomment %}
+          if(UTCDate_main !== '' && UTCDate_end_main !== '' && currentTimestamp > timestamp_end_main && currentTimestamp >= timestamp_main){
+            console.log('活动已结束');
+            clearInterval(intervalId);
+          }else if (UTCDate_main === '' && UTCDate_end_main !== '' && currentTimestamp > timestamp_end_main){
+            console.log('活动已结束');
+            clearInterval(intervalId);
+          }
+        }
+      }
+
+      // 设置定时器，每10秒检查一次
+      const intervalId = setInterval(updateDiscountReminder, 1000);
+
+      // 在页面卸载时清除定时器，防止内存泄漏
+      window.addEventListener('beforeunload', () => {
+        clearInterval(intervalId);
+      });
+
+  }else{
+    //  当元对象不存在时，单独控制产品变体折扣显示或隐藏
+    if(variants_display_custom_discounts){
+      console.log('单独显示变体自定义折扣==');
+      $reminder.css({'opacity': '1'});
+
+    }else{
+      console.log('单独不显示变体自定义折扣');
+      $reminder.css({'display': 'none'});
+      {% comment %} $reminder.attr('style', 'display: none !important;'); {% endcomment %}
+    }
+  }
+  });
+</script>
+{% schema %}
+{
+  "name": "Main Product Details",
+  "tag": "section",
+  "limit": 1,
+  "class": "product-details-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_add_to_cart",
+      "default": true,
+      "label": "Show sticky add to cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_taxes_included",
+      "default": true,
+      "label": "Show tax and shipping information",
+      "info": "Tax and shipping information will be displayed if [taxes are included in the price](https://help.shopify.com/en/manual/taxes/location#include-taxes-in-product-prices) or [shipping policy](https://help.shopify.com/en/manual/checkout-settings/refund-privacy-tos#add-or-generate-store-policies) is added"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pre_order_button",
+      "default": false,
+      "label": "显示预购按钮"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "paragraph",
+      "content": "Learn more about [media types](https://help.shopify.com/en/manual/products/product-media)"
+    },
+    {
+      "type": "select",
+      "id": "thumbnail_position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "left",
+      "label": "Thumbnail position"
+    },
+    {
+      "type": "select",
+      "id": "media_aspect_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Adapt to image"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait"
+        },
+        {
+          "value": "landscape",
+          "label": "Landscape"
+        }
+      ],
+      "default": "adapt",
+      "label": "Image ratio"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_captions",
+      "default": true,
+      "label": "Display captions"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_variants",
+      "default": false,
+      "label": "Hide unselected variants’ media",
+      "info": "Media for the unselected variants will be hidden."
+    },
+    {
+      "type": "checkbox",
+      "id": "lightbox",
+      "default": true,
+      "label": "Enable image zoom"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_looping",
+      "default": false,
+      "label": "Enable video looping"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "label",
+      "name": "Card labels",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Use a dynamic source to highlight a unique attribute by creating product label. [Learn more about product labels.](https://documentation.fuelthemes.net/kb/how-to-add-product-labels-in-vision-theme/)"
+        }
+      ]
+    },
+    {
+      "type": "separator",
+      "name": "Separator"
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Text block",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "style_body",
+              "label": "Body"
+            },
+            {
+              "value": "subheading",
+              "label": "Subheading"
+            },
+            {
+              "value": "style_vendor",
+              "label": "Vendor"
+            }
+          ],
+          "default": "style_vendor",
+          "label": "Text Style"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "Title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_products_rating",
+          "default": true,
+          "label": "Show product rating",
+          "info": "To display a rating, add a product rating app. [Learn more](https://help.shopify.com/manual/online-store/themes/os20/themes-by-shopify/dawn/sections#featured-collection-show-product-rating)"
+        }
+      ]
+    },
+    {
+      "type": "inventory_level",
+      "name": "Inventory level",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "show_inventory_notice",
+          "options": [
+            {
+              "value": "always",
+              "label": "Always"
+            },
+            {
+              "value": "low",
+              "label": "Only when inventory low"
+            }
+          ],
+          "default": "always",
+          "label": "Show inventory notice"
+        },
+        {
+          "type": "select",
+          "id": "show_inventory_count",
+          "options": [
+            {
+              "value": "never",
+              "label": "Never"
+            },
+            {
+              "value": "always",
+              "label": "Always"
+            },
+            {
+              "value": "low",
+              "label": "Only when inventory low"
+            }
+          ],
+          "default": "always",
+          "label": "Show count in inventory notice"
+        },
+        {
+          "type": "checkbox",
+          "id": "inventory_notice_pulse",
+          "default": true,
+          "label": "Show pulse"
+        },
+        {
+          "type": "checkbox",
+          "id": "inventory_notice_bar",
+          "default": true,
+          "label": "Show progress bar"
+        },
+        {
+          "type": "number",
+          "id": "inventory_notice_threshold",
+          "label": "Low inventory threshold",
+          "default": 10,
+          "info": "Set the product inventory quantity to alert customers when limited quantities are available. Insert a dynamic source to set different thresholds for multiple products."
+        },
+        {
+          "type": "number",
+          "id": "inventory_notice_base",
+          "label": "Inventory base quantity",
+          "default": 20,
+          "info": "Enter the initial quantity of your product inventory for progress bar. Insert a dynamic source to set different base quantities for multiple products"
+        }
+      ]
+    },
+    {
+      "type": "variant_picker",
+      "name": "Variant picker",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "picker_type",
+          "options": [
+            {
+              "value": "dropdown",
+              "label": "Dropdown"
+            },
+            {
+              "value": "button",
+              "label": "Block"
+            }
+          ],
+          "default": "button",
+          "label": "Type"
+        },
+        {
+          "type": "checkbox",
+          "id": "color_picker",
+          "default": true,
+          "label": "Enable color swatches",
+          "info": "[Learn more about color swatches.](https://documentation.fuelthemes.net/kb/how-do-i-set-up-product-variant-swatches-2/)"
+        },
+        {
+          "type": "checkbox",
+          "id": "variant_is_disabled",
+          "default": true,
+          "label": "Show availability in selectors",
+          "info": "When an option is selected, unavailable variants will be crossed-out."
+        },
+        {
+          "type": "header",
+          "content": "Sizing guide"
+        },
+        {
+          "type": "text",
+          "id": "sizing_guide_variant",
+          "default": "Size",
+          "label": "Sizing guide variant name",
+          "info": "Name of the variant to show the sizing guide link. [Learn more about sizing guide](https://documentation.fuelthemes.net/kb/how-do-i-add-a-size-chart-to-my-products-vision/)"
+        },
+        {
+          "type": "text",
+          "id": "sizing_guide_text",
+          "default": "Sizing guide",
+          "label": "Sizing guide label",
+          "info": "Leave empty to remove the sizing guide link."
+        },
+        {
+          "type": "select",
+          "id": "sizing_guide_icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "apple",
+              "label": "Apple"
+            },
+            {
+              "value": "banana",
+              "label": "Banana"
+            },
+            {
+              "value": "bottle",
+              "label": "Bottle"
+            },
+            {
+              "value": "box",
+              "label": "Box"
+            },
+            {
+              "value": "carrot",
+              "label": "Carrot"
+            },
+            {
+              "value": "chat_bubble",
+              "label": "Chat bubble"
+            },
+            {
+              "value": "check_mark",
+              "label": "Check mark"
+            },
+            {
+              "value": "clipboard",
+              "label": "Clipboard"
+            },
+            {
+              "value": "dairy",
+              "label": "Dairy"
+            },
+            {
+              "value": "dairy_free",
+              "label": "Dairy free"
+            },
+            {
+              "value": "dryer",
+              "label": "Dryer"
+            },
+            {
+              "value": "eye",
+              "label": "Eye"
+            },
+            {
+              "value": "fire",
+              "label": "Fire"
+            },
+            {
+              "value": "gluten_free",
+              "label": "Gluten free"
+            },
+            {
+              "value": "heart",
+              "label": "Heart"
+            },
+            {
+              "value": "iron",
+              "label": "Iron"
+            },
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "leather",
+              "label": "Leather"
+            },
+            {
+              "value": "lightning_bolt",
+              "label": "Lightning bolt"
+            },
+            {
+              "value": "lipstick",
+              "label": "Lipstick"
+            },
+            {
+              "value": "lock",
+              "label": "Lock"
+            },
+            {
+              "value": "map_pin",
+              "label": "Map pin"
+            },
+            {
+              "value": "nut_free",
+              "label": "Nut free"
+            },
+            {
+              "value": "pants",
+              "label": "Pants"
+            },
+            {
+              "value": "paw_print",
+              "label": "Paw print"
+            },
+            {
+              "value": "pepper",
+              "label": "Pepper"
+            },
+            {
+              "value": "perfume",
+              "label": "Perfume"
+            },
+            {
+              "value": "plane",
+              "label": "Plane"
+            },
+            {
+              "value": "plant",
+              "label": "Plant"
+            },
+            {
+              "value": "price_tag",
+              "label": "Price tag"
+            },
+            {
+              "value": "question_mark",
+              "label": "Question mark"
+            },
+            {
+              "value": "recycle",
+              "label": "Recycle"
+            },
+            {
+              "value": "return",
+              "label": "Return"
+            },
+            {
+              "value": "ruler",
+              "label": "Ruler"
+            },
+            {
+              "value": "serving_dish",
+              "label": "Serving dish"
+            },
+            {
+              "value": "shirt",
+              "label": "Shirt"
+            },
+            {
+              "value": "shoe",
+              "label": "Shoe"
+            },
+            {
+              "value": "silhouette",
+              "label": "Silhouette"
+            },
+            {
+              "value": "snowflake",
+              "label": "Snowflake"
+            },
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "stopwatch",
+              "label": "Stopwatch"
+            },
+            {
+              "value": "truck",
+              "label": "Truck"
+            },
+            {
+              "value": "washing",
+              "label": "Washing"
+            }
+          ],
+          "default": "ruler",
+          "label": "Sizing guide icon"
+        },
+        {
+          "type": "page",
+          "id": "sizing_guide_page",
+          "label": "Sizing guide page"
+        }
+      ]
+    },
+    {
+      "type": "quantity",
+      "name": "Quantity selector",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "The selector is automatically hidden if all variants are sold out. When at least one variant is available, the selector is always visible to prevent the page from moving when switching variants."
+        }
+      ]
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Product form",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "default": true,
+          "label": "Show dynamic checkout buttons",
+          "info": "Using the payment methods available on your store, customers see their preferred option, like PayPal or Apple Pay. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_gift_card_recipient",
+          "default": false,
+          "label": "Show recipient form for gift card products",
+          "info": "When enabled, gift card products can optionally be sent to a recipient with a personal message."
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_description",
+          "label": "Whether to enable more",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "min": 0,
+          "max": 800,
+          "step": 50,
+          "unit": "px",
+          "label": "Default display height",
+          "default": 300
+        },
+        {
+          "type": "range",
+          "id": "padding",
+          "min": 0,
+          "max": 100,
+          "step": 4,
+          "unit": "px",
+          "label": "Padding",
+          "default": 32
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "min": 0,
+          "max": 100,
+          "step": 4,
+          "unit": "px",
+          "label": "margin top",
+          "default": 32
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "min": 0,
+          "max": 100,
+          "step": 4,
+          "unit": "px",
+          "label": "margin bottom",
+          "default": 32
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "color_bg",
+          "label": "Background Color",
+          "default": "#2c2d2e"
+        },
+        {
+          "type": "color",
+          "id": "color_text",
+          "label": "Text",
+          "default": "#2c2d2e"
+        }
+      ]
+    },
+    {
+      "type": "share",
+      "name": "Share",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "If you include a link in social media posts, the page’s featured image will be shown as the preview image. [Learn more](https://help.shopify.com/en/manual/online-store/images/showing-social-media-thumbnail-images)."
+        },
+        {
+          "type": "paragraph",
+          "content": "A store title and description are included with the preview image. [Learn more](https://help.shopify.com/en/manual/promoting-marketing/seo/adding-keywords#set-a-title-and-description-for-your-online-store)."
+        }
+      ]
+    },
+    {
+      "type": "custom_variants",
+      "name": "自定义产品变体选项",
+      "settings": [
+        {
+          "type": "header",
+          "content": "展示类型配置"
+        },
+        {
+          "type": "select",
+          "id": "type",
+          "label": "类别",
+          "default": "type-1",
+          "options": [
+            {
+              "value": "type-1",
+              "label": "类型 1"
+            },
+            {
+              "value": "type-2",
+              "label": "类型 2"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "变体配置（默认会配置相关的产品）"
+        },
+        {
+          "type": "product",
+          "id": "product-1",
+          "label": "产品 1"
+        },
+        {
+          "type": "select",
+          "id": "select_variant_price-1",
+          "label": "选择变体",
+          "info": "选择变体后，会展示该变体的产品价格",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体价格"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体价格"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体价格"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体价格"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体价格"
+            },
+            {
+              "value": "5",
+              "label": "第六个变体价格"
+            }
+          ],
+          "default": "0"
+        },
+        {
+          "type": "text",
+          "id": "text-1",
+          "label": "自定义标题 1"
+        },
+        {
+          "type": "product",
+          "id": "product-2",
+          "label": "产品 2"
+        },
+        {
+          "type": "select",
+          "id": "select_variant_price-2",
+          "label": "选择变体",
+          "info": "选择变体后，会展示该变体的产品价格",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体价格"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体价格"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体价格"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体价格"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体价格"
+            },
+            {
+              "value": "5",
+              "label": "第六个变体价格"
+            }
+          ],
+          "default": "0"
+        },
+        {
+          "type": "text",
+          "id": "text-2",
+          "label": "自定义标题 2"
+        },
+        {
+          "type": "product",
+          "id": "product-3",
+          "label": "产品 3"
+        },
+        {
+          "type": "select",
+          "id": "select_variant_price-3",
+          "label": "选择变体",
+          "info": "选择变体后，会展示该变体的产品价格",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体价格"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体价格"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体价格"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体价格"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体价格"
+            },
+            {
+              "value": "5",
+              "label": "第六个变体价格"
+            }
+          ],
+          "default": "0"
+        },
+        {
+          "type": "text",
+          "id": "text-3",
+          "label": "自定义标题 3"
+        },
+        {
+          "type": "product",
+          "id": "product-4",
+          "label": "产品 4"
+        },
+        {
+          "type": "select",
+          "id": "select_variant_price-4",
+          "label": "选择变体",
+          "info": "选择变体后，会展示该变体的产品价格",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体价格"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体价格"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体价格"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体价格"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体价格"
+            },
+            {
+              "value": "5",
+              "label": "第六个变体价格"
+            }
+          ],
+          "default": "0"
+        },
+        {
+          "type": "text",
+          "id": "text-4",
+          "label": "自定义标题 4"
+        },
+        {
+          "type": "product",
+          "id": "product-5",
+          "label": "产品 5"
+        },
+        {
+          "type": "select",
+          "id": "select_variant_price-5",
+          "label": "选择变体",
+          "info": "选择变体后，会展示该变体的产品价格",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体价格"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体价格"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体价格"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体价格"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体价格"
+            },
+            {
+              "value": "5",
+              "label": "第六个变体价格"
+            }
+          ],
+          "default": "0"
+        },
+        {
+          "type": "text",
+          "id": "text-5",
+          "label": "自定义标题 5"
+        },
+        {
+          "type": "product",
+          "id": "product-6",
+          "label": "产品 6"
+        },
+        {
+          "type": "select",
+          "id": "select_variant_price-6",
+          "label": "选择变体",
+          "info": "选择变体后，会展示该变体的产品价格",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体价格"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体价格"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体价格"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体价格"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体价格"
+            },
+            {
+              "value": "5",
+              "label": "第六个变体价格"
+            }
+          ],
+          "default": "0"
+        },
+        {
+          "type": "text",
+          "id": "text-6",
+          "label": "自定义标题 6"
+        },
+        {
+          "type": "product",
+          "id": "product-7",
+          "label": "产品 7"
+        },
+        {
+          "type": "select",
+          "id": "select_variant_price-7",
+          "label": "选择变体",
+          "info": "选择变体后，会展示该变体的产品价格",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体价格"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体价格"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体价格"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体价格"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体价格"
+            },
+            {
+              "value": "5",
+              "label": "第六个变体价格"
+            }
+          ],
+          "default": "0"
+        },
+        {
+          "type": "text",
+          "id": "text-7",
+          "label": "自定义标题 7"
+        },
+        {
+          "type": "product",
+          "id": "product-8",
+          "label": "产品 8"
+        },
+        {
+          "type": "select",
+          "id": "select_variant_price-8",
+          "label": "选择变体",
+          "info": "选择变体后，会展示该变体的产品价格",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体价格"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体价格"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体价格"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体价格"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体价格"
+            },
+            {
+              "value": "5",
+              "label": "第六个变体价格"
+            }
+          ],
+          "default": "0"
+        },
+        {
+          "type": "text",
+          "id": "text-8",
+          "label": "自定义标题 8"
+        },
+        {
+          "type": "product",
+          "id": "product-9",
+          "label": "产品 9"
+        },
+        {
+          "type": "select",
+          "id": "select_variant_price-9",
+          "label": "选择变体",
+          "info": "选择变体后，会展示该变体的产品价格",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体价格"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体价格"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体价格"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体价格"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体价格"
+            },
+            {
+              "value": "5",
+              "label": "第六个变体价格"
+            }
+          ],
+          "default": "0"
+        },
+        {
+          "type": "text",
+          "id": "text-9",
+          "label": "自定义标题 9"
+        },
+        {
+          "type": "product",
+          "id": "product-10",
+          "label": "产品 10"
+        },
+        {
+          "type": "select",
+          "id": "select_variant_price-10",
+          "label": "选择变体",
+          "info": "选择变体后，会展示该变体的产品价格",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体价格"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体价格"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体价格"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体价格"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体价格"
+            },
+            {
+              "value": "5",
+              "label": "第六个变体价格"
+            }
+          ],
+          "default": "0"
+        },
+        {
+          "type": "text",
+          "id": "text-10",
+          "label": "自定义标题 10"
+        }
+      ]
+    },
+    {
+      "type": "custom_liquid",
+      "name": "Custom liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Custom liquid",
+          "info": "Add app snippets or other Liquid code to create advanced customizations."
+        }
+      ]
+    },
+    {
+      "type": "side_panel",
+      "name": "Information side panel",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Panel 1"
+        },
+        {
+          "type": "radio",
+          "id": "side_panel_1_open_type",
+          "label": "链接打开方式",
+          "options": [
+            {
+              "value": "1",
+              "label": "新开页面"
+            },
+            {
+              "value": "2",
+              "label": "当前页面"
+            },
+            {
+              "value": "3",
+              "label": "侧边栏"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "url",
+          "id": "side_panel_1_url",
+          "label": "普通链接地址1",
+          "info": "当链接打开方式为新开页面或当前页面时生效，需要填写链接地址"
+        },
+        {
+          "type": "page",
+          "id": "side_panel_1_page",
+          "label": "页面链接",
+          "info": "当链接打开方式为侧边栏时生效，需要选择一个页面"
+        },
+        {
+          "type": "text",
+          "id": "side_panel_1_url_default",
+          "label": "URL默认值",
+          "default": "/pages/supports-and-services",
+          "info": "当链接打开方式为侧边栏时，该默认值必须为页面类型链接，格式为'/pages/page-name'，由于url是必填项，所以需要填写一个默认值,当前默认值为'/pages/supports-and-services'"
+        },
+        {
+          "type": "header",
+          "content": "Panel 2"
+        },
+        {
+          "type": "radio",
+          "id": "side_panel_2_open_type",
+          "label": "链接打开方式",
+          "options": [
+            {
+              "value": "1",
+              "label": "新开页面"
+            },
+            {
+              "value": "2",
+              "label": "当前页面"
+            },
+            {
+              "value": "3",
+              "label": "侧边栏"
+            }
+          ],
+          "default": "3"
+        },
+        {
+          "type": "url",
+          "id": "side_panel_2_url",
+          "label": "普通链接地址2",
+          "info": "当链接打开方式为新开页面或当前页面时生效，需要填写链接地址"
+        },
+        {
+          "type": "page",
+          "id": "side_panel_2_page",
+          "label": "页面链接",
+          "info": "当链接打开方式为侧边栏时生效，需要选择一个页面"
+        },
+        {
+          "type": "text",
+          "id": "side_panel_2_url_default",
+          "label": "URL默认值",
+          "default": "/pages/shipping-policy",
+          "info": "当链接打开方式为侧边栏时，该默认值必须为页面类型链接，格式为'/pages/page-name'，由于url是必填项，所以需要填写一个默认值,当前默认值为'/pages/shipping-policy'"
+        },
+        {
+          "type": "header",
+          "content": "Panel 3"
+        },
+        {
+          "type": "radio",
+          "id": "side_panel_3_open_type",
+          "label": "链接打开方式",
+          "options": [
+            {
+              "value": "1",
+              "label": "新开页面"
+            },
+            {
+              "value": "2",
+              "label": "当前页面"
+            },
+            {
+              "value": "3",
+              "label": "侧边栏"
+            }
+          ],
+          "default": "1"
+        },
+
+        {
+          "type": "url",
+          "id": "side_panel_3_url",
+          "label": "普通链接地址3",
+          "info": "当链接打开方式为新开页面或当前页面时生效，需要填写链接地址"
+        },
+        {
+          "type": "page",
+          "id": "side_panel_3_page",
+          "label": "页面链接",
+          "info": "当链接打开方式为侧边栏时生效，需要选择一个页面"
+        },
+        {
+          "type": "text",
+          "id": "side_panel_3_url_default",
+          "label": "URL默认值",
+          "default": "{{ product.metafields.custom.instruction_manual.value }}",
+          "info": "当链接打开方式为侧边栏时，该默认值必须为页面类型链接，格式为'/pages/page-name'，由于url是必填项，所以需要填写一个默认值"
+        },
+        {
+          "type": "header",
+          "content": "Panel 4"
+        },
+        {
+          "type": "radio",
+          "id": "side_panel_4_open_type",
+          "label": "链接打开方式",
+          "options": [
+            {
+              "value": "1",
+              "label": "新开页面"
+            },
+            {
+              "value": "2",
+              "label": "当前页面"
+            },
+            {
+              "value": "3",
+              "label": "侧边栏"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "url",
+          "id": "side_panel_4_url",
+          "label": "普通链接地址4",
+          "info": "当链接打开方式为新开页面或当前页面时生效，需要填写链接地址"
+        },
+        {
+          "type": "page",
+          "id": "side_panel_4_page",
+          "label": "页面链接",
+          "info": "当链接打开方式为侧边栏时生效，需要选择一个页面"
+        },
+        {
+          "type": "text",
+          "id": "side_panel_4_url_default",
+          "label": "URL默认值",
+
+          "info": "当链接打开方式为侧边栏时，该默认值必须为页面类型链接，格式为'/pages/page-name'，由于url是必填项，所以需要填写一个默认值"
+        }
+      ]
+    },
+    {
+      "type": "collapsible_tab",
+      "name": "Collapsible row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Collapsible row",
+          "info": "Include a heading that explains the content.",
+          "label": "Heading"
+        },
+        {
+          "type": "checkbox",
+          "id": "open",
+          "default": false,
+          "label": "Open by default"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Row content"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Row content from page"
+        },
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Custom liquid",
+          "info": "Add app snippets or other Liquid code to create advanced customizations. For product description, you can use {{ product.description }}"
+        }
+      ]
+    },
+    {
+      "type": "complementary",
+      "name": "Complementary products",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "To select complementary products, add the Search & Discovery app. [Learn more](https://help.shopify.com/manual/online-store/search-and-discovery/product-recommendations)"
+        },
+        {
+          "type": "text",
+          "id": "block_heading",
+          "default": "Pairs well with",
+          "label": "Heading"
+        },
+        {
+          "type": "range",
+          "id": "product_list_limit",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "default": 10,
+          "label": "Maximum products to show"
+        }
+      ]
+    },
+    {
+      "type": "icon_list",
+      "name": "Icon list",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Icon 1"
+        },
+        {
+          "type": "select",
+          "id": "icon_1_icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "apple",
+              "label": "Apple"
+            },
+            {
+              "value": "banana",
+              "label": "Banana"
+            },
+            {
+              "value": "bottle",
+              "label": "Bottle"
+            },
+            {
+              "value": "box",
+              "label": "Box"
+            },
+            {
+              "value": "carrot",
+              "label": "Carrot"
+            },
+            {
+              "value": "chat_bubble",
+              "label": "Chat bubble"
+            },
+            {
+              "value": "check_mark",
+              "label": "Check mark"
+            },
+            {
+              "value": "clipboard",
+              "label": "Clipboard"
+            },
+            {
+              "value": "dairy",
+              "label": "Dairy"
+            },
+            {
+              "value": "dairy_free",
+              "label": "Dairy free"
+            },
+            {
+              "value": "dryer",
+              "label": "Dryer"
+            },
+            {
+              "value": "eye",
+              "label": "Eye"
+            },
+            {
+              "value": "fire",
+              "label": "Fire"
+            },
+            {
+              "value": "gluten_free",
+              "label": "Gluten free"
+            },
+            {
+              "value": "heart",
+              "label": "Heart"
+            },
+            {
+              "value": "iron",
+              "label": "Iron"
+            },
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "leather",
+              "label": "Leather"
+            },
+            {
+              "value": "lightning_bolt",
+              "label": "Lightning bolt"
+            },
+            {
+              "value": "lipstick",
+              "label": "Lipstick"
+            },
+            {
+              "value": "lock",
+              "label": "Lock"
+            },
+            {
+              "value": "map_pin",
+              "label": "Map pin"
+            },
+            {
+              "value": "nut_free",
+              "label": "Nut free"
+            },
+            {
+              "value": "pants",
+              "label": "Pants"
+            },
+            {
+              "value": "paw_print",
+              "label": "Paw print"
+            },
+            {
+              "value": "pepper",
+              "label": "Pepper"
+            },
+            {
+              "value": "perfume",
+              "label": "Perfume"
+            },
+            {
+              "value": "plane",
+              "label": "Plane"
+            },
+            {
+              "value": "plant",
+              "label": "Plant"
+            },
+            {
+              "value": "price_tag",
+              "label": "Price tag"
+            },
+            {
+              "value": "question_mark",
+              "label": "Question mark"
+            },
+            {
+              "value": "recycle",
+              "label": "Recycle"
+            },
+            {
+              "value": "return",
+              "label": "Return"
+            },
+            {
+              "value": "ruler",
+              "label": "Ruler"
+            },
+            {
+              "value": "serving_dish",
+              "label": "Serving dish"
+            },
+            {
+              "value": "shirt",
+              "label": "Shirt"
+            },
+            {
+              "value": "shoe",
+              "label": "Shoe"
+            },
+            {
+              "value": "silhouette",
+              "label": "Silhouette"
+            },
+            {
+              "value": "snowflake",
+              "label": "Snowflake"
+            },
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "stopwatch",
+              "label": "Stopwatch"
+            },
+            {
+              "value": "truck",
+              "label": "Truck"
+            },
+            {
+              "value": "washing",
+              "label": "Washing"
+            }
+          ],
+          "default": "ruler",
+          "label": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_1_image",
+          "label": "Custom icon",
+          "info": "40 x 40 .png recommended."
+        },
+        {
+          "type": "text",
+          "id": "icon_1_text",
+          "default": "Icon list label 1",
+          "label": "Icon 1 label"
+        },
+        {
+          "type": "header",
+          "content": "Icon 2"
+        },
+        {
+          "type": "select",
+          "id": "icon_2_icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "apple",
+              "label": "Apple"
+            },
+            {
+              "value": "banana",
+              "label": "Banana"
+            },
+            {
+              "value": "bottle",
+              "label": "Bottle"
+            },
+            {
+              "value": "box",
+              "label": "Box"
+            },
+            {
+              "value": "carrot",
+              "label": "Carrot"
+            },
+            {
+              "value": "chat_bubble",
+              "label": "Chat bubble"
+            },
+            {
+              "value": "check_mark",
+              "label": "Check mark"
+            },
+            {
+              "value": "clipboard",
+              "label": "Clipboard"
+            },
+            {
+              "value": "dairy",
+              "label": "Dairy"
+            },
+            {
+              "value": "dairy_free",
+              "label": "Dairy free"
+            },
+            {
+              "value": "dryer",
+              "label": "Dryer"
+            },
+            {
+              "value": "eye",
+              "label": "Eye"
+            },
+            {
+              "value": "fire",
+              "label": "Fire"
+            },
+            {
+              "value": "gluten_free",
+              "label": "Gluten free"
+            },
+            {
+              "value": "heart",
+              "label": "Heart"
+            },
+            {
+              "value": "iron",
+              "label": "Iron"
+            },
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "leather",
+              "label": "Leather"
+            },
+            {
+              "value": "lightning_bolt",
+              "label": "Lightning bolt"
+            },
+            {
+              "value": "lipstick",
+              "label": "Lipstick"
+            },
+            {
+              "value": "lock",
+              "label": "Lock"
+            },
+            {
+              "value": "map_pin",
+              "label": "Map pin"
+            },
+            {
+              "value": "nut_free",
+              "label": "Nut free"
+            },
+            {
+              "value": "pants",
+              "label": "Pants"
+            },
+            {
+              "value": "paw_print",
+              "label": "Paw print"
+            },
+            {
+              "value": "pepper",
+              "label": "Pepper"
+            },
+            {
+              "value": "perfume",
+              "label": "Perfume"
+            },
+            {
+              "value": "plane",
+              "label": "Plane"
+            },
+            {
+              "value": "plant",
+              "label": "Plant"
+            },
+            {
+              "value": "price_tag",
+              "label": "Price tag"
+            },
+            {
+              "value": "question_mark",
+              "label": "Question mark"
+            },
+            {
+              "value": "recycle",
+              "label": "Recycle"
+            },
+            {
+              "value": "return",
+              "label": "Return"
+            },
+            {
+              "value": "ruler",
+              "label": "Ruler"
+            },
+            {
+              "value": "serving_dish",
+              "label": "Serving dish"
+            },
+            {
+              "value": "shirt",
+              "label": "Shirt"
+            },
+            {
+              "value": "shoe",
+              "label": "Shoe"
+            },
+            {
+              "value": "silhouette",
+              "label": "Silhouette"
+            },
+            {
+              "value": "snowflake",
+              "label": "Snowflake"
+            },
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "stopwatch",
+              "label": "Stopwatch"
+            },
+            {
+              "value": "truck",
+              "label": "Truck"
+            },
+            {
+              "value": "washing",
+              "label": "Washing"
+            }
+          ],
+          "default": "box",
+          "label": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_2_image",
+          "label": "Custom icon",
+          "info": "40 x 40 .png recommended."
+        },
+        {
+          "type": "text",
+          "id": "icon_2_text",
+          "default": "Icon list label 2",
+          "label": "Icon 2 label"
+        },
+        {
+          "type": "header",
+          "content": "Icon 3"
+        },
+        {
+          "type": "select",
+          "id": "icon_3_icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "apple",
+              "label": "Apple"
+            },
+            {
+              "value": "banana",
+              "label": "Banana"
+            },
+            {
+              "value": "bottle",
+              "label": "Bottle"
+            },
+            {
+              "value": "box",
+              "label": "Box"
+            },
+            {
+              "value": "carrot",
+              "label": "Carrot"
+            },
+            {
+              "value": "chat_bubble",
+              "label": "Chat bubble"
+            },
+            {
+              "value": "check_mark",
+              "label": "Check mark"
+            },
+            {
+              "value": "clipboard",
+              "label": "Clipboard"
+            },
+            {
+              "value": "dairy",
+              "label": "Dairy"
+            },
+            {
+              "value": "dairy_free",
+              "label": "Dairy free"
+            },
+            {
+              "value": "dryer",
+              "label": "Dryer"
+            },
+            {
+              "value": "eye",
+              "label": "Eye"
+            },
+            {
+              "value": "fire",
+              "label": "Fire"
+            },
+            {
+              "value": "gluten_free",
+              "label": "Gluten free"
+            },
+            {
+              "value": "heart",
+              "label": "Heart"
+            },
+            {
+              "value": "iron",
+              "label": "Iron"
+            },
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "leather",
+              "label": "Leather"
+            },
+            {
+              "value": "lightning_bolt",
+              "label": "Lightning bolt"
+            },
+            {
+              "value": "lipstick",
+              "label": "Lipstick"
+            },
+            {
+              "value": "lock",
+              "label": "Lock"
+            },
+            {
+              "value": "map_pin",
+              "label": "Map pin"
+            },
+            {
+              "value": "nut_free",
+              "label": "Nut free"
+            },
+            {
+              "value": "pants",
+              "label": "Pants"
+            },
+            {
+              "value": "paw_print",
+              "label": "Paw print"
+            },
+            {
+              "value": "pepper",
+              "label": "Pepper"
+            },
+            {
+              "value": "perfume",
+              "label": "Perfume"
+            },
+            {
+              "value": "plane",
+              "label": "Plane"
+            },
+            {
+              "value": "plant",
+              "label": "Plant"
+            },
+            {
+              "value": "price_tag",
+              "label": "Price tag"
+            },
+            {
+              "value": "question_mark",
+              "label": "Question mark"
+            },
+            {
+              "value": "recycle",
+              "label": "Recycle"
+            },
+            {
+              "value": "return",
+              "label": "Return"
+            },
+            {
+              "value": "ruler",
+              "label": "Ruler"
+            },
+            {
+              "value": "serving_dish",
+              "label": "Serving dish"
+            },
+            {
+              "value": "shirt",
+              "label": "Shirt"
+            },
+            {
+              "value": "shoe",
+              "label": "Shoe"
+            },
+            {
+              "value": "silhouette",
+              "label": "Silhouette"
+            },
+            {
+              "value": "snowflake",
+              "label": "Snowflake"
+            },
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "stopwatch",
+              "label": "Stopwatch"
+            },
+            {
+              "value": "truck",
+              "label": "Truck"
+            },
+            {
+              "value": "washing",
+              "label": "Washing"
+            }
+          ],
+          "default": "star",
+          "label": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_3_image",
+          "label": "Custom icon",
+          "info": "40 x 40 .png recommended."
+        },
+        {
+          "type": "text",
+          "id": "icon_3_text",
+          "default": "Icon list label 3",
+          "label": "Icon 3 label"
+        },
+        {
+          "type": "header",
+          "content": "Icon 4"
+        },
+        {
+          "type": "select",
+          "id": "icon_4_icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "apple",
+              "label": "Apple"
+            },
+            {
+              "value": "banana",
+              "label": "Banana"
+            },
+            {
+              "value": "bottle",
+              "label": "Bottle"
+            },
+            {
+              "value": "box",
+              "label": "Box"
+            },
+            {
+              "value": "carrot",
+              "label": "Carrot"
+            },
+            {
+              "value": "chat_bubble",
+              "label": "Chat bubble"
+            },
+            {
+              "value": "check_mark",
+              "label": "Check mark"
+            },
+            {
+              "value": "clipboard",
+              "label": "Clipboard"
+            },
+            {
+              "value": "dairy",
+              "label": "Dairy"
+            },
+            {
+              "value": "dairy_free",
+              "label": "Dairy free"
+            },
+            {
+              "value": "dryer",
+              "label": "Dryer"
+            },
+            {
+              "value": "eye",
+              "label": "Eye"
+            },
+            {
+              "value": "fire",
+              "label": "Fire"
+            },
+            {
+              "value": "gluten_free",
+              "label": "Gluten free"
+            },
+            {
+              "value": "heart",
+              "label": "Heart"
+            },
+            {
+              "value": "iron",
+              "label": "Iron"
+            },
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "leather",
+              "label": "Leather"
+            },
+            {
+              "value": "lightning_bolt",
+              "label": "Lightning bolt"
+            },
+            {
+              "value": "lipstick",
+              "label": "Lipstick"
+            },
+            {
+              "value": "lock",
+              "label": "Lock"
+            },
+            {
+              "value": "map_pin",
+              "label": "Map pin"
+            },
+            {
+              "value": "nut_free",
+              "label": "Nut free"
+            },
+            {
+              "value": "pants",
+              "label": "Pants"
+            },
+            {
+              "value": "paw_print",
+              "label": "Paw print"
+            },
+            {
+              "value": "pepper",
+              "label": "Pepper"
+            },
+            {
+              "value": "perfume",
+              "label": "Perfume"
+            },
+            {
+              "value": "plane",
+              "label": "Plane"
+            },
+            {
+              "value": "plant",
+              "label": "Plant"
+            },
+            {
+              "value": "price_tag",
+              "label": "Price tag"
+            },
+            {
+              "value": "question_mark",
+              "label": "Question mark"
+            },
+            {
+              "value": "recycle",
+              "label": "Recycle"
+            },
+            {
+              "value": "return",
+              "label": "Return"
+            },
+            {
+              "value": "ruler",
+              "label": "Ruler"
+            },
+            {
+              "value": "serving_dish",
+              "label": "Serving dish"
+            },
+            {
+              "value": "shirt",
+              "label": "Shirt"
+            },
+            {
+              "value": "shoe",
+              "label": "Shoe"
+            },
+            {
+              "value": "silhouette",
+              "label": "Silhouette"
+            },
+            {
+              "value": "snowflake",
+              "label": "Snowflake"
+            },
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "stopwatch",
+              "label": "Stopwatch"
+            },
+            {
+              "value": "truck",
+              "label": "Truck"
+            },
+            {
+              "value": "washing",
+              "label": "Washing"
+            }
+          ],
+          "default": "washing",
+          "label": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_4_image",
+          "label": "Custom icon",
+          "info": "40 x 40 .png recommended."
+        },
+        {
+          "type": "text",
+          "id": "icon_4_text",
+          "default": "Icon list label 4",
+          "label": "Icon 4 label"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Position",
+          "options": [
+            { "value": "text-center", "label": "Center" },
+            { "value": "text-left", "label": "Left" },
+            { "value": "text-right", "label": "Right" }
+          ],
+          "default": "text-left"
+        }
+      ]
+    },
+    {
+      "type": "custom_option",
+      "name": "Line item property",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Line item properties are used to collect customization information for an item added to the cart."
+        },
+        {
+          "type": "select",
+          "id": "type",
+          "label": "Type",
+          "default": "text",
+          "options": [
+            {
+              "label": "Text",
+              "value": "text"
+            },
+            {
+              "label": "Textarea",
+              "value": "textarea"
+            },
+            {
+              "label": "Checkbox",
+              "value": "checkbox"
+            },
+            {
+              "label": "Multiple options",
+              "value": "multiple"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Custom option"
+        },
+        {
+          "type": "checkbox",
+          "id": "text_required",
+          "label": "Required",
+          "info": "Only works with 'Add to cart' button",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Text",
+          "info": "Requires line item property type to be Text or Textarea."
+        },
+        {
+          "type": "text",
+          "id": "text_placeholder",
+          "label": "Placeholder",
+          "default": "Enter your text here"
+        },
+        {
+          "type": "header",
+          "content": "Checkbox",
+          "info": "Requires line item property type to be Checkbox."
+        },
+        {
+          "type": "text",
+          "id": "checkbox_checked_value",
+          "label": "Checked value",
+          "default": "Yes"
+        },
+        {
+          "type": "text",
+          "id": "checkbox_unchecked_value",
+          "label": "Unchecked value",
+          "default": "No"
+        },
+        {
+          "type": "header",
+          "content": "Multiple options",
+          "info": "Requires line item property type to be Multiple options."
+        },
+        {
+          "type": "select",
+          "id": "multiple_style",
+          "label": "Style",
+          "default": "dropdown",
+          "options": [
+            {
+              "label": "Dropdown",
+              "value": "dropdown"
+            },
+            {
+              "label": "Radio",
+              "value": "radio"
+            }
+          ]
+        },
+        {
+          "type": "textarea",
+          "id": "multiple_options",
+          "label": "Options",
+          "default": "Option 1\nOption 2\nOption 3",
+          "info": "One option on each line"
+        }
+      ]
+    },
+    {
+      "type": "sku",
+      "name": "SKU",
+      "settings": [
+        {
+          "type": "select",
+          "id": "sku_style",
+          "options": [
+            {
+              "value": "style_body",
+              "label": "Body"
+            },
+            {
+              "value": "subheading",
+              "label": "Subheading"
+            },
+            {
+              "value": "style_vendor",
+              "label": "Vendor"
+            }
+          ],
+          "default": "style_vendor",
+          "label": "SKU style"
+        }
+      ]
+    },
+    {
+      "type": "info_box",
+      "name": "Info box",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "apple",
+              "label": "Apple"
+            },
+            {
+              "value": "banana",
+              "label": "Banana"
+            },
+            {
+              "value": "bottle",
+              "label": "Bottle"
+            },
+            {
+              "value": "box",
+              "label": "Box"
+            },
+            {
+              "value": "carrot",
+              "label": "Carrot"
+            },
+            {
+              "value": "chat_bubble",
+              "label": "Chat bubble"
+            },
+            {
+              "value": "check_mark",
+              "label": "Check mark"
+            },
+            {
+              "value": "clipboard",
+              "label": "Clipboard"
+            },
+            {
+              "value": "dairy",
+              "label": "Dairy"
+            },
+            {
+              "value": "dairy_free",
+              "label": "Dairy free"
+            },
+            {
+              "value": "dryer",
+              "label": "Dryer"
+            },
+            {
+              "value": "eye",
+              "label": "Eye"
+            },
+            {
+              "value": "fire",
+              "label": "Fire"
+            },
+            {
+              "value": "gluten_free",
+              "label": "Gluten free"
+            },
+            {
+              "value": "heart",
+              "label": "Heart"
+            },
+            {
+              "value": "iron",
+              "label": "Iron"
+            },
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "leather",
+              "label": "Leather"
+            },
+            {
+              "value": "lightning_bolt",
+              "label": "Lightning bolt"
+            },
+            {
+              "value": "lipstick",
+              "label": "Lipstick"
+            },
+            {
+              "value": "lock",
+              "label": "Lock"
+            },
+            {
+              "value": "map_pin",
+              "label": "Map pin"
+            },
+            {
+              "value": "nut_free",
+              "label": "Nut free"
+            },
+            {
+              "value": "pants",
+              "label": "Pants"
+            },
+            {
+              "value": "paw_print",
+              "label": "Paw print"
+            },
+            {
+              "value": "pepper",
+              "label": "Pepper"
+            },
+            {
+              "value": "perfume",
+              "label": "Perfume"
+            },
+            {
+              "value": "plane",
+              "label": "Plane"
+            },
+            {
+              "value": "plant",
+              "label": "Plant"
+            },
+            {
+              "value": "price_tag",
+              "label": "Price tag"
+            },
+            {
+              "value": "question_mark",
+              "label": "Question mark"
+            },
+            {
+              "value": "recycle",
+              "label": "Recycle"
+            },
+            {
+              "value": "return",
+              "label": "Return"
+            },
+            {
+              "value": "ruler",
+              "label": "Ruler"
+            },
+            {
+              "value": "serving_dish",
+              "label": "Serving dish"
+            },
+            {
+              "value": "shirt",
+              "label": "Shirt"
+            },
+            {
+              "value": "shoe",
+              "label": "Shoe"
+            },
+            {
+              "value": "silhouette",
+              "label": "Silhouette"
+            },
+            {
+              "value": "snowflake",
+              "label": "Snowflake"
+            },
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "stopwatch",
+              "label": "Stopwatch"
+            },
+            {
+              "value": "truck",
+              "label": "Truck"
+            },
+            {
+              "value": "washing",
+              "label": "Washing"
+            }
+          ],
+          "default": "ruler",
+          "label": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom icon",
+          "info": "48 x 48 .png recommended."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Info box text",
+          "label": "Text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "info_box_bg",
+          "label": "Background",
+          "default": "#E9E7ED"
+        },
+        {
+          "type": "color",
+          "id": "info_box_color",
+          "label": "Text",
+          "default": "#2B1559"
+        }
+      ]
+    },
+    {
+      "type": "siblings",
+      "name": "Siblings",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Siblings allow you to split colors into separate products. [Learn more](https://documentation.fuelthemes.net/kb/how-to-setup-product-siblings/)"
+        },
+        {
+          "type": "text",
+          "id": "siblings_collection",
+          "label": "Product siblings collection handle",
+          "info": "Use a metafield containing a collection handle for color siblings.  The collection should contain all color options as unique products."
+        },
+        {
+          "type": "text",
+          "id": "sibling_color",
+          "label": "Product color metafield",
+          "info": "Use a single line text metafield called 'theme.sibling_color' for product color."
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "min": 0,
+          "max": 50,
+          "step": 2,
+          "unit": "px",
+          "label": "Margin bottom",
+          "default": 20
+        }
+      ]
+    },
+    {
+      "type": "amount",
+      "name": "amount",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "percentage_discount",
+          "default": false,
+          "label": "Whether to enable percentage discount"
+        },
+        {
+          "type": "checkbox",
+          "id": "amount_discount",
+          "default": false,
+          "label": "Whether to enable amount discount"
+        }
+      ]
+    },
+    {
+      "type": "coupon_image",
+      "name": "Coupon Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Position",
+          "options": [
+            { "value": "text-center", "label": "Center" },
+            { "value": "text-left", "label": "Left" },
+            { "value": "text-right", "label": "Right" }
+          ],
+          "default": "text-left"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>",
+          "label": "text"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "color_bg",
+          "label": "Background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "color_text",
+          "label": "Text",
+          "default": "#2c2d2e"
+        },
+        {
+          "type": "color",
+          "id": "color_border",
+          "label": "Borders",
+          "default": "#e2e2e2"
+        }
+      ]
+    }
+  ],
+    "presets": [
+    {
+      "name": "Main Product Details"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["product"]
+  }
+}
+{% endschema %}

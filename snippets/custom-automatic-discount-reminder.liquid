@@ -1,0 +1,163 @@
+{% comment %} 自定义折扣信息 {% endcomment %}
+{% liquid
+  assign is_show = true
+
+  assign variants_display_custom_discounts = false
+  assign default_variants_custom_discounts = null
+  if product.metafields.custom.variants_display_custom_discounts
+    assign default_variants_custom_discounts = select_variant.metafields.custom._discount
+  endif
+  assign select_variant = current_variant | default: product.selected_or_first_available_variant
+  assign custom_discount = default_variants_custom_discounts | default: product.metafields.custom._discount | default: discount
+
+  if custom_discount == null or custom_discount == empty or custom_discount == blank
+    assign is_show = false
+  endif
+
+  if product.metafields.custom.variants_display_custom_discounts
+    assign variants_display_custom_discounts = true
+  endif
+  if is_rounded
+    assign rounded_class = 'rounded-full'
+  else
+    assign rounded_class = ''
+  endif
+
+  if custom_discount contains '%'
+    assign amount = custom_discount | split: '%' | first
+    assign final_sale_price = select_variant.price | times: amount | divided_by: 100 | round
+    assign final_price = select_variant.price | minus: final_sale_price
+  else
+    assign final_sale_price = custom_discount
+    assign final_price = select_variant.price | minus: final_sale_price
+  endif
+%}
+
+{% comment %}
+  custom_discount_effect_type=={{ custom_discount_effect_type }}
+  variant_discount_array==
+  {{- variant_discount_array }}
+{% endcomment %}
+
+<custom-automatic-discount-reminder
+  style="
+    background: {{ settings.automatic_discount_reminder_bg_color }};width: auto;color:{{ settings.automatic_discount_reminder_font_color }}; {% if settings.automatic_discount_reminder_font_gradient_color  contains 'linear-gradient' %}
+      background: {{settings.automatic_discount_reminder_font_gradient_color}};
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    {% endif %}
+  "
+  class=" py-1 px-3 {{ rounded_class }} w-full md:w-auto inline-flex items-center {% unless is_show %}hidden{% endunless %}"
+  client:idle
+>
+  {%- if custom_discount_effect_type == 'variant' and variant_discount_array != '' -%}
+    <!-- 产品变体折扣信息 -->
+    {% comment %} variant_discount_array 以；分割成数组。每个子对象又以- 分割 {% endcomment %}
+    {%- assign variant_discount_items = variant_discount_array | split: ';' -%}
+    <script type="application/json">
+      [
+        {%- for variant in product.variants -%}
+          {%- assign variants_custom_discounts = null -%}
+          {%- if product.metafields.custom.variants_display_custom_discounts -%}
+            {%- assign variants_custom_discounts = variant.metafields.custom._discount -%}
+          {%- endif -%}
+          {%- comment -%} 根据variant_discount_items中的数据，若id==variant.id，则用对应的price替换price {%- endcomment -%}
+          {%- assign matched_discount = '' -%}
+          {%- for item in variant_discount_items -%}
+            {%- assign parts = item | split: '&' -%}
+            {%- assign parts1 = parts[1] | plus: 0 -%}
+            {%- if parts1 == variant.id  -%}
+              {%- assign matched_discount = parts -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if matched_discount != '' -%}
+            {%- assign matched_custom_discount = matched_discount[2] -%}
+            {%- assign matched_price = matched_discount[3] -%}
+            {%- assign matched_compare_at_price = matched_discount[4] -%}
+            {%- assign matched_start_date = matched_discount[5] -%}
+            {%- assign matched_end_date = matched_discount[6] -%}
+          {%- else -%}
+            {%- assign matched_custom_discount = '' -%}
+            {%- assign matched_price = variant.price -%}
+            {%- assign matched_compare_at_price = variant.compare_at_price | default: variant.price -%}
+            {%- assign matched_start_date = '' -%}
+            {%- assign matched_end_date = '' -%}
+          {%- endif -%}
+          {
+            "id": {{- variant.id -}},
+            "variants_display_custom_discounts":{{- variants_display_custom_discounts -}},
+            "custom_discount": "{{- matched_custom_discount -}}",
+            "price": {{ matched_price}},
+            "start_date":"{{ matched_start_date | default: '' }}",
+            "end_date":"{{ matched_end_date | default: '' }}",
+            "compare_at_price": {{- matched_compare_at_price  -}},
+            "available": {{- variant.available -}}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    </script>
+  {%- else -%}
+    <!-- 产品/系列折扣信息 -->
+    <script type="application/json">
+      [
+        {%- for variant in product.variants -%}
+          {% assign variants_custom_discounts = null %}
+          {%- if product.metafields.custom.variants_display_custom_discounts -%}
+            {% assign variants_custom_discounts = variant.metafields.custom._discount %}
+          {%- endif -%}
+          {
+            "id": {{ variant.id }},
+            "variants_display_custom_discounts":{{ variants_display_custom_discounts }},
+            "custom_discount": "{{ variants_custom_discounts | default: product.metafields.custom._discount | default: discount }}",
+            "price": {{ variant.price }},
+            "start_date":"{{ start_date | default: '' }}",
+            "end_date":"{{ end_date | default: '' }}",
+            "compare_at_price": {{ variant.compare_at_price | default: 0 }},
+            "available": {{ variant.available }}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    </script>
+  {%- endif -%}
+
+  {% comment %}
+    <svg
+      width="14px"
+      height="14px"
+      viewBox="0 0 9 11"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+    >
+      <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="黑五折扣-手机端" transform="translate(-30, -604)" fill="#FFFFFF">
+              <g id="价格" transform="translate(24, 577)">
+                  <path d="M11.8378351,27 C12.0393493,27 12.2027062,27.1633568 12.2027062,27.3648711 C12.2027062,27.5663853 12.0393493,27.7297422 11.8378351,27.7297422 L9.16216492,27.7297422 C8.96065066,27.7297422 8.79729385,27.5663853 8.79729385,27.3648711 C8.79729385,27.1633568 8.96065066,27 9.16216492,27 L11.8378351,27 Z M10.5000255,32.2297166 C10.2985113,32.2297166 10.1351545,32.3930734 10.1351545,32.5945877 C10.1351545,32.796102 10.2985113,32.9594588 10.5000255,32.9594588 C10.7014887,32.9594588 10.8648455,32.796102 10.8648455,32.5945877 C10.8648455,32.3930734 10.7014887,32.2297166 10.5000255,32.2297166 L10.5000255,32.2297166 Z M12.4945826,30.5016999 C12.6284657,30.6325692 12.6415935,30.8434824 12.5249757,30.9899314 L12.5002015,31.0178726 L11.4644335,32.0767292 C11.7503845,32.6093501 11.5504027,33.2729424 11.0177308,33.5588424 C10.4851099,33.8447934 9.82151756,33.6447605 9.5356176,33.1121397 C9.24971764,32.5795188 9.44969947,31.9159265 9.98232032,31.6300265 C10.2734816,31.4737189 10.619606,31.4573219 10.9242016,31.5853818 L11.9784098,30.5075742 C12.1192399,30.3634238 12.3502279,30.3607165 12.4943783,30.5015466 C12.4944804,30.5015977 12.4945315,30.5016488 12.4945826,30.5016999 L12.4945826,30.5016999 Z M10.7432218,28.8321197 L10.7432218,29.1891754 C10.7432729,29.3235182 10.6344195,29.4324738 10.5000766,29.4325249 C10.3657338,29.432576 10.2568292,29.3237226 10.2567782,29.1893797 L10.2567782,29.1891754 L10.2567782,28.8321197 C8.36872485,28.952262 6.85795529,30.4627762 6.73776186,32.3513403 L7.09461323,32.3513403 C7.22895608,32.3512892 7.3379117,32.4601427 7.3379117,32.5944855 C7.33796278,32.7288284 7.22910932,32.837784 7.09476648,32.8378351 L7.09461323,32.8378351 L6.73750646,32.8378351 C6.85815961,34.7361046 8.38404913,36.2526974 10.2864562,36.3589968 C10.2668922,36.3235466 10.256676,36.2837035 10.2567782,36.2431963 L10.2567782,35.7567526 C10.2567782,35.6224098 10.3656827,35.5135052 10.5000255,35.5135052 C10.6343173,35.5135052 10.7432218,35.6224098 10.7432218,35.7567526 L10.7432218,36.2431963 C10.7432729,36.2835502 10.7332611,36.3232912 10.7140546,36.3587414 C12.6259627,36.2519822 14.1574201,34.7202695 14.2644346,32.8081571 C14.2289845,32.8277211 14.1891413,32.8379372 14.1486342,32.8378351 L13.6621394,32.8378351 C13.5277965,32.8378862 13.418892,32.7289816 13.4188409,32.5946899 C13.4187898,32.460347 13.5276433,32.3513914 13.6619861,32.3513403 L13.6621394,32.3513403 L14.1486342,32.3513403 C14.1904694,32.3513403 14.2299039,32.3618119 14.2641792,32.3805075 C14.1583906,30.4783559 12.6417467,28.9529772 10.7432218,28.8321197 L10.7432218,28.8321197 Z M10.5000255,28.0946132 C12.9852149,28.0946132 15,30.1093472 15,32.5945877 C15,35.0797771 12.9852149,37.0945622 10.5000255,37.0945622 C8.01478509,37.0945622 6,35.0797771 6,32.5945877 C6,30.1093472 8.01478509,28.0946132 10.5000255,28.0946132 L10.5000255,28.0946132 Z" id="Fill-1"></path>
+              </g>
+          </g>
+      </g>
+    </svg>
+  {% endcomment %}
+
+  {% if settings.show_automatic_discount_reminder_icon %}
+    {{ settings.automatic_discount_reminder_icon }}
+  {%- endif -%}
+  <span class="ml-1">
+    {% if product.metafields.custom.activity_tip != blank %}
+      {{ product.metafields.custom.activity_tip }}
+    {%- else -%}
+      {{- settings.automatic_discount_reminder_text -}}
+    {%- endif -%}
+    (<span data-final-sale-price>-{{ final_sale_price | money -}}</span>)
+    <span data-origin-price style="display:none">{{ select_variant.price | money -}}</span>
+    <span
+      class="font-semibold "
+      style="{% unless settings.automatic_discount_reminder_font_gradient_color  contains 'linear-gradient' %} color:{{ settings.automatic_discount_reminder_price_font_color }};{% endunless %}"
+      data-final-price
+    >
+      :
+      {{- final_price | money -}}
+    </span>
+  </span>
+</custom-automatic-discount-reminder>

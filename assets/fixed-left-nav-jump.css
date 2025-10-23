@@ -1,0 +1,93 @@
+  /* 左侧吸附导航 */
+  .toc {
+      position: fixed;
+      left: 4.583vw;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .25s ease, visibility .25s ease;
+      z-index: 10;
+      pointer-events: auto;
+  }
+
+  .toc--show {
+      opacity: 1;
+      visibility: visible;
+  }
+
+  /* 竖向进度条 */
+  .toc__track {
+      position: relative;
+      width: 6px;
+      height: 185px;
+      /* 可按页面高度微调 */
+      background: linear-gradient(rgba(217, 217, 217, 0.5), rgba(217, 217, 217, 0.5));
+      border-radius: 99px;
+      overflow: hidden;
+  }
+
+  .toc__bar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 0%;
+      background: #FF8F1C;
+      border-radius: 99px;
+      transition: height .25s ease;
+  }
+
+  .toc__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      background: rgba(217, 217, 217, 0.5);
+      border-radius: 10px;
+  }
+
+  .toc__link {
+display: flex;
+      text-decoration: none;
+      letter-spacing: .2px;
+      transition: color .2s ease;
+      white-space: nowrap;
+      color: rgba(255, 255, 255, 0.50);
+      text-align: center;
+
+      padding: 10px;
+      font-size: 12px;
+
+      font-weight: 400;
+      line-height: 1.4;
+      /* 16.8px */
+  }
+
+  .toc__link:hover {
+      color: #fff
+  }
+
+  .toc__link.is-active {
+      color: #fff;
+      font-weight: 700;
+  }
+
+  /* 响应式：窄屏将导航靠近一些 */
+  @media (max-width: 1024px) {
+      .toc {
+          left: 24px
+      }
+  }
+
+  @media (max-width: 640px) {
+      .toc {
+          display: none
+      }
+
+      /* 超窄屏直接隐藏，按需可改成顶部横向 */
+  }

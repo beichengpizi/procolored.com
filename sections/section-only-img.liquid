@@ -1,0 +1,120 @@
+{% liquid
+  assign oi_img_pc = section.settings.oi_img_pc
+  assign oi_img_mb = section.settings.oi_img_mb
+  assign oi_padding_top = section.settings.oi_padding_top
+  assign oi_padding_bottom = section.settings.oi_padding_bottom
+  assign oi_padding_top_mb = section.settings.oi_padding_top_mb
+  assign oi_padding_bottom_mb = section.settings.oi_padding_bottom_mb
+  assign oi_img_width = section.settings.oi_img_width
+%}
+<style>
+  .only-img-{{ section.id }}  .oi-wrapper {
+      margin: 0 auto;
+      padding-top: {{ oi_padding_top }}px;
+      padding-bottom: {{ oi_padding_bottom }}px;
+      padding-left: 24px;
+      padding-right: 24px;
+      background-color: {{ section.settings.oi_bg }};
+    }
+  .only-img-{{ section.id }}  .imgbox{
+      margin: 0 auto;
+      max-width: {{ oi_img_width }}px;
+    }
+    @media screen and (max-width:768px) {
+    .only-img-{{ section.id }}  .oi-wrapper{
+          padding-top: {{ oi_padding_top_mb }}px;
+          padding-bottom: {{ oi_padding_bottom_mb }}px;
+      }
+    }
+</style>
+<div class="only-img only-img-{{ section.id }}">
+  <div class="oi-wrapper">
+    <div class="imgbox">
+      <picture>
+        <source
+          media="(min-width: 769px)"
+          srcset="{{ oi_img_pc |  image_url: width: master }}"
+        >
+        <source
+          media="(max-width: 768px)"
+          srcset="{{ oi_img_mb |  image_url: width: master }}"
+        >
+        <img src="{{ oi_img_pc |  image_url: width: master }}">
+      </picture>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Only Img",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "oi_img_pc",
+      "label": "PC端图片"
+    },
+    {
+      "type": "image_picker",
+      "id": "oi_img_mb",
+      "label": "移动端图片"
+    },
+    {
+      "type": "color",
+      "id": "oi_bg",
+      "label": "模块背景色",
+      "default": "#fff"
+    },
+    {
+      "type": "range",
+      "id": "oi_padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "模块上间距-PC端",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "oi_padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "模块下间距-PC端",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "oi_padding_top_mb",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "模块上间距-移动端",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "oi_padding_bottom_mb",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "模块下间距-移动端",
+      "default": 50
+    },
+    {
+      "type": "number",
+      "id": "oi_img_width",
+      "label": "图片区域宽度",
+      "default": 981
+    }
+  ],
+  "presets": [
+    {
+      "name": "Only Img"
+    }
+  ]
+}
+{% endschema %}

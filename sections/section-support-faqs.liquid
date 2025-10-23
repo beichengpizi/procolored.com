@@ -1,0 +1,236 @@
+<div class="s-faqs">
+  <div class="faqs-title">
+    <h3 class="title">Frequently Asked Questions</h3>
+    <div class="spec">
+      <p>Please take a look at the sections below to find the answers you’re looking for.</p>
+      <p>
+        If you can’t find what you’re looking for or have additional questions, please don’t hesitate to contact us.
+      </p>
+      <p>We’re always here to help!</p>
+    </div>
+  </div>
+  <div class="select-tab f-select-tab">
+    <div class="select-box">
+      <div class="dropbtn f-drop"></div>
+      <div class="drop-svg">
+        <img
+          class="bottom-svg"
+          src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/support_bottomSVG.svg"
+        >
+      </div>
+      <div class="dropdown-content fdc">
+        <ul>
+          {% for block in section.blocks %}
+            <li>{{ block.settings.faqs_tab_t }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="faqs-box">
+    <div class="faqs">
+      <div class="faqs-tab">
+        <ul class="tab-ul">
+          {% for block in section.blocks %}
+            <li class="li-item">{{- block.settings.faqs_tab_t -}}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="faqs-content">
+        {% for block in section.blocks %}
+          <div class="faqs-mod">
+            {% if block.settings.faqs_q1 != blank %}
+              <div class="faq-item">
+                <div class="faq-q">{{- block.settings.faqs_q1 -}}</div>
+                <div class="faq-a">{{- block.settings.faqs_a1 -}}</div>
+              </div>
+            {% endif %}
+            {% if block.settings.faqs_q2 != blank %}
+              <div class="faq-item">
+                <div class="faq-q">{{- block.settings.faqs_q2 -}}</div>
+                <div class="faq-a">{{- block.settings.faqs_a2 -}}</div>
+              </div>
+            {% endif %}
+            {% if block.settings.faqs_q3 != blank %}
+              <div class="faq-item">
+                <div class="faq-q">{{- block.settings.faqs_q3 -}}</div>
+                <div class="faq-a">{{- block.settings.faqs_a3 -}}</div>
+              </div>
+            {% endif %}
+            {% if block.settings.faqs_q4 != blank %}
+              <div class="faq-item">
+                <div class="faq-q">{{- block.settings.faqs_q4 -}}</div>
+                <div class="faq-a">{{- block.settings.faqs_a4 -}}</div>
+              </div>
+            {% endif %}
+            {% if block.settings.faqs_q5 != blank %}
+              <div class="faq-item">
+                <div class="faq-q">{{- block.settings.faqs_q5 -}}</div>
+                <div class="faq-a">{{- block.settings.faqs_a5 -}}</div>
+              </div>
+            {% endif %}
+            {% if block.settings.faqs_q6 != blank %}
+              <div class="faq-item">
+                <div class="faq-q">{{- block.settings.faqs_q6 -}}</div>
+                <div class="faq-a">{{- block.settings.faqs_a6 -}}</div>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function throttle(func, limit) {
+    let inThrottle;
+    return function () {
+      const context = this;
+      const args = arguments;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), limit); // 设置时间间隔后，允许函数再次执行
+      }
+    };
+  }
+  $(document).ready(function () {
+    $('.tab-ul .li-item:first').addClass('li-active');
+    var fBtnInit = $('.fdc ul li:first').text();
+    $('.f-drop').text(fBtnInit);
+    $('.faqs-content .faqs-mod:first').show();
+    $('.tab-ul .li-item').click(function () {
+      $(this).addClass('li-active').siblings().removeClass('li-active');
+      $('.faqs-content .faqs-mod')
+        .eq($('.tab-ul .li-item').index(this))
+        .show()
+        .siblings('.faqs-content .faqs-mod')
+        .hide();
+    });
+    $('.fdc li').click(function () {
+      // 获取选中的选项的值
+      var fSO = $(this).text();
+      // 显示选中的选项在按钮上
+      $('.f-drop').text(fSO);
+      // 隐藏下拉内容
+      $('.fdc').slideUp();
+      //显示对应下标的内容区，隐藏其他内容区
+      $('.faqs-content .faqs-mod').eq($('.fdc li').index(this)).show().siblings('.faqs-content .faqs-mod').hide();
+    });
+    // 使用节流函数，当用户点击下拉按钮时，显示下拉内容
+    $('.f-drop').on(
+      'click',
+      throttle(function () {
+        $('.fdc').slideToggle();
+      }, 500)
+    );
+  });
+</script>
+{% schema %}
+{
+  "name": "Support0416 FAQs",
+  "blocks": [
+    {
+      "name": "FAQs-Tab",
+      "type": "faqs_tab",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "以下为FAQ卡位的相关配置，每个Tab栏最多可配置6个FAQ卡位，每个FAQ卡位需要设置对应的问题，答案；问题是控制该卡位是否显示的重要字段，如果不想让该FAQ显示，请留空"
+        },
+        {
+          "type": "text",
+          "label": "Tab标题",
+          "id": "faqs_tab_t",
+          "default": "General Questions"
+        },
+        {
+          "type": "textarea",
+          "label": "问题1",
+          "id": "faqs_q1"
+        },
+        {
+          "type": "textarea",
+          "label": "回答1",
+          "id": "faqs_a1"
+        },
+        {
+          "type": "textarea",
+          "label": "问题2",
+          "id": "faqs_q2"
+        },
+        {
+          "type": "textarea",
+          "label": "回答2",
+          "id": "faqs_a2"
+        },
+        {
+          "type": "textarea",
+          "label": "问题3",
+          "id": "faqs_q3"
+        },
+        {
+          "type": "textarea",
+          "label": "回答3",
+          "id": "faqs_a3"
+        },
+        {
+          "type": "textarea",
+          "label": "问题4",
+          "id": "faqs_q4"
+        },
+        {
+          "type": "textarea",
+          "label": "回答4",
+          "id": "faqs_a4"
+        },
+        {
+          "type": "textarea",
+          "label": "问题5",
+          "id": "faqs_q5"
+        },
+        {
+          "type": "textarea",
+          "label": "回答5",
+          "id": "faqs_a5"
+        },
+        {
+          "type": "textarea",
+          "label": "问题6",
+          "id": "faqs_q6"
+        },
+        {
+          "type": "textarea",
+          "label": "回答6",
+          "id": "faqs_a6"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Support0416 FAQs",
+      "blocks": [
+        {
+          "type": "faqs_tab",
+          "settings": {
+            "faqs_tab_t": "General Questions"
+          }
+        },
+        {
+          "type": "faqs_tab",
+          "settings": {
+            "faqs_tab_t": "Product Questions"
+          }
+        },
+        {
+          "type": "faqs_tab",
+          "settings": {
+            "faqs_tab_t": "Warranty Questions"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

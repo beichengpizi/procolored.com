@@ -1,0 +1,453 @@
+{{- 'full-menu.css' | asset_url | stylesheet_tag -}}
+<style>
+  .product-section-item .badge-on-sale,
+  .product-section-item .badge-hot,
+  .product-section-item .badge-save,
+  .product-section-item .badge-starting,
+  .product-section-item .badge-free-oven,
+  .product-section-item .badge-sold-out,
+  .product-section-item .best-seller,
+  .product-section-item .badge-new-arrival {
+    z-index: 2;
+    position: relative;
+    display: flex;
+    margin-bottom: 6px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background: none;
+    color: #ff8f1c;
+    font-weight: 700;
+    line-height: 1.4; /* 133.333% */
+    text-transform: uppercase;
+    font-size: 12px;
+    gap: 8px;
+  }
+  .product-section-item .prod-badge {
+    min-height: 23px;
+  }
+  .product-section-grid .column-2 .prod-badge {
+    min-height: auto;
+  }
+  .product-section-grid .badge-new-arrival,
+  .product-section-other-grid .badge-new-arrival {
+    color: #da291c;
+  }
+  .product-section-item .best-seller img {
+    width: 11px;
+    height: auto;
+    padding: 0;
+  }
+
+  .product-section-grid .badge-sold-out {
+    color: #666;
+  }
+</style>
+<full-menu class="full-menu">
+  <ul class="thb-full-menu" role="menubar">
+    {%- for link in menu.links -%}
+      {%- liquid
+        assign parent_index = forloop.index
+        assign has_sub_menu = false
+        assign has_mega_menu = false
+        assign has_menu_badge = false
+        assign mega_menu_block_index = false
+        assign mega_menu_blocks = blocks | where: 'type', 'megamenu'
+        assign menu_badge_index = false
+        assign menu_badge_blocks = blocks | where: 'type', 'menu_badge'
+
+        if link.links.size > 0
+          assign has_sub_menu = true
+        endif
+        for block in mega_menu_blocks
+          assign position = block.settings.position | plus: 0
+          if position == parent_index
+            assign has_mega_menu = true
+            assign mega_menu_block_index = forloop.index0
+          endif
+        endfor
+        for block in menu_badge_blocks
+          assign badge_position = block.settings.badge_position | plus: 0
+          if badge_position == parent_index
+            assign has_menu_badge = true
+            assign menu_badge_index = forloop.index0
+          endif
+        endfor
+      -%}
+      <li
+        role="none"
+        class="{% if has_sub_menu or has_mega_menu %}menu-item-has-children{% endif %}{% if has_mega_menu %} menu-item-has-megamenu{% endif %}{% if link.active %} active{% endif %}"
+        {% if has_sub_menu %}
+          data-item-title="{{ link.title | escape }}"
+        {% endif %}
+      >
+        <a
+          role="menuitem"
+          href="{{ link.url }}"
+          title="{{ link.title | escape }}"
+          {%- if link.active %}
+            aria-current="page"
+          {% endif -%}
+        >
+          {{- link.title -}}
+          {%- if has_sub_menu or has_mega_menu -%}
+            {%- render 'svg-icons' with 'thb-dropdown-bottom' -%}
+          {%- endif -%}
+        </a>
+        {%- if has_menu_badge -%}
+          {%- assign menu_badge_block = menu_badge_blocks[menu_badge_index] -%}
+          <span
+            class="menu-item-badge"
+            style="--menu-badge-bg: {{ menu_badge_block.settings.color_bg }};--menu-badge-text: {{ menu_badge_block.settings.color_text }};"
+          >
+            {{- menu_badge_block.settings.text -}}
+          </span>
+        {%- endif -%}
+        {%- if has_sub_menu == true and has_mega_menu == false -%}
+          <ul class="sub-menu" tabindex="-1">
+            {%- for l in link.links -%}
+              {%- liquid
+                assign has_sub_menu = false
+                assign has_mega_menu = false
+                if l.links.size > 0
+                  assign has_sub_menu = true
+                endif
+              -%}
+              <li
+                class="{%- if l.active %}active{% endif %}{% if has_sub_menu %} menu-item-has-children{%- endif -%}"
+                role="none"
+                {% if has_sub_menu %}
+                  data-item-title="{{ l.title | escape }}"
+                {% endif %}
+              >
+                <a
+                  href="{{ l.url }}"
+                  title="{{ l.title | escape }}"
+                  role="menuitem"
+                >
+                  {{- l.title -}}
+                  {%- if has_sub_menu -%}
+                    {%- render 'full-menu-chevron-right' -%}
+                  {%- endif -%}
+                </a>
+                {%- if has_sub_menu -%}
+                  <ul class="sub-menu" role="menu">
+                    {%- for sub_link in l.links -%}
+                      <li class="{%- if sub_link.active %} active{% endif %}" role="none">
+                        <a
+                          href="{{ sub_link.url }}"
+                          title="{{ sub_link.title | escape }}"
+                          role="menuitem"
+                        >
+                          {{- sub_link.title -}}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- elsif has_sub_menu == true or has_mega_menu == true -%}
+          {%- liquid
+            assign mega_menu_block = mega_menu_blocks[mega_menu_block_index]
+          -%}
+          <div class="sub-menu mega-menu-container" tabindex="-1">
+            <div class="mega-menu-product-cols">
+              <div class="mega-menu-col left">
+                {% for l in link.links %}
+                  <div class="product-section-title" id="__product_section_title_for_{{ l.title | base64_encode }}">
+                    {{ l.title }}
+                    {%- render 'full-menu-chevron-right' -%}
+                  </div>
+                {% endfor %}
+                <div class="product-section-title menu-btn">
+                  <a href="https://www.procolored.com/pages/compare" target="_blank">
+                    <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="2" y="2" width="36" height="36" rx="4"></rect>
+                      <path d="M10 13.5714C10 12.7036 10.7036 12 11.5714 12H21V28H11.5714C10.7036 28 10 27.2964 10 26.4286V13.5714Z" fill="white" stroke="white" stroke-width="1.57143"></path>
+                      <rect x="19" y="9" width="2" height="22" rx="0.785714" fill="white"></rect>
+                      <path d="M21 12H28.4286C29.2964 12 30 12.7036 30 13.5714V26.4286C30 27.2964 29.2964 28 28.4286 28H21" stroke="white" stroke-width="1.57143" stroke-linecap="round"></path>
+                    </svg>
+
+                    <span>Machine Comparison</span>
+                  </a>
+                </div>
+              </div>
+              <div class="mega-menu-col right">
+                {% for l in link.links %}
+                  <div class="product-section-outer" id="__product_section_for_{{ l.title |  base64_encode }}">
+                    {% if forloop.first %}
+                      <div class="series-name-wrap">
+                        <div class="series-name-container">
+                          <div class="series-name-left">F Series</div>
+                          <div class="series-name-right">
+                            <div class="series-name-right-item">
+                              <div class="series-name-right-item-name">
+                                {% comment %} <span class="dividing-line"></span> {% endcomment %}
+                                <span>P Series</span>
+                              </div>
+                            </div>
+                            <div class="series-name-right-item">
+                              <div class="series-name-right-item-name">
+                                {% comment %} <span class="dividing-line"></span> {% endcomment %}
+                                <span>K Series</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="product-section product-section-grid">
+                        {% for collection in collections %}
+                          {% if collection.url == l.url %}
+                            {% for prod in collection.products limit: 1 %}
+                              <div class="product-section-item grid-item" data-link="{{ prod.url }}">
+                                {{ prod.images[0] | image_url: width: 500 | image_tag }}
+                                {% assign prod_tags = prod.tags | downcase %}
+                                <div class="prod-badge">
+                                  {% if prod_tags contains 'save' %}
+                                    {% if prod.selected_or_first_available_variant.price
+                                        < prod.selected_or_first_available_variant.compare_at_price
+                                    %}
+                                      {%- capture save_num -%}
+                                        {{ prod.selected_or_first_available_variant.compare_at_price | minus: prod.selected_or_first_available_variant.price | money | remove: '.00' | remove: '.10'| remove: '.91'  }}
+                                      {%- endcapture -%}
+                                      <div class="badge-save">Save {{ save_num }}</div>
+                                    {% endif %}
+                                  {% elsif prod_tags contains 'new arrival' or prod_tags contains 'new' %}
+                                    <div class="badge-new-arrival">New Arrival</div>
+                                  {% elsif prod_tags contains 'best seller' %}
+                                    <div class="best-seller">
+                                      <img
+                                        class="best-seller-icon lazyload"
+                                        data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/best-seller.png?v=1747726975"
+                                      >
+
+                                      <span>Best Seller</span>
+                                    </div>
+                                  {% elsif prod_tags contains 'hot' %}
+                                    <div class="badge-hot">Hot</div>
+                                  {% elsif prod_tags contains 'free oven' %}
+                                    <div class="badge-free-oven">Free Oven</div>
+                                  {% elsif prod_tags contains 'starting' %}
+                                    {%- capture starting_num -%}
+                                      {{ prod.price_min | money }}
+                                    {%- endcapture -%}
+                                    <div class="badge-starting">Starting at {{ starting_num }}</div>
+                                  {% else %}
+                                    {%- unless prod.selected_or_first_available_variant.available -%}
+                                      <div class="badge-sold-out">Coming Soon</div>
+                                    {%- endunless -%}
+                                  {% endif %}
+                                </div>
+                                {% if prod.metafields.custom.menu_bar_product_name != blank %}
+                                  <div class="name">{{ prod.metafields.custom.menu_bar_product_name.value }}</div>
+                                {% else %}
+                                  <div class="name">{{ prod.title }}</div>
+                                {% endif %}
+                              </div>
+                            {% endfor %}
+                            <div class="column-2">
+                              {% for prod in collection.products limit: 2 offset: 1 %}
+                                <div class="product-section-item column-2-item" data-link="{{ prod.url }}">
+                                  {{ prod.images[0] | image_url: width: 500 | image_tag }}
+                                  {% assign prod_tags = prod.tags | downcase %}
+                                  <div class="prod-badge">
+                                    {% if prod_tags contains 'save' %}
+                                      {% if prod.selected_or_first_available_variant.price
+                                          < prod.selected_or_first_available_variant.compare_at_price
+                                      %}
+                                        {%- capture save_num -%}
+                                          {{ prod.selected_or_first_available_variant.compare_at_price | minus: prod.selected_or_first_available_variant.price | money | remove: '.00' | remove: '.10'| remove: '.91'  }}
+                                        {%- endcapture -%}
+                                        <div class="badge-save">Save {{ save_num }}</div>
+                                      {% endif %}
+                                    {% elsif prod_tags contains 'new arrival' or prod_tags contains 'new' %}
+                                      <div class="badge-new-arrival">New Arrival</div>
+                                    {% elsif prod_tags contains 'best seller' %}
+                                      <div class="best-seller">
+                                        <img
+                                          class="best-seller-icon lazyload"
+                                          data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/best-seller.png?v=1747726975"
+                                        >
+                                        <span>Best Seller</span>
+                                      </div>
+                                    {% elsif prod_tags contains 'hot' %}
+                                      <div class="badge-hot">Hot</div>
+
+                                    {% elsif prod_tags contains 'free oven' %}
+                                      <div class="badge-free-oven">Free Oven</div>
+                                    {% elsif prod_tags contains 'starting' %}
+                                      {%- capture starting_num -%}
+                                        {{ prod.price_min | money }}
+                                      {%- endcapture -%}
+                                      <div class="badge-starting">Starting at {{ starting_num }}</div>
+                                    {% else %}
+                                      {%- unless prod.selected_or_first_available_variant.available -%}
+                                        <div class="badge-sold-out">Coming Soon</div>
+                                      {%- endunless -%}
+                                    {% endif %}
+                                  </div>
+                                  {% if prod.metafields.custom.menu_bar_product_name != blank %}
+                                    <div class="name">{{ prod.metafields.custom.menu_bar_product_name.value }}</div>
+                                  {% else %}
+                                    <div class="name">{{ prod.title }}</div>
+                                  {% endif %}
+                                </div>
+                              {% endfor %}
+                            </div>
+                            {% for prod in collection.products limit: 2 offset: 3 %}
+                              <div class="product-section-item grid-item" data-link="{{ prod.url }}">
+                                {{ prod.images[0] | image_url: width: 500 | image_tag }}
+                                {% assign prod_tags = prod.tags | downcase %}
+                                <div class="prod-badge">
+                                  {% if prod_tags contains 'save' %}
+                                    {% if prod.selected_or_first_available_variant.price
+                                        < prod.selected_or_first_available_variant.compare_at_price
+                                    %}
+                                      {%- capture save_num -%}
+                                        {{ prod.selected_or_first_available_variant.compare_at_price | minus: prod.selected_or_first_available_variant.price | money | remove: '.00' | remove: '.10'| remove: '.91'  }}
+                                      {%- endcapture -%}
+                                      <div class="badge-save">Save {{ save_num }}</div>
+                                    {% endif %}
+                                  {% elsif prod_tags contains 'new arrival' or prod_tags contains 'new' %}
+                                    <div class="badge-new-arrival">New Arrival</div>
+                                  {% elsif prod_tags contains 'best seller' %}
+                                    <div class="best-seller">
+                                      <img
+                                        class="best-seller-icon lazyload"
+                                        data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/best-seller.png?v=1747726975"
+                                      >
+                                      <span>Best Seller</span>
+                                    </div>
+                                  {% elsif prod_tags contains 'hot' %}
+                                    <div class="badge-hot">Hot</div>
+
+                                  {% elsif prod_tags contains 'free oven' %}
+                                    <div class="badge-free-oven">Free Oven</div>
+                                  {% elsif prod_tags contains 'starting' %}
+                                    {%- capture starting_num -%}
+                                      {{ prod.price_min | money }}
+                                    {%- endcapture -%}
+                                    <div class="badge-starting">Starting at {{ starting_num }}</div>
+                                  {% else %}
+                                    {%- unless prod.selected_or_first_available_variant.available -%}
+                                      <div class="badge-sold-out">Coming Soon</div>
+                                    {%- endunless -%}
+                                  {% endif %}
+                                </div>
+                                {% if prod.metafields.custom.menu_bar_product_name != blank %}
+                                  <div class="name">{{ prod.metafields.custom.menu_bar_product_name.value }}</div>
+                                {% else %}
+                                  <div class="name">{{ prod.title }}</div>
+                                {% endif %}
+                              </div>
+                            {% endfor %}
+                          {% endif %}
+                        {% endfor %}
+                      </div>
+                    {% else %}
+                      <div class="product-section product-section-other-grid">
+                        {% for collection in collections %}
+                          {% if collection.url == l.url %}
+                            {% assign show_badge = false %}
+                            {% for prod in collection.products limit: 5 %}
+                              {% assign prod_tags = prod.tags | downcase %}
+
+                              {% if prod_tags contains 'save'
+                                or prod_tags contains 'new arrival'
+                                or prod_tags contains 'new'
+                                or prod_tags contains 'best seller'
+                                or prod_tags contains 'hot'
+                                or prod_tags contains 'free oven'
+                                or prod_tags contains 'starting'
+                                or prod.selected_or_first_available_variant.available == false
+                              %}
+                                {% assign show_badge = true %}
+
+                                {% break %}
+                              {% endif %}
+                            {% endfor %}
+
+                            {% unless show_badge %}
+                              <style>
+                                .product-section-other-grid .product-section-item-{{ collection.id }} .prod-badge {
+                                  min-height: auto;
+                                }
+                              </style>
+                            {% endunless %}
+                            {% for prod in collection.products limit: 5 %}
+                              <div
+                                class="product-section-item product-section-item-{{ collection.id }}"
+                                data-link="{{ prod.url }}"
+                              >
+                                {{ prod.images[0] | image_url: width: 500 | image_tag }}
+                                {% assign prod_tags = prod.tags | downcase %}
+
+                                <div
+                                  class="prod-badge"
+                                >
+                                  {% if prod_tags contains 'save' %}
+                                    {% if prod.selected_or_first_available_variant.price
+                                        < prod.selected_or_first_available_variant.compare_at_price
+                                    %}
+                                      {%- capture save_num -%}
+                                        {{ prod.selected_or_first_available_variant.compare_at_price | minus: prod.selected_or_first_available_variant.price | money | remove: '.00' | remove: '.10'| remove: '.91'  }}
+                                      {%- endcapture -%}
+                                      <div class="badge-save">Save {{ save_num }}</div>
+                                    {% endif %}
+                                  {% elsif prod_tags contains 'new arrival' or prod_tags contains 'new' %}
+                                    <div class="badge-new-arrival">New Arrival</div>
+                                  {% elsif prod_tags contains 'best seller' %}
+                                    <div class="best-seller">
+                                      <img
+                                        class="best-seller-icon lazyload"
+                                        data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/best-seller.png?v=1747726975"
+                                      >
+                                      <span>Best Seller</span>
+                                    </div>
+                                  {% elsif prod_tags contains 'hot' %}
+                                    <div class="badge-hot">Hot</div>
+
+                                  {% elsif prod_tags contains 'free oven' %}
+                                    <div class="badge-free-oven">Free Oven</div>
+                                  {% elsif prod_tags contains 'starting' %}
+                                    {%- capture starting_num -%}
+                                      {{ prod.price_min | money }}
+                                    {%- endcapture -%}
+                                    <div class="badge-starting">Starting at {{ starting_num }}</div>
+                                  {% else %}
+                                    {%- unless prod.selected_or_first_available_variant.available -%}
+                                      <div class="badge-sold-out">Coming Soon</div>
+                                    {%- endunless -%}
+                                  {% endif %}
+                                </div>
+                                {% if prod.metafields.custom.menu_bar_product_name != blank %}
+                                  <div class="name">{{ prod.metafields.custom.menu_bar_product_name.value }}</div>
+                                {% else %}
+                                  <div class="name">{{ prod.title }}</div>
+                                {% endif %}
+                              </div>
+                            {% endfor %}
+                          {% endif %}
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+
+                    <div class="product-section-bottom">
+                      <div class="view-all-button-btm-wrapper">
+                        <button onclick="location.href='{{ l.url }}'" class="view-all-button-btm">View all</button>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</full-menu>
+
+{{- 'full-menu.js' | asset_url | script_tag -}}

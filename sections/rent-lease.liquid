@@ -1,0 +1,203 @@
+{% liquid
+  if section.settings.top == '17.5'
+    assign top = 'pt-8 md:pt-17.5'
+  elsif section.settings.top == '20'
+    assign top = 'pt-8 md:pt-20'
+  elsif section.settings.top == '24'
+    assign top = 'pt-8 md:pt-24'
+  elsif section.settings.top == '28'
+    assign top = 'pt-8 md:pt-28'
+  else
+    assign top = ''
+  endif
+
+  if section.settings.bottom == '17.5'
+    assign bottom = 'pb-8 md:pb-17.5'
+  elsif section.settings.bottom == '20'
+    assign bottom = 'pb-8 md:pb-20'
+  elsif section.settings.bottom == '24'
+    assign bottom = 'pb-8 md:pb-24'
+  elsif section.settings.bottom == '28'
+    assign bottom = 'pb-8 md:pb-28'
+  else
+    assign bottom = ''
+  endif
+%}
+
+<div class="{{ top }} {{ bottom }}" data-section-type="rent-lease">
+  <div class="container">
+    {% if section.settings.headding != blank or section.settings.descriptiton != blank %}
+      <div class="mb-8 lg:mb-10 text-center max-w-4xl mx-auto px-4 lg:px-10">
+        {%- if section.settings.headding != blank -%}
+          <h2 class="text-2xl md:text-4xl">{{ section.settings.headding }}</h2>
+        {%- endif -%}
+        {% if section.settings.descriptiton != blank %}
+          <p class="m-0 text-sm md:text-base">{{ section.settings.descriptiton }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="flex flex-col gap-4 md:gap-6 lg:flex-row justify-between items-center">
+      <div class="w-full grid grid-cols-7 md:grid-cols-2 lg:grid-cols-1">
+        {%- for block in section.blocks -%}
+          <div class="flex flex-col items-center gap-4 md:flex-row md:items-center md:gap-x-4 py-3">
+            <div class="rounded-full aspect-square w-11 h-11 md:w-14 md:h-14 shadow flex-shrink-0 overflow-hidden">
+              {%- if block.settings.image -%}
+                {%- liquid
+                  assign image = block.settings.image
+                -%}
+                <img
+                  data-src="{{ image | image_url }}"
+                  class="lazyload w-full h-full object-cover object-center {% unless settings.lazy_loading %} no-blur{% endunless %}"
+                  width="{{ image.src.width }}"
+                  height="{{ image.src.height }}"
+                  alt="{{ image.alt }}"
+                >
+              {%- else -%}
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+              {%- endif -%}
+            </div>
+            <p class="text-xs text-center leading-4 md:text-lg lg:text-2xl font-bold m-0">
+              {{ block.settings.headding }}
+            </p>
+          </div>
+          {%- unless forloop.last -%}
+            <hr class="border-b-2 lg:border-l-2 lg:border-b-0 mt-9 lg:mt-0 border-dashed border-gray-400 w-9 lg:h-9 lg:w-0 border-y-0 border-r-0 lg:ml-7 lg:-my-1 md:hidden lg:block">
+          {%- endunless -%}
+        {%- endfor -%}
+      </div>
+
+      <div class="w-full lg:w-2/3 xl:w-[784px] flex-shrink-0">
+        {%- if section.settings.image -%}
+          {%- liquid
+            assign image = section.settings.image
+          -%}
+          <div class="aspect-video bg-slate-50 shadow rounded-lg md:rounded-2xl overflow-hidden">
+            <img
+              data-src="{{ image | image_url }}"
+              class="lazyload w-full h-full object-cover object-center {% unless settings.lazy_loading %} no-blur{% endunless %}"
+              width="{{ image.src.width }}"
+              height="{{ image.src.height }}"
+              alt="{{ image.alt }}"
+            >
+          </div>
+        {%- else -%}
+          {{ 'collection-1' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "如何租赁",
+  "tag": "section",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "header",
+      "content": "配置项"
+    },
+    {
+      "type": "select",
+      "id": "top",
+      "default": "17.5",
+      "label": "板块上边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bottom",
+      "default": "17.5",
+      "label": "板块下边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "内容配置"
+    },
+    {
+      "type": "text",
+      "id": "headding",
+      "label": "标题",
+      "default": "How to Lease"
+    },
+    {
+      "type": "textarea",
+      "id": "descriptiton",
+      "label": "描述"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "图片"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon",
+      "name": "图标",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "图标"
+        },
+        {
+          "type": "text",
+          "id": "headding",
+          "label": "标题"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "如何租赁"
+    }
+  ]
+}
+{% endschema %}

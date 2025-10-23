@@ -1,0 +1,1301 @@
+<style>
+      :root {
+          /* Font sizes */
+          --text-h0-n: 56px;
+          --text-h1-n: 40px;
+          --text-h2-n: 30px;
+          --text-h3-n: 26px;
+          --text-h4-n: 24px;
+          --text-h5-n: 20px;
+          --text-h6-n: 16px;
+          --text-xs-n: 12px;
+          --text-sm-n: 14px;
+          --text-base-n: 18px;
+          --text-lg-n: 19px;
+        }
+
+        .text-xxs {
+          font-size: 10px;
+          line-height: 1.2;
+        }
+
+        .text-xs {
+          font-size: var(--text-xs-n);
+          line-height: 1.2;
+        }
+
+        .text-sm {
+          font-size: var(--text-sm-n);
+          line-height: 1.2;
+        }
+
+        .text-base {
+          font-size: var(--text-base-n);
+          line-height: 1.2;
+        }
+        .text-md {
+          font-size: var(--text-md-n);
+          line-height: 1.2;
+        }
+
+        .text-lg {
+          font-size: var(--text-lg-n);
+          line-height: 1.2;
+        }
+         /* 重置样式 start*/
+        #section-{{section.id}}__before-after-image  .h0 {
+          font-size: var(--text-h0-n) ;
+          line-height: 1;
+          font-family: ItalianPlateNo2Expanded-Bold, sans-serif ;
+        }
+
+        #section-{{section.id}}__before-after-image  h1,
+        #section-{{section.id}}__before-after-image  .h1,
+        #section-{{section.id}}__before-after-image  .prose h1:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+          font-size: var(--text-h1-n) ;
+          line-height: 1.1;
+          font-family: ItalianPlateNo2Expanded-Bold, sans-serif ;
+        }
+
+        #section-{{section.id}}__before-after-image  h2,
+        #section-{{section.id}}__before-after-image  .h2,
+        #section-{{section.id}}__before-after-image  .prose h2:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+          font-size: var(--text-h2-n);
+          line-height: 1.1;
+          font-family: ItalianPlateNo2Expanded-Bold, sans-serif ;
+        }
+
+        #section-{{section.id}}__before-after-image  h3,
+        #section-{{section.id}}__before-after-image  .h3,
+        #section-{{section.id}}__before-after-image  .prose h3:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+          font-size: var(--text-h3-n) ;
+          line-height: 1.2;
+        }
+
+        #section-{{section.id}}__before-after-image  h4,
+        #section-{{section.id}}__before-after-image  .h4,
+        #section-{{section.id}}__before-after-image  .prose h4:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+          font-size: var(--text-h4-n) ;
+          line-height: 1.2;
+        }
+
+        #section-{{section.id}}__before-after-image  h5,
+        #section-{{section.id}}__before-after-image  .h5,
+        #section-{{section.id}}__before-after-image  .prose h5:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+          font-size: var(--text-h5-n) ;
+          line-height: 1.2;
+        }
+
+        #section-{{section.id}}__before-after-image  h6,
+        #section-{{section.id}}__before-after-image  .h6,
+        #section-{{section.id}}__before-after-image  .prose h6:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+          font-size: var(--text-h6-n) ;
+          line-height: 1.2;
+        }
+        /* 重置样式 end*/
+
+    #section-{{section.id}}__before-after-image {
+      position: relative;
+      padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px 0;
+      overflow: hidden;
+
+      {% if section.settings.is_show_backgroud_color %}
+        background-color: {{ section.settings.background_color }};
+        background-image: {{ section.settings.background_gradient_color }};
+      {% endif %}
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image {
+      --transform-logical-flip: 1;
+      --section-background-hash: 034000000866600150730940633206450;
+      --section-stack-intro: 50%;
+      --section-stack-main: 66.6667%;
+      --before-after-initial-drag-position: {{ section.settings.drag_initial_position }}%;
+
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image+* {
+      --previous-section-background-hash: 034000000866600150730940633206450;
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .section-stack {
+      grid-auto-columns: minmax(0, 1fr);
+      display: grid;
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .section-stack__intro {
+      width: 100%;
+      {% if section.settings.section_max_width != 'none' %}
+        max-width: {{section.settings.section_max_width}}px;
+        margin: 0 auto;
+      {% endif %}
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .section-stack__main {
+        position:relative;
+      {% if section.settings.section_max_width != 'none' or section.settings.is_show_backgroud_color == false %}
+        width: 100%;
+      {% endif %}
+      {% if section.settings.section_max_width != 'none' %}
+        max-width: {{section.settings.section_max_width}}px;
+        margin: 0 auto;
+      {% endif %}
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .text-center {
+      text-align: {{ section.settings.text_position }};
+      color:{{ section.settings.heading_color }};
+      margin-bottom: 1.6vw;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    #shopify-section-template--{{section.id}}__before-after-image .text-center .heading{
+      margin-top: {{section.settings.heading_margin_top}}px;
+      margin-bottom: {{section.settings.heading_margin_bottom}}px;
+  }
+
+    #shopify-section-template--{{section.id}}__before-after-image .content {
+      text-align: {{ section.settings.text_position }};
+      color: {{ section.settings.subheading_color }};
+      margin-bottom: {{section.settings.subheading_margin_bottom}}px;
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .text-custom {
+      color: rgb(255, 255, 255);
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .w-full {
+      width: 100%;
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .rounded {
+      {% unless section.settings.section_max_width == 'none' and section.settings.is_show_backgroud_color == false or section.settings.is_show_backgroud_color == true %}
+        border-radius: 1.2rem ;
+      {% endunless %}
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__label {
+      color: {{ section.settings.before_after_color }};
+      position: absolute;
+      font-size: 20px;
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .object-fill,
+    #shopify-section-template--{{section.id}}__before-after-image .object-fill-safe,
+    #shopify-section-template--{{section.id}}__before-after-image .object-cover {
+      object-fit: cover;
+      object-position: center;
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .object-fill {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__label--bottom {
+      {% if section.settings.Before-after_text_position == 'top' %}
+        top: 2.5rem;
+      {% else %}
+        bottom: 2.5rem;
+      {% endif %}
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__label--left:not(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+      left: 2.5rem;
+      margin:0;
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__label--right:not(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+      right: 2.5rem;
+      margin:0;
+    }
+
+    @media screen and (min-width: 700px) {
+      #shopify-section-template--{{section.id}}__before-after-image .before-after {
+        --before-after-label-spacing: 2rem;
+      }
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .before-after {
+      --before-after-label-spacing: 1.25rem;
+      -webkit-user-select: none;
+      user-select: none;
+      position: relative;
+      border-radius: 1.2rem !important;
+      overflow: hidden;
+      width: 100%;
+      height: auto;
+      aspect-ratio: {{ section.settings.before_image.aspect_ratio}};
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__cursor:before {
+      content: "";
+      height: 100%;
+      width: 1px;
+      background: transparent;
+      /* background: {{ section.settings.drag_cursor_background_color }}; */
+      z-index: -1;
+      position: absolute;
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__after-image {
+      clip-path: inset(0 0 0 calc(var(--before-after-initial-drag-position, 50%) + var(--clip-path-offset, 0px)));
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      transition: clip-path 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: clip-path;
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__before-image img,
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__after-image img {
+      height: auto;
+      vertical-align: middle;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__cursor-wrapper {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__cursor {
+      height: 100%;
+      width: max-content;
+      touch-action: none;
+      transform: translate(calc(var(--transform-logical-flip) * -50% + var(--clip-path-offset, 0px)), -50%);
+      cursor: grab;
+      filter: drop-shadow(0 1px 2px #0000001a) drop-shadow(0 1px 1px #0000000f);
+      will-change: transform;
+      place-items: center;
+      display: grid;
+      position: relative;
+      left: {{ section.settings.drag_initial_position }}%;
+      top: 50%;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .sr-only {
+      width: 1px;
+      height: 1px;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+      margin: -1px;
+      padding: 0;
+      position: absolute;
+      overflow: hidden;
+    }
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__cursor svg {
+        width: 20px;
+        height: 20px;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__label-text {
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.30);
+        color: #000;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1;
+        padding: 12px 10px;
+        position: absolute;
+        left: 53%;
+        bottom: 1.75rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__bottom-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 16px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__bottom-item{
+        display: flex;
+        align-items: center;
+        gap: 36px;
+        padding: 40px 62px;
+        border-radius: 10px;
+        background: #FFF9F2;
+      width: 50%;
+    }
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__bottom-item img{
+      width: auto;
+      height: 88px;
+      max-height: 100%;
+    }
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__bottom-text{
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__bottom-text div:first-child{
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1;
+    }
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__bottom-text div:last-child{
+      font-size: 20px;
+      line-height: 1;
+    }
+    #shopify-section-template--{{section.id}}__before-after-image .mobile-image {
+      display: none;
+    }
+    #shopify-section-template--{{section.id}}__before-after-image .desktop-image {
+      display: block;
+    }
+
+    @media screen and (max-width: 768px) {
+      #section-{{section.id}}__before-after-image {
+
+        padding: {{ section.settings.padding_top_mobile }}px 24px {{ section.settings.padding_bottom_mobile }}px 24px;
+
+      }
+      #shopify-section-template--{{section.id}}__before-after-image .text-center .heading{
+        font-size: {{section.settings.heading_size_mobile}}px;
+        margin-top: {{section.settings.heading_margin_top_mobile}}px;
+        margin-bottom: {{section.settings.heading_margin_bottom_mobile}}px;
+    }
+
+      #shopify-section-template--{{section.id}}__before-after-image .content {
+        font-size: {{section.settings.subheading_size_mobile}}px;
+        margin-bottom: {{section.settings.subheading_margin_bottom_mobile}}px;
+      }
+
+      #shopify-section-template--{{section.id}}__before-after-image .before-after {
+        border-radius: 10px;
+        aspect-ratio:auto;
+      }
+      #shopify-section-template--{{section.id}}__before-after-image .before-after__label {
+        font-weight: 400;
+        font-size: 12px;
+        color:#2C2D2E;
+      }
+      #shopify-section-template--{{section.id}}__before-after-image .section-stack__main{
+        display: none;
+      }
+      #shopify-section-template--{{section.id}}__before-after-image .section-stack__main_mobile{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+      }
+      #shopify-section-template--{{section.id}}__before-after-image .section-stack__main_mobile .mobile-image{
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+      }
+      .mobile-image-text{
+        position: absolute;
+        bottom: 14px;
+        left: 14px;
+        color: #000;
+        font-size: 12px;
+        font-weight: 600;
+        background: rgba(255, 255, 255, 0.30);
+        padding: 6px;
+        border-radius: 4px;
+        width: auto;
+        line-height: 1;
+      }
+      #shopify-section-template--{{section.id}}__before-after-image .before-after__label--bottom {
+        {% if section.settings.Before-after_text_position == 'top' %}
+          top: 1.5rem;
+        {% else %}
+          bottom: 1.5rem;
+        {% endif %}
+      }
+
+      #shopify-section-template--{{section.id}}__before-after-image .before-after__label--left:not(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+        left: 1.5rem;
+        margin:0;
+      }
+
+      #shopify-section-template--{{section.id}}__before-after-image .before-after__label--right:not(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+        right: 1.5rem;
+        margin:0;
+      }
+      #shopify-section-template--{{section.id}}__before-after-image .before-after__cursor svg {
+        width: 16px;
+        height: 16px;
+      }
+      #shopify-section-template--{{section.id}}__before-after-image .before-after__label-text {
+        border-radius: 0;
+        background: none;
+        color: #000;
+        font-size: 14px;
+        padding: 0;
+        position: relative;
+        left: 0;
+        bottom: 0;
+        text-align: center;
+        margin-top: 12px;
+    }
+
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__bottom-wrapper {
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 18px;
+    }
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__bottom-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 22px 17px;
+        border-radius: 10px;
+        width: 100%;
+    }
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__bottom-item img{
+        height:51px
+    }
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__bottom-item:last-child{
+        padding: 22px 24px;
+    }
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__bottom-item:last-child img{
+        height:56px;
+    }
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__bottom-text {
+        gap: 5px;
+    }
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__bottom-text div:first-child {
+        font-size: 16px;
+    }
+    #shopify-section-template--{{section.id}}__before-after-image .before-after__bottom-text div:last-child {
+        font-size: 12px;
+    }
+      #shopify-section-template--{{section.id}}__before-after-image .mobile-image {
+          display: block;
+        }
+        #shopify-section-template--{{section.id}}__before-after-image .desktop-image {
+          display: none;
+        }
+    }
+</style>
+
+<!-- before-after-image 组件 -->
+
+<div id="section-{{section.id}}__before-after-image">
+  <section
+    id="shopify-section-template--{{section.id}}__before-after-image"
+    class="shopify-section shopify-section--before-after-image"
+  >
+    <div
+      class="section section-full"
+    >
+      <div class="section-stack section-stack--center ">
+        <div class="section-stack__intro">
+          <div class=" text-center">
+            <h2
+              class="heading {{ section.settings.heading_font_family }} {{ section.settings.heading_size }}"
+            >
+              {{ section.settings.heading }}
+            </h2>
+            <div class="content {{ section.settings.subheading_font_family}} {{ section.settings.subheading_size }}">
+              {{ section.settings.content }}
+            </div>
+          </div>
+        </div>
+        <div class="section-stack__main">
+          <div
+            class="before-after text-custom"
+          >
+            <div class="before-after__before-image  text-custom">
+              {% assign image_pc = section.settings.before_image %}
+
+              {% if image_pc %}
+                <div class="desktop-image" style="aspect-ratio: {{ image_pc.aspect_ratio }};">
+                  <img
+                    data-sizes="100vw"
+                    data-srcset="
+                      {%- if image_pc.width >= 375 -%}{{ image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                      {%- if image_pc.width >= 550 -%}{{ image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                      {%- if image_pc.width >= 750 -%}{{ image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                      {%- if image_pc.width >= 1100 -%}{{ image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                      {%- if image_pc.width >= 1500 -%}{{ image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                      {%- if image_pc.width >= 1780 -%}{{ image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                      {%- if image_pc.width >= 2000 -%}{{ image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                      {%- if image_pc.width >= 3000 -%}{{ image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                      {%- if image_pc.width >= 3840 -%}{{ image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                      {{ image_pc | image_url }} {{ image_pc.width }}w
+                    "
+                    class="lazyload"
+                    data-src="{{ image_pc | image_url:width:1000 }}"
+                    width="100%"
+                    loading="lazy"
+                  >
+                </div>
+              {% endif %}
+
+              <p class="before-after__label before-after__label--left before-after__label--bottom h5">
+                {{ section.settings.before_text }}
+              </p>
+            </div>
+
+            <div class="before-after__after-image  text-custom">
+              {% assign image_pc = section.settings.after_image %}
+
+              {% if image_pc %}
+                <div class="desktop-image" style="aspect-ratio: {{ image_pc.aspect_ratio }};">
+                  <img
+                    data-sizes="100vw"
+                    data-srcset="
+                      {%- if image_pc.width >= 375 -%}{{ image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                      {%- if image_pc.width >= 550 -%}{{ image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                      {%- if image_pc.width >= 750 -%}{{ image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                      {%- if image_pc.width >= 1100 -%}{{ image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                      {%- if image_pc.width >= 1500 -%}{{ image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                      {%- if image_pc.width >= 1780 -%}{{ image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                      {%- if image_pc.width >= 2000 -%}{{ image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                      {%- if image_pc.width >= 3000 -%}{{ image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                      {%- if image_pc.width >= 3840 -%}{{ image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                      {{ image_pc | image_url }} {{ image_pc.width }}w
+                    "
+                    class="lazyload"
+                    data-src="{{ image_pc | image_url:width:1000 }}"
+                    width="100%"
+                    loading="lazy"
+                  >
+                </div>
+              {% endif %}
+
+              <p class="before-after__label before-after__label--right before-after__label--bottom h5">
+                {{ section.settings.after_text }}
+              </p>
+            </div>
+            {% if section.settings.after_image and section.settings.before_image %}
+              <div class="before-after__cursor-wrapper">
+                <split-cursor-wheel class="before-after__cursor">
+                  <span class="sr-only">Drag</span>
+
+                  {% comment %}
+                    <svg role="presentation" focusable="false" width="28" height="35" viewBox="0 0 32 40">
+                      <path
+                          d="M0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16V24C32 32.8366 24.8366 40 16 40C7.16344 40 0 32.8366 0 24V16Z"
+                          fill="{{ section.settings.drag_cursor_background_color }}"></path>
+                      <path fill="{{ section.settings.drag_cursor_color }}" d="M11 14H13V26H11zM15 14H17V26H15zM19 14H21V26H19z"></path>
+                    </svg>
+                  {% endcomment %}
+                  {% comment %}
+                    <svg width="100%" height="100%" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="10.2617" cy="10.623" r="10" fill="white"/>
+                      <circle cx="10.2617" cy="10.623" r="8" fill="#DCDCDC"/>
+                    </svg>
+                  {% endcomment %}
+                </split-cursor-wheel>
+              </div>
+            {% endif %}
+          </div>
+          {% if section.settings.label_text != blank %}
+            <div class="before-after__label-text">{{ section.settings.label_text }}</div>
+          {% endif %}
+        </div>
+        <div class="section-stack__main_mobile">
+          {% assign image_mobile_before = section.settings.before_image_mobile %}
+          {% assign image_mobile_after = section.settings.after_image_mobile %}
+          {% if image_mobile_before %}
+            <div class="mobile-image" style="aspect-ratio: {{ image_mobile_before.aspect_ratio }};">
+              <img
+                style="object-fit: cover;aspect-ratio: {{ image_mobile_before.aspect_ratio }};"
+                data-sizes="100vw"
+                data-srcset="
+                  {%- if image_mobile_before.width >= 375 -%}{{ image_mobile_before | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if image_mobile_before.width >= 550 -%}{{ image_mobile_before | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if image_mobile_before.width >= 750 -%}{{ image_mobile_before | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if image_mobile_before.width >= 1100 -%}{{ image_mobile_before | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if image_mobile_before.width >= 1500 -%}{{ image_mobile_before | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if image_mobile_before.width >= 1780 -%}{{ image_mobile_before | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if image_mobile_before.width >= 2000 -%}{{ image_mobile_before | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if image_mobile_before.width >= 3000 -%}{{ image_mobile_before | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if image_mobile_before.width >= 3840 -%}{{ image_mobile_before | image_url: width: 3840 }} 3840w,{%- endif -%}
+                  {{ image_mobile_before | image_url }} {{ image_mobile_before.width }}w
+                "
+                class="lazyload"
+                data-src="{{ image_mobile_before | image_url:width:400 }}"
+                width="100%"
+                loading="lazy"
+              >
+              <div class="mobile-image-text">Normal curve</div>
+            </div>
+          {% endif %}
+          {% if image_mobile_after %}
+            <div class="mobile-image" style="aspect-ratio: {{ image_mobile_after.aspect_ratio }};">
+              <img
+                data-sizes="100vw"
+                data-srcset="
+                  {%- if image_mobile_after.width >= 375 -%}{{ image_mobile_after | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if image_mobile_after.width >= 550 -%}{{ image_mobile_after | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if image_mobile_after.width >= 750 -%}{{ image_mobile_after | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if image_mobile_after.width >= 1100 -%}{{ image_mobile_after | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if image_mobile_after.width >= 1500 -%}{{ image_mobile_after | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if image_mobile_after.width >= 1780 -%}{{ image_mobile_after | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if image_mobile_after.width >= 2000 -%}{{ image_mobile_after | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if image_mobile_after.width >= 3000 -%}{{ image_mobile_after | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if image_mobile_after.width >= 3840 -%}{{ image_mobile_after | image_url: width: 3840 }} 3840w,{%- endif -%}
+                  {{ image_mobile_after | image_url }} {{ image_mobile_after.width }}w
+                "
+                class="lazyload"
+                data-src="{{ image_mobile_after | image_url:width:400 }}"
+                width="100%"
+                loading="lazy"
+              >
+              <div class="mobile-image-text">Professional curve</div>
+            </div>
+          {% endif %}
+        </div>
+        <div class="before-after__bottom-wrapper">
+          <div class="before-after__bottom-item before-after__bottom-item--left">
+            <img
+              class="lazyload"
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20250417-163807.png?v=1744879119"
+              alt="ISO12647"
+            >
+            <div class="before-after__bottom-text">
+              <div>ISO12647</div>
+              <div>Standard-compliant Color Experts</div>
+            </div>
+          </div>
+          <div class="before-after__bottom-item before-after__bottom-item--right">
+            <img
+              class="lazyload"
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20250417-163817.png?v=1744879120"
+              alt="G7"
+            >
+            <div class="before-after__bottom-text">
+              <div>G7</div>
+              <div>Certified Color Accuracy</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  // js/sections/before-after-image.js
+  // 定义一个分割线光标组件
+  const SplitCursorWheel = class extends HTMLElement {
+    // 当组件被添加到页面时执行
+    connectedCallback() {
+      // 获取父级section元素
+      this._parentSection = this.closest('#shopify-section-template--{{section.id}}__before-after-image');
+      if (!this._parentSection) return;
+
+      // 初始化位置和状态
+      this._offsetX = 0;
+      this._currentX = 0;
+      this._isAnimating = false;
+      this._lastScrollTime = 0;
+      this._scrollThreshold = 16; // 滚动阈值(ms)
+      this._isWheelListenerActive = false; // 初始化滚轮监听状态
+
+      // 添加事件监听
+      this._boundWheelHandler = this._onWheel.bind(this);
+      this._boundResizeHandler = this._recalculateOffset.bind(this);
+      this._boundScrollHandler = this._onScroll.bind(this);
+
+      window.addEventListener('scroll', this._boundScrollHandler);
+      window.addEventListener('resize', this._boundResizeHandler);
+
+      // 计算初始偏移量
+      this._recalculateOffset();
+
+      // 使用requestAnimationFrame确保DOM完全加载后再检查可见性
+      requestAnimationFrame(() => {
+        this._checkVisibility();
+      });
+    }
+
+    // 组件移除时清理事件监听
+    disconnectedCallback() {
+      if (this._parentSection) {
+        this._parentSection.removeEventListener('wheel', this._boundWheelHandler);
+      }
+      window.removeEventListener('resize', this._boundResizeHandler);
+      window.removeEventListener('scroll', this._boundScrollHandler);
+    }
+
+    // 检查元素是否在可视区域内
+    _checkVisibility() {
+      // 如果没有父级section元素则直接返回
+      if (!this._parentSection) return;
+
+      // 获取section-stack__main元素
+      const mainSection = this._parentSection.querySelector('.section-stack__main');
+      if (!mainSection) return;
+
+      // 获取section-stack__main元素的位置信息
+      const rect = mainSection.getBoundingClientRect();
+
+      // 判断元素是否部分出现在可视区域内
+      const isPartiallyVisible =
+        (rect.top >= 0 && rect.top <= window.innerHeight) || // 顶部在视窗内
+        (rect.top <= 0 && rect.bottom >= window.innerHeight); // 元素高度超过视窗
+      console.log('rect.top', rect.top);
+      console.log('rect.bottom', rect.bottom);
+      console.log('window.innerHeight', window.innerHeight);
+      console.log('isPartiallyVisible', isPartiallyVisible);
+
+      // 如果元素部分出现在可视区域内且未添加滚轮事件监听
+      if (isPartiallyVisible && !this._isWheelListenerActive) {
+        // 添加滚轮事件监听
+        console.log('添加滚轮事件监听');
+        this._parentSection.addEventListener('wheel', this._boundWheelHandler, { passive: false });
+        this._isWheelListenerActive = true;
+      }
+      // 如果元素完全不在可视区域内且已添加滚轮事件监听
+      else if (!isPartiallyVisible && this._isWheelListenerActive) {
+        // 移除滚轮事件监听
+        console.log('移除滚轮事件监听');
+        this._parentSection.removeEventListener('wheel', this._boundWheelHandler);
+        this._isWheelListenerActive = false;
+      }
+    }
+
+    // 滚动事件处理
+    _onScroll() {
+      console.log('滚动事件处理');
+      this._checkVisibility();
+    }
+
+    // 获取最小偏移量
+    get minOffset() {
+      return -this.offsetLeft - (document.dir === 'rtl' ? this.clientWidth : 0);
+    }
+
+    // 获取最大偏移量
+    get maxOffset() {
+      return this.offsetParent?.clientWidth + this.minOffset || 0;
+    }
+
+    // 鼠标滚轮事件
+    _onWheel(event) {
+      if (this._isAnimating) return;
+
+      const currentTime = Date.now();
+      if (currentTime - this._lastScrollTime < this._scrollThreshold) {
+        event.preventDefault();
+        return;
+      }
+      this._lastScrollTime = currentTime;
+
+      const delta = event.deltaY;
+      const moveStep = 100;
+      const oldX = this._currentX;
+
+      if (delta > 0) {
+        // 向下滚动
+        this._currentX = Math.min(this._currentX + moveStep, this.maxOffset);
+        if (this._currentX >= this.maxOffset + 20) return;
+      } else {
+        // 向上滚动
+        this._currentX = Math.max(this._currentX - moveStep, this.minOffset);
+        if (this._currentX <= this.minOffset - 20) return;
+      }
+
+      // 如果位置没有变化则不处理
+      if (oldX === this._currentX) return;
+
+      // 阻止默认滚动行为
+      event.preventDefault();
+
+      // 更新位置
+      this._isAnimating = true;
+      this._offsetX = this._currentX;
+      this._updatePosition();
+
+      // 动画结束后重置状态
+      requestAnimationFrame(() => {
+        this._isAnimating = false;
+      });
+    }
+
+    // 更新分割线位置
+    _updatePosition() {
+      if (!this._parentSection) return;
+      this._parentSection.style.setProperty('--clip-path-offset', `${this._currentX.toFixed(1)}px`);
+    }
+
+    // 重新计算偏移量
+    _recalculateOffset() {
+      if (!this._parentSection) return;
+
+      const newX = Math.min(Math.max(this.minOffset, this._currentX), this.maxOffset);
+      this._currentX = newX;
+      this._offsetX = newX;
+      this._updatePosition();
+    }
+  };
+
+  // 注册自定义元素
+  if (!window.customElements.get('split-cursor-wheel')) {
+    window.customElements.define('split-cursor-wheel', SplitCursorWheel);
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Before/after mouse scroll",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_max_width",
+      "label": "模块最大宽度",
+      "options": [
+        {
+          "value": "none",
+          "label": "全屏"
+        },
+        {
+          "value": "1200",
+          "label": "1200px"
+        },
+        {
+          "value": "980",
+          "label": "980px"
+        }
+      ],
+      "default": "1200"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_show_backgroud_color",
+      "label": "是否添加背景色",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "大标题",
+      "default": "Advanced Color Calibration"
+    },
+    {
+      "type": "textarea",
+      "id": "content",
+      "label": "副标题",
+      "default": "The color curve of the printer has undergone professional field testing, enabling more accurate color reproduction and deliver astonishing outputs."
+    },
+    {
+      "type": "text",
+      "id": "before_text",
+      "label": "对比前文本",
+      "default": "Before"
+    },
+    {
+      "type": "text",
+      "id": "after_text",
+      "label": "对比后文本",
+      "default": "After"
+    },
+
+    {
+      "type": "text",
+      "id": "label_text",
+      "label": "标签内容",
+      "default": "3 Color Specialists"
+    },
+    {
+      "type": "image_picker",
+      "id": "before_image",
+      "label": "对比前图"
+    },
+    {
+      "type": "image_picker",
+      "id": "before_image_mobile",
+      "label": "对比前图(移动端)"
+    },
+    {
+      "type": "image_picker",
+      "id": "after_image",
+      "label": "对比后图"
+    },
+    {
+      "type": "image_picker",
+      "id": "after_image_mobile",
+      "label": "对比后图(移动端)"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "文本位置",
+      "options": [
+        {
+          "value": "left",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中对齐"
+        },
+        {
+          "value": "right",
+          "label": "右对齐"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "Before-after_text_position",
+      "label": "Before/after文本位置",
+      "options": [
+        {
+          "value": "top",
+          "label": "顶部"
+        },
+        {
+          "value": "bottom",
+          "label": "底部"
+        }
+      ],
+      "default": "top"
+    },
+    {
+      "type": "range",
+      "id": "drag_initial_position",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "拖动初始位置",
+      "default": 50
+    },
+
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "大标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题字体大小（移动端）",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "subheading_size",
+      "label": "副标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h5"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "副标题字体大小（移动端）",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "heading_font_family",
+      "label": "大标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        }
+      ],
+      "default": "custom-font-bold"
+    },
+    {
+      "type": "select",
+      "id": "subheading_font_family",
+      "label": "副标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        }
+      ],
+      "default": "custom-font-regular"
+    },
+    {
+      "type": "header",
+      "content": "颜色"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "背景颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient_color",
+      "label": "背景渐变色",
+      "default": "linear-gradient(#ffffff, #000000)"
+    },
+
+    {
+      "type": "color",
+      "id": "before_after_color",
+      "label": "对比前后文本颜色",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "大标题文本颜色",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "副标题文本颜色",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "drag_cursor_background_color",
+      "label": "拖动光标背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "drag_cursor_color",
+      "label": "拖动光标颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "分区填充"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题底部填充",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题底部填充(移动端)",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "subheading_margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "副标题底部填充",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "subheading_margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "副标题底部填充(移动端)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 50
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Before/after mouse scroll",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

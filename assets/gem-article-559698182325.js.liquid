@@ -1,0 +1,621 @@
+{% comment %}
+	GEMPAGES BUILDER (https://apps.shopify.com/gempages)
+
+	You SHOULD NOT modify source code in this file because
+	It is automatically generated from GEMPAGES BUILDER
+	Try to edit page with the live editor.
+{% endcomment %}
+
+    
+  
+    
+  
+(function( jQuery ){
+    var $module = jQuery('#m-1717765091251').children('.module');
+    var btnLabel = $module.attr('data-btnlabel');
+    
+    if ($module.attr('data-modelink') == 'auto'){
+        $module.attr('data-editlink', '');
+    }
+    
+    $module.gfSocialShare({
+        btnLabel: btnLabel
+    });
+})( window.GemQuery || jQuery );
+    
+    
+  
+    
+  
+    
+  
+    
+  
+(function( jQuery ){
+    var $module = jQuery('#m-1717765091213').children('.module');
+    var btnLabel = $module.attr('data-btnlabel');
+    
+    if ($module.attr('data-modelink') == 'auto'){
+        $module.attr('data-editlink', '');
+    }
+    
+    $module.gfSocialShare({
+        btnLabel: btnLabel
+    });
+})( window.GemQuery || jQuery );
+    
+    
+  
+    
+  
+(function( jQuery ){
+  var $module = jQuery('#m-1717765091179').children('.module');
+  $module.gfV2HeroBanner({});
+  
+})( window.GemQuery || jQuery );
+    
+    
+  
+    
+  
+    (function( jQuery ){
+    var $module = jQuery('#m-1717765091197').children('.module');
+    var btnLabel = $module.attr('data-btnlabel');
+    
+    if ($module.attr('data-modelink') == 'auto'){
+        $module.attr('data-editlink', '');
+    }
+    
+    $module.gfSocialShare({
+        btnLabel: btnLabel
+    });
+})( window.GemQuery || jQuery );
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    (function( jQuery ){
+  var $module = jQuery('#m-1717765091230').children('.module');
+  if(jQuery().gfYoutube) {
+    $module.gfYoutube();
+  }
+})( window.GemQuery || jQuery );
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    (function( jQuery ){
+  var $module = jQuery('#m-1717765091282').children('.module');
+  $module.gfV3Product();
+})( window.GemQuery || jQuery );
+  
+    (function(jQuery) {
+  var $module = jQuery('#m-1717765091282-0').children('.module');
+  var effect = $module.attr('data-effect');
+  var magnify = $module.attr('data-zoom-level');
+  var displayType = $module.attr('data-displaytype');
+  $module.gfV3ProductImage({
+    'effect': effect,
+    'displayType': displayType,
+    'magnify': magnify
+  });
+})(window.GemQuery || jQuery);
+  
+    
+  
+    (function(jQuery) {
+    var $module = jQuery('#m-1717765091282-2').children('.module');
+    $module.gfV3ProductPrice({
+        displayCurrency: true
+    });
+})(window.GemQuery || jQuery);
+  
+    (function( jQuery ){
+  var $module = jQuery('#m-1717765091282-3').children('.module');
+  $module.gfV3ProductCartButton({ onItemAdded: function(data) {}});
+})( window.GemQuery || jQuery );
+  
+    (function( jQuery ){
+  var $module = jQuery('#m-1717765091228').children('.module');
+  if(jQuery().gfYoutube) {
+    $module.gfYoutube();
+  }
+})( window.GemQuery || jQuery );
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+(function( jQuery ){
+  var $module = jQuery('#m-1717765091281').children('.module');
+
+  var mode = jQuery('.gryffeditor').hasClass('editing') ? 'dev' : 'production';
+  if(mode == 'production') { 
+    $module.children('form').on('submit', function() {
+      try {
+        localStorage.setItem('gemId', '#m-1717765091281');
+      } catch(err) {}
+    });
+
+    var gemId = '';
+    try {
+      var gemId = localStorage.getItem('gemId');
+    } catch(err) {}
+
+    if(gemId != '') {
+      var moduleId = '#' + $module.parent().attr('id');
+      if(gemId == moduleId) {
+        $module.find(".note").show();
+        
+        var $note = $module.find('.note.form-success, .note.form-error');
+        if ($note.length > 0) {
+          $popup = $module.closest('.module-wrap[data-label="Popup"]');
+          if ($popup.children('.module').data('gfv1popup')) {
+            $popup.children('.module').data('gfv1popup').show();
+          }
+        }
+          
+        var cbLink = $module.find('input[name="gemcallback"]').val() != undefined ? jQuery.trim($module.find('input[name="gemcallback"]').val()) : '';
+
+        if(cbLink && cbLink != '') {
+          try {
+            localStorage.setItem('gemId', 'redirected');
+          } catch(err) {}
+
+          var target = $module.attr("data-target") || '';
+          if(target!=="_blank"){
+            window.location.href = cbLink;
+          }else {
+            window.open(cbLink, '_blank')
+          }
+        }
+      }
+    } else {
+      var cbLink = $module.find('input[name="gemcallback"]').val() != undefined ? jQuery.trim($module.find('input[name="gemcallback"]').val()) : '';
+      
+      var $note = $module.find('.note.form-success, .note.form-error');
+      if ($note.length > 0) {
+        $popup = $module.closest('.module-wrap[data-label="Popup"]');
+        if ($popup.children('.module').data('gfv1popup')) {
+          $popup.children('.module').data('gfv1popup').show();
+        }
+      }
+
+      if(cbLink && cbLink != '') {
+        var target = $module.attr("data-target") || '';
+        if(target!=="_blank"){
+          window.location.href = cbLink;
+        }else {
+          window.open(cbLink, '_blank')
+        }
+      }
+    }
+  }
+})( window.GemQuery || jQuery );
+    
+    
+    
+    
+    
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+(function( jQuery ){
+  var $module = jQuery('#m-1717765091216').children('.module');
+
+  var mode = jQuery('.gryffeditor').hasClass('editing') ? 'dev' : 'production';
+  if(mode == 'production') { 
+    $module.children('form').on('submit', function() {
+      try {
+        localStorage.setItem('gemId', '#m-1717765091216');
+      } catch(err) {}
+    });
+
+    var gemId = '';
+    try {
+      var gemId = localStorage.getItem('gemId');
+    } catch(err) {}
+
+    if(gemId != '') {
+      var moduleId = '#' + $module.parent().attr('id');
+      if(gemId == moduleId) {
+        $module.find(".note").show();
+        
+        var $note = $module.find('.note.form-success, .note.form-error');
+        if ($note.length > 0) {
+          $popup = $module.closest('.module-wrap[data-label="Popup"]');
+          if ($popup.children('.module').data('gfv1popup')) {
+            $popup.children('.module').data('gfv1popup').show();
+          }
+        }
+          
+        var cbLink = $module.find('input[name="gemcallback"]').val() != undefined ? jQuery.trim($module.find('input[name="gemcallback"]').val()) : '';
+
+        if(cbLink && cbLink != '') {
+          try {
+            localStorage.setItem('gemId', 'redirected');
+          } catch(err) {}
+
+          var target = $module.attr("data-target") || '';
+          if(target!=="_blank"){
+            window.location.href = cbLink;
+          }else {
+            window.open(cbLink, '_blank')
+          }
+        }
+      }
+    } else {
+      var cbLink = $module.find('input[name="gemcallback"]').val() != undefined ? jQuery.trim($module.find('input[name="gemcallback"]').val()) : '';
+      
+      var $note = $module.find('.note.form-success, .note.form-error');
+      if ($note.length > 0) {
+        $popup = $module.closest('.module-wrap[data-label="Popup"]');
+        if ($popup.children('.module').data('gfv1popup')) {
+          $popup.children('.module').data('gfv1popup').show();
+        }
+      }
+
+      if(cbLink && cbLink != '') {
+        var target = $module.attr("data-target") || '';
+        if(target!=="_blank"){
+          window.location.href = cbLink;
+        }else {
+          window.open(cbLink, '_blank')
+        }
+      }
+    }
+  }
+})( window.GemQuery || jQuery );
+    
+    
+    
+    
+    
+    
+    
+    
+  
+(function( jQuery ){
+    var $module = jQuery('#m-1717765091164').children('.module');
+    var btnLabel = $module.attr('data-btnlabel');
+    
+    if ($module.attr('data-modelink') == 'auto'){
+        $module.attr('data-editlink', '');
+    }
+    
+    $module.gfSocialShare({
+        btnLabel: btnLabel
+    });
+})( window.GemQuery || jQuery );
+    
+    
+(function( jQuery ){
+  var $module = jQuery('#m-1717765091304').children('.module');
+
+  var mode = jQuery('.gryffeditor').hasClass('editing') ? 'dev' : 'production';
+  if(mode == 'production') { 
+    $module.children('form').on('submit', function() {
+      try {
+        localStorage.setItem('gemId', '#m-1717765091304');
+      } catch(err) {}
+    });
+
+    var gemId = '';
+    try {
+      var gemId = localStorage.getItem('gemId');
+    } catch(err) {}
+
+    if(gemId != '') {
+      var moduleId = '#' + $module.parent().attr('id');
+      if(gemId == moduleId) {
+        $module.find(".note").show();
+        
+        var $note = $module.find('.note.form-success, .note.form-error');
+        if ($note.length > 0) {
+          $popup = $module.closest('.module-wrap[data-label="Popup"]');
+          if ($popup.children('.module').data('gfv1popup')) {
+            $popup.children('.module').data('gfv1popup').show();
+          }
+        }
+          
+        var cbLink = $module.find('input[name="gemcallback"]').val() != undefined ? jQuery.trim($module.find('input[name="gemcallback"]').val()) : '';
+
+        if(cbLink && cbLink != '') {
+          try {
+            localStorage.setItem('gemId', 'redirected');
+          } catch(err) {}
+
+          var target = $module.attr("data-target") || '';
+          if(target!=="_blank"){
+            window.location.href = cbLink;
+          }else {
+            window.open(cbLink, '_blank')
+          }
+        }
+      }
+    } else {
+      var cbLink = $module.find('input[name="gemcallback"]').val() != undefined ? jQuery.trim($module.find('input[name="gemcallback"]').val()) : '';
+      
+      var $note = $module.find('.note.form-success, .note.form-error');
+      if ($note.length > 0) {
+        $popup = $module.closest('.module-wrap[data-label="Popup"]');
+        if ($popup.children('.module').data('gfv1popup')) {
+          $popup.children('.module').data('gfv1popup').show();
+        }
+      }
+
+      if(cbLink && cbLink != '') {
+        var target = $module.attr("data-target") || '';
+        if(target!=="_blank"){
+          window.location.href = cbLink;
+        }else {
+          window.open(cbLink, '_blank')
+        }
+      }
+    }
+  }
+})( window.GemQuery || jQuery );
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+(function( jQuery ){
+  var $module = jQuery('#m-1717765091162').children('.module');
+
+  var mode = jQuery('.gryffeditor').hasClass('editing') ? 'dev' : 'production';
+  if(mode == 'production') { 
+    $module.children('form').on('submit', function() {
+      try {
+        localStorage.setItem('gemId', '#m-1717765091162');
+      } catch(err) {}
+    });
+
+    var gemId = '';
+    try {
+      var gemId = localStorage.getItem('gemId');
+    } catch(err) {}
+
+    if(gemId != '') {
+      var moduleId = '#' + $module.parent().attr('id');
+      if(gemId == moduleId) {
+        $module.find(".note").show();
+        
+        var $note = $module.find('.note.form-success, .note.form-error');
+        if ($note.length > 0) {
+          $popup = $module.closest('.module-wrap[data-label="Popup"]');
+          if ($popup.children('.module').data('gfv1popup')) {
+            $popup.children('.module').data('gfv1popup').show();
+          }
+        }
+          
+        var cbLink = $module.find('input[name="gemcallback"]').val() != undefined ? jQuery.trim($module.find('input[name="gemcallback"]').val()) : '';
+
+        if(cbLink && cbLink != '') {
+          try {
+            localStorage.setItem('gemId', 'redirected');
+          } catch(err) {}
+
+          var target = $module.attr("data-target") || '';
+          if(target!=="_blank"){
+            window.location.href = cbLink;
+          }else {
+            window.open(cbLink, '_blank')
+          }
+        }
+      }
+    } else {
+      var cbLink = $module.find('input[name="gemcallback"]').val() != undefined ? jQuery.trim($module.find('input[name="gemcallback"]').val()) : '';
+      
+      var $note = $module.find('.note.form-success, .note.form-error');
+      if ($note.length > 0) {
+        $popup = $module.closest('.module-wrap[data-label="Popup"]');
+        if ($popup.children('.module').data('gfv1popup')) {
+          $popup.children('.module').data('gfv1popup').show();
+        }
+      }
+
+      if(cbLink && cbLink != '') {
+        var target = $module.attr("data-target") || '';
+        if(target!=="_blank"){
+          window.location.href = cbLink;
+        }else {
+          window.open(cbLink, '_blank')
+        }
+      }
+    }
+  }
+})( window.GemQuery || jQuery );
+    
+    
+    
+    
+    
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  

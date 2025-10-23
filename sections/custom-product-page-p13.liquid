@@ -1,0 +1,1758 @@
+{{ 'flip.min.css' | asset_url | stylesheet_tag }}
+<style>
+  .super-early-bird-countdown-wraper {
+    background: #fff9f2;
+    padding: 160px 0 0 0;
+  }
+
+  .super-early-bird-countdown-wraper .super-early-bird-countdown-container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .super-early-bird-countdown-title {
+    font-size: 40px;
+    text-align: center;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+
+  .super-early-bird-countdown-title span:first-child {
+    color: #da291c;
+  }
+
+  .super-early-bird-countdown-title span:last-child {
+    color: #000;
+  }
+
+  .super-early-bird-countdown-description {
+    color: #000;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 50px;
+  }
+
+  .super-early-bird-countdown-date {
+    display: flex;
+    align-items: start;
+    gap: 40px;
+    width: 100%;
+  }
+
+  .super-early-bird-countdown-date .super-early-bird-countdown-date-title {
+    color: #000;
+    text-align: center;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-top: 10px;
+  }
+
+  .super-early-bird-countdown-wraper .tick {
+    font-size: 44px;
+  }
+
+  .super-early-bird-countdown-wraper .tick-flip-panel {
+    color: #000;
+    background-color: #eecdb4;
+  }
+
+  .super-early-bird-countdown-wraper .tick-label {
+    font-size: 0.5em;
+    text-align: center;
+  }
+
+  .tick-flip-card {
+    line-height: 72px;
+  }
+
+  .super-early-bird-countdown-wraper .tick-group {
+    text-align: center;
+  }
+
+  .super-early-bird-countdown-wraper .tick-group [data-key='value']:after {
+    content: ':';
+    display: inline-block;
+    margin-left: 25px;
+    margin-right: 25px;
+    color: #eecdb4;
+  }
+
+  .super-early-bird-countdown-wraper .tick-group:last-child [data-key='value']:after {
+    display: none;
+  }
+
+  .super-early-bird-countdown-wraper [data-view='text'] {
+    font-weight: 400;
+    color: #000;
+    font-size: 20px;
+    width: calc(100% - 56px);
+    display: block !important;
+    text-align: center;
+    margin-top: 17px;
+  }
+
+  .super-early-bird-countdown-wraper .tick-group:last-child [data-view='text'] {
+    width: 100%;
+  }
+
+  .super-early-bird-countdown-wraper .tick-flip-shadow {
+    box-shadow: none;
+  }
+
+  .super-early-bird-countdown-wraper .tick-flip-panel-back:after {
+    z-index: 1;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 1px;
+    background-image: linear-gradient(180deg, rgb(255, 255, 255) 5px, rgb(255, 255, 255) 0, transparent 30%);
+  }
+  {% comment %} .super-early-bird-countdown-product-button {
+    display: none;
+  } {% endcomment %}
+  .super-early-bird-countdown-product-button product-card .product-card--add-to-cart-button {
+    padding: 25px 33px;
+    font-size: 24px;
+    line-height: 1;
+    margin-top: 50px;
+    border-radius: 50px;
+    background: #000;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .super-early-bird-countdown-wraper {
+      padding: 58px 24px 0 24px;
+    }
+
+    .super-early-bird-countdown-title {
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+
+    .super-early-bird-countdown-description {
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .super-early-bird-countdown-date {
+      gap: 12px;
+      width: auto;
+      padding: 0 24px;
+      align-items: center;
+    }
+
+    .super-early-bird-countdown-date .super-early-bird-countdown-date-title {
+      color: #000;
+      text-align: center;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-top: 0;
+    }
+
+    .super-early-bird-countdown-wraper .tick {
+      font-size: 22px;
+    }
+
+    .super-early-bird-countdown-wraper .tick-group [data-key='value']:after {
+      content: ':';
+      display: inline-block;
+      margin-left: 8px;
+      margin-right: 8px;
+      color: #eecdb4;
+    }
+
+    .tick-flip-card {
+      line-height: 38px;
+    }
+
+    .super-early-bird-countdown-wraper [data-view='text'] {
+      display: none !important;
+    }
+
+    .super-early-bird-countdown-product-button product-card .product-card--add-to-cart-button {
+      padding: 10px 24px;
+      font-size: 14px;
+      line-height: 1;
+      margin-top: 39px;
+      border-radius: 50px;
+      background: #000;
+    }
+  }
+</style>
+<style>
+      .super-early-bird-wraper {
+        padding: 100px 0 160px 0;
+        background-color: #fff9f2;
+      }
+      .super-early-bird-container {
+        display: flex;
+        justify-content: center;
+        /* align-items: center; */
+        max-width: 1200px;
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        gap: 56px;
+      }
+      .super-early-bird-wraper .timeline-container {
+        width: 100%;
+        padding: 28px 0 43px 0;
+        overflow: hidden;
+      }
+      .super-early-bird-wraper .container-left {
+        width: 50%;
+      }
+      .super-early-bird-wraper .container-left img {
+        width: 100%;
+        object-fit: cover;
+      }
+      .super-early-bird-wraper .container-right {
+        flex: 1;
+        padding: 30px 60px 30px 0;
+      }
+      .super-early-bird-wraper .container-right-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #000;
+        line-height: 1.2;
+      }
+      .super-early-bird-wraper .container-free-gift-title img {
+        width: 100%;
+        object-fit: cover;
+      }
+      .super-early-bird-wraper .price-section {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        min-height: 38px;
+      }
+
+      .super-early-bird-wraper .price-point {
+        text-align: center;
+        position: relative;
+        min-width: 100px;
+      }
+
+      .super-early-bird-wraper .price-section .price-point {
+        position: absolute;
+        transform: translate(-50%, 0);
+      }
+
+      .super-early-bird-wraper .price-section .price-point:first-child {
+        left: 10%;
+      }
+      .super-early-bird-wraper .price-section .price-point:nth-child(2) {
+        left: 50%;
+      }
+      .super-early-bird-wraper .price-section .price-point:nth-child(3) {
+        left: 90%;
+      }
+
+      .super-early-bird-wraper .current-price {
+        color: #ff8c00;
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 0;
+        margin-bottom: 4px;
+        line-height: 1;
+      }
+
+      .super-early-bird-wraper .original-price {
+        color: #2c2d2e;
+        text-decoration: line-through;
+        margin: 0;
+        font-size: 16px;
+        line-height: 1;
+      }
+
+      .super-early-bird-wraper .progress-container {
+        height: 4px;
+        background-color: #fdefe0;
+        border-radius: 4px;
+        position: relative;
+        margin: 20px 0;
+      }
+
+      .super-early-bird-wraper .progress-bar {
+        height: 100%;
+        background-color: #ff8c00;
+        border-radius: 4px;
+        position: relative;
+        width: 100%;
+        transform: scaleX(0);
+        transform-origin: left;
+      }
+
+      @keyframes fillProgress {
+        from {
+          transform: scaleX(0);
+        }
+        to {
+          transform: scaleX(1);
+        }
+      }
+
+      .super-early-bird-wraper .progress-bar.animate {
+        animation: fillProgress 1.5s ease-in-out forwards;
+      }
+
+      .super-early-bird-wraper .progress-point {
+        --point-size: 20px;
+        width: var(--point-size);
+        height: var(--point-size);
+        border-radius: 50%;
+        background-color: white;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='9.25' fill='white' stroke='%23FF8F1C' stroke-width='1.5'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        border: none;
+      }
+
+      .super-early-bird-wraper .progress-point.first {
+        left: 12%;
+      }
+      .super-early-bird-wraper .progress-point.second {
+        left: 50%;
+      }
+      .super-early-bird-wraper .progress-point.third {
+        left: 88%;
+      }
+
+      .super-early-bird-wraper .progress-point.active,
+      .super-early-bird-wraper .progress-point.completed {
+        background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='9.25' fill='white' stroke='%23FF8F1C' stroke-width='1.5'/%3E%3Cpath d='M5.5 10.5L8.5 13.5L14.5 7.5' stroke='%23FF8F1C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      }
+
+      .super-early-bird-wraper .date-section {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        position: relative;
+        min-height: 32px;
+      }
+
+      .super-early-bird-wraper .date-point {
+        text-align: center;
+        flex: 1;
+        min-width: 100px;
+        position: absolute;
+        transform: translate(-50%, 0);
+      }
+
+      .super-early-bird-wraper .date-section .date-point:first-child {
+        left: 11%;
+      }
+      .super-early-bird-wraper .date-section .date-point:nth-child(2) {
+        left: 50%;
+      }
+      .super-early-bird-wraper .date-section .date-point:nth-child(3) {
+        left: 90%;
+      }
+
+      .super-early-bird-wraper .date {
+        font-size: 14px;
+        color: #000;
+        font-weight: 500;
+        margin-bottom: 4px;
+        line-height: 1;
+      }
+
+      .super-early-bird-wraper .label {
+        color: #000;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 1;
+      }
+
+      .super-early-bird-wraper .progress-bar::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.1) 25%,
+          rgba(255, 255, 255, 0.2) 50%,
+          rgba(255, 255, 255, 0.1) 75%
+        );
+        animation: loading 1.5s infinite linear;
+        opacity: 0;
+      }
+
+      .super-early-bird-wraper .progress-bar.animate::after {
+        opacity: 1;
+        animation-delay: 1.5s;
+      }
+
+      @keyframes loading {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+      .super-early-bird-countdown-email-form {
+        width: 100%;
+      }
+      .super-early-bird-countdown-email-form .globo-form-app {
+        margin: 0 auto;
+      }
+      .super-early-bird-countdown-email-form form.g-container {
+        display: flex;
+        flex-direction: column;
+      }
+      .super-early-bird-countdown-email-form .gfb-style-material_outlined .header,.gfb-style-material_filled .header {
+        padding: 0;
+        order: 3;
+        margin-top: 20px;
+        margin-bottom: 0;
+      }
+      .super-early-bird-countdown-email-form .header:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        bottom: 0;
+        z-index: -1;
+        background: transparent;
+        opacity: 1;
+        transition: opacity 0.25s cubic-bezier(0.104, 0.204, 0.492, 1);
+      }
+      .super-early-bird-countdown-email-form .description:not(.expanded):after {
+        position: absolute;
+        content: '';
+        width: 100%;
+        left: 0;
+        bottom: -9px;
+        height: 32px;
+        background: transparent;
+      }
+      .super-early-bird-countdown-email-form .globo-form-app .header .description {
+        margin: 0;
+        font-size: 20px;
+        font-weight: var(--gfb-font-weight, 300);
+        line-height: 1.7;
+        color: #000;
+      }
+      .super-early-bird-countdown-email-form .globo-form-app .header .title {
+        margin-bottom: 0;
+        font-weight: var(--gfb-font-weight, 600);
+        line-height: 1.5;
+        font-size: var(--gfb-default-heading-1-font-size, 30px);
+      }
+      .super-early-bird-countdown-email-form .globo-formbuilder-wizard .wizard__content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        border-radius: 0;
+      }
+      .super-early-bird-countdown-email-form .globo-form-app .panels {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        transition: height 0.15s;
+        z-index: 1;
+        width: 90%;
+        border-radius: 0;
+      }
+      .super-early-bird-countdown-email-form .globo-form-control.layout-1-column {
+        margin: 0;
+        padding: 0;
+      }
+      .super-early-bird-countdown-email-form .globo-form-control.has-error input:not(.item__quantity),
+      .globo-form-control.has-error textarea {
+        background: #fff;
+        border-color: #dc3545;
+        border-width: 1px;
+        border-style: solid;
+      }
+      .super-early-bird-countdown-email-form .gfb-style-material_outlined .gfb__footer {
+        padding: 0;
+        margin: 0;
+      }
+      .super-early-bird-countdown-email-form .gfb-style-material_filled .gfb__footer {
+        padding: 0;
+        margin-top: 0;
+      }
+      .super-early-bird-countdown-email-form .gfb-style-material_outlined .gfb__footer .globo-description {
+        display: none;
+      }
+
+      .super-early-bird-countdown-email-form .gfb-style-material_outlined .gfb__footer button,
+      .gfb-style-material_filled .gfb__footer button {
+        height: 60px;
+        width: 100% !important;
+        padding: 8px;
+        border-radius: 0 10px 10px 0;
+        color: #000;
+        background: #fff;
+        margin: 0;
+        min-width: auto;
+        position: relative;
+        color: transparent;
+        border: 1px solid rgba(204, 204, 204, 0.6) !important;
+        {% comment %} border-left-width: 0 !important; {% endcomment %}
+      }
+      .gfb-style-material_filled .message.success {
+        margin: auto;
+        box-shadow: none;
+        border-radius: 10px;
+        position: absolute;
+        z-index: 999;
+        top: 0;
+        max-width: 100%;
+        background: #FFF9F2;
+    }
+    .gfb__footer .loading .spinner:after,.globo-form-app .footer .loading .spinner:after {
+      content: "";
+      border: 3px solid rgba(0,0,0,0);
+      border-top: 3px solid #000;
+      border-left: 3px solid #000;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      box-sizing: border-box;
+      animation: spinButton 1s cubic-bezier(0.34, 0.11, 0.63, 0.86) infinite;
+      background: none;
+      position: relative !important
+  }
+      .super-early-bird-countdown-email-form .gfb-style-material_outlined .gfb__footer button:before,
+      .gfb-style-material_filled .gfb__footer button:before {
+        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M12.8242 16.52L18.3887 10.26L12.8242 4' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M17.6933 10.26H1' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+        position: absolute;
+        left: 35%;
+        color: red;
+        display: inline-block;
+        top: 30%;
+      }
+      .super-early-bird-countdown-email-form .globo-form-control input,
+      .globo-form-control textarea,
+      .globo-form-control select {
+        display: block;
+        height: auto !important;
+        min-height: auto !important;
+        padding: 19px 34px !important;
+        color: #000;
+        border-radius: 0 !important;
+        font-size: var(--gfb-form-default-font-size);
+        position: relative;
+        flex: 1 1 auto;
+        margin-bottom: 0;
+        width: 100%;
+        box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02);
+        transition: none;
+        outline: none;
+        background-image: none !important;
+        background: #fff !important;
+        line-height: 1 !important;
+        font-size: 18px !important;
+      }
+      .super-early-bird-countdown-email-form .globo-form-control.layout-1-column.has-error .messages {
+        position: absolute;
+        top: 30%;
+        right: 5%;
+      }
+      .gfb-style-material_outlined .gfb_material_outlined .gfb__outline-notch::after,
+      .gfb-style-material_outlined .gfb_material_outlined .gfb__outline-start::after,
+      .gfb-style-material_outlined .gfb_material_outlined .gfb__outline-end::after {
+        border-radius: 0;
+        border-width: 1px;
+        border-color: rgba(204, 204, 204, 0.6);
+      }
+      .gfb-style-material_outlined .gfb_material_outlined .gfb__outline-notch::after {
+      }
+      .gfb-style-material_outlined .gfb_material_outlined .gfb__outline-notch .gfb__outline-panel-inactive::after {
+        border-width: 1px;
+        border-color: rgba(204, 204, 204, 0.6);
+      }
+      .gfb-style-material_outlined .gfb_material_outlined .gfb__outline-start::after {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
+      .gfb-style-material_filled
+        .globo-form-control:not(
+          [data-type='file2'],
+          [data-type='imageOptions'],
+          [data-type='rating-level'],
+          [data-type='feedback'],
+          [data-type='matrix'],
+          [data-type='rating-star2'],
+          [data-type='checkbox'],
+          [data-type='radio'],
+          [data-type='colorSwatches'],
+          [data-type='rangeSlider'],
+          [data-type='switcher'],
+          [data-type='button'],
+          [data-type='signature']
+        )
+        .globo-form-input {
+        -webkit-font-smoothing: antialiased;
+        text-size-adjust: 100%;
+        font-style: normal;
+        line-height: 1.4375em;
+        font-size: var(--gfb-form-default-font-size);
+        font-weight: 400;
+        color: rgb(var(--gfb-color-text));
+        box-sizing: border-box;
+        cursor: text;
+        display: inline-flex;
+        -webkit-box-align: center;
+        align-items: center;
+        width: 100%;
+        position: relative;
+        transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+        border-radius: 10px;
+        background-color: rgba(var(--gfb-color-text), 0.08);
+        overflow: hidden;
+        border: 1px solid rgba(204, 204, 204, 0.6);
+        border-right-width: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+      .globo-form-app .globo-description {
+        margin-bottom: 0;
+      }
+      .super-early-bird-wraper .progress-text-container {
+        display: none;
+      }
+      .super-early-bird-wraper .mobile-image {
+        display: none;
+      }
+      .super-early-bird-wraper .desktop-image {
+        display: block;
+      }
+            #early-bird-contact-form{
+            max-width: 470px;
+            margin: 0 auto;
+            width: 100%;
+          }
+          #early-bird-contact-form  .signup-container fieldset {
+            background: #fff;
+        }
+        #early-bird-contact-form .signup-container input {
+          padding-right: 60px;
+          width: 100%;
+          margin-bottom: 0;
+          height: 60px;
+      }
+
+      #early-bird-contact-form  .signup-container button {
+
+        max-height: 60px;
+        width: 60px;
+
+    }
+    #early-bird-contact-form  .signup-container button svg{
+      width: 20px;
+      height: 20px;
+    }
+    #early-bird-contact-form  .field label {
+
+      height: 60px;
+
+  }
+  #early-bird-contact-form .field input[type=email]:focus+label{
+    height: auto !important;
+  }
+        #early-bird-contact-form .super-early-bird-countdown-email-form-description{
+          font-size: 20px;
+
+          color: #000;
+          text-align: center;
+          margin-top: 22px;
+          line-height: 1.4;
+          }
+  .globo-label.gfb__label__shink{
+    opacity: 0;
+  }
+  .early-bird-gift-activity-container {
+    border-radius: 20px;
+    max-width: 704px;
+    margin: 0 auto 50px auto;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    column-gap: 33px;
+  }
+  .early-bird-gift-activity-container-img {
+    {% comment %} aspect-ratio: 1/1; {% endcomment %}
+    min-width: 200px;
+  }
+  .early-bird-gift-activity-container-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .early-bird-gift-activity-container-content {
+    color: #000;
+    padding: 70px 34px 70px 0;
+    font-size: 20px;
+
+    font-weight: 400;
+    line-height: 1.2; /* 120% */
+  }
+  .early-bird-gift-activity-container-img-pc {
+    display: block;
+  }
+  .early-bird-gift-activity-container-img-mb {
+    display: none;
+  }
+      @media only screen and (max-width: 768px) {
+        .super-early-bird-wraper {
+          padding: 50px 24px 60px 24px;
+        }
+        .super-early-bird-container {
+          border-radius: 10px;
+        }
+        .super-early-bird-wraper .super-early-bird-container {
+          flex-direction: column;
+          gap: 30px;
+        }
+        .super-early-bird-wraper .container-left {
+          width: 100%;
+        }
+        .super-early-bird-wraper .container-right {
+          flex: 1;
+          padding: 0 20px 30px 20px;
+        }
+        .super-early-bird-wraper .container-right-title {
+          font-size: 18px;
+        }
+        .super-early-bird-wraper .timeline-container {
+          width: 100%;
+          max-width: none;
+          padding: 23px 0 40px 10px;
+          overflow: hidden;
+          display: flex;
+          column-gap: 24px;
+        }
+
+        .super-early-bird-wraper .progress-container {
+          width: 4px;
+          height: 236px;
+          margin: 0;
+        }
+        .super-early-bird-wraper .price-section,
+        .super-early-bird-wraper .date-section {
+          display: none;
+        }
+        .super-early-bird-wraper .progress-bar {
+          height: 100%;
+          transform: scaleY(0);
+          transform-origin: top;
+        }
+
+        .super-early-bird-wraper .progress-bar.animate {
+          animation: fillProgressMobile 1.5s ease-in-out forwards !important;
+        }
+
+        .super-early-bird-wraper .progress-point {
+          left: 50% !important;
+        }
+
+        .super-early-bird-wraper .progress-point.first {
+          top: 12%;
+        }
+        .super-early-bird-wraper .progress-point.second {
+          top: 50%;
+        }
+        .super-early-bird-wraper .progress-point.third {
+          top: 88%;
+        }
+
+        @keyframes fillProgressMobile {
+          from {
+            transform: scaleY(0);
+          }
+          to {
+            transform: scaleY(1);
+          }
+        }
+
+        .super-early-bird-wraper .progress-bar::after {
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.1) 25%,
+            rgba(255, 255, 255, 0.2) 50%,
+            rgba(255, 255, 255, 0.1) 75%
+          );
+        }
+
+        @keyframes loading {
+          0% {
+            transform: translateY(-100%);
+          }
+          100% {
+            transform: translateY(100%);
+          }
+        }
+        .super-early-bird-wraper .progress-text-container {
+          display: block;
+          position: relative;
+          height: 236px;
+          width: 100%;
+        }
+        .super-early-bird-wraper .progress-text-container .progress-text-item:first-child {
+          top: 12%;
+          transform: translate(0, -44%);
+        }
+        .super-early-bird-wraper .progress-text-container .progress-text-item:nth-child(2) {
+          top: 50%;
+          transform: translate(0, -22%);
+        }
+        .super-early-bird-wraper .progress-text-container .progress-text-item:nth-child(3) {
+          top: 85%;
+          transform: translate(0, 0);
+        }
+        .super-early-bird-wraper .progress-text-container .progress-text-item {
+          display: flex;
+          flex-direction: column;
+          row-gap: 8px;
+          position: absolute;
+        }
+        .super-early-bird-wraper .progress-text-item-price {
+          font-size: 18px;
+          font-weight: 700;
+          color: #ff8f1c;
+          line-height: 1;
+        }
+        .super-early-bird-wraper .progress-text-item-original-price {
+          font-size: 14px;
+          font-weight: 400;
+          color: #2c2d2e;
+          text-decoration: line-through;
+          line-height: 1;
+        }
+        .super-early-bird-wraper .progress-text-item-title {
+          font-size: 14px;
+          font-weight: 400;
+          color: #000;
+          line-height: 1.5;
+        }
+        .super-early-bird-wraper .progress-text-price-item {
+          display: flex;
+          align-items: center;
+          column-gap: 8px;
+        }
+        .super-early-bird-countdown-email-form .globo-form-control input,
+        .globo-form-control textarea,
+        .globo-form-control select {
+          display: block;
+          height: auto !important;
+          min-height: auto !important;
+          padding: 16.5px 18px !important;
+          color: #000;
+          border-radius: 0 !important;
+          font-size: var(--gfb-form-default-font-size);
+          position: relative;
+          flex: 1 1 auto;
+          margin-bottom: 0;
+          width: 100%;
+          box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02);
+          transition: none;
+          outline: none;
+          background-image: none !important;
+          background: #fff !important;
+          line-height: 1 !important;
+          font-size: 16px !important;
+        }
+        .super-early-bird-countdown-email-form .gfb-style-material_outlined .gfb__footer button,
+        .gfb-style-material_filled .gfb__footer button {
+          height: 52px;
+          width: 75% !important;
+          padding: 15px;
+          border-radius: 0 10px 10px 0;
+          color: #000;
+          background: #fff;
+          margin: 0;
+          min-width: auto;
+          position: relative;
+          color: transparent;
+          border: 1px solid rgba(204, 204, 204, 0.6) !important;
+          {% comment %} border-left-width: 0 !important; {% endcomment %}
+        }
+        .gfb-style-material_outlined .gfb_material_outlined .gfb__outline-start::after {
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+        }
+        .early-bird-gift-activity-container {
+          width: auto;
+          margin: 0 0 20px 0;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 30px 34px;
+          padding-top: 0;
+        }
+        .early-bird-gift-activity-container-img {
+          width: 80%;
+        }
+        .early-bird-gift-activity-container-content {
+          text-align: center;
+          padding: 0;
+          font-size: 14px;
+          margin-top: -50px;
+          line-height: 1.28; /* 128.571% */
+        }
+        .early-bird-gift-activity-container-img-pc {
+          display: none;
+        }
+        .early-bird-gift-activity-container-img-mb {
+          display: block;
+        }
+        .super-early-bird-wraper .mobile-image {
+          display: block;
+        }
+        .super-early-bird-wraper .desktop-image {
+          display: none;
+        }
+      }
+</style>
+<!-- 倒计时 -->
+<div class="super-early-bird-countdown-wraper">
+  <div class="super-early-bird-countdown-container">
+    <div class="super-early-bird-countdown-title">
+      {{ section.settings.countdown_title }}
+    </div>
+    <div class="super-early-bird-countdown-description">
+      {{ section.settings.countdown_subtitle }}
+    </div>
+    {% if section.settings.is_display_gift_activity %}
+      <div class="early-bird-gift-activity-container">
+        <div class="early-bird-gift-activity-container-img">
+          <img
+            class="early-bird-gift-activity-container-img-pc"
+            src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20250321-145138.png?v=1742540654"
+            alt=""
+          >
+          <img
+            class="early-bird-gift-activity-container-img-mb"
+            src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20250321-152557--mb.png?v=1742542060"
+            alt=""
+          >
+        </div>
+        <div class="early-bird-gift-activity-container-content">
+          There are opportunities to win gift cards or even a brand new P13 printer at different times and places, such
+          as our Instagram page, live broadcast, and community events.
+        </div>
+      </div>
+    {% endif %}
+    {% if section.settings.is_display_countdown %}
+      <div class="super-early-bird-countdown-date">
+        <div class="super-early-bird-countdown-date-title">
+          {{ section.settings.countdown_date_lable }}
+        </div>
+        <div
+          class="tick"
+          data-did-init="startDateCountdown"
+          data-credits="false"
+          data-did-remove="handleTickRemove"
+        >
+          <div
+            data-repeat="true"
+            data-layout="horizontal center fit"
+            data-transform="preset(d, h, m, s) -> delay"
+          >
+            <div class="tick-group">
+              <div
+                data-key="value"
+                data-repeat="true"
+                data-transform="pad(00) -> split -> delay"
+              >
+                <span data-view="flip" data-style="flip-easing: ease-linear;"></span>
+              </div>
+
+              <span data-key="label" data-view="text" class="tick-label"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="super-early-bird-countdown-product-button">
+        <product-card>
+          <div class="product-card--add-to-cart-button-wrapper">
+            <button
+              class="external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+              data-product-id="{{ product.selected_or_first_available_variant.id }}"
+              tabindex="-1"
+              {% if product.selected_or_first_available_variant.available == false %}
+                disabled
+              {% endif %}
+            >
+              {% render 'svg-icons' with 'thb-loading' %}
+              <span class="product-card--add-to-cart-text">
+                {%- if product.selected_or_first_available_variant.available -%}
+                  {%- if section.settings.button_text != blank -%}
+                    {{- section.settings.button_text -}}
+
+                  {%- else -%}
+                    Preorder Now
+                  {%- endif -%}
+
+                {%- else -%}
+                  {{- 'products.product.sold_out' | t -}}
+                {%- endif -%}
+              </span>
+            </button>
+          </div>
+        </product-card>
+      </div>
+    {% endif %}
+    {% if section.settings.is_display_email %}
+      <div class="super-early-bird-countdown-email-form">
+        <div class="globo-formbuilder" data-id="ODA0NzM="></div>
+      </div>
+      <!--
+        <div id="early-bird-contact-form">
+          {% render 'email-contact-form' %}
+          <div class="super-early-bird-countdown-email-form-description">
+            Leave your email and we'll push notification to you as soon as the preorder begins.
+          </div>
+        </div>
+      -->
+    {% endif %}
+  </div>
+</div>
+<!-- 进度条 -->
+<div class="super-early-bird-wraper">
+  <div class="super-early-bird-container">
+    <div class="container-left">
+      {% assign image_pc = section.settings.image_left_pc %}
+      {% assign image_mobile = section.settings.image_left_mobile %}
+      <div class="desktop-image" style="aspect-ratio: {{ image_pc.aspect_ratio }};">
+        {% if image_pc %}
+          <img
+            data-sizes="50vw"
+            data-srcset="
+              {%- if image_pc.width >= 375 -%}{{ image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+              {%- if image_pc.width >= 550 -%}{{ image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+              {%- if image_pc.width >= 750 -%}{{ image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if image_pc.width >= 1100 -%}{{ image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+              {%- if image_pc.width >= 1500 -%}{{ image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {%- if image_pc.width >= 1780 -%}{{ image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+              {%- if image_pc.width >= 2000 -%}{{ image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+              {%- if image_pc.width >= 3000 -%}{{ image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+              {%- if image_pc.width >= 3840 -%}{{ image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+              {{ image_pc | image_url }} {{ image_pc.width }}w
+            "
+            class="lazyload"
+            data-src="{{ image_pc | image_url:width:400 }}"
+            width="100%"
+            loading="lazy"
+          >
+        {% endif %}
+      </div>
+      <div class="mobile-image" style="aspect-ratio: {{ image_mobile.aspect_ratio }};">
+        {% if image_mobile %}
+          <img
+            data-sizes="50vw"
+            data-srcset="
+              {%- if image_mobile.width >= 375 -%}{{ image_mobile | image_url: width: 375 }} 375w,{%- endif -%}
+              {%- if image_mobile.width >= 550 -%}{{ image_mobile | image_url: width: 550 }} 550w,{%- endif -%}
+              {%- if image_mobile.width >= 750 -%}{{ image_mobile | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if image_mobile.width >= 1100 -%}{{ image_mobile | image_url: width: 1100 }} 1100w,{%- endif -%}
+              {%- if image_mobile.width >= 1500 -%}{{ image_mobile | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {%- if image_mobile.width >= 1780 -%}{{ image_mobile | image_url: width: 1780 }} 1780w,{%- endif -%}
+              {%- if image_mobile.width >= 2000 -%}{{ image_mobile | image_url: width: 2000 }} 2000w,{%- endif -%}
+              {%- if image_mobile.width >= 3000 -%}{{ image_mobile | image_url: width: 3000 }} 3000w,{%- endif -%}
+              {%- if image_mobile.width >= 3840 -%}{{ image_mobile | image_url: width: 3840 }} 3840w,{%- endif -%}
+              {{ image_mobile | image_url }} {{ image_mobile.width }}w
+            "
+            class="lazyload"
+            data-src="{{ image_mobile | image_url:width:400 }}"
+            width="100%"
+            loading="lazy"
+          >
+        {% endif %}
+      </div>
+    </div>
+    <div class="container-right">
+      <div class="container-right-title">{{ section.settings.progress_bar_title }}</div>
+      <div class="timeline-container">
+        <div class="price-section">
+          <div
+            class="price-point"
+            {% if section.settings.phase_1_completion_price == blank
+              and section.settings.phase_1_completion_origin_price == blank
+            %}
+              style="opacity: 0;"
+            {% endif %}
+          >
+            <div class="current-price">
+              {{ section.settings.phase_1_completion_price | times: 100 | money_without_trailing_zeros }}
+            </div>
+            <div class="original-price">
+              {{ section.settings.phase_1_completion_origin_price | times: 100 | money_without_trailing_zeros }}
+            </div>
+          </div>
+
+          <div
+            class="price-point"
+            {% if section.settings.phase_2_completion_price == blank
+              and section.settings.phase_2_completion_origin_price == blank
+            %}
+              style="opacity: 0;"
+            {% endif %}
+          >
+            <div class="current-price">
+              {{ section.settings.phase_2_completion_price | times: 100 | money_without_trailing_zeros }}
+            </div>
+            <div class="original-price">
+              {{ section.settings.phase_2_completion_origin_price | times: 100 | money_without_trailing_zeros }}
+            </div>
+          </div>
+
+          <div
+            class="price-point"
+            {% if section.settings.phase_3_completion_price == blank
+              and section.settings.phase_3_completion_origin_price == blank
+            %}
+              style="opacity: 0;"
+            {% endif %}
+          >
+            <div class="current-price">
+              {{ section.settings.phase_3_completion_price | times: 100 | money_without_trailing_zeros }}
+            </div>
+            <div class="original-price">
+              {{ section.settings.phase_3_completion_origin_price | times: 100 | money_without_trailing_zeros }}
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-container">
+          <div id="progressBar" class="progress-bar"></div>
+          <div class="progress-point first active"></div>
+          <div class="progress-point second"></div>
+          <div class="progress-point third"></div>
+        </div>
+        <div class="progress-text-container">
+          <div class="progress-text-item">
+            {% if section.settings.phase_1_completion_price != blank
+              and section.settings.phase_1_completion_origin_price != blank
+            %}
+              <div class="progress-text-price-item">
+                <div class="progress-text-item-price">
+                  {{ section.settings.phase_1_completion_price | times: 100 | money_without_trailing_zeros }}
+                </div>
+                <div class="progress-text-item-original-price">
+                  {{ section.settings.phase_1_completion_origin_price | times: 100 | money_without_trailing_zeros }}
+                </div>
+              </div>
+            {% endif %}
+            <div class="progress-text-date-item">
+              <div class="progress-text-item-title">
+                {% if section.settings.phase_1_completion_price != blank
+                  and section.settings.phase_1_completion_origin_price != blank
+                %}
+                  {{ section.settings.phase_1_completion_date_range }}
+                  {{ section.settings.phase_1_completion_date_label }}
+                {% else %}
+                  <div>{{ section.settings.phase_1_completion_date_range }}</div>
+                  <div>{{ section.settings.phase_1_completion_date_label }}</div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="progress-text-item">
+            {% if section.settings.phase_2_completion_price != blank
+              and section.settings.phase_2_completion_origin_price != blank
+            %}
+              <div class="progress-text-price-item">
+                <div class="progress-text-item-price">
+                  {{ section.settings.phase_2_completion_price | times: 100 | money_without_trailing_zeros }}
+                </div>
+                <div class="progress-text-item-original-price">
+                  {{ section.settings.phase_2_completion_origin_price | times: 100 | money_without_trailing_zeros }}
+                </div>
+              </div>
+            {% endif %}
+            <div class="progress-text-date-item">
+              <div class="progress-text-item-title">
+                {% if section.settings.phase_2_completion_price != blank
+                  and section.settings.phase_2_completion_origin_price != blank
+                %}
+                  {{ section.settings.phase_2_completion_date_range }}
+                  {{ section.settings.phase_2_completion_date_label }}
+                {% else %}
+                  <div>{{ section.settings.phase_2_completion_date_range }}</div>
+                  <div>{{ section.settings.phase_2_completion_date_label }}</div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="progress-text-item">
+            {% if section.settings.phase_3_completion_price != blank
+              and section.settings.phase_3_completion_origin_price != blank
+            %}
+              <div class="progress-text-price-item">
+                <div class="progress-text-item-price">
+                  {{ section.settings.phase_3_completion_price | times: 100 | money_without_trailing_zeros }}
+                </div>
+                <div class="progress-text-item-original-price">
+                  {{ section.settings.phase_3_completion_origin_price | times: 100 | money_without_trailing_zeros }}
+                </div>
+              </div>
+            {% endif %}
+            <div class="progress-text-date-item">
+              <div class="progress-text-item-title">
+                {% if section.settings.phase_3_completion_price != blank
+                  and section.settings.phase_3_completion_origin_price != blank
+                %}
+                  {{ section.settings.phase_3_completion_date_range }}
+                  {{ section.settings.phase_3_completion_date_label }}
+                {% else %}
+                  <div>{{ section.settings.phase_3_completion_date_range }}</div>
+                  <div>{{ section.settings.phase_3_completion_date_label }}</div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="date-section">
+          <div class="date-point">
+            <div class="date">{{ section.settings.phase_1_completion_date_range }}</div>
+            <div class="label">{{ section.settings.phase_1_completion_date_label }}</div>
+          </div>
+          <div class="date-point">
+            <div class="date">{{ section.settings.phase_2_completion_date_range }}</div>
+            <div class="label">{{ section.settings.phase_2_completion_date_label }}</div>
+          </div>
+          <div class="date-point">
+            <div class="date">{{ section.settings.phase_3_completion_date_range }}</div>
+            <div class="label">{{ section.settings.phase_3_completion_date_label }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-free-gift">
+        <div class="container-free-gift-title">
+          {% assign image_pc = section.settings.gift_image_pc %}
+          {% assign image_mobile = section.settings.gift_image_mobile %}
+          <div class="desktop-image" style="aspect-ratio: {{ image_pc.aspect_ratio }};">
+            {% if image_pc %}
+              <img
+                data-sizes="50vw"
+                data-srcset="
+                  {%- if image_pc.width >= 375 -%}{{ image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if image_pc.width >= 550 -%}{{ image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if image_pc.width >= 750 -%}{{ image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if image_pc.width >= 1100 -%}{{ image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if image_pc.width >= 1500 -%}{{ image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if image_pc.width >= 1780 -%}{{ image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if image_pc.width >= 2000 -%}{{ image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if image_pc.width >= 3000 -%}{{ image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if image_pc.width >= 3840 -%}{{ image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                  {{ image_pc | image_url }} {{ image_pc.width }}w
+                "
+                class="lazyload"
+                data-src="{{ image_pc | image_url:width:400 }}"
+                width="100%"
+                loading="lazy"
+              >
+            {% endif %}
+          </div>
+          <div class="mobile-image" style="aspect-ratio: {{ image_mobile.aspect_ratio }};">
+            {% if image_mobile %}
+              <img
+                data-sizes="50vw"
+                data-srcset="
+                  {%- if image_mobile.width >= 375 -%}{{ image_mobile | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if image_mobile.width >= 550 -%}{{ image_mobile | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if image_mobile.width >= 750 -%}{{ image_mobile | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if image_mobile.width >= 1100 -%}{{ image_mobile | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if image_mobile.width >= 1500 -%}{{ image_mobile | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if image_mobile.width >= 1780 -%}{{ image_mobile | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if image_mobile.width >= 2000 -%}{{ image_mobile | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if image_mobile.width >= 3000 -%}{{ image_mobile | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if image_mobile.width >= 3840 -%}{{ image_mobile | image_url: width: 3840 }} 3840w,{%- endif -%}
+                  {{ image_mobile | image_url }} {{ image_mobile.width }}w
+                "
+                class="lazyload"
+                data-src="{{ image_mobile | image_url:width:400 }}"
+                width="100%"
+                loading="lazy"
+              >
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% comment %} 翻牌倒计时 {% endcomment %}
+<script>
+  function startDateCountdown(tick) {
+    // 取消注释以将标签设置为不同的语言（在本例中为荷兰语） Uncomment to set labels to different language ( in this case Dutch )
+
+    // 定义不同语言的时间单位
+    var locales = {
+      en: {
+        YEAR_PLURAL: 'Years',
+        YEAR_SINGULAR: 'Year',
+        MONTH_PLURAL: 'Months',
+        MONTH_SINGULAR: 'Month',
+        WEEK_PLURAL: 'Weeks',
+        WEEK_SINGULAR: 'Week',
+        DAY_PLURAL: 'Days',
+        DAY_SINGULAR: 'Day',
+        HOUR_PLURAL: 'Hours',
+        HOUR_SINGULAR: 'Hour',
+        MINUTE_PLURAL: 'Minutes',
+        MINUTE_SINGULAR: 'Minute',
+        SECOND_PLURAL: 'Seconds',
+        SECOND_SINGULAR: 'Second',
+        MILLISECOND_PLURAL: 'Milliseconds',
+        MILLISECOND_SINGULAR: 'Millisecond',
+      },
+      nl: {
+        YEAR_PLURAL: 'Jaren',
+        YEAR_SINGULAR: 'Jaar',
+        MONTH_PLURAL: 'Maanden',
+        MONTH_SINGULAR: 'Maand',
+        WEEK_PLURAL: 'Weken',
+        WEEK_SINGULAR: 'Week',
+        DAY_PLURAL: 'Dagen',
+        DAY_SINGULAR: 'Dag',
+        HOUR_PLURAL: 'Uren',
+        HOUR_SINGULAR: 'Uur',
+        MINUTE_PLURAL: 'Minuten',
+        MINUTE_SINGULAR: 'Minuut',
+        SECOND_PLURAL: 'Seconden',
+        SECOND_SINGULAR: 'Seconde',
+        MILLISECOND_PLURAL: 'Milliseconden',
+        MILLISECOND_SINGULAR: 'Milliseconde',
+      },
+
+      ja: {
+        YEAR_PLURAL: '年',
+        YEAR_SINGULAR: '年',
+        MONTH_PLURAL: 'ヶ月',
+        MONTH_SINGULAR: 'ヶ月',
+        WEEK_PLURAL: '週間',
+        WEEK_SINGULAR: '週間',
+        DAY_PLURAL: '日',
+        DAY_SINGULAR: '日',
+        HOUR_PLURAL: '時間',
+        HOUR_SINGULAR: '時間',
+        MINUTE_PLURAL: '分',
+        MINUTE_SINGULAR: '分',
+        SECOND_PLURAL: '秒',
+        SECOND_SINGULAR: '秒',
+        MILLISECOND_PLURAL: 'ミリ秒',
+        MILLISECOND_SINGULAR: 'ミリ秒',
+      },
+      de: {
+        YEAR_PLURAL: 'Jahre',
+        YEAR_SINGULAR: 'Jahr',
+        MONTH_PLURAL: 'Monate',
+        MONTH_SINGULAR: 'Monat',
+        WEEK_PLURAL: 'Wochen',
+        WEEK_SINGULAR: 'Woche',
+        DAY_PLURAL: 'Tage',
+        DAY_SINGULAR: 'Tag',
+        HOUR_PLURAL: 'Stunden',
+        HOUR_SINGULAR: 'Stunde',
+        MINUTE_PLURAL: 'Minuten',
+        MINUTE_SINGULAR: 'Minute',
+        SECOND_PLURAL: 'Sekunden',
+        SECOND_SINGULAR: 'Sekunde',
+        MILLISECOND_PLURAL: 'Millisekunden',
+        MILLISECOND_SINGULAR: 'Millisekunde',
+      },
+      fr: {
+        YEAR_PLURAL: 'Ans',
+        YEAR_SINGULAR: 'An',
+        MONTH_PLURAL: 'Mois',
+        MONTH_SINGULAR: 'Mois',
+        WEEK_PLURAL: 'Semaines',
+        WEEK_SINGULAR: 'Semaine',
+        DAY_PLURAL: 'Jours',
+        DAY_SINGULAR: 'Jour',
+        HOUR_PLURAL: 'Heures',
+        HOUR_SINGULAR: 'Heure',
+        MINUTE_PLURAL: 'Minutes',
+        MINUTE_SINGULAR: 'Minute',
+        SECOND_PLURAL: 'Secondes',
+        SECOND_SINGULAR: 'Seconde',
+        MILLISECOND_PLURAL: 'Millisecondes',
+        MILLISECOND_SINGULAR: 'Milliseconde',
+      },
+    };
+
+    // 获取浏览器语言
+    var userLang = navigator.language || navigator.userLanguage;
+    var lang = userLang.split('-')[0]; // 获取主语言代码
+
+    // 如果没有对应的语言配置,默认使用英语
+    var locale = locales[lang] || locales['en'];
+
+    // 设置时间单位常量
+    for (var key in locale) {
+      if (!locale.hasOwnProperty(key)) {
+        continue;
+      }
+      tick.setConstant(key, locale[key]);
+    }
+    const dateCountdownUTC = '{{ section.settings.countdown_date }}';
+    console.log('dateCountdownUTC===================================', dateCountdownUTC);
+    // 当给定一个日期（日期对象或 ISO8610 字符串'2025-03-07T16:38:00+08:00'）时， Tick.count.down方法将倒计时到给定的日期。
+    const dateCountdown = Tick.count.down(dateCountdownUTC, {
+      format: ['d', 'h', 'm', 's'], //输出格式
+    });
+    dateCountdown.onupdate = function (value) {
+      //值将包含剩余的秒数
+      tick.value = value;
+    };
+    // reached target date! 已达到目标日期！
+    dateCountdown.onended = function () {
+      console.log('countdown ended');
+      // 显示按钮
+      {% comment %} const productButton = document.querySelector('.super-early-bird-countdown-product-button');
+      if (productButton) {
+        productButton.style.display = 'block';
+      } {% endcomment %}
+      // Destroy this tick counter. 毁掉这个计数器。
+
+      // tick.destroy();
+    };
+  }
+</script>
+<script src="{{ 'flip.min.js' | asset_url }}" defer></script>
+
+{% comment %} 天数加载条 {% endcomment %}
+<script>
+  const progressBar = document.getElementById('progressBar');
+  const progressPoints = document.querySelectorAll('.progress-point');
+  const timelineContainer = document.querySelector('.timeline-container');
+  const startDateUTC = '{{ section.settings.phase_1_completion_date }}';
+  const firstPhaseEndUTC = '{{ section.settings.phase_2_completion_date }}';
+  const secondPhaseEndUTC = '{{ section.settings.phase_3_completion_date }}';
+  function formatUtcTime(v) {
+    let date = new Date(v);
+    return (
+      date.getFullYear() +
+      '/' +
+      (date.getMonth() + 1) +
+      '/' +
+      (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+      ' ' +
+      (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+      ':' +
+      (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+      ':' +
+      (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+    );
+  }
+  // 创建 Intersection Observer
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // 添加动画类
+          progressBar.classList.add('animate');
+          calculateProgress();
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.2,
+    }
+  );
+
+  observer.observe(timelineContainer);
+  // 计算进度（根据当前日期按比例计算）
+  function calculateProgress() {
+    const now = formatUtcTime(new Date().toUTCString());
+
+    const startDate = formatUtcTime(startDateUTC);
+    const firstPhaseEnd = formatUtcTime(firstPhaseEndUTC);
+    const secondPhaseEnd = formatUtcTime(secondPhaseEndUTC);
+    console.log('now==', now);
+    console.log('startDate==', startDate);
+    console.log('firstPhaseEnd==', firstPhaseEnd);
+    // 将时间差转换为天数，使用Math.floor确保得到整数天数
+    const getDaysDifference = (date1, date2) => {
+      const d1 = new Date(date1);
+      const d2 = new Date(date2);
+      // 计算两个日期之间的天数差
+      // 用毫秒差除以一天的毫秒数(1000*60*60*24)
+      // 使用Math.ceil向上取整，确保即使不足一天也算作一天
+      return Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24));
+    };
+
+    let progress = 0;
+    // 如果当前日期小于开始日期，进度为0
+    if (now < startDate) {
+      progress = 0;
+    }
+    // 第一阶段 (0-50%)
+    else if (now >= startDate && now <= firstPhaseEnd) {
+      const totalDays = getDaysDifference(startDate, firstPhaseEnd);
+      const passedDays = getDaysDifference(startDate, now);
+      console.log('totalDays==', totalDays);
+      console.log('passedDays==', passedDays);
+      progress = (passedDays / totalDays) * 50;
+    }
+    // 第二阶段 (50-100%)
+    else if (now > firstPhaseEnd && now <= secondPhaseEnd) {
+      const totalDays = getDaysDifference(firstPhaseEnd, secondPhaseEnd);
+      const passedDays = getDaysDifference(firstPhaseEnd, now);
+      progress = 50 + (passedDays / totalDays) * 50;
+    }
+    // 超过结束日期
+    else if (now > secondPhaseEnd) {
+      progress = 100;
+    }
+
+    // 确保进度在0-100之间
+    progress = Math.max(0, Math.min(100, progress));
+    console.log('进度==', progress);
+
+    // 判断是否为移动端
+    const isMobile = window.innerWidth <= 768;
+
+    // 根据设备类型设置不同的transform-origin和transform
+    if (isMobile) {
+      console.log('移动端');
+      progressBar.style.transformOrigin = 'top';
+      progressBar.style.transform = `scaleY(${progress / 100})`;
+      // 设置进度条宽度
+      // progressBar.style.width = `100%`;
+      progressBar.style.height = `${progress}%`;
+    } else {
+      console.log('pc端');
+      // 设置进度条宽度
+      progressBar.style.width = `${progress}%`;
+      progressBar.style.transformOrigin = 'left';
+      progressBar.style.transform = `scaleX(${progress / 100})`;
+    }
+
+    // 更新点的状态
+    progressPoints.forEach((point, index) => {
+      if (index * 50 <= progress) {
+        point.classList.add('completed');
+      } else {
+        point.classList.remove('completed');
+      }
+    });
+  }
+
+  // 初始化进度
+  calculateProgress();
+
+  // 监听窗口大小变化
+  window.addEventListener('resize', calculateProgress);
+</script>
+{% schema %}
+{
+  "name": "product page p13",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "翻牌倒计时内容配置"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_display_countdown",
+      "label": "显示倒计时",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "is_display_gift_activity",
+      "label": "显示礼品活动",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "is_display_email",
+      "label": "显示邮箱表单",
+      "default": true
+    },
+    {
+      "type": "html",
+      "id": "countdown_title",
+      "label": "倒计时标题",
+      "default": "Preorder Period: March 15 to May 31 (EST)"
+    },
+    {
+      "type": "textarea",
+      "id": "countdown_subtitle",
+      "label": "倒计时副标题",
+      "default": "Procolored P13 is a high-performance DTF printer designed for home-based clothing businesses, offering advanced technology, profitability, and ease of use."
+    },
+    {
+      "type": "html",
+      "id": "countdown_date_lable",
+      "label": "倒计时文案"
+    },
+    {
+      "type": "text",
+      "id": "countdown_date",
+      "label": "倒计时结束日期",
+      "default": "2025-04-16T00:00:00+08:00",
+      "info": "格式：2025-04-16T00:00:00+08:00"
+    },
+    {
+      "type": "header",
+      "content": "进度条内容配置"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_left_pc",
+      "label": "左侧图片(PC)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_left_mobile",
+      "label": "左侧图片(移动端)"
+    },
+    {
+      "type": "image_picker",
+      "id": "gift_image_pc",
+      "label": "礼物图片(PC)"
+    },
+    {
+      "type": "image_picker",
+      "id": "gift_image_mobile",
+      "label": "礼物图片(移动端)"
+    },
+    {
+      "type": "textarea",
+      "id": "progress_bar_title",
+      "label": "进度条标题",
+      "default": "Preorder Period: March 15 to May 31 (EST)"
+    },
+    {
+      "type": "text",
+      "id": "phase_1_completion_price",
+      "label": "第一阶段销售价",
+      "default": "3299",
+      "info": "格式：3299"
+    },
+    {
+      "type": "text",
+      "id": "phase_1_completion_origin_price",
+      "label": "第一阶段原价",
+      "default": "4999",
+      "info": "格式：4999"
+    },
+    {
+      "type": "text",
+      "id": "phase_1_completion_date",
+      "label": "第一阶段达成日期",
+      "default": "2025-03-15T00:00:00+08:00",
+      "info": "格式：2025-03-15T00:00:00+08:00"
+    },
+    {
+      "type": "text",
+      "id": "phase_1_completion_date_range",
+      "label": "第一阶段达成日期范围文案",
+      "default": "3.15~4.15"
+    },
+    {
+      "type": "text",
+      "id": "phase_1_completion_date_label",
+      "label": "第一阶段达成日期标签文案",
+      "default": "Super Early Bird"
+    },
+    {
+      "type": "text",
+      "id": "phase_2_completion_price",
+      "label": "第二阶段销售价",
+      "default": "3499",
+      "info": "格式：3499"
+    },
+    {
+      "type": "text",
+      "id": "phase_2_completion_origin_price",
+      "label": "第二阶段原价",
+      "default": "4999",
+      "info": "格式：4999"
+    },
+    {
+      "type": "text",
+      "id": "phase_2_completion_date",
+      "label": "第二阶段达成日期",
+      "default": "2025-04-16T00:00:00+08:00",
+      "info": "格式：2025-03-13T00:00:00+08:00"
+    },
+    {
+      "type": "text",
+      "id": "phase_2_completion_date_range",
+      "label": "第二阶段达成日期范围文案",
+      "default": "4.16~5.31"
+    },
+    {
+      "type": "text",
+      "id": "phase_2_completion_date_label",
+      "label": "第二阶段达成日期标签文案",
+      "default": "Early Bird"
+    },
+    {
+      "type": "text",
+      "id": "phase_3_completion_price",
+      "label": "最后阶段销售价",
+      "default": "3999",
+      "info": "格式：3999"
+    },
+    {
+      "type": "text",
+      "id": "phase_3_completion_origin_price",
+      "label": "最后阶段原价",
+      "default": "4999",
+      "info": "格式：4999"
+    },
+    {
+      "type": "text",
+      "id": "phase_3_completion_date",
+      "label": "最后阶段达成日期",
+      "info": "格式：2025-06-01T00:00:00+08:00"
+    },
+    {
+      "type": "text",
+      "id": "phase_3_completion_date_range",
+      "label": "最后阶段达成日期范围文案",
+      "default": "6.1~"
+    },
+    {
+      "type": "text",
+      "id": "phase_3_completion_date_label",
+      "label": "最后阶段达成日期标签文案",
+      "default": "MSRP"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "product page p13",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

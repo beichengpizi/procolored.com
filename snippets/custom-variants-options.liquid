@@ -1,0 +1,73 @@
+<style>
+  .custom-variants-options-{{ block.settings.id }}{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+  }
+  .custom-variants-options-{{ block.settings.id }} .custom-variants-options-name{
+      display: flex;
+      color: #000;
+      font-size: 20px;
+      font-weight: 700;
+
+  }
+  .custom-variants-options-{{ block.settings.id }} .custom-variants-options-container{
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .custom-variants-options-{{ block.settings.id }} .custom-variants-options-container-item{
+    width: calc(50% - 20px);
+    min-width: 125px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--input-border-radius, 6px);
+    padding: 20px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+    line-height: 1.5;
+    text-align: center;
+    box-shadow: 0 0 0 1px var(--color-form-border) inset;
+    cursor: pointer;
+  }
+
+  .custom-variants-options-{{ block.settings.id }} .custom-variants-options-container-item.active{
+    box-shadow: 0 0 0 2px #da291c inset;
+  }
+  @media screen and (max-width: 768px) {
+    .custom-variants-options-{{ block.settings.id }} .custom-variants-options-container-item {
+        padding: 15px;
+        line-height: 1.3;
+    }
+  }
+</style>
+{%- assign active_index = block.settings.select_variant_active | plus: 0 -%}
+
+<div class="custom-variants-options-{{ block.settings.id }}">
+  <div class="custom-variants-options-name">{{ block.settings.variant_option_title }}:</div>
+  <div class="custom-variants-options-container">
+    {%- for index in (1..4) -%}
+      {%- assign variant_url = 'variant_url_' | append: index -%}
+      {%- assign variant_title = 'variant_title_' | append: index -%}
+      {%- assign url = block.settings[variant_url] -%}
+      {%- assign title = block.settings[variant_title] -%}
+      {%- if title != blank -%}
+        <div
+          class="custom-variants-options-container-item {% if active_index == index %} active {% endif %}"
+          {% if url %}
+            onclick="window.location.href='{{ url }}'"
+          {% endif %}
+        >
+          {{ title }}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>

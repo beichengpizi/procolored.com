@@ -1,0 +1,2291 @@
+<style>
+  :root {
+    /* Font sizes */
+    --text-h0-n: 56px;
+    --text-h1-n: 40px;
+    --text-h2-n: 30px;
+    --text-h3-n: 26px;
+    --text-h4-n: 24px;
+    --text-h5-n: 20px;
+    --text-h6-n: 16px;
+    --text-xs-n: 12px;
+    --text-sm-n: 14px;
+    --text-base-n: 18px;
+    --text-lg-n: 19px;
+  }
+
+  .text-xxs {
+    font-size: 10px;
+    line-height: 1.2;
+  }
+
+  .text-xs {
+    font-size: var(--text-xs-n);
+    line-height: 1.2;
+  }
+
+  .text-sm {
+    font-size: var(--text-sm-n);
+    line-height: 1.2;
+  }
+
+  .text-base {
+    font-size: var(--text-base-n);
+    line-height: 1.2;
+  }
+  .text-md {
+    font-size: var(--text-md-n);
+    line-height: 1.2;
+  }
+
+  .text-lg {
+    font-size: var(--text-lg-n);
+    line-height: 1.2;
+  }
+   /* 重置样式 start*/
+  #detail-section3{{section.id}}  .h0 {
+    font-size: var(--text-h0-n) ;
+    line-height: 1;
+    font-family: ItalianPlateNo2Expanded-Bold, sans-serif ;
+  }
+
+  #detail-section3{{section.id}}  h1,
+  #detail-section3{{section.id}}  .h1,
+  #detail-section3{{section.id}}  .prose h1:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h1-n) ;
+    line-height: 1.1;
+    font-family: ItalianPlateNo2Expanded-Bold, sans-serif ;
+  }
+
+  #detail-section3{{section.id}}  h2,
+  #detail-section3{{section.id}}  .h2,
+  #detail-section3{{section.id}}  .prose h2:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h2-n);
+    line-height: 1.1;
+    font-family: ItalianPlateNo2Expanded-Bold, sans-serif ;
+  }
+
+  #detail-section3{{section.id}}  h3,
+  #detail-section3{{section.id}}  .h3,
+  #detail-section3{{section.id}}  .prose h3:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h3-n) ;
+    line-height: 1.2;
+  }
+
+  #detail-section3{{section.id}}  h4,
+  #detail-section3{{section.id}}  .h4,
+  #detail-section3{{section.id}}  .prose h4:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h4-n) ;
+    line-height: 1.2;
+  }
+
+  #detail-section3{{section.id}}  h5,
+  #detail-section3{{section.id}}  .h5,
+  #detail-section3{{section.id}}  .prose h5:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h5-n) ;
+    line-height: 1.2;
+  }
+
+  #detail-section3{{section.id}}  h6,
+  #detail-section3{{section.id}}  .h6,
+  #detail-section3{{section.id}}  .prose h6:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h6-n) ;
+    line-height: 1.2;
+  }
+  /* 重置样式 end*/
+  #detail-section3{{section.id}}{
+    {% if section.settings.image_height == 'small' %}
+      min-height: 290px;
+      {% elsif section.settings.image_height == 'medium' %}
+      min-height: 560px;
+      {% elsif section.settings.image_height == 'large' %}
+      min-height:700px;
+      {% endif %}
+      background:{{ section.settings.container_bg_color }};
+  }
+
+  #detail-section3{{section.id}}>.custom-product-image {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+    background:{{ section.settings.container_bg_color }};
+    {% if section.settings.is_show_content_text %}
+      padding:{{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px 0;
+    {% else %}
+      margin: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px 0;
+    {% endif %}
+    {% if section.settings.image_height == 'small' %}
+      min-height: 290px;
+    {% elsif section.settings.image_height == 'medium' %}
+      min-height: 560px;
+    {% elsif section.settings.image_height == 'large' %}
+      min-height:700px;
+    {% endif %}
+  }
+  /*没有背景图*/
+  #detail-section3{{section.id}}>.noBgImg {
+    width: 100%;
+    height: auto;
+    background-image: none;
+
+  }
+  #detail-section3{{section.id}} .custom-product-image-content-wrap{
+    {% if section.settings.is_cancel_video_suspension and section.settings.show_product    %}
+      position: relative;
+      {% else %}
+        {% if section.settings.is_show_content_text %}
+          border-radius: {{ section.settings.content_border_radius }}px;
+          position: relative;
+        {% else %}
+          position: absolute;
+        {% endif %}
+
+    {% endif %}
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: {{ section.settings.bg_color }};
+    line-height: 0;
+    {%if section.settings.is_display_content_safe_zone %}
+      max-width:1200px;
+      margin: 0 auto;
+      {%if section.settings.is_show_border_line %}
+        border: 2px dashed #000;
+      {%endif%}
+    {%endif%}
+  }
+  #detail-section3{{section.id}} .custom-product-image-content {
+    width: {{section.settings.content_width}}%;
+    text-align: {{section.settings.text_position}};
+
+    margin-top: {{section.settings.content_top_padding}}vw;
+    position: relative;
+    z-index: 1;
+
+    {% unless section.settings.is_display_content_safe_zone %}
+      {% unless section.settings.is_display_content_text_safe_zone %}
+        margin-left: {{section.settings.content_left_margin}}vw;
+      {% else %}
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1200px;
+      {% endunless %}
+    {% else %}
+      {% if section.settings.safe_zone_alignment  == 'left'%}
+        margin-left: 0;
+      {% elsif section.settings.safe_zone_alignment  == 'right' %}
+        margin-left: auto;
+        margin-right: 0;
+      {% else %}
+        margin-left: auto;
+        margin-right: auto;
+      {% endif %}
+
+    {% endunless %}
+
+  }
+
+  {% unless section.settings.show_product_video_fullscreen %}
+    #detail-section3{{section.id}} .custom-product-image-content:after {
+      content: '';
+      width: 100%;
+      display: inline-block;
+    }
+  {% endunless %}
+
+
+  #detail-section3{{section.id}} .custom-heading-3 {
+
+      color: {{section.settings.heading_text}};
+      padding-top: {{section.settings.heading_margin_top}}px;
+      padding-bottom: {{section.settings.heading_margin_bottom}}px;
+      line-height: 1.1;
+      margin:0px;
+      {% if section.settings.heading_gradient_color  contains 'linear-gradient' %}
+        background: {{section.settings.heading_gradient_color}};
+        -webkit-background-clip: text;/*将设置的背景颜色限制在文字中*/
+        -webkit-text-fill-color: transparent;/*给文字设置成透明*/
+      {% endif %}
+      {% if section.settings.is_display_content_text_safe_zone %}
+        width: {{section.settings.content_width}}%;
+      {% endif %}
+
+  }
+
+  #detail-section3{{section.id}} .custom-heading-4 {
+    color: {{section.settings.subheading_text}};
+    margin-bottom: {{section.settings.subheading_margin_bottom}}px;
+    {% if section.settings.subheading_gradient_color  contains 'linear-gradient' %}
+      background: {{section.settings.subheading_gradient_color}};
+      -webkit-background-clip: text;/*将设置的背景颜色限制在文字中*/
+      -webkit-text-fill-color: transparent;/*给文字设置成透明*/
+    {% endif %}
+    {% if section.settings.is_display_content_text_safe_zone %}
+      width: {{section.settings.content_width}}%;
+    {% endif %}
+
+  }
+
+  #detail-section3{{section.id}} .custom-decs {
+    color: {{section.settings.desc_text}};
+    margin-bottom: {{section.settings.desc_margin_bottom}}px;
+    {% if section.settings.desc_gradient_color  contains 'linear-gradient' %}
+      background: {{section.settings.desc_gradient_color}};
+      -webkit-background-clip: text;/*将设置的背景颜色限制在文字中*/
+      -webkit-text-fill-color: transparent;/*给文字设置成透明*/
+    {% endif %}
+    {% if section.settings.is_display_content_text_safe_zone %}
+      width: {{section.settings.content_width}}%;
+    {% endif %}
+
+
+  }
+  #detail-section3{{section.id}} .custom-button-container{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: {{section.settings.button_position}};
+  }
+  #detail-section3{{section.id}} .product_jump__button{
+    display: inline-block;
+    padding: 7px 20px;
+    border: 0;
+    border-radius:{{section.settings.button_border_radius}}px;
+    background-color: {{section.settings.button_background_color}};
+    color: {{section.settings.button_text_color}};
+  }
+  #detail-section3{{section.id}} .product_jump__button_2{
+    display: inline-block;
+    padding: 7px 20px;
+    border: 0;
+    border-radius:{{section.settings.button_border_radius_2}}px;
+    background-color: {{section.settings.button_background_color_2}};
+    color: {{section.settings.button_text_color_2}};
+  }
+  #detail-section3{{section.id}}  .product_video-popup__button{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: transparent;
+    width: 220px;
+    height: 35px;
+    border: 1px solid {{section.settings.desc_text}};
+    border-radius: 17px;
+    align-items: center;
+    padding: 0 36px;
+  }
+  #detail-section3{{section.id}} .product_video-popup__button span {
+    margin-right: 5px;
+  }
+  #detail-section3{{section.id}} .product_video-popup__button p {
+    font-size: var(--text-sm);
+    color: {{section.settings.desc_text}} ;
+  }
+  #detail-section3{{section.id}} .product_video-popup__button span svg {
+    width: 100%;
+    max-width: 20px;
+    fill: {{section.settings.desc_text}} !important;
+  }
+  #detail-section3{{section.id}} .custom-icon {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:{{section.settings.icon_position_align}};
+    margin-top: {{section.settings.icon_margin_top}}%;
+    {% if section.settings.icon_position_align != 'space-around' %}
+      row-gap: {{section.settings.icon_spacing}}px;
+      column-gap: {{section.settings.icon_spacing}}px;
+    {% else %}
+
+    {% endif %}
+
+
+  }
+  #detail-section3{{section.id}} .custom-icon .percentage-container{
+    width:{{section.settings.percentage_value_size_pc}}%;
+    color: {{section.settings.heading_text}};
+  }
+  #detail-section3{{section.id}} .custom-icon .percentage-value{
+    font-size: 46px;
+
+  }
+  #detail-section3{{section.id}} .custom-icon .percentage-desc{
+    font-size: 17px;
+    line-height: 1.3;
+    color: {{section.settings.percentage_desc_color}};
+
+  }
+
+  #detail-section3{{section.id}} .custom-icon img {
+    margin: 0 ;
+    width: {{section.settings.icon_size_pc}}vw;
+    max-width:100%;
+
+  }
+
+  #detail-section3{{section.id}}  .video_wrap img{
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+
+  }
+  #detail-section3{{section.id}} .video_cover_wrap{
+    position: relative;
+  }
+  #youtube-{{section.id}}-pro-videos{
+
+    {% if section.settings.preview_video_img %}
+    display: none;
+    {% else %}
+    display: block;
+    {% endif %}
+  }
+  #detail-section3{{section.id}}  .video_wrap .czvdo-play-icon-svg {
+    position: absolute;
+    width: 145px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+  #detail-section3{{section.id}}  .video_wrap:hover .czvdo-svg-path-outer {
+    fill: #f93822;
+    transition: all 0.3s ease;
+  }
+  #detail-section3{{section.id}}  .video_wrap {
+    position: relative;
+    width:100%;
+    {% if section.settings.show_product_video_fullscreen %}
+      max-width: none;
+      padding: 0px;
+      height: auto;
+    {% else %}
+      padding: 0 ;
+      height: 100%;
+      max-width: 117.5rem;
+    {% endif %}
+
+    {% if section.settings.is_cancel_video_suspension and section.settings.show_product %}
+      {% if section.settings.show_product_video_fullscreen %}
+        margin: 0 auto 0 auto;
+      {% else %}
+        margin: 0 auto 0 auto;
+      {% endif %}
+
+    {% else %}
+      margin: -18% auto 0 auto;
+    {% endif %}
+
+  }
+  #detail-section3{{section.id}}  .video_wrap iframe{
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+  #detail-section3{{section.id}} .mobile-image{
+    display: none;
+  }
+  #detail-section3{{section.id}} .desktop-image{
+    display: block;
+
+    {% if section.settings.is_display_content_safe_zone %}
+      max-width: 1200px;
+      margin: auto;
+    {% endif %}
+
+  }
+  #detail-section3{{section.id}}  .custom-product-image .desktop-image img{
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    {% if section.settings.image_height !='adapt' %}
+      object-fit: cover;
+      object-position: center center;
+
+    {% endif %}
+    {% if section.settings.is_show_banner %}
+      {% if section.settings.image_height == 'small' %}
+        min-height: 290px;
+      {% elsif section.settings.image_height == 'medium' %}
+        min-height: 560px;
+      {% elsif section.settings.image_height == 'large' %}
+        min-height:700px;
+      {% endif %}
+    {% endif %}
+
+  }
+  @media screen and (max-width: 992px) and (min-width: 768px){
+    #detail-section3{{section.id}}  .video_wrap{
+      {% if section.settings.show_product_video_fullscreen %}
+          max-width: none;
+      {% else %}
+          max-width:99.2rem;
+      {% endif %}
+    }
+    .percentage-value{
+      font-size: 40px;
+
+    }
+    .percentage-desc{
+      font-size: 14px;
+      line-height: 1.3;
+    }
+  }
+  /* iPad、平板电脑 */
+  @media screen and (min-width: 481px) and (max-width: 768px) {
+    #detail-section3{{section.id}} .mobile-image{
+      display: block;
+    }
+    #detail-section3{{section.id}} .desktop-image{
+      display: none;
+    }
+    #detail-section3{{section.id}}  .video_wrap{
+      {% if section.settings.show_product_video_fullscreen %}
+        max-width: none;
+      {% else %}
+        max-width: 76.8rem;
+      {% endif %}
+    }
+
+  }
+
+  /* 移动设备 */
+  @media screen and (min-width: 320px) and (max-width: 480px) {
+    #detail-section3{{section.id}}{
+      {%if section.settings.is_display_content_safe_zone %}
+        {%if section.settings.is_display_all_screen_on_mobile %}
+          padding-left:0;
+          padding-right:0;
+        {% else %}
+          padding-left:24px;
+          padding-right:24px;
+        {%endif%}
+
+      {%endif%}
+      min-height: auto;
+    }
+    #detail-section3{{section.id}} .custom-button-container{
+
+      justify-content: {{section.settings.button_position_mobile}};
+    }
+    #detail-section3{{section.id}}>.custom-product-image {
+      min-height: auto;
+      {% if section.settings.is_show_content_text %}
+        padding:{{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px 0;
+      {% else %}
+        margin: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px 0;
+        padding: 0;
+      {% endif %}
+
+
+
+    }
+    #detail-section3{{section.id}} .custom-product-image-content-wrap{
+      {% if section.settings.content_in_image  %}
+        position: absolute;
+      {% else %}
+        position: relative;
+      {% endif %}
+      {% if section.settings.is_show_content_text %}
+        border-radius: {{ section.settings.content_border_radius_mobile }}px;
+      {% endif %}
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    #detail-section3{{section.id}} .mobile-image img{
+      width:100%;
+    }
+    #detail-section3{{section.id}} .mobile-image{
+      display: block;
+    }
+    #detail-section3{{section.id}} .desktop-image{
+      display: none;
+    }
+
+
+    #detail-section3{{section.id}} .custom-heading-3 {
+      {% if section.settings.content_in_image %}
+      {% else %}
+        color: {{section.settings.heading_text_mobile}};
+        line-height:1.3;
+      {% endif %}
+        font-size: {{section.settings.heading_size_mobile}}px;
+        text-align:{{section.settings.content_in_image_text_position}};
+        padding-top: {{section.settings.heading_margin_top_mobile}}px;
+        padding-bottom: {{section.settings.heading_margin_bottom_mobile}}px;
+        {% if section.settings.is_display_content_text_safe_zone %}
+          width: 100%;
+        {% endif %}
+
+
+    }
+    #detail-section3{{section.id}} .custom-heading-3 p{
+      margin-bottom: 0px;
+    }
+
+    #detail-section3{{section.id}} .custom-heading-4 {
+      {% if section.settings.content_in_image %}
+
+      {% else %}
+        color: {{section.settings.subheading_text_mobile}};
+      {% endif %}
+      line-height:1.3;
+      text-align:{{section.settings.content_in_image_text_position}};
+      margin-bottom: {{section.settings.subheading_margin_bottom_mobile}}px;
+      font-size: {{section.settings.subheading_size_mobile}}px;
+      {% if section.settings.is_display_content_text_safe_zone %}
+        width: 100%;
+      {% endif %}
+
+
+    }
+
+    #detail-section3{{section.id}} .custom-decs {
+      {% if section.settings.content_in_image %}
+
+      {% else %}
+        color:{{section.settings.desc_text_mobile}};
+      {% endif %}
+      line-height:1.2;
+      font-size: {{section.settings.desc_size_mobile}}px;
+      text-align:{{section.settings.content_in_image_text_position}};
+      margin-bottom: {{section.settings.desc_margin_bottom_mobile}}px;
+      {% if section.settings.is_display_content_text_safe_zone %}
+        width: 100%;
+      {% endif %}
+
+
+    }
+
+    #detail-section3{{section.id}}  .product_video-popup__button, #detail-section3{{section.id}} .product_jump__button, #detail-section3{{section.id}} .product_jump__button_2{
+      margin-left: auto;
+      margin-right: auto;
+      font-size: {{section.settings.button_text_mobile}}px;
+      {% if section.settings.is_button_adapt %}
+        width: 100%;
+      {% endif %}
+      {% if section.settings.content_in_image %}
+
+      {% else %}
+        color:{{section.settings.button_text_color_mobile}};
+        background-color: {{section.settings.button_background_mobile}};
+      {% endif %}
+      margin-bottom: 20px;
+    }
+
+    #detail-section3{{section.id}} .custom-product-image-content {
+      width: 100%;
+      margin-bottom: 0;
+      {% if section.settings.content_in_image %}
+        position: absolute;
+        top: {{section.settings.mobile_content_top_position}}vw;
+        margin-top: 0;
+        padding: 0 20px;
+      {% else %}
+        position: relative;
+        margin-top:{{section.settings.mobile_content_top_position}}vw;
+        {% if section.settings.is_show_content_text %}
+          padding: 0 20px;
+        {% else %}
+          padding: 0 24px;
+        {% endif %}
+      {% endif %}
+      margin-left:0;
+      left:0;
+
+      text-align:{{section.settings.content_in_image_text_position}};
+    }
+
+    #detail-section3{{section.id}} .custom-icon {
+      {% if section.settings.content_in_image %}
+        position: absolute;
+        left: 0;
+        top: {{section.settings.icon_top_position_mobile}}vw;
+        justify-content: {{section.settings.mobile_icon_align}};
+        padding: 0 290px;
+        margin-top: 0;
+      {% else %}
+        position: relative;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 1rem;
+        padding: 0;
+        margin-top: 0;
+      {% endif %}
+
+      width: 100%;
+
+    }
+    #detail-section3{{section.id}} .custom-icon .percentage-container{
+      width:100%;
+      color: #333;
+    }
+    #detail-section3{{section.id}} .custom-icon .percentage-value{
+      font-size: 32px;
+
+    }
+    #detail-section3{{section.id}} .custom-icon .percentage-desc{
+      font-size: 15px;
+      line-height: 1.3;
+      color:#676767;
+
+    }
+    #detail-section3{{section.id}} .custom-icon img {
+      {% if section.settings.mobile_icon_align == 'space-around' or section.settings.mobile_icon_align == 'space-between' %}
+        margin:1.6rem 0 3rem 0;
+      {% elsif section.settings.mobile_icon_align == 'center' %}
+        margin: 1.6rem calc({{section.settings.icon_spacing}}px / 2) 3rem calc({{section.settings.icon_spacing}}px / 2);
+      {% elsif section.settings.mobile_icon_align == 'flex-end' %}
+        margin: 1.6rem 0 3rem {{section.settings.icon_spacing}}px;
+      {% endif %}
+      width: {{section.settings.icon_size_mobile}}%;
+      max-width:100%;
+
+    }
+
+    #detail-section3{{section.id}}  .video_wrap{
+
+      max-width: 100%;
+
+    }
+    #detail-section3{{section.id}}  .video_wrap .czvdo-play-icon-svg {
+
+      width: 50px;
+
+    }
+
+  }
+</style>
+{% assign image_pc = section.settings.image_pc %}
+{% assign image_mobile = section.settings.image_mobile %}
+{% comment %}
+  {% if localization.language.iso_code == 'en' %}
+    {% assign image_pc = section.settings.image_pc %}
+    {% assign image_mobile = section.settings.image_mobile %}
+  {% elsif localization.language.iso_code == 'de' %}
+    {% assign image_pc = section.settings.image_pc_de | default: section.settings.image_pc %}
+    {% assign image_mobile = section.settings.image_mobile_de | default: section.settings.image_mobile %}
+  {% elsif localization.language.iso_code == 'fr' %}
+    {% assign image_pc = section.settings.image_pc_fr | default: section.settings.image_pc %}
+    {% assign image_mobile = section.settings.image_mobile_fr | default: section.settings.image_mobile %}
+  {% endif %}
+{% endcomment %}
+<!-- 主图banner -->
+<div id="detail-section3{{section.id}}">
+  <div
+    class="
+      custom-product-image {% unless section.settings.image_pc and  section.settings.image_mobile %}
+
+      {% endunless %}
+    "
+  >
+    {% if section.settings.is_show_banner %}
+      <div class="desktop-image" style="aspect-ratio: {{ section.settings.image_pc.aspect_ratio }};">
+        {% if image_pc %}
+          <img
+            width="100vw"
+
+            {% if section.settings.is_open_lazyload %}
+              class="lazyload"
+              loading="lazy"
+              data-sizes="100vw"
+              data-src="{{ image_pc | image_url:width:1000 }}"
+              data-srcset="
+                {%- if image_pc.width >= 375 -%}{{ image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                {%- if image_pc.width >= 550 -%}{{ image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                {%- if image_pc.width >= 750 -%}{{ image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                {%- if image_pc.width >= 1100 -%}{{ image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                {%- if image_pc.width >= 1500 -%}{{ image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                {%- if image_pc.width >= 1780 -%}{{ image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                {%- if image_pc.width >= 2000 -%}{{ image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                {%- if image_pc.width >= 3000 -%}{{ image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                {%- if image_pc.width >= 3840 -%}{{ image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                {{ image_pc | image_url }} {{ image_pc.width }}w
+              "
+            {% else %}
+              sizes="100vw"
+              src="{{ image_pc | image_url:width:1000 }}"
+              srcset="
+                {%- if image_pc.width >= 375 -%}{{ image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                {%- if image_pc.width >= 550 -%}{{ image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                {%- if image_pc.width >= 750 -%}{{ image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                {%- if image_pc.width >= 1100 -%}{{ image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                {%- if image_pc.width >= 1500 -%}{{ image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                {%- if image_pc.width >= 1780 -%}{{ image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                {%- if image_pc.width >= 2000 -%}{{ image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                {%- if image_pc.width >= 3000 -%}{{ image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                {%- if image_pc.width >= 3840 -%}{{ image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                {{ image_pc | image_url }} {{ image_pc.width }}w
+              "
+            {% endif %}
+          >
+        {% else %}
+          {% unless section.settings.show_product %}
+            {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endunless %}
+        {% endif %}
+      </div>
+      <div class="mobile-image" style="aspect-ratio: {{ section.settings.image_mobile.aspect_ratio }};">
+        {% if image_mobile %}
+          <img
+            width="100vw"
+
+            {% if section.settings.is_open_lazyload %}
+              class="lazyload"
+              loading="lazy"
+              data-sizes="100vw"
+              data-srcset="
+                {%- if image_mobile.width >= 375 -%}{{ image_mobile | image_url: width: 375 }} 375w,{%- endif -%}
+                {%- if image_mobile.width >= 550 -%}{{ image_mobile | image_url: width: 550 }} 550w,{%- endif -%}
+                {%- if image_mobile.width >= 750 -%}{{ image_mobile | image_url: width: 750 }} 750w,{%- endif -%}
+                {%- if image_mobile.width >= 1100 -%}{{ image_mobile | image_url: width: 1100 }} 1100w,{%- endif -%}
+                {%- if image_mobile.width >= 1500 -%}{{ image_mobile | image_url: width: 1500 }} 1500w,{%- endif -%}
+                {%- if image_mobile.width >= 1780 -%}{{ image_mobile | image_url: width: 1780 }} 1780w,{%- endif -%}
+                {%- if image_mobile.width >= 2000 -%}{{ image_mobile | image_url: width: 2000 }} 2000w,{%- endif -%}
+                {%- if image_mobile.width >= 3000 -%}{{ image_mobile | image_url: width: 3000 }} 3000w,{%- endif -%}
+                {%- if image_mobile.width >= 3840 -%}{{ image_mobile | image_url: width: 3840 }} 3840w,{%- endif -%}
+                {{ image_mobile | image_url }} {{ image_mobile.width }}w
+              "
+              data-src="{{ image_mobile | image_url:width:900 }}"
+            {% else %}
+              sizes="100vw"
+              srcset="
+                {%- if image_mobile.width >= 375 -%}{{ image_mobile | image_url: width: 375 }} 375w,{%- endif -%}
+                {%- if image_mobile.width >= 550 -%}{{ image_mobile | image_url: width: 550 }} 550w,{%- endif -%}
+                {%- if image_mobile.width >= 750 -%}{{ image_mobile | image_url: width: 750 }} 750w,{%- endif -%}
+                {%- if image_mobile.width >= 1100 -%}{{ image_mobile | image_url: width: 1100 }} 1100w,{%- endif -%}
+                {%- if image_mobile.width >= 1500 -%}{{ image_mobile | image_url: width: 1500 }} 1500w,{%- endif -%}
+                {%- if image_mobile.width >= 1780 -%}{{ image_mobile | image_url: width: 1780 }} 1780w,{%- endif -%}
+                {%- if image_mobile.width >= 2000 -%}{{ image_mobile | image_url: width: 2000 }} 2000w,{%- endif -%}
+                {%- if image_mobile.width >= 3000 -%}{{ image_mobile | image_url: width: 3000 }} 3000w,{%- endif -%}
+                {%- if image_mobile.width >= 3840 -%}{{ image_mobile | image_url: width: 3840 }} 3840w,{%- endif -%}
+                {{ image_mobile | image_url }} {{ image_mobile.width }}w
+              "
+              src="{{ image_mobile | image_url:width:900 }}"
+            {% endif %}
+          >
+        {% else %}
+          {% unless section.settings.show_product %}
+            {{ 'hero-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endunless %}
+        {% endif %}
+      </div>
+    {% endif %}
+    <div
+      class="custom-product-image-content-wrap "
+      {% if section.settings.jump_url %}
+        style="cursor: pointer;"
+        onclick="window.location.href='{{- section.settings.jump_url -}}'"
+      {% endif %}
+    >
+      <div class="custom-product-image-content ">
+        {% unless section.settings.heading == empty %}
+          <div
+            class="custom-heading-3  {{ section.settings.heading_size }} {{ section.settings.heading_font_family }}"
+            data-wow-delay=".8s"
+          >
+            {{ section.settings.heading }}
+          </div>
+        {% endunless %}
+        {% unless section.settings.subheading == empty %}
+          <div
+            class="custom-heading-4   {{ section.settings.subheading_size }} {{ section.settings.subheading_font_family }}"
+            data-wow-delay="1s"
+          >
+            {{ section.settings.subheading }}
+          </div>
+        {% endunless %}
+        {% unless section.settings.desc == empty %}
+          <div
+            class="custom-decs  {{ section.settings.desc_size }} {{ section.settings.desc_font_family }} "
+            data-wow-delay="1s"
+          >
+            {{ section.settings.desc }}
+          </div>
+        {% endunless %}
+        <div class="custom-button-container">
+          {% if section.settings.button_text != blank %}
+            {% assign jump_url = section.settings.jump_url | default: section.settings.anchor_url | default: '#' %}
+            <a
+              class="product_jump__button  {{section.settings.button_text_size}} "
+              href="{{jump_url}}"
+            >
+              {{- section.settings.button_text -}}
+            </a>
+          {% endif %}
+          {% if section.settings.button_text_2 != blank %}
+            {% assign jump_url = section.settings.jump_url_2 | default: section.settings.anchor_url_2 | default: '#' %}
+            <a
+              class="product_jump__button_2  {{section.settings.button_text_size}} "
+              href="{{jump_url}}"
+            >
+              {{- section.settings.button_text_2 -}}
+            </a>
+          {% endif %}
+        </div>
+        {% if section.settings.video_url %}
+          <a
+            class="product_video-popup__button  "
+            data-wow-delay="1s"
+            href="{{section.settings.video_url}}"
+            data-fancybox
+            data-caption="{{ section.settings.caption_heading}}"
+          >
+            <span>
+              <svg
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 485 485"
+                style="enable-background: new 0 0 485 485;"
+                xml:space="preserve"
+              >
+                <g> <path d="M413.974,71.026C368.171,25.225,307.274,0,242.5,0S116.829,25.225,71.026,71.026C25.225,116.829,0,177.726,0,242.5
+                s25.225,125.671,71.026,171.474C116.829,459.775,177.726,485,242.5,485s125.671-25.225,171.474-71.026
+                C459.775,368.171,485,307.274,485,242.5S459.775,116.829,413.974,71.026z M242.5,455C125.327,455,30,359.673,30,242.5
+                S125.327,30,242.5,30S455,125.327,455,242.5S359.673,455,242.5,455z"></path> <polygon points="181.062,336.575 343.938,242.5 181.062,148.425"></polygon> </g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g>
+              </svg>
+            </span>
+            <p>Watch the video</p>
+          </a>
+        {% endif %}
+        <div class="custom-icon">
+          {%- for block in section.blocks -%}
+            {% case block.type %}
+              {%- when 'bgIcon' -%}
+                {%- if block.settings.icon -%}
+                  {% assign image_icon = block.settings.icon %}
+                  {%- if image_icon -%}
+                    <style>
+                      @media screen and (min-width: 320px) and (max-width: 480px){
+                        .icon-{{block.id}}-img{
+                               {% if block.settings.hide_icon %}
+                            display:none;
+                        {% endif %}
+                        }
+                      }
+                    </style>
+                    <img
+                      {% if section.settings.is_open_lazyload %}
+                        loading="lazy"
+                        data-sizes="auto"
+                        data-srcset="
+                          {%- if image_icon.width >= 375 -%}{{ image_icon | image_url: width: 375 }} 375w,{%- endif -%}
+                          {%- if image_icon.width >= 550 -%}{{ image_icon | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if image_icon.width >= 750 -%}{{ image_icon | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if image_icon.width >= 1100 -%}{{ image_icon | image_url: width: 1100 }} 1100w,{%- endif -%}
+                          {%- if image_icon.width >= 1500 -%}{{ image_icon | image_url: width: 1500 }} 1500w,{%- endif -%}
+                          {%- if image_icon.width >= 1780 -%}{{ image_icon | image_url: width: 1780 }} 1780w,{%- endif -%}
+                          {%- if image_icon.width >= 2000 -%}{{ image_icon | image_url: width: 2000 }} 2000w,{%- endif -%}
+                          {%- if image_icon.width >= 3000 -%}{{ image_icon | image_url: width: 3000 }} 3000w,{%- endif -%}
+                          {%- if image_icon.width >= 3840 -%}{{ image_icon | image_url: width: 3840 }} 3840w,{%- endif -%}
+                          {{ image_icon | image_url }} {{ image_icon.width }}w
+                        "
+                        data-src="{{image_icon | image_url:width:3000}}"
+                        class="lazyload icon-{{block.id}}-img"
+                      {% else %}
+                        sizes="auto"
+                        srcset="
+                          {%- if image_icon.width >= 375 -%}{{ image_icon | image_url: width: 375 }} 375w,{%- endif -%}
+                          {%- if image_icon.width >= 550 -%}{{ image_icon | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if image_icon.width >= 750 -%}{{ image_icon | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if image_icon.width >= 1100 -%}{{ image_icon | image_url: width: 1100 }} 1100w,{%- endif -%}
+                          {%- if image_icon.width >= 1500 -%}{{ image_icon | image_url: width: 1500 }} 1500w,{%- endif -%}
+                          {%- if image_icon.width >= 1780 -%}{{ image_icon | image_url: width: 1780 }} 1780w,{%- endif -%}
+                          {%- if image_icon.width >= 2000 -%}{{ image_icon | image_url: width: 2000 }} 2000w,{%- endif -%}
+                          {%- if image_icon.width >= 3000 -%}{{ image_icon | image_url: width: 3000 }} 3000w,{%- endif -%}
+                          {%- if image_icon.width >= 3840 -%}{{ image_icon | image_url: width: 3840 }} 3840w,{%- endif -%}
+                          {{ image_icon | image_url }} {{ image_icon.width }}w
+                        "
+                        src="{{image_icon | image_url:width:3000}}"
+                        class="icon-{{block.id}}-img"
+                      {% endif %}
+                    >
+                  {% endif %}
+                {% endif %}
+              {%- when 'PercentageValue' -%}
+                <div class="percentage-container">
+                  <div class="percentage-value" data-target="{{ block.settings.Percentage_value }}">0%</div>
+                  <div class="percentage-desc">{{ block.settings.Percentage_desc }}</div>
+                </div>
+            {%- endcase -%}
+          {% endfor %}
+        </div>
+      </div>
+      {% if section.settings.show_product and section.settings.is_cancel_video_suspension %}
+        <div class="video_wrap " data-wow-delay="1s">
+          {%- if section.settings.product_introduction_video.type == 'youtube' -%}
+            {%- capture youtube_adress -%}
+             https://www.youtube.com/embed/{{ section.settings.product_introduction_video.id }}
+        {%- endcapture -%}
+            <iframe
+              id="youtube-{{section.id}}-pro-videos"
+              src="{{- youtube_adress -}}"
+              allow="autoplay; encrypted-media"
+              frameborder="0"
+              allowfullscreen
+              title="{{ section.settings.description | escape }}"
+            ></iframe>
+          {%- else -%}
+            {%- capture vimeo_adress -%}
+              https://player.vimeo.com/video/{{ section.settings.product_introduction_video.id }}
+        {%- endcapture -%}
+            <iframe
+              id="youtube-{{section.id}}-pro-videos"
+              src="{{- vimeo_adress -}}"
+              allow="autoplay; encrypted-media"
+              frameborder="0"
+              allowfullscreen
+              title="{{ section.settings.description | escape }}"
+            ></iframe>
+          {%- endif -%}
+          {%- if section.settings.preview_video_img -%}
+            {% assign image = section.settings.preview_video_img %}
+            <div class="video_cover_wrap">
+              <img
+                style="cursor: pointer;"
+                id="youtube-{{section.id}}-playVideos"
+
+                {% if section.settings.is_open_lazyload %}
+                  class="lazyload"
+                  loading="lazy"
+
+                  data-sizes="auto"
+                  data-srcset="
+                    {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ image | image_url }} {{ image.width }}w
+                  "
+                  data-src="{{image | image_url:width:3000}}"
+                {%- else -%}
+                  sizes="auto"
+                  srcset="
+                    {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ image | image_url }} {{ image.width }}w
+                  "
+                  src="{{image | image_url:width:3000}}"
+                {% endif %}
+              >
+              {% comment %}
+                <svg
+                  class="czvdo-play-icon-svg"
+                  height="100%"
+                  version="1.1"
+                  viewBox="0 0 68 48"
+                  width="100%"
+                >
+                  <path class="czvdo-svg-path-outer" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#212121" fill-opacity="0.8"></path>
+                  <path class="czvdo-svg-path-inner" d="M 45,24 27,14 27,34" fill="#fff"></path>
+                </svg>
+              {% endcomment %}
+              <svg
+                class="czvdo-play-icon-svg"
+                width="100%"
+                height="100%"
+                viewBox="0 0 146 146"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path class="czvdo-svg-path-inner" d="M111.169 72.6455L50.9331 33.0625C51.0207 92.7437 50.9331 63.4435 50.9331 112.229L111.169 72.6455Z" fill="white"/>
+                <path class="czvdo-svg-path-outer" d="M73 0.177734C32.9496 0.177734 0.5 32.6273 0.5 72.6777C0.5 112.728 32.9496 145.178 73 145.178C113.05 145.178 145.5 112.728 145.5 72.6777C145.5 32.6273 113.05 0.177734 73 0.177734ZM50.9284 112.29C50.9284 63.4983 51.0161 92.7906 50.9284 33.0658L111.209 72.6777L50.9284 112.29Z" fill="black" fill-opacity="0.8"/>
+              </svg>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+    {% if section.settings.show_product and section.settings.is_cancel_video_suspension == false %}
+      <div class="video_wrap " data-wow-delay="1s">
+        {%- if section.settings.product_introduction_video.type == 'youtube' -%}
+          {%- capture youtube_adress -%}
+             https://www.youtube.com/embed/{{ section.settings.product_introduction_video.id }}
+        {%- endcapture -%}
+          <iframe
+            id="youtube-{{section.id}}-pro-videos"
+            src="{{- youtube_adress -}}"
+            allow="autoplay; encrypted-media"
+            frameborder="0"
+            allowfullscreen
+            title="{{ section.settings.description | escape }}"
+          ></iframe>
+        {%- else -%}
+          {%- capture vimeo_adress -%}
+              https://player.vimeo.com/video/{{ section.settings.product_introduction_video.id }}
+        {%- endcapture -%}
+          <iframe
+            id="youtube-{{section.id}}-pro-videos"
+            src="{{- vimeo_adress -}}"
+            allow="autoplay; encrypted-media"
+            frameborder="0"
+            allowfullscreen
+            title="{{ section.settings.description | escape }}"
+          ></iframe>
+        {%- endif -%}
+        {%- if section.settings.preview_video_img -%}
+          {% assign image = section.settings.preview_video_img %}
+          <img
+            style="cursor: pointer;"
+            id="youtube-{{section.id}}-playVideos"
+
+            {% if section.settings.is_open_lazyload %}
+              class="lazyload"
+              loading="lazy"
+              data-sizes="auto"
+              data-srcset="
+                {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                {{ image | image_url }} {{ image.width }}w
+              "
+              data-src="{{image | image_url:width:3000}}"
+            {%- else -%}
+              sizes="auto"
+              srcset="
+                {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                {{ image | image_url }} {{ image.width }}w
+              "
+              src="{{image | image_url:width:3000}}"
+            {% endif %}
+          >
+          <svg
+            class="czvdo-play-icon-svg"
+            height="100%"
+            version="1.1"
+            viewBox="0 0 68 48"
+            width="100%"
+          >
+            <path class="czvdo-svg-path-outer" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#212121" fill-opacity="0.8"></path>
+            <path class="czvdo-svg-path-inner" d="M 45,24 27,14 27,34" fill="#fff"></path>
+          </svg>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+<script>
+  /* 加封面图 */
+  $(function () {
+    $('#youtube-{{section.id}}-playVideos,#detail-section3{{section.id}} .video_wrap .czvdo-play-icon-svg').on(
+      'click',
+      function (e) {
+        $('#youtube-{{section.id}}-playVideos').css('display', 'none');
+        $('#detail-section3{{section.id}} .video_wrap .czvdo-play-icon-svg').css('display', 'none');
+        e.preventDefault();
+        e.stopPropagation();
+        $('#youtube-{{section.id}}-pro-videos').css('display', 'block');
+
+        const newurl = $('#youtube-{{section.id}}-pro-videos').attr('src') + '?autoplay=1';
+        console.log('youtube视频地址==', $('#youtube-{{section.id}}-pro-videos').attr('src'), newurl);
+        //  将当前的 iframe 的 src 属性设置为自己当前的 src 属性，从而强制浏览器重新加载该 iframe,从而实现点击预览图后自动播放
+        $('#youtube-{{section.id}}-pro-videos').attr('src', newurl);
+      }
+    );
+
+    const elements = $('#detail-section3{{section.id}} .percentage-container>.percentage-value');
+
+    elements.each(function () {
+      const element = $(this);
+      const targetValue = parseInt(element.data('target'));
+      element.data('start', false);
+
+      $(window).on('scroll', function () {
+        const elementPosition = element.offset().top;
+        const topOfWindow = $(window).scrollTop();
+        const windowHeight = $(window).height();
+
+        // 检查元素是否在视窗内
+        if (elementPosition < topOfWindow + windowHeight && !element.data('start')) {
+          element.data('start', true);
+          animateToTarget(element, targetValue);
+        }
+      });
+    });
+    function animateToTarget(element, targetValue) {
+      let currentValue = 0;
+      const increment = 1;
+      const interval = setInterval(function () {
+        if (currentValue >= targetValue) {
+          clearInterval(interval);
+          element.text(targetValue + '%');
+          return;
+        }
+        currentValue += increment;
+        element.text(currentValue + '%');
+      }, 30); // 调整 20 的值可以改变动画速度
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Major Banner",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "is_display_content_safe_zone",
+      "label": "内容安全区域显示",
+      "info": "内容安全区域大小为1200px",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "is_open_lazyload",
+      "label": "开启图片懒加载",
+      "info": "顶部banner图，建议关闭",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "is_display_content_text_safe_zone",
+      "label": "文字内容安全区域显示",
+      "info": "文字内容安全区域大小为1200px",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "is_display_all_screen_on_mobile",
+      "label": "移动端全屏",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "is_show_border_line",
+      "label": "显示边框线",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "image_height",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "自适应"
+        },
+        {
+          "value": "small",
+          "label": "小"
+        },
+        {
+          "value": "medium",
+          "label": "中"
+        },
+        {
+          "value": "large",
+          "label": "大"
+        }
+      ],
+      "default": "medium",
+      "label": "横幅高度",
+      "info": "若要获得最佳效果，请使用纵横比为 3:2 的图片。[了解详细信息](https:\/\/help.shopify.com\/manual\/shopify-admin\/productivity-tools\/image-editor#understanding-image-aspect-ratio)"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_show_content_text",
+      "label": "仅显示内容文本",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "is_show_banner",
+      "label": "显示图片",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "content_in_image",
+      "label": "内容在图片里面(移动端生效)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product",
+      "label": "显示商品视频",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_video_fullscreen",
+      "label": "商品视频全屏显示",
+      "default": false,
+      "info": "商品视频全屏显示需取消勾选内容安全区域显示"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_cancel_video_suspension",
+      "label": "取消视频悬浮",
+      "default": false
+    },
+    {
+      "type": "video_url",
+      "id": "product_introduction_video",
+      "label": "商品介绍视频链接",
+      "info": "当显示商品视频被选中时，该链接生效",
+      "accept": ["youtube", "vimeo"]
+    },
+    {
+      "type": "image_picker",
+      "id": "preview_video_img",
+      "label": "视频封面图",
+      "info": "建议使用16:9的图片"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "default": "视频描述",
+      "label": "视频描述"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "image_pc",
+      "label": "图片（英语） PC端"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "图片（英语） 移动端"
+    },
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "标题"
+    },
+    {
+      "type": "html",
+      "id": "subheading",
+      "label": "副标题"
+    },
+
+    {
+      "type": "html",
+      "id": "desc",
+      "label": "正文"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "视频地址",
+      "info": "此地址为视频按钮点击播放地址"
+    },
+    {
+      "type": "text",
+      "id": "caption_heading",
+      "label": "视频标题",
+      "info": "此视频标题为弹出框播放视频显示的标题"
+    },
+
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "按钮文本"
+    },
+    {
+      "type": "text",
+      "id": "button_text_2",
+      "label": "按钮文本2"
+    },
+    {
+      "type": "url",
+      "id": "jump_url_",
+      "label": "链接地址URL",
+      "info": "跳转链接地址:可用于普通按钮或图片跳转"
+    },
+    {
+      "type": "text",
+      "id": "anchor_url",
+      "label": "锚点链接跳转",
+      "info": "锚点链接地址:用于普通按钮，跳转后页面滚动到锚点位置"
+    },
+    {
+      "type": "url",
+      "id": "jump_url_2",
+      "label": "链接2地址URL",
+      "info": "跳转链接地址:可用于普通按钮或图片跳转"
+    },
+    {
+      "type": "text",
+      "id": "anchor_url_2",
+      "label": "锚点链接2跳转",
+      "info": "锚点链接地址:用于普通按钮，跳转后页面滚动到锚点位置"
+    },
+    {
+      "type": "range",
+      "id": "content_border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "内容框圆角大小",
+      "default": 0,
+      "info": "仅当仅显示内容文本被选中时生效"
+    },
+    {
+      "type": "range",
+      "id": "content_border_radius_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "内容框圆角大小(移动端)",
+      "default": 0,
+      "info": "仅当仅显示内容文本被选中时生效"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮圆角大小",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius_2",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮圆角大小",
+      "default": 20
+    },
+    {
+      "type": "checkbox",
+      "id": "is_button_adapt",
+      "label": "按钮宽度自适应",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "heading_text",
+      "label": "标题字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "heading_text_mobile",
+      "label": "标题字体颜色(移动端)",
+      "default": "#000000"
+    },
+    {
+      "type": "color_background",
+      "id": "heading_gradient_color",
+      "label": "标题文本渐变色"
+    },
+    {
+      "type": "color",
+      "id": "subheading_text",
+      "label": "副标题字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subheading_text_mobile",
+      "label": "副标题字体颜色(移动端)",
+      "default": "#000000"
+    },
+    {
+      "type": "color_background",
+      "id": "subheading_gradient_color",
+      "label": "副标题文本渐变色"
+    },
+    {
+      "type": "color",
+      "id": "desc_text",
+      "label": "正文字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "desc_text_mobile",
+      "label": "正文字体颜色(移动端)",
+      "default": "#000000"
+    },
+    {
+      "type": "color_background",
+      "id": "desc_gradient_color",
+      "label": "正文文本渐变色"
+    },
+    {
+      "type": "color",
+      "id": "percentage_desc_color",
+      "label": "百分比数值内容字体颜色",
+      "default": "#333"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "按钮字体颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color_2",
+      "label": "按钮2字体颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color_mobile",
+      "label": "按钮字体颜色(移动端)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color_mobile_2",
+      "label": "按钮2字体颜色(移动端)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "按钮颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_background_color_2",
+      "label": "按钮2颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_background_mobile",
+      "label": "按钮颜色(移动端)",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "button_background_mobile_2",
+      "label": "按钮2颜色(移动端)",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "内容背景颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "container_bg_color",
+      "label": "背景颜色",
+      "default": "#000"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h3"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "标题字体大小（移动端）",
+      "default": 30
+    },
+
+    {
+      "type": "select",
+      "id": "subheading_size",
+      "label": "副标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "text-base"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "副标题字体大小（移动端）",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "desc_size",
+      "label": "正文字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "text-base"
+    },
+    {
+      "type": "range",
+      "id": "desc_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "正文字体大小（移动端）",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "button_text_size",
+      "label": "按钮字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "text-base"
+    },
+    {
+      "type": "range",
+      "id": "button_text_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮字体大小（移动端）",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "heading_font_family",
+      "label": "标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        }
+      ],
+      "default": "custom-font-bold"
+    },
+    {
+      "type": "select",
+      "id": "subheading_font_family",
+      "label": "副标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        }
+      ],
+      "default": "custom-font-regular"
+    },
+    {
+      "type": "select",
+      "id": "desc_font_family",
+      "label": "正文字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        }
+      ],
+      "default": "custom-font-regular"
+    },
+
+    {
+      "type": "range",
+      "id": "content_width",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "内容宽度",
+      "default": 50
+    },
+
+    {
+      "type": "range",
+      "id": "content_top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "vw",
+      "label": "上边距(PC)",
+      "default": 20,
+      "info": "仅限于PC端，移动端调节无效"
+    },
+    {
+      "type": "range",
+      "id": "content_left_margin",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "vw",
+      "label": "左边距(PC)",
+      "default": 0,
+      "info": "仅限于PC端，移动端调节无效(非内容安全区域生效)"
+    },
+    {
+      "type": "select",
+      "id": "safe_zone_alignment",
+      "label": "内容安全区域对齐方式",
+      "info": "仅限于PC端，移动端调节无效(仅内容安全区域生效)",
+      "options": [
+        {
+          "value": "left",
+          "label": "左对齐"
+        },
+        {
+          "value": "middle",
+          "label": "居中对齐"
+        },
+        {
+          "value": "right",
+          "label": "右对齐"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "radio",
+      "id": "button_position",
+      "label": "按钮对齐",
+      "info": "仅限于PC端，移动端调节无效",
+      "options": [
+        {
+          "label": "左对齐",
+          "value": "flex-start"
+        },
+
+        {
+          "label": "居中对齐",
+          "value": "center"
+        },
+        {
+          "label": "右对齐",
+          "value": "flex-end"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "radio",
+      "id": "button_position_mobile",
+      "label": "按钮对齐",
+      "info": "仅限于移动端，PC端调节无效",
+      "options": [
+        {
+          "label": "左对齐",
+          "value": "flex-start"
+        },
+
+        {
+          "label": "居中对齐",
+          "value": "center"
+        },
+        {
+          "label": "右对齐",
+          "value": "flex-end"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "radio",
+      "id": "text_position",
+      "label": "文本对齐",
+      "info": "仅限于PC端，移动端调节无效",
+      "options": [
+        {
+          "label": "左对齐",
+          "value": "left"
+        },
+        {
+          "label": "两端对齐",
+          "value": "justify"
+        },
+        {
+          "label": "居中对齐",
+          "value": "center"
+        },
+        {
+          "label": "右对齐",
+          "value": "right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "radio",
+      "id": "content_in_image_text_position",
+      "label": "文本对齐",
+      "info": "移动端对齐，仅限于文字不在图片里生效",
+      "options": [
+        {
+          "label": "左对齐",
+          "value": "left"
+        },
+        {
+          "label": "两端对齐",
+          "value": "justify"
+        },
+        {
+          "label": "居中对齐",
+          "value": "center"
+        },
+        {
+          "label": "右对齐",
+          "value": "right"
+        }
+      ],
+      "default": "center"
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_content_top_position",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "vw",
+      "default": 0,
+      "label": "文本内容距离顶部位置(mobile)",
+      "info": "仅限于移动端，PC调节无效"
+    },
+    {
+      "type": "header",
+      "content": "图标和百分比数值布局"
+    },
+    {
+      "type": "range",
+      "id": "icon_spacing",
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "图标间距",
+      "default": 16
+    },
+
+    {
+      "type": "header",
+      "content": "PC端",
+      "info": "仅限于PC端，移动端调节无效"
+    },
+    {
+      "type": "range",
+      "id": "icon_margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "顶部边距（图标或百分比数值）",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "icon_size_pc",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "unit": "vw",
+      "label": "图标宽度",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "percentage_value_size_pc",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "百分比数值宽度",
+      "default": 30
+    },
+    {
+      "type": "radio",
+      "id": "icon_position_align",
+      "label": "对齐方式（图标或百分比数值）(PC端)",
+
+      "options": [
+        {
+          "label": "左对齐",
+          "value": "flex-start"
+        },
+        {
+          "label": "居中对齐",
+          "value": "center"
+        },
+        {
+          "label": "右对齐",
+          "value": "flex-end"
+        },
+        {
+          "label": "每行两侧的间隔相等",
+          "value": "space-around"
+        },
+        {
+          "label": "两端对齐，行与行之间的间隔相等",
+          "value": "space-between"
+        }
+      ],
+      "default": "space-around"
+    },
+    {
+      "type": "header",
+      "content": "移动端",
+      "info": "仅限于移动端，PC调节无效"
+    },
+
+    {
+      "type": "range",
+      "id": "icon_size_mobile",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "图标宽度",
+      "default": 40
+    },
+    {
+      "type": "radio",
+      "id": "mobile_icon_align",
+      "label": "对齐方式（图标或百分比数值）(mobile端)",
+
+      "options": [
+        {
+          "label": "左对齐",
+          "value": "flex-start"
+        },
+        {
+          "label": "居中对齐",
+          "value": "center"
+        },
+        {
+          "label": "每行两侧的间隔相等",
+          "value": "space-around"
+        },
+        {
+          "label": "两端对齐，行与行之间的间隔相等",
+          "value": "space-between"
+        },
+        {
+          "label": "右对齐",
+          "value": "flex-end"
+        }
+      ],
+      "default": "flex-start"
+    },
+    {
+      "type": "range",
+      "id": "icon_top_position_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "vw",
+      "label": "图标位置调整",
+      "default": 44
+    },
+    {
+      "type": "header",
+      "content": "分区填充"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "标题顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "标题顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "标题底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "标题底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "subheading_margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "副标题底部填充",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "subheading_margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "副标题底部填充(移动端)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "desc_margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "正文底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "desc_margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "正文底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bgIcon",
+      "name": "图标",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "图标（英语）"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_icon",
+          "label": "隐藏图标",
+          "default": false,
+          "info": "当移动端素材存在图标时，可选择自定义图标在移动端不显示"
+        }
+      ]
+    },
+    {
+      "type": "PercentageValue",
+      "name": "百分比数值",
+      "settings": [
+        {
+          "type": "range",
+          "id": "Percentage_value",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "百分比数值",
+          "default": 90
+        },
+        {
+          "type": "html",
+          "id": "Percentage_desc",
+          "label": "内容",
+          "default": "Welcome to my shop!Welcome to my shop!Welcome to my shop!Welcome to my shop!Welcome to my shop!Welcome to my shop!Welcome to my shop!"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Major Banner",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

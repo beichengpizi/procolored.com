@@ -1,0 +1,40 @@
+{%- if item.metafields.custom.variant_flash_sale_countdown != blank
+  or item.metafields.custom.variant_flash_sale_countdown_end != blank
+  or flash_sale_countdown_date != empty
+  or flash_sale_countdown_end_date != empty
+-%}
+  {% if flash_sale_countdown_date != empty or flash_sale_countdown_end_date != empty %}
+    {% assign flash_sale_countdown = flash_sale_countdown_date %}
+    {% assign flash_sale_countdown_end = flash_sale_countdown_end_date %}
+  {% else %}
+    {% assign flash_sale_countdown = item.metafields.custom.variant_flash_sale_countdown %}
+    {% assign flash_sale_countdown_end = item.metafields.custom.variant_flash_sale_countdown_end %}
+  {% endif %}
+  <div class="countdown-box gm f26 m-f16 mb-30  m-mb-40 ">
+    <div
+      data-countdown="{{- flash_sale_countdown -}}"
+      data-countdown-end="{{- flash_sale_countdown_end -}}"
+      data-countdown-style="{{- countdown_style -}}"
+    ></div>
+  </div>
+{% elsif item.metafields.custom.flash_sale_countdown != blank
+  or item.metafields.custom.flash_sale_countdown_end != blank
+  or flash_sale_countdown_date != empty
+  or flash_sale_countdown_end_date != empty
+%}
+  {% if flash_sale_countdown_date != empty or flash_sale_countdown_end_date != empty %}
+    {% assign flash_sale_countdown = flash_sale_countdown_date %}
+    {% assign flash_sale_countdown_end = flash_sale_countdown_end_date %}
+  {% else %}
+    {% assign flash_sale_countdown = item.metafields.custom.flash_sale_countdown %}
+    {% assign flash_sale_countdown_end = item.metafields.custom.flash_sale_countdown_end %}
+  {% endif %}
+  <div class="countdown-box gm f26 m-f16 mb-30  m-mb-40 ">
+    <div
+      data-countdown="{{- flash_sale_countdown -}}"
+      data-countdown-end="{{- flash_sale_countdown_end -}}"
+      data-countdown-style="{{- countdown_style -}}"
+    ></div>
+  </div>
+{% else %}
+{%- endif -%}

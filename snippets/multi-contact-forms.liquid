@@ -1,0 +1,137 @@
+{{ 'multi-contact-forms.css' | asset_url | stylesheet_tag }}
+
+<div class="multi-contact-forms-container">
+  <div class="multi-contact-forms-header">
+    <h1>Contact Us</h1>
+  </div>
+  <hr>
+  <multi-page-with-navigation class="multi-page-with-navigation section-spacing section-spacing--disable-top ">
+    <div class="row">
+      <div class="small-12 columns"></div>
+    </div>
+    <div class="multi-page-with-navigation--inner">
+      <div class="multi-page-with-navigation--menu heading-font">
+        <div class="multi-page-with-navigation--select">
+          {% assign option_names = 'Pre-sales Consultant,After-sales Support,Service Feedback' | split: ',' %}
+          {% assign option_values = 'sales_consult,tech_support,svc_feedback' | split: ',' %}
+          {% render 'custom-selector',
+            option_names: option_names,
+            option_values: option_values,
+            section_id: 'contact-forms'
+          %}
+        </div>
+
+        <div class="multi-page-with-navigation__button-group">
+          <button class="multi-page-with-navigation--button active" data-value="Pre-sales Consultant">
+            Pre-sales Consultant
+            {% render 'icon-right-arrow' %}
+          </button>
+          <button class="multi-page-with-navigation--button" data-value="After-sales Support">
+            After-sales Support
+            {% render 'icon-right-arrow' %}
+          </button>
+          {% comment %}
+            <button class="multi-page-with-navigation--button" data-value="Return & Refund">
+              Return & Refund
+              {% render 'icon-right-arrow' %}
+            </button>
+          {% endcomment %}
+          <button class="multi-page-with-navigation--button" data-value="Service Feedback">
+            Service Feedback
+            {% render 'icon-right-arrow' %}
+          </button>
+        </div>
+      </div>
+      <div class="multi-page-with-navigation--content">
+        <div class="multi-page-with-navigation--page">
+          <div class="rte">
+            <p style="margin-bottom: 20px;">Procolored is committed to providing you with the best products and services. Please note that Our official self-operated stores are available only on the <a target="_blank" rel="noopener noreferrer" href="https://www.procolored.com/">official website</a> and <a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/stores/Procolored/page/2C1F261A-DBB9-4B93-B669-493A74FE6203">Amazon</a>.</p>
+            <div>
+              <h3>Contact Info</h3>
+              <p><strong>US Phone: </strong>+1 6463622251</p>
+              <p><strong>Phone Service: </strong>Monday to Sunday 9:00AM - 5:00PM (PT)</p>
+              <p>
+                <strong>Address: </strong> 1180 Centre Drive, Unit B,City of industry, California 91789 UNITED STATES
+              </p>
+              <p><strong>After-sales Email: </strong>Support@procolored.com</p>
+              <p><strong>Pre-sales Email: </strong>Sales@procolored.com</p>
+            </div>
+            <div id="gtx-trans" style="position: absolute; left: 290px; top: 427px;">
+              <div class="gtx-trans-icon"></div>
+            </div>
+          </div>
+          <div class="multi-page-switch">
+            <div data-selector-option-value="sales_consult" class="rte active">
+              <div class="globo-formbuilder" data-id="MjcxNTE="></div>
+            </div>
+
+            <div data-selector-option-value="tech_support" class="rte">
+              <div class="globo-formbuilder" data-id="MjcxNTM="></div>
+            </div>
+
+            {% comment %}
+              <div data-selector-option-value="return_refund" class="rte">
+                <div class="globo-formbuilder" data-id="MjcxNDk="></div>
+              </div>
+            {% endcomment %}
+
+            <div data-selector-option-value="svc_feedback" class="rte">
+              <div class="globo-formbuilder" data-id="MzYxMDc="></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </multi-page-with-navigation>
+</div>
+<script>
+  /**
+   *  @class
+   *  @function MediaWithTabs
+   */
+  if (!customElements.get('multi-page-with-navigation')) {
+    class MultiPageWithNavigation extends HTMLElement {
+      /**
+       * Variable used to distinguish between a link click and a scroll event
+       *
+       * @type {boolean}
+       */
+      linkClicked;
+
+      constructor() {
+        super();
+        this.linkClicked = false;
+      }
+      connectedCallback() {
+        const self = this;
+        this.buttons = Array.from(this.querySelectorAll('button.multi-page-with-navigation--button'));
+        this.pages = Array.from(this.querySelectorAll('.multi-page-switch .rte'));
+        this.buttons.forEach((button, i) => {
+          button.addEventListener('click', () => {
+            self.linkClicked = true;
+            this.buttonClick(button, i);
+          });
+        });
+      }
+      buttonClick(button, i) {
+        const self = this;
+
+        [].forEach.call(this.buttons, function (el) {
+          el.classList.remove('active');
+        });
+        button.classList.add('active');
+
+        [].forEach.call(this.pages, function (el) {
+          el.classList.remove('active');
+        });
+        this.pages[i].classList.add('active');
+
+        // Reset linkClicked flag after a delay (e.g., 1000ms)
+        setTimeout(function () {
+          self.linkClicked = false;
+        }, 1000);
+      }
+    }
+    customElements.define('multi-page-with-navigation', MultiPageWithNavigation);
+  }
+</script>

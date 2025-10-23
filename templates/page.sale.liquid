@@ -1,0 +1,216 @@
+{{ 'page.sale.css' | asset_url | stylesheet_tag }}
+{% comment %} {% for collection in collections %}
+                                                                                                                                                        {% for prod in collection.products %}
+                                                                                                                                                          {{ prod.title }} |
+                                                                                                                                                        {% endfor %}
+{% endfor %} {% endcomment %}
+<div class="luodi-page">
+  <div class="banner">
+    <video
+      class="pc-video"
+      preload="auto"
+      autoplay
+      loop-fix
+      muted
+      playsinline>
+      <source src="https://cdn.shopify.com/videos/c/o/v/cd0150eb71214fb7a70e631a91369905.mp4" />
+    </video>
+    <video
+      class="mobile-video"
+      preload="auto"
+      autoplay
+      loop-fix
+      muted
+      playsinline>
+      <source src="https://cdn.shopify.com/videos/c/o/v/54099cf8c19c42128faaa32cf97f99ff.mp4" />
+    </video>
+    <div class="banner-text">
+      <div class="banner-text-inner">
+        <div class="banner-text-yellow">New Upgrade - Unlock 50,000 in² Stable Output!</div>
+        <div class="banner-text-main">
+          <div class="accent">Offering $600 Off &</div>A Printer Stand!</div>          
+        <div class="banner-text-button">
+          <button data-href="https://www.procolored.com/products/13-dual-heads-dtf-pro-a3-dtf-printer-direct-to-film-printer-upgrade" class="banner-text-button-entity">
+            <div id="shop-now-button-text">
+              Empower Now
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {%- assign product_form_id = 'product-form-' | append: section.id -%}
+  <section class="sale-list-section">
+    <div class="sale-title">Big Sale Up to $600 OFF</div>
+    <div class="sale-list">
+      <div class="sale-list-item">
+        {% for collection in collections limit: 1 %}
+          {% for prod in collection.products %}
+            {% if prod.url == '/products/13-dual-heads-dtf-pro-a3-dtf-transfer-printer-dtf-shaker-bundle' %}
+              {% render 'product-card.sale'
+                , product_card_product: prod
+                , manual_original: 6798
+                , manual_current: 6198 %}
+
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+      <div class="sale-list-item">
+        {% for collection in collections limit: 1 %}
+          {% for prod in collection.products %}
+            {% if prod.url == '/products/13-dual-heads-dtf-pro-a3-dtf-printer-with-printer-stand' %}
+              {% render 'product-card.sale'
+                , product_card_product: prod
+                , manual_original: 4899
+                , manual_current: 4199 %}
+
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+      <div class="sale-list-item">
+        {% for collection in collections limit: 1 %}
+          {% for prod in collection.products %}
+            {% if prod.url == '/products/13-dual-heads-dtf-pro-a3-dtf-printer-direct-to-film-printer-upgrade' %}
+              {% render 'product-card.sale'
+                , product_card_product: prod
+                , manual_original: 4799
+                , manual_current: 4199 %}
+
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+      <div class="sale-list-item">
+        {% for collection in collections limit: 1 %}
+          {% for prod in collection.products %}
+            {% if prod.url == '/products/13-dual-heads-dtf-pro-a3-dtf-transfer-printer-oven' %}
+              {% render 'product-card.sale'
+                , product_card_product: prod
+                , manual_original: 5249
+                , manual_current: 4649 %}
+
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+      <div class="sale-list-item">
+        {% for collection in collections limit: 1 %}
+          {% for prod in collection.products %}
+            {% if prod.url == '/products/13-dual-heads-dtf-pro-a3-dtf-transfer-printer-complete-bundle' %}
+              {% render 'product-card.sale'
+                , product_card_product: prod
+                , manual_original: 6049
+                , manual_current: 5449 %}
+
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+      <div class="sale-list-item">
+        {% for collection in collections limit: 1 %}
+          {% for prod in collection.products %}
+            {% if prod.url == '/products/13-dual-heads-dtf-pro-a3-dtf-transfer-printer-ultimate-bundle' %}
+              {% render 'product-card.sale'
+                , product_card_product: prod
+                , manual_original: 7698
+                , manual_current: 7098 %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+    {% comment %} <div class="sale-list-item">
+                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="sale-list-item-image">
+                                                                                                                                                                                                                                                                                                                                                                                                                                  <img src="{{ 'luodi-product-3.png' | asset_url}}" />
+                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="sale-list-item-name">A3 DTF Pro Printer & Powder Shaker</div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="sale-list-item-price"></div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="sale-list-item-button"></div>
+                                                                                                                                                                                                                                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                              <div class="sale-list-item">
+                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="sale-list-item-image">
+                                                                                                                                                                                                                                                                                                                                                                                                                                  <img src="{{ 'luodi-product-4.png' | asset_url}}" />
+                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="sale-list-item-name">A3 DTF Pro Printer & Support Stand</div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="sale-list-item-price"></div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="sale-list-item-button"></div>
+                                                                                                                                                                                                                                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                              <div class="sale-list-item">
+                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="sale-list-item-image">
+                                                                                                                                                                                                                                                                                                                                                                                                                                  <img src="{{ 'luodi-product-5.png' | asset_url}}" />
+                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="sale-list-item-name">A3 DTF Pro Printer Complete Bundle</div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="sale-list-item-price"></div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="sale-list-item-button"></div>
+                                                                                                                                                                                                                                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                              <div class="sale-list-item">
+                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="sale-list-item-image">
+                                                                                                                                                                                                                                                                                                                                                                                                                                  <img src="{{ 'luodi-product-6.png' | asset_url}}" />
+                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="sale-list-item-name">A3 DTF Pro Printer Ultimate Bundle</div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="sale-list-item-price"></div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="sale-list-item-button"></div>
+                                                                                                                                                                                                                                                                                      </div> {% endcomment %}
+    </div>
+  </section>
+  <section class="sale-list-chars" style="--pc-bg: url({{ 'luodi-bg.svg' | asset_url }}); --mobile-bg: url({{ 'luodi-bg-mobile.svg'| asset_url }})">
+    <div class="sale-list-chars-inner">
+      <div class="sale-list-char">
+        <div class="sale-list-char-image">
+          <img src="{{ 'luodi-icon-fangdu.svg'| asset_url }}" />
+        </div>
+        <div class="sale-list-char-name">
+          50% Less Clogging
+        </div>
+      </div>
+      <div class="sale-list-char">
+        <div class="sale-list-char-image">
+          <img src="{{ 'luodi-icon-weixiu.svg'| asset_url }}" />
+        </div>
+        <div class="sale-list-char-name">
+          50% Less Maintence
+        </div>
+      </div>
+      <div class="sale-list-char">
+        <div class="sale-list-char-image">
+          <img src="{{ 'luodi-icon-shijian.svg'| asset_url }}" />
+        </div>
+        <div class="sale-list-char-name">
+          More Time for Success
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="sale-circulation-desc">
+    <div class="sale-circulation-desc-inner">
+      <div class="left">
+        <img src="{{ 'luodi-circulation.gif' | asset_url }}" />
+      </div>
+      <div class="right">
+        <h1>Procolored<br/>Siphon Circulation</h1>
+        <p>Traditional squeezing circulation system can results in ink leakage. The new siphon circulation avoids such issue. The white ink is transported                                                                                                            
+      to the print head stably.</p>
+      </div>
+    </div>
+  </section>
+  <section class="activity-rules">
+    <div class="activity-rules-inner">
+      <h1>Activity Detailed Rules</h1>
+      <p>
+        <strong>Event Time</strong>: Eastern Standard Time (EST), UTC/GMT -5.00 (GMT-5) March 3rd to March 31st.<br/>Dear valued customers, we are thrilled to bring you a new sale event of the upgraded DTF Pro printer. Here we are unveiling the exciting features of our latest DTF Pro printing machine. And from March 3rd to March 31st you'll have the opportunity to enjoy the uncredible discount and gift.</p>
+      <p>The Procolored Siphon Circulation is a game-changer for the DTF printing industry. With the aim of rapidly introduce our upgraded DTF Pro printer to the market, we are offering
+        <strong>a big discount of up to $600</strong>
+        on a limited quantity of 100 units. And as a added bonus, you are receiving a
+        <strong>complimentary support stand</strong>
+        along with your purchase.</p>
+      <p>
+        <strong>Why Procolored Siphon White Ink Circulation is A Great Upgrade?</strong><br/>Traditional squeezing circulation system often results in ink leakage, causing printing inefficiency and business interruption. 50% of the white ink clogging issues are caused by ink leakage, which can be avoid by the new Siphon Circulation. There is no mechanical squeezing of the ink pipeline, the overall lifespan of the circulation system is highly improved. It opens up the possibility of achieving
+        <strong>the goal of 50,000 square inches of continuous stable printing</strong>.</p>
+      <p>Learn more about
+        <strong>Procolored Siphon White Ink Circulation</strong>. Don't miss out this opportunity to enhance your printing setup and elevate your workflow with our new upgraded DTF Pro Printer!</p>
+    </div>
+  </section>
+</div>
+{{ 'page.sale.js' | asset_url | script_tag }}
+{{ 'data-href-support.js' | asset_url | script_tag }}

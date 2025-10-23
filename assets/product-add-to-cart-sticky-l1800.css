@@ -1,0 +1,108 @@
+.product-add-to-cart-sticky-l1800 {
+    background: white;
+    display: flex;
+    width: 100%;
+    /* 减去滚动条的宽度 */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    transform: translateY(50px);
+    transition: all .2s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.product-add-to-cart-sticky-l1800 .product-name {
+    font-size: 20px;
+    line-height: 1;
+    margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+    .product-add-to-cart-sticky-l1800 .product-name {
+        margin-top: 4px;
+    }
+}
+
+.product-price {
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+    .product-price {
+        margin: 0
+    }
+}
+
+.product-price .del {
+    color: black;
+    font-size: 12px;
+}
+
+.product-price ins {
+    font-size: 20px;
+}
+
+.product-price .amount .money {
+    color: #da291c;
+}
+
+.product-price .discount_amount {
+    font-size: 12px;
+}
+
+.product-add-to-cart-sticky-l1800.sticky--visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+.product-add-to-cart-sticky-l1800 .inner {
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    max-width: 1380px;
+    padding: .8rem 0;
+    font-size: 1.1rem;
+}
+
+@media only screen and (min-width: 768px) {
+    .product-add-to-cart-sticky-l1800 .inner {
+        width: calc(100% - 2 * 35px - 2 * 15px);
+    }
+}
+
+.product-add-to-cart-sticky-l1800 .inner .spacer {
+    flex: 1;
+}
+
+.product-add-to-cart-sticky-l1800 .add_to_cart_holder:not(html) {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .product-add-to-cart-sticky-l1800 .add_to_cart_holder:not(html) {
+        padding: 0;
+    }
+}
+
+.product-price:not(html) {
+    font-size: 1.1rem;
+    color: #da291c;
+}
+
+.product-add-to-cart-sticky-l1800 .right-box {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .product-add-to-cart-sticky-l1800 .right-box>* {
+        flex: 1;
+        gap: 11px;
+    }
+}

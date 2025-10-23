@@ -1,0 +1,475 @@
+{%- liquid
+  assign products_hover_images = settings.products_hover_images
+  assign product_aspect_ratio = settings.product_aspect_ratio
+  assign product_content_alignment = settings.product_content_alignment
+  assign featured_media = product_card_product.featured_media
+  assign product_price_position = settings.product_price_position
+  assign ratio = 1
+  assign sizes = '298x298,596x596'
+  assign info_spacing = true
+  assign product_card_border = settings.product_card_border
+  assign product_card_shadow = settings.product_card_shadow
+  assign product_card_shadow_class = 'has-shadow--' | append: product_card_shadow
+
+  if featured_media.media_type != 'image'
+    assign featured_media = featured_media.preview_image
+  endif
+  if product_aspect_ratio == 'adapt'
+    assign ratio = featured_media.aspect_ratio
+    assign sizes = '298x0,596x0'
+  elsif product_aspect_ratio == 'portrait'
+    assign ratio = 1 | divided_by: 1.25
+    assign sizes = '298x350,596x700'
+  elsif product_aspect_ratio == 'landscape'
+    assign ratio = 1 | divided_by: 0.75
+    assign sizes = '298x250,596x500'
+  endif
+
+  assign color_body_bg = settings.color_body_bg | downcase
+  assign color_product_card_bg = settings.color_product_card_bg | downcase
+
+  if color_body_bg == color_product_card_bg or color_product_card_bg == 'transparent' or color_product_card_bg == 'rgba(0,0,0,0)'
+    unless product_card_border
+      assign info_spacing = false
+    endunless
+    if product_card_shadow
+      assign info_spacing = true
+    endif
+  endif
+
+  assign is_purchasable = false
+  if product_card_product.available and product_card_product.variants.size == 1
+    assign is_purchasable = true
+  endif
+-%}
+<style></style>
+
+{%- if product_card_product and product_card_product != empty -%}
+  <!-- 当元对象不存在时，单独控制产品变体折扣显示或隐藏 -->
+  {% assign variants_display_custom_discounts = false %}
+  {%- if product_card_product.metafields.custom.variants_display_custom_discounts -%}
+    {% assign variants_display_custom_discounts = true %}
+  {%- endif -%}
+  <!-- 针对元对象显示 -->
+  <!-- 折扣全局对象 -->
+  {% assign custom_discount = null %}
+  {% assign start_date = null %}
+  {% assign end_date = null %}
+  <!-- 优惠券使用主体：如系列/产品/变体使用 -->
+  {% assign custom_discount_effect_type = null %}
+  {% assign variant_discount_array = variant_discount_array | default: '' %}
+  {% for discount in shop.metaobjects.discount.values %}
+    <!-- 按产品系列筛选 -->
+    {%- if discount.collection != blank -%}
+      {% for product_name in discount.collection.value.products %}
+        {% assign product_id = product_name.id %}
+        {%- if product_id == product_card_product.id -%}
+          {% assign custom_discount_effect_type = 'collection' %}
+          {%- if discount.value != blank -%}
+            {% comment %} 百分比折扣值 {% endcomment %}
+            {% assign custom_discount = discount.value %}
+          {%- elsif discount.value1 != empty -%}
+            {% comment %} 固定折扣值 {% endcomment %}
+            {% assign custom_discount = discount.value1.value %}
+          {%- else -%}
+            {% assign custom_discount = '' %}
+          {%- endif -%}
+          {%- if discount.start_date != blank -%}
+            {% assign start_date = discount.start_date %}
+          {%- endif -%}
+          {%- if discount.end_date != blank -%}
+            {% assign end_date = discount.end_date %}
+          {%- endif -%}
+
+          {% break %}
+        {%- endif -%}
+      {% endfor %}
+
+    {%- elsif discount.product_name != blank -%}
+      <!-- 按产品筛选 -->
+      {% comment %} 产品=={{ discount.product_name }} {% endcomment %}
+      {%- if discount.product_name != empty -%}
+        {% for product_name in discount.product_name.value %}
+          {% assign product_id = product_name.id %}
+          {%- if product_id == product_card_product.id -%}
+            {% assign custom_discount_effect_type = 'product' %}
+            {%- if discount.value != blank -%}
+              {% comment %} 百分比折扣值 {% endcomment %}
+              {% assign custom_discount = discount.value %}
+            {%- elsif discount.value1 != empty -%}
+              {% comment %} 固定折扣值 {% endcomment %}
+              {% assign custom_discount = discount.value1.value %}
+            {%- else -%}
+              {% assign custom_discount = '' %}
+            {%- endif -%}
+            {%- if discount.start_date != blank -%}
+              {% assign start_date = discount.start_date %}
+            {%- endif -%}
+            {%- if discount.end_date != blank -%}
+              {% assign end_date = discount.end_date %}
+            {%- endif -%}
+            {% break %}
+          {%- endif -%}
+        {% endfor %}
+      {%- endif -%}
+    {%- else -%}
+      <!-- 按产品变体筛选 -->
+      {% comment %} 产品变体=={{ discount.product_variants }} {% endcomment %}
+      {%- if discount.product_variants != blank -%}
+        {% comment %} {{ discount.product_variants.value | json }} {% endcomment %}
+        {% for selectedVariant in discount.product_variants.value %}
+          {% assign selected_variant_id = selectedVariant.id %}
+
+          {% for variant in product_card_product.variants %}
+            {%- if selected_variant_id == variant.id -%}
+              {% assign custom_discount_effect_type = 'variant' %}
+              {%- if discount.value != blank -%}
+                {% comment %} 百分比折扣值 {% endcomment %}
+                {% assign custom_discount = discount.value %}
+
+              {%- elsif discount.value1 != empty -%}
+                {% comment %} 固定折扣值 {% endcomment %}
+                {% assign custom_discount = discount.value1.value %}
+              {%- else -%}
+                {% assign custom_discount = '' %}
+              {%- endif -%}
+              {%- if discount.start_date != blank -%}
+                {% assign start_date = discount.start_date %}
+              {%- endif -%}
+              {%- if discount.end_date != blank -%}
+                {% assign end_date = discount.end_date %}
+              {%- endif -%}
+
+              {% assign current_variant_compare_at_price = variant.compare_at_price | default: 0 %}
+              {% assign new_item = product.id
+                | append: '&'
+                | append: variant.id
+                | append: '&'
+                | append: custom_discount
+                | append: '&'
+                | append: variant.price
+                | append: '&'
+                | append: current_variant_compare_at_price
+                | append: '&'
+                | append: start_date
+                | append: '&'
+                | append: end_date
+              %}
+              {% if variant_discount_array != '' %}
+                {% assign variant_discount_array = variant_discount_array | append: ';' | append: new_item %}
+              {% else %}
+                {% assign variant_discount_array = new_item %}
+              {% endif %}
+            {%- endif -%}
+          {% endfor %}
+        {% endfor %}
+      {%- endif -%}
+    {%- endif -%}
+  {% endfor %}
+  <product-card
+    data-product-id="{{ product_card_product.id }}"
+
+    class="product-card product-card-{{product_card_product.id}} text-{{ product_content_alignment }} product-card--content-spacing-{{ info_spacing }} product-card--border-{{ product_card_border }} {{ product_card_shadow_class }}"
+  >
+    <figure class="ethan666 product-featured-image {% if products_hover_images and product_card_product.images.size > 1 %}thb-hover{% endif %}">
+      {% render 'product-card-badge', product_card_product: product_card_product %}
+
+      {% assign prod_tags = product_card_product.tags | downcase %}
+      <a
+        href="{{ product_card_product.url | split: '?' | first }}"
+        title="{{ product_card_product.title | escape }}"
+        class="product-featured-image-link aspect-ratio aspect-ratio--{{ settings.product_aspect_ratio }}"
+        style="--padding-bottom: {{ 1 | divided_by: ratio | times: 100 }}%;"
+      >
+        {%- if products_hover_images and product_card_product.images.size > 1 -%}
+          {%- render 'responsive-image',
+            class: 'product-secondary-image',
+            image: product_card_product.images[1],
+            sizes: sizes
+          -%}
+        {%- endif -%}
+        {%- if featured_media -%}
+          {%- render 'responsive-image', class: 'product-primary-image', image: featured_media, sizes: sizes -%}
+        {%- else -%}
+          <div class="thb-placeholder">
+            {{ 'product-1' | placeholder_svg_tag }}
+          </div>
+        {%- endif -%}
+
+        {%- if settings.enable_quick_view -%}
+          <quick-view
+            class="product-card-quickview"
+            data-product-handle="{{ product_card_product.handle }}"
+            tabindex="-1"
+          >
+            <div class="loading-overlay">{% render 'svg-icons' with 'thb-loading' %}</div>
+            <span>{{ 'products.product.quick_view' | t }}</span>
+          </quick-view>
+        {%- endif -%}
+      </a>
+      <div class="prod-badge">
+        {% if prod_tags contains 'new arrival' or prod_tags contains 'new' %}
+          <div class="badge-new">New Arrival</div>
+        {% elsif prod_tags contains 'best seller' %}
+          <div class="best-seller">
+            <img
+              class="best-seller-icon lazyload"
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/best-seller.png?v=1747726975"
+            >
+            <span>Best Seller</span>
+          </div>
+        {% elsif prod_tags contains 'hot' %}
+          <div class="badge-hot">Hot</div>
+        {% elsif prod_tags contains 'free oven' %}
+          <div class="badge-hot">Free Oven</div>
+        {% elsif prod_tags contains 'starting' %}
+          {%- capture starting_num -%}
+            {{ product_card_product.price_min | money }}
+          {%- endcapture -%}
+          <div class="badge-starting">Starting at {{ starting_num }}</div>
+        {% else %}
+          {%- unless product_card_product.selected_or_first_available_variant.available -%}
+            <div class="badge-sold-out">Coming Soon</div>
+          {%- endunless -%}
+        {% endif %}
+      </div>
+    </figure>
+
+    <div class="product-card-info">
+      {%- if settings.show_products_vendor -%}
+        <div class="product-card-vendor">
+          <a
+            href="{{ product_card_product.vendor | url_for_vendor }}"
+            title="{{ product_card_product.vendor | escape }}"
+          >
+            {{- product_card_product.vendor -}}
+          </a>
+        </div>
+      {%- endif -%}
+      {%- liquid
+        if product_price_position == 'before-product-title'
+          render 'product-price', product: product_card_product, use_variant: true
+        endif
+      -%}
+      <a
+        href="{{ product_card_product.url | split: '?' | first }}"
+        title="{{ product_card_product.title | escape }}"
+        class="product-card-title"
+      >
+        {{- product_card_product.title -}}
+      </a>
+
+      <div class="activity-price-display">
+        <span class="price ">
+          <ins
+            ><span class="amount "> <span class="money"></span> </span
+          ></ins>
+          <del>
+            <span class="amount">
+              {% if settings.currency_code_enabled %}
+                {{ product_card_product.price | money_with_currency }}
+              {% else %}
+                {{ product_card_product.price | money }}
+              {% endif %}
+            </span>
+          </del>
+
+          <small class="unit-price {% if product_card_product.selected_or_first_available_variant.unit_price_measurement == nil %} hidden{% endif %}">
+            <span>{{- product_card_product.selected_or_first_available_variant.unit_price | money -}}</span>
+            <span class="unit-price-separator">/</span>
+            <span>
+              {%- if product_card_product.selected_or_first_available_variant.unit_price_measurement.reference_value
+                  != 1
+              -%}
+                {{- product_card_product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
+              {%- endif -%}
+              {{ product_card_product.selected_or_first_available_variant.unit_price_measurement.reference_unit }}
+            </span>
+          </small>
+        </span>
+      </div>
+
+      {%- liquid
+        if product_price_position == 'after-product-title'
+          render 'product-price', product: product_card_product, use_variant: true
+        endif
+      -%}
+
+      {% render 'product-card-swatch', product: product_card_product, sizes: sizes %}
+      {%- if settings.show_products_rating and product_card_product.metafields.reviews.rating.value != blank -%}
+        <div
+          class="star-rating"
+          style="--star-rating: {{ product_card_product.metafields.reviews.rating.value.rating }};"
+        >
+          {%- if settings.show_products_rating_average -%}
+            <span class="body-font">{{ product_card_product.metafields.reviews.rating.value.rating }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      {%- render 'product-card-labels', product: product_card_product -%}
+
+      {% render 'custom-automatic-discount-reminder',
+        product: product_card_product,
+        discount: custom_discount,
+        custom_discount_effect_type: custom_discount_effect_type,
+        variant_discount_array: variant_discount_array,
+        start_date: start_date,
+        end_date: end_date
+      %}
+      {%- if settings.enable_quick_add -%}
+        <div class="product-card--add-to-cart-button-wrapper">
+          {% if is_purchasable %}
+            <button
+              class="product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+              data-product-id="{{ product_card_product.selected_or_first_available_variant.id }}"
+              tabindex="-1"
+              {% if product_card_product.selected_or_first_available_variant.available == false %}
+                disabled
+              {% endif %}
+            >
+              {% render 'svg-icons' with 'thb-loading' %}
+              <span class="product-card--add-to-cart-text">
+                {%- if product_card_product.selected_or_first_available_variant.available -%}
+                  {{- 'products.product.add_to_cart' | t -}}
+                {%- else -%}
+                  {{- 'products.product.sold_out' | t -}}
+                {%- endif -%}
+              </span>
+            </button>
+          {% else %}
+            <!--
+              <quick-view class="product-card--add-to-cart-button button accent" data-product-handle="{{ product_card_product.handle }}" tabindex="-1">
+              	{% render 'svg-icons' with 'thb-loading' %}
+              	<span class="product-card--add-to-cart-text">{{ 'products.product.choose_options' | t }}</span>
+              </quick-view>
+            -->
+            <a
+              class="product-card--add-to-cart-button button accent"
+              href="{{ product_card_product.url | split: '?' | first }}"
+              tabindex="-1"
+            >
+              <span class="product-card--add-to-cart-text">{{ 'products.product.choose_options' | t }}</span>
+            </a>
+          {% endif %}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {% comment %}
+      {%- if enable_klarna -%}
+        {% assign klarna_id = 'shopify-block-klarna_on_site_messaging_app_block_ThYjni' %}
+
+        <!-- DO NOT DELETE -->
+        <klarna-placement
+          id="{{ klarna_id }}"
+        >
+        </klarna-placement>
+        <div class="klarna-osm-wrapper">
+          <klarna-placement
+            id="{{ klarna_id }}"
+            data-key="credit-promotion-badge"
+            data-theme="custom"
+            data-message-prefix=""
+            data-integration-style="app-blocks"
+            data-locale="en-US"
+            data-purchase-amount="{{ product_card_product.selected_or_first_available_variant.price }}"
+            data-preloaded="true"
+          >
+          </klarna-placement>
+        </div>
+      {%- endif -%}
+    {% endcomment %}
+  </product-card>
+{%- else -%}
+  <product-card class="product-card text-{{ product_content_alignment }} product-card--content-spacing-{{ info_spacing }} product-card--border-{{ product_card_border }} {{ product_card_shadow_class }}">
+    <figure class="product-featured-image {% if settings.products_hover_images %}thb-hover{% endif %}">
+      <a
+        href="{{ product_card_product.url | split: '?' | first }}"
+        title="{{ product_card_product.title | escape }}"
+        class="product-featured-image-link aspect-ratio aspect-ratio--{{ settings.product_aspect_ratio }}"
+        style="--padding-bottom: {{ 1 | divided_by: 1 | times: 100 }}%;"
+      >
+        <div class="thb-placeholder">
+          {{ 'product-1' | placeholder_svg_tag }}
+        </div>
+        <quick-view
+          class="product-card-quickview"
+          data-product-handle="{{ product_card_product.handle }}"
+          tabindex="-1"
+        >
+          <div class="loading-overlay">{% render 'svg-icons' with 'thb-loading' %}</div>
+          <span>{{ 'products.product.quick_view' | t }}</span>
+        </quick-view>
+      </a>
+    </figure>
+    <div class="product-card-info">
+      <div class="product-card-vendor">
+        <a href="#" title="{{ 'onboarding.product_vendor' | t }}">{{ 'onboarding.product_vendor' | t }}</a>
+      </div>
+      {%- liquid
+        if product_price_position == 'before-product-title'
+          render 'product-price', product: product_card_product, use_variant: true
+        endif
+      -%}
+      <a href="#" title="{{ product_card_product.title | escape }}" class="product-card-title">
+        {{- 'onboarding.product_title' | t -}}
+      </a>
+      {%- if custom_discount -%}
+        <span class="price">
+          <ins
+            ><span class="amount "> <span class="money"></span> </span
+          ></ins>
+          <del>
+            <span class="amount">
+              {% if settings.currency_code_enabled %}
+                {{ product_card_product.price | money_with_currency }}
+              {% else %}
+                {{ product_card_product.price | money }}
+              {% endif %}
+            </span>
+          </del>
+
+          <small class="unit-price {% if product_card_product.selected_or_first_available_variant.unit_price_measurement == nil %} hidden{% endif %}">
+            <span>{{- product_card_product.selected_or_first_available_variant.unit_price | money -}}</span>
+            <span class="unit-price-separator">/</span>
+            <span>
+              {%- if product_card_product.selected_or_first_available_variant.unit_price_measurement.reference_value
+                  != 1
+              -%}
+                {{- product_card_product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
+              {%- endif -%}
+              {{ product_card_product.selected_or_first_available_variant.unit_price_measurement.reference_unit }}
+            </span>
+          </small>
+        </span>
+      {%- else -%}
+        {%- liquid
+          if product_price_position == 'after-product-title'
+            render 'product-price', product: product_card_product, use_variant: true
+          endif
+        -%}
+      {%- endif -%}
+
+      {%- if settings.show_products_rating and product_card_product.metafields.reviews.rating.value != blank -%}
+        <div class="star-rating" style="--star-rating: 5;"><span class="body-font">5</span></div>
+      {%- endif -%}
+      {%- if settings.enable_quick_add -%}
+        <div class="product-card--add-to-cart-button-wrapper">
+          <!--
+            <quick-view class="product-card--add-to-cart-button button accent" data-product-handle="" tabindex="-1">
+              {% render 'svg-icons' with 'thb-loading' %}
+              <span class="product-card--add-to-cart-text">{{ 'products.product.choose_options' | t }}</span>
+            </quick-view>
+          -->
+          <a
+            class="product-card--add-to-cart-button button accent"
+            href="#"
+            tabindex="-1"
+          >
+            <span class="product-card--add-to-cart-text">{{ 'products.product.choose_options' | t }}</span>
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </product-card>
+{%- endif -%}

@@ -1,0 +1,53 @@
+{% liquid
+  assign product = section.settings.hs_product_r
+  assign product_form_id = 'product-form-' | append: section.id
+%}
+<div class="box-item r">
+  <div class="item-content">
+    <div class="item-img">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_chanpin_A4_L800_2x_8728b364-d03f-41b3-9d2a-2d34522eda76.png"
+        alt=""
+      >
+    </div>
+    <div class="item-img-sec">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_chanpin_Oven_2x_ec9427b0-ab7d-4ffa-9974-6c4a327fbcb6.png"
+        alt=""
+      >
+    </div>
+    <p class="item-title">{{ product.title }}</p>
+    <div class="item-price">
+      <span class="new-price">$2249</span>
+      <span class="old-price">$2399</span>
+    </div>
+    <div class="item-btn">
+      <div class="btn-info">
+        <div class="btn-l">
+          {% render 'btn-addtocart-gen2', product: product, product_form_id: product_form_id %}
+        </div>
+        <a class="btn-r" href="{{ product.url }}">Learn More</a>
+      </div>
+    </div>
+  </div>
+  <div class="item-sale">
+    <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/price_tag_pc_flag_gold.png" alt="">
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Gen2 Hot Selling R",
+  "settings": [
+    {
+      "type": "product",
+      "id": "hs_product_r",
+      "label": "右边产品选择"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gen2 Hot Selling R"
+    }
+  ]
+}
+{% endschema %}

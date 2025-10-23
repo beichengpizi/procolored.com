@@ -1,0 +1,271 @@
+<style>
+  /* 导航 */
+  .nav-{{section.id}}{
+    background: {{ section.settings.bg_color}};
+    width: 100%;
+    position: relative;
+    z-index: 9;
+    transition: all 0.3s ease; /* 添加过渡效果 */
+  }
+  .nav-{{section.id}}.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: {{ section.settings.bg_color | color_modify: 'alpha', section.settings.bg_transparency }};
+  }
+  .nav-{{section.id}} .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    overflow-x: auto; /* 允许水平滚动 */
+    -webkit-overflow-scrolling: touch; /* 使 iOS 设备上的滚动更流畅 */
+    touch-action: pan-x; /* 仅允许水平滑动 */
+    scrollbar-width: none; /* 隐藏滚动条 */
+    -ms-overflow-style: none; /* IE 和 Edge */
+  }
+  .nav-{{section.id}} .nav-container::-webkit-scrollbar {
+    display: none; /* 隐藏滚动条 */
+  }
+  .nav-{{section.id}} .nav-container > a {
+    font-size: {{ section.settings.font_size }}px;
+    color: {{ section.settings.font_color }};
+    text-decoration: none;
+    letter-spacing: 0;
+    line-height: 1;
+    position: relative;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* 防止换行 */
+    margin-right: 20px; /* 间距 */
+  }
+  .nav-{{section.id}} .nav-container a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: {{ section.settings.font_color }};
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-{{section.id}} .nav-container a.active::after {
+    transform: scaleX(1);
+  }
+  @media screen and (min-width: 320px) and (max-width: 768px) {
+    .nav-{{section.id}} .nav-container {
+        flex-wrap: nowrap; /* 不换行 */
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .nav-{{section.id}} .nav-container > a {
+        font-size: {{ section.settings.font_size_mobile }}px;
+
+      }
+  }
+</style>
+<!-- 导航 -->
+<nav class="nav-{{section.id}}">
+  <div class="nav-container">
+    {%- for block in section.blocks -%}
+      <a class="{{ section.settings.font_family }} " href="#custom-nav-{{- block.settings.section_id -}}">
+        {{- block.settings.title -}}
+      </a>
+    {% endfor %}
+  </div>
+</nav>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const nav = document.querySelector('.nav-{{section.id}}');
+    const sections = document.querySelectorAll('div[id^="custom-nav-"]');
+    const navContainer = document.querySelector('.nav-{{section.id}} .nav-container');
+    const navLinks = document.querySelectorAll('.nav-{{section.id}} .nav-container a');
+
+    // 检查当前滚动位置并更新导航链接状态
+    function updateNavLinks() {
+      let currentSection = '';
+
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (window.scrollY >= sectionTop - sectionHeight / 3) {
+          currentSection = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach((link) => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').slice(1) === currentSection) {
+          link.classList.add('active');
+          scrollNavToActiveLink(link);
+        }
+      });
+    }
+
+    // 滚动导航菜单到当前激活的链接
+    function scrollNavToActiveLink(activeLink) {
+      const activeLinkRect = activeLink.getBoundingClientRect();
+      const navContainerRect = navContainer.getBoundingClientRect();
+
+      if (activeLinkRect.left < navContainerRect.left || activeLinkRect.right > navContainerRect.right) {
+        navContainer.scrollLeft += activeLinkRect.left - navContainerRect.left;
+      }
+    }
+    const navTop = nav.offsetTop;
+    // 监听滚动事件
+    window.addEventListener('scroll', () => {
+      //console.log(navTop, window.scrollY);
+      if (window.scrollY >= navTop) {
+        nav.classList.add('sticky');
+      } else {
+        nav.classList.remove('sticky');
+      }
+
+      updateNavLinks();
+    });
+
+    // 初始化时调用一次
+    updateNavLinks();
+
+    // 检查URL中的锚点并滚动到相应位置
+    function scrollToAnchor() {
+      const hash = window.location.hash;
+      if (hash) {
+        const targetElement = document.querySelector(hash);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+          updateNavLinks();
+        }
+      }
+    }
+
+    // 页面加载时调用
+    scrollToAnchor();
+
+    // 监听hash变化
+    window.addEventListener('hashchange', scrollToAnchor);
+  });
+</script>
+{% schema %}
+{
+  "name": "custom nav",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "字体大小",
+      "default": 16
+    },
+
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "字体大小（移动端）",
+      "default": 14
+    },
+
+    {
+      "type": "select",
+      "id": "font_family",
+      "label": "字体系列",
+      "options": [
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        }
+      ],
+      "default": "custom-font-regular"
+    },
+
+    {
+      "type": "color",
+      "id": "font_color",
+      "label": "字体颜色",
+      "default": "#000000"
+    },
+
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#FECE67"
+    },
+    {
+      "type": "range",
+      "id": "bg_transparency",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "unit": "%",
+      "label": "背景色透明度",
+      "default": 1
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "锚点",
+      "settings": [
+        {
+          "type": "html",
+          "id": "title",
+          "label": "模块锚点名称",
+          "default": "标题"
+        },
+        {
+          "type": "text",
+          "id": "section_id",
+          "label": "模块锚点ID",
+          "default": "section-1",
+          "info": "模块锚点ID，并且用‘-’连接，例如：section-1，保持与模块锚点ID一致"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "custom nav",
+      "blocks": [
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

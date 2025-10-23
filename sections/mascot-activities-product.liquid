@@ -1,0 +1,1034 @@
+<style>
+      /* 吉祥物活动产品 start */
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-wrapper {
+      background-color: {{ section.settings.bg_color }};
+      padding: {{section.settings.padding_top}}px 0px {{section.settings.padding_bottom}}px 0px;
+    }
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-container {
+      max-width: 1248px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-container-title{
+        color: #FFF;
+        text-align: center;
+        font-size: 56px;
+        font-weight: 800;
+        line-height: 1.14; /* 114% */
+        margin-bottom: 30px;
+
+    }
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-container-subtitle{
+        color: #FF8F1C;
+        text-align: center;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1.26; /* 126% */
+        margin-bottom: 60px;
+    }
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-container-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: {{ section.settings.card_gap }}px;
+      width: 100%;
+    }
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-container-content-item {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-radius: 20px;
+      overflow: hidden;
+      background-color: {{ section.settings.card_bg_color }};
+      background: {{ section.settings.card_background_gradient_color }};
+      border: 2px solid rgba(255, 255, 255, 0.20);
+      /* 关键: 修复换行问题，保证在 flex 布局下每行正确分布 */
+      flex: 0 0 calc((100% - ({{ section.settings.prduct_num | minus: 1 }} * {{ section.settings.card_gap }}px)) / {{ section.settings.prduct_num }});
+      max-width: calc((100% - ({{ section.settings.prduct_num | minus: 1 }} * {{ section.settings.card_gap }}px)) / {{ section.settings.prduct_num }});
+      min-width: 0;
+    }
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-container-content-img-wrapper {
+      width: 100%;
+      {% comment %} height: 284px; {% endcomment %}
+      position: relative;
+      cursor: pointer;
+
+    }
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-img-label {
+      position: absolute;
+      left: 0;
+      top: 25px;
+
+
+    }
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-img-label-icon {
+      width: 100px;
+      height: 37px;
+      position: relative;
+
+    }
+
+
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-img-label-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      position: absolute;
+      top: 5px;
+      left: 0;
+
+
+
+    }
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-img-label-text span:nth-child(1) {
+        color: #FFF;
+        text-align: center;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.33; /* 133% */
+
+    }
+
+
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-container-content-img-wrapper img {
+      width: 100%;
+      max-width: 100%;
+      {% comment %} height: 284px; {% endcomment %}
+      object-fit: cover;
+    }
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-container-content-img-wrapper img.pc {
+      display: block;
+    }
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-container-content-img-wrapper img.mb {
+      display: none;
+    }
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-info {
+      padding: 0px 18px 30px 18px;
+      width: 100%;
+      {% comment %} background-color: #fff; {% endcomment %}
+    }
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-title {
+      color: {{section.settings.title_color}};
+      text-align: left;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.4;
+      margin-bottom: 32px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: normal;
+
+    }
+    #mascot-activities-product-{{ section.id }}  .product-flash-sale-countdown{
+      max-width: max-content;
+      background: #000;
+      padding: 2px 0px;
+      border-radius: 90px;
+      margin-bottom: 12px;
+      color: #fff;
+  }
+  #mascot-activities-product-{{ section.id }}   .product-flash-sale-countdown .countdown-box > div {
+    display: flex;
+    align-items: center;
+
+  }
+  #mascot-activities-product-{{ section.id }}   .product-flash-sale-countdown .countdown-box > div > span {
+    display: inline-block;
+    margin: 0 4px;
+    padding:  0 4px;
+    width: 28px;
+    text-align: center;
+
+    line-height: 1;
+    font-size: 14px;
+
+  }
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-price {
+      display: flex;
+      align-items: end;
+      {% comment %} justify-content: center; {% endcomment %}
+      gap: 10px;
+      margin-bottom: 14px;
+
+    }
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-price-sale {
+      color: #FF8100;
+      text-align: left;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1;
+      /* 130% */
+
+    }
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-price-origin {
+     color: rgba(255, 255, 255, 0.80);
+
+
+      text-align: left;
+
+      font-size: 18px;
+
+      font-weight: 400;
+      line-height: 1;
+      /* 150% */
+      text-decoration-line: line-through;
+    }
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-klarna {
+      color: #6D6D6D;
+
+      font-size: 12px;
+
+      font-weight: 500;
+      line-height: 10px;
+      /* 83.333% */
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-klarna klarna-placement::part(osm-container) {
+      padding: 0;
+      border: none;
+      text-align: center;
+    }
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-button product-card {
+        {%- if section.settings.show_learn_more_button -%}
+        width:auto;
+        {%- else -%}
+        width:100%;
+        {%- endif -%}
+
+    }
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+
+    }
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-button-buy-now {
+      display: flex;
+      padding: 11px 32px;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      border-radius: 90px;
+      background: #FF8F1C;
+      color: #FFF;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1;
+      margin: 0;
+      height: auto;
+      visibility: hidden;
+
+    }
+
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-button-learn-more {
+      display: flex;
+      min-width: 160px;
+      min-height: 46px;
+      padding: 9px 32px;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      border-radius: 4px;
+      border: 1px solid #FF8F1C;
+      color: #FF8F1C;
+      cursor: pointer;
+      font-size: 16px;
+
+      font-weight: 700;
+      line-height: 1.25;
+
+    }
+
+    @media screen and (max-width: 768px) {
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-klarna klarna-placement::part(osm-container) {
+        margin-left: 0;
+        text-align: left;
+      }
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-wrapper {
+
+        padding: {{section.settings.padding_top_mobile}}px 0 {{section.settings.padding_bottom_mobile}}px 0;
+      }
+
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-container {
+        max-width: 100%;
+
+      }
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-container-title{
+        color: #FFF;
+        text-align: center;
+        font-size: 26px;
+        font-weight: 700;
+        line-height: 1.3; /* 114% */
+        margin-bottom: 10px;
+
+    }
+    #mascot-activities-product-{{ section.id }} .mascot-activities-product-container-subtitle{
+        color: #FF8F1C;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.38; /* 126% */
+        margin-bottom: 30px;
+    }
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-container-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: {{ section.settings.card_gap_mobile }}px;
+      }
+
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-container-content-item {
+
+        box-sizing: border-box;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 2px solid rgba(255, 255, 255, 0.20);
+        /* 关键: 修复换行问题，保证在 flex 布局下每行正确分布 */
+        flex: 0 0 calc((100% - ({{ section.settings.prduct_num_mobile | minus: 1 }} * {{ section.settings.card_gap_mobile }}px)) / {{ section.settings.prduct_num_mobile }});
+        max-width: calc((100% - ({{ section.settings.prduct_num_mobile | minus: 1 }} * {{ section.settings.card_gap_mobile }}px)) / {{ section.settings.prduct_num_mobile }});
+        min-width: 0;
+
+      }
+
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-container-content-img-wrapper {
+        width: 100%;
+        {% comment %} height: 130px; {% endcomment %}
+        position: relative;
+
+      }
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-img-label {
+        position: absolute;
+        left: 0;
+        top: 20px;
+
+
+      }
+
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-img-label-icon {
+        width: 100px;
+        height: 38px;
+        position: relative;
+
+      }
+
+
+
+      #mascot-activities-product-{{ section.id }}  .mascot-activities-product-img-label-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        position: absolute;
+        top: 5px;
+        left: 0px;
+      }
+
+      {% comment %} #mascot-activities-product-{{ section.id }} .mascot-activities-product-img-label-text span:nth-child(1) {
+        color: #FFF;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1;
+        /* 133% */
+
+      } {% endcomment %}
+
+
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-container-content-img-wrapper img {
+        width: 100%;
+        max-width: 100%;
+        {% comment %} height: 130px; {% endcomment %}
+        object-fit: cover;
+      }
+
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-container-content-img-wrapper img.pc {
+        display: none;
+      }
+
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-container-content-img-wrapper img.mb {
+        display: block;
+      }
+
+      #mascot-activities-product-{{ section.id }}  .mascot-activities-product-info {
+        padding: 0px 36px 30px 36px;
+        width: 100%;
+
+      }
+
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-title {
+
+        text-align: left;
+        width: 100%;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.4;
+        margin-bottom: 30px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+      }
+
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-price {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 10px;
+        margin-bottom: 12px;
+
+      }
+
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-price-sale {
+
+
+
+        font-size: 30px;
+
+
+        /* 130% */
+
+      }
+
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-price-origin {
+
+
+        font-size: 18px;
+
+
+      }
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-price-origin .money {
+        vertical-align: sub;
+      }
+
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-klarna {
+        color: #6D6D6D;
+
+        font-size: 10px;
+
+        font-weight: 500;
+        line-height: 10px;
+        /* 83.333% */
+        margin-bottom: 14px;
+        text-align: left;
+      }
+
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+      }
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-button product-card {
+        width:100%;
+
+          }
+
+      #mascot-activities-product-{{ section.id }} .mascot-activities-product-info-button-buy-now {
+        display: flex;
+
+        padding: 11px 16px;
+
+
+      }
+
+      #mascot-activities-product-{{ section.id }}  .mascot-activities-product-info-button-learn-more {
+        display: flex;
+        min-width: 100%;
+        min-height: 36px;
+        padding: 9px 16px;
+        justify-content: center;
+        align-items: center;
+        gap: 9px;
+        border-radius: 4px;
+        border: 1px solid #FF8F1C;
+        color: #FF8F1C;
+
+        font-size: 14px;
+
+        font-weight: 700;
+        line-height: 1.25;
+
+      }
+      klarna-placement::part(osm-message) {
+        margin-left: 0;
+        font-size: 10px;
+          color: #6D6D6D;
+    }
+    klarna-placement::part(osm-logo) {
+      font-size: 10px;
+  }
+  klarna-placement::part(osm-cta) {
+    font-size: 10px;
+  }
+    }
+
+    /* 吉祥物活动产品 end */
+</style>
+<!-- 吉祥物活动产品 start -->
+<section id="mascot-activities-product-{{ section.id }}">
+  <div class="mascot-activities-product-wrapper">
+    <div class="mascot-activities-product-container">
+      <div class="mascot-activities-product-container-title">{{ section.settings.title }}</div>
+      <div class="mascot-activities-product-container-subtitle">{{ section.settings.subtitle }}</div>
+      <div class="mascot-activities-product-container-content">
+        {% for block in section.blocks %}
+          {%- liquid
+            assign current_product = block.settings.product
+            assign variant_index = block.settings.product_variant_location | default: '0' | plus: 0
+            assign variant = current_product.variants[variant_index]
+            assign product_image_pc = block.settings.product_image_pc | default: current_product.featured_image
+            assign product_image_mb = block.settings.product_image_mb | default: current_product.featured_image
+            assign title = block.settings.title | default: current_product.title
+            assign product_price = variant.metafields.custom.activity_sale_price.value | default: '0' | plus: 0
+            assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: '0' | plus: 0
+            assign product_diff_price = product_origin_price | minus: product_price
+          -%}
+          <div class="mascot-activities-product-container-content-item">
+            <div
+              class="mascot-activities-product-container-content-img-wrapper"
+              onclick="window.open('{{ variant.url }}', '_blank')"
+            >
+              {% if product_diff_price != blank
+                and product_diff_price > 0
+                and product_price > 0
+                and product_origin_price > 0
+              %}
+                <div class="mascot-activities-product-img-label">
+                  <div class="mascot-activities-product-img-label-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 37" fill="none">
+                      <path d="M96.1846 0C98.2978 0.000239804 99.7486 2.12712 98.9775 4.09473L86.8291 35.0947C86.3787 36.244 85.2695 37 84.0352 37H0.0820312V0H96.1846Z" fill="url(#paint0_linear_8514_9199)"/>
+                      <defs>
+                        <linearGradient id="paint0_linear_8514_9199" x1="0.0820312" y1="18.5" x2="99.1872" y2="18.5" gradientUnits="userSpaceOnUse">
+                          <stop stop-color="#FF0084"/>
+                          <stop offset="0.394231" stop-color="#6958FF"/>
+                          <stop offset="1" stop-color="#0AEFFF"/>
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+                  <div class="mascot-activities-product-img-label-text">
+                    <span
+                      >-
+                      {{- product_diff_price | money_without_trailing_zeros -}}
+                    </span>
+                  </div>
+                </div>
+              {% endif %}
+              {% if product_image_pc %}
+                <img
+                  style="aspect-ratio: {{ product_image_pc.aspect_ratio }}"
+                  class="pc lazyload"
+                  data-sizes="{{100 | divided_by: section.settings.prduct_num}}vw"
+                  data-srcset="
+                    {%- if product_image_pc.width >= 200 -%}{{ product_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                    {%- if product_image_pc.width >= 375 -%}{{ product_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if product_image_pc.width >= 550 -%}{{ product_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if product_image_pc.width >= 750 -%}{{ product_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if product_image_pc.width >= 1100 -%}{{ product_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if product_image_pc.width >= 1500 -%}{{ product_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if product_image_pc.width >= 1780 -%}{{ product_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if product_image_pc.width >= 2000 -%}{{ product_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if product_image_pc.width >= 3000 -%}{{ product_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if product_image_pc.width >= 3840 -%}{{ product_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ product_image_pc | image_url }} {{ product_image_pc.width }}w
+                  "
+                  data-src="{{ product_image_pc | image_url:width:750 }}"
+                  alt="{{ product_image_pc.alt }}"
+                >
+              {% endif %}
+              {% if product_image_mb %}
+                <img
+                  style="aspect-ratio: {{ product_image_mb.aspect_ratio }}"
+                  class="mb lazyload"
+                  data-sizes="{{100 | divided_by: section.settings.prduct_num_mobile}}vw"
+                  data-srcset="
+                    {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                    {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
+                  "
+                  data-src="{{ product_image_mb | image_url:width:750 }}"
+                  alt="{{ product_image_mb.alt }}"
+                >
+              {% endif %}
+            </div>
+            <div class="mascot-activities-product-info">
+              <div class="mascot-activities-product-info-title">{{- title -}}</div>
+              <!-- 秒杀倒计时 模块 -->
+              {%- if section.settings.flash_sale_countdown != empty
+                or section.settings.flash_sale_countdown_end != empty
+              -%}
+                <div
+                  class="product-flash-sale-countdown"
+                >
+                  {%- render 'flash-sale-countdown',
+                    countdown_style: 1,
+                    flash_sale_countdown_date: section.settings.flash_sale_countdown,
+                    flash_sale_countdown_end_date: section.settings.flash_sale_countdown_end
+                  -%}
+                </div>
+              {%- endif -%}
+              <div class="mascot-activities-product-info-price">
+                {% if product_price != blank and product_price > 0 %}
+                  <div class="mascot-activities-product-info-price-sale">
+                    {{ product_price | money_without_trailing_zeros }}
+                  </div>
+                {% endif %}
+                {% if product_origin_price != blank and product_origin_price > 0 %}
+                  <div class="mascot-activities-product-info-price-origin">
+                    {{ product_origin_price | money_without_trailing_zeros }}
+                  </div>
+                {% endif %}
+              </div>
+              {%- if section.settings.show_klarna -%}
+                <div class="mascot-activities-product-info-klarna">
+                  {% assign klarna_id = 'shopify-block-AbFBFd0QvcXlzYkYva__klarna_on_site_messaging_app_block_gcU6LY' %}
+                  <!-- DO NOT DELETE -->
+                  <div class="klarna-osm-wrapper">
+                    <klarna-placement
+                      id="{{ klarna_id }}"
+                      data-key="credit-promotion-auto-size"
+                      data-theme="light"
+                      data-message-prefix=""
+                      data-integration-style="app-blocks"
+                      data-locale="en-US"
+                      {% if variant %}
+                        data-purchase-amount="{{ variant.price }}"
+                      {% endif %}
+                      data-preloaded="true"
+                    >
+                    </klarna-placement>
+                  </div>
+                </div>
+              {% endif %}
+              <div class="mascot-activities-product-info-button">
+                <product-card>
+                  <div
+                    class="mascot-activities-product-info-button-buy-now product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                    data-product-id="{{ variant.id }}"
+                    tabindex="-1"
+                    {% if variant.available == false %}
+                      disabled
+                    {% endif %}
+                  >
+                    {% render 'svg-icons' with 'thb-loading' %}
+                    <span class="product-card--add-to-cart-text">
+                      {%- if variant.available -%}
+                        {{ section.settings.buy_now_button_text }}
+                      {%- else -%}
+                        {{- 'products.product.sold_out' | t -}}
+                      {%- endif -%}
+                    </span>
+                  </div>
+                </product-card>
+                {%- if section.settings.show_learn_more_button -%}
+                  <div
+                    class="mascot-activities-product-info-button-learn-more"
+                    onclick="window.open('{{ variant.url }}', '_blank')"
+                  >
+                    {{ section.settings.learn_more_button_text }}
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 吉祥物活动产品 end -->
+<script>
+  function formatUtcTime(v) {
+    let date = new Date(v);
+    return (
+      date.getFullYear() +
+      '/' +
+      (date.getMonth() + 1) +
+      '/' +
+      (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+      ' ' +
+      (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+      ':' +
+      (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+      ':' +
+      (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+    );
+  }
+  $(function () {
+    if ($('#mascot-activities-product-{{ section.id }} [data-countdown]')) {
+      $('#mascot-activities-product-{{ section.id }} [data-countdown]').each(function () {
+        const UTCDate = $(this).data('countdown'); // 活动开始倒计时
+        const UTCDate_end = $(this).data('countdown-end'); // 活动截止倒计时
+        console.log('UTCDate-活动开始倒计时：', UTCDate);
+        console.log('UTCDate_end-活动截止倒计时：', UTCDate_end);
+        const finalDate = formatUtcTime(UTCDate);
+        const finalDate_end = formatUtcTime(UTCDate_end);
+        const finalDate1 = finalDate;
+        const finalDate2 = finalDate_end ? finalDate_end : null;
+        const timestamp = new Date(finalDate1).getTime();
+        const timestamp_end = finalDate2 ? new Date(finalDate2).getTime() : null;
+        const currentTimestamp = new Date().getTime();
+        console.log('活动开始本地时间==', finalDate);
+          console.log('活动截止本地时间==', finalDate_end);
+        let format;
+        const style = $(this).data('countdown-style');
+        console.log('活动截止本地时间==', finalDate_end);
+        if (timestamp > currentTimestamp){
+            $(this)
+            .parents('.product-flash-sale-countdown')
+            .siblings('.mascot-activities-product-info-button')
+            .children('product-card')
+            .find('.product-card--add-to-cart-text')
+            .text('Coming Soon');
+            $(this)
+            .parents('.product-flash-sale-countdown')
+            .siblings('.mascot-activities-product-info-button')
+            .children('product-card')
+            .find('.mascot-activities-product-info-button-buy-now')
+            .css({'visibility':'visible','background':'#FECF67','cursor':'not-allowed','pointer-events':'none','color':'#000'});
+            return;
+        }
+        $(this)
+            .parents('.product-flash-sale-countdown')
+            .siblings('.mascot-activities-product-info-button')
+            .children('product-card')
+            .find('.mascot-activities-product-info-button-buy-now')
+            .css({'visibility':'visible'});
+        $(this)
+          .countdown(finalDate2)
+          .on('update.countdown', function (event) {
+            if (style == 1) {
+              format = '<span>%D</span>:<span>%H</span>:<span>%M</span>:<span>%S</span>';
+            } else if (style == 2) {
+              {% comment %} format = '<span>%D<span>Days</span></span>:<span>%H<span>Hrs</span></span>:<span>%M<span>Mins</span></span>:<span>%S<span>Secs</span></span>'; {% endcomment %}
+              format = '<div class="time-block">' +
+                        '<div class="time-value">%D</div>' +
+                        '<div class="time-label">Days</div>' +
+                      '</div>' +
+                      '<div class="time-block">' +
+                        '<div class="time-value">%H</div>' +
+                        '<div class="time-label">Hours</div>' +
+                      '</div>' +
+                      '<div class="time-block">' +
+                        '<div class="time-value">%M</div>' +
+                        '<div class="time-label">Minutes</div>' +
+                      '</div>' +
+                      '<div class="time-block">' +
+                        '<div class="time-value">%S</div>' +
+                        '<div class="time-label">Seconds</div>' +
+                      '</div>';
+            }
+            $(this).html(event.strftime(format));
+          })
+          .on('finish.countdown', function (event) {
+            {% comment %} $(this)
+            .parents('.super-early-bird-countdown-date').css('display', 'none') {% endcomment %}
+          });
+      });
+    }
+  });
+</script>
+{% schema %}
+{
+  "name": "mascot products",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "大标题",
+      "default": "Dream Noa's Debut Deals"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "小标题",
+      "default": "October 21st - October 31st"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_klarna",
+      "label": "显示klarna横幅",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_learn_more_button",
+      "label": "显示查看更多按钮",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "learn_more_button_text",
+      "label": "查看更多按钮文案配置",
+      "default": "Learn More"
+    },
+    {
+      "type": "text",
+      "id": "buy_now_button_text",
+      "label": "购买按钮文案配置",
+      "default": "Buy Now"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_flash_sale_countdown",
+      "label": "显示秒杀倒计时",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "flash_sale_countdown",
+      "label": "活动开始时间",
+      "info": "活动开始时间，格式为：2024-10-10T15:00:00+08:00"
+    },
+    {
+      "type": "text",
+      "id": "flash_sale_countdown_end",
+      "label": "活动截止时间",
+      "info": "活动截止时间，格式为：2024-10-24T15:00:00+08:00"
+    },
+    {
+      "type": "radio",
+      "id": "prduct_num",
+      "label": "每行展示产品个数(PC端默认4个)",
+      "options": [
+        {
+          "value": "2",
+          "label": "2个"
+        },
+        {
+          "value": "3",
+          "label": "3个"
+        },
+        {
+          "value": "4",
+          "label": "4个"
+        },
+        {
+          "value": "5",
+          "label": "5个"
+        },
+        {
+          "value": "6",
+          "label": "6个"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "radio",
+      "id": "prduct_num_mobile",
+      "label": "每行展示产品个数(移动端默认1个)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1个"
+        },
+        {
+          "value": "2",
+          "label": "2个"
+        },
+        {
+          "value": "3",
+          "label": "3个"
+        },
+        {
+          "value": "4",
+          "label": "4个"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "标题字体颜色",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "卡片容器背景色",
+      "default": "#000"
+    },
+    {
+      "type": "color_background",
+      "id": "card_background_gradient_color",
+      "label": "卡片容器渐变背景色",
+      "default": "linear-gradient(0deg, rgba(51, 61, 100, 0.20) 0%, rgba(51, 61, 100, 0.20) 100%), linear-gradient(180deg, rgba(0, 0, 0, 0.00) 11.89%, rgba(91, 108, 177, 0.20) 100%), #020204"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片间隔",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_gap_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片间隔（移动端）",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "name": "product",
+      "type": "product_item",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "选择产品",
+          "info": "备注：产品原价字段配置：当前产品对应的变体元字段activity original price；产品售价字段配置：当前产品对应的变体元字段activity sale price；"
+        },
+        {
+          "type": "radio",
+          "id": "product_variant_location",
+          "label": "产品变体",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体"
+            }
+          ],
+          "default": "0",
+          "info": "查看对应产品后台，选择对应的变体所在位置，从上到下依次排序"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "产品标题",
+          "info": "默认产品标题"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image_pc",
+          "label": "产品主图（PC端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image_mb",
+          "label": "产品主图(移动端)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "mascot products"
+    }
+  ]
+}
+{% endschema %}

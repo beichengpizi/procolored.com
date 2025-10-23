@@ -1,0 +1,98 @@
+<div class="relative flex flex-col md:flex-row">
+  <button
+    id="close-header"
+    class="w-8 h-8 absolute z-10 right-3 top-3 text-lg rounded-full bg-gray-800 text-white hover:bg-gray-900 hover:text-gray-50"
+  >
+    &times;
+  </button>
+  <div class="relative lg:aspect-[1042/1280] lg:w-[46%] flex-shrink-0 aspect-[686/320]">
+    <div class="absolute inset-0">
+      <img
+        class="lazyload w-full h-full object-cover hidden md:block"
+        data-src="{{ settings.modal_pc_image | image_url: width: 1042, height: 1280 }}"
+        width="1042"
+        height="1280"
+        alt="{{ settings.modal_pc_image.alt }}"
+      >
+      <img
+        data-src="{{ settings.modal_mobile_image | image_url: width: 686, height: 320 }}"
+        width="686"
+        height="320"
+        class="lazyload w-full h-full object-cover md:hidden"
+        alt="{{ settings.modal_mobile_image.alt }}"
+      >
+    </div>
+  </div>
+
+  <div class="md:w-full flex flex-col gap-y-6 justify-center items-center p-6 md:p-12 bg-white">
+    <h2 class="text-2xl md:text-3xl font-bold m-0 w-full">{{ 'customer.recover_password.title' | t }}</h2>
+
+    <div id="success-message" class="rounded-md bg-green-50 p-3 w-full hidden">
+      <div class="flex items-center">
+        <div class="h-5 w-5 flex-shrink-0">
+          <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <p class="text-sm font-medium text-green-800 m-0">{{ 'customer.recover_password.subtext' | t }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="err-message"
+      class="text-xs text-red-500 bg-red-50 rounded-md p-3 px-4 items-center hidden"
+    ></div>
+
+    {%- form 'recover_customer_password', id: 'recover-form', novalidate: 'novalidate', class: 'w-full' -%}
+      {%- if form.errors -%}
+        <div class="form-notification error" id="RecoverEmail-email-error">
+          {% render 'svg-icons' with 'thb-error' %}
+          {{ form.errors.messages.form }}
+        </div>
+      {%- endif -%}
+      <div class="field">
+        <input
+          type="email"
+          value=""
+          name="email"
+          id="RecoverEmail"
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email"
+          placeholder="{{ 'customer.login_page.email' | t | escape }}"
+          {% if form.errors %}
+            aria-invalid="true"
+            aria-describedby="RecoverEmail-email-error"
+            autofocus
+          {% endif %}
+          class="w-full !rounded-3xl !focus:border-accent-hover !m-0{% if form.errors contains 'form' %}invalid{% endif %}"
+          placeholder="{{ 'customer.login_page.email' | t }}"
+        >
+        <label for="RecoverEmail">
+          {{ 'customer.login_page.email' | t }}
+        </label>
+        <span id="email-error" class="text-red-500 text-sm pl-5 invisible">Invalid email address.</span>
+      </div>
+
+      <div class="field mt-4 md:mt-4">
+        <button
+          type="submit"
+          class="bg-accent text-white hover:bg-accent-hover px-4 py-3 rounded-3xl w-full focus:outline-none focus:shadow-outline disabled:bg-gray-500 disabled:cursor-not-allowed"
+          disabled
+        >
+          <span>{{ 'customer.login_page.submit' | t | escape }}</span>
+        </button>
+      </div>
+
+      <div class="text-center flex flex-col gap-1 mt-2 justify-center">
+        <div>
+          {{ 'customer.login_page.already_have_an_account' | t }}
+          {% assign text_button_title = 'customer.login_page.login' | t %}
+          {% render 'text-button', url: routes.account_login_url, title: text_button_title %}
+        </div>
+      </div>
+    {%- endform -%}
+  </div>
+</div>

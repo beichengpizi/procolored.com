@@ -1,0 +1,299 @@
+<style>
+  .materials-tab {
+    background-color: #f8f9fd;
+    padding: 60px 0 120px;
+  }
+  .materials-tab li {
+    list-style: none;
+  }
+  .mt-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .mt-tab-title {
+    margin-bottom: 40px;
+  }
+  ul.title-box {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 8px;
+    margin: 0;
+  }
+  .title-box li.title-li {
+    color: #a1a1aa;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 18px 30px;
+    cursor: pointer;
+  }
+  .title-box li.title-li.li-active {
+    color: #000;
+    border-bottom: 2px solid #000;
+  }
+  .mt-tab-title-mb {
+    display: none;
+  }
+
+  .mt-tab-title-swiper {
+    background-color: #fff;
+    padding: 0 24px;
+  }
+  .mt-tab-title-mb div.title-slide {
+    font-size: 14px;
+    line-height: 18px;
+    padding: 16px 26px;
+    color: #a1a1aa;
+  }
+  .mt-tab-title-mb div.title-slide.slide-active {
+    color: #000;
+    border-bottom: 2px solid #000;
+  }
+  .mod-product-item {
+    max-width: 227px;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: #fff;
+  }
+  .mt-tab-mod .mod-content {
+    display: none;
+  }
+  .mt-tab-mod .mod-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 227px);
+    gap: 30px 16px;
+    justify-content: center;
+  }
+  .mod-product-item .mod-img {
+    padding: 35px 18px 6px;
+  }
+  .mod-product-item .mod-info {
+    padding: 15px 16px 30px;
+  }
+  .mod-product-item img {
+    max-width: 190px;
+    height: auto;
+  }
+  p.product-title {
+    margin: 0;
+    font-size: 14px;
+    line-height: 16px;
+    cursor: pointer;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  a.product-item-url:hover {
+    color: #000;
+  }
+  p.product-title:hover {
+    text-decoration: underline;
+  }
+  .mod-product-item .product-price {
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin-top: 10px;
+  }
+  .mod-product-item .sale-price {
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: bold;
+    margin-right: 6px;
+  }
+  .mod-product-item .old-price {
+    font-size: 12px;
+    line-height: 14px;
+    color: #737373;
+    text-decoration: line-through;
+  }
+  .materials-tab .mt-show-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+  .mt-btn-box-show-less {
+    display: none;
+  }
+  .mt-btn-box-show-less svg {
+    transform: rotate(180deg);
+  }
+  .materials-tab .show-more,
+  .materials-tab .show-less {
+    padding: 10px 23px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 38px;
+  }
+  .mt-show-btn span {
+    font-size: 14px;
+    line-height: 18px;
+    margin-right: 5px;
+  }
+  @media screen and (max-width: 1248px) {
+    .materials-tab {
+      padding: 30px 0 60px;
+    }
+    .mt-tab-mod {
+      padding: 0 24px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .mt-tab-title {
+      display: none;
+    }
+    .mt-tab-title-mb {
+      display: block;
+    }
+    .mt-tab-mod {
+      padding: 30px 24px 0;
+    }
+    .mt-tab-mod .mod-box {
+      grid-template-columns: repeat(auto-fill, 156px);
+      gap: 15px;
+    }
+    .mod-product-item .mod-img {
+      padding: 14px 9px 4px;
+    }
+    .mod-product-item {
+      max-width: 156px;
+    }
+    .mod-product-item img {
+      max-width: 138px;
+    }
+  }
+</style>
+<div class="materials-tab" id="{{ section.settings.id }}">
+  <div class="mt-wrapper">
+    <div class="mt-tab">
+      <div class="mt-tab-title">
+        <ul class="title-box">
+          {% for collection in section.blocks %}
+            <li class="title-li">{{ collection.settings.mt_coll_title }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="mt-tab-title-mb">
+        <div class="swiper mt-tab-title-swiper">
+          <div class="swiper-wrapper mt-mb-swiper-wrapper">
+            {% for collection in section.blocks %}
+              <div class="swiper-slide">
+                <div class="title-slide">
+                  {{ collection.settings.mt_coll_title }}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="mt-tab-mod">
+        {% for mode in section.blocks %}
+          <div class="mod-content">
+            <div class="mod-box">
+              {% for item in mode.settings.mt_collection.products %}
+                <div class="mod-product-item">
+                  <a href="{{ item.url }}" class="product-item-url">
+                    <div class="mod-img">
+                      <img src="{{ item.featured_image | image_url: width: master }}" alt="">
+                    </div>
+                    <div class="mod-info">
+                      <p class="product-title">{{ item.title }}</p>
+                      <div class="product-info">
+                        <div class="product-price">
+                          <div class="sale-price">{{ item.price | money }}</div>
+                          {% if item.compare_at_price_max != 0 %}
+                            <div class="old-price">{{ item.compare_at_price_max | money }}</div>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="mt-show-btn">
+              <div class="mt-btn-box-show-more">
+                <div class="show-more">
+                  <span>Show More</span>
+                  <svg
+                    t="1725591892533"
+                    class="icon"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    p-id="5459"
+                    width="10"
+                    height="10"
+                  >
+                    <path d="M64.1 317.6l59.2-59.2L512 647.2l388.8-388.8 59.2 59.2-448 447.9L64.1 317.6z" fill="#000000" p-id="5460"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="mt-btn-box-show-less">
+                <div class="show-less">
+                  <span>Show Less</span>
+                  <svg
+                    t="1725591892533"
+                    class="icon"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    p-id="5459"
+                    width="10"
+                    height="10"
+                  >
+                    <path d="M64.1 317.6l59.2-59.2L512 647.2l388.8-388.8 59.2 59.2-448 447.9L64.1 317.6z" fill="#000000" p-id="5460"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Page Materials Tab",
+  "settings": [
+    {
+      "type": "text",
+      "id": "id",
+      "label": "用于锚定的section的id",
+      "info": "页面唯一，不能重复，必须全英文"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "mt_collection",
+          "label": "集合页选择"
+        },
+        {
+          "type": "text",
+          "id": "mt_coll_title",
+          "label": "选项卡标题",
+          "default": "Caps"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Materials Tab"
+    }
+  ]
+}
+{% endschema %}

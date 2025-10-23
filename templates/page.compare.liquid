@@ -1,0 +1,210 @@
+<!-- 引入样式文件 -->
+{{ 'multi-contact-forms.css' | asset_url | stylesheet_tag }}
+{{ 'compare.css' | asset_url | stylesheet_tag }}
+
+<!-- 遍历型号对比元对象数组,按产品系列筛选并赋值 -->
+{% for model_comparison in shop.metaobjects.model_comparison.values %}
+  {%- if model_comparison.dtf_printer != blank -%}
+    {% assign dtf_printer_series = model_comparison.dtf_printer %}
+  {%- endif -%}
+  {%- if model_comparison.uv_dtf_printer != blank -%}
+    {% assign uv_dtf_printer_series = model_comparison.uv_dtf_printer %}
+  {%- endif -%}
+  {%- if model_comparison.uv_printer != blank -%}
+    {% assign uv_printer_series = model_comparison.uv_printer %}
+  {%- endif -%}
+  {%- if model_comparison.dtg_printer != blank -%}
+    {% assign dtg_printer_series = model_comparison.dtg_printer %}
+  {%- endif -%}
+{% endfor %}
+<style>
+  .comparison-section .comparison-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    column-gap: 20px;
+  }
+  @media only screen and (max-width: 768px) {
+    .comparison-section .comparison-content {
+      {% comment %} grid-template-columns: repeat(2, 1fr); {% endcomment %}
+    }
+    .comparison-section:first-child .compared-product{
+      padding-bottom: 10px;
+    }
+    .comparison-section:not(:first-child) .comparison-content {
+      padding-bottom: 0;
+  }
+    .comparison-section .comparison-content .printer-selector-wrapper{
+      padding: 0;
+
+    }
+    .comparison-section .comparison-content .printer-selector-wrapper select {
+      font-size: 12px;
+      padding: 0 16px 0 10px;
+      height: 35px;
+      margin: 0 5px;
+  }
+    .comparison-section .comparison-content{
+      column-gap: 10px;
+    }
+    .multi-page-switch{
+      width: 100vw;
+    }
+  }
+</style>
+<!-- 主容器 -->
+<div class="multi-contact-forms-container">
+  <div class="multi-contact-forms-header">
+    <h1>Compare Procolored Machines</h1>
+  </div>
+  <hr>
+
+  <!-- 多页面导航组件 -->
+  <multi-page-with-navigation class="multi-page-with-navigation section-spacing section-spacing--disable-top">
+    <div class="row">
+      <div class="small-12 columns"></div>
+    </div>
+
+    <div class="multi-page-with-navigation--inner">
+      <!-- 导航菜单 -->
+      <div class="multi-page-with-navigation--menu heading-font">
+        <!-- 下拉选择器 -->
+        <div class="multi-page-with-navigation--select">
+          {% assign option_names = 'DTF Printer,UV DTF Printer,UV Printer,DTG Printer' | split: ',' %}
+          {% assign option_values = 'dtf_printer,uv_dtf_printer,uv_printer,dtg_printer' | split: ',' %}
+          {% render 'custom-selector',
+            option_names: option_names,
+            option_values: option_values,
+            section_id: 'compare'
+          %}
+        </div>
+
+        <!-- 按钮组 -->
+        <div class="multi-page-with-navigation__button-group">
+          <button class="multi-page-with-navigation--button active" data-value="dtf_printer">
+            DTF Printer
+            {% render 'icon-right-arrow' %}
+          </button>
+          <button class="multi-page-with-navigation--button" data-value="uv_dtf_printer">
+            UV DTF Printer
+            {% render 'icon-right-arrow' %}
+          </button>
+          <button class="multi-page-with-navigation--button" data-value="uv_printer">
+            UV Printer
+            {% render 'icon-right-arrow' %}
+          </button>
+          <button class="multi-page-with-navigation--button" data-value="dtg_printer">
+            DTG Printer
+            {% render 'icon-right-arrow' %}
+          </button>
+        </div>
+      </div>
+
+      <!-- 内容区域 -->
+      <div class="multi-page-with-navigation--content">
+        <div class="multi-page-with-navigation--page">
+          <div data-selector-section-id="compare" class="multi-page-switch">
+            <!-- DTF打印机对比 -->
+            <div data-selector-option-value="dtf_printer" class="rte active">
+              {% render 'product-comparison-meta', model_series: dtf_printer_series.value, printer_type: 'dtf' %}
+            </div>
+
+            <!-- UV DTF打印机对比 -->
+            <div data-selector-option-value="uv_dtf_printer" class="rte">
+              {% render 'product-comparison-meta', model_series: uv_dtf_printer_series.value, printer_type: 'uv_dtf' %}
+            </div>
+
+            <!-- UV打印机对比 -->
+            <div data-selector-option-value="uv_printer" class="rte">
+              {% render 'product-comparison-meta', model_series: uv_printer_series.value, printer_type: 'uv' %}
+            </div>
+
+            <!-- DTG打印机对比 -->
+            <div data-selector-option-value="dtg_printer" class="rte">
+              {% render 'product-comparison-meta', model_series: dtg_printer_series.value, printer_type: 'dtg' %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </multi-page-with-navigation>
+</div>
+
+<script>
+  /**
+   * 多页面导航组件类
+   */
+  class MultiPageWithNavigation extends HTMLElement {
+    constructor() {
+      super();
+      this.linkClicked = false;
+      this.init();
+    }
+
+    /**
+     * 初始化组件
+     */
+    init() {
+      this.buttons = Array.from(this.querySelectorAll('button.multi-page-with-navigation--button'));
+      this.pages = Array.from(this.querySelectorAll('.multi-page-switch .rte'));
+      this.buttons.forEach((button, index) => {
+        button.addEventListener('click', () => this.handleButtonClick(button, index));
+      });
+    }
+
+    /**
+     * 处理按钮点击事件
+     * @param {HTMLElement} button - 被点击的按钮
+     * @param {number} index - 按钮索引
+     */
+    handleButtonClick(button, index) {
+      this.linkClicked = true;
+
+      // 更新按钮状态
+      this.buttons.forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // 更新页面显示
+      this.pages.forEach((page) => page.classList.remove('active'));
+      this.pages[index].classList.add('active');
+
+      // 同步更新自定义选择器显示值
+      const selectedValue = button.getAttribute('data-value');
+      const customSelect = document.querySelector('#customSelect-compare');
+      if (customSelect) {
+        const selectedText = button.textContent.trim();
+        customSelect.querySelector('.selected-value').textContent = selectedText;
+      }
+
+      // 重置点击状态
+      setTimeout(() => {
+        this.linkClicked = false;
+      }, 1000);
+    }
+  }
+
+  // 注册自定义元素
+  if (!customElements.get('multi-page-with-navigation')) {
+    customElements.define('multi-page-with-navigation', MultiPageWithNavigation);
+  }
+
+  /**
+   * 处理选择器变化事件
+   * @param {Event} event - 选择器变化事件
+   * @param {number} index - 选择器索引
+   * @param {string} type - 打印机类型
+   */
+  function handleSelectChange(event, index, type) {
+    const selectedValue = event.target.value;
+    const selectIndex = index;
+    const printerType = type;
+
+    // 更新产品显示状态
+    const comparisonSection = `${printerType}-comparison-${selectIndex}-section`;
+    document.querySelectorAll(`.${comparisonSection}`).forEach((section) => {
+      section.querySelectorAll('div[data-product-id]').forEach((prod) => {
+        prod.dataset.productActive = (selectedValue === prod.dataset.productId).toString();
+      });
+    });
+  }
+</script>

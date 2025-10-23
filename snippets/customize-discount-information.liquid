@@ -1,0 +1,68 @@
+{% comment %} 自定义折扣信息 {% endcomment %}
+{% liquid
+  assign is_show = true
+  assign select_variant = product.selected_or_first_available_variant
+  assign custom_discount = select_variant.metafields.custom._discount
+
+  if custom_discount == blank
+    assign is_show = false
+  endif
+
+  if is_rounded
+    assign rounded_class = 'rounded-full'
+  else
+    assign rounded_class = ''
+  endif
+
+  if custom_discount contains '%'
+    assign amount = custom_discount | split: '%' | first
+    assign final_sale_price = select_variant.price | times: amount | divided_by: 100 | round
+    assign final_price = select_variant.price | minus: final_sale_price
+  else
+    assign amount = custom_discount
+    assign final_sale_price = amount | times: 100
+    assign final_price = select_variant.price | minus: final_sale_price
+  endif
+%}
+
+<automatic-discount-reminder
+  class="mt-2 py-1 px-3 {{ rounded_class }} w-full md:w-auto inline-flex items-center text-white text-sm md:text-base bg-[#020202] {% unless is_show %}hidden{% endunless %}"
+  client:idle
+>
+  <script type="application/json">
+    [
+      {%- for variant in product.variants -%}
+        {
+          "id": {{ variant.id }},
+          "custom_discount": "{{ variant.metafields.custom._discount }}",
+          "price": {{ variant.price }},
+          "available": {{ variant.available }}
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+  </script>
+
+  <svg
+    class="size-6"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+  </svg>
+
+  <span class="ml-2">
+    Black Friday Special(<span data-final-sale-price>-{{ final_sale_price | money_without_trailing_zeros -}}</span>) :
+    <span class="font-semibold text-base md:text-lg text-[#FFD700]" data-final-price>
+      {{- final_price | money_without_trailing_zeros -}}
+    </span>
+    {% comment %}
+      2024 Black Friday Automatic Discount (-
+      {{ product.price | times: 0.05 | round: 2 | money -}}
+      )
+    {% endcomment %}
+  </span>
+</automatic-discount-reminder>

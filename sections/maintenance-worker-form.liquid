@@ -1,0 +1,150 @@
+{% liquid
+  if section.settings.top == '17.5'
+    assign top = 'pt-8 md:pt-17.5'
+  elsif section.settings.top == '20'
+    assign top = 'pt-8 md:pt-20'
+  elsif section.settings.top == '24'
+    assign top = 'pt-8 md:pt-24'
+  elsif section.settings.top == '28'
+    assign top = 'pt-8 md:pt-28'
+  else
+    assign top = ''
+  endif
+
+  if section.settings.bottom == '17.5'
+    assign bottom = 'pb-8 md:pb-17.5'
+  elsif section.settings.bottom == '20'
+    assign bottom = 'pb-8 md:pb-20'
+  elsif section.settings.bottom == '24'
+    assign bottom = 'pb-8 md:pb-24'
+  elsif section.settings.bottom == '28'
+    assign bottom = 'pb-8 md:pb-28'
+  else
+    assign bottom = ''
+  endif
+%}
+
+<div class="{{ top }} {{ bottom }}" data-section-type="maintenance-worker-form">
+  <div class="container">
+    <div
+      class="relative md:rounded-2xl rounded-xl bg-white shadow"
+    >
+      {%- if section.settings.headding != blank -%}
+        <div class="flex flex-col gap-y-2 md:gap-x-8 md:flex-row items-center justify-between px-4 pb-0 py-3 md:px-8 md:py-4 md:border-b-2 md:border-x-0 md:border-t-0 md:border-solid md:border-gray-100">
+          {%- liquid
+            assign image = section.settings.img
+          -%}
+          {%- if image != blank -%}
+            <div class="-mt-8 md:mt-0">
+              <img
+                data-src="{{ image | image_url }}"
+                class="lazyload w-40 md:w-64 h-auto {% unless settings.lazy_loading %} no-blur{% endunless %}"
+                width="{{ image.src.width }}"
+                height="{{ image.src.height }}"
+                alt="{{ image.alt }}"
+              >
+            </div>
+          {%- endif -%}
+          <h2 class="text-base font-normal md:font-semibold md:text-2xl m-0">{{ section.settings.headding }}</h2>
+        </div>
+      {%- endif -%}
+      <div id="maintenance-worker-form-page" class="p-2 sm:p-4 pt-0 min-h-56 md:p-8">
+        {{ section.settings.form }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "维修工表单",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "配置项"
+    },
+    {
+      "type": "select",
+      "id": "top",
+      "default": "17.5",
+      "label": "板块上边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bottom",
+      "default": "17.5",
+      "label": "板块下边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "内容配置"
+    },
+    {
+      "type": "image_picker",
+      "id": "img",
+      "label": "图标"
+    },
+    {
+      "type": "text",
+      "id": "headding",
+      "label": "标题",
+      "default": "Please review and complete the following items in order to submit an application to become a repair engineer for Procolored."
+    },
+    {
+      "type": "liquid",
+      "id": "form",
+      "label": "表单代码，去后台 APP 内获取"
+    }
+  ],
+  "presets": [
+    {
+      "name": "维修工表单"
+    }
+  ]
+}
+{% endschema %}

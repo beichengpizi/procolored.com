@@ -1,0 +1,194 @@
+<style>
+  #popup-model-{{ section.id }} {
+    display: none; /* 默认隐藏 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 背景透明色 */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 确保弹窗在最上层 */
+  }
+  #popup-model-{{ section.id }} .custom-popup-container{
+    position: relative;
+    padding: 30px;
+  }
+  #popup-model-{{ section.id }} .popup-content {
+    background-color: transparent;
+    {% comment %} padding: 20px;
+    border-radius: 5px; {% endcomment %}
+    {% comment %} text-align: center; {% endcomment %}
+    position: relative;
+    {% comment %} min-width: 400px;
+    min-height: 200px;
+    width: 50vw; {% endcomment %}
+  }
+
+  /* The Close Button */
+  #popup-model-{{ section.id }} .popup-model-close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    font-size: 30px;
+    color: #fff;
+    line-height: 1;
+  }
+
+
+  @media screen and (max-width: 768px) {
+    #popup-model-{{ section.id }} .custom-popup-container{
+      position: relative;
+      padding: 20px;
+    }
+    #popup-model-{{ section.id }} .popup-content {
+      height: 85vh;
+      overflow: scroll;
+      width: 85vw;
+    }
+
+  }
+</style>
+
+<!-- The Modal -->
+<div id="popup-model-{{ section.id }}">
+  <!-- Modal content -->
+  <div
+    class="
+      {%- if section.settings.show_close_button == true %}
+       custom-popup-container
+      {% endif -%}
+    "
+  >
+    {%- if section.settings.show_close_button -%}
+      <span class="popup-model-close-button">&times;</span>
+    {%- endif -%}
+
+    <div class="popup-content">
+      {% if section.settings.content != empty %}
+        {{ section.settings.content }}
+      {% endif %}
+
+      {% comment %}
+        <iframe
+          width="100%"
+          height="100%"
+          src="https://www.youtube.com/embed/XUbjoYMPi4c?si=StIPqUHzocL3OIqh"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      {% endcomment %}
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    let hasTriggered = false; // 标志变量，用于跟踪事件是否已经触发
+    const is_open_timer = {{ section.settings.is_open_timer }}
+    const scroll_page_bottom = {{ section.settings.scroll_page_bottom }}
+    // 获取弹窗元素
+    const popup = document.getElementById('popup-model-{{ section.id }}');
+    const time = {{ section.settings.timer | times: 1000 }}
+    //console.log('弹窗定时器==',time)
+    // 打开弹窗的函数
+    function showPopup() {
+      popup.style.display = 'flex';
+    }
+
+    // 关闭弹窗的函数
+    function hidePopup() {
+      popup.style.display = 'none';
+    }
+
+    $('#popup-model-{{ section.id }}').find('.popup-model-close-button').on('click', function(e){
+      hidePopup();
+    })
+
+    // 点击弹窗外部关闭弹窗
+    popup.addEventListener('click', function(event) {
+      if (event.target === popup) {
+        hidePopup();
+      }
+    });
+    // 设置一个定时器，在20秒后执行显示弹窗的函数
+    if(is_open_timer){
+      setTimeout(showPopup, time);
+    }
+    if(scroll_page_bottom){
+      $(window).on('scroll', function() {
+        const windowHeight = $(window).height();
+        const documentHeight = $(document).height();
+        const scrollTop = $(window).scrollTop();
+        // 获取页脚的高度
+        const footerHeight = $('#footer').outerHeight();
+        {% comment %} console.log('scrollTop==',scrollTop)
+        console.log('windowHeight==',windowHeight)
+        console.log('documentHeight==',documentHeight) {% endcomment %}
+        if (scrollTop + windowHeight >= documentHeight - footerHeight && !hasTriggered) {
+          hasTriggered = true;
+          showPopup();
+        }
+      });
+    }
+
+
+
+  });
+</script>
+
+{% schema %}
+{
+  "name": "custom popup model",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "is_open_timer",
+      "label": "开启定时器",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_close_button",
+      "label": "显示关闭按钮",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "scroll_page_bottom",
+      "label": "页面滚动到底部弹窗",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "timer",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "秒",
+      "label": "定时器",
+      "default": 2
+    },
+
+    {
+      "type": "html",
+      "id": "content",
+      "label": "内容",
+      "default": "内容"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "custom popup model",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

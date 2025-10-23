@@ -1,0 +1,283 @@
+{% assign all_orders = customer.orders %}
+{%- assign template_name = 'order-unpaid' -%}
+
+{% comment %} {% assign partially_paid_orders = all_orders | where: 'financial_status', 'partially_paid' %} {% endcomment %}
+{% assign unpaid_orders = all_orders | where: 'financial_status', 'unpaid' %}
+
+{% comment %}
+  {% assign processing_orders = all_orders
+    | where: 'financial_status', 'paid'
+    | where: 'fulfillment_status', 'unfulfilled'
+  %}
+  {% assign shipped_orders = all_orders
+    | where: 'fulfillment_status', 'shipped'
+    | where: 'fulfillment_status', 'partial'
+  %}
+  {% assign delivered_orders = all_orders | where: 'fulfillment_status', 'fulfilled' %}
+  {% assign refunded_orders = all_orders | where: 'financial_status', 'refunded' %}
+{% endcomment %}
+
+{% assign orders_per_page = 10 %}
+{% assign page = current_page | default: 1 %}
+{% assign total_orders = unpaid_orders.size %}
+{% assign start = orders_per_page | times: page | minus: orders_per_page %}
+{% assign end = orders_per_page | times: page %}
+{% assign paginated_orders = unpaid_orders | slice: start, orders_per_page %}
+
+<section class="relative lg:py-24">
+  <div class="lg:container">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+      <div class="lg:col-span-1 lg:bg-white lg:rounded-2xl lg:px-6 lg:py-8 hidden lg:block">
+        {% comment %} 标题 {% endcomment %}
+        <a href="/account" class="gap-x-4 items-center hidden lg:inline-flex">
+          {% render 'member-icons', icon: 'account', class: 'w-4 h-4' %}
+          <span class="text-lg font-normal">Account Overview</span>
+        </a>
+
+        {% comment %} 菜单 {% endcomment %}
+        <div class="flex flex-col px-6 lg:px-0 mt-6 lg:mt-8 bg-white lg:gap-3">
+          <h3 class="text-xl mb-2 hidden lg:block text-heading">My Account</h3>
+          <a href="/account/addresses" class="flex items-center justify-between">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'address' %}
+              <span class="text-sm lg:text-base font-normal">My Address</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+          <hr
+            class="m-0 border-gray-200 lg:hidden"
+          >
+          <a href="/account?view=order" class="flex items-center justify-between text-accent-hover">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'order' %}
+              <span class="text-sm lg:text-base font-normal">My Order</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+        </div>
+
+        <div class="flex flex-col px-6 lg:px-0 mt-6 lg:mt-8 bg-white lg:gap-3">
+          <h3 class="text-xl mb-2 hidden lg:block">My Assets</h3>
+          <a href="/account?view=rewards" class="flex items-center justify-between">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'star' %}
+              <span class="text-sm lg:text-base font-normal">My Rewards</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+          <hr
+            class="m-0 border-gray-200 lg:hidden"
+          >
+          <a href="/account?view=gift-card" class="flex items-center justify-between">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'lw' %}
+              <span class="text-sm lg:text-base font-normal">My Gift Card</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+          <hr
+            class="m-0 border-gray-200 lg:hidden"
+          >
+          <a href="/account?view=coupon" class="flex items-center justify-between">
+            <div class="flex gap-2 items-center">
+              {% render 'member-icons', icon: 'coupon' %}
+              <span class="text-sm lg:text-base font-normal">My Coupon</span>
+            </div>
+
+            <di class="w-12 h-12 flex justify-end items-center lg:hidden">
+              {% render 'svg-icons', svg-icons: 'right-arrow' %}
+            </di>
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-white lg:rounded-2xl col-span-3">
+        <div class="flex flex-wrap lg:flex-row flex-col lg:justify-between px-4 md:px-6 pt-8 gap-y-4 lg:items-center">
+          <a class="flex items-center gap-x-2 lg:hidden" href="/account">
+            {% render 'member-icons', icon: 'left-arrow' %}
+            <span class="text-xl font-bold">My Account</span>
+          </a>
+          <h3 class="m-0 text-heading text-xl font-bold hidden lg:block">My Order</h3>
+        </div>
+
+        <scroll-tab class="relative block mt-6 px-4 md:px-6 border-b-2 border-x-0 border-t-0 border-solid border-gray-100">
+          <div class="flex gap-6 lg:gap-8 overflow-x-auto snap-x -mb-0.5 scrollbar-hide" data-container>
+            <!-- Tab Items -->
+            {%- assign items = 'All Order,Processing,Shipped,Delivered,Refunded' | split: ',' -%}
+            {%- assign filter = 'all,processing,shipped,delivered,refunded' | split: ',' -%}
+
+            {%- for item in items -%}
+              <div class="flex-shrink-0 snap-center">
+                <a
+                  href="/account?view={{- filter[forloop.index0] | prepend: 'order-' -}}"
+                  class="block py-2 text-base border-b-2 border-solid border-x-0 border-t-0 {% if filter[forloop.index0] == 'unpaid' %}border-accent text-accent{% else %}border-transparent{% endif %} hover:border-accent hover:text-accent transition-all"
+                >
+                  {{ item }}
+                </a>
+              </div>
+            {%- endfor -%}
+          </div>
+          <!-- Scroll Hint -->
+          <div
+            class="absolute inset-y-0 right-0 w-12 pointer-events-none"
+            data-scroll-hint
+          ></div>
+        </scroll-tab>
+
+        <div class="mt-6 flex flex-col gap-4 md:px-6 pb-6">
+          {% for order in paginated_orders %}
+            <div class="flex flex-col gap-4 p-4 md:p-6 md:rounded-lg bg-[#F5F7F8]">
+              {% comment %} 订单信息 {% endcomment %}
+              <div class="flex justify-between items-center">
+                <div class="space-y-2">
+                  <h3 class="m-0 text-2xl font-bold">{{ order.financial_status_label }}</h3>
+                  <div class="flex items-center text-gray-500 text-sm gap-x-4">
+                    <div>
+                      <span>{{ 'customer.orders.order_number' | t }}:</span>
+                      <span>{{ order.name }}</span>
+                    </div>
+                    <div>
+                      <span>{{ 'customer.orders.date' | t }}:</span>
+                      <span>{{ order.created_at | time_tag: format: 'date' }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  {%- case order.fulfillment_status -%}
+                    {%- when 'complete' -%}
+                      <span class="inline-block px-4 text-sm py-1 shadow-sm border border-solid rounded-full bg-green-50 text-green-600 border-gray-200 uppercase">
+                        {{ order.fulfillment_status }}
+                      </span>
+                    {%- when 'fulfilled' -%}
+                      <span class="inline-block px-4 text-sm py-1 shadow-sm border border-solid rounded-full bg-lime-50 text-lime-600 border-gray-200 uppercase">
+                        {{ order.fulfillment_status }}
+                      </span>
+                    {%- when 'partial' -%}
+                      <span class="inline-block px-4 text-sm py-1 shadow-sm border border-solid rounded-full bg-yellow-50 text-yellow-600 border-gray-200 uppercase">
+                        {{ order.fulfillment_status }}
+                      </span>
+                    {%- when 'restocked' -%}
+                      <span class="inline-block px-4 text-sm py-1 shadow-sm border border-solid rounded-full bg-red-50 text-red-600 border-gray-200 uppercase">
+                        {{ order.fulfillment_status }}
+                      </span>
+                    {%- when 'unfulfilled' -%}
+                      <span class="inline-block px-4 text-sm py-1 shadow-sm border border-solid rounded-full bg-amber-50 text-amber-600 border-gray-200 uppercase">
+                        {{ order.fulfillment_status }}
+                      </span>
+                    {%- else -%}
+                  {%- endcase -%}
+                </div>
+              </div>
+              {% comment %} 订单项目 {% endcomment %}
+              <hr
+                class="m-0 border-gray-100"
+              >
+
+              <div class="flex flex-col flex-wrap lg:flex-row lg:items-center gap-y-8 gap-x-3 py-4 md:py-6 lg:justify-between">
+                {% comment %} 订单项 {% endcomment %}
+                <div class="flex items-center gap-2">
+                  {%- for item in order.line_items limit: 4 -%}
+                    <div class="w-16 md:w-24 h-16 md:h-24 flex justify-center items-center bg-white text-gray-500 text-sm rounded-lg shadow overflow-hidden">
+                      <img
+                        data-src="{{ item.image | image_url: width: 160 }}"
+                        class="lazyload object-cover object-center w-full h-full {% unless settings.lazy_loading %} no-blur{% endunless %}"
+                        width="{{ item.image.src.width }}"
+                        height="{{ item.image.src.height }}"
+                        alt="{{ item.image.alt |  default: order.name }}"
+                      >
+                    </div>
+                  {%- endfor -%}
+                  <div class="w-16 md:w-24 h-16 md:h-24 flex justify-center items-center bg-white text-gray-500 text-sm rounded-lg shadow">
+                    {{ order.item_count }} item(s)
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between md:justify-end gap-x-4 md:ml-auto flex-shrink-0">
+                  <div class="flex items-center text-gray-500 text-sm gap-x-2">
+                    <span>{{ 'customer.orders.total' | t }}:</span>
+                    <span class="text-black">{{ order.total_price | money_with_currency }}</span>
+                  </div>
+                  <div>
+                    <a
+                      href="{{ order.customer_url }}"
+                      aria-label="{{ 'customer.orders.order_number_link' | t: number: order.name }}"
+                      class="text-xs md:text-sm md:font-bold bg-accent hover:bg-accent-hover text-white hover:text-white rounded-full py-2 px-8 w-full mt-6 hover:shadow-sm"
+                    >
+                      View Details
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% else %}
+            <div class="flex flex-col items-center justify-center bg-gray-100 md:rounded-lg py-6 md:py-9">
+              <div class="text-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-10 h-10 md:w-14 md:h-14"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                </svg>
+
+                <h2 class="text-2xl font-bold text-gray-700 mb-8">There is no order.</h2>
+                <a
+                  href="/collections/all"
+                  class="text-base bg-accent hover:bg-accent-hover text-white hover:text-white rounded-full py-3 px-8 w-full hover:shadow-sm"
+                >
+                  Shop Now
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        {% comment %} 分页控件 {% endcomment %}
+        {%- if total_orders >= 1 -%}
+          <div class="px-4 pb-6 flex justify-center">
+            <button
+              class="relative inline-flex items-center rounded-l-md px-2 py-2 text-white hover:text-white ring-1 ring-inset ring-accent-hover bg-accent hover:bg-accent-hover focus:z-20 focus:outline-offset-0 disabled:text-gray-400 disabled:bg-gray-200 disabled:cursor-no-drop transition-colors"
+              onclick="window.location.href ='?view={{- template_name -}}&page={{ page | minus: 1 }}'"
+              {% if page <= 1 %}
+                disabled
+              {% endif %}
+            >
+              <span class="sr-only pointer-events-none">Previous</span>
+              <svg class="h-5 w-5 pointer-events-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+
+            <button
+              class="relative inline-flex items-center rounded-r-md px-2 py-2 text-white hover:text-white ring-1 ring-inset ring-accent-hover bg-accent hover:bg-accent-hover focus:z-20 focus:outline-offset-0 disabled:text-gray-400 disabled:bg-gray-200 disabled:cursor-no-drop transition-colors"
+              onclick="window.location.href = '?view={{- template_name -}}&page={{ page | plus: 1 }}'"
+              {% if end >= total_orders %}
+                disabled
+              {% endif %}
+            >
+              <span class="sr-only pointer-events-none">Next</span>
+              <svg class="h-5 w-5 pointer-events-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>

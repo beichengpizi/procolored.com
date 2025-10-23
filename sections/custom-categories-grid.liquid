@@ -1,0 +1,353 @@
+<style>
+  .categories-container-{{ section.id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .categories-container-{{ section.id }}  .title {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 53px;
+    line-height: 1;
+  }
+
+  .categories-container-{{ section.id }}  .grid-container {
+    display: grid;
+    grid-template-columns: 14.58% 21% 23.67% 21% 14.58%;
+    column-gap: 15px;
+    row-gap: 15px;
+    align-items: start;
+  }
+
+  .categories-container-{{ section.id }}  .category-card {
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .categories-container-{{ section.id }}  .category-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .categories-container-{{ section.id }}  .category-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .categories-container-{{ section.id }}  .category-label {
+    position: absolute;
+    bottom: 10px;
+    color: #fff;
+    font-size: 18px;
+  }
+
+  .categories-container-{{ section.id }} .item1 {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 100%;
+    {% comment %} height: 246px; {% endcomment %}
+    align-self: center;
+  }
+
+  .categories-container-{{ section.id }}  .item2 {
+    grid-column: 2;
+    grid-row: 1;
+    {% comment %} height: 267px; {% endcomment %}
+    align-self: end;
+  }
+
+  .categories-container-{{ section.id }} .item3 {
+    grid-column: 2;
+    grid-row: 2;
+    {% comment %} height: 245px; {% endcomment %}
+  }
+
+  .categories-container-{{ section.id }} .item4 {
+    grid-column: 3;
+    grid-row: 1;
+    {% comment %} height: 307px; {% endcomment %}
+    align-self: end;
+  }
+
+  .categories-container-{{ section.id }}  .item5 {
+    grid-column: 3;
+    grid-row: 2;
+    {% comment %} height: 245px; {% endcomment %}
+  }
+
+  .categories-container-{{ section.id }} .item6 {
+    grid-column: 4;
+    grid-row: 1;
+    {% comment %} height: 267px; {% endcomment %}
+    align-self: end;
+  }
+
+  .categories-container-{{ section.id }}  .item7 {
+    grid-column: 4;
+    grid-row: 2;
+    {% comment %} height: 245px; {% endcomment %}
+  }
+
+  .categories-container-{{ section.id }} .item8 {
+    grid-column: 5;
+    grid-row: 1 / span 2;
+    width: 100%;
+    {% comment %} height: 246px; {% endcomment %}
+    align-self: center;
+  }
+
+  .categories-container-{{ section.id }}  .mobile-show {
+    display: none;
+  }
+  @media only screen and (max-width: 768px) {
+    .categories-container-{{ section.id }} {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+      overflow: hidden;
+    }
+    .categories-container-{{ section.id }}  .desktop-show {
+      display: none;
+    }
+    .categories-container-{{ section.id }}  .mobile-show {
+      display: block;
+      position: relative;
+      padding-bottom: 18px;
+    }
+    .categories-container-{{ section.id }}  .title {
+      text-align: center;
+      font-size: 26px;
+      margin-bottom: 25px;
+      line-height: 1;
+    }
+   .categories-container-{{ section.id }} .category-card {
+      width: 100%;
+      height: auto; /* 高度自适应 */
+    }
+    .swiper-pagination-{{ section.id }}{
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      bottom: 0;
+      gap: 7px;
+    }
+    .swiper-pagination-{{ section.id }}  .swiper-pagination-bullet-active{
+      background: #1D1D1D;
+    }
+  }
+</style>
+<div class="categories-container-{{ section.id }}">
+  <h1 class="title">{{ section.settings.title }}</h1>
+  <div class="grid-container desktop-show">
+    {% for block in section.blocks %}
+      <a
+        href="{{ block.settings.link }}"
+        class="category-card {{ block.settings.grid_position }}"
+        style="background: {{ block.settings.background_color }}"
+        {{ block.shopify_attributes }}
+      >
+        {%- if block.settings.image != blank -%}
+          {% assign image = block.settings.image %}
+          {% assign size = 100 | divided_by: 5 | round %}
+          <img
+            data-sizes="{{ size }}vw"
+            data-srcset="
+              {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+              {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+              {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+              {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+              {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+              {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+              {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+              {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+              {{ image | image_url }} {{ image.width }}w
+            "
+            data-src="{{ image | image_url:width:750 }}"
+            class="lazyload "
+            width="100%"
+            height="100%"
+            loading="lazy"
+            alt="{{ block.settings.title }}"
+          >
+        {%- endif -%}
+        <span class="category-label">{{ block.settings.title }}</span>
+      </a>
+    {% endfor %}
+  </div>
+  <div class="mobile-show">
+    <div class="swiper-template-categories-grid-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide">
+            <a
+              href="{{ block.settings.link }}"
+              class="category-card "
+              style="background: {{ block.settings.background_color }}"
+            >
+              {%- if block.settings.image_mobile != blank -%}
+                {% assign image = block.settings.image_mobile %}
+                {% assign size = 100 %}
+                <img
+                  data-sizes="{{ size }}vw"
+                  data-srcset="
+                    {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                    {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ image | image_url }} {{ image.width }}w
+                  "
+                  data-src="{{ image | image_url:width:750 }}"
+                  class="lazyload "
+                  width="100%"
+                  height="100%"
+                  loading="lazy"
+                  alt="{{ block.settings.title }}"
+                >
+              {%- endif -%}
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="swiper-pagination swiper-pagination-{{ section.id }}"></div>
+  </div>
+</div>
+<script>
+  new Swiper(`.swiper-template-categories-grid-{{ section.id }}`, {
+    lazy: {
+      loadPrevNext: true,
+    },
+    slidesPerView: 1.2,
+    centeredSlides: true,
+    spaceBetween: 60,
+    loop: true,
+    preventClicksPropagation: false,
+    observer: true,
+    observeParents: true,
+    pagination: {
+      el: '.swiper-pagination-{{ section.id }}',
+      clickable: true, // 确保分页是可点击的
+    },
+    effect: 'coverflow',
+    coverflowEffect: {
+      rotate: 0,
+      stretch: 0,
+      depth: 100,
+      modifier: 3,
+      slideShadows: false,
+    },
+    on: {
+      init: function (swiper) {},
+      slideChangeTransitionEnd: function (swiper) {},
+    },
+    breakpoints: {
+      320: {
+        slidesPerView: 1.2,
+      },
+      768: {
+        slidesPerView: 1.2,
+      },
+    },
+  });
+</script>
+{% schema %}
+{
+  "name": "类别网格",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "标题",
+      "default": "Shop By Categories"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "类别卡片",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "select",
+          "id": "grid_position",
+          "label": "网格位置",
+          "options": [
+            { "value": "item1", "label": "左侧长卡片" },
+            { "value": "item2", "label": "第二列上方" },
+            { "value": "item3", "label": "第二列下方" },
+            { "value": "item4", "label": "中间列上方" },
+            { "value": "item5", "label": "中间列下方" },
+            { "value": "item6", "label": "第四列上方" },
+            { "value": "item7", "label": "第四列下方" },
+            { "value": "item8", "label": "右侧长卡片" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "图片"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "移动端图片"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "标题",
+          "default": "类别名称"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "链接"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "背景颜色",
+          "default": "#E6E6FA"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "类别网格",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "grid_position": "item1",
+            "title": "Halloween"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "grid_position": "item2",
+            "title": "Christmas"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

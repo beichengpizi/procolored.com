@@ -1,0 +1,464 @@
+{{- 'product-grid.css' | asset_url | stylesheet_tag -}}
+{%- liquid
+  assign section_heading = section.settings.heading
+  assign section_description = section.settings.description
+  assign product_limit = section.settings.product_limit
+  assign columns_desktop = section.settings.columns_desktop
+  assign mobile_swipe = section.settings.mobile_swipe
+
+  assign product_id = product.id
+  if template contains 'cart' and cart != empty
+    assign product_id = cart.items[0].product_id
+  endif
+
+  assign columns_class = 'small-6 medium-6 large-4'
+  case columns_desktop
+    when 2
+      assign columns_class = 'small-6 medium-6'
+    when 3
+      assign columns_class = 'small-6 medium-4'
+    when 4
+      assign columns_class = 'small-6 medium-6 large-3'
+    when 5
+      assign columns_class = 'small-6 medium-3 large-1/5'
+    when 6
+      assign columns_class = 'small-6 medium-3 large-2'
+  endcase
+-%}
+<style type="text/css">
+    .product-recommendations-{{ section.id }}{
+      max-width: 1300px;
+    }
+    .product-recommendations-{{ section.id }}  .product-recommendations.product-recommendations--loaded{
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+    .product-recommendations-{{ section.id }}   custom-automatic-discount-reminder{
+      border-radius: 0;
+      font-size: 12px;
+    }
+    .product-recommendations-{{ section.id }} .product-card-info{
+      padding: 10px 1.8rem 20px !important;
+    }
+    #product-recommendations-{{ section.id }}  .product-card-info .amount {
+      font-size: 16px;
+  }
+
+    @media only screen and (max-width: 769px) {
+      .product-recommendations-{{ section.id }}  .product-card--content-spacing-true .product-featured-image{
+        padding: 20px .8rem 0 !important;
+      }
+      .product-recommendations-{{ section.id }}  .product-card--content-spacing-true .product-card-info {
+        padding: 10px 0 !important;
+    }
+    .product-recommendations-{{ section.id }}  .product-card .price {
+      font-size: 14px !important;
+      padding: 0 12px !important;
+      flex-direction: column !important;
+      row-gap: 5px !important;
+      align-items: flex-start !important;
+  }
+  #product-recommendations-{{ section.id }} ul.products.row li .price del span.money {
+    font-size: 14px !important;
+      }
+      #product-recommendations-{{ section.id }} product-recommendations .products>li{
+        {% unless section.settings.mobile_swipe %}
+          padding: 0 !important;
+        {% endunless %}
+      }
+      #product-recommendations-{{ section.id }} product-recommendations .products .price .discounted{
+        font-size: 14px !important;
+      }
+    }
+</style>
+<div id="product-recommendations-{{ section.id }}" class="row product-recommendations-{{ section.id }}">
+  <div class="small-12 columns" data-product-id="{{ product.id }}" data-limit="4">
+    {% render 'section-header', section_heading: section_heading, section_description: section_description %}
+    <product-recommendations
+      productId="{{ product.id }}"
+      data-limit="4"
+      class="product-recommendations{% if mobile_swipe %} swipe-on-mobile{% endif %} section-spacing-padding"
+      data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product_id }}&limit={{ product_limit }}"
+    >
+      {% if recommendations.performed and recommendations.products_count > 0 %}
+        <ul class="products row no-padding">
+          {% for recommendation in recommendations.products %}
+            <li class="{{ columns_class }} columns">
+              {% render 'product-card', product_card_product: recommendation %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </product-recommendations>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      // 自动化折扣定时显示
+  function formatUtcTime(v) {
+    let date = new Date(v);
+    return (
+      date.getFullYear() +
+      '/' +
+      (date.getMonth() + 1) +
+      '/' +
+      (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+      ' ' +
+      (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+      ':' +
+      (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+      ':' +
+      (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+    );
+  }
+      {% comment %} alert($('.product-recommendations-{{ section.id }} product-card').length);  {% endcomment %}
+      if ($('.product-recommendations-{{ section.id }} product-card').length > 0) {
+        $('.product-recommendations-{{ section.id }} product-card').each(function () {
+          const discount = $(this).attr('data-discount');
+          const UTCDate = $(this).data('countdown');
+          const UTCDate_end = $(this).data('countdown-end');
+          const current_product_id = $(this).attr('data-current-product-id');
+
+          if (discount && discount !== 'null' && discount !== '') {
+            const finalDate = formatUtcTime(UTCDate);
+            const finalDate_end = formatUtcTime(UTCDate_end);
+            const timestamp = new Date(finalDate).getTime();
+            const timestamp_end = finalDate_end ? new Date(finalDate_end).getTime() : null;
+            const currentTimestamp = new Date().getTime();
+            let show_discount_value = false;
+            if (UTCDate === '' && UTCDate_end === '') {
+              show_discount_value = true;
+            } else {
+              if (UTCDate !== '' && UTCDate_end === '' && currentTimestamp >= timestamp) {
+                show_discount_value = true;
+              } else if (
+                UTCDate !== '' &&
+                UTCDate_end !== '' &&
+                timestamp_end > currentTimestamp &&
+                currentTimestamp >= timestamp
+              ) {
+                show_discount_value = true;
+              } else if (UTCDate === '' && UTCDate_end !== '' && timestamp_end > currentTimestamp) {
+                show_discount_value = true;
+              } else {
+                show_discount_value = false;
+              }
+            }
+            console.log('show_discount_value========', show_discount_value);
+            if (show_discount_value) {
+
+              console.log('product-card 存在 data-discount:', discount);
+              $(this).find('.activity-price-display').css('display', 'block');
+              $(this).find('.daily-price-display').css('display', 'none');
+              // 这里可以根据需要进行后续处理
+              // 获取当前 product-card 下 custom-automatic-discount-reminder 元素
+              const $reminder = $(this).find('custom-automatic-discount-reminder');
+              // 在 custom-automatic-discount-reminder 下查找 data-final-price 属性的元素
+              const $finalPrice = $reminder.find('[data-final-price]');
+              const $originPrice = $reminder.find('[data-origin-price]');
+              // 在 data-final-price 元素下查找 .money 子元素，并获取其文本值
+              let moneyValue = '';
+              if ($finalPrice.find('.money').length > 0) {
+                moneyValue = $finalPrice.find('.money').text();
+              } else {
+                moneyValue = $finalPrice.text().replace(':', '');
+              }
+              let originMoneyValue = '';
+              if ($originPrice.find('.money').length > 0) {
+                originMoneyValue = $originPrice.find('.money').text();
+              } else {
+                originMoneyValue = $originPrice.text().replace(':', '');
+              }
+              // 隐藏 custom-automatic-discount-reminder 下的 [data-final-price] 元素
+              $finalPrice.css('display', 'none');
+              $(this).find('.badge.onsale').css('display', 'none');
+              console.log('custom-automatic-discount-reminder 下 data-final-price 的 .money 值:', moneyValue);
+              console.log('custom-automatic-discount-reminder 下 data-origin-price 的 .money 值:', originMoneyValue);
+              // 将 moneyValue 的值替换掉当前元素 .product-card-price-and-button 下的 ins 下的 .money 元素的值
+              const $productCardInfo = $(this).find('.product-card-info');
+              $productCardInfo.find('ins .money').text(moneyValue);
+              $productCardInfo.find('del .money').text(originMoneyValue);
+            }
+          } else {
+            console.log('product-card data-discount 为空');
+          }
+        });
+      }
+
+  });
+</script>
+<script>
+    const loadProductRecommendationsIntoSection = function() {
+
+      // 查找具有“product-recommendations”类的元素
+      const productRecommendationsSection = document.querySelector(".product-recommendations");
+      if (productRecommendationsSection === null) { return; }
+      // 从数据属性中读取产品 ID
+      const productId = productRecommendationsSection.dataset.productId;
+      // 从数据属性读取限制
+      const limit = productRecommendationsSection.dataset.data-limit;
+      // 构建请求 URL
+
+      const requestUrl = {{ routes.product_recommendations_url }} + "?section_id="+{{ section.id }}+"&limit="+limit+"&product_id="+productId;
+      // 创建请求并使用 Ajax 提交
+      const request = new XMLHttpRequest();
+      request.open("GET", requestUrl);
+      request.onload = function() {
+
+        if (request.status >= 200 && request.status < 300) {
+          const container = document.createElement("div");
+          container.innerHTML = request.response;
+          productRecommendationsSection.parentElement.innerHTML = container.querySelector(".product-recommendations").innerHTML;
+
+        }
+      };
+      request.send();
+    };
+  // 如果您的部分有主题设置，主题编辑器
+  // 会在您编辑这些设置时重新加载该部分。发生这种情况时，
+  // 需要再次获取建议。
+  // 请参阅 https://help.shopify.com/en/themes/development/sections#understand-the-interaction-between-theme-javascript-and-the-theme-editor
+    document.addEventListener("shopify:section:load", function(event) {
+        console.log({{ section.id }});
+      console.log(event.detail.sectionId);
+      if (event.detail.sectionId === {{ section.id }}) {
+        loadProductRecommendationsIntoSection();
+
+        // setTimeout(function(){
+        //   alert($('product-card').length);
+        // }, 1000);
+      }
+    });
+    // 在页面加载时获取建议
+    loadProductRecommendationsIntoSection();
+</script>
+
+{% schema %}
+{
+  "name": "Product recommendations",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "使用搜索和发现应用自定义产品推荐。[了解详情](https://help.shopify.com/en/manual/online-store/search-and-discovery/product-recommendations)。"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "大标题",
+      "default": "You may also like"
+    },
+    {
+      "type": "html",
+      "id": "description",
+      "label": "小标题",
+      "default": "Combine your style with these products"
+    },
+    {
+      "type": "range",
+      "id": "headding_size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题字体大小",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "headding_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题字体大小（移动端）",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题字体大小",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题字体大小（移动端）",
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_swipe",
+      "default": true,
+      "label": "在移动设备上启用滑动"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "最多可显示产品",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "PC端显示的列数"
+    },
+    {
+      "type": "header",
+      "content": "边距填充"
+    },
+    {
+      "type": "header",
+      "content": "PC端设置"
+    },
+    {
+      "type": "range",
+      "id": "title_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题顶部边距",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "title_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题底部边距",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "subtitle_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题顶部边距",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "subtitle_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题底部边距",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部边距",
+      "default": 180
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部边距",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "移动端设置"
+    },
+
+    {
+      "type": "range",
+      "id": "title_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题顶部边距(移动端)",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "title_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题底部边距(移动端)",
+      "default": 10
+    },
+
+    {
+      "type": "range",
+      "id": "subtitle_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题顶部边距(移动端)",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "subtitle_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题底部边距(移动端)",
+      "default": 40
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部边距(移动端)",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部边距(移动端)",
+      "default": 46
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product recommendations"
+    }
+  ]
+}
+{% endschema %}

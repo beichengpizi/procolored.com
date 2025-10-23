@@ -1,0 +1,108 @@
+<div class="relative" data-section-type="maintenance-banner">
+  <div class="aspect-square md:aspect-[8/3]">
+    {%- if section.settings.image -%}
+      {%- liquid
+        assign image = section.settings.image
+      -%}
+      <img
+        data-src="{{ image | image_url }}"
+        class="lazyload object-cover object-bottom w-full h-full hidden md:block {% unless settings.lazy_loading %} no-blur{% endunless %}"
+        width="{{ image.src.width }}"
+        height="{{ image.src.height }}"
+        alt="{{ image.alt }}"
+      >
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+    {%- endif -%}
+    {%- if section.settings.mobile_image -%}
+      {%- liquid
+        assign image = section.settings.mobile_image
+      -%}
+      <img
+        data-src="{{ image | image_url }}"
+        class="lazyload object-cover object-center w-full h-full md:hidden {% unless settings.lazy_loading %} no-blur{% endunless %}"
+        width="{{ image.src.width }}"
+        height="{{ image.src.height }}"
+        alt="{{ image.alt }}"
+      >
+    {%- endif -%}
+    {%- if section.settings.button_link != blank -%}
+      <a href="{{ section.settings.button_link }}" class="absolute inset-0">
+        <span class="sr-only">{{ section.settings.button_text }}</span>
+      </a>
+    {%- endif -%}
+  </div>
+
+  {% comment %}
+    <div class="absolute inset-0">
+      <div class="flex justify-center lg:justify-start lg:items-center h-full">
+        <div class="container">
+          <div class="py-10 md:py-10 text-center lg:text-left lg:w-1/2">
+            <h2 class="text-3xl font-bold mb-2 md:mb-4 md:text-4xl lg:text-5xl">{{ section.settings.headding }}</h2>
+            <p class="leading-tight text-base xl:text-lg">
+              {{ section.settings.descriptiton }}
+            </p>
+            <div class="mt-3 flex items-center justify-center flex-wrap md:flex-row gap-2 lg:justify-start lg:gap-4">
+              <a
+                href="/account/register?return_to=/pages/our-brand-procolored?view=member"
+                class="px-8 py-2 text-center text-sm lg:text-base lg:px-20 lg:py-4 w-32 md:w-40 lg:w-auto font-semibold rounded-full shadow bg-black text-white hover:bg-black/90 hover:text-white active:text-white transition-colors"
+              >
+                {{ section.settings.button_text }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endcomment %}
+</div>
+
+{% schema %}
+{
+  "name": "维修工程师 Banner",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "headding",
+      "label": "标题",
+      "default": "Our Tech Support is Just Around!"
+    },
+    {
+      "type": "textarea",
+      "id": "descriptiton",
+      "label": "描述",
+      "default": "Get face-to-face tutoring right next to you."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "电脑端图片",
+      "info": "建议全屏布局使用 2800 x 1050 .jpg。"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "移动端图片",
+      "info": "建议全屏布局使用 768 x 1024 .jpg。"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "按钮文字",
+      "default": "Book today"
+    },
+    {
+      "type": "text",
+      "id": "button_link",
+      "label": "按钮链接",
+      "info": "查找对应的锚点。eg:#shopify-section-sections--17177786384565__announcement-bar"
+    }
+  ],
+  "presets": [
+    {
+      "name": "维修工程师 Banner"
+    }
+  ]
+}
+{% endschema %}

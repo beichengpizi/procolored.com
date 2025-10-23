@@ -1,0 +1,66 @@
+<div class="relative pt-5 md:pt-20" data-section-type="maintenance-independent">
+  {%- if section.settings.headding != blank -%}
+    <div class="container pb-4.5 md:pb-15">
+      <h2 class="lg:text-center m-0 text-2xl md:text-3xl lg:text-4xl">{{ section.settings.headding }}</h2>
+    </div>
+  {%- endif -%}
+
+  <div class="max-w-5xl mx-auto px-4 md:px-5">
+    <div class="bg-white rounded-[10px] lg:rounded-2xl flex flex-col lg:flex-row items-center p-5 lg:py-16 lg:px-14 gap-6 lg:gap-10 overflow-hidden">
+      <div class="flex-shrink-0 aspect-square w-[112px] lg:w-[216px]">
+        {%- if section.settings.image -%}
+          {%- liquid
+            assign image = section.settings.image
+          -%}
+          <img
+            data-src="{{ image | image_url }}"
+            class="lazyload object-cover object-center w-full h-full {% unless settings.lazy_loading %} no-blur{% endunless %}"
+            width="{{ image.src.width }}"
+            height="{{ image.src.height }}"
+            alt="{{ image.alt }}"
+          >
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+        {%- endif -%}
+      </div>
+
+      <div>
+        <p class="text-sm lg:text-lg lg:font-medium m-0">
+          {{ section.settings.descriptiton }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "独立技术员计划",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "headding",
+      "label": "标题",
+      "default": "Procolored Independent Technician Program"
+    },
+    {
+      "type": "textarea",
+      "id": "descriptiton",
+      "label": "描述",
+      "default": "Interrupted printing plan caused by broken printers, but online tech support is not enough, but our product center in California is way too far? We heard you and are here to walk you through! Book a maintenance appointment with our independent repair engineers right next to you! They are seasoned, trained and Procolored certificated, supporting home repair and mail repair services. (Repair methods and charges are subject to actual circumstances of both the customer and the technician.) If you have any questions or suggestions, please feel free to contact us."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "图标",
+      "info": "建议全屏布局使用 600x600"
+    }
+  ],
+  "presets": [
+    {
+      "name": "独立技术员计划"
+    }
+  ]
+}
+{% endschema %}

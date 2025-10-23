@@ -1,0 +1,223 @@
+{%- assign type = type -%}
+<style>
+  .member-benefits-container-{{ section.id }}  .member-benefits-content  .item-{{ block.id }}{
+    {%- if block.settings.bg_image -%}
+      background: url({{ block.settings.bg_image | image_url }}) {{ section.settings.item_bg_color }} no-repeat center / cover;
+    {%- else -%}
+      background-color: {{ section.settings.item_bg_color }};
+  {%- endif %}
+  }
+  @media screen and (min-width: 320px) and (max-width: 480px){
+    .member-benefits-container-{{ section.id }}  .member-benefits-content  .item-{{ block.id }}{
+      {%- if block.settings.bg_image_mobile -%}
+        background: url({{ block.settings.bg_image_mobile | image_url }}) {{ section.settings.item_bg_color }} no-repeat center / cover;
+    
+    {%- endif %}
+    }
+
+  }
+</style>
+{%- case type -%}
+  {%- when 'member' -%}
+  <{%- if customer -%}div{%- else -%}modal-login client:idle{%- endif %} class="item item-{{ block.id }}  relative   flex flex-col items-center w-full transition-colors" >
+    {%- if section.settings.show_label and block.settings.label_text != blank -%} 
+      <div class="label-wrap">
+        <div class="label-container">
+        <svg class="label-icon" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 11 13" fill="none">
+          <path d="M1.86765 12.0938V10.9688C1.86765 10.7225 1.91686 10.4787 2.01247 10.2512C2.10809 10.0237 2.24823 9.81703 2.4249 9.64292C2.60157 9.46881 2.81131 9.3307 3.04214 9.23648C3.27297 9.14225 3.52037 9.09375 3.77022 9.09375H7.57537C7.82522 9.09375 8.07262 9.14225 8.30345 9.23648C8.53428 9.3307 8.74402 9.46881 8.92069 9.64292C9.09736 9.81703 9.2375 10.0237 9.33312 10.2512C9.42873 10.4787 9.47794 10.7225 9.47794 10.9688V12.0938C9.47794 12.2927 9.55812 12.4834 9.70084 12.6241C9.84356 12.7647 10.0371 12.8438 10.239 12.8438C10.4408 12.8438 10.6344 12.7647 10.7771 12.6241C10.9198 12.4834 11 12.2927 11 12.0938V10.9688C10.9976 10.0744 10.636 9.21731 9.99429 8.58489C9.35256 7.95247 8.4829 7.59613 7.57537 7.59375H3.77022C2.86269 7.59613 1.99302 7.95247 1.3513 8.58489C0.709582 9.21731 0.348001 10.0744 0.34559 10.9688V12.0938C0.34559 12.2927 0.425769 12.4834 0.56849 12.6241C0.71121 12.7647 0.904781 12.8438 1.10662 12.8438C1.30846 12.8438 1.50203 12.7647 1.64475 12.6241C1.78747 12.4834 1.86765 12.2927 1.86765 12.0938ZM8.71691 3.84375C8.71691 3.25041 8.53838 2.67039 8.20389 2.17704C7.86939 1.68369 7.39397 1.29918 6.83773 1.07211C6.28149 0.84505 5.66942 0.78564 5.07892 0.901395C4.48842 1.01715 3.94601 1.30287 3.52028 1.72243C3.09455 2.14199 2.80463 2.67654 2.68717 3.25848C2.56971 3.84042 2.63 4.44362 2.8604 4.9918C3.0908 5.53998 3.48097 6.00851 3.98157 6.33816C4.48218 6.6678 5.07073 6.84375 5.67279 6.84375C6.48014 6.84375 7.25443 6.52768 7.82531 5.96507C8.39619 5.40246 8.71691 4.6394 8.71691 3.84375ZM7.19485 3.84375C7.19485 4.14042 7.10559 4.43043 6.93834 4.67711C6.77109 4.92378 6.53338 5.11604 6.25526 5.22957C5.97714 5.3431 5.67111 5.37281 5.37586 5.31493C5.08061 5.25705 4.8094 5.11419 4.59654 4.90441C4.38367 4.69463 4.23871 4.42736 4.17998 4.13639C4.12125 3.84541 4.1514 3.54382 4.2666 3.26973C4.3818 2.99564 4.57688 2.76137 4.82718 2.59655C5.07749 2.43172 5.37176 2.34375 5.67279 2.34375C6.07647 2.34375 6.46361 2.50179 6.74905 2.78309C7.03449 3.0644 7.19485 3.44593 7.19485 3.84375Z" fill="white"/>
+          </svg>
+          <div class="label-text">{{ block.settings.label_text }}</div>
+        </div>
+      </div>
+    {%- endif -%}
+      {%- if block.settings.image -%}
+        {%- liquid
+          assign image = block.settings.image
+        -%}
+        <div class="img-wrap desktopShow">
+        <img
+          style="aspect-ratio:{{ image.aspect_ratio }};"
+          data-src="{{ image | image_url }}"
+          class="lazyload aspect-square w-20 h-20 {% unless settings.lazy_loading %} no-blur{% endunless %}"
+          alt="{{ image.alt }}"
+        >
+        </div>
+      {%- endif -%}
+      {%- unless section.settings.show_icon_in_headding -%}
+      {%- if block.settings.image_mobile -%}
+        {%- liquid
+          assign image = block.settings.image_mobile
+        -%}
+        <div class="img-wrap mobileShow">
+        <img
+          style="aspect-ratio:{{ image.aspect_ratio }};"
+          data-src="{{ image | image_url }}"
+          class="lazyload aspect-square w-20 h-20 {% unless settings.lazy_loading %} no-blur{% endunless %}"
+          alt="{{ image.alt }}"
+        >
+        </div>
+      {%- endif -%}
+      {%- endunless -%}
+      {%- if block.settings.headding != empty -%}
+        {%- if section.settings.show_icon_in_headding -%}
+          <div class="headding-wrap">
+         
+              {%- if block.settings.image_mobile -%}
+                {%- liquid
+                  assign image = block.settings.image_mobile
+                -%}
+                <div class="img-wrap mobileShow">
+                <img
+                  style="aspect-ratio:{{ image.aspect_ratio }};"
+                  data-src="{{ image | image_url }}"
+                  class="lazyload aspect-square w-20 h-20 {% unless settings.lazy_loading %} no-blur{% endunless %}"
+                  alt="{{ image.alt }}"
+                >
+                </div>
+              {%- endif -%}
+           
+            <h3 class="{{ section.settings.title_font_family }} text-left">{{ block.settings.headding }}</h3>
+          </div>
+        {%- else -%}
+          <h3 class="{{ section.settings.title_font_family }} text-left">{{ block.settings.headding }}</h3>
+        {%- endif -%}
+      {%- endif -%}
+    {%- if block.settings.description != empty -%}
+      <div class="description text-left space-y-1 *:m-0 {{ section.settings.desc_font_family }}">
+        {{ block.settings.description }}
+      </div>
+    {%- endif -%}
+      {%- if customer -%}
+        {%- if block.settings.logged_link != blank -%}
+          <div class="buttom-wrap text-left w-full">
+            <a
+              href="{{ block.settings.logged_link }}"
+              class="text-center  w-auto  rounded-full  transition-colors"
+              >
+              {{- block.settings.logged_btn_text -}}
+            </a>
+          </div>
+        {%- endif -%}
+      {%- else -%}
+        {%- if block.settings.btn_text != blank -%}
+          <div class="buttom-wrap text-left w-full">
+            <a
+              href="/account"
+              class="text-center  w-auto rounded-full  transition-colors"
+              data-login>
+              {{- block.settings.btn_text -}}
+            </a>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    </{%- if customer -%}div{%- else -%}modal-login{%- endif -%}>
+  {%- when 'item' -%}
+    <style>
+      @media screen and (min-width: 320px) and (max-width: 480px){
+        .member-benefits-wrap-{{ section.id }}  .item-{{ block.id }} .svg-icon-wrap {
+          width: {{ block.settings.svg_icon_width_mobile }}px;
+          height: {{ block.settings.svg_icon_height_mobile }}px;
+        }
+      }
+    </style>
+    <div class="item item-{{ block.id }}  relative   flex flex-col items-center w-full transition-colors" >
+      {%- if section.settings.show_label and block.settings.label_text != blank -%} 
+      <div class="label-wrap">
+        <div class="label-container">
+        <svg class="label-icon" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 11 13" fill="none">
+          <path d="M1.86765 12.0938V10.9688C1.86765 10.7225 1.91686 10.4787 2.01247 10.2512C2.10809 10.0237 2.24823 9.81703 2.4249 9.64292C2.60157 9.46881 2.81131 9.3307 3.04214 9.23648C3.27297 9.14225 3.52037 9.09375 3.77022 9.09375H7.57537C7.82522 9.09375 8.07262 9.14225 8.30345 9.23648C8.53428 9.3307 8.74402 9.46881 8.92069 9.64292C9.09736 9.81703 9.2375 10.0237 9.33312 10.2512C9.42873 10.4787 9.47794 10.7225 9.47794 10.9688V12.0938C9.47794 12.2927 9.55812 12.4834 9.70084 12.6241C9.84356 12.7647 10.0371 12.8438 10.239 12.8438C10.4408 12.8438 10.6344 12.7647 10.7771 12.6241C10.9198 12.4834 11 12.2927 11 12.0938V10.9688C10.9976 10.0744 10.636 9.21731 9.99429 8.58489C9.35256 7.95247 8.4829 7.59613 7.57537 7.59375H3.77022C2.86269 7.59613 1.99302 7.95247 1.3513 8.58489C0.709582 9.21731 0.348001 10.0744 0.34559 10.9688V12.0938C0.34559 12.2927 0.425769 12.4834 0.56849 12.6241C0.71121 12.7647 0.904781 12.8438 1.10662 12.8438C1.30846 12.8438 1.50203 12.7647 1.64475 12.6241C1.78747 12.4834 1.86765 12.2927 1.86765 12.0938ZM8.71691 3.84375C8.71691 3.25041 8.53838 2.67039 8.20389 2.17704C7.86939 1.68369 7.39397 1.29918 6.83773 1.07211C6.28149 0.84505 5.66942 0.78564 5.07892 0.901395C4.48842 1.01715 3.94601 1.30287 3.52028 1.72243C3.09455 2.14199 2.80463 2.67654 2.68717 3.25848C2.56971 3.84042 2.63 4.44362 2.8604 4.9918C3.0908 5.53998 3.48097 6.00851 3.98157 6.33816C4.48218 6.6678 5.07073 6.84375 5.67279 6.84375C6.48014 6.84375 7.25443 6.52768 7.82531 5.96507C8.39619 5.40246 8.71691 4.6394 8.71691 3.84375ZM7.19485 3.84375C7.19485 4.14042 7.10559 4.43043 6.93834 4.67711C6.77109 4.92378 6.53338 5.11604 6.25526 5.22957C5.97714 5.3431 5.67111 5.37281 5.37586 5.31493C5.08061 5.25705 4.8094 5.11419 4.59654 4.90441C4.38367 4.69463 4.23871 4.42736 4.17998 4.13639C4.12125 3.84541 4.1514 3.54382 4.2666 3.26973C4.3818 2.99564 4.57688 2.76137 4.82718 2.59655C5.07749 2.43172 5.37176 2.34375 5.67279 2.34375C6.07647 2.34375 6.46361 2.50179 6.74905 2.78309C7.03449 3.0644 7.19485 3.44593 7.19485 3.84375Z" fill="white"/>
+          </svg>
+          <div class="label-text">{{ block.settings.label_text }}</div>
+        </div>
+      </div>
+    {%- endif -%}
+      {%- if block.settings.image -%}
+        {%- liquid
+          assign image = block.settings.image
+        -%}
+        <div class="img-wrap desktopShow">
+        <img
+          style="aspect-ratio:{{ image.aspect_ratio }};"
+          data-src="{{ image | image_url }}"
+          class="lazyload aspect-square w-20 h-20 {% unless settings.lazy_loading %} no-blur{% endunless %}"
+          alt="{{ image.alt }}"
+        >
+        </div>
+
+      {%- endif -%}
+      {%- unless section.settings.show_icon_in_headding -%}
+      {%- if block.settings.image_mobile -%}
+        {%- liquid
+          assign image = block.settings.image_mobile
+        -%}
+        <div class="img-wrap mobileShow">
+        <img
+          style="aspect-ratio:{{ image.aspect_ratio }};"
+          data-src="{{ image | image_url }}"
+          class="lazyload aspect-square w-20 h-20 {% unless settings.lazy_loading %} no-blur{% endunless %}"
+          alt="{{ image.alt }}"
+        >
+        </div>
+      {%- endif -%}
+      {%- endunless -%}
+      <!-- 图标 svg PC-->
+      {%- if block.settings.svg_icon != blank -%}
+        <div class="svg-icon-wrap desktopShow">
+          {{ block.settings.svg_icon }}
+        </div>
+      {%- endif -%}
+      {%- unless section.settings.show_icon_in_headding -%}
+        {%- if block.settings.svg_icon != blank -%}
+          <div class="svg-icon-wrap mobileShow">
+            {{ block.settings.svg_icon }}
+          </div>
+        {%- endif -%}
+        {%- endunless -%}
+      {%- if block.settings.headding != empty -%}
+        {%- if section.settings.show_icon_in_headding -%}
+          <div class="headding-wrap">
+           
+              {%- if block.settings.image_mobile -%}
+                {%- liquid
+                  assign image = block.settings.image_mobile
+                -%}
+                <div class="img-wrap mobileShow">
+                <img
+                  style="aspect-ratio:{{ image.aspect_ratio }};"
+                  data-src="{{ image | image_url }}"
+                  class="lazyload aspect-square w-20 h-20 {% unless settings.lazy_loading %} no-blur{% endunless %}"
+                  alt="{{ image.alt }}"
+                >
+                </div>
+              {%- endif -%}
+              {%- if block.settings.svg_icon != blank -%}
+                <div class="svg-icon-wrap mobileShow">
+                  {{ block.settings.svg_icon }}
+                </div>
+              {%- endif -%}
+         
+            <h3 class=" {{ section.settings.title_font_family }}  text-left">{{ block.settings.headding }}</h3>
+          </div>
+        {%- else -%}
+          <h3 class=" {{ section.settings.title_font_family }}  text-left">{{ block.settings.headding }}</h3>
+        {%- endif -%}
+      {%- endif -%}
+    {%- if block.settings.description != empty -%}
+      <div class="description  text-left space-y-1 *:m-0 {{ section.settings.desc_font_family }}">
+        {{ block.settings.description }}
+      </div>
+    {%- endif -%}
+      {%- if block.settings.link != blank -%}
+        <div class="buttom-wrap text-left w-full">
+          <a
+            href="{{ block.settings.link }}"
+            class="text-center  w-auto  rounded-full   transition-colors"
+          >
+            {{- block.settings.btn_text -}}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+
+  {%- else -%}
+{%- endcase -%}

@@ -1,0 +1,305 @@
+{%- assign type = block.settings.type -%}
+
+<style>
+  .js-custom-variant {
+    border-color: #e5e7eb;
+    background-color: #fff;
+  }
+
+  .js-custom-variant:hover,
+  .js-custom-variant.active {
+    color: inherit;
+    border-color: #da291c;
+    background-color: rgba(218, 41, 28, 0.06);
+  }
+  .compare-link {
+    font-size: 14px;
+  }
+  @media (max-width: 768px) {
+    .compare-link {
+      font-size: 12px;
+    }
+    .js-custom-variant {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+</style>
+
+<custom-variants class="relative block my-4 lg:mt-4 overflow-hidden" client:idle>
+  <div class="flex items-center justify-between mb-4">
+    <span class="text-base font-semibold">Options</span>
+    <a class="text-blue-500 compare-link" href="/pages/compare">Compare ></a>
+  </div>
+
+  {%- if type == 'type-1' -%}
+    <div class="flex flex-col gap-2">
+      {%- for index in (1..10) -%}
+        {%- assign id = 'product-' | append: index -%}
+        {%- assign title_handle = 'text-' | append: index -%}
+        {%- assign handle = block.settings[id] -%}
+        {%- assign title = block.settings[title_handle] -%}
+        {%- assign product = all_products[handle] -%}
+        {%- assign image = product.featured_image -%}
+        <!-- 针对元对象显示 -->
+        {% assign startDate = null %}
+        {% assign endDate = null %}
+        {% assign custom_discount = null %}
+
+        {% for discount in shop.metaobjects.discount.values %}
+          <!-- 按产品系列筛选 -->
+          {%- if discount.collection != blank -%}
+            {% for product_name in discount.collection.value.products %}
+              {% assign product_id = product_name.id %}
+              {%- if product_id == product.id -%}
+                {%- if discount.value != blank -%}
+                  {% comment %} 百分比折扣值 {% endcomment %}
+                  {% assign custom_discount = discount.value %}
+                {%- elsif discount.value1 != empty -%}
+                  {% comment %} 固定折扣值 {% endcomment %}
+                  {% assign custom_discount = discount.value1.value %}
+                {%- endif -%}
+                {%- if discount.start_date != blank -%}
+                  {% assign startDate = discount.start_date %}
+                {%- endif -%}
+                {%- if discount.end_date != blank -%}
+                  {% assign endDate = discount.end_date %}
+                {%- endif -%}
+
+                {% break %}
+              {%- endif -%}
+            {% endfor %}
+
+          {%- elsif discount.product_name != blank -%}
+            <!-- 按产品筛选 -->
+            {% for product_name in discount.product_name.value %}
+              {% assign product_id = product_name.id %}
+              {%- if product_id == product.id -%}
+                {%- if discount.value != blank -%}
+                  {% comment %} 百分比折扣值 {% endcomment %}
+                  {% assign custom_discount = discount.value %}
+                {%- elsif discount.value1 != empty -%}
+                  {% comment %} 固定折扣值 {% endcomment %}
+                  {% assign custom_discount = discount.value1.value %}
+                {%- endif -%}
+                {%- if discount.start_date != blank -%}
+                  {% assign startDate = discount.start_date %}
+                {%- endif -%}
+                {%- if discount.end_date != blank -%}
+                  {% assign endDate = discount.end_date %}
+                {%- endif -%}
+                {% break %}
+              {%- endif -%}
+            {% endfor %}
+          {%- else -%}
+            <!-- 按产品变体筛选 -->
+            {% comment %} 产品变体=={{ discount.product_variants }} {% endcomment %}
+            {%- if discount.product_variants != blank -%}
+              {% comment %} {{ discount.product_variants.value | json }} {% endcomment %}
+              {% for selectedVariant in discount.product_variants.value %}
+                {% assign selected_variant_id = selectedVariant.id %}
+                {% for variant in product.variants %}
+                  {%- if selected_variant_id == variant.id -%}
+                    {%- if discount.value != blank -%}
+                      {% comment %} 百分比折扣值 {% endcomment %}
+                      {% assign custom_discount = discount.value %}
+                    {%- elsif discount.value1 != empty -%}
+                      {% comment %} 固定折扣值 {% endcomment %}
+                      {% assign custom_discount = discount.value1.value %}
+                    {%- endif -%}
+                    {%- if discount.start_date != blank -%}
+                      {% assign startDate = discount.start_date %}
+                    {%- endif -%}
+                    {%- if discount.end_date != blank -%}
+                      {% assign endDate = discount.end_date %}
+                    {%- endif -%}
+                    {% break %}
+                  {%- endif -%}
+                {% endfor %}
+              {% endfor %}
+            {%- endif -%}
+          {%- endif -%}
+        {% endfor %}
+        {%- if product != blank -%}
+          <a
+            class="border-2 border-solid flex items-center gap-x-4 lg:gap-4 lg:px-6 py-4 rounded-xl transition-all js-custom-variant"
+            href="{{ product.url }}"
+            {% if product.variants.size > 0 -%}
+              {% comment %}
+                {% for variant in product.variants -%}
+                  data-option{{ forloop.index }}="{{ variant. }}"
+                {%- endfor %}
+              {% endcomment %}
+              {% for variant in product.variants -%}
+                {% comment %}
+                  {% for option in variant.options -%}
+                    data-option{{ parentloop.index }}="{{ option }}-{{ variant.id }}"
+                  {%- endfor %}
+                {% endcomment %}
+                data-option{{ forloop.index }}="{{ variant.options[0] }}-{{ variant.id }}-{{ variant.price }}-{{ variant.compare_at_price | default: 0 }}"
+              {%- endfor %}
+            {%- endif %}
+          >
+            <div class="aspect-square w-14 lg:w-12 bg-gray-50 rounded-lg overflow-hidden flex-shrink-0">
+              {%- if image -%}
+                {%- liquid
+                  assign master_width = image.src.width | append: 'x' | append: image.src.height
+                  assign width = '375x' | append: 200 | append: ',' | append: master_width
+                  assign class = null
+
+                  if mobile_image != blank
+                    assign class = 'w-full h-full object-cover'
+                  endif
+                -%}
+                {%- render 'responsive-image', image: image, sizes: width, class: class -%}
+              {%- endif -%}
+            </div>
+
+            <div class="flex flex-col gap-y-1 lg:flex-row lg:items-center lg:justify-between lg:gap-4 w-full">
+              <div class="">
+                <span class="text-sm font-semibold line-clamp-2">{{ title | default: product.title }}</span>
+              </div>
+              {% comment %} 是否存在折扣折=={{ custom_discount }} {% endcomment %}
+              <div class="w-36 flex-shrink-0 space-x-2 text-left lg:text-right">
+                {%- assign select_variant_price = 'select_variant_price-' | append: index -%}
+                {%- assign select_variant_price_value = block.settings[select_variant_price] | plus: 0 -%}
+                {%- assign current_variant = product.variants[select_variant_price_value] -%}
+                {% if current_variant %}
+                  {%- assign current_selected_variant = current_variant -%}
+                {% else %}
+                  {%- assign current_selected_variant = product -%}
+                {% endif %}
+                {% if custom_discount %}
+                  <!-- 存在折扣值 原价显示 -->
+
+                  <s class="text-xs font-bold custom-product-price-compare">
+                    {% if settings.currency_code_enabled %}
+                      {{ current_selected_variant.price | money_with_currency }}
+                    {% else %}
+                      {{ current_selected_variant.price | money }}
+                    {% endif %}
+                  </s>
+                {% else %}
+                  <!-- 不存在折扣值 -->
+                  {%- unless product.price_varies == false and product.compare_at_price_varies %}
+                    {% if product.compare_at_price != null
+                      and product.compare_at_price != 0
+                      and product.price != product.compare_at_price
+                    %}
+                      <s class="text-xs font-bold custom-product-price-compare">
+                        {% if settings.currency_code_enabled %}
+                          {{ current_selected_variant.compare_at_price | money_with_currency }}
+                        {% else %}
+                          {{ current_selected_variant.compare_at_price | money }}
+                        {% endif %}
+                      </s>
+                    {% endif %}
+                  {%- endunless -%}
+                {% endif %}
+
+                <span class="text-base font-bold custom-product-price">
+                  {% if custom_discount %}
+                    <!-- 存在折扣值 售价显示 -->
+                    {% if custom_discount contains '%' %}
+                      {%- assign amount = custom_discount | split: '%' | first -%}
+                      {%- assign final_sale_price = current_selected_variant.price
+                        | times: amount
+                        | divided_by: 100
+                        | round
+                      -%}
+                      {%- assign final_price = current_selected_variant.price | minus: final_sale_price -%}
+                    {% else %}
+                      {%- assign final_sale_price = custom_discount -%}
+                      {%- assign final_price = current_selected_variant.price | minus: final_sale_price -%}
+                    {% endif %}
+                    {% if settings.currency_code_enabled %}
+                      {{ final_price | money_with_currency }}
+                    {% else %}
+                      {{ final_price | money }}
+                    {% endif %}
+                  {% else %}
+                    {% if settings.currency_code_enabled %}
+                      {{ current_selected_variant.price | money_with_currency }}
+                    {% else %}
+                      {{ current_selected_variant.price | money }}
+                    {% endif %}
+                  {% endif %}
+                </span>
+              </div>
+            </div>
+            <script type="application/json">
+              {{ product.variants | json }}
+            </script>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    <div class="swiper !pb-4 js-swiper">
+      <div class="swiper-wrapper">
+        {%- for index in (1..10) -%}
+          {%- assign id = 'product-' | append: index -%}
+          {%- assign title_handle = 'text-' | append: index -%}
+          {%- assign handle = block.settings[id] -%}
+          {%- assign title = block.settings[title_handle] -%}
+          {%- assign product = all_products[handle] -%}
+          {%- assign image = product.featured_image -%}
+
+          {%- if product != blank -%}
+            <div class="swiper-slide max-w-40 lg:max-w-32">
+              <a
+                class="border-2 border-solid flex flex-col items-center gap-y-2 p-2 rounded-xl transition-all js-custom-variant"
+                href="{{ product.url }}"
+              >
+                <div class="aspect-square w-full h-full bg-gray-50 rounded-lg overflow-hidden">
+                  {%- if image -%}
+                    {%- liquid
+                      assign master_width = image.src.width | append: 'x' | append: image.src.height
+                      assign width = '375x' | append: 200 | append: ',' | append: master_width
+                      assign class = 'w-full h-full object-cover'
+                    -%}
+                    {%- render 'responsive-image', image: image, sizes: width, class: class -%}
+                  {%- endif -%}
+                </div>
+
+                <div class="flex flex-col gap-y-1 w-full">
+                  <div class="text-center">
+                    <span class="text-xs font-semibold line-clamp-1">{{ title | default: product.title }}</span>
+                  </div>
+
+                  {% comment %}
+                    <div class="w-36 flex-shrink-0 space-x-2 text-left lg:text-right">
+                      {%- unless product.price_varies == false and product.compare_at_price_varies %}
+                        {% if product.compare_at_price != null
+                          and product.compare_at_price != 0
+                          and product.price != product.compare_at_price
+                        %}
+                          <s class="text-xs font-bold">
+                            {% if settings.currency_code_enabled %}
+                              {{ product.compare_at_price | money_with_currency }}
+                            {% else %}
+                              {{ product.compare_at_price | money }}
+                            {% endif %}
+                          </s>
+                        {% endif %}
+                      {%- endunless -%}
+
+                      <span class="text-base font-bold">
+                        {% if settings.currency_code_enabled %}
+                          {{ product.price | money_with_currency }}
+                        {% else %}
+                          {{ product.price | money }}
+                        {% endif %}
+                      </span>
+                    </div>
+                  {% endcomment %}
+                </div>
+              </a>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="swiper-scrollbar z-10"></div>
+    </div>
+  {%- endif -%}
+</custom-variants>

@@ -1,0 +1,92 @@
+{{- 'section-auto-photo-banner.css' | asset_url | stylesheet_tag -}}
+
+<div class="slider">
+  <div class="slide-track">
+    {% for block in section.blocks %}
+      <div class="slide">
+        <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt | escape }}">
+        <div>
+          <div class="title">{{ block.settings.title }}</div>
+          <div class="desc">{{ block.settings.description }}</div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for block in section.blocks %}
+      <div class="slide">
+        <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt | escape }}">
+        <div>
+          <div class="title">{{ block.settings.title }}</div>
+          <div class="desc">{{ block.settings.description }}</div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const track = document.querySelector('.slide-track');
+    let offset = 50;
+    let moveRate = 1; // Pixels moved per interval
+    const intervalTime = 20; // Milliseconds per interval
+    const slowRate = 0.3; // Slow rate for mouseover
+    const normalRate = 1.5; // Normal rate for mouseout
+    const trackLen = document.querySelectorAll(".slide-track .slide").length * document.querySelector(".slide-track .slide").offsetWidth;
+
+    console.log(window.innerWidth, track.offsetWidth, trackLen)
+    function moveSlide() {
+        offset -= moveRate;
+        track.style.transform = `translateX(${offset}px)`;
+
+        if (offset <= window.innerWidth - trackLen) {
+            offset = 50;
+        }
+    }
+
+    let sliderInterval = setInterval(moveSlide, intervalTime);
+
+    const slider = document.querySelector('.slider');
+    slider.addEventListener('mouseover', function() {
+        moveRate = slowRate; // Adjust moveRate to slow down
+    });
+
+    slider.addEventListener('mouseout', function() {
+        moveRate = normalRate; // Adjust moveRate to normal speed
+    });
+});
+</script>
+
+{% schema %}
+{
+    "name": "Auto Photo Banner",
+    "max_blocks": 20,
+    "blocks": [
+        {
+            "type": "image",
+            "name": "Image",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                  "type": "text",
+                  "id": "title",
+                  "label": "Title",
+                },
+                {
+                  "type": "text",
+                  "id": "description",
+                  "label": "Description",
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Auto Photo Banner"
+        }
+    ]
+}
+{% endschema %}

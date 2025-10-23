@@ -1,0 +1,145 @@
+<div class="collection-tabs-new collection-tabs-new-1" id="{{ section.settings.id }}">
+  <div class="ctn-wrapper">
+    <div class="ctn-content">
+      <div class="tab-box">
+        <div class="tab-title tab-title-1">
+          {% for coll in section.blocks %}
+            <div class="title-item">{{ coll.settings.ctn_coll_title }}</div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="tab-content tab-content-1">
+        {% for mod in section.blocks %}
+          <div class="tab-mod">
+            <div class="tab-info">
+              <p class="info">{{ mod.settings.ctn_coll_tab_info }}</p>
+              <a class="viewall" href="{{ mod.settings.ctn_collection.url }}">View all &gt;</a>
+            </div>
+            <div class="tab-products">
+              <div class="swiper swiper-{{ section.settings.coll_id }} swiper-ctn-1">
+                <div class="swiper-wrapper">
+                  {% for product in mod.settings.ctn_collection.products %}
+                    <div class="swiper-slide">
+                      <a href="{{ product.url }}" class="product-item-card">
+                        <div class="product-item">
+                          <div class="img-area">
+                            <div class="product-adt">
+                              <div class="area-btn">
+                                <span class="area-btn-adt">Add To Cart</span>
+                              </div>
+                            </div>
+                            <div class="product-img">
+                              <img src="{{ product.media[1] | image_url: width: master }}" alt="">
+                            </div>
+                          </div>
+                          <div class="info-area">
+                            <div class="info-img">
+                              <img src="{{ product.media[0] | image_url: width: master }}" alt="">
+                            </div>
+                            <div class="info-text">
+                              <p class="product-title">{{ product.title }}</p>
+                              <div class="product-price">
+                                <div class="sale-price">{{ product.price | money }}</div>
+                                {% if product.compare_at_price_max != 0 %}
+                                  <div class="old-price">{{ product.compare_at_price_max | money }}</div>
+                                {% endif %}
+                              </div>
+                            </div>
+                            <div class="info-text-mb">
+                              <p class="product-title">{{ product.title }}</p>
+                              <div class="product-price-adt">
+                                <div class="product-price">
+                                  <div class="sale-price">{{ product.price | money }}</div>
+                                  {% if product.compare_at_price_max != 0 %}
+                                    <div class="old-price">{{ product.compare_at_price_max | money }}</div>
+                                  {% endif %}
+                                </div>
+                                <div class="product-adt-mb">
+                                  <span class="adt-mb-btn">
+                                    <img
+                                      src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/icon_shop_car_2x_c98f38f9-7e30-45ce-9c3a-d352e802db8a.png"
+                                      alt=""
+                                    >
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  {% endfor %}
+                </div>
+                <div class="swiper-control">
+                  <div class="swiper-dot">
+                    <div class="swiper-pagination"></div>
+                  </div>
+                  <div class="swiper-button">
+                    <div class="swiper-btn">
+                      <div class="swiper-button-prev"></div>
+                      <div class="swiper-button-next"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="viewall-mb-box">
+                <a href="{{ mod.settings.ctn_collection.url }}" class="viewall-mb">View all &gt;</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Collection Tabs New 1",
+  "settings": [
+    {
+      "type": "text",
+      "id": "id",
+      "label": "用于锚定的section的id",
+      "info": "页面唯一，不能重复，必须全英文"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "ctn_collection",
+          "label": "集合页选择"
+        },
+        {
+          "type": "text",
+          "id": "ctn_coll_title",
+          "label": "选项卡标题",
+          "default": "Best Sellers"
+        },
+        {
+          "type": "textarea",
+          "id": "ctn_coll_tab_info",
+          "label": "集合描述",
+          "default": "Explore our latest and greatest products that have just hit the shelves."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Tabs New 1",
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

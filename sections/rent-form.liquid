@@ -1,0 +1,147 @@
+{% liquid
+  if section.settings.top == '17.5'
+    assign top = 'pt-8 md:pt-17.5'
+  elsif section.settings.top == '20'
+    assign top = 'pt-8 md:pt-20'
+  elsif section.settings.top == '24'
+    assign top = 'pt-8 md:pt-24'
+  elsif section.settings.top == '28'
+    assign top = 'pt-8 md:pt-28'
+  else
+    assign top = ''
+  endif
+
+  if section.settings.bottom == '17.5'
+    assign bottom = 'pb-8 md:pb-17.5'
+  elsif section.settings.bottom == '20'
+    assign bottom = 'pb-8 md:pb-20'
+  elsif section.settings.bottom == '24'
+    assign bottom = 'pb-8 md:pb-24'
+  elsif section.settings.bottom == '28'
+    assign bottom = 'pb-8 md:pb-28'
+  else
+    assign bottom = ''
+  endif
+%}
+
+<div class="{{ top }} {{ bottom }}" data-section-type="rent-form">
+  <div class="container">
+    {% if section.settings.headding != blank or section.settings.descriptiton != blank %}
+      <div class="mb-8 lg:mb-10 text-center max-w-4xl mx-auto px-4 lg:px-10">
+        {%- if section.settings.headding != blank -%}
+          <h2 class="text-2xl md:text-4xl">{{ section.settings.headding }}</h2>
+        {%- endif -%}
+        {% if section.settings.descriptiton != blank %}
+          <p class="m-0 text-sm md:text-base">{{ section.settings.descriptiton }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div
+      class="relative md:rounded-2xl rounded-xl bg-white shadow overflow-hidden"
+    >
+      {%- if section.settings.announcement != blank -%}
+        <div class="p-5 md:p-8 bg-[#DA291C] text-white prose prose-sm max-w-none text-xs md:text-sm">
+          {{ section.settings.announcement }}
+        </div>
+      {%- endif -%}
+      <div id="rent-form-page" class="p-4 md:p-8">
+        {{ section.settings.form }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "租赁表单",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "配置项"
+    },
+    {
+      "type": "select",
+      "id": "top",
+      "default": "17.5",
+      "label": "板块上边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bottom",
+      "default": "17.5",
+      "label": "板块下边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "内容配置"
+    },
+    {
+      "type": "text",
+      "id": "headding",
+      "label": "标题",
+      "default": "Apply Now, Get Exclusive Benefits"
+    },
+    {
+      "type": "textarea",
+      "id": "descriptiton",
+      "label": "描述"
+    },
+    {
+      "type": "liquid",
+      "id": "announcement",
+      "label": "公告"
+    },
+    {
+      "type": "liquid",
+      "id": "form",
+      "label": "表单代码，去后台 APP 内获取"
+    }
+  ]
+}
+{% endschema %}

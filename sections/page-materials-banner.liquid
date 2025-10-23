@@ -1,0 +1,66 @@
+{% liquid
+  assign banner_pc = section.settings.banner_pc
+  assign banner_mb = section.settings.banner_mb
+  assign banner_url = section.settings.banner_url
+%}
+<style>
+  .banner-wrapper {
+    position: relative;
+  }
+  a.banner-url {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 21;
+  }
+</style>
+<div class="page-banner">
+  <div class="banner-wrapper">
+    <div class="banner-box">
+      <picture>
+        <source
+          media="(min-width: 769px)"
+          srcset="{{ banner_pc |  image_url: width: master }}"
+        >
+        <source
+          media="(max-width: 768px)"
+          srcset="{{ banner_mb |  image_url: width: master }}"
+        >
+        <img src="{{ banner_pc |  image_url: width: master }}">
+      </picture>
+    </div>
+    {% if banner_url != blank %}
+      <a href="{{ banner_url }}" class="banner-url"></a>
+    {% endif %}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Page Materials Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_pc",
+      "label": "PC端Banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_mb",
+      "label": "移动端Banner"
+    },
+    {
+      "type": "url",
+      "id": "banner_url",
+      "label": "Banner跳转链接"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Materials Banner"
+    }
+  ]
+}
+{% endschema %}

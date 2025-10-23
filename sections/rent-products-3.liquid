@@ -1,0 +1,791 @@
+<style>
+        .rent-products-{{ section.id }} {
+          /* background: #fff; */
+          padding-bottom: 60px;
+        }
+
+        .rent-products-{{ section.id }} .main-card {
+          max-width: 1200px;
+          margin: 0 auto 0 auto;
+          background: #fff;
+          border-radius: 20px;
+          padding: 40px;
+          display: flex;
+          row-gap: 22px;
+          flex-direction: column;
+        }
+
+        .rent-products-{{ section.id }} .main-card-header {
+          display: flex;
+          align-items: center;
+          gap: 40px;
+        }
+
+
+
+
+
+        .rent-products-{{ section.id }} .lease-tip {
+          color: #000;
+          font-family: Mulish;
+          font-size: 26px;
+          font-weight: 700;
+          line-height: 1.3;
+          text-align: left;
+          width: 50%;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        .rent-products-{{ section.id }} .lease-tip .sub {
+          color: #000;
+          font-size: 14px;
+          line-height: 1.4;
+          font-weight: 400;
+        }
+
+        .rent-products-{{ section.id }} .main-card-content {
+          display: flex;
+          gap: 90px;
+        }
+
+        .rent-products-{{ section.id }} .img-area {
+          min-height: 320px;
+          width: 38%;
+          display: flex
+  ;
+      align-items: center;
+        }
+        .rent-products-{{ section.id }} .img-area>div{
+          width: 100%;
+        }
+        .rent-products-{{ section.id }} .img-area img {
+          max-width: 100%;
+          object-fit: contain;
+          width: 100%;
+        }
+
+        .rent-products-{{ section.id }} .info-area {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+        }
+
+        .rent-products-{{ section.id }} .deposit {
+          margin-bottom: 4px;
+          color: #000;
+          font-family: Mulish;
+          font-size: 18px;
+          font-weight: 400;
+          line-height: 1.38;
+        }
+
+        .rent-products-{{ section.id }} .period {
+          display: flex;
+          align-items: center;
+          gap: 36px;
+          color: #000;
+          font-size: 18px;
+          flex-wrap: wrap;
+          font-weight: 400;
+          line-height: 1.38;
+          padding-bottom: 20px;
+          border-bottom: 1px solid #f0f0f0;
+        }
+        .rent-products-{{ section.id }} .period-title{
+            display: flex;
+            flex-direction: column;
+        }
+        .rent-products-{{ section.id }} .period-price{
+            color: #FF8F1C;
+            font-size: 30px;
+            font-weight: 700;
+            line-height: 1.26; /* 126% */
+
+        }
+        .rent-products-{{ section.id }} .period-icon{
+            width: 66px;
+            height: 66px;
+            flex-shrink: 0;
+        }
+
+        .rent-products-{{ section.id }} .free-tag {
+          color: #ff8f1c;
+          border-radius: 5px;
+          padding: 2px 10px;
+          border: 1px solid #ff8f1c;
+          font-family: Mulish;
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 1.25;
+        }
+
+        .rent-products-{{ section.id }} .desc-area {
+          color: #000;
+          font-family: Mulish;
+          font-size: 14px;
+          font-weight: 400;
+          padding-top: 19px;
+          line-height: 1.38;
+        }
+
+        .rent-products-{{ section.id }} .desc-title {
+          margin-bottom: 8px;
+          color: #000;
+          text-decoration: none;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-family: Mulish;
+          font-size: 18px;
+          font-weight: 700;
+          line-height: 1.38;
+        }
+
+        .rent-products-{{ section.id }} .desc-list {
+          margin: 0;
+
+          list-style: none;
+
+
+        }
+
+        .rent-products-{{ section.id }} .desc-list li {
+          display: flex;
+
+          flex-direction: column;
+        }
+
+        .rent-products-{{ section.id }} .desc-list li:first-child {
+
+        }
+
+        .rent-products-{{ section.id }} .desc-list li div {
+
+          color: #000;
+          font-size: 18px;
+          font-weight: 400;
+          line-height: 1.38;
+        }
+        .rent-products-{{ section.id }} .desc-list li div.note{
+            color: #6D6D6D;
+
+            font-size: 14px;
+
+            font-weight: 400;
+            line-height: 1.4; /* 140% */
+            margin-top: 18px;
+        }
+
+        .rent-products-{{ section.id }} .desc-list li div:first-child {
+          color: #000;
+          font-size: 18px;
+          font-weight: 700;
+          line-height: 1.38;
+          margin-bottom: 8px
+        }
+
+        .rent-products-{{ section.id }} .desc-list svg {
+          width: 18px;
+          height: 18px;
+          flex-shrink: 0;
+        }
+
+        .rent-products-{{ section.id }} .add-cart-btn {
+          background: #ff8f1c;
+          color: #fff;
+          border: none;
+          border-radius: 99px;
+          font-family: Mulish;
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 1;
+          padding: 10px 24px;
+          cursor: pointer;
+          display: inline-flex;
+          min-height: 40px;
+          justify-content: center;
+          align-items: center;
+          width: max-content;
+          height: auto;
+      margin: 0;
+        }
+        #hidden-content-{{ section.id }}  {
+          max-width: 560px;
+      padding: 30px 20px;
+      border-radius: 10px;
+
+        }
+       .fancybox-slide--html .fancybox-close-small{
+          padding: 0;
+      width: 22px;
+      height: 22px;
+      top: 30px;
+      right: 20px;
+      color: #000;
+      }
+        #hidden-content-{{ section.id }}  .modal-title{
+          color: #000;
+
+      /* MB/H4四级标题 */
+      font-family: Mulish;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.38; /* 138% */
+      padding-bottom: 16px;
+      border-bottom: 1px solid #F0F0F0;
+
+        }
+          #hidden-content-{{ section.id }}  .modal-content{
+            color: #3D3D3D;
+            padding-top: 16px;
+    /* PC/小文本 */
+    font-family: Mulish;
+    font-size: 14px;
+
+    font-weight: 400;
+    line-height: 1.4; /* 140% */
+        }
+        .Slider-{{ section.id }}{
+            margin-top: 28px;
+            overflow: hidden;
+            padding:0 40px;
+        }
+        .Slide-product-card-{{ section.id }}{
+            border-radius: 20px;
+            background: #F9F9F9;
+            position: relative;
+            padding: 26px 30px 24px 26px;
+        }
+        .Slide-product-card-{{ section.id }} .lable{
+            position: absolute;
+            right: 26px;
+            display: inline-flex;
+            color: #FFF;
+          font-family: Mulish;
+          font-size: 14px;
+
+          font-weight: 700;
+          line-height: normal;
+
+          padding: 4px 19px;
+          align-items: center;
+
+          flex-shrink: 0;
+          border-radius: 5px;
+          background: linear-gradient(90deg, #FFBF00 -9.86%, #F10 51.87%, #FF00E0 115.74%);
+
+        }
+        .Slide-product-card-{{ section.id }} .product-img{
+        }
+        .Slide-product-card-{{ section.id }} .product-img img{
+          width: 100%;
+          max-width: 100%;
+        }
+        .Slide-product-card-{{ section.id }} .product-name{
+          color: #000;
+          font-size: 18px;
+          font-weight: 400;
+          line-height: 1.33; /* 133% */
+          margin-bottom: 6px;
+          overflow:hidden;
+          text-overflow:ellipsis;
+          -webkit-box-orient:vertical;
+          -webkit-line-clamp:2;
+          display: -webkit-box;
+          word-break: break-word;
+      }
+        .Slide-product-card-{{ section.id }} .product-price{
+          color: #000;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 1.5; /* 150% */
+          display: flex;
+          gap: 12px;
+          margin-bottom: 10px;
+        }
+        .Slide-product-card-{{ section.id }} .product-price .price-sale{
+        }
+        .Slide-product-card-{{ section.id }} .product-price .price-regular{
+          color: #C2C2C2;
+          text-decoration: line-through;
+        }
+        .Slide-product-card-{{ section.id }} .product-button{
+          display: inline-flex;
+          width:auto;
+          padding: 8px 15px;
+          justify-content: center;
+          align-items: center;
+          flex-shrink: 0;
+          color: #FFF;
+          font-size: 14px;
+          font-weight: 700;
+          line-height: 1;
+          border-radius: 5px;
+            background: #FF8F1C;
+        }
+        .swiper-pagination-{{ section.id }}{
+            display: none;
+        }
+        @media (max-width: 1068px) {
+          .rent-products-{{ section.id }} {
+            padding: 0 24px 20px 24px;
+          }
+
+
+
+          .rent-products-{{ section.id }} .lease-tip {
+            width: 100%;
+            justify-content: center;
+            font-size: 14px;
+            line-height: 1.4;
+            gap: 0;
+          }
+
+          .rent-products-{{ section.id }} .lease-tip .sub {
+            font-size: 12px;
+            line-height: 1.4;
+          }
+
+          .rent-products-{{ section.id }} .main-card {
+            margin: 0;
+            border-radius: 10px;
+            padding: 20px 0;
+            max-width: 100vw;
+            gap: 0;
+          }
+          .rent-products-{{ section.id }} .main-card-header {
+
+            gap: 0;
+            padding: 0 10px;
+        }
+          .rent-products-{{ section.id }} .main-card-content {
+            display: flex;
+            gap: 0;
+            flex-direction: column;
+            padding: 0 10px;
+          }
+
+          .rent-products-{{ section.id }} .img-area {
+            border-radius: 0;
+            min-height: 166px;
+            padding: 24px 18px 22px 18px;
+            border: none;
+            width: 100%;
+            justify-content: center;
+          }
+
+
+
+          .rent-products-{{ section.id }} .deposit {
+            font-size: 14px;
+            line-height: 1.4;
+            text-align: center;
+          }
+
+          .rent-products-{{ section.id }} .period {
+            align-items: center;
+            gap: 30px;
+            font-size: 14px;
+            line-height: 1.4;
+            padding-bottom: 14px;
+            justify-content: center;
+          }
+          .rent-products-{{ section.id }} .period-price {
+
+            font-size: 24px;
+
+            line-height: 1.33;
+        }
+        .rent-products-{{ section.id }} .period-icon{
+          width: 50px;
+          height: 50px;
+        }
+
+
+          .rent-products-{{ section.id }} .desc-area {
+            padding-top: 14px;
+          }
+
+          .rent-products-{{ section.id }} .desc-title {
+            margin-bottom: 10px;
+            font-size: 14px;
+          }
+
+          .rent-products-{{ section.id }} .desc-list {
+
+          }
+
+
+
+          .rent-products-{{ section.id }} .desc-list li div {
+            align-items: start;
+            gap: 6px;
+            line-height: 1.4;
+            font-size: 14px;
+          }
+          .rent-products-{{ section.id }} .desc-list li div:first-child{
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 10px;
+          }
+          .rent-products-{{ section.id }} .desc-list li div.note {
+            font-size: 12px;
+            margin-top: 14px;
+        }
+          .rent-products-{{ section.id }} .add-cart-btn {
+            margin-top: 0;
+            width: 100%;
+          }
+          .rent-products-{{ section.id }}  .product-card--add-to-cart-button-wrapper {
+              padding: 0;
+          }
+          #hidden-content-{{ section.id }}  {
+              max-width: 100%;
+
+          margin-left: 24px;
+          margin-right: 24px;
+
+            }
+            .Slider-{{ section.id }}{
+                margin-top: 20px;
+                padding:0;
+
+            }
+            .Slide-product-card-{{ section.id }}{
+                border-radius: 10px;
+                padding: 14px 14px 16px 14px;
+            }
+            .Slide-product-card-{{ section.id }} .lable{
+                right: 14px;
+              font-size: 12px;
+              padding: 4px 14px;
+            }
+
+            .Slide-product-card-{{ section.id }} .product-name{
+              font-size: 14px;
+              line-height: 1.4;
+              margin-bottom: 10px;
+
+          }
+            .Slide-product-card-{{ section.id }} .product-price{
+              font-size: 14px;
+              line-height: 1.28; /* 150% */
+              gap: 6px;
+              margin-bottom: 8px;
+            }
+
+            .Slide-product-card-{{ section.id }} .product-button{
+              padding: 8px 15px;
+              font-size: 14px;
+              font-weight: 700;
+
+            }
+            .swiper-pagination-{{ section.id }}{
+                position: relative;
+                bottom: 0 !important;
+                line-height: 0;
+                margin-top: 12px;
+                display: block;
+            }
+            .swiper-pagination-{{ section.id }} .swiper-pagination-bullet {
+                width: 6px;
+                height: 6px;
+                display: inline-block;
+                border-radius: 100%;
+                background: #D9D9D9;
+                opacity: 1;
+            }
+            .swiper-pagination-{{ section.id }}  .swiper-pagination-bullet-active {
+                opacity: 1;
+                background: #000;
+            }
+
+
+        }
+</style>
+{%- if section.settings.headding != blank -%}
+{%- endif -%}
+{%- liquid
+  assign product = section.settings.product
+  assign image = section.settings.image | default: product.featured_image
+  assign title = product.title
+  assign subtitle = product.metafields.custom.subtitle
+  assign price = product.price | default: product.metafields.custom.rent_price.value
+
+  assign deposit = product.metafields.custom.deposit.value
+-%}
+
+<div class="rent-products-{{ section.id }}">
+  <div class="main-card">
+    <div class="main-card-header">
+      <div class="lease-tip">
+        {%- if section.settings.product_img_headding != blank -%}
+          <span class="title">{{- section.settings.product_img_headding -}}</span>
+        {%- endif -%}
+        {%- if section.settings.product_img_subheadding != blank -%}
+          <span class="sub">{{- section.settings.product_img_subheadding -}}</span>
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="main-card-content">
+      <div class="img-area">
+        {%- if image -%}
+          <div>
+            <img
+              data-sizes="50vw"
+              data-srcset="
+                {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                {{ image | image_url }} {{ image.width }}w
+              "
+              data-src="{{ image | image_url:width:750 }}"
+              class="lazyload "
+            >
+          </div>
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+        {%- endif -%}
+      </div>
+      <!-- 信息区域 -->
+      {% assign deposit_price = null %}
+      {% for deposit_as_discount in shop.metaobjects.deposit_as_discount.values limit: 1 %}
+        {% assign deposit_price = deposit_as_discount.deposit.value | money_without_trailing_zeros %}
+        {% assign original_deposit = deposit_as_discount.original_deposit.value | money_without_trailing_zeros %}
+      {% endfor %}
+
+      <div class="info-area">
+        <div class="period">
+          <div class="period-title">
+            <div class="period-title-text">Deposit</div>
+            <div class="period-price">{{- original_deposit -}}</div>
+          </div>
+          <svg
+            class="period-icon"
+            mlns="http://www.w3.org/2000/svg"
+            width="66"
+            height="66"
+            viewBox="0 0 66 66"
+            fill="none"
+          >
+            <path d="M18.1468 24.3691C13.0684 24.3691 8.07847 24.3691 3 24.3691C4.4763 19.5859 5.98212 14.8027 7.48795 9.93092C8.3442 11.0824 9.17093 12.1454 9.9386 13.2674C10.2043 13.6512 10.3815 13.6807 10.7653 13.415C17.7925 8.77941 25.2921 5.14771 33.5299 3.199C36.9844 2.37227 40.498 1.89986 44.0411 2.01796C47.0232 2.10654 49.9463 2.57895 52.6922 3.81904C57.0916 5.82681 59.8375 9.16325 60.7233 13.9465C61.2843 17.0172 60.9595 20.0583 60.1918 23.0405C59.867 24.3396 59.4537 25.6092 58.9222 26.8198C58.9813 26.1407 59.0698 25.4616 59.0994 24.753C59.2175 22.568 58.9517 20.4126 58.0955 18.3754C56.7373 15.2456 54.3457 13.2083 51.2159 11.9682C48.1747 10.8167 44.9564 10.5805 41.679 10.7872C33.8251 11.3186 26.7389 14.1236 19.9184 17.8439C18.4716 18.6411 17.0839 19.4973 15.6962 20.3831C15.4009 20.5603 15.4304 20.7079 15.6076 20.9146C16.3457 21.9185 17.0839 22.9223 17.822 23.8967C17.9401 24.0443 18.0287 24.192 18.1468 24.3691Z" fill="#FF8F1C"/>
+            <path d="M7.13698 38.1558C6.9303 39.5731 6.84172 40.9017 6.90078 42.2304C7.13698 47.3384 10.1191 51.413 14.9023 53.1845C17.9435 54.3065 21.1028 54.5723 24.3211 54.3361C32.9132 53.716 40.6194 50.4682 47.9419 46.1869C48.7391 45.7145 49.5068 45.2125 50.304 44.7401C50.5992 44.563 50.5992 44.4449 50.3925 44.2086C49.5363 43.0867 48.7096 41.9647 47.8238 40.7541C52.9023 40.7541 57.9217 40.7541 63.0001 40.7541C61.5238 45.5373 60.0475 50.3205 58.5122 55.1923C58.1283 54.6608 57.774 54.218 57.4492 53.7751C56.9473 53.096 56.4454 52.4464 55.9729 51.7673C55.7663 51.4425 55.5891 51.472 55.3234 51.6787C51.485 54.2475 47.4399 56.4324 43.2177 58.2925C38.2278 60.4775 33.0608 62.1014 27.628 62.81C23.3763 63.3415 19.1541 63.312 15.0204 61.9833C11.3887 60.8022 8.46565 58.6764 6.63504 55.2514C5.48353 53.1255 5.01111 50.8225 4.98159 48.4309C4.92254 44.9468 5.71974 41.6399 6.95983 38.4216C6.98935 38.333 7.04841 38.3035 7.13698 38.1558Z" fill="#FF8F1C"/>
+            <path d="M26.4419 36.2953C26.8848 36.2953 27.3276 36.2953 27.7705 36.2953C28.0953 36.2953 28.2725 36.4134 28.3906 36.7086C29.0992 38.5983 30.5755 39.3955 32.4947 39.5726C33.8824 39.6907 35.2406 39.5726 36.4512 38.7754C38.0751 37.7125 37.957 35.6162 36.215 34.7304C35.8311 34.5237 35.4178 34.4056 35.0044 34.2875C33.5576 33.9037 32.0813 33.7855 30.6346 33.5198C29.5716 33.3427 28.5382 33.0769 27.5639 32.634C24.5227 31.3349 24.1979 28.5299 24.9951 26.3745C25.7628 24.2191 27.5048 23.1267 29.6011 22.5066C30.2212 22.3295 30.8708 22.2114 31.5203 22.1523C31.8451 22.1228 31.9042 22.0047 31.9042 21.7094C31.8746 21.2665 31.9042 20.8236 31.9042 20.3808C31.9042 19.9969 32.0518 19.8198 32.4356 19.8198C33.0557 19.8198 33.6462 19.8198 34.2663 19.8198C34.6501 19.8198 34.8272 19.9969 34.7977 20.3808C34.7977 20.8532 34.8272 21.3256 34.7977 21.8275C34.7682 22.1818 34.9158 22.2704 35.2406 22.359C36.9826 22.7133 38.518 23.481 39.699 24.8392C40.4962 25.7545 40.9982 26.8174 41.2049 27.9985C41.2934 28.4118 41.1458 28.589 40.7029 28.589C39.8171 28.589 38.9018 28.589 38.0161 28.589C37.7503 28.589 37.5732 28.4709 37.4551 28.2347C36.4807 25.9316 34.591 25.3116 32.3175 25.3706C31.3137 25.4002 30.3098 25.5773 29.4535 26.1678C28.1839 27.0241 28.1839 28.589 29.483 29.3862C30.3393 29.9176 31.3137 30.1243 32.288 30.3015C34.2072 30.6558 36.1559 30.8034 37.957 31.5416C39.64 32.2207 40.9096 33.2836 41.3525 35.1437C41.9725 37.8011 40.7324 40.3994 38.2818 41.6985C37.2484 42.2595 36.1264 42.5843 34.9749 42.7319C34.6206 42.7614 34.532 42.9091 34.5615 43.2339C34.591 43.6768 34.5615 44.0901 34.5615 44.533C34.5615 44.9759 34.3844 45.1826 33.9415 45.153C33.3509 45.1235 32.7604 45.153 32.1699 45.153C31.8156 45.153 31.6384 44.9759 31.6384 44.6216C31.6384 44.2082 31.6089 43.8244 31.6384 43.411C31.6975 42.9386 31.5203 42.791 31.0774 42.7319C29.8078 42.5843 28.6268 42.2005 27.5343 41.5214C25.7923 40.4289 24.8475 38.8345 24.5522 36.8563C24.4932 36.5315 24.6703 36.3248 25.0246 36.3248C25.497 36.2953 25.9695 36.2953 26.4419 36.2953Z" fill="#FF8F1C"/>
+          </svg>
+          <div class="period-title">
+            <div class="period-title-text">Discount</div>
+            <div class="period-price">{{- deposit_price -}}</div>
+          </div>
+        </div>
+        <div class="desc-area">
+          <ul class="desc-list">
+            <li>
+              {%- if section.settings.description_heading != blank -%}
+                <div class="desc-heading">
+                  {{- section.settings.description_heading -}}
+                </div>
+              {%- endif -%}
+              {%- if section.settings.description_description != blank -%}
+                <div class="desc-text">
+                  {{- section.settings.description_description -}}
+                </div>
+              {%- endif -%}
+              {%- if section.settings.description_note != blank -%}
+                <div class="note">
+                  {{- section.settings.description_note -}}
+                </div>
+              {%- endif -%}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    {%- if section.settings.product_list != blank -%}
+      <div class="Slider-{{ section.id }}">
+        {%- assign product_list = section.settings.product_list -%}
+        {%- assign product_count = section.settings.product_list.count -%}
+
+        <div class="swiper-wrapper ">
+          {%- for product in product_list -%}
+            <div class="swiper-slide">
+              <div class="Slide-product-card-{{ section.id }}">
+                <div class="lable">- {{ deposit_price -}}</div>
+                <a
+                  href="{{ product.url | split: '?' | first }}"
+                  title="{{- product.title | escape -}}"
+                  class="product-img"
+                >
+                  {% assign image = product.metafields.custom.transparent_product_image
+                    | default: product.featured_image
+                  %}
+                  {% assign size = 100 | divided_by: product_count | round %}
+                  <img
+                    style="aspect-ratio:{{image.aspect_ratio}};"
+                    data-sizes="{{ size }}vw"
+                    data-srcset="
+                      {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                      {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                      {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                      {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                      {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                      {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                      {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                      {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                      {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                      {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                      {{ image | image_url }} {{ image.width }}w
+                    "
+                    data-src="{{ image | image_url:width:750 }}"
+                    class="lazyload "
+                    alt="{{ product.title | escape }}"
+                  >
+                </a>
+                <div class="product-name" title="{{- product.title | escape -}}">
+                  {{- product.title | escape -}}
+                </div>
+                <!-- 价格显示 -->
+                <div class="product-price">
+                  <span class="price-sale">{{ product.price | money }}</span>
+                  {%- if product.compare_at_price > product.price -%}
+                    <span class="price-regular">{{ product.compare_at_price | money }}</span>
+                  {%- endif -%}
+                </div>
+                {%- if section.settings.button_text != blank and section.settings.button_link -%}
+                  <a class="product-button" href="{{ section.settings.button_link }}" target="_blank">
+                    {{- section.settings.button_text -}}
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+        <div class="swiper-pagination swiper-pagination-{{ section.id }}"></div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+<script language="javascript">
+  new Swiper('.Slider-{{ section.id }}', {
+     slidesPerView: {{ product_count }},
+     spaceBetween: 16,
+     preventClicksPropagation: false,
+     observer: true,
+     observeParents: true,
+     pagination: {
+        el: '.swiper-pagination-{{ section.id }}',
+        clickable: true, // 确保分页是可点击的
+      },
+     on: {
+       init: function (swiper) {
+         if (!isMobile()) {
+           console.log('禁止拖动');
+           // 禁止拖动
+           this.allowTouchMove = false;
+         } else {
+           // 允许拖动
+           console.log('允许拖动');
+           this.allowTouchMove = true;
+         }
+       },
+     },
+     breakpoints: {
+       //当宽度小于等于768时显示
+       768: {
+         slidesPerView: 1.3,
+         spaceBetween: 10,
+         slidesOffsetBefore : 10,
+         slidesOffsetAfter : 10,
+       },
+       1024: {
+         slidesPerView: 3,
+         spaceBetween: 10,
+         slidesOffsetBefore : 10,
+         slidesOffsetAfter : 10,
+       },
+     },
+   });
+</script>
+{% schema %}
+{
+  "name": "Deposit as Discount",
+  "tag": "section",
+  "class": "deposit-as-discount-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "押金抵扣优惠券",
+      "info": "押金元对象为： Deposit As Discount 字段"
+    },
+    {
+      "type": "text",
+      "id": "product_img_headding",
+      "label": "图片顶部标题",
+      "default": "Deposit as Discount"
+    },
+    {
+      "type": "text",
+      "id": "product_img_subheadding",
+      "label": "图片顶部副标题",
+      "default": "Secure the special offer - this is a time-sensitive benefit!"
+    },
+
+    {
+      "type": "text",
+      "id": "description_heading",
+      "label": "描述文案标题",
+      "default": "Description"
+    },
+    {
+      "type": "text",
+      "id": "description_description",
+      "label": "描述文案内容",
+      "default": "Before the lease term (including the rent-free consideration period) ends, the user may choose to own the leased machine and its accompanying equipment, with the deposit being non-refundable.The deposit can be converted into an equivalent discount for the purchase of other DTF machines."
+    },
+    {
+      "type": "text",
+      "id": "description_note",
+      "label": "文案注释",
+      "default": "Friendly reminder: The deposit-to-discount conversion offer expires when your lease ends! Contact us now to lock in your  equipment purchase advantage."
+    },
+
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "图片"
+    },
+    {
+      "type": "product_list",
+      "id": "product_list",
+      "label": "选择产品"
+    },
+
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "按钮文本",
+      "default": "Contact Us"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "按钮链接"
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Deposit as Discount"
+    }
+  ]
+}
+{% endschema %}

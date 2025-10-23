@@ -1,0 +1,984 @@
+{% comment %}
+  {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+  {{ 'swiper-bundle.min.js' | asset_url | script_tag }}
+{% endcomment %}
+<style>
+  :root {
+    /* Font sizes */
+    --text-h0-n: 56px;
+    --text-h0-sm-n: 48px;
+    --text-h1-n: 40px;
+    --text-h2-n: 30px;
+    --text-h3-n: 26px;
+    --text-h4-n: 24px;
+    --text-h5-n: 20px;
+    --text-h6-n: 16px;
+    --text-xs-n: 12px;
+    --text-sm-n: 14px;
+    --text-base-n: 18px;
+    --text-lg-n: 19px;
+  }
+
+  .text-xxs {
+    font-size: 10px;
+    line-height: 1.2;
+  }
+
+  .text-xs {
+    font-size: var(--text-xs-n);
+    line-height: 1.2;
+  }
+
+  .text-sm {
+    font-size: var(--text-sm-n);
+    line-height: 1.2;
+  }
+
+  .text-base {
+    font-size: var(--text-base-n);
+    line-height: 1.2;
+  }
+
+  .text-md {
+    font-size: var(--text-md-n);
+    line-height: 1.2;
+  }
+
+  .text-lg {
+    font-size: var(--text-lg-n);
+    line-height: 1.2;
+  }
+
+  /* 重置样式 start */
+  .customer-testimonials-{{ section.id }} .h0 {
+    font-size: var(--text-h0-n);
+    line-height: 1;
+    font-family: ItalianPlateNo2Expanded-Bold, sans-serif;
+  }
+
+  .customer-testimonials-{{ section.id }} .h0-sm {
+    font-size: var(--text-h0-sm-n);
+    line-height: 1;
+    font-family: ItalianPlateNo2Expanded-Bold, sans-serif;
+  }
+
+  .customer-testimonials-{{ section.id }} h1,
+  .customer-testimonials-{{ section.id }} .h1,
+  .customer-testimonials-{{ section.id }} .prose h1:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h1-n);
+    line-height: 1.1;
+    font-family: ItalianPlateNo2Expanded-Bold, sans-serif;
+  }
+
+  .customer-testimonials-{{ section.id }} h2,
+  .customer-testimonials-{{ section.id }} .h2,
+  .customer-testimonials-{{ section.id }} .prose h2:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h2-n);
+    line-height: 1.1;
+    font-family: ItalianPlateNo2Expanded-Bold, sans-serif;
+  }
+
+  .customer-testimonials-{{ section.id }} h3,
+  .customer-testimonials-{{ section.id }} .h3,
+  .customer-testimonials-{{ section.id }} .prose h3:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h3-n);
+    line-height: 1.2;
+  }
+
+  .customer-testimonials-{{ section.id }} h4,
+  .customer-testimonials-{{ section.id }} .h4,
+  .customer-testimonials-{{ section.id }} .prose h4:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h4-n);
+    line-height: 1.2;
+  }
+
+  .customer-testimonials-{{ section.id }} h5,
+  .customer-testimonials-{{ section.id }} .h5,
+  .customer-testimonials-{{ section.id }} .prose h5:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h5-n);
+    line-height: 1.2;
+  }
+
+  .customer-testimonials-{{ section.id }} h6,
+  .customer-testimonials-{{ section.id }} .h6,
+  .customer-testimonials-{{ section.id }} .prose h6:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h6-n);
+    line-height: 1.2;
+  }
+  /* 重置样式 end */
+  .customer-testimonials-{{ section.id }} {
+    background-color: {{ section.settings.bgColor }};
+    overflow: hidden;
+  }
+  .customer-testimonials-{{ section.id }}  .ct-wrapper {
+    margin: 0 auto;
+    padding-top: {{ section.settings.ct_padding_top }}px;
+    padding-bottom: {{ section.settings.ct_padding_bottom }}px;
+    max-width: 1200px;
+    overflow: hidden;
+  }
+  .customer-testimonials-{{ section.id }} .swiper-ct {
+    margin-top: 40px;
+  }
+  .customer-testimonials-{{ section.id }} .swiper-header {
+    margin: 0 auto;
+    max-width: 1280px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .customer-testimonials-{{ section.id }} .swiper-header h3.swiper-title {
+    margin: 0;
+    font-weight: bold;
+    line-height: 1.1;
+    color: {{ section.settings.title_color }};
+  }
+  .customer-testimonials-{{ section.id }} .swiper-button-next,
+  .customer-testimonials-{{ section.id }} .swiper-button-prev {
+    margin: 0;
+    left: 0;
+    right: 0;
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: 48px;
+    background-color: #000;
+  }
+  .customer-testimonials-{{ section.id }} .swiper-button-next:after,
+  .customer-testimonials-{{ section.id }} .swiper-button-prev:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color: #fff;
+  }
+  .customer-testimonials-{{ section.id }} .swiper-button-next svg,
+  .customer-testimonials-{{ section.id }} .swiper-button-prev svg {
+      fill: #fff;
+      width: 16px;
+      height: 16px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+  }
+  .customer-testimonials-{{ section.id }} .swiper-btn {
+    display: flex;
+  }
+  .customer-testimonials-{{ section.id }} .swiper-btn div:first-child {
+    margin-right: 15px;
+  }
+  .customer-testimonials-{{ section.id }} .swiper-slide {
+    max-width: {{ section.settings.content_card_max_width }}px;
+    min-height: {{ section.settings.content_card_min_height }}px;
+    height: {{ section.settings.content_card_min_height }}px;
+    overflow: hidden;
+    border-radius: 20px;
+    padding: {{ section.settings.content_card_padding }}px;
+    background-color: {{ section.settings.content_bgColor }};
+  }
+  .customer-testimonials-{{ section.id }} .customer-info {
+    display: flex;
+    align-items: center;
+  }
+  .customer-testimonials-{{ section.id }} .customer-info .head {
+    width: {{ section.settings.customer_img_size }}px;
+    height: {{ section.settings.customer_img_size }}px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .customer-testimonials-{{ section.id }} .customer-  info .head img{
+    object-fit: cover;
+  }
+  .customer-testimonials-{{ section.id }} .customer-info .name {
+    margin: 0 0 0 8px;
+    color: {{ section.settings.customer_name_color }};
+    line-height: 1.3;
+  }
+  .customer-testimonials-{{ section.id }} .customer-info .name p {
+    margin: 0;
+  }
+  .customer-testimonials-{{ section.id }} .slide-box {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .customer-testimonials-{{ section.id }} .slide-box .text-title
+   {
+    font-weight: bold;
+    margin-top: {{ section.settings.testimonials_title_margin_top }}px;
+    margin-bottom: {{ section.settings.testimonials_title_margin_bottom }}px;
+    line-height: 1.3;
+    color: {{ section.settings.testimonials_title_color }};
+  }
+  .customer-testimonials-{{ section.id }} .slide-box .text-info
+  {
+    color: {{ section.settings.testimonials_info_color }};
+    line-height: 1.3;
+  }
+  .customer-testimonials-{{ section.id }} .slide-box .text-info p
+  {
+
+    margin-bottom: {{ section.settings.testimonials_info_margin_bottom }}px;
+    line-height: 1.3;
+  }
+  .customer-testimonials-{{ section.id }} .slide-box .text-url {
+    display: block;
+    line-height: 1.3;
+    color: {{ section.settings.testimonials_url_color }};
+  }
+  @media screen and (max-width:1279px) {
+    .customer-testimonials-{{ section.id }} .ct-wrapper{
+      padding-left: 24px;
+      padding-right: 24px;
+      overflow: hidden;
+    }
+  }
+  @media screen and (max-width:768px) {
+    .customer-testimonials-{{ section.id }}  .ct-wrapper {
+
+      padding-top: {{ section.settings.padding_top_mobile }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+
+    }
+    .customer-testimonials-{{ section.id }} .swiper-button{
+      display: none;
+    }
+    .customer-testimonials-{{ section.id }} .swiper-header h3.swiper-title{
+      font-size: {{ section.settings.title_size_mobile }}px;
+      line-height: 1.2;
+    }
+    .customer-testimonials-{{ section.id }} .swiper-slide{
+      max-width: {{ section.settings.content_card_min_width_mobile }}px;
+      min-height: {{ section.settings.content_card_min_height_mobile }}px;
+      height: {{ section.settings.content_card_min_height_mobile }}px;
+      padding: {{ section.settings.content_card_padding_mobile }}px;
+      border-radius: 10px;
+    }
+    .customer-testimonials-{{ section.id }} .customer-info .name{
+      font-size: {{ section.settings.customer_name_size_mobile }}px;
+      line-height: 1.2;
+    }
+    .customer-testimonials-{{ section.id }} .slide-box .text-title{
+      margin-top: {{ section.settings.testimonials_title_margin_top_mobile }}px;
+      margin-bottom: {{ section.settings.testimonials_title_margin_bottom_mobile }}px;
+      font-size: {{ section.settings.testimonials_title_size_mobile}}px;
+      line-height:  1.2;
+    }
+    .customer-testimonials-{{ section.id }} .customer-info .head {
+      width: {{ section.settings.customer_img_size_mobile }}px;
+      height: {{ section.settings.customer_img_size_mobile }}px;
+    }
+    .customer-testimonials-{{ section.id }} .slide-box .text-info p
+    {
+      margin-bottom: {{ section.settings.testimonials_info_margin_bottom_mobile }}px;
+
+
+    }
+    .customer-testimonials-{{ section.id }} .slide-box .text-info,.customer-testimonials-{{ section.id }} .slide-box .text-info p{
+      font-size: {{ section.settings.testimonials_info_size_mobile}}px;
+      line-height:  1.2;
+    }
+    .customer-testimonials-{{ section.id }} .slide-box .text-url{
+      font-size: {{ section.settings.testimonials_url_size_mobile}}px;
+    }
+  }
+</style>
+<div class="customer-testimonials-{{ section.id }}">
+  <div class="ct-wrapper">
+    <div class="swiper-header">
+      <h3 class="swiper-title {{ section.settings.title_size }}">{{ section.settings.ct_title }}</h3>
+      <div class="swiper-button">
+        <div class="swiper-btn">
+          <div class="swiper-button-prev swiper-button-prev-{{ section.id }}">
+            <svg
+              class="bi"
+              width="40"
+              height="70"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 010 .708L5.707 8l5.647 5.646a.5.5 0 01-.708.708l-6-6a.5.5 0 010-.708l6-6a.5.5 0 01.708 0z">
+              </path>
+            </svg>
+          </div>
+          <div class="swiper-button-next swiper-button-next-{{ section.id }}">
+            <svg
+              class="bi"
+              width="40"
+              height="70"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L10.293 8 4.646 2.354a.5.5 0 010-.708z">
+              </path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="swiper swiper-ct">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide">
+            <div class="slide-box">
+              <div class="box-top">
+                <div class="customer-info">
+                  <div class="head">
+                    <img
+                      class="lazyload"
+                      data-src="{{ block.settings.customer_img |  image_url: width: master }}"
+                      alt=""
+                    >
+                  </div>
+                  <div class="name {{ section.settings.customer_name_size }}">{{ block.settings.customer_name }}</div>
+                </div>
+                <div class="text-title {{ section.settings.testimonials_title_size }}">
+                  {{ block.settings.testimonials_title }}
+                </div>
+                <div class="text-info {{ section.settings.testimonials_info_size }}">
+                  {{ block.settings.testimonials_info }}
+                </div>
+              </div>
+              {% if block.settings.testimonials_url != blank %}
+                <div class="box-bottom">
+                  <a
+                    class="text-url {{ section.settings.testimonials_url_size }}"
+                    href="{{ block.settings.testimonials_url }}"
+                    >Learn more &gt;</a
+                  >
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  new Swiper('.customer-testimonials-{{ section.id }} .swiper-ct', {
+    slidesPerView: 'auto',
+    spaceBetween: 16,
+    slidesOffsetBefore: 0,
+
+    breakpoints: {
+      768: {
+        slidesOffsetBefore: 0,
+        spaceBetween: 10,
+      },
+    },
+    navigation: {
+      nextEl: '.swiper-button-next-{{ section.id }}',
+      prevEl: '.swiper-button-prev-{{ section.id }}',
+    },
+  });
+</script>
+{% schema %}
+{
+  "name": "Customer Testimonials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "ct_title",
+      "label": "大标题",
+      "default": "Customer Testimonials"
+    },
+    {
+      "type": "range",
+      "id": "content_card_max_width",
+      "min": 300,
+      "max": 500,
+      "step": 2,
+      "unit": "px",
+      "label": "内容卡片最大宽度(PC端)",
+      "default": 384
+    },
+    {
+      "type": "range",
+      "id": "content_card_min_width_mobile",
+      "min": 200,
+      "max": 400,
+      "step": 2,
+      "unit": "px",
+      "label": "内容卡片最小宽度(移动端)",
+      "default": 264
+    },
+    {
+      "type": "range",
+      "id": "content_card_min_height",
+      "min": 400,
+      "max": 600,
+      "step": 2,
+      "unit": "px",
+      "label": "内容卡片最小高度",
+      "default": 450
+    },
+    {
+      "type": "range",
+      "id": "content_card_min_height_mobile",
+      "min": 300,
+      "max": 500,
+      "step": 2,
+      "unit": "px",
+      "label": "内容卡片最小高度(移动端)",
+      "default": 380
+    },
+    {
+      "type": "range",
+      "id": "content_card_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "内容卡片边距",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "content_card_padding_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "内容卡片边距(移动端)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "customer_img_size",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "作者头像大小",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "customer_img_size_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "作者头像大小(移动端)",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": "大标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h0-sm",
+          "label": "H0-sm"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题字体大小（移动端）",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "customer_name_size",
+      "label": "评论者姓名字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "text-sm"
+    },
+    {
+      "type": "range",
+      "id": "customer_name_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "评论者姓名字体大小（移动端）",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "testimonials_title_size",
+      "label": "评论标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "text-base"
+    },
+    {
+      "type": "range",
+      "id": "testimonials_title_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "评论标题字体大小（移动端）",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "testimonials_info_size",
+      "label": "评论内容字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "text-base"
+    },
+    {
+      "type": "range",
+      "id": "testimonials_info_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "评论内容字体大小（移动端）",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "testimonials_url_size",
+      "label": "链接字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "text-base"
+    },
+    {
+      "type": "range",
+      "id": "testimonials_url_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "链接字体大小（移动端）",
+      "default": 12
+    },
+
+    {
+      "type": "header",
+      "content": "颜色填充"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "大标题字体颜色",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "customer_name_color",
+      "label": "评论者姓名颜色",
+      "default": "#89898b"
+    },
+    {
+      "type": "color",
+      "id": "testimonials_title_color",
+      "label": "评论标题颜色",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "testimonials_info_color",
+      "label": "评论内容颜色",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "testimonials_url_color",
+      "label": "链接颜色",
+      "default": "#1677ff"
+    },
+
+    {
+      "type": "color",
+      "id": "content_bgColor",
+      "label": "内容框背景色",
+      "default": "#f8f9fd"
+    },
+
+    {
+      "type": "color",
+      "id": "bgColor",
+      "label": "背景色",
+      "default": "#fff"
+    },
+    {
+      "type": "range",
+      "id": "testimonials_title_margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "评论标题顶部填充",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "testimonials_title_margin_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "评论标题顶部填充（移动端）",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "testimonials_title_margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "评论标题底部填充",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "testimonials_title_margin_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "评论标题底部填充（移动端）",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "testimonials_info_margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "评论内容底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "testimonials_info_margin_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "评论内容底部填充（移动端）",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "ct_padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "顶部边距",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "ct_padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "底部边距",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Testimonial",
+      "type": "customer_testimonial",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "同时添加5个及以上评论卡片，效果最佳，如果卡片数量不足，排版不太好看"
+        },
+        {
+          "type": "image_picker",
+          "id": "customer_img",
+          "label": "评论者头像",
+          "info": "使用40*40以上尺寸的正方形图片，效果最佳"
+        },
+        {
+          "type": "text",
+          "id": "customer_name",
+          "label": "评论者姓名"
+        },
+        {
+          "type": "textarea",
+          "id": "testimonials_title",
+          "label": "评论标题"
+        },
+        {
+          "type": "richtext",
+          "id": "testimonials_info",
+          "label": "评论内容"
+        },
+        {
+          "type": "url",
+          "id": "testimonials_url",
+          "label": "链接",
+          "info": "不填不会显示Learn more按钮"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Testimonials",
+      "blocks": [
+        {
+          "type": "customer_testimonial"
+        },
+        {
+          "type": "customer_testimonial"
+        },
+        {
+          "type": "customer_testimonial"
+        },
+        {
+          "type": "customer_testimonial"
+        },
+        {
+          "type": "customer_testimonial"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

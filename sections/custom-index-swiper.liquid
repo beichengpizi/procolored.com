@@ -1,0 +1,1539 @@
+<style>
+  :root {
+    /* Font sizes */
+    --text-h0-n: 56px;
+    --text-h1-n: 40px;
+    --text-h2-n: 30px;
+    --text-h3-n: 26px;
+    --text-h4-n: 24px;
+    --text-h5-n: 20px;
+    --text-h6-n: 16px;
+    --text-xs-n: 12px;
+    --text-sm-n: 14px;
+    --text-base-n: 18px;
+    --text-lg-n: 19px;
+  }
+
+  .text-xxs {
+    font-size: 10px;
+    line-height: 1.3;
+  }
+
+  .text-xs {
+    font-size: var(--text-xs-n);
+    line-height: 1.3;
+  }
+
+  .text-sm {
+    font-size: var(--text-sm-n);
+    line-height: 1.3;
+  }
+
+  .text-base {
+    font-size: var(--text-base-n);
+    line-height: 1.3;
+  }
+
+  .text-md {
+    font-size: var(--text-md-n);
+    line-height: 1.2;
+  }
+
+  .text-lg {
+    font-size: var(--text-lg-n);
+    line-height: 1.2;
+  }
+
+  /* 重置样式 start */
+  #infinite-scroll-{{section.id}} .h0 {
+    font-size: var(--text-h0-n);
+    line-height: 1;
+  }
+
+  #infinite-scroll-{{section.id}} h1,
+  #infinite-scroll-{{section.id}} .h1,
+  #infinite-scroll-{{section.id}} .prose h1:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h1-n);
+    line-height: 1.1;
+  }
+
+  #infinite-scroll-{{section.id}} h2,
+  #infinite-scroll-{{section.id}} .h2,
+  #infinite-scroll-{{section.id}} .prose h2:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h2-n);
+    line-height: 1.1;
+  }
+
+  #infinite-scroll-{{section.id}} h3,
+  #infinite-scroll-{{section.id}} .h3,
+  #infinite-scroll-{{section.id}} .prose h3:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h3-n);
+    line-height: 1.2;
+  }
+
+  #infinite-scroll-{{section.id}} h4,
+  #infinite-scroll-{{section.id}} .h4,
+  #infinite-scroll-{{section.id}} .prose h4:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h4-n);
+    line-height: 1.3;
+  }
+
+  #infinite-scroll-{{section.id}} h5,
+  #infinite-scroll-{{section.id}} .h5,
+  #infinite-scroll-{{section.id}} .prose h5:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h5-n);
+    line-height: 1.3;
+  }
+
+  #infinite-scroll-{{section.id}} h6,
+  #infinite-scroll-{{section.id}} .h6,
+  #infinite-scroll-{{section.id}} .prose h6:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h6-n);
+    line-height: 1.3;
+  }
+  /* 重置样式 end */
+
+  #swiper-container-{{ section.id }} {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px 0;
+    background-color: {{ section.settings.background_color }};
+    overflow: hidden;
+  }
+
+  #swiper-container-{{ section.id }} .swiper-container {
+    position: relative;
+    overflow: hidden;
+    margin-left: 8.33%;
+    margin-right: 0;
+  }
+
+  #swiper-container-{{ section.id }} .swiper-container-title {
+    display: flex;
+    width: 100%;
+    line-height: 1;
+    align-items: start;
+    color: #000;
+    font-family: Mulish;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.2;
+    justify-content: {{ section.settings.title_alignment }};
+    text-align: {{ section.settings.title_alignment }};
+    margin-top: {{ section.settings.title_margin_top }}px;
+    margin-bottom: {{ section.settings.title_margin_bottom }}px;
+  }
+
+  #swiper-container-{{ section.id }} .swiper-container-subtitle {
+    display: none;
+    margin-top: {{ section.settings.subtitle_margin_top }}px;
+    margin-bottom: {{ section.settings.subtitle_margin_bottom }}px;
+    width: 100%;
+    text-align: {{ section.settings.title_alignment }};
+  }
+
+  #swiper-container-{{ section.id }} .custom-heading-3 {
+    margin-top: 14px;
+    color: #000;
+    font-family: Mulish;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  #swiper-container-{{ section.id }} .custom-heading-4 {
+    color: #000;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.4;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  #swiper-container-{{ section.id }} .swiper-pagination_and_button_wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0;
+  }
+
+  #swiper-container-{{ section.id }} .swiper-pagination-wrap {
+    position: relative;
+    width: 100%;
+  }
+
+  #swiper-container-{{ section.id }} .swiper-pagination-wrap .swiper-pagination {
+    width: auto !important;
+    position: relative;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    display: flex;
+    gap: 10px;
+  }
+
+  #swiper-container-{{ section.id }} .slide-content {
+    display: flex;
+    min-height: {{section.settings.card_container_min_height}}px;
+  }
+
+  #swiper-container-{{ section.id }} .slide-image {
+    object-fit: cover;
+    object-position: center;
+    width: 50%;
+  }
+
+  #swiper-container-{{ section.id }} .text-content {
+    width: 50%;
+    padding: 40px;
+    background: #fff;
+    box-sizing: border-box;
+  }
+
+  #swiper-container-{{ section.id }} .author-info {
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+
+  #swiper-container-{{ section.id }} .author-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+    object-fit: cover;
+  }
+
+  #swiper-container-{{ section.id }} .author-details {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+  }
+
+  #swiper-container-{{ section.id }} .author-name {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.2;
+  }
+
+  #swiper-container-{{ section.id }} .author-description {
+    font-size: 16px;
+    color: #646464;
+    line-height: 1.2;
+  }
+
+  #swiper-container-{{ section.id }} .content-text {
+    font-size: 20px;
+    color: #000;
+    line-height: 1.2;
+  }
+
+  #swiper-container-{{ section.id }} .swiper-button-wrap {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+
+  #swiper-container-{{ section.id }} .swiper-button-next,
+  #swiper-container-{{ section.id }} .swiper-button-prev {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #cccccc;
+    background: transparent;
+    box-sizing: border-box;
+  }
+  #swiper-container-{{ section.id }} .swiper-button-next:hover,
+  #swiper-container-{{ section.id }} .swiper-button-prev:hover {
+    border: 1px solid #DA281C;
+  }
+  #swiper-container-{{ section.id }} .swiper-button-prev:hover svg path{
+    stroke: #DA281C;
+  }
+  #swiper-container-{{ section.id }} .swiper-button-next {
+    border: none;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: conic-gradient(
+      #da291c 0%,
+      #da291c 0%,
+      #cccccc 0%,
+      #cccccc 100%
+    );
+  }
+
+  #swiper-container-{{ section.id }} .swiper-button-next::before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+    border-radius: 50%;
+    background-color: #fff;
+    z-index: -1;
+  }
+
+  #swiper-container-{{ section.id }} .swiper-button-next:after,
+  #swiper-container-{{ section.id }} .swiper-button-prev:after {
+    font-size: 16px;
+    color: rgba(153, 153, 153, 0.6);
+  }
+
+  #swiper-container-{{ section.id }} .swiper-button-next svg,
+  #swiper-container-{{ section.id }} .swiper-button-prev svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  #swiper-container-{{ section.id }} .swiper-button-next svg {
+
+  }
+
+  #swiper-container-{{ section.id }} .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+  }
+
+  #swiper-container-{{ section.id }} .swiper-pagination-bullet-active {
+    background: rgba(153, 153, 153, 0.6);
+  }
+
+  #swiper-container-{{ section.id }} .swiper-slide {
+    position: relative;
+  }
+
+  #swiper-container-{{ section.id }} .swiper-slide-active::before {
+    opacity: 0;
+  }
+
+  #swiper-container-{{ section.id }} .custom1-img-wrap {
+    position: relative;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  #swiper-container-{{ section.id }} .custom1-img-wrap .video-link {
+    position: relative;
+    display: block;
+  }
+
+  #swiper-container-{{ section.id }} .custom1-img-wrap .video-link .czvdo-play-icon-svg {
+    position: absolute;
+
+    width: 46px;
+    height: 46px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #swiper-container-{{ section.id }} .swiper-container-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-left: 8.33%;
+    margin-right: 8.33%;
+  }
+
+  #swiper-container-{{ section.id }} .desktopShow {
+    display: block;
+  }
+
+  #swiper-container-{{ section.id }} .mobileShow {
+    display: none;
+  }
+
+  @media screen and (max-width: 1600px) {
+
+
+    #swiper-container-{{ section.id }} .swiper-container-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      margin-left: 8.33%;
+      margin-right: 8.33%;
+      max-width: none;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    #swiper-container-{{ section.id }} .swiper-container-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      margin-left: 0;
+      margin-right: 0;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    #swiper-container-{{ section.id }} {
+      padding: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px 0;
+    }
+
+    #swiper-container-{{ section.id }} .swiper-container {
+      margin-left: 24px;
+      overflow: hidden;
+    }
+
+    #swiper-container-{{ section.id }} .swiper-container-title {
+      font-size: {{ section.settings.title_size_mobile }}px;
+      gap: 0;
+      margin-top: {{ section.settings.title_margin_top_mobile }}px;
+      margin-bottom: {{ section.settings.title_margin_bottom_mobile }}px;
+      justify-content: {{ section.settings.title_alignment_mobile }};
+      text-align: {{ section.settings.title_alignment_mobile }};
+    }
+
+    #swiper-container-{{ section.id }} .swiper-container-subtitle {
+      line-height: 1.2;
+      font-size: {{ section.settings.subtitle_size_mobile }}px;
+      margin-top: {{ section.settings.subtitle_margin_top_mobile }}px;
+      margin-bottom: {{ section.settings.subtitle_margin_bottom_mobile }}px;
+      text-align: {{ section.settings.title_alignment_mobile }};
+      display: none;
+    }
+
+    #swiper-container-{{ section.id }} .custom-heading-3 {
+      margin-top: 14px;
+      color: #000;
+      font-family: Mulish;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 4px;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    #swiper-container-{{ section.id }} .custom-heading-4 {
+      color: #000;
+      font-family: Mulish;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.35;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    #swiper-container-{{ section.id }} .custom1-img-wrap {
+      position: relative;
+      margin: 0 auto;
+      border-radius: 10px;
+    }
+
+    #swiper-container-{{ section.id }} .custom1-img-wrap .video-link .czvdo-play-icon-svg {
+      position: absolute;
+
+      width: 26px;
+      height: 26px;
+    }
+
+    #swiper-container-{{ section.id }} .custom1-img-wrap .video-link .czvdo-play-icon-svg svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    #swiper-container-{{ section.id }} .slide-content {
+      flex-direction: column;
+      min-height: {{section.settings.card_container_min_height_mobile}}px;
+    }
+
+    #swiper-container-{{ section.id }} .slide-image {
+      width: 100%;
+      max-height: 190px;
+    }
+
+    #swiper-container-{{ section.id }} .text-content {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 20px;
+    }
+
+    #swiper-container-{{ section.id }} .author-info {
+      margin-bottom: 10px;
+    }
+
+    #swiper-container-{{ section.id }} .author-avatar {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    #swiper-container-{{ section.id }} .author-name {
+      font-size: 18px;
+    }
+
+    #swiper-container-{{ section.id }} .author-description {
+      font-size: 14px;
+    }
+
+    #swiper-container-{{ section.id }} .content-text {
+      font-size: 14px;
+    }
+
+    #swiper-container-{{ section.id }} .swiper-button-wrap {
+      opacity: 0;
+    }
+
+    #swiper-container-{{ section.id }} .swiper-pagination_and_button_wrap {
+      display: none;
+    }
+
+    #swiper-container-{{ section.id }} .desktopShow {
+      display: none;
+    }
+
+    #swiper-container-{{ section.id }} .mobileShow {
+      display: block;
+    }
+  }
+</style>
+
+<div id="swiper-container-{{ section.id }}" class="swiper-container-wrap">
+  <div class="swiper-container-wrap">
+    <div class="swiper-container-title">
+      {{ section.settings.title }}
+    </div>
+    <div class="swiper-container-subtitle {{ section.settings.subtitle_size }} {{ section.settings.subtitle_font_family }}">
+      {{ section.settings.subtitle }}
+    </div>
+    <div class="swiper-pagination_and_button_wrap">
+      {% comment %}
+        <div class="swiper-pagination-wrap">
+          <div class="swiper-pagination swiper-pagination-{{section.id}}"></div>
+        </div>
+      {% endcomment %}
+      <div class="swiper-button-wrap">
+        <div class="swiper-button-prev swiper-button-prev-{{section.id}}">
+          <svg width="11" height="16" viewBox="0 0 11 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.26074 1.47827C8.88031 1.8261 4.02976 5.68117 1.65205 7.56523L9.26074 14.5217" stroke="#999999" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div id="progressCircle-{{section.id}}" class="swiper-button-next swiper-button-next-{{section.id}}">
+          <svg width="11" height="16" viewBox="0 0 11 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.73926 1.47827C2.11969 1.8261 6.97024 5.68117 9.34795 7.56523L1.73926 14.5217" stroke="#DA281C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="swiper-container swiper-container-{{ section.id }}">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <div class="swiper-slide">
+          <div class="slide-content">
+            {% case block.type %}
+              {%- when 'materialTextUD' -%}
+                {% if block.settings.slide_image %}
+                  {% assign image = block.settings.slide_image %}
+                  {% assign size = 100 | divided_by: block.settings.size | round %}
+
+                  <img
+                    data-sizes="{{ size }}vw"
+                    data-srcset="
+                      {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                      {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                      {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                      {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                      {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                      {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                      {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                      {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                      {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                      {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                      {{ image | image_url }} {{ image.width }}w
+                    "
+                    data-src="{{ image | image_url:width:750 }}"
+                    class="swiper-lazy  lazyload slide-image desktopShow"
+                  >
+                {% endif %}
+                {% if block.settings.slide_image_mobile %}
+                  {% assign image = block.settings.slide_image_mobile %}
+                  {% assign size = 100 | divided_by: 1 | round %}
+
+                  <img
+                    data-sizes="{{ size }}vw"
+                    data-srcset="
+                      {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                      {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                      {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                      {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                      {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                      {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                      {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                      {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                      {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                      {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                      {{ image | image_url }} {{ image.width }}w
+                    "
+                    data-src="{{ image | image_url:width:750 }}"
+                    class="swiper-lazy  lazyload slide-image mobileShow"
+                  >
+                {% endif %}
+                <div class="text-content">
+                  <div class="author-info">
+                    <img
+                      src="{{ block.settings.author_avatar | img_url: 'master' }}"
+                      alt="Author Avatar"
+                      class="author-avatar"
+                    >
+                    <div class="author-details">
+                      <div class="author-name">{{ block.settings.author_name }}</div>
+                      <div class="author-description">{{ block.settings.author_description }}</div>
+                    </div>
+                  </div>
+                  <div class="content-text">
+                    {{ block.settings.content_text }}
+                  </div>
+                </div>
+              {%- when 'videoItem' -%}
+                {%- if block.settings.video_url -%}
+                  {% assign video = block.settings.video_url %}
+                  <div class="custom1-column custom1-media">
+                    <div
+                      class="custom1-img-wrap "
+                      style="aspect-ratio:{{ block.settings.video_image.aspect_ratio }};width: 100%;"
+                    >
+                      <a
+                        class="video-link"
+                        href="{{block.settings.video_url}}"
+                        data-fancybox
+                        data-caption="{{ block.settings.caption_heading }}"
+                      >
+                        {% assign video_image = block.settings.video_image %}
+                        {% assign size = 100 | divided_by: section.settings.display_number_per_line | round %}
+                        <img
+                          data-sizes="{{ size }}vw"
+                          width="{{ size }}vw"
+                          data-sizes="auto"
+                          data-srcset="
+                            {%- if video_image.width >= 375 -%}{{ video_image | image_url: width: 375 }} 375w,{%- endif -%}
+                            {%- if video_image.width >= 750 -%}{{ video_image | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if video_image.width >= 1100 -%}{{ video_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                            {%- if video_image.width >= 1500 -%}{{ video_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {%- if video_image.width >= 1780 -%}{{ video_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                            {%- if video_image.width >= 2000 -%}{{ video_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                            {%- if video_image.width >= 3000 -%}{{ video_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                            {%- if video_image.width >= 3840 -%}{{ video_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+
+                            {{ video_image | image_url }} {{ video_image.width }}w
+                          "
+                          data-src="{{ video_image | image_url: width: 1200 }}"
+                          style="max-width:100%;width:100%"
+                          class="lazyload"
+                          alt="{{ block.settings.caption_heading}}"
+                        >
+
+                        <i class="czvdo-play-icon-svg ">
+                          <svg
+                            width="46"
+                            height="46"
+                            viewBox="0 0 46 46"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g id="Group 605">
+                            <circle id="Ellipse 16" cx="23" cy="22.9995" r="23" fill="black" fill-opacity="0.5"/>
+                            <path id="Vector" d="M30.0297 19.7194L21.4573 14.6062C18.5642 12.8696 16.0996 14.0273 16.0996 17.211V28.7881C16.0996 31.9718 18.457 33.1295 21.4573 31.3929L30.0297 26.2797C32.9229 24.3502 32.9229 21.456 30.0297 19.7194Z" fill="white"/>
+                            </g>
+                          </svg>
+                        </i>
+                      </a>
+                    </div>
+                    <div class="content-bottom-text-wrap">
+                      <div
+                        class="custom-heading-3  {{ section.settings.content_heading_size }} {{ section.settings.content_heading_font_family }}"
+                      >
+                        {{ block.settings.content_heading }}
+                      </div>
+                      {% if block.settings.content_subheading != empty %}
+                        <div
+                          class="custom-heading-4   {{ section.settings.content_subheading_size }} {{ section.settings.content_subheading_font_family }}"
+                        >
+                          {{ block.settings.content_subheading }}
+                        </div>
+                      {% endif %}
+                      {% if block.settings.content_desc != empty %}
+                        <div
+                          class="custom-decs  {{ section.settings.content_content_size }} {{ section.settings.content_content_font_family }} "
+                        >
+                          {{ block.settings.content_desc }}
+                        </div>
+                      {% endif %}
+                      {% if block.settings.author_avatar %}
+                        {% assign author_avatar_image = block.settings.author_avatar %}
+                        <div class="author-info  text-xs">
+                          <div
+                            class="author-img"
+                            style="aspect-ratio:{{ author_avatar_image.aspect_ratio }};"
+                          >
+                            <img
+                              data-sizes="100vw"
+                              width="100vw"
+                              data-sizes="auto"
+                              data-srcset="
+                                {%- if author_avatar_image.width >= 375 -%}{{ author_avatar_image | image_url: width: 375 }} 375w,{%- endif -%}
+                                {%- if author_avatar_image.width >= 750 -%}{{ author_avatar_image | image_url: width: 750 }} 750w,{%- endif -%}
+                                {%- if author_avatar_image.width >= 1100 -%}{{ author_avatar_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                {%- if author_avatar_image.width >= 1500 -%}{{ author_avatar_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                {%- if author_avatar_image.width >= 1780 -%}{{ author_avatar_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                {%- if author_avatar_image.width >= 2000 -%}{{ author_avatar_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                {%- if author_avatar_image.width >= 3000 -%}{{ author_avatar_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                {%- if author_avatar_image.width >= 3840 -%}{{ author_avatar_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+
+                                {{ author_avatar_image | image_url }} {{ author_avatar_image.width }}w
+                              "
+                              data-src="{{ author_avatar_image | image_url: width: 1200 }}"
+                              style="max-width:100%;width:100%"
+                              class="lazyload"
+                              alt="{{ author_avatar_image.alt }}"
+                            >
+                          </div>
+                          <div class="author-details">
+                            <div class="author-name">
+                              {{ block.settings.author_name }}
+                            </div>
+                            <a class="product-name" href="{{ block.settings.product_link }}" target="_blank">
+                              {{ block.settings.product_name }}
+                            </a>
+                          </div>
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+              {%- when 'videoItem1' -%}
+                {%- if block.settings.video_url -%}
+                  {% assign video = block.settings.video_url %}
+                  <div class="custom1-column custom1-media">
+                    <div
+                      class="custom1-img-wrap "
+                      style="aspect-ratio:{{ block.settings.video_image.aspect_ratio }};width: 100%;"
+                    >
+                      <a
+                        class="video-link"
+                        href="{{block.settings.video_url.sources[1].url}}"
+                        data-fancybox
+                        data-caption="{{ block.settings.caption_heading }}"
+                      >
+                        {% assign video_image = block.settings.video_image %}
+                        {% assign size = 100 | divided_by: section.settings.display_number_per_line | round %}
+                        <img
+                          data-sizes="{{ size }}vw"
+                          width="{{ size }}vw"
+                          data-sizes="auto"
+                          data-srcset="
+                            {%- if video_image.width >= 375 -%}{{ video_image | image_url: width: 375 }} 375w,{%- endif -%}
+                            {%- if video_image.width >= 750 -%}{{ video_image | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if video_image.width >= 1100 -%}{{ video_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                            {%- if video_image.width >= 1500 -%}{{ video_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {%- if video_image.width >= 1780 -%}{{ video_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                            {%- if video_image.width >= 2000 -%}{{ video_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                            {%- if video_image.width >= 3000 -%}{{ video_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                            {%- if video_image.width >= 3840 -%}{{ video_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+
+                            {{ video_image | image_url }} {{ video_image.width }}w
+                          "
+                          data-src="{{ video_image | image_url: width: 1200 }}"
+                          style="max-width:100%;width:100%"
+                          class="lazyload"
+                          alt="{{ block.settings.caption_heading}}"
+                        >
+
+                        <i class="czvdo-play-icon-svg ">
+                          {%- if section.settings.paly_button_svg != empty -%}
+                            {{ section.settings.paly_button_svg }}
+                          {% else %}
+                            <svg
+                              width="100%"
+                              height="100%"
+                              viewBox="0 0 64 64"
+                              version="1.1"
+                              xmlns="http://www.w3.org/2000/svg"
+                              xmlns:xlink="http://www.w3.org/1999/xlink"
+                            >
+                              <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                  <g id="Customer-Stories" transform="translate(-929, -1524)" fill="#FFFFFF">
+                                      <g id="没照片时" transform="translate(766, 1447)">
+                                          <g id="编组-5" transform="translate(163, 77)">
+                                              <circle id="椭圆形" fill-opacity="0.5" cx="32" cy="32" r="32"></circle>
+                                              <path d="M44.1126113,33.9083531 L27.730408,43.4646099 C26.5472719,44.1926861 25,43.2826153 25,41.9174846 L25,22.8046778 C25,21.4395471 26.5472719,20.5294763 27.730408,21.2575525 L44.1126113,30.8138093 C45.2957962,31.4510104 45.2957962,33.271152 44.1126113,33.9083531" id="Fill-1"></path>
+                                          </g>
+                                      </g>
+                                  </g>
+                              </g>
+                            </svg>
+                          {%- endif -%}
+                        </i>
+                      </a>
+                    </div>
+                    <div class="content-bottom-text-wrap">
+                      <div
+                        class="custom-heading-3  {{ section.settings.content_heading_size }} {{ section.settings.content_heading_font_family }}"
+                      >
+                        {{ block.settings.content_heading }}
+                      </div>
+                      {% if block.settings.content_subheading != empty %}
+                        <div
+                          class="custom-heading-4   {{ section.settings.content_subheading_size }} {{ section.settings.content_subheading_font_family }}"
+                        >
+                          {{ block.settings.content_subheading }}
+                        </div>
+                      {% endif %}
+                      {% if block.settings.content_desc != empty %}
+                        <div
+                          class="custom-decs  {{ section.settings.content_content_size }} {{ section.settings.content_content_font_family }} "
+                        >
+                          {{ block.settings.content_desc }}
+                        </div>
+                      {% endif %}
+                      {% if block.settings.author_avatar %}
+                        {% assign author_avatar_image = block.settings.author_avatar %}
+                        <div class="author-info  text-xs">
+                          <div
+                            class="author-img"
+                            style="aspect-ratio:{{ author_avatar_image.aspect_ratio }};"
+                          >
+                            <img
+                              data-sizes="100vw"
+                              width="100vw"
+                              data-sizes="auto"
+                              data-srcset="
+                                {%- if author_avatar_image.width >= 375 -%}{{ author_avatar_image | image_url: width: 375 }} 375w,{%- endif -%}
+                                {%- if author_avatar_image.width >= 750 -%}{{ author_avatar_image | image_url: width: 750 }} 750w,{%- endif -%}
+                                {%- if author_avatar_image.width >= 1100 -%}{{ author_avatar_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                {%- if author_avatar_image.width >= 1500 -%}{{ author_avatar_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                {%- if author_avatar_image.width >= 1780 -%}{{ author_avatar_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                {%- if author_avatar_image.width >= 2000 -%}{{ author_avatar_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                {%- if author_avatar_image.width >= 3000 -%}{{ author_avatar_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                {%- if author_avatar_image.width >= 3840 -%}{{ author_avatar_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+
+                                {{ author_avatar_image | image_url }} {{ author_avatar_image.width }}w
+                              "
+                              data-src="{{ author_avatar_image | image_url: width: 1200 }}"
+                              style="max-width:100%;width:100%"
+                              class="lazyload"
+                              alt="{{ author_avatar_image.alt }}"
+                            >
+                          </div>
+                          <div class="author-details">
+                            <div class="author-name">
+                              {{ block.settings.author_name }}
+                            </div>
+                            <a class="product-name" href="{{ block.settings.product_link }}" target="_blank">
+                              {{ block.settings.product_name }}
+                            </a>
+                          </div>
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+            {%- endcase -%}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+ 
+    const delayTime = 15000;
+    const progressCircle_delayTime = delayTime / 100
+    const progressCircle = document.getElementById('progressCircle-{{section.id}}');
+    let progress = 0;
+  
+    function updateProgress() {
+      progress = (progress + 1) % 101; // 0 to 100
+      progressCircle.style.background = `conic-gradient(
+              #DA291C 0%,
+              #DA291C ${progress}%,
+              #cccccc ${progress}%,
+              #cccccc 100%
+          )`;
+          if (progress === 0) {
+            swiper4.slideNext(); // 切换到下一张幻灯片
+          }
+      // progressCircle.textContent = `${progress}%`;
+    }
+  
+    setInterval(updateProgress, progressCircle_delayTime); // 5000ms / 100 steps = 50ms per step
+    const swiper4 = new Swiper('.swiper-container-{{ section.id }}', {
+     loop: true,
+      slidesPerView: 3.2,
+      loopedSlides: 4, // slidesPerView设置为非整数（如1.2）时，可能会出现循环问题添加此行，指定循环所需的额外幻灯片数量
+      spaceBetween: 16,
+      pagination: {
+        el: '.swiper-pagination-{{section.id}}',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next-{{section.id}}',
+        prevEl: '.swiper-button-prev-{{section.id}}',
+      },
+      {% comment %} autoplay: {
+        delay: delayTime,
+        disableOnInteraction: false,
+      },  {% endcomment %}
+      on: {
+   
+      },
+      breakpoints: {
+        //当宽度小于等于1024时显示
+        1024: {
+          slidesPerView: 2.2,
+          spaceBetween: 16,
+        },
+          //当宽度小于等于768时显示
+          768: {
+           
+            slidesPerView: 1.1,
+            spaceBetween: 10,
+          },
+      },
+    });
+</script>
+{% schema %}
+{
+  "name": "index swiper",
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_max_width",
+      "label": "模块最大宽度",
+      "options": [
+        {
+          "value": "none",
+          "label": "全屏"
+        },
+        {
+          "value": "1600",
+          "label": "1600px"
+        },
+        {
+          "value": "1400",
+          "label": "1400px"
+        },
+        {
+          "value": "1200",
+          "label": "1200px"
+        },
+        {
+          "value": "980",
+          "label": "980px"
+        }
+      ],
+      "default": "1200"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "大标题及小标题文本对齐方式",
+      "options": [
+        {
+          "value": "start",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中对齐"
+        },
+
+        {
+          "value": "end",
+          "label": "右对齐"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment_mobile",
+      "label": "大标题及小标题文本对齐方式(移动端)",
+      "options": [
+        {
+          "value": "start",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中对齐"
+        },
+        {
+          "value": "end",
+          "label": "右对齐"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "内容对齐方式",
+      "options": [
+        {
+          "value": "start",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中对齐"
+        },
+
+        {
+          "value": "end",
+          "label": "右对齐"
+        }
+      ],
+      "default": "center"
+    },
+
+    {
+      "type": "range",
+      "id": "card_container_min_height",
+      "min": 200,
+      "max": 600,
+      "step": 4,
+      "unit": "px",
+      "label": "卡片容器的最小高度",
+      "default": 420
+    },
+    {
+      "type": "range",
+      "id": "card_container_min_height_mobile",
+      "min": 100,
+      "max": 400,
+      "step": 4,
+      "unit": "px",
+      "label": "卡片容器的最小高度（移动端）",
+      "default": 120
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题",
+      "default": "大标题"
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": "大标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题字体大小（移动端）",
+      "default": 30
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题",
+      "default": "小标题"
+    },
+    {
+      "type": "select",
+      "id": "subtitle_size",
+      "label": "小标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题字体大小（移动端）",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "颜色"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "大标题字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "小标题字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "背景色",
+      "default": "#fffaf6"
+    },
+    {
+      "type": "select",
+      "id": "title_font_family",
+      "label": "大标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-bold"
+    },
+    {
+      "type": "select",
+      "id": "subtitle_font_family",
+      "label": "小标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-regular"
+    },
+    {
+      "type": "header",
+      "content": "分区填充"
+    },
+    {
+      "type": "range",
+      "id": "title_margin_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题顶部填充",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "title_margin_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "title_margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "title_margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题底部填充(移动端)",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "subtitle_margin_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "小标题顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "subtitle_margin_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "小标题顶部填充(移动端)",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "subtitle_margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "小标题底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "subtitle_margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "小标题底部填充(移动端)",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "materialTextUD",
+      "name": "图片",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "slide_image",
+          "label": "Slide Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "slide_image_mobile",
+          "label": "Slide Image Mobile"
+        },
+        {
+          "type": "image_picker",
+          "id": "author_avatar",
+          "label": "Author Avatar"
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author Name"
+        },
+        {
+          "type": "text",
+          "id": "author_description",
+          "label": "Author Description"
+        },
+        {
+          "type": "textarea",
+          "id": "content_text",
+          "label": "Content Text"
+        }
+      ]
+    },
+    {
+      "type": "videoItem",
+      "name": "视频",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "video_image",
+          "label": "视频封面"
+        },
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "label": "Product description video",
+          "accept": ["youtube", "vimeo"]
+        },
+        {
+          "type": "image_picker",
+          "id": "author_avatar",
+          "label": "作者头像"
+        },
+        {
+          "type": "html",
+          "id": "author_name",
+          "label": "作者名称"
+        },
+        {
+          "type": "html",
+          "id": "product_name",
+          "label": "产品名称"
+        },
+        {
+          "type": "url",
+          "id": "product_link",
+          "label": "产品链接"
+        },
+        {
+          "type": "html",
+          "id": "content_heading",
+          "label": "标题",
+          "default": "Welcome to my shop!"
+        },
+
+        {
+          "type": "html",
+          "id": "content_subheading",
+          "label": "副标题"
+        },
+        {
+          "type": "html",
+          "id": "content_desc",
+          "label": "描述"
+        }
+      ]
+    },
+    {
+      "type": "videoItem1",
+      "name": "视频(shopify)",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "video_image",
+          "label": "视频封面"
+        },
+        {
+          "type": "video",
+          "id": "video_url",
+          "label": "shopify 视频"
+        },
+        {
+          "type": "image_picker",
+          "id": "author_avatar",
+          "label": "作者头像"
+        },
+        {
+          "type": "html",
+          "id": "author_name",
+          "label": "作者名称"
+        },
+        {
+          "type": "html",
+          "id": "product_name",
+          "label": "产品名称"
+        },
+        {
+          "type": "url",
+          "id": "product_link",
+          "label": "产品链接"
+        },
+        {
+          "type": "html",
+          "id": "content_heading",
+          "label": "标题",
+          "default": "Welcome to my shop!"
+        },
+
+        {
+          "type": "html",
+          "id": "content_subheading",
+          "label": "副标题"
+        },
+        {
+          "type": "html",
+          "id": "content_desc",
+          "label": "描述"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "index swiper"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,235 @@
+<style>
+    /* 直播小窗口 Live broadcast window start  */
+  #live-broadcast-window-section-{{ section.id }}  .live-broadcast-window-wrapper {
+      position: fixed;
+      left: 30px;
+      bottom: 110px;
+      z-index: 9999;
+    }
+    #live-broadcast-window-section-{{ section.id }}  .live-broadcast-window-url {
+      display: block;
+      position: relative;
+      width: 180px;
+
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    #live-broadcast-window-section-{{ section.id }}  .live-broadcast-window-close-icon {
+      display: none;
+      position: absolute;
+      top: 9px;
+      right: 10px;
+      width: 18px;
+      height: 18px;
+      z-index: 99;
+    }
+    #live-broadcast-window-section-{{ section.id }}  .live-broadcast-window-img {
+      display: none;
+      width: 100%;
+
+      max-width: 100%;
+      aspect-ratio: 4/5;
+    }
+    #live-broadcast-window-section-{{ section.id }}  .live-broadcast-window-video {
+      display: none;
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 比例 */
+      height: 0;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+    }
+    #live-broadcast-window-section-{{ section.id }}  .live-broadcast-window-video iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    @media screen and (max-width: 1440px) {
+      #live-broadcast-window-section-{{ section.id }}  .live-broadcast-window-url {
+        width: 90px;
+        border-radius: 6px;
+      }
+      #live-broadcast-window-section-{{ section.id }}  .live-broadcast-window-close-icon {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 12px;
+        height: 12px;
+        z-index: 99;
+      }
+    }
+    @media screen and (max-width: 768px) {
+      #live-broadcast-window-section-{{ section.id }} .live-broadcast-window-wrapper {
+        left: 16px;
+        bottom: 104px;
+      }
+    }
+    /* 直播小窗口 Live broadcast window end  */
+</style>
+<!-- 直播小窗口 Live broadcast window start -->
+<section id="live-broadcast-window-section-{{ section.id }}">
+  {%- if section.settings.live_countdown_start != empty and section.settings.live_broadcast_window_url != empty -%}
+    {% assign image = section.settings.live_broadcast_window_img %}
+    {% comment %} 获取 https://youtube.com/live/yFed7PXcwoA 里的 yFed7PXcwoA {% endcomment %}
+
+    <div
+      class="live-broadcast-window-wrapper"
+      data-live-countdown-start="{{ section.settings.live_countdown_start }}"
+    >
+      <a
+        class="live-broadcast-window-url"
+        href="https://www.youtube.com/live/{{ section.settings.live_broadcast_window_url_id }}"
+        target="_blank"
+      >
+        <div class="live-broadcast-window-close-icon" id="live-broadcast-window-close-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+            <g clip-path="url(#clip0_7343_17516)">
+              <path d="M3.34596 14.0383L14.0379 3.34642M3.34596 3.34642L14.0379 14.0383" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            </g>
+            <defs>
+              <clipPath id="clip0_7343_17516">
+                <rect width="18" height="18" rx="9" fill="white"/>
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+        {%- if section.settings.live_broadcast_window_img -%}
+          <img
+            class="live-broadcast-window-img lazyload"
+            alt=""
+            loading="lazy"
+            data-sizes="auto"
+            data-srcset="
+              {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+              {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+              {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+              {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+              {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+              {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+              {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+              {{ image | image_url }} {{ image.width }}w
+            "
+            data-src="{{image | image_url:width:500}}"
+          >
+        {%- endif -%}
+
+        <div class="live-broadcast-window-video">
+          <iframe
+            src="https://www.youtube.com/embed/{{ section.settings.live_broadcast_window_url_id }}?&amp;autoplay=1&amp;mute=1&amp;controls=0"
+            title="K13 Lite DTF Printer & Smoke-Free Oven | Introduction & Demo"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </a>
+    </div>
+  {%- endif -%}
+</section>
+<script>
+   // 用于存储倒计时实例
+  let liveBroadcastCountdownInstance = null;
+
+   document.addEventListener('DOMContentLoaded', function () {
+     // 直播小窗口
+     if ($('#live-broadcast-window-section-{{ section.id }} .live-broadcast-window-wrapper')) {
+       $('#live-broadcast-window-section-{{ section.id }} .live-broadcast-window-wrapper').each(function () {
+         const $wrapper = $(this);
+         const UTCDate_start = $wrapper.data('live-countdown-start'); // 直播开始时间
+         console.log('UTCDate_start==', UTCDate_start);
+         const finalDate_start = formatUtcTime(UTCDate_start);
+         const finalDate2 = finalDate_start ? finalDate_start : null;
+         const timestamp_end = finalDate2 ? new Date(finalDate2).getTime() : null;
+         const currentTimestamp = new Date().getTime();
+         let format;
+         $('#live-broadcast-window-section-{{ section.id }} .live-broadcast-window-close-icon').show();
+         console.log('直播开始本地时间==', finalDate_start);
+
+         // 如果直播开始时间已到，则直接显示视频，隐藏图片
+         // 到时间后重载视频，防止播放异常
+         if (timestamp_end && currentTimestamp > timestamp_end) {
+
+           // 重新设置iframe的src以强制重载
+           const $video = $('#live-broadcast-window-section-{{ section.id }} .live-broadcast-window-video');
+           const $iframe = $video.find('iframe');
+           const src = $iframe.attr('src');
+           $iframe.attr('src', src);
+           $video.show();
+         }else {
+          $('#live-broadcast-window-section-{{ section.id }} .live-broadcast-window-img').show();
+
+         }
+
+         // 保存倒计时实例
+         liveBroadcastCountdownInstance = $wrapper.countdown(finalDate2)
+           .on('update.countdown', function (event) {
+             {% comment %} format = ' Ends in %D Days %H:%M:%S';
+
+             $(this).html(event.strftime(format)); {% endcomment %}
+           })
+           .on('finish.countdown', function (event) {
+             // 增加：隐藏关闭按钮，显示视频
+             $('#live-broadcast-window-section-{{ section.id }} .live-broadcast-window-img').hide();
+               // 重新设置iframe的src以强制重载
+              const $video = $('#live-broadcast-window-section-{{ section.id }} .live-broadcast-window-video');
+              const $iframe = $video.find('iframe');
+              const src = $iframe.attr('src');
+              $iframe.attr('src', src);
+              $video.show();
+           });
+       });
+     }
+
+     // 关闭按钮事件
+     $('#live-broadcast-window-section-{{ section.id }} #live-broadcast-window-close-btn').on('click', function (e) {
+       e.preventDefault();
+       // 隐藏直播小窗口
+       $('#live-broadcast-window-section-{{ section.id }} .live-broadcast-window-wrapper').hide();
+       // 停止倒计时
+       if (liveBroadcastCountdownInstance && typeof liveBroadcastCountdownInstance.countdown === 'function') {
+         liveBroadcastCountdownInstance.countdown('stop');
+       }
+     });
+   });
+</script>
+<!-- 直播小窗口 Live broadcast window end -->
+{% schema %}
+{
+  "name": "直播小窗口 ",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "live_countdown_start",
+      "label": "直播开始时间",
+      "default": "2025-10-01T15:00:00+08:00",
+      "info": "格式：2025-10-01T15:00:00+08:00,默认时区为中国+08:00"
+    },
+    {
+      "type": "text",
+      "id": "live_broadcast_window_url_id",
+      "label": "youtube直播视频ID",
+      "info": "youtube直播链接：https://youtube.com/live/yFed7PXcwoA,其中yFed7PXcwoA为ID"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "live_broadcast_window_img",
+      "label": "视频封面图片"
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "直播小窗口"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,33 @@
+<div class="btn-adt">
+  <product-form
+    class="product-form"
+    data-section="{{ section.id }}"
+    data-hide-errors="{{ gift_card_recipient_feature_active }}"
+  >
+    {%- form 'product',
+      product,
+      id: product_form_id,
+      class: 'form',
+      novalidate: 'novalidate',
+      data-type: 'add-to-cart-form'
+    -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
+      <button
+        type="submit"
+        name="add"
+        id="AddToCart"
+        class="btn-adt"
+      >
+        <span class="adt-info">Shop Now</span>
+        <span class="adt-icon">
+          <div class="icon">
+            <img
+              src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/icon_shop_car_2x_c98f38f9-7e30-45ce-9c3a-d352e802db8a.png"
+              alt=""
+            >
+          </div>
+        </span>
+      </button>
+    {%- endform -%}
+  </product-form>
+</div>

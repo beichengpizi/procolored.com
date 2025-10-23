@@ -1,0 +1,186 @@
+<style>
+  .member-faqs-{{ section.id }}{
+    background: #000;
+  }
+  .member-faqs-{{ section.id }}  .member-faqs-container{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 0 168px 0;
+  }
+  .member-faqs-{{ section.id }}  .title{
+    text-align: center;
+    color: #fff;
+    line-height: 1;
+    font-size: 44px;
+    margin-bottom: 45px;
+  }
+  .member-faqs-{{ section.id }}  .subtitle{
+  }
+
+  .member-faqs-{{ section.id }}  .heading{
+    color: #fff;
+    font-size: 24px;
+    line-height: 1;
+    padding-bottom: 34px;
+    padding-top: 34px;
+    margin: 0;
+    border-top: 1px solid #848484;
+  }
+  .member-faqs-{{ section.id }} .content h3.heading:nth-of-type(1){
+    border-top: none;
+
+  }
+  .member-faqs-{{ section.id }} .content h3.heading:nth-of-type(1){
+    padding-top: 0;
+  }
+  .member-faqs-{{ section.id }}  .content{}
+  .member-faqs-{{ section.id }}  .fap{}
+  .member-faqs-{{ section.id }}  .faq-title{
+    color: #fff;
+    font-size: 20px;
+    line-height: 1.1;
+    padding-bottom: 5px;
+    margin: 0;
+    font-weight: 400;
+  }
+  .member-faqs-{{ section.id }}  .faq-content{
+    color: #848484;
+    font-size: 18px;
+    line-height: 1.2;
+    padding-bottom: 34px;
+  }
+  .member-faqs-{{ section.id }} .content .fap:last-of-type .faq-content{
+    padding-bottom: 0;
+  }
+  /* 移动设备 */
+  @media screen and (min-width: 320px) and (max-width: 480px){
+    .member-faqs-{{ section.id }}  .member-faqs-container{
+      max-width: 100%;
+      padding: 20px 24px 46px 24px;
+    }
+    .member-faqs-{{ section.id }}  .title{
+      text-align: center;
+      color: #fff;
+      line-height: 1;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .member-faqs-{{ section.id }}  .heading{
+      color: #fff;
+      font-size: 17px;
+      line-height: 1;
+      padding-bottom: 20px;
+      padding-top: 20px;
+      margin: 0;
+    }
+    .member-faqs-{{ section.id }}  .content{}
+    .member-faqs-{{ section.id }}  .fap{}
+    .member-faqs-{{ section.id }}  .faq-title{
+      color: #fff;
+      font-size: 14px;
+      line-height: 1.4;
+      padding-bottom: 5px;
+      margin: 0;
+    }
+    .member-faqs-{{ section.id }}  .faq-content{
+      color: #848484;
+      font-size: 14px;
+      line-height: 1.4;
+      padding-bottom: 20px;
+    }
+    .member-faqs-{{ section.id }} .content .fap:last-of-type .faq-content{
+      padding-bottom: 0;
+    }
+
+  }
+</style>
+<div class="member-faqs-{{ section.id }}">
+  <div class="member-faqs-container">
+    <h2 class="title">{{ section.settings.headding }}</h2>
+    {% if section.settings.descriptiton %}
+      <div class="subtitle">{{ section.settings.descriptiton }}</div>
+    {% endif %}
+
+    <div class="content">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'head' -%}
+          <h3 class="heading">{{ block.settings.headding }}</h3>
+        {%- endif -%}
+        {%- if block.type == 'faq' -%}
+          <div class="fap">
+            <h4 class="faq-title">{{ block.settings.faq_q }}</h4>
+            <div class="faq-content">
+              {{ block.settings.faq_a }}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "会员常见问题",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "headding",
+      "label": "标题",
+      "default": "FAQ"
+    },
+    {
+      "type": "html",
+      "id": "descriptiton",
+      "label": "描述"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "问题",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "faq_q",
+          "label": "问题"
+        },
+        {
+          "type": "textarea",
+          "id": "faq_a",
+          "label": "回答"
+        }
+      ]
+    },
+    {
+      "type": "head",
+      "name": "标题",
+      "settings": [
+        {
+          "type": "text",
+          "id": "headding",
+          "label": "标题"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "会员常见问题",
+      "blocks": [
+        {
+          "type": "faq"
+        },
+        {
+          "type": "faq"
+        },
+        {
+          "type": "faq"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

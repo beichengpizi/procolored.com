@@ -1,0 +1,1068 @@
+<!doctype html>
+{%- capture dir -%}
+	{%- case request.locale.iso_code -%}
+	  {%- when 'ae' or 'ar' or 'arc' or 'bcc' or 'bqi' or 'ckb' or 'dv' or 'fa' or 'glk' or 'ha' or 'he' or 'kwh' or 'ks' or 'ku' or 'mzn' or 'nqo' or 'pnb' or 'ps' or 'sd' or 'ug' or 'ur' or 'yi' -%}
+	    rtl
+	  {%- else -%}
+	    ltr
+	{%- endcase -%}
+{%- endcapture -%}
+<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ dir }}">
+  <head>
+    {% comment %}
+      <script>
+        //新增功能：指定页面重定向并伪造回原URL
+        (function() {
+          var targetUrl = 'https://www.procolored.com/pages/popupevent';
+          var redirectUrl = 'https://booster.procolored.com/activity/flashMob';
+          if (window.location.href === targetUrl) {
+            // 先重定向到 booster
+            window.location.replace(redirectUrl);
+            // 监听跳转后，尝试伪造回原URL（需在目标页面执行）
+            // 由于跨域，只有在 booster.procolored.com 页面有权限时才能执行下面的代码
+            // 但如果 booster.procolored.com 能插入此脚本，则可用如下代码
+            // window.history.replaceState(null, '', targetUrl);
+          }
+          // // 如果是在 booster.procolored.com 页面，并且是从指定页面跳转过来的
+          // if (window.location.hostname === 'booster.procolored.com' && document.referrer === targetUrl) {
+          //   // 伪造回原URL，不刷新页面
+          //   window.history.replaceState(null, '', targetUrl);
+          // }
+        })();
+      </script>
+    {% endcomment %}
+
+    {% if page.handle contains 'https://www.procolored.com/pages/protecting-our-customers-security-update' %}
+      <meta name="robots" content="noindex,nofollow">
+
+    {% else %}
+      <meta name="robots" content="index,follow">
+    {% endif %}
+
+    <script>
+      async function getVisitorIP() {
+        try {
+          const response = await fetch('https://api.ipify.org/');
+          const ipAddress = await response.text();
+          return ipAddress;
+        } catch (error) {
+          console.error('Failed to get visitor IP:', error);
+          return null;
+        }
+      }
+      async function isFromEurope() {
+        try {
+          const IsEu = window.sessionStorage.getItem('is_eu');
+          if (IsEu != undefined) {
+            return IsEu !== 'false';
+          }
+
+          const ipAddress = await getVisitorIP();
+          if (!ipAddress) {
+            console.log('Could not determine the IP.');
+            return false;
+          }
+          const url = `https://ipinfo.io/${ipAddress}/json`;
+          const geoResponse = await fetch(url);
+          const geoData = await geoResponse.json();
+          console.log(geoData);
+          const countryCode = geoData.country;
+          const europeanCountries = [
+            'AT',
+            'BE',
+            'BG',
+            'CY',
+            'CZ',
+            'DK',
+            'EE',
+            'FI',
+            'FR',
+            'DE',
+            'GR',
+            'HU',
+            'IE',
+            'IT',
+            'LV',
+            'GE',
+            'LT',
+            'LU',
+            'MT',
+            'NL',
+            'PL',
+            'PT',
+            'RO',
+            'SK',
+            'SI',
+            'ES',
+            'SE',
+            'GB',
+            'CH',
+            'HR',
+            'AL',
+            'AD',
+            'AM',
+            'BY',
+            'BA',
+            'FO',
+            'GI',
+            'IS',
+            'IM',
+            'XK',
+            'LI',
+            'MK',
+            'MD',
+            'MC',
+            'ME',
+            'NO',
+            'RU',
+            'SM',
+            'RS',
+            'TR',
+            'UA',
+            'VA',
+          ];
+          const tmp = europeanCountries.includes(countryCode.toUpperCase());
+          window.sessionStorage.setItem('is_eu', tmp);
+          return tmp;
+        } catch (error) {
+          console.error('Failed to fetch geolocation data:', error);
+          return false;
+        }
+      }
+      // isFromEurope().then((isEuropean) => {
+      //   if (isEuropean) {
+      //     window.location.href = 'https://procolored.eu'
+      //   }
+      // })
+    </script>
+    <script>
+      (function (w, d, t, r, u) {
+        var f, n, i;
+        (w[u] = w[u] || []),
+          (f = function () {
+            var o = { ti: '187027788' };
+            (o.q = w[u]), (w[u] = new UET(o)), w[u].push('pageLoad');
+          }),
+          (n = d.createElement(t)),
+          (n.src = r),
+          (n.async = 1),
+          (n.onload = n.onreadystatechange =
+            function () {
+              var s = this.readyState;
+              (s && s !== 'loaded' && s !== 'complete') || (f(), (n.onload = n.onreadystatechange = null));
+            }),
+          (i = d.getElementsByTagName(t)[0]),
+          i.parentNode.insertBefore(n, i);
+      })(window, document, 'script', '//bat.bing.com/bat.js', 'uetq');
+    </script>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-M95JQVW');
+    </script>
+    <!-- End Google Tag Manager -->
+    <!-- A\B 测试 开始 目前使用crazzy egg 插件实现，此代码暂时保留 -->
+    {% comment %}
+      <script>
+        let isABTest = false;
+        let ABTestNum = 0;
+        const shopifyTemplateType = '{{template.name}}';
+        const shopifyTemplateName = '{{template.suffix}}';
+        const shopifyCurrentTemplate = '{{template}}';
+        console.log('当前模版==', shopifyCurrentTemplate);
+        console.log('模版类型==', shopifyTemplateType);
+        console.log('模版名称==', shopifyTemplateName);
+        if(shopifyTemplateType =='page'){
+          isABTest={{ page.metafields.custom.ab_test | default: false }}
+          ABTestNum={{ page.metafields.custom.ab_test_template_nums | default: 0 }}
+        }else if(shopifyTemplateType =='product'){
+          isABTest={{ product.metafields.custom.ab_test | default: false }}
+          ABTestNum={{ product.metafields.custom.ab_test_template_nums | default: 0 }}
+        }
+        console.log('当前模版是否开启A\B测试及个数==',isABTest,ABTestNum);
+        if (!shopifyTemplateName) {
+          console.log('当前模版为默认模版，请检查是否在模版设置中设置模版名称');
+        }
+      </script>
+      <script type="text/javascript" src="{{ 'ab-test.js' | asset_url }}"></script>
+    {% endcomment %}
+    <!-- A\B 测试 结束 -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <meta name="theme-color" content="{{ settings.color_body_bg }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    {% render 'head-preload' %}
+
+    {% if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif %}
+
+    <title>
+      {{ page_title }}
+      {% if current_tags -%}
+        {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+      {%- endif %}
+      {% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}
+      {% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+    </title>
+    <link
+      rel="preload"
+      as="font"
+      href="{{ 'ItalianPlateNo2Expanded-Bold.woff2' | file_url }}"
+      type="font/woff2"
+      crossorigin
+    >
+
+    <link
+      rel="preload"
+      as="font"
+      href="{{ 'ItalianPlateNo2Expanded-Regular.woff2' | file_url }}"
+      type="font/woff2"
+      crossorigin
+    >
+    <link
+      rel="preload"
+      as="font"
+      href="{{ 'DancingScript-VariableFont_wght.woff2' | file_url }}"
+      type="font/woff2"
+      crossorigin
+    >
+    <link rel="preload" as="font" href="{{ 'mulish.woff2' | file_url }}" type="font/woff2" crossorigin>
+    <link
+      rel="preload"
+      href="{{'fonts_procolored.css' | asset_url }}"
+      type="text/css"
+      as="style"
+      onload="this.onload=null; this.rel='stylesheet'; "
+    >
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {%- unless settings.heading_font.system? and settings.body_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    {% render 'social-meta-tags' %}
+
+    {{ 'app.css' | asset_url | stylesheet_tag }}
+    {{ 'product-grid.css' | asset_url | stylesheet_tag }}
+
+    {%- liquid
+      render 'vite-tag' with 'theme.css', preload_stylesheet: true
+      render 'vite-tag' with 'theme.js'
+      # if request.page_type contains 'customers/'
+      #  render 'vite-tag' with 'customers.js'
+      # endif
+    -%}
+    {% render 'head-variables' %}
+    <script>
+      window.Shopify = window.Shopify || {};
+      {% if request.design_mode %}
+        window.Shopify.designMode = true
+      {%  else %}
+        window.Shopify.designMode = false;
+      {% endif %}
+
+      window.theme = window.theme || {};
+      theme = {
+        settings: {
+          currency_code_enabled: {{- settings.currency_code_enabled -}},
+          money_format: {{- shop.money_format | json -}},
+          money_with_currency_format: {{- shop.money_with_currency_format | json -}},
+          cart_drawer: {{- settings.cart_drawer -}}
+        },
+        routes: {
+          root_url: '{{ routes.root_url }}',
+          cart_url: '{{ routes.cart_url }}',
+          cart_add_url: '{{ routes.cart_add_url }}',
+          search_url: '{{ routes.search_url }}',
+          cart_change_url: '{{ routes.cart_change_url }}',
+          cart_update_url: '{{ routes.cart_update_url }}',
+          predictive_search_url: '{{ routes.predictive_search_url }}',
+        },
+        variantStrings: {
+          addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+          soldOut: `{{ 'products.product.sold_out' | t }}`,
+          unavailable: `{{ 'products.product.unavailable' | t }}`,
+        },
+        strings: {
+          requiresTerms: `{{ 'sections.cart.terms_confirm' | t }}`,
+        }
+      };
+    </script>
+    {{ content_for_header }}
+    <!-- Header hook for plugins -->
+
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
+    <link
+      rel="preload"
+      href="{{'swiper.min.css' | asset_url }}"
+      type="text/css"
+      as="style"
+      onload="this.onload=null; this.rel='stylesheet'; "
+    >
+    <link
+      rel="preload"
+      href="{{'animate.css' | asset_url }}"
+      type="text/css"
+      as="style"
+      onload="this.onload=null; this.rel='stylesheet';"
+    >
+    <link
+      rel="preload"
+      href="{{'iconfont.css' | asset_url }}"
+      type="text/css"
+      as="style"
+      onload="this.onload=null; this.rel='stylesheet';"
+    >
+    <link
+      rel="preload"
+      href="{{'fancybox.min.css' | asset_url }}"
+      type="text/css"
+      as="style"
+      onload="this.onload=null; this.rel='stylesheet';"
+    >
+    <noscript><link rel="stylesheet" href="{{'swiper.min.css' | asset_url }}"></noscript>
+    <noscript><link rel="stylesheet" href="{{'animate.css' | asset_url }}"></noscript>
+
+    <!-- Gem_Page_Header_Script -->
+    {% render 'gem-app-header-scripts' %}
+    <!-- End_Gem_Page_Header_Script -->
+    <script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0122/6468.js" async="async"></script>
+    {{ 'jquery-3.7.1.min.js' | asset_url | script_tag }}
+    {{ 'fancybox.min.js' | asset_url | script_tag }}
+    {{ 'swiper.min.js' | asset_url | script_tag }}
+    <script>
+      function isMobile() {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+        // 检查是否为移动端设备
+        const mobileKeywords = [
+          'Android',
+          'iPhone',
+          'iPad',
+          'iPod',
+          'BlackBerry',
+          'Windows Phone',
+          'Opera Mini',
+          'IEMobile',
+        ];
+
+        for (let keyword of mobileKeywords) {
+          if (userAgent.indexOf(keyword) !== -1) {
+            return true;
+          }
+        }
+
+        return false;
+      }
+      console.log('是否移动端==', isMobile());
+      console.log('当前模版==', '{{template}}');
+    </script>
+
+    <!-- 兼容会员页相关样式重置 -->
+    {% unless template contains 'customers'
+      or template contains 'member'
+      or template contains 'maintenance'
+      or template contains 'rent'
+    %}
+      <style>
+        :root {
+          /* Font sizes */
+          --text-h0: 48px;
+          --text-h1: 40px;
+          --text-h2: 24px;
+          --text-h3: 22px;
+          --text-h4: 20px;
+          --text-h5: 18px;
+          --text-h6: 16px;
+          --text-xs: 11px;
+          --text-sm: 12px;
+          --text-base: 14px;
+          --text-lg: 18px;
+        }
+        .text-xxs {
+          font-size: 10px;
+          line-height: 1.7;
+        }
+
+        .text-xs {
+          font-size: var(--text-xs);
+          line-height: 1.2;
+        }
+
+        .text-sm {
+          font-size: var(--text-sm);
+          line-height: 1.2;
+        }
+
+        .text-base {
+          font-size: var(--text-base);
+          line-height: 1.2;
+        }
+        .text-md {
+          font-size: var(--text-md);
+          line-height: 1.2;
+        }
+
+        .text-lg {
+          font-size: var(--text-lg);
+          line-height: 1.4;
+        }
+        custom-automatic-discount-reminder {
+          font-size: 12px;
+          align-items: start !important;
+        }
+        @media screen and (max-width: 769px) {
+          :root {
+            /* Font sizes */
+            --text-h0: 30px;
+            --text-h1: 30px;
+            --text-h2: 24px;
+            --text-h3: 22px;
+            --text-h4: 20px;
+            --text-h5: 18px;
+            --text-h6: 16px;
+            --text-xs: 11px;
+            --text-sm: 12px;
+            --text-base: 14px;
+            --text-lg: 18px;
+          }
+          custom-automatic-discount-reminder {
+            font-size: 10px;
+            align-items: start;
+          }
+        }
+        #judgeme_product_reviews .jdgm-rev-widg {
+          max-width: 1232px;
+          margin: 0 auto;
+          padding: 24px 16px;
+        }
+        .gPreorderPartialPaymentWrapper > div {
+          font-family: ItalianPlateNo2Expanded-Bold;
+          font-size: 20px;
+          font-weight: bold;
+        }
+        .gPreorderPartialPaymentWrapper .gPreorderPartialPaymentChoices {
+          display: flex;
+          align-items: center;
+
+          gap: 10px;
+        }
+
+        .gPreorderPartialPaymentChoices li label {
+          font-family: ItalianPlateNo2Expanded-Regular !important;
+          font-weight: 400 !important;
+          font-size: 14px !important;
+        }
+        .gPreorderPartialPaymentWrapper .gPreorderPartialPaymentChoices .gPreorderPartialPaymentControl {
+          margin-top: 0px !important;
+        }
+                /* klaviyo 样式调整 */
+        @media screen and (max-width: 768px) {
+          .kl-teaser-R5J6qM {
+            height: 56px !important;
+            width: 56px !important;
+          }
+          .kl-private-reset-css-Xuajs1 {
+            background-size: 56px !important;
+            background-position: center !important;
+            border-radius: 0 !important;
+          }
+          .kl-private-reset-css-Xuajs1 button.klaviyo-close-form {
+            right: -16px !important;
+          }
+        }
+        #udesk_container{
+          display:none;
+        }
+      </style>
+    {% endunless %}
+    {% comment %}
+      <script type="text/javascript">
+        document
+          .getElementById('globo-formbuilder-80473')
+          .querySelector('button[type="submit"]')
+          .addEventListener(
+            'click',
+            function () {
+
+              fbq('track', 'CompleteRegistration');
+            },
+            false
+          );
+      </script>
+    {% endcomment %}
+    <!--
+      <script type="text/javascript">
+        const formElement = document.getElementById('early-bird-contact-form');
+        if (formElement) {
+          const formChild = formElement.querySelector('form');
+          if (formChild) {
+            formChild.querySelector('button[type="submit"]').addEventListener(
+              'click',
+              function () {
+                fbq('track', 'CompleteRegistration');
+              },
+              false
+            );
+          }
+        }
+      </script>
+    -->
+  </head>
+  <body class="animations-{{ settings.animations }} button-uppercase-{{ settings.button_uppercase }} navigation-uppercase-{{ settings.navigation_uppercase }} product-card-spacing-{{ settings.product_card_spacing }} article-card-spacing-{{ settings.article_card_spacing }} {% if customer %} customer-logged-in{% endif %} template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }} template-{{ template | replace: '.', '-' | handle }}">
+    <a class="screen-reader-shortcut" href="#main-content">{{ 'accessibility.skip_to_text' | t }}</a>
+    <div id="wrapper">
+      <div class="header--sticky"></div>
+      {% sections 'header-group' %}
+      <!-- 获取用户IP 指引用户重定向到本地商店购买 -->
+      {% render 'redirect-bar' %}
+      <!-- 国家切换弹窗 -->
+      {% comment %}
+        {% if template contains 'index' %}
+          {% render 'select-country-popup' %}
+        {% endif %}
+      {% endcomment %}
+
+      <div role="main" id="main-content">
+        {{ content_for_layout }}
+      </div>
+      <!-- 直播小窗口 Live broadcast window start -->
+      {% if template contains 'index' %}
+        
+        {% comment %} {% render 'live-broadcast-window' %} {% endcomment %}
+      {% endif %}
+      <!-- 跳转到社区站点 start -->
+      <!-- 测试跳转按钮 -->
+      {% comment %}
+        <div class="redirectToColorchannels" style="cursor:pointer;">跳转到社区网站按钮</div>
+        <div class="redirectToColorchannels" style="cursor:pointer;">跳转到社区网站按钮2</div>
+      {% endcomment %}
+      <script>
+        // 注意：页面有多个 class="redirectToColorchannels"，所以用 class 选择器批量绑定
+        (function () {
+          function bindRedirectButtons() {
+            // 获取所有带有 class="redirectToColorchannels" 的元素
+            const redirectBtns = document.querySelectorAll('.redirectToColorchannels');
+            if (!redirectBtns.length) {
+              // 兜底，多尝试几次直到有按钮再绑定
+              let retryCount = 0;
+              const interval = setInterval(function () {
+                const btns = document.querySelectorAll('.redirectToColorchannels');
+                if (btns.length) {
+                  clearInterval(interval);
+                  btns.forEach(addActualHandler);
+                } else if (++retryCount > 10) {
+                  clearInterval(interval); // 最多重试2秒
+                }
+              }, 200);
+              return;
+            }
+            redirectBtns.forEach(addActualHandler);
+          }
+
+          function addActualHandler(element) {
+            // 避免重复绑定
+            if (element.dataset.redirectBound) return;
+            element.dataset.redirectBound = '1';
+            element.addEventListener('click', async function () {
+              // 检查 Shopify 是否已登录
+              {% if customer %}
+                const customerEmail = '{{ customer.email | escape }}';
+                const formData = new FormData();
+
+                // 根据当前URL判断market
+                let market = 'US';
+                if (
+                  window.location.origin === 'https://procolored.eu' ||
+                  window.location.href.startsWith('https://procolored.eu/')
+                ) {
+                  market = 'EU';
+                } else if (
+                  window.location.origin === 'https://www.procolored.com' ||
+                  window.location.href.startsWith('https://www.procolored.com/')
+                ) {
+                  market = 'US';
+                }
+                formData.append('email', customerEmail);
+                formData.append('market', market);
+
+                try {
+                  const response = await fetch('https://www.colorchannels.com/userapi/network/getshopifytoken ', {
+                    method: 'POST',
+                    body: formData,
+                  });
+                  const result = await response.json();
+                  if (result && result.status === 1 && result.data && result.data.url) {
+                    window.open(result.data.url, '_blank');
+                  } else {
+                    console.log('获取跳转链接失败：', result);
+                    alert('Failed to get redirect link. Please try again later.');
+                  }
+                } catch (err) {
+                  console.log('网络错误：', err);
+                  alert('Network error, please try again later.');
+                }
+              {% else %}
+                // 未登录
+                window.open('https://www.colorchannels.com/community', '_blank');
+              {% endif %}
+            });
+          }
+
+          // 第一次尝试绑定（如果html已渲染出来）
+          bindRedirectButtons();
+
+          // 再次监听 DOMContentLoaded，处理极端情况
+          document.addEventListener('DOMContentLoaded', bindRedirectButtons);
+        })();
+      </script>
+      <!-- 跳转到社区站点 end -->
+      {% sections 'footer-group' %}
+      {% render 'cart-drawer' %}
+      {% render 'product-drawer' %}
+      {% render 'search-drawer' %}
+      {% render 'thank-you-popup-up' %}
+      <div class="click-capture"></div>
+      <div class="click-capture--product"></div>
+    </div>
+
+    {{ 'vendor.min.js' | asset_url | script_tag }}
+    {% if settings.animations %}
+      {{ 'animations.min.js' | asset_url | script_tag }}
+      <script>
+        gsap.defaults({
+          ease: Power4.easeOut,
+        });
+        gsap.config({
+          nullTargetWarn: false,
+        });
+        gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
+      </script>
+    {% endif %}
+    <!-- 初始化 lazySizes 懒加载 -->
+    <script>
+      window.lazySizesConfig = window.lazySizesConfig || {};
+      lazySizesConfig.expand = 300;
+      lazySizesConfig.loadHidden = false;
+    </script>
+    <link rel="preload" as="script" href="{{ 'wow.js' | asset_url }}">
+    <script type="text/javascript" src="{{ 'wow.js' | asset_url }}"></script>
+    <script type="text/javascript" src="{{ 'lazysizes.js' | asset_url }}" defer></script>
+    <script type="text/javascript" src="{{ 'jquery.countdown.min.js' | asset_url }}"></script>
+    <script type="text/javascript" src="{{ 'bootstrap.min.js' | asset_url }}"></script>
+    {{ 'product.js' | asset_url | script_tag }}
+    {{ 'slideshow.js' | asset_url | script_tag }}
+    {{ 'app.js' | asset_url | script_tag }}
+    <script type="module" src="{{ 'scroll-shadow.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+    {%- if settings.free_shipping -%}
+      {{ 'free-shipping.js' | asset_url | script_tag }}
+      {{ 'free-shipping.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+    {%- if request.design_mode -%}
+      {{ 'theme-editor.js' | asset_url | script_tag }}
+    {%- endif -%}
+    {% render 'back-to-top' %}
+    <!-- Gem_Page_Footer_Script -->
+    {%- liquid
+      assign gpTemplateSuffix = template.suffix
+      assign arrSplitSuffix = gpTemplateSuffix | split: '-'
+      if gpTemplateSuffix contains 'gem-' and gpTemplateSuffix contains '-template' and arrSplitSuffix.size == 3
+        assign isV6GpTemplate = true
+      endif
+      assign gpShopMeta = shop.metafields.gempages
+      if gpShopMeta
+        if gpShopMeta['productV6-default'] == 'true' and request.page_type == 'product'
+          assign isProductDefault = true
+        endif
+        if gpShopMeta['collectionV6-default'] == 'true' and request.page_type == 'collection'
+          assign isCollectionDefault = true
+        endif
+        if gpShopMeta['indexV6-default'] == 'true' and request.page_type == 'index'
+          assign isIndexDefault = true
+        endif
+        if isProductDefault or isCollectionDefault or isIndexDefault or isPreviewV6
+          assign isV6GpTemplate = true
+        endif
+      endif
+    %}
+    {% if isV6GpTemplate %}
+      {% render 'gem-app-footer-scripts', GEM_FOOTER_SCRIPT: GEM_FOOTER_SCRIPT %}
+    {% endif %}
+    <!-- End_Gem_Page_Footer_Script -->
+
+    <style>
+      .gryffeditor {
+        width: 100%;
+      }
+    </style>
+
+    {% if product %}
+      <script>
+        window.addEventListener('load', function () {
+          var _learnq = window._learnq || [];
+          function addedToCart() {
+            fetch(`${window.location.origin}/cart.js`).then((res) =>
+              res
+                .clone()
+                .json()
+                .then((data) => {
+                  var cart = {
+                    total_price: data.total_price / 100,
+                    $value: data.total_price / 100,
+                    total_discount: data.total_discount,
+                    original_total_price: data.original_total_price / 100,
+                    items: data.items,
+                  };
+                  if (item !== 'undefined') {
+                    cart = Object.assign(cart, item);
+                  }
+                  if (klAjax) {
+                    _learnq.push(['track', 'Added to Cart', cart]);
+                    klAjax = false;
+                  }
+                })
+            );
+          }
+          (function (ns, fetch) {
+            ns.fetch = function () {
+              const response = fetch.apply(this, arguments);
+              response.then((res) => {
+                if (`${window.location.origin}/cart/add.js`.includes(res.url)) {
+                  addedToCart();
+                }
+              });
+              return response;
+            };
+          })(window, window.fetch);
+          var klAjax = true;
+          var atcButtons = document.querySelectorAll("form[action*='/cart/add'] button[type='submit']");
+          for (var i = 0; i < atcButtons.length; i++) {
+            atcButtons[i].addEventListener('click', function () {
+              if (klAjax) {
+                _learnq.push(['track', 'Added to Cart', item]);
+                klAjax = false;
+              }
+            });
+          }
+        });
+      </script>
+    {% endif %}
+
+    {% comment %}
+      <style>
+        body.gempage .header-section {
+          z-index: 99;
+        }
+      </style>
+    {% endcomment %}
+    <script>
+      // 初始化 wow
+      wow = new WOW({
+        animateClass: 'animated',
+        offset: 100,
+        callback: function (box) {},
+      });
+      wow.init();
+    </script>
+    <script>
+      // 按住 Ctrl 键并点击时都能在新标签页中打开
+      document.addEventListener('DOMContentLoaded', function () {
+        const allLinks = document.querySelectorAll('a');
+
+        allLinks.forEach((link) => {
+          link.addEventListener('click', function (event) {
+            if (event.ctrlKey) {
+              //console.log('Ctrl key pressed');
+
+              event.preventDefault();
+              const targetUrl = this.href;
+              //console.log('event.target.href', this.href);
+              const newWindow = window.open(targetUrl, '_blank');
+              newWindow.location.href = targetUrl;
+            }
+          });
+        });
+      });
+    </script>
+    <script>
+      // 产品卡片 活动提示
+      $(document).ready(function () {
+        // 自动化折扣定时显示
+        function formatUtcTime(v) {
+          let date = new Date(v);
+          return (
+            date.getFullYear() +
+            '/' +
+            (date.getMonth() + 1) +
+            '/' +
+            (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+            ' ' +
+            (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+            ':' +
+            (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+            ':' +
+            (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+          );
+        }
+        // 格式化货币
+        // 格式化金额为货币字符串
+        function formatMoney(cents, format) {
+          // 如果 cents 是字符串类型，去除小数点
+          if (typeof cents === 'string') {
+            cents = cents.replace('.', '');
+          }
+          let value = '';
+          // 占位符正则，用于匹配格式字符串中的 {{ amount }} 等
+          const placeholderRegex = /\{\{\s*(\w+)\s*\}\}/;
+          // 如果未传入 format，则使用 moneyFormat 变量
+          const formatString = format || moneyFormat;
+
+          // 内部函数：根据分隔符和精度格式化数字
+          function formatWithDelimiters(number, precision = 2, thousands = ',', decimal = '.') {
+            // 非数字或空值时返回0
+            if (isNaN(number) || number == null) {
+              return 0;
+            }
+            // 将分单位转换为元单位，并保留指定小数位
+            number = (number / 100.0).toFixed(precision);
+
+            const parts = number.split('.');
+            // 千分位分隔
+            const dollarsAmount = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, `$1${thousands}`);
+            // 小数部分
+            const centsAmount = parts[1] ? decimal + parts[1] : '';
+
+            return dollarsAmount + centsAmount;
+          }
+
+          // 根据格式字符串中的占位符类型选择不同的格式化方式
+          switch (formatString.match(placeholderRegex)[1]) {
+            case 'amount':
+              // 2位小数，千分位逗号
+              value = formatWithDelimiters(cents, 2);
+              break;
+            case 'amount_no_decimals':
+              // 无小数，千分位逗号
+              value = formatWithDelimiters(cents, 0);
+              break;
+            case 'amount_with_comma_separator':
+              // 2位小数，千分位点，小数逗号
+              value = formatWithDelimiters(cents, 2, '.', ',');
+              break;
+            case 'amount_no_decimals_with_comma_separator':
+              // 无小数，千分位点
+              value = formatWithDelimiters(cents, 0, '.', ',');
+              break;
+            case 'amount_with_apostrophe_separator':
+              // 2位小数，千分位撇号
+              value = formatWithDelimiters(cents, 2, "'", '.');
+              break;
+          }
+
+          // 用格式化后的金额替换格式字符串中的占位符
+          return formatString.replace(placeholderRegex, value);
+        }
+        // 格式化货币代码
+        const currency_code_enabled = theme.settings.currency_code_enabled;
+        let format = theme.settings.money_format;
+        if (currency_code_enabled) {
+          format = theme.settings.money_with_currency_format;
+        } else {
+          format = theme.settings.money_format;
+        }
+        // 如果 this.format 包含 <span class="money"></span>，则提取 > 和 < 之间的内容作为格式
+        const moneySpanMatch = format.match(/<span\s+class=["']money["']>(.*?)<\/span>/i);
+        if (moneySpanMatch) {
+          format = moneySpanMatch[1];
+        }
+        // 获取当前选中的变体
+        function findSelectVariant(variantId) {
+          console.log('findSelectVariant', variantId);
+          console.log('findSelectVariant', getVariantData());
+          return getVariantData().find((variant) => variant.id == variantId);
+        }
+        // 遍历variantData，查找第一个custom_discount有值的对象
+        // 如果有，返回该对象，否则返回null
+        function findFirstVariantWithDiscount(variantData) {
+          for (let i = 0; i < variantData.length; i++) {
+            if (
+              variantData[i].custom_discount !== undefined &&
+              variantData[i].custom_discount !== null &&
+              variantData[i].custom_discount !== ''
+            ) {
+              return variantData[i];
+            }
+          }
+          return null;
+        }
+        // 遍历所有 product-card，检查 data-discount 是否有值
+        $(' product-card').each(function () {
+          // 获取当前 product-card 下 custom-automatic-discount-reminder 元素
+          const $reminder = $(this).find('custom-automatic-discount-reminder');
+          const $finalPrice = $reminder.find('[data-final-price]');
+          const $originPrice = $reminder.find('[data-origin-price]');
+          const $finalSalePrice = $reminder.find('[data-final-sale-price]');
+          const jsonElement = $reminder.find('[type="application/json"]');
+          let variantWithDiscount = null;
+          let discount_value = null;
+          let price = null;
+          let compare_at_price = null;
+          let difference = null;
+          let UTCDate = '1970-01-01T00:00:00Z';
+          let UTCDate_end = '1970-01-01T00:00:00Z';
+          let finalDate = null;
+          let finalDate_end = null;
+          let finalDate1 = null;
+          let finalDate2 = null;
+          let timestamp = null;
+          let timestamp_end = null;
+          if (!jsonElement.length) throw new Error('JSON data element not found');
+          if (jsonElement && jsonElement.length > 0) {
+            const variantData = JSON.parse(jsonElement.text());
+            console.log('卡片产品的数据===', variantData);
+            if (variantData) {
+              // 处理多个变体的情况
+              variantWithDiscount = findFirstVariantWithDiscount(variantData);
+              if (variantWithDiscount) {
+                // 找到有custom_discount的变体
+                console.log('找到有custom_discount的变体:', variantWithDiscount);
+                // 这里可以进行后续处理，比如显示折扣价等
+                // 判断 custom_discount 是否包含 %
+                if (
+                  variantWithDiscount.custom_discount &&
+                  variantWithDiscount.custom_discount.toString().indexOf('%') !== -1
+                ) {
+                  console.log('当前变体custom_discount包含百分比');
+                  // 提取百分比数值
+                  let percent = parseFloat(variantWithDiscount.custom_discount);
+                  console.log('百分比数值：', percent);
+                  // 计算折扣金额（四舍五入取整）
+                  discount_value = Math.round((variantWithDiscount.price * percent) / 100);
+                  console.log('折扣金额：', discount_value);
+                  // 实际售价
+                  price = variantWithDiscount.price - discount_value;
+                  console.log('实际售价：', price);
+                  compare_at_price = variantWithDiscount.price;
+                  UTCDate = variantWithDiscount.start_date;
+                  console.log('活动UTC开始时间：', UTCDate);
+                  UTCDate_end = variantWithDiscount.end_date;
+                  console.log('活动UTC结束时间：', UTCDate_end);
+                } else if (variantWithDiscount.custom_discount !== '') {
+                  console.log('当前变体custom_discount为数值');
+                  discount_value = variantWithDiscount.custom_discount;
+                  console.log('折扣金额：', discount_value);
+                  price = variantWithDiscount.price - discount_value;
+                  console.log('实际售价：', price);
+                  compare_at_price = variantWithDiscount.price;
+                  UTCDate = variantWithDiscount.start_date;
+                  console.log('活动UTC开始时间：', UTCDate);
+                  UTCDate_end = variantWithDiscount.end_date;
+                  console.log('活动UTC结束时间：', UTCDate_end);
+                } else {
+                  console.log('当前变体custom_discount为空');
+                  price = variantWithDiscount.price;
+                  discount_value = variantWithDiscount.custom_discount;
+                  compare_at_price = variantWithDiscount.compare_at_price;
+                  UTCDate = variantWithDiscount.start_date;
+                  console.log('活动UTC开始时间：', UTCDate);
+                  UTCDate_end = variantWithDiscount.end_date;
+                  console.log('活动UTC结束时间：', UTCDate_end);
+                }
+                finalDate = formatUtcTime(UTCDate);
+                finalDate_end = formatUtcTime(UTCDate_end);
+                finalDate1 = finalDate;
+                finalDate2 = finalDate_end ? finalDate_end : null;
+                timestamp = new Date(finalDate1).getTime();
+                timestamp_end = finalDate2 ? new Date(finalDate2).getTime() : null;
+
+                console.log('compare_at_price:', compare_at_price);
+                console.log('当前折扣值:', discount_value);
+              }
+            }
+            // 在 data-final-price 元素下查找 .money 子元素，并获取其文本值
+            let moneyValue = window.formatMoney(price, format);
+            if ($finalPrice.find('.money').length > 0) {
+              $finalPrice.find('.money').text(moneyValue);
+            } else {
+              $finalPrice.text(moneyValue);
+            }
+            let originMoneyValue = window.formatMoney(compare_at_price, format);
+            if ($originPrice.find('.money').length > 0) {
+              $originPrice.find('.money').text(originMoneyValue);
+            } else {
+              $originPrice.text(originMoneyValue);
+            }
+            let difference_value = window.formatMoney(discount_value, format);
+            if ($finalSalePrice.find('.money').length > 0) {
+              $finalSalePrice.find('.money').text(difference_value);
+            } else {
+              $finalSalePrice.text(difference_value);
+            }
+            let show_discount_value = false;
+
+            console.log('当前产品存在活动');
+            const currentTimestamp = new Date().getTime();
+
+            if (UTCDate === '' && UTCDate_end === '' && discount_value && discount_value !== '') {
+              show_discount_value = true;
+            } else {
+              if (UTCDate !== '' && UTCDate_end === '' && currentTimestamp >= timestamp) {
+                show_discount_value = true;
+              } else if (
+                UTCDate !== '' &&
+                UTCDate_end !== '' &&
+                timestamp_end > currentTimestamp &&
+                currentTimestamp >= timestamp
+              ) {
+                show_discount_value = true;
+              } else if (UTCDate === '' && UTCDate_end !== '' && timestamp_end > currentTimestamp) {
+                show_discount_value = true;
+              } else {
+                show_discount_value = false;
+              }
+            }
+            console.log('show_discount_value==', show_discount_value);
+            if (show_discount_value) {
+              console.log('product存在 data-discount:', discount_value);
+              if (discount_value && discount_value !== '') {
+                $(this).find('custom-automatic-discount-reminder').css({ opacity: '1' });
+                console.log('product-card 存在 data-discount:', discount_value);
+                $(this).find('.activity-price-display').css('display', 'block');
+                $(this).find('.daily-price-display').css('display', 'none');
+                // 这里可以根据需要进行后续处理
+
+                // 隐藏 custom-automatic-discount-reminder 下的 [data-final-price] 元素
+                $finalPrice.css('display', 'none');
+                $(this).find('.badge.onsale').css('display', 'none');
+                console.log('custom-automatic-discount-reminder 下 data-final-price 的 .money 值:', moneyValue);
+                // 将 moneyValue 的值替换掉当前元素 .activity-price-display 下的 ins 下的 .money 元素的值
+                const $productCardPriceAndButton = $(this).find('.activity-price-display');
+                $productCardPriceAndButton.find('ins .money').text(moneyValue);
+                $productCardPriceAndButton.find('del .money').text(originMoneyValue);
+              }
+            } else {
+              console.log('活动已结束');
+              $(this).find('custom-automatic-discount-reminder').attr('style', 'display: none !important;');
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

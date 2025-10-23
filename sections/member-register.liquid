@@ -1,0 +1,133 @@
+<style>
+  @media screen and (max-width: 768px) {
+    .member-register-modal {
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+  }
+</style>
+<div class="relative flex flex-col md:flex-row member-register-modal">
+  <button
+    id="close-header"
+    class="w-8 h-8 absolute z-10 right-3 top-3 text-lg rounded-full bg-gray-800 text-white hover:bg-gray-900 hover:text-gray-50"
+  >
+    &times;
+  </button>
+  <div class="relative lg:aspect-[1042/1280] lg:w-[46%] flex-shrink-0 aspect-[686/320]">
+    <div class="absolute inset-0">
+      <img
+        class="lazyload w-full h-full object-cover hidden md:block"
+        data-src="{{ settings.modal_pc_image | image_url: width: 1042, height: 1280 }}"
+        width="1042"
+        height="1280"
+        alt="{{ settings.modal_pc_image.alt }}"
+      >
+      <img
+        data-src="{{ settings.modal_mobile_image | image_url: width: 686, height: 320 }}"
+        width="686"
+        height="320"
+        class="lazyload w-full h-full object-cover md:hidden"
+        alt="{{ settings.modal_mobile_image.alt }}"
+      >
+    </div>
+  </div>
+
+  <div class="md:w-full flex flex-col gap-y-6 justify-center items-center p-6 md:p-12 bg-white">
+    <h2 class="text-2xl md:text-3xl font-bold m-0 w-full">Sign up</h2>
+
+    <div
+      id="err-message"
+      class="text-xs text-red-500 bg-red-50 rounded-md p-3 px-4 items-center hidden"
+    ></div>
+
+    {% comment %} action: '/account/login?return_to=/pages/our-brand-procolored?view=member', {% endcomment %}
+    {% form 'create_customer', action: '/account', novalidate: 'novalidate', class: 'w-full' %}
+      <div name="hiko-container" type="login"></div>
+
+      <div class="flex flex-col md:flex-row gap-4">
+        <div class="field w-full">
+          <input
+            type="text"
+            name="customer[first_name]"
+            class="full !rounded-3xl !focus:border-accent-hover !m-0"
+            value="{% if form.first_name %}{{ form.first_name }}{% endif %}"
+            placeholder="{{ 'customer.login_page.first_name' | t }}"
+          >
+          <label for="first_name">{{ 'customer.login_page.first_name' | t }}</label>
+        </div>
+        <div class="field w-full">
+          <input
+            type="text"
+            name="customer[last_name]"
+            class="full !rounded-3xl !focus:border-accent-hover !m-0"
+            value="{% if form.last_name %}{{ form.last_name }}{% endif %}"
+            placeholder="{{ 'customer.login_page.last_name' | t }}"
+          >
+          <label for="last_name">{{ 'customer.login_page.last_name' | t }}</label>
+        </div>
+      </div>
+
+      <div class="field mt-4">
+        <input
+          type="email"
+          name="customer[email]"
+          class="full !rounded-3xl !focus:border-accent-hover !m-0{% if form.errors contains 'form' %}invalid{% endif %}"
+          value=""
+          autocomplete="email"
+          autocorrect="off"
+          autocapitalize="off"
+          placeholder="{{ 'customer.login_page.email' | t }}"
+        >
+        <label for="customer_email">{{ 'customer.login_page.email' | t }}</label>
+        <span id="email-error" class="text-red-500 text-sm pl-5 invisible">Invalid email address.</span>
+      </div>
+      <div class="field">
+        <input
+          type="password"
+          name="customer[password]"
+          class="full !rounded-3xl !focus:border-accent-hover !m-0 {% if form.errors contains 'form' %}invalid{% endif %}"
+          value=""
+          placeholder="{{ 'customer.login_page.password' | t }}"
+        >
+        <label for="customer_password">{{ 'customer.login_page.password' | t }}</label>
+        <span id="password-error" class="text-red-500 text-sm pl-5 invisible"
+          >Password must be at least 8 characters long.</span
+        >
+        <span
+          id="toggle-password"
+          class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 h-12 cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+          </svg>
+        </span>
+      </div>
+
+      <div class="field mt-4 md:mt-4">
+        <button
+          type="submit"
+          class="bg-accent text-white hover:bg-accent-hover px-4 py-3 rounded-3xl w-full focus:outline-none focus:shadow-outline disabled:bg-gray-500 disabled:cursor-not-allowed"
+          disabled
+        >
+          <span>{{ 'customer.login_page.submit_register' | t }}</span>
+        </button>
+      </div>
+
+      <div class="text-center flex flex-col gap-1 mt-2 justify-center">
+        <div>
+          {{ 'customer.login_page.already_have_an_account' | t }}
+          {% assign text_button_title = 'customer.login_page.login' | t %}
+          {% render 'text-button', url: routes.account_login_url, title: text_button_title %}
+        </div>
+      </div>
+    {% endform %}
+  </div>
+</div>

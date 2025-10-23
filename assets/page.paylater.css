@@ -1,0 +1,228 @@
+.paylater .paylater-banner {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+    .paylater .paylater-banner {
+        height: 250px;
+    }
+
+    .paylater-banner .title {
+        font-size: 2rem !important;
+    }
+}
+
+.paylater .paylater-banner .text {
+    padding: 0 50px;
+}
+
+.paylater-banner .title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: black;
+    line-height: 1.2;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.paylater-sections {
+    max-width: 80%;
+    margin: 0 auto;
+    margin-bottom: 5rem;
+}
+
+@media (max-width: 900px) {
+    .paylater-sections {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 900px) {
+    .paylater-section-header:not(html) {
+        margin: 1rem 0;
+    }
+
+    .paylater-section-header .paylater-section-title:not(html) {
+        font-size: 1.7rem;
+        text-align: left;
+    }
+
+    .paylater-section-header .paylater-section-subtitle:not(html) {
+        text-align: left;
+    }
+}
+
+.paylater-how-to-cards {
+    display: flex;
+    align-items: stretch;
+    gap: 1rem;
+}
+
+.paylater-how-to-card {
+    background: white;
+    border-radius: 20px;
+    width: 33.33%;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.paylater-how-to-card img {
+    width: 100%;
+}
+
+.paylater-how-to-card .text {
+    padding: 2rem;
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .paylater-how-to-cards {
+        flex-direction: row;
+        overflow: auto;
+    }
+
+    .paylater-how-to-cards .paylater-how-to-card:not(html) {
+        width: 100%;
+        flex-shrink: 0;
+    }
+}
+
+.paylater-section-header {
+    margin-top: 6rem;
+    margin-bottom: 3rem;
+}
+
+.paylater-section-header .paylater-section-title {
+    line-height: 1.2;
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.paylater-section-header .paylater-section-subtitle {
+    text-align: center;
+}
+
+.paylater-benefit-cards {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.paylater-benefit-card {
+    width: 33.33%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.paylater-benefit-card .text {
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    font-size: 1.6rem;
+    padding: 3rem;
+}
+
+@media (max-width: 900px) {
+    .paylater-benefit-card .text:not(html) {
+        padding: 2rem;
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 1000px) {
+    .paylater-benefit-card {
+        height: 400px;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1000px) {
+    .paylater-benefit-card {
+        height: 300px;
+    }
+}
+
+@media (max-width: 900px) {
+    .paylater-benefit-cards {
+        flex-direction: column;
+    }
+
+    .paylater-benefit-card {
+        min-height: 350px;
+        width: 100% !important;
+    }
+}
+section.faq {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 5rem;
+}
+
+@media (max-width: 900px) {
+    section.faq {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 20px;
+    }
+
+    section.faq .faq-obj .faq-obj-head {
+        font-weight: bold;
+    }
+
+    section.faq .faq-obj:last-child {
+        border-bottom: none;
+    }
+}
+
+section.faq .faq-obj .faq-obj-head {
+    width: 100%;
+    padding-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    flex-direction: row;
+}
+
+section.faq .faq-obj {
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+section.faq .faq-obj .faq-obj-head .spacer {
+    flex: 1;
+}
+
+section.faq .faq-obj-head svg {
+    stroke: black;
+    transform: rotate(0deg) scale(1.5);
+    transition: all .2s ease;
+    min-width: 10px;
+}
+
+section.faq .faq-obj.active .faq-obj-head svg {
+    transform: rotate(180deg) scale(1.5);
+}
+
+section.faq .faq-obj .faq-obj-content {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all .2s ease;
+}
+
+section.faq .faq-obj.active .faq-obj-content {
+    margin: 1rem 0;
+    max-height: 200px;
+}

@@ -1,0 +1,248 @@
+<style>
+    .twi-{{ section.id }} .twi-wrapper{
+        margin: 0 auto;
+        padding-top: {{ section.settings.twi_padding_top }}px;
+        padding-bottom: {{ section.settings.twi_padding_bottom }}px;
+        background-color: {{ section.settings.twi_bg }};
+    }
+    .twi-{{ section.id }} .twi-content{
+        margin: 0 auto;
+        max-width: {{ section.settings.twi_img_width }}px;
+    }
+    .twi-{{ section.id }} .imgbox{
+      max-width: {{ section.settings.twi_img_width }}px;
+  }
+  .text-with-img p{
+    margin: 0;
+    padding: 0;
+  }
+  .twi-text{
+    color: #000;
+    margin-bottom: 60px;
+    text-align: center;
+  }
+  .text-with-img p.text-title{
+    font-size: 48px;
+    line-height: 52px;
+    margin-bottom: 24px;
+    font-weight: bold;
+  }
+  .text-with-img p.text-desc{
+    max-width: 808px;
+    font-size: 20px;
+    line-height: 24px;
+    margin: 0 auto;
+  }
+  .twi-content.imgtext{
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .twi-content.imgtext .twi-text{
+    margin-top: 60px;
+    margin-bottom: 0;
+  }
+  @media screen and (max-width:1200px) {
+    .twi-{{ section.id }} .twi-wrapper{
+        padding-top: {{ section.settings.twi_padding_top_mb }}px;
+        padding-bottom: {{ section.settings.twi_padding_bottom_mb }}px;
+    }
+    .twi-text{
+        text-align: left;
+        padding: 0 24px;
+    }
+    .text-with-img p.text-title{
+    font-size: 28px;
+    line-height: 32px;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  .text-with-img p.text-desc{
+    max-width: none;
+    font-size: 14px;
+    line-height: 18px;
+    margin: 0 auto;
+  }
+    .twi-content.textimg-mb{
+        display: flex;
+        flex-direction: column;
+    }
+    .twi-content.imgtext-mb{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .twi-content.textimg-mb .twi-text{
+    margin-top: 0;
+    margin-bottom: 30px;
+  }
+  .twi-content.imgtext-mb .twi-text{
+    margin-top: 30px;
+    margin-bottom: 0;
+  }
+  .img-padding{
+    padding: 0 24px;
+  }
+  .img-nopadding{
+    padding: 0;
+  }
+  }
+</style>
+<div class="text-with-img twi-{{ section.id }}">
+  <div class="twi-wrapper">
+    <div class="twi-content {{ section.settings.twi_imgtext_order_pc }} {{ section.settings.twi_imgtext_order_mb }}">
+      <div class="twi-text">
+        <p class="text-title">{{ section.settings.twi_text }}</p>
+        <p class="text-desc">{{ section.settings.twi_desc }}</p>
+      </div>
+      <div class="twi-img {{ section.settings.twi_img_padding_mb }}">
+        <div class="imgbox">
+          <picture>
+            <source
+              media="(min-width: 769px)"
+              srcset="{{ section.settings.twi_img_pc |  image_url: width: master }}"
+            >
+            <source
+              media="(max-width: 768px)"
+              srcset="{{ section.settings.twi_img_mb |  image_url: width: master }}"
+            >
+            <img src="{{ section.settings.twi_img_pc |  image_url: width: master }}">
+          </picture>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Text With Img",
+  "settings": [
+    {
+      "type": "number",
+      "id": "twi_img_width",
+      "label": "内容区域宽度",
+      "default": 992,
+      "info": "内容区域的最大宽度就是PC端图片的最大宽度"
+    },
+    {
+      "type": "textarea",
+      "id": "twi_text",
+      "label": "标题内容"
+    },
+    {
+      "type": "textarea",
+      "id": "twi_desc",
+      "label": "副标题内容",
+      "info": "该文案内容在PC端的宽度已经限制为最宽808px"
+    },
+    {
+      "type": "image_picker",
+      "id": "twi_img_pc",
+      "label": "PC端图片",
+      "info": "PC端的图片宽度默认等于内容区域宽度"
+    },
+    {
+      "type": "image_picker",
+      "id": "twi_img_mb",
+      "label": "移动端图片"
+    },
+    {
+      "type": "color",
+      "id": "twi_bg",
+      "label": "模块背景色",
+      "default": "#fff"
+    },
+    {
+      "type": "radio",
+      "id": "twi_imgtext_order_pc",
+      "label": "图文顺序-PC端",
+      "options": [
+        {
+          "value": "textimg",
+          "label": "文上图下"
+        },
+        {
+          "value": "imgtext",
+          "label": "图上文下"
+        }
+      ],
+      "default": "textimg"
+    },
+    {
+      "type": "radio",
+      "id": "twi_imgtext_order_mb",
+      "label": "图文顺序-移动端",
+      "options": [
+        {
+          "value": "textimg-mb",
+          "label": "文上图下"
+        },
+        {
+          "value": "imgtext-mb",
+          "label": "图上文下"
+        }
+      ],
+      "default": "textimg-mb"
+    },
+    {
+      "type": "radio",
+      "id": "twi_img_padding_mb",
+      "label": "Img左右间距-移动端",
+      "options": [
+        {
+          "value": "img-padding",
+          "label": "图片左右间距24px"
+        },
+        {
+          "value": "img-nopadding",
+          "label": "图片左右无间距"
+        }
+      ],
+      "default": "img-padding"
+    },
+    {
+      "type": "range",
+      "id": "twi_padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "模块上间距-PC端",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "twi_padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "模块下间距-PC端",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "twi_padding_top_mb",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "模块上间距-移动端",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "twi_padding_bottom_mb",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "模块下间距-移动端",
+      "default": 50
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text With Img"
+    }
+  ]
+}
+{% endschema %}
