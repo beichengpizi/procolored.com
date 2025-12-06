@@ -1,0 +1,1638 @@
+{{ 'page.lucky-wheel-activity-black-friday-2025.css' | asset_url | stylesheet_tag }}
+
+  <!-- banner图 -->
+ <section id="lucky-wheel-activity-banner">
+    <div class="lucky-wheel-activity-container"></div>
+  </section>
+   <style>
+    /* black friday winning video start */
+    .black-friday-winning-video-wrapper {
+        background: #000;
+        padding-top: 100px;
+        overflow: hidden;
+
+    }
+
+    .black-friday-winning-video-containner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .black-friday-winning-video-title-wrapper {
+        max-width: 868px;
+        padding: 0 24px;
+        margin: 0 auto;
+        text-align: center;
+        margin-bottom: 50px;
+
+
+    }
+
+    .black-friday-winning-video-title {
+        color: #FFF;
+        font-size: 40px;
+        font-weight: 800;
+        line-height: 1.22;
+        margin-bottom: 30px;
+    }
+
+    .black-friday-winning-video-subtitle {
+        color: rgba(255, 255, 255, 0.90);
+        text-align: center;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.38;
+    }
+
+    .black-friday-winning-video-navigation-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 40px;
+    }
+
+    .black-friday-winning-video-nav-button {
+        position: relative;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 1);
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+    .black-friday-winning-video-nav-button.swiper-button-disabled {
+        background-color: rgba(255, 255, 255, 0.8);
+        cursor: not-allowed;
+    }
+
+
+
+    .black-friday-winning-video-content {
+        overflow: hidden;
+    }
+
+    .black-friday-winning-video-swiper-container {
+        width: 100%;
+    }
+
+    .black-friday-winning-video-swiper-slide {
+        width: 460px !important;
+        margin-right: 20px !important;
+    }
+
+
+    .black-friday-winning-video-testimonial-card {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .black-friday-winning-video-testimonial-card a {
+        display: flex;
+    }
+
+    .black-friday-winning-video-video-thumbnail {
+        width: 100%;
+        height: auto;
+        position: relative;
+        aspect-ratio: 23/13;
+        border-radius: 20px;
+    }
+
+    .black-friday-winning-video-play-button {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        width: 46px;
+        height: 46px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .black-friday-winning-video-play-button:hover {
+        transform: scale(1.1);
+    }
+
+    .black-friday-winning-video-grid-container {
+        display: none;
+
+    }
+
+    .black-friday-winning-video-tabs {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 54px;
+        margin-bottom: 0;
+        margin-top: 50px;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        {% comment %} padding-left: 12px;
+        padding-right: 12px; {% endcomment %}
+        border-bottom: 1px solid rgba(255, 255, 255, 0.50);
+        white-space: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        overflow-x: auto;
+        touch-action: pan-x;
+        order: 2;
+    }
+
+    .black-friday-winning-video-tab {
+        cursor: pointer;
+        color: rgba(255, 255, 255, 0.80);
+        text-align: center;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 120%;
+        padding-bottom: 14px;
+        -webkit-tap-highlight-color: transparent;
+        /* 消除移动端点击背景 */
+        -webkit-touch-callout: none;
+        outline: none;
+    }
+    .black-friday-winning-video-tab.coming-soon {
+        pointer-events: none;
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .black-friday-winning-video-tab.active {
+        color: #FF8F1C;
+        font-weight: 700;
+        position: relative;
+    }
+
+    .black-friday-winning-video-tab.active::after {
+        position: absolute;
+        bottom: -1px;
+        content: "";
+        display: block;
+        width: 100%;
+        height: 4px;
+        background-color: #FF8F1C;
+
+    }
+
+    @media screen and (max-width: 768px) {
+        .black-friday-winning-video-wrapper {
+            background: #000;
+            padding-top: 50px;
+        }
+
+        .black-friday-winning-video-title-wrapper {
+            max-width: 100%;
+            margin-bottom: 20px;
+            order: 1;
+
+        }
+
+        .black-friday-winning-video-title {
+            font-size: 24px;
+            line-height: 1.33;
+            margin-bottom: 10px;
+        }
+
+        .black-friday-winning-video-subtitle {
+            font-size: 14px;
+            line-height: 1.4;
+
+        }
+
+        .black-friday-winning-video-navigation-buttons {
+            display: none;
+        }
+
+        .black-friday-winning-video-content {
+            order: 3;
+        }
+
+        .black-friday-winning-video-swiper-container {
+            display: none;
+        }
+
+        .black-friday-winning-video-grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            padding: 0 24px;
+            order: 3;
+        }
+
+        .black-friday-winning-video-grid-item {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .black-friday-winning-video-grid-item a {
+            display: flex;
+        }
+
+        .black-friday-winning-video-video-thumbnail {
+            width: 100%;
+            height: auto;
+            position: relative;
+            aspect-ratio: 23/13;
+            border-radius: 10px;
+        }
+
+        .black-friday-winning-video-play-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 46px;
+            height: 46px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .black-friday-winning-video-tabs {
+            justify-content: start;
+            gap: 24px;
+            margin-bottom: 20px;
+            margin-top: 0;
+            max-width: 100%;
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .black-friday-winning-video-tab {
+            font-size: 14px;
+            padding-bottom: 10px;
+        }
+
+        .black-friday-winning-video-tab.active::after {
+            height: 2px;
+            bottom: 0px;
+        }
+
+    }
+
+    /* black friday winning video end*/
+</style>
+<!-- black friday winning video  start-->
+<section id="black-friday-winning-video">
+    <div class="black-friday-winning-video-wrapper">
+        <div class="black-friday-winning-video-containner">
+            <div class="black-friday-winning-video-title-wrapper">
+                <div class="black-friday-winning-video-title">Congratulations to the Winners!</div>
+                <div class="black-friday-winning-video-subtitle">The moment you've been waiting for! Discover the
+                    lucky recipients of our amazing prizes in our official draw announcement videos.</div>
+                <div class="black-friday-winning-video-navigation-buttons">
+                    <div class="black-friday-winning-video-nav-button" id="black-friday-winning-video-prevButton">
+                        <svg width="11" height="16" viewBox="0 0 11 16" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M9.26074 1.47827C8.88031 1.8261 4.02976 5.68117 1.65205 7.56523L9.26074 14.5217"
+                                stroke="#000" stroke-opacity="1" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+                    <div class="black-friday-winning-video-nav-button" id="black-friday-winning-video-nextButton">
+                        <svg width="11" height="16" viewBox="0 0 11 16" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M1.73926 1.47827C2.11969 1.8261 6.97024 5.68117 9.34795 7.56523L1.73926 14.5217"
+                                stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="black-friday-winning-video-content">
+                <div class="swiper-container black-friday-winning-video-swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide black-friday-winning-video-swiper-slide">
+                            <div class="black-friday-winning-video-testimonial-card">
+                                <a href="https://cdn.shopify.com/videos/c/o/v/1f47cf46f5514e8b819078da740f7818.mp4"
+                                    data-fancybox data-width="640" data-height="360" class="black-friday-winning-video-video-link">
+                                    <img data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/iphone_17.jpg?v=1762916646"
+                                        alt="iPhone 17" class="black-friday-winning-video-video-thumbnail lazyload">
+                                    <svg class="black-friday-winning-video-play-button"
+                                        xmlns="http://www.w3.org/2000/svg" width="46" height="46"
+                                        viewBox="0 0 46 46" fill="none">
+                                        <circle cx="23" cy="23" r="23" fill="black" fill-opacity="0.5" />
+                                        <path
+                                            d="M30.0297 19.7198L21.4573 14.6066C18.5642 12.8701 16.0996 14.0278 16.0996 17.2115V28.7885C16.0996 31.9722 18.457 33.1299 21.4573 31.3934L30.0297 26.2802C32.9229 24.3506 32.9229 21.4564 30.0297 19.7198Z"
+                                            fill="white" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide black-friday-winning-video-swiper-slide">
+                            <div class="black-friday-winning-video-testimonial-card">
+                                <a href="https://cdn.shopify.com/videos/c/o/v/d42d57414b8b40e094f6e672d6cd42c8.mp4"
+                                    data-fancybox data-width="640" data-height="360" class="black-friday-winning-video-video-link">
+                                    <img data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Labubu_Plushie.jpg?v=1762916647"
+                                        alt="Labubu Plushie"
+                                        class="black-friday-winning-video-video-thumbnail lazyload">
+                                    <svg class="black-friday-winning-video-play-button"
+                                        xmlns="http://www.w3.org/2000/svg" width="46" height="46"
+                                        viewBox="0 0 46 46" fill="none">
+                                        <circle cx="23" cy="23" r="23" fill="black" fill-opacity="0.5" />
+                                        <path
+                                            d="M30.0297 19.7198L21.4573 14.6066C18.5642 12.8701 16.0996 14.0278 16.0996 17.2115V28.7885C16.0996 31.9722 18.457 33.1299 21.4573 31.3934L30.0297 26.2802C32.9229 24.3506 32.9229 21.4564 30.0297 19.7198Z"
+                                            fill="white" />
+                                    </svg>
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="swiper-slide black-friday-winning-video-swiper-slide">
+                            <div class="black-friday-winning-video-testimonial-card">
+                                <a href="https://cdn.shopify.com/videos/c/o/v/6b509430f25b4eac9ea966f1c0a3ce95.mp4"
+                                    data-fancybox data-width="640" data-height="360" class="black-friday-winning-video-video-link">
+                                    <img data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/500ml_Ink_Set.jpg?v=1762916647"
+                                        alt="500ml Ink Set"
+                                        class="black-friday-winning-video-video-thumbnail lazyload">
+                                    <svg class="black-friday-winning-video-play-button"
+                                        xmlns="http://www.w3.org/2000/svg" width="46" height="46"
+                                        viewBox="0 0 46 46" fill="none">
+                                        <circle cx="23" cy="23" r="23" fill="black" fill-opacity="0.5" />
+                                        <path
+                                            d="M30.0297 19.7198L21.4573 14.6066C18.5642 12.8701 16.0996 14.0278 16.0996 17.2115V28.7885C16.0996 31.9722 18.457 33.1299 21.4573 31.3934L30.0297 26.2802C32.9229 24.3506 32.9229 21.4564 30.0297 19.7198Z"
+                                            fill="white" />
+                                    </svg>
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="swiper-slide black-friday-winning-video-swiper-slide">
+                            <div class="black-friday-winning-video-testimonial-card">
+                                <a href="https://cdn.shopify.com/videos/c/o/v/dd85534f4ee9419ea048c566b539ac42.mp4"
+                                    data-fancybox data-width="640" data-height="360" class="black-friday-winning-video-video-link">
+                                    <img data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/100_Off_Supplies.jpg?v=1762916646"
+                                        alt="$100 Off Supplies"
+                                        class="black-friday-winning-video-video-thumbnail lazyload">
+                                    <svg class="black-friday-winning-video-play-button"
+                                        xmlns="http://www.w3.org/2000/svg" width="46" height="46"
+                                        viewBox="0 0 46 46" fill="none">
+                                        <circle cx="23" cy="23" r="23" fill="black" fill-opacity="0.5" />
+                                        <path
+                                            d="M30.0297 19.7198L21.4573 14.6066C18.5642 12.8701 16.0996 14.0278 16.0996 17.2115V28.7885C16.0996 31.9722 18.457 33.1299 21.4573 31.3934L30.0297 26.2802C32.9229 24.3506 32.9229 21.4564 30.0297 19.7198Z"
+                                            fill="white" />
+                                    </svg>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="black-friday-winning-video-grid-container">
+                    <div class="black-friday-winning-video-grid-item">
+                        <a href="https://cdn.shopify.com/videos/c/o/v/1f47cf46f5514e8b819078da740f7818.mp4"
+                            data-fancybox  class="black-friday-winning-video-video-link">
+                            <img data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/iphone_17.jpg?v=1762916646"
+                                alt="iPhone 17" class="black-friday-winning-video-video-thumbnail lazyload">
+                            <svg class="black-friday-winning-video-play-button" xmlns="http://www.w3.org/2000/svg"
+                                width="46" height="46" viewBox="0 0 46 46" fill="none">
+                                <circle cx="23" cy="23" r="23" fill="black" fill-opacity="0.5" />
+                                <path
+                                    d="M30.0297 19.7198L21.4573 14.6066C18.5642 12.8701 16.0996 14.0278 16.0996 17.2115V28.7885C16.0996 31.9722 18.457 33.1299 21.4573 31.3934L30.0297 26.2802C32.9229 24.3506 32.9229 21.4564 30.0297 19.7198Z"
+                                    fill="white" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="black-friday-winning-video-grid-item">
+                        <a href="https://cdn.shopify.com/videos/c/o/v/d42d57414b8b40e094f6e672d6cd42c8.mp4"
+                            data-fancybox class="black-friday-winning-video-video-link">
+                            <img data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Labubu_Plushie.jpg?v=1762916647"
+                                alt="Labubu Plushie" class="black-friday-winning-video-video-thumbnail lazyload">
+                            <svg class="black-friday-winning-video-play-button" xmlns="http://www.w3.org/2000/svg"
+                                width="46" height="46" viewBox="0 0 46 46" fill="none">
+                                <circle cx="23" cy="23" r="23" fill="black" fill-opacity="0.5" />
+                                <path
+                                    d="M30.0297 19.7198L21.4573 14.6066C18.5642 12.8701 16.0996 14.0278 16.0996 17.2115V28.7885C16.0996 31.9722 18.457 33.1299 21.4573 31.3934L30.0297 26.2802C32.9229 24.3506 32.9229 21.4564 30.0297 19.7198Z"
+                                    fill="white" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="black-friday-winning-video-grid-item">
+                        <a href="https://cdn.shopify.com/videos/c/o/v/6b509430f25b4eac9ea966f1c0a3ce95.mp4"
+                            data-fancybox class="black-friday-winning-video-video-link">
+                            <img data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/500ml_Ink_Set.jpg?v=1762916647"
+                                alt="500ml Ink Set" class="black-friday-winning-video-video-thumbnail lazyload">
+                            <svg class="black-friday-winning-video-play-button" xmlns="http://www.w3.org/2000/svg"
+                                width="46" height="46" viewBox="0 0 46 46" fill="none">
+                                <circle cx="23" cy="23" r="23" fill="black" fill-opacity="0.5" />
+                                <path
+                                    d="M30.0297 19.7198L21.4573 14.6066C18.5642 12.8701 16.0996 14.0278 16.0996 17.2115V28.7885C16.0996 31.9722 18.457 33.1299 21.4573 31.3934L30.0297 26.2802C32.9229 24.3506 32.9229 21.4564 30.0297 19.7198Z"
+                                    fill="white" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="black-friday-winning-video-grid-item">
+                        <a href="https://cdn.shopify.com/videos/c/o/v/dd85534f4ee9419ea048c566b539ac42.mp4"
+                            data-fancybox class="black-friday-winning-video-video-link">
+                            <img data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/100_Off_Supplies.jpg?v=1762916646"
+                                alt="$100 Off Supplies" class="black-friday-winning-video-video-thumbnail lazyload">
+                            <svg class="black-friday-winning-video-play-button" xmlns="http://www.w3.org/2000/svg"
+                                width="46" height="46" viewBox="0 0 46 46" fill="none">
+                                <circle cx="23" cy="23" r="23" fill="black" fill-opacity="0.5" />
+                                <path
+                                    d="M30.0297 19.7198L21.4573 14.6066C18.5642 12.8701 16.0996 14.0278 16.0996 17.2115V28.7885C16.0996 31.9722 18.457 33.1299 21.4573 31.3934L30.0297 26.2802C32.9229 24.3506 32.9229 21.4564 30.0297 19.7198Z"
+                                    fill="white" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="black-friday-winning-video-tabs" id="black-friday-winning-video-tabs">
+                <div class="black-friday-winning-video-tab active">First Draw - Nov. 8</div>
+                <div class="black-friday-winning-video-tab ">Second Draw - Nov. 15</div>
+                <div class="black-friday-winning-video-tab" >Third Draw - Nov. 24</div>
+                <div class="black-friday-winning-video-tab coming-soon" >Black Friday Draw - Dec.1 (coming soon)</div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+
+<script>
+    // 监听页面DOM加载，用于Tab导航栏的点击逻辑
+    document.addEventListener("DOMContentLoaded", function () {
+        // 更新导航按钮状态
+        function updateNavigationButtons() {
+            const prevButton = document.getElementById(
+                "black-friday-winning-video-prevButton"
+            );
+            const nextButton = document.getElementById(
+                "black-friday-winning-video-nextButton"
+            );
+
+            prevButton.disabled =
+                k13_lite_customers_are_saying_swiper_container_swiper.isBeginning;
+            nextButton.disabled =
+                k13_lite_customers_are_saying_swiper_container_swiper.isEnd;
+        }
+
+        // 动态计算 slidesOffsetBefore，使其在1920px时为360px，响应式自适应
+        function getSlidesOffsetBefore() {
+            const winWidth =
+                window.innerWidth ||
+                document.documentElement.clientWidth ||
+                document.body.clientWidth;
+            // 设计稿为1920px，左边距为360px，按比例缩放
+            if (winWidth >= 1920) {
+                return 360;
+            } else if (winWidth <= 1024) {
+                // 在breakpoints中已单独设置
+                return 0;
+            } else {
+                // 其余宽度按比例缩放
+                return Math.round(360 * (winWidth / 1920));
+            }
+        }
+
+        let k13_lite_customers_are_saying_swiper_container_swiper = null;
+        function initk13_lite_customers_are_saying_swiper_container_swiper() {
+            if (k13_lite_customers_are_saying_swiper_container_swiper) {
+                k13_lite_customers_are_saying_swiper_container_swiper.destroy(true, true);
+            }
+            k13_lite_customers_are_saying_swiper_container_swiper = new Swiper(
+                ".black-friday-winning-video-swiper-container",
+                {
+                    slidesPerView: 4.1,
+                    spaceBetween: 20,
+                    navigation: {
+                        nextEl: "#black-friday-winning-video-nextButton",
+                        prevEl: "#black-friday-winning-video-prevButton",
+                    },
+
+                    slidesOffsetBefore: getSlidesOffsetBefore(),
+                    loopedSlides: 10, // slidesPerView设置为非整数（如1.2）时，可能会出现循环问题添加此行，指定循环所需的额外幻灯片数量
+                    observer: true, //开启动态检查器，监测swiper和slide
+                    observeParents: true, //监测Swiper 的祖/父元素
+
+                    on: {},
+                    breakpoints: {
+                        //当宽度小于等于1024时显示
+
+                        1024: {
+                            slidesPerView: 3.5,
+                            spaceBetween: 15,
+                            slidesOffsetBefore: 0,
+                        },
+                        //当宽度小于等于768时显示
+                        768: {
+                            slidesOffsetBefore: 24,
+                            slidesOffsetAfter: 24,
+                            slidesPerView: 1.2,
+                            spaceBetween: 12,
+                        },
+                    },
+                }
+            );
+        }
+
+        // 初始化swiper
+        initk13_lite_customers_are_saying_swiper_container_swiper();
+        // 监听滑动事件
+        k13_lite_customers_are_saying_swiper_container_swiper.on(
+            "slideChange",
+            updateNavigationButtons
+        );
+        k13_lite_customers_are_saying_swiper_container_swiper.on(
+            "init",
+            updateNavigationButtons
+        );
+
+        // 只监听PC端窗口变化，移动端（宽度小于等于1024px）不监听
+        window.addEventListener("resize", function () {
+            const winWidth =
+                window.innerWidth ||
+                document.documentElement.clientWidth ||
+                document.body.clientWidth;
+            if (winWidth > 1024) {
+                initk13_lite_customers_are_saying_swiper_container_swiper();
+            }
+        });
+
+
+        // 获取Tab的父级容器
+        const videoData = [
+            {
+                content: [
+                    {
+                        video_url: 'https://cdn.shopify.com/videos/c/o/v/1f47cf46f5514e8b819078da740f7818.mp4',
+                        video_poster: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/iphone_17.jpg?v=1762916646',
+                        video_alt: 'iPhone 17',
+                    },
+                    {
+                        video_url: 'https://cdn.shopify.com/videos/c/o/v/d42d57414b8b40e094f6e672d6cd42c8.mp4',
+                        video_poster: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Labubu_Plushie.jpg?v=1762916647',
+                        video_alt: 'Labubu Plushie',
+                    },
+                    {
+                        video_url: 'https://cdn.shopify.com/videos/c/o/v/6b509430f25b4eac9ea966f1c0a3ce95.mp4',
+                        video_poster: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/500ml_Ink_Set.jpg?v=1762916647',
+                        video_alt: '500ml Ink Set',
+                    },
+                    {
+                        video_url: 'https://cdn.shopify.com/videos/c/o/v/dd85534f4ee9419ea048c566b539ac42.mp4',
+                        video_poster: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/100_Off_Supplies.jpg?v=1762916646',
+                        video_alt: '$100 Off Supplies',
+                    }
+                ]
+            },
+            {
+                content: [
+                    {
+                        video_url: 'https://cdn.shopify.com/videos/c/o/v/aeb0d7b4a56949749918e0b7a5e75cba.mp4',
+                        video_poster: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/iphone_17.jpg?v=1762916646',
+                        video_alt: 'iPhone 17',
+                    },
+                    {
+                        video_url: 'https://cdn.shopify.com/videos/c/o/v/8d32552c114d4475bf951aca74e5af8c.mp4',
+                        video_poster: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Labubu_Plushie.jpg?v=1762916647',
+                        video_alt: 'Labubu Plushie',
+                    },
+                    {
+                        video_url: 'https://cdn.shopify.com/videos/c/o/v/1933741648a14867aba98afbd6f0e499.mp4',
+                        video_poster: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/500ml_Ink_Set.jpg?v=1762916647',
+                        video_alt: '500ml Ink Set',
+                    },
+                    {
+                        video_url: 'https://cdn.shopify.com/videos/c/o/v/ce75a0da86d24149910f0c608e42ee89.mp4',
+                        video_poster: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/100_Off_Supplies.jpg?v=1762916646',
+                        video_alt: '$100 Off Supplies',
+                    },
+                ]
+            },
+            {
+                content: [
+                    {
+                        video_url: 'https://cdn.shopify.com/videos/c/o/v/9f362e64aa6b42739e223d5b521c15e5.mp4',
+                        video_poster: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/iphone_17.jpg?v=1762916646',
+                        video_alt: 'iPhone 17',
+                    },
+                    {
+                        video_url: 'https://cdn.shopify.com/videos/c/o/v/d9293e298dd942e4a5cf735ead06e85b.mp4',
+                        video_poster: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Labubu_Plushie.jpg?v=1762916647',
+                        video_alt: 'Labubu Plushie',
+                    },
+                    {
+                        video_url: 'https://cdn.shopify.com/videos/c/o/v/3c6e270538234fa2a3eeaff145387a48.mp4',
+                        video_poster: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/500ml_Ink_Set.jpg?v=1762916647',
+                        video_alt: '500ml Ink Set',
+                    },
+                    {
+                        video_url: 'https://cdn.shopify.com/videos/c/o/v/ad8cb49fbd6c45468a4fcf4aeade3984.mp4',
+                        video_poster: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/100_Off_Supplies.jpg?v=1762916646',
+                        video_alt: '$100 Off Supplies',
+                    },
+                ]
+            },
+            {
+                content: [
+                    {
+                        video_url: 'https://cdn.shopify.com/videos/c/o/v/9f362e64aa6b42739e223d5b521c15e5.mp4',
+                        video_poster: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Group_1.jpg?v=1764056709',
+                        video_alt: 'Free Order',
+                    },
+                    {
+                        video_url: 'https://cdn.shopify.com/videos/c/o/v/d9293e298dd942e4a5cf735ead06e85b.mp4',
+                        video_poster: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Group_2.jpg?v=1764056709',
+                        video_alt: '$1,000 Cash Back',
+                    },
+                    {
+                        video_url: 'https://cdn.shopify.com/videos/c/o/v/3c6e270538234fa2a3eeaff145387a48.mp4',
+                        video_poster: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Group_3.jpg?v=1764056709',
+                        video_alt: '$500 Windows Computer or $500 Gift Card',
+                    },
+                    {
+                        video_url: 'https://cdn.shopify.com/videos/c/o/v/ad8cb49fbd6c45468a4fcf4aeade3984.mp4',
+                        video_poster: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Group_4.jpg?v=1764056709',
+                        video_alt: '$200 Gift Card',
+                    },
+                ]
+            },
+        ];
+        // 获取tab容器
+        const tabContainer = document.getElementById("black-friday-winning-video-tabs");
+        if (!tabContainer) return;
+
+        // 获取所有tab元素
+        const tabs = tabContainer.querySelectorAll(".black-friday-winning-video-tab");
+
+        // 绑定每个tab的点击事件
+        tabs.forEach((tab, idx) => {
+            tab.addEventListener("click", function () {
+                // 1. 移除所有tab上的active类（高亮），保证只有一个tab高亮
+                tabs.forEach(t => t.classList.remove("active"));
+
+                // 2. 当前点击的tab添加active类
+                tab.classList.add("active");
+
+                // 3. 获取当前tab对应的视频数据，若无则为空数组
+                const currData = (videoData[idx] && videoData[idx].content) ? videoData[idx].content : [];
+
+                // 4. 更新swiper轮播区的视频内容
+                document.querySelectorAll('.black-friday-winning-video-swiper-slide').forEach((slide, i) => {
+                    // 获取视频链接和缩略图元素
+                    const videoLink = slide.querySelector('.black-friday-winning-video-video-link');
+                    const videoImg = slide.querySelector('.black-friday-winning-video-video-thumbnail');
+                    // 若存在视频数据则更新相关属性
+                    if (videoLink && videoImg && currData[i]) {
+                        videoLink.setAttribute('href', currData[i].video_url);
+                        videoImg.setAttribute('src', currData[i].video_poster);
+                        videoImg.setAttribute('alt', currData[i].video_alt);
+                    }
+                });
+
+                // 5. 更新网格区视频内容
+                document.querySelectorAll('.black-friday-winning-video-grid-item').forEach((item, i) => {
+                    const videoLink = item.querySelector('.black-friday-winning-video-video-link');
+                    const videoImg = item.querySelector('.black-friday-winning-video-video-thumbnail');
+                    if (videoLink && videoImg && currData[i]) {
+                        videoLink.setAttribute('href', currData[i].video_url);
+                        videoImg.setAttribute('src', currData[i].video_poster);
+                        videoImg.setAttribute('alt', currData[i].video_alt);
+                    }
+                });
+
+               // 6. 使当前点击的tab横向滚动至容器中间（适配移动端横滑）
+                    // 滚动逻辑抽出为函数，每次高亮active时都调用，包括初始化
+                    function scrollTabIntoView(activeTab) {
+                        const tabCenter = activeTab.offsetLeft + activeTab.offsetWidth / 2;
+                        const scrollTo = tabCenter - tabContainer.clientWidth / 2;
+                        tabContainer.scrollTo({
+                            left: scrollTo,
+                            behavior: "smooth"
+                        });
+                    }
+                    scrollTabIntoView(tab);
+            });
+        });
+
+    });
+</script>
+
+<!-- black friday winning video  end--> 
+  <section class="lucky-wheel-activity-wrapper">
+    <!-- 奖品列表 -->
+    <section class="activity-prizes-section">
+      <div class="activity-prizes-list-container">
+        <div class="title">
+          <i class="icon-left">
+            <img
+              class="lazyload"
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/2x_3b3a18f4-0096-403d-95b8-56028032d83f.webp?v=1752916091"
+              alt="" />
+          </i>
+          <div class="title-text">
+            What's Inside the <span>Prize Box? </span>
+          </div>
+          <i class="icon-right">
+            <img
+            class="lazyload"
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/2x_eb03273a-52ad-42ab-b572-69ba06d83060.webp?v=1752916091"
+              alt="" />
+
+          </i>
+        </div>
+        {% comment %} <div class="prizes-list">
+          <div class="swiper-wrapper">
+
+          </div>
+        </div> {% endcomment %}
+        
+        <div class="prizes-list-grid">
+            <div class="prizes-list-grid-container">
+ 
+ 
+       
+             
+            </div>
+        </div>
+
+      </div>
+    </section>
+    <!-- 转盘抽奖 -->
+    <section class="lucky-wheel-activity-section">
+      <div class="lucky-wheel-activity-title">Spin, Win and Get Big Savings!</div>
+      <div class="lucky-wheel-activity-wrapper-pc">
+        <div class="lucky-wheel-activity-container-pc">
+          <div class="panel-box">
+            <div id="my-lucky"></div>
+            <div class="button-box">&nbsp;</div>
+          </div>
+
+          <div class="right-box">
+            <!--PC 端 未登录显示 -->
+            <div class="before-winning-box">
+              <div class="prize-item-title">
+                Your Chance to Win is Here - <br>Spin the Wheel!
+              </div>
+              <div class="prize-item-rules">
+                {% comment %} <div class="prize-item-rules-title">How to Earn Draw Chances:</div> {% endcomment %}
+                <div class="prize-item-rules-desc">
+                  Only printer orders placed between November 24 - November 30 qualify for the draw
+                </div>
+               
+              </div>
+              <div class="activity-button activity-button-pc">Login to join the lucky draw</div>
+            </div>
+            <!-- PC 已登录显示 -->
+            <div class="logined-winning-box">
+              <div class="logined-winning-box-title">
+                Your Chance to Win is Here - <br>Spin the Wheel!
+              </div>
+              <div class="logined-winning-boxprize-item-rules">
+                {% comment %} <div class="logined-winning-boxprize-item-rules-title">How to Earn Draw Chances:</div> {% endcomment %}
+                <div class="logined-winning-boxprize-item-rules-desc">
+                  Only printer orders placed between November 24 - November 30 qualify for the draw
+                </div>
+               
+              </div>
+              <div class="logined-winning-box-content">
+                <div class="logined-winning-box-content-title">Remaining lottery draw opportunities:
+                    <span class='logined-winning-box-content-title-loading' ></span>
+                  
+                    <span class="logined-winning-box-content-title-num">
+                    <span>(</span><span class="Used-opportunities">0</span><span>/</span><span class="available-chance">0</span><span>)</span>
+                  </span>
+                  </div>
+                  
+                {% comment %} <div class="logined-winning-box-content-desc">
+                  Share now to claim →<br>
+                  (1 draw per platform monthly)
+                </div> {% endcomment %}
+                <div class="logined-winning-box-content-share-box">
+                  {% comment %} <div class="logined-winning-box-content-share-item fb">
+                    <div class="logined-winning-box-content-share-item-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="31" height="30" viewBox="0 0 31 30" fill="none">
+                        <path
+                          d="M30.9987 15.0924C30.9987 6.75638 24.0596 0 15.4994 0C6.93912 0 0 6.75638 0 15.0924C0 22.6236 5.66807 28.8668 13.0774 29.9987V19.4542H9.1428V15.0912H13.0774V11.7671C13.0774 7.9839 15.3921 5.89486 18.9315 5.89486C20.6275 5.89486 22.401 6.18916 22.401 6.18916V9.90316H20.4479C18.5233 9.90316 17.9226 11.0665 17.9226 12.2601V15.0924H22.2215L21.5343 19.4554H17.9226V30C25.3319 28.8681 31 22.6248 31 15.0924H30.9987Z"
+                          fill="#0069FF" />
+                      </svg>
+                    </div>
+                    <div class="logined-winning-box-content-share-item-content fb">
+                      <div class="logined-winning-box-content-share-item-content-name">Facebook</div>
+                      <div class="logined-winning-box-content-share-item-content-num">(<span>0</span>/1)</div>
+                    </div>
+                  </div> {% endcomment %}
+                  <!-- <div class="logined-winning-box-content-share-item">
+                    <div class="logined-winning-box-content-share-item-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                        <path
+                          d="M0 15.0005C0 23.2846 6.71536 30 15.0005 30C23.2846 30 30 23.2846 30 15.0005C30 6.71636 23.2846 0 15.0005 0C6.71636 0 0 6.71536 0 15.0005Z"
+                          fill="#170B1A" />
+                        <path
+                          d="M15.0163 9.85487C15.0303 8.28009 15.0163 6.69029 15.0303 5.1145H18.2559C18.2409 5.39964 18.2859 5.66978 18.3309 5.93991L16.1258 6.12L16.3059 18.7503C16.3209 19.2906 15.9307 20.5052 15.6606 20.9704C15.2404 21.6908 13.9658 22.3501 13.1253 22.4252C12.6011 22.4702 12.2109 22.3351 11.7306 22.08C11.3705 21.8849 11.1754 20.8053 11.0703 20.5192C11.8957 20.9854 12.9763 20.9394 13.7717 20.4152C14.1581 20.1687 14.4769 19.8297 14.6993 19.429C14.9217 19.0282 15.0406 18.5783 15.0453 18.12C15.0153 15.3596 15.0153 12.6002 15.0153 9.85587L15.0163 9.85487ZM20.3259 8.94041C20.7762 9.22456 21.2864 9.45067 21.8107 9.55472C22.1258 9.62976 22.426 9.65977 22.7411 9.65977V10.5302C21.8107 10.3201 19.8007 9.73481 20.3259 8.93941V8.94041Z"
+                          fill="#25F4EE" />
+                        <path
+                          d="M9.19558 12.9755C10.3639 12.2511 11.7492 11.959 13.1105 12.1501V13.1406C11.8509 13.1706 10.8014 13.7109 9.78088 14.4602C9.0165 15.0305 8.49023 15.6148 8.08603 16.4852C7.69584 17.3097 7.53075 18 7.54576 18.9155C7.54576 19.92 7.8159 20.6403 8.29614 21.5248C8.52125 21.93 8.95647 22.5453 8.85141 22.9955C8.16405 22.5092 7.59055 21.8794 7.17057 21.1496C6.59985 20.1729 6.31424 19.0558 6.34616 17.925C6.38363 16.8807 6.68813 15.8635 7.2306 14.9705C7.71341 14.1554 8.38794 13.4706 9.19558 12.9755Z"
+                          fill="#25F4EE" />
+                        <path
+                          d="M15.9452 5.93994H18.3604C18.7356 6.58526 18.7056 6.82538 18.9157 7.23059C19.2459 7.87491 19.5 8.11503 20.2204 8.83539C20.2625 8.86249 20.2983 8.89831 20.3254 8.94044C20.9557 9.6608 21.8102 10.1701 22.7406 10.3802C23.2809 10.7704 22.9057 12.3451 22.9057 13.1846C21.3299 13.1996 19.7251 12.5843 18.4505 11.6548C18.4505 13.6658 18.4505 15.5247 18.4655 17.5497C18.4655 17.8199 18.4805 18.075 18.4655 18.3602C18.3904 19.3346 17.9402 20.7604 17.445 21.5998C17.0228 22.3441 16.4508 22.9927 15.7651 23.5047C14.8773 24.1606 13.8091 24.5274 12.7056 24.5552C12.1469 24.5781 11.5875 24.5328 11.0398 24.4202C10.2754 24.2551 9.54002 23.4897 8.89569 23.0395L8.85067 22.9955C8.53551 22.6653 8.25037 22.2901 8.04027 21.8699C7.56003 20.9995 7.28989 20.01 7.28989 19.0055C7.27464 18.0884 7.46973 17.1801 7.86018 16.3501C8.26538 15.4797 8.86568 14.6993 9.61505 14.129C10.6213 13.3738 11.8372 12.9498 13.0948 12.9154C13.44 13.0795 13.1998 15.6148 13.1998 15.6148C12.7956 15.4797 12.2554 15.5247 11.8352 15.6298C11.3249 15.7348 11.0548 16.035 10.6646 16.3652C10.4245 16.5753 10.2144 16.8004 10.0803 17.0855C9.82516 17.5658 9.84017 17.6258 9.88519 18.1651C9.94522 18.6753 10.0353 19.2296 10.3804 19.6198C10.6056 19.9049 10.7556 20.3401 11.0548 20.5352C11.2949 20.9254 11.6101 21.2096 11.9552 21.3757C12.4355 21.6298 12.9757 21.7358 13.5 21.6898C14.3404 21.6298 15.1208 21.1195 15.541 20.3852C15.8112 19.9049 15.9302 19.2896 15.9302 18.7644C15.9302 14.3401 15.9452 5.93994 15.9452 5.93994Z"
+                          fill="white" />
+                        <path
+                          d="M18.3289 5.93994C18.615 5.95495 18.8851 5.93994 19.1843 5.93994C19.1843 6.87041 19.4844 7.81488 20.0247 8.58026C20.0998 8.68531 20.1598 8.77536 20.2348 8.8504C19.6195 8.47521 19.1393 7.88992 18.8101 7.24459C18.6 6.8544 18.4349 6.40417 18.3299 5.93994H18.3289ZM22.7401 10.3802C23.0542 10.4552 23.3544 10.4852 23.6705 10.4852V13.7398C22.0797 13.7548 20.4889 13.2296 19.1843 12.2851V18.7503C19.1993 19.2446 19.1543 19.7248 19.0492 20.2051C18.7357 21.6624 17.8912 22.9509 16.68 23.8199C16.0429 24.2794 15.3172 24.6013 14.549 24.7654C13.6195 24.9755 12.66 24.9605 11.7596 24.7203C10.6663 24.433 9.67771 23.8394 8.91016 23.0095C9.55448 23.4747 10.2898 23.7749 11.0692 23.9399C11.6095 24.06 12.1798 24.09 12.7351 24.075C13.8386 24.0471 14.9067 23.6804 15.7946 23.0245C16.4802 22.5121 17.0524 21.8636 17.4754 21.1195C17.97 20.2663 18.267 19.3132 18.3449 18.3301C18.3599 18.0602 18.3599 17.7897 18.3449 17.5197C18.3149 15.5247 18.3149 13.5147 18.3149 11.5047C19.6081 12.4335 21.1629 12.9275 22.7551 12.9154C22.7401 12.075 22.7551 11.2196 22.7401 10.3802Z"
+                          fill="#FE2C55" />
+                        <path
+                          d="M13.1109 12.9004C13.4261 12.9004 13.7562 12.9154 14.0564 12.9604V16.3051C13.6003 16.1577 13.1127 16.137 12.6457 16.2451C11.7612 16.4402 11.0259 17.1155 10.7117 17.9699C10.3966 18.8103 10.5166 19.8008 11.0419 20.5202C10.7267 20.3401 10.4716 20.1 10.2465 19.8148C9.91631 19.4247 9.6912 18.9144 9.63117 18.4041C9.57114 17.8799 9.66119 17.3096 9.91631 16.8454C10.0514 16.5602 10.2615 16.3201 10.5016 16.11C10.8918 15.7798 11.386 15.5697 11.8663 15.4347C12.2715 15.3446 12.7067 15.3296 13.0969 15.4647C13.1109 15.3296 13.1109 13.2296 13.1109 12.9004Z"
+                          fill="#FE2C55" />
+                      </svg>
+                    </div>
+                    <div class="logined-winning-box-content-share-item-content">
+                      <div class="logined-winning-box-content-share-item-content-name">TikTok</div>
+                      <div class="logined-winning-box-content-share-item-content-num">(0/1)</div>
+                    </div>
+                  </div>
+                  <div class="logined-winning-box-content-share-item">
+                    <div class="logined-winning-box-content-share-item-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                        <circle cx="15" cy="15" r="15" fill="url(#paint0_linear_4718_184179)" />
+                        <path
+                          d="M22.6355 11.9472C22.5971 11.16 22.4691 10.6224 22.2771 10.1488C22.0787 9.66241 21.8163 9.24641 21.3939 8.83681C21.0059 8.45849 20.541 8.16817 20.0307 7.98561C19.5443 7.80001 18.9811 7.67841 18.1683 7.64001C17.3491 7.60161 17.0867 7.59521 15.0003 7.59521C12.9139 7.59521 12.6515 7.60161 11.8323 7.64001C11.0195 7.67841 10.4563 7.80641 9.96991 7.99201C9.46431 8.18401 9.03551 8.43361 8.60671 8.84321C8.18431 9.25281 7.92191 9.66881 7.72351 10.1552C7.53151 10.6288 7.40351 11.1664 7.36511 11.9536C7.32671 12.7408 7.32031 12.9904 7.32031 15C7.32031 17.0096 7.32671 17.2592 7.36511 18.0528C7.40351 18.84 7.53151 19.3776 7.72351 19.8512C7.92191 20.3376 8.18431 20.7536 8.60671 21.1632C9.03551 21.5728 9.46431 21.8288 9.96991 22.0144C10.4563 22.2 11.0195 22.3216 11.8323 22.36C12.6515 22.3984 12.9139 22.4048 15.0003 22.4048C17.0867 22.4048 17.3491 22.3984 18.1683 22.36C18.9875 22.3216 19.5443 22.2 20.0307 22.0144C20.5363 21.8224 20.9651 21.5728 21.3939 21.1632C21.8227 20.7536 22.0851 20.3376 22.2771 19.8512C22.4691 19.3776 22.5971 18.84 22.6355 18.0528C22.6739 17.2656 22.6803 17.0096 22.6803 15C22.6803 12.9904 22.6739 12.7408 22.6355 11.9472ZM21.2531 17.9888C21.2211 18.712 21.0931 19.1024 20.9907 19.3648C20.8499 19.7104 20.6835 19.9536 20.4147 20.216C20.1459 20.472 19.8899 20.6384 19.5315 20.7728C19.2627 20.8752 18.8531 20.9968 18.1043 21.0288C17.2915 21.0672 17.0547 21.0736 15.0003 21.0736C12.9523 21.0736 12.7091 21.0672 11.8963 21.0288C11.1475 20.9968 10.7379 20.8752 10.4691 20.7728C10.1107 20.6384 9.85471 20.4784 9.58591 20.216C9.31711 19.96 9.15071 19.7104 9.00991 19.3648C8.90751 19.1024 8.77951 18.712 8.74751 17.9888C8.70911 17.208 8.70271 16.9776 8.70271 15C8.70271 13.0224 8.70911 12.792 8.74751 12.0112C8.78591 11.288 8.90751 10.8976 9.01631 10.6352C9.15711 10.2896 9.32351 10.0464 9.59231 9.78401C9.86111 9.52801 10.1171 9.36801 10.4755 9.23361C10.7443 9.13121 11.1539 9.00961 11.9027 8.97761C12.7091 8.93921 12.9523 8.93281 15.0003 8.93281C17.0483 8.93281 17.2915 8.93921 18.1043 8.97761C18.8531 9.00961 19.2563 9.13121 19.5315 9.23361C19.8899 9.36801 20.1459 9.52801 20.4147 9.78401C20.6835 10.04 20.8499 10.2896 20.9907 10.6352C21.0931 10.8976 21.2211 11.288 21.2531 12.0112C21.2915 12.792 21.2979 13.0224 21.2979 15C21.2979 16.9776 21.2915 17.208 21.2531 17.9888ZM15.0003 11.1984C12.8243 11.1984 11.0579 12.9008 11.0579 15C11.0579 17.0992 12.8243 18.8016 15.0003 18.8016C17.1763 18.8016 18.9427 17.0992 18.9427 15C18.9427 12.9008 17.1763 11.1984 15.0003 11.1984ZM15.0003 17.464C13.5859 17.464 12.4403 16.3568 12.4403 15C12.4403 13.6368 13.5859 12.536 15.0003 12.536C16.4147 12.536 17.5603 13.6432 17.5603 15C17.5603 16.3632 16.4147 17.464 15.0003 17.464ZM19.1027 10.1616C18.5907 10.1616 18.1811 10.5584 18.1811 11.0512C18.1811 11.544 18.5907 11.9408 19.1027 11.9408C19.6147 11.9408 20.0243 11.544 20.0243 11.0512C20.0243 10.5584 19.6083 10.1616 19.1027 10.1616Z"
+                          fill="white" />
+                        <defs>
+                          <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_4718_184179" x1="22" y1="2"
+                            x2="9.5" y2="26.5" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#B72AFF" />
+                            <stop offset="1" stop-color="#FFAF35" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    </div>
+                    <div class="logined-winning-box-content-share-item-content">
+                      <div class="logined-winning-box-content-share-item-content-name">Instagram</div>
+                      <div class="logined-winning-box-content-share-item-content-num">(0/1)</div>
+                    </div>
+                  </div> -->
+                </div>
+
+              </div>
+
+            </div>
+            <!-- 已中奖显示 -->
+            <div class="after-winning-box">
+              <div class="prize-item-title">
+                <i><img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Layer_1_1.png?v=1753088388"
+                    alt=""></i>
+                <span>Stay Tuned for the Prize</span>
+                <i><img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Layer_1_2.png?v=1753088388  "
+                    alt=""></i>
+              </div>
+              <div class="prize-item-desc">Congrats! You Got A Mystery Box!</div>
+              <div class="prize-item-box">
+                <div class="prize-img">
+                  <img class="lazyload" data-src="" alt=""></img>
+                </div>
+                <div class="prize-item-right">
+                  <div class="prize-item-name"></div>
+                  {% comment %} <div class="prize-item-rules">Go to Personal <a href="https://www.procolored.com/account?view=coupon"
+                      target="_blank">Coupon</a> to view your discount code</div> {% endcomment %}
+                  <div class="discount-code-box">
+                    {% comment %} <div class="Discount-code-top">
+                      <div class="Discount-code-top-left">Code</div>
+                      <div class="Discount-code-top-copy">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" viewBox="0 0 30 20" fill="none">
+                          <rect width="100%" height="100%" rx="10" fill="#8A82FE" />
+                          <path
+                            d="M19.7249 14.2C19.5214 14.2 19.3263 14.1192 19.1824 13.9753C19.0386 13.8315 18.9578 13.6363 18.9578 13.4329C18.9578 13.2295 19.0386 13.0343 19.1824 12.8905C19.3263 12.7466 19.5214 12.6658 19.7249 12.6658C19.9216 12.6658 20.1102 12.5877 20.2493 12.4486C20.3884 12.3095 20.4666 12.1208 20.4666 11.9241V5.27592C20.4666 5.0792 20.3884 4.89054 20.2493 4.75144C20.1102 4.61234 19.9216 4.53419 19.7249 4.53419H13.0767C12.88 4.53419 12.6913 4.61234 12.5522 4.75144C12.4131 4.89054 12.335 5.0792 12.335 5.27592C12.335 5.47937 12.2542 5.67448 12.1103 5.81834C11.9664 5.9622 11.7713 6.04302 11.5679 6.04302C11.3644 6.04302 11.1693 5.9622 11.0255 5.81834C10.8816 5.67448 10.8008 5.47937 10.8008 5.27592C10.8021 4.67272 11.0423 4.09461 11.4689 3.66808C11.8954 3.24155 12.4735 3.00134 13.0767 3H19.7249C20.3281 3.00134 20.9062 3.24155 21.3327 3.66808C21.7592 4.09461 21.9994 4.67272 22.0008 5.27592V11.9241C21.9994 12.5273 21.7592 13.1054 21.3327 13.5319C20.9062 13.9584 20.3281 14.1987 19.7249 14.2Z"
+                            fill="white" />
+                          <path
+                            d="M16.7904 17H10.4091C10.0927 17.0004 9.7792 16.9385 9.48673 16.8179C9.19425 16.6972 8.92851 16.5202 8.70473 16.2969C8.48094 16.0736 8.3035 15.8085 8.18257 15.5167C8.06164 15.2249 7.9996 14.9122 8 14.5964V8.20457C7.99947 7.88873 8.06141 7.57589 8.18228 7.28398C8.30314 6.99207 8.48056 6.72683 8.70437 6.50345C8.92817 6.28007 9.19395 6.10295 9.48649 5.98224C9.77903 5.86153 10.0926 5.7996 10.4091 5.8H16.7904C17.1069 5.7996 17.4204 5.8615 17.7128 5.98215C18.0053 6.10279 18.2711 6.27982 18.4948 6.50309C18.7186 6.72636 18.8961 6.99149 19.017 7.28328C19.1379 7.57507 19.2 7.8878 19.1996 8.20355V14.5954C19.225 15.9256 18.1236 17 16.7904 17ZM10.4091 7.33405C10.2944 7.33311 10.1807 7.35495 10.0745 7.39831C9.96833 7.44167 9.87188 7.50568 9.79076 7.58661C9.70965 7.66754 9.64549 7.76377 9.60203 7.86969C9.55856 7.97561 9.53667 8.0891 9.53762 8.20355V14.5954C9.53667 14.7099 9.55856 14.8234 9.60203 14.9293C9.64549 15.0352 9.70965 15.1314 9.79076 15.2124C9.87188 15.2933 9.96833 15.3573 10.0745 15.4007C10.1807 15.444 10.2944 15.4659 10.4091 15.4649H16.7904C16.9051 15.4659 17.0189 15.444 17.1251 15.4007C17.2312 15.3573 17.3277 15.2933 17.4088 15.2124C17.4899 15.1314 17.5541 15.0352 17.5975 14.9293C17.641 14.8234 17.6629 14.7099 17.662 14.5954V8.20355C17.6629 8.0891 17.641 7.97561 17.5975 7.86969C17.5541 7.76377 17.4899 7.66754 17.4088 7.58661C17.3277 7.50568 17.2312 7.44167 17.1251 7.39831C17.0189 7.35495 16.9051 7.33311 16.7904 7.33405H10.4091Z"
+                            fill="white" />
+                        </svg>
+                      </div>
+
+                    </div> {% endcomment %}
+                    <div class="Discount-code-bottom">
+                      {% comment %} <div class="Discount-code-content"></div> {% endcomment %}
+                      <div class="Discount-code-desc"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lucky-wheel-activity-container-pc-bottom">
+          <div class="lucky-wheel-activity-container-pc-bottom-content">
+            <div class="notice-box-left">
+              <svg class="notice-icon" width="100%" height="100%" viewBox="0 0 28 28" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <g id="volume-2">
+                  <path id="Vector" d="M12.832 5.83334L6.9987 10.5H2.33203V17.5H6.9987L12.832 22.1667V5.83334Z"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path id="Vector_2"
+                    d="M22.2472 5.75168C24.4344 7.9395 25.6631 10.9064 25.6631 14C25.6631 17.0936 24.4344 20.0605 22.2472 22.2483M18.1289 9.87001C19.2225 10.9639 19.8368 12.4474 19.8368 13.9942C19.8368 15.541 19.2225 17.0244 18.1289 18.1183"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+              </svg>
+
+              <div class="notice-content notice-content-pc">
+                <div class="swiper-wrapper">
+                </div>
+              </div>
+            </div>
+            <div class="notice-box-right">
+              <div class="rules">
+                <svg class="rules-icon" width="100%" height="100%" viewBox="0 0 24 25" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <g id="file-minus">
+                    <path id="Vector"
+                      d="M14 2.5H6C5.46957 2.5 4.96086 2.71071 4.58579 3.08579C4.21071 3.46086 4 3.96957 4 4.5V20.5C4 21.0304 4.21071 21.5391 4.58579 21.9142C4.96086 22.2893 5.46957 22.5 6 22.5H18C18.5304 22.5 19.0391 22.2893 19.4142 21.9142C19.7893 21.5391 20 21.0304 20 20.5V8.5L14 2.5Z"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path id="Vector_2" d="M14 2.5V8.5H20" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path id="Vector_3" d="M9 15.5H15" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </g>
+                </svg>
+
+                <a data-fancybox data-src="#rules-content" href="javascript:;" class="rules-text">Rules</a>
+              </div>
+              <div class="my-prize">
+                <svg class="my-prize-icon" width="100%" height="100%" viewBox="0 0 24 25" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <g id="gift">
+                    <path id="Vector"
+                      d="M20 12.5V21.5C20 22.0523 19.5523 22.5 19 22.5H5C4.44772 22.5 4 22.0523 4 21.5V12.5"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path id="Vector_2"
+                      d="M21 7.5H3C2.44772 7.5 2 7.94772 2 8.5V11.5C2 12.0523 2.44772 12.5 3 12.5H21C21.5523 12.5 22 12.0523 22 11.5V8.5C22 7.94772 21.5523 7.5 21 7.5Z"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path id="Vector_3" d="M12 22.5V7.5" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path id="Vector_4"
+                      d="M12 7.5H7.5C6.83696 7.5 6.20107 7.23661 5.73223 6.76777C5.26339 6.29893 5 5.66304 5 5C5 4.33696 5.26339 3.70107 5.73223 3.23223C6.20107 2.76339 6.83696 2.5 7.5 2.5C11 2.5 12 7.5 12 7.5Z"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path id="Vector_5"
+                      d="M12 7.5H16.5C17.163 7.5 17.7989 7.23661 18.2678 6.76777C18.7366 6.29893 19 5.66304 19 5C19 4.33696 18.7366 3.70107 18.2678 3.23223C17.7989 2.76339 17.163 2.5 16.5 2.5C13 2.5 12 7.5 12 7.5Z"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </g>
+                </svg>
+
+                <a data-fancybox data-src="#my-prize-content" href="javascript:;" class="my-prize-text">My Prizes</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lucky-wheel-activity-wrapper-mb">
+        <div class="lucky-wheel-activity-container-mb">
+          <div class="panel-box">
+            <div id="my-lucky-mb"></div>
+            <div class="button-box">&nbsp;</div>
+          </div>
+
+          <div class="right-box">
+            <!-- 未登录显示 -->
+            <div class="before-winning-box">
+              <div class="prize-item-title">
+                Your Chance to Win is Here - <br>Spin the Wheel!
+              </div>
+              <div class="prize-item-rules">
+                {% comment %} <div class="prize-item-rules-title">How to Earn Draw Chances:</div> {% endcomment %}
+                <div class="prize-item-rules-desc">
+                  Only printer orders placed between November 24 - November 30 qualify for the draw
+                </div>
+               
+              </div>
+              <div class="activity-button activity-button-mb">Login to join the lucky draw</div>
+            </div>
+            <!-- 移动 已登录显示 -->
+            <div class="logined-winning-box">
+              <div class="logined-winning-box-title">
+                Your Chance to Win is Here - <br>Spin the Wheel!
+              </div>
+              <div class="logined-winning-boxprize-item-rules">
+                {% comment %} <div class="logined-winning-boxprize-item-rules-title">How to Earn Draw Chances:</div> {% endcomment %}
+                <div class="logined-winning-boxprize-item-rules-desc">
+                  Only printer orders placed between November 24 - November 30 qualify for the draw
+                </div>
+               
+              </div>
+              <div class="logined-winning-box-content">
+                <div class="logined-winning-box-content-title">Remaining lottery draw opportunities:
+                  <span class='logined-winning-box-content-title-loading' ></span>
+                  <span class="logined-winning-box-content-title-num">
+                  <span>(</span><span class="Used-opportunities">0</span><span>/</span><span class="available-chance">0</span><span>)</span> </span></div>
+                {% comment %} <div class="logined-winning-box-content-desc">
+                  Share now to claim →<br>
+                  (1 draw per platform monthly)
+                </div> {% endcomment %}
+                <div class="logined-winning-box-content-share-box">
+                  {% comment %} <div class="logined-winning-box-content-share-item fb">
+                    <div class="logined-winning-box-content-share-item-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="31" height="30" viewBox="0 0 31 30" fill="none">
+                        <path
+                          d="M30.9987 15.0924C30.9987 6.75638 24.0596 0 15.4994 0C6.93912 0 0 6.75638 0 15.0924C0 22.6236 5.66807 28.8668 13.0774 29.9987V19.4542H9.1428V15.0912H13.0774V11.7671C13.0774 7.9839 15.3921 5.89486 18.9315 5.89486C20.6275 5.89486 22.401 6.18916 22.401 6.18916V9.90316H20.4479C18.5233 9.90316 17.9226 11.0665 17.9226 12.2601V15.0924H22.2215L21.5343 19.4554H17.9226V30C25.3319 28.8681 31 22.6248 31 15.0924H30.9987Z"
+                          fill="#0069FF" />
+                      </svg>
+                    </div>
+                    <div class="logined-winning-box-content-share-item-content fb">
+                      <div class="logined-winning-box-content-share-item-content-name">Facebook</div>
+                      <div class="logined-winning-box-content-share-item-content-num">(<span>0</span>/1)</div>
+                    </div>
+                  </div> {% endcomment %}
+                  <!-- <div class="logined-winning-box-content-share-item">
+                    <div class="logined-winning-box-content-share-item-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                        <path d="M0 15.0005C0 23.2846 6.71536 30 15.0005 30C23.2846 30 30 23.2846 30 15.0005C30 6.71636 23.2846 0 15.0005 0C6.71636 0 0 6.71536 0 15.0005Z" fill="#170B1A"/>
+                        <path d="M15.0163 9.85487C15.0303 8.28009 15.0163 6.69029 15.0303 5.1145H18.2559C18.2409 5.39964 18.2859 5.66978 18.3309 5.93991L16.1258 6.12L16.3059 18.7503C16.3209 19.2906 15.9307 20.5052 15.6606 20.9704C15.2404 21.6908 13.9658 22.3501 13.1253 22.4252C12.6011 22.4702 12.2109 22.3351 11.7306 22.08C11.3705 21.8849 11.1754 20.8053 11.0703 20.5192C11.8957 20.9854 12.9763 20.9394 13.7717 20.4152C14.1581 20.1687 14.4769 19.8297 14.6993 19.429C14.9217 19.0282 15.0406 18.5783 15.0453 18.12C15.0153 15.3596 15.0153 12.6002 15.0153 9.85587L15.0163 9.85487ZM20.3259 8.94041C20.7762 9.22456 21.2864 9.45067 21.8107 9.55472C22.1258 9.62976 22.426 9.65977 22.7411 9.65977V10.5302C21.8107 10.3201 19.8007 9.73481 20.3259 8.93941V8.94041Z" fill="#25F4EE"/>
+                        <path d="M9.19558 12.9755C10.3639 12.2511 11.7492 11.959 13.1105 12.1501V13.1406C11.8509 13.1706 10.8014 13.7109 9.78088 14.4602C9.0165 15.0305 8.49023 15.6148 8.08603 16.4852C7.69584 17.3097 7.53075 18 7.54576 18.9155C7.54576 19.92 7.8159 20.6403 8.29614 21.5248C8.52125 21.93 8.95647 22.5453 8.85141 22.9955C8.16405 22.5092 7.59055 21.8794 7.17057 21.1496C6.59985 20.1729 6.31424 19.0558 6.34616 17.925C6.38363 16.8807 6.68813 15.8635 7.2306 14.9705C7.71341 14.1554 8.38794 13.4706 9.19558 12.9755Z" fill="#25F4EE"/>
+                        <path d="M15.9452 5.93994H18.3604C18.7356 6.58526 18.7056 6.82538 18.9157 7.23059C19.2459 7.87491 19.5 8.11503 20.2204 8.83539C20.2625 8.86249 20.2983 8.89831 20.3254 8.94044C20.9557 9.6608 21.8102 10.1701 22.7406 10.3802C23.2809 10.7704 22.9057 12.3451 22.9057 13.1846C21.3299 13.1996 19.7251 12.5843 18.4505 11.6548C18.4505 13.6658 18.4505 15.5247 18.4655 17.5497C18.4655 17.8199 18.4805 18.075 18.4655 18.3602C18.3904 19.3346 17.9402 20.7604 17.445 21.5998C17.0228 22.3441 16.4508 22.9927 15.7651 23.5047C14.8773 24.1606 13.8091 24.5274 12.7056 24.5552C12.1469 24.5781 11.5875 24.5328 11.0398 24.4202C10.2754 24.2551 9.54002 23.4897 8.89569 23.0395L8.85067 22.9955C8.53551 22.6653 8.25037 22.2901 8.04027 21.8699C7.56003 20.9995 7.28989 20.01 7.28989 19.0055C7.27464 18.0884 7.46973 17.1801 7.86018 16.3501C8.26538 15.4797 8.86568 14.6993 9.61505 14.129C10.6213 13.3738 11.8372 12.9498 13.0948 12.9154C13.44 13.0795 13.1998 15.6148 13.1998 15.6148C12.7956 15.4797 12.2554 15.5247 11.8352 15.6298C11.3249 15.7348 11.0548 16.035 10.6646 16.3652C10.4245 16.5753 10.2144 16.8004 10.0803 17.0855C9.82516 17.5658 9.84017 17.6258 9.88519 18.1651C9.94522 18.6753 10.0353 19.2296 10.3804 19.6198C10.6056 19.9049 10.7556 20.3401 11.0548 20.5352C11.2949 20.9254 11.6101 21.2096 11.9552 21.3757C12.4355 21.6298 12.9757 21.7358 13.5 21.6898C14.3404 21.6298 15.1208 21.1195 15.541 20.3852C15.8112 19.9049 15.9302 19.2896 15.9302 18.7644C15.9302 14.3401 15.9452 5.93994 15.9452 5.93994Z" fill="white"/>
+                        <path d="M18.3289 5.93994C18.615 5.95495 18.8851 5.93994 19.1843 5.93994C19.1843 6.87041 19.4844 7.81488 20.0247 8.58026C20.0998 8.68531 20.1598 8.77536 20.2348 8.8504C19.6195 8.47521 19.1393 7.88992 18.8101 7.24459C18.6 6.8544 18.4349 6.40417 18.3299 5.93994H18.3289ZM22.7401 10.3802C23.0542 10.4552 23.3544 10.4852 23.6705 10.4852V13.7398C22.0797 13.7548 20.4889 13.2296 19.1843 12.2851V18.7503C19.1993 19.2446 19.1543 19.7248 19.0492 20.2051C18.7357 21.6624 17.8912 22.9509 16.68 23.8199C16.0429 24.2794 15.3172 24.6013 14.549 24.7654C13.6195 24.9755 12.66 24.9605 11.7596 24.7203C10.6663 24.433 9.67771 23.8394 8.91016 23.0095C9.55448 23.4747 10.2898 23.7749 11.0692 23.9399C11.6095 24.06 12.1798 24.09 12.7351 24.075C13.8386 24.0471 14.9067 23.6804 15.7946 23.0245C16.4802 22.5121 17.0524 21.8636 17.4754 21.1195C17.97 20.2663 18.267 19.3132 18.3449 18.3301C18.3599 18.0602 18.3599 17.7897 18.3449 17.5197C18.3149 15.5247 18.3149 13.5147 18.3149 11.5047C19.6081 12.4335 21.1629 12.9275 22.7551 12.9154C22.7401 12.075 22.7551 11.2196 22.7401 10.3802Z" fill="#FE2C55"/>
+                        <path d="M13.1109 12.9004C13.4261 12.9004 13.7562 12.9154 14.0564 12.9604V16.3051C13.6003 16.1577 13.1127 16.137 12.6457 16.2451C11.7612 16.4402 11.0259 17.1155 10.7117 17.9699C10.3966 18.8103 10.5166 19.8008 11.0419 20.5202C10.7267 20.3401 10.4716 20.1 10.2465 19.8148C9.91631 19.4247 9.6912 18.9144 9.63117 18.4041C9.57114 17.8799 9.66119 17.3096 9.91631 16.8454C10.0514 16.5602 10.2615 16.3201 10.5016 16.11C10.8918 15.7798 11.386 15.5697 11.8663 15.4347C12.2715 15.3446 12.7067 15.3296 13.0969 15.4647C13.1109 15.3296 13.1109 13.2296 13.1109 12.9004Z" fill="#FE2C55"/>
+                      </svg>
+                    </div>
+                    <div class="logined-winning-box-content-share-item-content">
+                      <div class="logined-winning-box-content-share-item-content-name">TikTok</div>
+                      <div class="logined-winning-box-content-share-item-content-num">(0/1)</div>
+                    </div>
+                  </div>
+                  <div class="logined-winning-box-content-share-item">
+                    <div class="logined-winning-box-content-share-item-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                        <circle cx="15" cy="15" r="15" fill="url(#paint0_linear_4718_18417)"/>
+                        <path d="M22.6355 11.9472C22.5971 11.16 22.4691 10.6224 22.2771 10.1488C22.0787 9.66241 21.8163 9.24641 21.3939 8.83681C21.0059 8.45849 20.541 8.16817 20.0307 7.98561C19.5443 7.80001 18.9811 7.67841 18.1683 7.64001C17.3491 7.60161 17.0867 7.59521 15.0003 7.59521C12.9139 7.59521 12.6515 7.60161 11.8323 7.64001C11.0195 7.67841 10.4563 7.80641 9.96991 7.99201C9.46431 8.18401 9.03551 8.43361 8.60671 8.84321C8.18431 9.25281 7.92191 9.66881 7.72351 10.1552C7.53151 10.6288 7.40351 11.1664 7.36511 11.9536C7.32671 12.7408 7.32031 12.9904 7.32031 15C7.32031 17.0096 7.32671 17.2592 7.36511 18.0528C7.40351 18.84 7.53151 19.3776 7.72351 19.8512C7.92191 20.3376 8.18431 20.7536 8.60671 21.1632C9.03551 21.5728 9.46431 21.8288 9.96991 22.0144C10.4563 22.2 11.0195 22.3216 11.8323 22.36C12.6515 22.3984 12.9139 22.4048 15.0003 22.4048C17.0867 22.4048 17.3491 22.3984 18.1683 22.36C18.9875 22.3216 19.5443 22.2 20.0307 22.0144C20.5363 21.8224 20.9651 21.5728 21.3939 21.1632C21.8227 20.7536 22.0851 20.3376 22.2771 19.8512C22.4691 19.3776 22.5971 18.84 22.6355 18.0528C22.6739 17.2656 22.6803 17.0096 22.6803 15C22.6803 12.9904 22.6739 12.7408 22.6355 11.9472ZM21.2531 17.9888C21.2211 18.712 21.0931 19.1024 20.9907 19.3648C20.8499 19.7104 20.6835 19.9536 20.4147 20.216C20.1459 20.472 19.8899 20.6384 19.5315 20.7728C19.2627 20.8752 18.8531 20.9968 18.1043 21.0288C17.2915 21.0672 17.0547 21.0736 15.0003 21.0736C12.9523 21.0736 12.7091 21.0672 11.8963 21.0288C11.1475 20.9968 10.7379 20.8752 10.4691 20.7728C10.1107 20.6384 9.85471 20.4784 9.58591 20.216C9.31711 19.96 9.15071 19.7104 9.00991 19.3648C8.90751 19.1024 8.77951 18.712 8.74751 17.9888C8.70911 17.208 8.70271 16.9776 8.70271 15C8.70271 13.0224 8.70911 12.792 8.74751 12.0112C8.78591 11.288 8.90751 10.8976 9.01631 10.6352C9.15711 10.2896 9.32351 10.0464 9.59231 9.78401C9.86111 9.52801 10.1171 9.36801 10.4755 9.23361C10.7443 9.13121 11.1539 9.00961 11.9027 8.97761C12.7091 8.93921 12.9523 8.93281 15.0003 8.93281C17.0483 8.93281 17.2915 8.93921 18.1043 8.97761C18.8531 9.00961 19.2563 9.13121 19.5315 9.23361C19.8899 9.36801 20.1459 9.52801 20.4147 9.78401C20.6835 10.04 20.8499 10.2896 20.9907 10.6352C21.0931 10.8976 21.2211 11.288 21.2531 12.0112C21.2915 12.792 21.2979 13.0224 21.2979 15C21.2979 16.9776 21.2915 17.208 21.2531 17.9888ZM15.0003 11.1984C12.8243 11.1984 11.0579 12.9008 11.0579 15C11.0579 17.0992 12.8243 18.8016 15.0003 18.8016C17.1763 18.8016 18.9427 17.0992 18.9427 15C18.9427 12.9008 17.1763 11.1984 15.0003 11.1984ZM15.0003 17.464C13.5859 17.464 12.4403 16.3568 12.4403 15C12.4403 13.6368 13.5859 12.536 15.0003 12.536C16.4147 12.536 17.5603 13.6432 17.5603 15C17.5603 16.3632 16.4147 17.464 15.0003 17.464ZM19.1027 10.1616C18.5907 10.1616 18.1811 10.5584 18.1811 11.0512C18.1811 11.544 18.5907 11.9408 19.1027 11.9408C19.6147 11.9408 20.0243 11.544 20.0243 11.0512C20.0243 10.5584 19.6083 10.1616 19.1027 10.1616Z" fill="white"/>
+                        <defs>
+                          <linearGradient id="paint0_linear_4718_18417" x1="22" y1="2" x2="9.5" y2="26.5" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#B72AFF"/>
+                            <stop offset="1" stop-color="#FFAF35"/>
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    </div>
+                    <div class="logined-winning-box-content-share-item-content">
+                      <div class="logined-winning-box-content-share-item-content-name">Instagram</div>
+                      <div class="logined-winning-box-content-share-item-content-num">(0/1)</div>
+                    </div>
+                  </div> -->
+                </div>
+
+              </div>
+
+            </div>
+            <!-- 已中奖显示 -->
+            <div class="after-winning-box">
+              <div class="prize-item-title">
+                <i><img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Layer_1_1.png?v=1753088388"
+                    alt=""></i>
+                <span>Stay Tuned for the Prize</span>
+                <i><img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Layer_1_2.png?v=1753088388  "
+                    alt=""></i>
+              </div>
+              <div class="prize-item-desc">Congrats! You Got A Mystery Box!</div>
+              <div class="prize-item-box">
+                <div class="prize-img">
+                  <img class="lazyload" data-src="" alt=""></img>
+                </div>
+                <div class="prize-item-right">
+                  <div class="prize-item-name"></div>
+                  {% comment %} <div class="prize-item-rules">Go to Personal <a
+                      href="https://www.procolored.com/account?view=coupon">Coupon</a> to view your discount code</div> {% endcomment %}
+                  <div class="discount-code-box">
+                    {% comment %} <div class="Discount-code-top">
+                      <div class="Discount-code-top-left">Code</div>
+                      <div class="Discount-code-top-copy">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" viewBox="0 0 30 20" fill="none">
+                          <rect width="100%" height="100%" rx="10" fill="#8A82FE" />
+                          <path
+                            d="M19.7249 14.2C19.5214 14.2 19.3263 14.1192 19.1824 13.9753C19.0386 13.8315 18.9578 13.6363 18.9578 13.4329C18.9578 13.2295 19.0386 13.0343 19.1824 12.8905C19.3263 12.7466 19.5214 12.6658 19.7249 12.6658C19.9216 12.6658 20.1102 12.5877 20.2493 12.4486C20.3884 12.3095 20.4666 12.1208 20.4666 11.9241V5.27592C20.4666 5.0792 20.3884 4.89054 20.2493 4.75144C20.1102 4.61234 19.9216 4.53419 19.7249 4.53419H13.0767C12.88 4.53419 12.6913 4.61234 12.5522 4.75144C12.4131 4.89054 12.335 5.0792 12.335 5.27592C12.335 5.47937 12.2542 5.67448 12.1103 5.81834C11.9664 5.9622 11.7713 6.04302 11.5679 6.04302C11.3644 6.04302 11.1693 5.9622 11.0255 5.81834C10.8816 5.67448 10.8008 5.47937 10.8008 5.27592C10.8021 4.67272 11.0423 4.09461 11.4689 3.66808C11.8954 3.24155 12.4735 3.00134 13.0767 3H19.7249C20.3281 3.00134 20.9062 3.24155 21.3327 3.66808C21.7592 4.09461 21.9994 4.67272 22.0008 5.27592V11.9241C21.9994 12.5273 21.7592 13.1054 21.3327 13.5319C20.9062 13.9584 20.3281 14.1987 19.7249 14.2Z"
+                            fill="white" />
+                          <path
+                            d="M16.7904 17H10.4091C10.0927 17.0004 9.7792 16.9385 9.48673 16.8179C9.19425 16.6972 8.92851 16.5202 8.70473 16.2969C8.48094 16.0736 8.3035 15.8085 8.18257 15.5167C8.06164 15.2249 7.9996 14.9122 8 14.5964V8.20457C7.99947 7.88873 8.06141 7.57589 8.18228 7.28398C8.30314 6.99207 8.48056 6.72683 8.70437 6.50345C8.92817 6.28007 9.19395 6.10295 9.48649 5.98224C9.77903 5.86153 10.0926 5.7996 10.4091 5.8H16.7904C17.1069 5.7996 17.4204 5.8615 17.7128 5.98215C18.0053 6.10279 18.2711 6.27982 18.4948 6.50309C18.7186 6.72636 18.8961 6.99149 19.017 7.28328C19.1379 7.57507 19.2 7.8878 19.1996 8.20355V14.5954C19.225 15.9256 18.1236 17 16.7904 17ZM10.4091 7.33405C10.2944 7.33311 10.1807 7.35495 10.0745 7.39831C9.96833 7.44167 9.87188 7.50568 9.79076 7.58661C9.70965 7.66754 9.64549 7.76377 9.60203 7.86969C9.55856 7.97561 9.53667 8.0891 9.53762 8.20355V14.5954C9.53667 14.7099 9.55856 14.8234 9.60203 14.9293C9.64549 15.0352 9.70965 15.1314 9.79076 15.2124C9.87188 15.2933 9.96833 15.3573 10.0745 15.4007C10.1807 15.444 10.2944 15.4659 10.4091 15.4649H16.7904C16.9051 15.4659 17.0189 15.444 17.1251 15.4007C17.2312 15.3573 17.3277 15.2933 17.4088 15.2124C17.4899 15.1314 17.5541 15.0352 17.5975 14.9293C17.641 14.8234 17.6629 14.7099 17.662 14.5954V8.20355C17.6629 8.0891 17.641 7.97561 17.5975 7.86969C17.5541 7.76377 17.4899 7.66754 17.4088 7.58661C17.3277 7.50568 17.2312 7.44167 17.1251 7.39831C17.0189 7.35495 16.9051 7.33311 16.7904 7.33405H10.4091Z"
+                            fill="white" />
+                        </svg>
+                      </div>
+
+                    </div> {% endcomment %}
+                    <div class="Discount-code-bottom">
+                      {% comment %} <div class="Discount-code-content"></div> {% endcomment %}
+                      <div class="Discount-code-desc"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="notice-box-mb">
+              <div class="rules">
+
+                <svg class="rules-icon" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+                  viewBox="0 0 18 19" fill="none">
+                  <path
+                    d="M10.5 2H4.5C4.10218 2 3.72064 2.15804 3.43934 2.43934C3.15804 2.72064 3 3.10218 3 3.5V15.5C3 15.8978 3.15804 16.2794 3.43934 16.5607C3.72064 16.842 4.10218 17 4.5 17H13.5C13.8978 17 14.2794 16.842 14.5607 16.5607C14.842 16.2794 15 15.8978 15 15.5V6.5L10.5 2Z"
+                    stroke="#8A82FE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M10.5 2V6.5H15" stroke="#8A82FE" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M6.75 11.75H11.25" stroke="#8A82FE" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+
+                <a data-fancybox data-src="#rules-content" href="javascript:;" class="rules-text">Rules</a>
+              </div>
+              <div class="my-prize">
+                <svg class="my-prize-icon" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+                  viewBox="0 0 18 19" fill="none">
+                  <path d="M15 9.5V16C15 16.5523 14.5523 17 14 17H4C3.44772 17 3 16.5523 3 16V9.5" stroke="#8A82FE"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M15.5 5.75H2.5C1.94772 5.75 1.5 6.19772 1.5 6.75V8.5C1.5 9.05229 1.94772 9.5 2.5 9.5H15.5C16.0523 9.5 16.5 9.05229 16.5 8.5V6.75C16.5 6.19772 16.0523 5.75 15.5 5.75Z"
+                    stroke="#8A82FE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M9 17V5.75" stroke="#8A82FE" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path
+                    d="M9 5.75H5.625C5.12772 5.75 4.65081 5.55246 4.29917 5.20083C3.94754 4.84919 3.75 4.37228 3.75 3.875C3.75 3.37772 3.94754 2.90081 4.29917 2.54917C4.65081 2.19754 5.12772 2 5.625 2C8.25 2 9 5.75 9 5.75Z"
+                    stroke="#8A82FE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M9 5.75H12.375C12.8723 5.75 13.3492 5.55246 13.7008 5.20083C14.0525 4.84919 14.25 4.37228 14.25 3.875C14.25 3.37772 14.0525 2.90081 13.7008 2.54917C13.3492 2.19754 12.8723 2 12.375 2C9.75 2 9 5.75 9 5.75Z"
+                    stroke="#8A82FE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+                <a data-fancybox data-src="#my-prize-content" href="javascript:;" class="my-prize-text">My Prizes</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lucky-wheel-activity-container-mb-bottom">
+          <div class="lucky-wheel-activity-container-pc-bottom-content">
+            <div class="notice-box-left">
+              <svg class="notice-icon" width="100%" height="100%" viewBox="0 0 28 28" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <g id="volume-2">
+                  <path id="Vector" d="M12.832 5.83334L6.9987 10.5H2.33203V17.5H6.9987L12.832 22.1667V5.83334Z"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path id="Vector_2"
+                    d="M22.2472 5.75168C24.4344 7.9395 25.6631 10.9064 25.6631 14C25.6631 17.0936 24.4344 20.0605 22.2472 22.2483M18.1289 9.87001C19.2225 10.9639 19.8368 12.4474 19.8368 13.9942C19.8368 15.541 19.2225 17.0244 18.1289 18.1183"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+              </svg>
+
+              <div class="notice-content notice-content-mb">
+                <div class="swiper-wrapper">
+                </div>
+
+              </div>
+            </div>
+            <div class="notice-box-right">
+              <div class="rules">
+                <svg class="rules-icon" width="100%" height="100%" viewBox="0 0 24 25" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <g id="file-minus">
+                    <path id="Vector"
+                      d="M14 2.5H6C5.46957 2.5 4.96086 2.71071 4.58579 3.08579C4.21071 3.46086 4 3.96957 4 4.5V20.5C4 21.0304 4.21071 21.5391 4.58579 21.9142C4.96086 22.2893 5.46957 22.5 6 22.5H18C18.5304 22.5 19.0391 22.2893 19.4142 21.9142C19.7893 21.5391 20 21.0304 20 20.5V8.5L14 2.5Z"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path id="Vector_2" d="M14 2.5V8.5H20" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path id="Vector_3" d="M9 15.5H15" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </g>
+                </svg>
+
+                <a data-fancybox data-src="#rules-content" href="javascript:;" class="rules-text">Rules</a>
+              </div>
+              <div class="my-prize">
+                <svg class="my-prize-icon" width="100%" height="100%" viewBox="0 0 24 25" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <g id="gift">
+                    <path id="Vector"
+                      d="M20 12.5V21.5C20 22.0523 19.5523 22.5 19 22.5H5C4.44772 22.5 4 22.0523 4 21.5V12.5"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path id="Vector_2"
+                      d="M21 7.5H3C2.44772 7.5 2 7.94772 2 8.5V11.5C2 12.0523 2.44772 12.5 3 12.5H21C21.5523 12.5 22 12.0523 22 11.5V8.5C22 7.94772 21.5523 7.5 21 7.5Z"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path id="Vector_3" d="M12 22.5V7.5" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path id="Vector_4"
+                      d="M12 7.5H7.5C6.83696 7.5 6.20107 7.23661 5.73223 6.76777C5.26339 6.29893 5 5.66304 5 5C5 4.33696 5.26339 3.70107 5.73223 3.23223C6.20107 2.76339 6.83696 2.5 7.5 2.5C11 2.5 12 7.5 12 7.5Z"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path id="Vector_5"
+                      d="M12 7.5H16.5C17.163 7.5 17.7989 7.23661 18.2678 6.76777C18.7366 6.29893 19 5.66304 19 5C19 4.33696 18.7366 3.70107 18.2678 3.23223C17.7989 2.76339 17.163 2.5 16.5 2.5C13 2.5 12 7.5 12 7.5Z"
+                      stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </g>
+                </svg>
+
+                <a data-fancybox data-src="#my-prize-content" href="javascript:;" class="my-prize-text">My Prizes</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 抽奖规则弹出框 -->
+      <div style="display: none" id="rules-content">
+        <div class="rules-content-title">Rules</div>
+        <div class="rules-content-desc">
+          <div class="rules-content-desc-item">
+            1. Only printer orders placed between November 24 - November 30 qualify for the draw.
+          </div>
+          <div class="rules-content-desc-item">
+            2. Each eligible order grants one draw entry. Multiple orders = multiple entries.
+          </div>
+          <div class="rules-content-desc-item"></div>
+          {% comment %} <div class="rules-content-desc-item">
+            4. xPoints can be redeemed for gift cards or free products in "My
+            Account>My Reward>Point Store".
+          </div>
+          <div class="rules-content-desc-item">
+            5. Coupons are valid for 7 days from the date of issuance.
+          </div>
+          <div class="rules-content-desc-item">
+            6. Coupons cannot be applied to refurbished machines and newly
+            launched products, like the xTool Apparel Printer and the xTool
+            MetalFab.
+          </div>
+          <div class="rules-content-desc-item">
+            7. By logging in or signing up for the xTool Creator Club, you
+            agree to receive promotional and marketing emails from xTool,
+            including product updates and special offers. Please note that
+            consent is not required for any purchase. You can unsubscribe at
+            any time using the link provided in our emails.
+          </div> {% endcomment %}
+        </div>
+      </div>
+      <!-- 奖品规则弹出框 -->
+      <div style="display: none" id="my-prize-content">
+        <div class="my-prize-content-title">My Prizes</div>
+        <div class="my-prize-content-desc"></div>
+        <!-- 未登录 -->
+        <div class="my-prize-content-item-not-logged-in">
+          <img class="my-prize-content-item-not-logged-in-icon lazyload" 
+            data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/1_1_2x_a121f25b-591c-483a-8b60-53c293b8e735.webp?v=1753062046"
+            alt="not logged in" />
+          <div class="my-prize-content-item-not-logged-in-text">
+            Please
+            <span class="my-prize-content-item-not-logged-in-button">log in</span>
+            to view your prize records.
+          </div>
+
+        </div>
+        <!-- 已登录 无奖品 -->
+        <div class="my-prize-content-item-logged-in-no-prizes">
+          <img class="my-prize-content-item-not-logged-in-icon lazyload"
+            data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/1_1_2x_a121f25b-591c-483a-8b60-53c293b8e735.webp?v=1753062046"
+            alt="not logged in" />
+
+          <div class="my-prize-content-item-not-logged-in-text">
+            You haven't won any prizes yet.
+          </div>
+        </div>
+        <!-- 已登录 有奖品 -->
+        <div class="my-prize-content-item-logged-in has-prizes">
+
+        </div>
+
+
+      </div>
+      <!-- 转盘停止，中奖后弹出框 -->
+      <div style="display: none" id="pop-up-box-after-winning">
+        <div class="pop-up-box-after-winning-wrapper">
+          <div class="pop-up-box-after-winning-wrapper-title-box">
+            <div class="pop-up-box-after-winning-wrapper-title-box-left-icon">
+              <img class="lazyload" style="width: 100%;max-width: 100%;flex-shrink: 0;"
+                data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/294b4e54cb5b16bddc59d19fe6004792.png?v=1754294592"
+                alt="">
+            </div>
+            <div class="pop-up-box-after-winning-wrapper-title-box-text">Stay Tuned for the Prize</div>
+            <div class="pop-up-box-after-winning-wrapper-title-box-right-icon">
+              <img class="lazyload" style="width: 100%;max-width: 100%;flex-shrink: 0;"
+                data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/1_a7dc8ae7-0899-47cc-ae80-3fb1f060a0b3.png?v=1754294646"
+                alt="">
+            </div>
+          </div>
+          <div class="pop-up-box-after-winning-wrapper-subtitle">Congrats! You Got A Mystery Box!</div>
+          <div class="pop-up-box-after-winning-wrapper-prize-img">
+            <img class="lazyload" style="width: 100%;max-width: 100%;" data-src="" alt="">
+          </div>
+          <div class="pop-up-box-after-winning-wrapper-prize-content">
+            <div class="pop-up-box-after-winning-wrapper-prize-content-title"></div>
+            {% comment %} <div class="pop-up-box-after-winning-wrapper-prize-content-desc">
+              Go to Personal <a href="https://www.procolored.com/account?view=coupon" target="_blank"
+                style="color:  #8A82FE;text-decoration-line: underline;outline: none;">Coupon</a> to view your discount
+              code
+
+            </div> {% endcomment %}
+          </div>
+          <div class="pop-up-box-after-winning-wrapper-prize-discount-box">
+            {% comment %} <div class="pop-up-box-after-winning-wrapper-prize-discount-box-top">
+              <div class="pop-up-box-after-winning-wrapper-prize-discount-box-top-name">Code</div>
+              <div class="pop-up-box-after-winning-wrapper-prize-discount-box-copy-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 30 20" fill="none">
+                  <rect width="30" height="20" rx="10" fill="#8A82FE" />
+                  <path
+                    d="M19.7249 14.2C19.5214 14.2 19.3263 14.1192 19.1824 13.9753C19.0386 13.8315 18.9578 13.6363 18.9578 13.4329C18.9578 13.2295 19.0386 13.0343 19.1824 12.8905C19.3263 12.7466 19.5214 12.6658 19.7249 12.6658C19.9216 12.6658 20.1102 12.5877 20.2493 12.4486C20.3884 12.3095 20.4666 12.1208 20.4666 11.9241V5.27592C20.4666 5.0792 20.3884 4.89054 20.2493 4.75144C20.1102 4.61234 19.9216 4.53419 19.7249 4.53419H13.0767C12.88 4.53419 12.6913 4.61234 12.5522 4.75144C12.4131 4.89054 12.335 5.0792 12.335 5.27592C12.335 5.47937 12.2542 5.67448 12.1103 5.81834C11.9664 5.9622 11.7713 6.04302 11.5679 6.04302C11.3644 6.04302 11.1693 5.9622 11.0255 5.81834C10.8816 5.67448 10.8008 5.47937 10.8008 5.27592C10.8021 4.67272 11.0423 4.09461 11.4689 3.66808C11.8954 3.24155 12.4735 3.00134 13.0767 3H19.7249C20.3281 3.00134 20.9062 3.24155 21.3327 3.66808C21.7592 4.09461 21.9994 4.67272 22.0008 5.27592V11.9241C21.9994 12.5273 21.7592 13.1054 21.3327 13.5319C20.9062 13.9584 20.3281 14.1987 19.7249 14.2Z"
+                    fill="white" />
+                  <path
+                    d="M16.7904 17H10.4091C10.0927 17.0004 9.7792 16.9385 9.48673 16.8178C9.19425 16.6972 8.92851 16.5202 8.70473 16.2969C8.48094 16.0736 8.3035 15.8085 8.18257 15.5167C8.06164 15.2249 7.9996 14.9122 8 14.5964V8.20456C7.99947 7.88872 8.06141 7.57588 8.18228 7.28397C8.30314 6.99206 8.48056 6.72682 8.70437 6.50344C8.92817 6.28006 9.19395 6.10294 9.48649 5.98223C9.77903 5.86152 10.0926 5.79959 10.4091 5.79999H16.7904C17.1069 5.79959 17.4204 5.86149 17.7128 5.98213C18.0053 6.10278 18.2711 6.27981 18.4948 6.50308C18.7186 6.72635 18.8961 6.99147 19.017 7.28327C19.1379 7.57506 19.2 7.88779 19.1996 8.20354V14.5954C19.225 15.9255 18.1236 17 16.7904 17ZM10.4091 7.33404C10.2944 7.33309 10.1807 7.35494 10.0745 7.3983C9.96833 7.44166 9.87188 7.50567 9.79076 7.5866C9.70965 7.66753 9.64549 7.76376 9.60203 7.86968C9.55856 7.9756 9.53667 8.08909 9.53762 8.20354V14.5954C9.53667 14.7099 9.55856 14.8234 9.60203 14.9293C9.64549 15.0352 9.70965 15.1314 9.79076 15.2124C9.87188 15.2933 9.96833 15.3573 10.0745 15.4007C10.1807 15.444 10.2944 15.4659 10.4091 15.4649H16.7904C16.9051 15.4659 17.0189 15.444 17.1251 15.4007C17.2312 15.3573 17.3277 15.2933 17.4088 15.2124C17.4899 15.1314 17.5541 15.0352 17.5975 14.9293C17.641 14.8234 17.6629 14.7099 17.662 14.5954V8.20354C17.6629 8.08909 17.641 7.9756 17.5975 7.86968C17.5541 7.76376 17.4899 7.66753 17.4088 7.5866C17.3277 7.50567 17.2312 7.44166 17.1251 7.3983C17.0189 7.35494 16.9051 7.33309 16.7904 7.33404H10.4091Z"
+                    fill="white" />
+                </svg>
+              </div>
+            </div> {% endcomment %}
+            {% comment %} <div class="pop-up-box-after-winning-wrapper-prize-discount-box-code"></div> {% endcomment %}
+            <div class="pop-up-box-after-winning-wrapper-prize-discount-box-desc"></div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+  </section>
+
+   <!-- diy-printer-game 打印小游戏 -->
+  {% comment %} <section id="diy-printer-game">
+    <div class="diy-printer-game-wrapper">
+      <div class="diy-printer-game-container">
+        <div class="diy-printer-game-container-content">
+          <div class="diy-printer-game-container-content-img">
+            <img
+              class="pc"
+              style="width: 100%; max-width: 100%"
+              src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20250915-180628.jpg?v=1757930835"
+              alt=""
+            />
+            <!-- <img
+              class="mb"
+              style="width: 100%; max-width: 100%"
+              src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20250915-180628.jpg?v=1757930835"
+              alt=""
+            /> -->
+          </div>
+          <div class="diy-printer-game-container-content-box">
+            <div class="diy-printer-game-container-content-box-title">
+              DIY Printer Game
+            </div>
+
+            <div class="diy-printer-game-container-content-box-desc">
+              Customize your DTF printer: win a free printer, or an
+              <span>iPhone 17</span> and more!
+            </div>
+            <a class="diy-printer-game-container-content-box-button" href="https://www.instagram.com/p/DPwIWH1iJ_x/?utm_source=ig_web_copy_link&igsh=MWJzbzhhcmk0aG1jdg==" target="_blank">
+              Join now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> {% endcomment %}
+  <!-- facebook 群组 -->
+  {% comment %} <section class="facebook-group-wrapper">
+    <div class="facebook-group-title">Join Our Community for <br>Sales, Sneak Peeks & More!</div>
+    <div class="facebook-group-container">
+      <div class="facebook-group-item-box">
+        <div class="facebook-group-item-title pc">Join our <br><span>facebook</span> Group</div>
+        <div class="facebook-group-item-title mobile">Join our <span>facebook</span> Group</div>
+        <div class="facebook-group-item-subtitle">Everyone is welcome to join!</div>
+        <a class="facebook-group-item-button" href="https://www.facebook.com/groups/procolored" target="_blank">Join our
+          group</a>
+      </div>
+    </div>
+  </section> {% endcomment %}
+  <!-- FAQ Section -->
+  <div class="globo-formbuilder" data-id="MTE2Nzkw"></div>
+  <section id="lucky-wheel-activity-faq-section">
+    <div class="ugc-faq-wrapper">
+      <div class="ugc-faq-container">
+        <div class="ugc-faq-container-title">FAQ</div>
+        <div class="ugc-faq-container-content">
+          <div class="ugc-faq-container-content-item active">
+            <div class="ugc-faq-container-content-item-question">
+              <div class="ugc-faq-container-content-item-question-title">1. How do I join the Black Friday lucky draw?</div>
+              <div class="ugc-faq-container-content-item-question-icon-plus">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 19" fill="none">
+                  <path d="M0.898438 9.5L17.0984 9.35586" stroke="white" stroke-width="2" />
+                  <path d="M9 17.6016L9.14414 1.40156" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+              <div class="ugc-faq-container-content-item-question-icon-minu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+                  <path d="M0.898438 9L17.0984 8.85586" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+            </div>
+            <div class="ugc-faq-container-content-item-answer">
+              <div class="ugc-faq-container-content-item-answer-item">
+                Place and pay for a printer order between November 24 - November 30 to automatically receive one entry per order.
+              </div>
+            </div>
+          </div>
+          <div class="ugc-faq-container-content-item">
+            <div class="ugc-faq-container-content-item-question">
+              <div class="ugc-faq-container-content-item-question-title">2. Can I join if I buy consumables or accessories only?</div>
+              <div class="ugc-faq-container-content-item-question-icon-plus">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 19" fill="none">
+                  <path d="M0.898438 9.5L17.0984 9.35586" stroke="white" stroke-width="2" />
+                  <path d="M9 17.6016L9.14414 1.40156" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+              <div class="ugc-faq-container-content-item-question-icon-minu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+                  <path d="M0.898438 9L17.0984 8.85586" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+            </div>
+            <div class="ugc-faq-container-content-item-answer">
+              <div class="ugc-faq-container-content-item-answer-item">
+                No. Only printer purchases qualify for this draw.
+              </div>
+            </div>
+          </div>
+          <div class="ugc-faq-container-content-item">
+            <div class="ugc-faq-container-content-item-question">
+              <div class="ugc-faq-container-content-item-question-title">3. How will winners be announced?
+              </div>
+              <div class="ugc-faq-container-content-item-question-icon-plus">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 19" fill="none">
+                  <path d="M0.898438 9.5L17.0984 9.35586" stroke="white" stroke-width="2" />
+                  <path d="M9 17.6016L9.14414 1.40156" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+              <div class="ugc-faq-container-content-item-question-icon-minu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+                  <path d="M0.898438 9L17.0984 8.85586" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+            </div>
+            <div class="ugc-faq-container-content-item-answer">
+              <div class="ugc-faq-container-content-item-answer-item">
+                Winners are randomly selected and will be announced on our official site & social media, December 1.
+              </div>
+            </div>
+          </div>
+          <div class="ugc-faq-container-content-item">
+            <div class="ugc-faq-container-content-item-question">
+              <div class="ugc-faq-container-content-item-question-title">4. When and how will prizes be delivered? </div>
+              <div class="ugc-faq-container-content-item-question-icon-plus">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 19" fill="none">
+                  <path d="M0.898438 9.5L17.0984 9.35586" stroke="white" stroke-width="2" />
+                  <path d="M9 17.6016L9.14414 1.40156" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+              <div class="ugc-faq-container-content-item-question-icon-minu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+                  <path d="M0.898438 9L17.0984 8.85586" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+            </div>
+            <div class="ugc-faq-container-content-item-answer">
+              <div class="ugc-faq-container-content-item-answer-item">
+                Prizes will be shipped after December 15. 
+              </div>
+            </div>
+          </div>
+      
+          <div class="ugc-faq-container-content-item">
+            <div class="ugc-faq-container-content-item-question">
+              <div class="ugc-faq-container-content-item-question-title">5. If I win the Grand and First Prize,  how will I receive my refund?</div>
+              <div class="ugc-faq-container-content-item-question-icon-plus">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 19" fill="none">
+                  <path d="M0.898438 9.5L17.0984 9.35586" stroke="white" stroke-width="2" />
+                  <path d="M9 17.6016L9.14414 1.40156" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+              <div class="ugc-faq-container-content-item-question-icon-minu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+                  <path d="M0.898438 9L17.0984 8.85586" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+            </div>
+            <div class="ugc-faq-container-content-item-answer">
+              {% comment %} <div class="ugc-faq-container-content-item-answer-item">
+                Contact support at <a href="mailto:support@procolored.com"
+                  style="text-decoration: none;">support@procolored.com</a> for:
+              </div> {% endcomment %}
+              <div class="ugc-faq-container-content-item-answer-item">
+                Your refund will be processed to your original payment method after December 15.
+              </div>
+            </div>
+          </div>
+          <div class="ugc-faq-container-content-item">
+            <div class="ugc-faq-container-content-item-question">
+              <div class="ugc-faq-container-content-item-question-title">6. If I choose the $500 Windows computer, can I still exchange it for a gift card later?</div>
+              <div class="ugc-faq-container-content-item-question-icon-plus">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 19" fill="none">
+                  <path d="M0.898438 9.5L17.0984 9.35586" stroke="white" stroke-width="2" />
+                  <path d="M9 17.6016L9.14414 1.40156" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+              <div class="ugc-faq-container-content-item-question-icon-minu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+                  <path d="M0.898438 9L17.0984 8.85586" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+            </div>
+            <div class="ugc-faq-container-content-item-answer">
+              <div class="ugc-faq-container-content-item-answer-item">
+                No. Once a prize option is confirmed and processed, it cannot be changed.
+              </div>
+            </div>
+          </div>
+          <div class="ugc-faq-container-content-item">
+            <div class="ugc-faq-container-content-item-question">
+              <div class="ugc-faq-container-content-item-question-title">7. How long is the gift card valid?</div>
+              <div class="ugc-faq-container-content-item-question-icon-plus">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 19" fill="none">
+                  <path d="M0.898438 9.5L17.0984 9.35586" stroke="white" stroke-width="2" />
+                  <path d="M9 17.6016L9.14414 1.40156" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+              <div class="ugc-faq-container-content-item-question-icon-minu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+                  <path d="M0.898438 9L17.0984 8.85586" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+            </div>
+            <div class="ugc-faq-container-content-item-answer">
+              <div class="ugc-faq-container-content-item-answer-item">
+                The gift card becomes valid on December 15 and will remain valid for 6 months from that date.
+              </div>
+            </div>
+          </div>
+                    <div class="ugc-faq-container-content-item">
+            <div class="ugc-faq-container-content-item-question">
+              <div class="ugc-faq-container-content-item-question-title">8. If I cancel or refund my order, will I lose my draw entry?</div>
+              <div class="ugc-faq-container-content-item-question-icon-plus">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 19" fill="none">
+                  <path d="M0.898438 9.5L17.0984 9.35586" stroke="white" stroke-width="2" />
+                  <path d="M9 17.6016L9.14414 1.40156" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+              <div class="ugc-faq-container-content-item-question-icon-minu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+                  <path d="M0.898438 9L17.0984 8.85586" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+            </div>
+            <div class="ugc-faq-container-content-item-answer">
+              <div class="ugc-faq-container-content-item-answer-item">
+                Yes. Cancelled or refunded orders are not eligible for the draw.
+              </div>
+            </div>
+          </div>
+          <div class="ugc-faq-container-content-item">
+            <div class="ugc-faq-container-content-item-question">
+              <div class="ugc-faq-container-content-item-question-title">9. What if I have any questions about this lucky draw?</div>
+              <div class="ugc-faq-container-content-item-question-icon-plus">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 19" fill="none">
+                  <path d="M0.898438 9.5L17.0984 9.35586" stroke="white" stroke-width="2" />
+                  <path d="M9 17.6016L9.14414 1.40156" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+              <div class="ugc-faq-container-content-item-question-icon-minu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+                  <path d="M0.898438 9L17.0984 8.85586" stroke="white" stroke-width="2" />
+                </svg>
+              </div>
+            </div>
+            <div class="ugc-faq-container-content-item-answer">
+              <div class="ugc-faq-container-content-item-answer-item">
+                Our support team is here to help! Contact us anytime through live chat or <a href="mailto:support@procolored.com"
+                  style="text-decoration: none;">support@procolored.com</a> , and we’ll assist you as soon as possible.
+              </div> 
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <script src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/lucky-canvas_1.7.25.umd.js?v=1751940211"></script>
+    {% assign customerId = '' %}
+    {% assign isLogin = 0 %}
+    {% if customer %}
+         {% assign isLogin = 1 %}
+        {% assign customerId = customer.id %}
+      {% endif %}
+  <script>
+        let customerId = ''; 
+        let customerIdString =''
+        let isLogin = {{ isLogin }};
+        let customerEmail = "";
+        if(isLogin === 1){
+            console.log('已登录帐号')
+            customerIdString = "{{customerId}}";
+            customerId = customerIdString - 0;
+            customerEmail="{{customer.email}}";
+        }else{
+            console.log('未登录帐号')
+        }
+        
+        
+        console.log('customerId==',customerId)
+   
+  </script>
+  <script src="{{ 'page.lucky-wheel-activity-black-friday-2025.js' | asset_url }}"></script>

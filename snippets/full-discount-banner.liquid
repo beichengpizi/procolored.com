@@ -1,0 +1,596 @@
+{% comment %} 显示全店满减优惠进度条框 {% endcomment %}
+{% assign show_full_discount_banner_progress = false %}
+{%- if settings.show_full_discount_banner_progress -%}
+  {%- if section.settings.show_full_discount_banner_progress -%}
+    {% assign show_full_discount_banner_progress = true %}
+  {%- else -%}
+    {% assign show_full_discount_banner_progress = false %}
+  {%- endif -%}
+{%- else -%}
+  {% assign show_full_discount_banner_progress = false %}
+{%- endif -%}
+{% comment %} 显示全店满减优惠价格框 {% endcomment %}
+
+{% assign show_full_discount_banner_price = false %}
+{%- if settings.show_full_discount_banner_price -%}
+  {%- if section.settings.show_full_discount_banner_price -%}
+    {% assign show_full_discount_banner_price = true %}
+  {%- else -%}
+    {% assign show_full_discount_banner_price = false %}
+  {%- endif -%}
+{%- else -%}
+  {% assign show_full_discount_banner_price = false %}
+{%- endif -%}
+{% comment %} 显示全店满减优惠价格框 {% endcomment %}
+{% assign full_discount_progress_title_image = section.settings.full_discount_progress_title_image
+  | default: settings.full_discount_progress_title_image
+%}
+{% assign full_discount_progress_desc_image = section.settings.full_discount_progress_desc_image
+  | default: settings.full_discount_progress_desc_image
+%}
+{% assign full_discount_progress_title = section.settings.full_discount_progress_title
+  | default: settings.full_discount_progress_title
+%}
+{% assign full_discount_progress_title_color = section.settings.full_discount_progress_title_color
+  | default: settings.full_discount_progress_title_color
+%}
+{% assign full_discount_progress_bg_image = section.settings.full_discount_progress_bg_image
+  | default: settings.full_discount_progress_bg_image
+%}
+{% assign full_discount_progress_bg_image_mb = section.settings.full_discount_progress_bg_image_mb
+  | default: settings.full_discount_progress_bg_image_mb
+%}
+{% assign full_discount_progress_info_tips = section.settings.full_discount_progress_info_tips
+  | default: settings.full_discount_progress_info_tips
+%}
+{% assign full_discount_progress_info_tips_color = section.settings.full_discount_progress_info_tips_color
+  | default: settings.full_discount_progress_info_tips_color
+%}
+{% assign full_discount_progress_value = section.settings.full_discount_progress_value
+  | default: settings.full_discount_progress_value
+%}
+{% assign full_discount_price_title = section.settings.full_discount_price_title
+  | default: settings.full_discount_price_title
+%}
+{% assign full_discount_price_title_color = section.settings.full_discount_price_title_color
+  | default: settings.full_discount_price_title_color
+%}
+{% assign full_discount_price_value = section.settings.full_discount_price_value
+  | default: settings.full_discount_price_value
+%}
+{% assign full_discount_price_value_discount_color = section.settings.full_discount_price_value_discount_color
+  | default: settings.full_discount_price_value_discount_color
+%}
+{% assign full_discount_price_value_total_color = section.settings.full_discount_price_value_total_color
+  | default: settings.full_discount_price_value_total_color
+%}
+{% assign full_discount_price_background = section.settings.full_discount_price_background
+  | default: settings.full_discount_price_background
+%}
+{% assign full_discount_price_inner_background = section.settings.full_discount_price_inner_background
+  | default: settings.full_discount_price_inner_background
+%}
+
+<style>
+  .full-discount-banner-container {
+  }
+  .full-discount-banner-content {
+    width: 100%;
+    height: 140px;
+    background-image: url('{{full_discount_progress_bg_image | image_url }}');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    padding: 11px 20px 25px 20px;
+    margin-bottom: 10px;
+  }
+  .full-discount-banner-discount-wrap {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 12px;
+    background: {{full_discount_price_background}};
+    margin-bottom: 10px;
+  }
+  .full-discount-banner-title {
+    padding: 0 9px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+    width: 100%;
+  }
+  .full-discount-banner-title-icon {
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+    aspect-ratio: 1/1;
+  }
+  .full-discount-banner-title-icon img {
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+  }
+  .full-discount-banner-title-text {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.33; /* 133% */
+    background: {{full_discount_progress_title_color}};
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .full-discount-banner-progress-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .full-discount-banner-progress-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+  .full-discount-banner-progress-info-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .full-discount-banner-progress-info-icon img {
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
+    vertical-align: baseline;
+  }
+  .full-discount-banner-progress-info-text {
+    color: {{full_discount_progress_info_tips_color}};
+
+    font-size: 16px;
+
+    font-weight: 700;
+    line-height: 1.4; /* 140% */
+  }
+  /* 进度条容器 */
+  .full-discount-banner-progress {
+    --p: 40%;
+    position: relative;
+    width: 100%;
+    height: 8px;
+    border-radius: 12px;
+    /* 渐变动画过渡 */
+    transition: --p 0.5s;
+  }
+
+  /* 轨道：左渐变，右白色 */
+  .full-discount-banner-progress-track {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #ff2ace 0%, #19d2fc 100%) 0 0 / var(--p) 100% no-repeat, #ffffff;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+
+    /* 渐变宽度平滑动画 */
+    transition: background-size 0.5s cubic-bezier(0.4, 1, 0.7, 1);
+  }
+  .full-discount-banner-progress-thumb {
+    position: absolute;
+    top: 50%;
+    left: calc(var(--p) - 14px);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #2bc5f9;
+    border: 1px solid #ffffff;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.11), 0 2px 6px rgba(0, 0, 0, 0.35);
+    transform: translateY(-50%);
+    /* 滑块位置动画 */
+    transition: left 0.5s cubic-bezier(0.4, 1, 0.7, 1);
+  }
+  .full-discount-banner-tips {
+    color: {{full_discount_price_title_color}};
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4; /* 140% */
+    text-align: left;
+    margin-bottom: 14px;
+  }
+  .full-discount-banner-discount-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 28px;
+    padding: 24px 28px;
+    border-radius: 12px;
+    background: {{full_discount_price_inner_background}};
+  }
+  .full-discount-banner-discount-content-col {
+    display: flex;
+    flex-direction: column;
+  }
+  .full-discount-banner-discount-content-col-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .full-discount-banner-discount-content-col-row-icon {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    background-color: {{full_discount_price_value_discount_color}};
+    border-radius: 50%;
+  }
+  .full-discount-banner-discount-content-col-row-text,
+  .full-discount-banner-discount-content-col-row-total-text,
+  .full-discount-banner-discount-content-col-row-total-text .money {
+    color: {{full_discount_price_value_total_color}};
+
+    font-size: 14px;
+
+    font-weight: 400;
+    line-height: 1;
+  }
+  .full-discount-banner-discount-content-col-row-text span,
+  .full-discount-banner-discount-content-col-row-discount-text,
+  .full-discount-banner-discount-content-col-row-discount-text .money {
+    color: {{full_discount_price_value_discount_color}};
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .full-discount-banner-discount-content-col-line {
+    width: 1px;
+    height: 30px;
+    flex-shrink: 0;
+    background-color: #d9d9d9;
+    margin-left: 3px;
+  }
+  @media screen and (max-width: 768px) {
+    .full-discount-banner-content {
+      width: 328px;
+      height: 126px;
+      background-image: url('{{full_discount_progress_bg_image_mb | image_url }}');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+      padding: 16px 14px 16px 14px;
+    }
+    .full-discount-banner-discount-wrap {
+      padding: 20px 14px;
+    }
+    .full-discount-banner-title {
+      padding: 0 2px;
+
+      margin-bottom: 6px;
+    }
+    .full-discount-banner-title-icon {
+      width: 44px;
+      height: 44px;
+    }
+
+    .full-discount-banner-title-text {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .full-discount-banner-progress-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    .full-discount-banner-progress-info {
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+    .full-discount-banner-progress-info-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    .full-discount-banner-progress-info-text {
+      font-size: 14px;
+    }
+    /* 进度条容器 */
+    .full-discount-banner-progress {
+      --p: 100%;
+      position: relative;
+      width: 100%;
+      height: 6px;
+      border-radius: 12px;
+      /* 渐变动画过渡 */
+      transition: --p 0.5s;
+    }
+
+    /* 轨道：左渐变，右白色 */
+    .full-discount-banner-progress-track {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #ff2ace 0%, #19d2fc 100%) 0 0 / var(--p) 100% no-repeat, #ffffff;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+
+      /* 渐变宽度平滑动画 */
+      transition: background-size 0.5s cubic-bezier(0.4, 1, 0.7, 1);
+    }
+    .full-discount-banner-progress-thumb {
+      position: absolute;
+      top: 50%;
+      left: calc(var(--p) - 14px);
+      width: 18px;
+      height: 18px;
+    }
+    .full-discount-banner-tips {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.4; /* 140% */
+
+      margin-bottom: 10px;
+    }
+    .full-discount-banner-discount-content {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 8px;
+      padding: 14px 10px 16px 10px;
+      border-radius: 6px;
+
+    }
+
+    .full-discount-banner-discount-content-col-row {
+      gap: 6px;
+    }
+    .full-discount-banner-discount-content-col-row-icon {
+      width: 7px;
+      height: 7px;
+    }
+    .full-discount-banner-discount-content-col-row-text,
+    .full-discount-banner-discount-content-col-row-total-text,
+    .full-discount-banner-discount-content-col-row-total-text .money {
+      font-size: 12px;
+    }
+    .full-discount-banner-discount-content-col-row-text span,
+    .full-discount-banner-discount-content-col-row-discount-text,
+    .full-discount-banner-discount-content-col-row-discount-text .money {
+      font-size: 12px;
+    }
+    .full-discount-banner-discount-content-col-line {
+      width: 1px;
+      height: 30px;
+      flex-shrink: 0;
+      margin-left: 3px;
+    }
+  }
+</style>
+
+<!-- 全场满减优惠横幅 Full discount banner -->
+<div class="full-discount-banner-wrapper">
+  <div class="full-discount-banner-container">
+    {%- if show_full_discount_banner_progress -%}
+      <div class="full-discount-banner-content">
+        {%- if full_discount_progress_title != empty -%}
+          <div class="full-discount-banner-title">
+            {%- if full_discount_progress_title_image -%}
+              <span class="full-discount-banner-title-icon">
+                <img
+                  style="aspect-ratio: {{full_discount_progress_title_image.aspect_ratio}};"
+                  class="lazyload"
+                  data-src="{{- full_discount_progress_title_image | image_url  -}}"
+                  alt="{{ full_discount_progress_title_image.aspect_ratio.alt }}"
+                >
+              </span>
+            {%- endif -%}
+            <span class="full-discount-banner-title-text">{{- full_discount_progress_title -}}</span>
+          </div>
+        {%- endif -%}
+        <div class="full-discount-banner-progress-wrapper">
+          {%- if full_discount_progress_info_tips != empty -%}
+            <div class="full-discount-banner-progress-info">
+              {%- if full_discount_progress_desc_image -%}
+                <span class="full-discount-banner-progress-info-icon">
+                  <img
+                    style="aspect-ratio: {{full_discount_progress_desc_image.aspect_ratio}};"
+                    class="lazyload"
+                    src="{{- full_discount_progress_desc_image | image_url  -}}"
+                    alt=""
+                  >
+                </span>
+              {%- endif -%}
+              <span class="full-discount-banner-progress-info-text"
+                >Only
+                <span class="full-discount-banner-progress-info-text-value">
+                  {{ full_discount_progress_value }} 
+                </span>
+                pcs left!</span
+              >
+          {%- endif -%}
+        </div>
+        <div
+          class="full-discount-banner-progress"
+          id="full-discount-banner-progress-bar"
+          style="--p: {{ full_discount_progress_value }}%"
+        >
+          <div class="full-discount-banner-progress-track"></div>
+          <div class="full-discount-banner-progress-thumb"></div>
+        </div>
+      </div>
+    </div>
+    {%- endif -%}
+    {%- if show_full_discount_banner_price -%}
+      <div class="full-discount-banner-discount-wrap">
+        {%- if full_discount_price_title != empty -%}
+          <div class="full-discount-banner-tips">{{- full_discount_price_title -}}</div>
+        {%- endif -%}
+
+        {% assign total_price_1 = full_discount_price_value.total_price_1.value | money_without_trailing_zeros %}
+        {% assign total_price_2 = full_discount_price_value.total_price_2.value | money_without_trailing_zeros %}
+        {% assign total_price_3 = full_discount_price_value.total_price_3.value | money_without_trailing_zeros %}
+        {% assign total_price_4 = full_discount_price_value.total_price_4.value | money_without_trailing_zeros %}
+        {% assign total_price_5 = full_discount_price_value.total_price_5.value | money_without_trailing_zeros %}
+        {% assign total_price_6 = full_discount_price_value.total_price_6.value | money_without_trailing_zeros %}
+
+        {% assign discount_1 = full_discount_price_value.discount_1.value | money_without_trailing_zeros %}
+        {% assign discount_2 = full_discount_price_value.discount_2.value | money_without_trailing_zeros %}
+        {% assign discount_3 = full_discount_price_value.discount_3.value | money_without_trailing_zeros %}
+        {% assign discount_4 = full_discount_price_value.discount_4.value | money_without_trailing_zeros %}
+        {% assign discount_5 = full_discount_price_value.discount_5.value | money_without_trailing_zeros %}
+        {% assign discount_6 = full_discount_price_value.discount_6.value | money_without_trailing_zeros %}
+        {%- if full_discount_price_value != blank -%}
+          <div class="full-discount-banner-discount-content">
+            <div class="full-discount-banner-discount-content-col">
+              <div class="full-discount-banner-discount-content-col-row">
+                <div
+                  class="full-discount-banner-discount-content-col-row-icon"
+                ></div>
+                <div class="full-discount-banner-discount-content-col-row-text">
+                  <span class="full-discount-banner-discount-content-col-row-discount-text">{{- discount_1 }} off</span>
+                  over
+                  <span class="full-discount-banner-discount-content-col-row-total-text"> {{ total_price_1 -}}</span>
+                </div>
+              </div>
+              <div class="full-discount-banner-discount-content-col-line"></div>
+              <div class="full-discount-banner-discount-content-col-row">
+                <div
+                  class="full-discount-banner-discount-content-col-row-icon"
+                ></div>
+                <div class="full-discount-banner-discount-content-col-row-text">
+                  <span class="full-discount-banner-discount-content-col-row-discount-text">{{- discount_2 }} off</span>
+                  over
+                  <span class="full-discount-banner-discount-content-col-row-total-text"> {{ total_price_2 -}}</span>
+                </div>
+              </div>
+              <div class="full-discount-banner-discount-content-col-line"></div>
+              <div class="full-discount-banner-discount-content-col-row">
+                <div
+                  class="full-discount-banner-discount-content-col-row-icon"
+                ></div>
+                <div class="full-discount-banner-discount-content-col-row-text">
+                  <span class="full-discount-banner-discount-content-col-row-discount-text">{{- discount_3 }} off</span>
+                  over
+                  <span class="full-discount-banner-discount-content-col-row-total-text"> {{ total_price_3 -}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="full-discount-banner-discount-content-col">
+              <div class="full-discount-banner-discount-content-col-row">
+                <div
+                  class="full-discount-banner-discount-content-col-row-icon"
+                ></div>
+                <div class="full-discount-banner-discount-content-col-row-text">
+                  <span class="full-discount-banner-discount-content-col-row-discount-text">{{- discount_4 }} off</span>
+                  over
+                  <span class="full-discount-banner-discount-content-col-row-total-text"> {{ total_price_4 -}}</span>
+                </div>
+              </div>
+              <div class="full-discount-banner-discount-content-col-line"></div>
+              <div class="full-discount-banner-discount-content-col-row">
+                <div
+                  class="full-discount-banner-discount-content-col-row-icon"
+                ></div>
+                <div class="full-discount-banner-discount-content-col-row-text">
+                  <span class="full-discount-banner-discount-content-col-row-discount-text">{{- discount_5 }} off</span>
+                  over
+                  <span class="full-discount-banner-discount-content-col-row-total-text"> {{ total_price_5 -}}</span>
+                </div>
+              </div>
+              <div class="full-discount-banner-discount-content-col-line"></div>
+              <div class="full-discount-banner-discount-content-col-row">
+                <div
+                  class="full-discount-banner-discount-content-col-row-icon"
+                ></div>
+                <div class="full-discount-banner-discount-content-col-row-text">
+                  <span class="full-discount-banner-discount-content-col-row-discount-text">{{- discount_6 }} off</span>
+                  over
+                  <span class="full-discount-banner-discount-content-col-row-total-text"> {{ total_price_6 -}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+<script>
+  // 关键：使用页面独有的localStorage KEY，确保每个页面的进度缓存独立
+  const PROGRESS_TIME_KEY = 'full_discount_banner_progress_ts_' + encodeURIComponent(window.location.pathname);
+
+  // 关键：获取Dom元素，控制进度条动画与显示
+  const bar = document.getElementById('full-discount-banner-progress-bar');
+  const progressTrack = bar.querySelector('.full-discount-banner-progress-track');          // 进度槽
+  const progressThumb = bar.querySelector('.full-discount-banner-progress-thumb');          // 滑块
+  const progressInfoTextValue = document.querySelector('.full-discount-banner-progress-info-text-value'); // 文本显示百分比
+
+  // 当前动画最大值（实际用不到，由Liquid注入，但代码未使用此变量）
+  let maximum_random_value = {{ full_discount_progress_value | default: 100 }};
+
+  /**
+   * 关键：生成1~60之间的随机整数
+   * @returns {number}
+   */
+  function getRandomInt1To60() {
+    return Math.floor(Math.random() * 60) + 1;
+  }
+
+  /**
+   * 关键：更新进度条动画样式和进度信息
+   * @param {number} v - 当前进度0~100
+   */
+  function updateProgressElements(v) {
+    const p = Math.max(0, Math.min(100, v)); // 限制为 0~100
+    bar.style.setProperty('--p', p + '%');
+    progressInfoTextValue.textContent = Math.round(p); // 显示整数百分比  
+
+    // 设置渐变宽度动画
+    progressTrack.style.background = `linear-gradient(90deg,#ff00b8 0%, #7a5cff 35%, #00b8ff 100%) 0 0 / ${p}% 100% no-repeat, #ffffff`;
+    // 设置滑块动画位置
+    progressThumb.style.left = `calc(${p}% - 14px)`;
+  }
+
+  (function() {
+    // 关键：进度本地缓存结构为 {value: 数字, ts: 时间戳}
+    const now = Date.now();
+    let valueInfoStr = localStorage.getItem(PROGRESS_TIME_KEY);
+    let valueInfo = null;
+
+    // 关键：尝试读取本地缓存
+    if (valueInfoStr) {
+      try {
+        valueInfo = JSON.parse(valueInfoStr);
+      } catch(e) {
+        valueInfo = null; // 解析失败则清除
+      }
+    }
+
+    // 超时时间(毫秒)，可根据需求调整。当前为1小时
+    const EXPIRE_TIME = 3600000; // 关键：缓存过期时间为1小时
+
+    let theValue;
+
+    // 关键：首次进入/本地无缓存 或 缓存损坏 时生成随机进度，写入本地
+    if (!valueInfo || typeof valueInfo.value !== "number" || typeof valueInfo.ts !== "number") {
+      theValue = getRandomInt1To60();
+      localStorage.setItem(PROGRESS_TIME_KEY, JSON.stringify({
+        value: theValue,
+        ts: now
+      }));
+    } else {
+      // 关键：本地有缓存，判断是否过期
+      if (now - valueInfo.ts > EXPIRE_TIME) {
+        // 缓存超时，重新生成并写入
+        theValue = getRandomInt1To60();
+        localStorage.setItem(PROGRESS_TIME_KEY, JSON.stringify({
+          value: theValue,
+          ts: now
+        }));
+      } else {
+        // 缓存未超时，直接用原值
+        theValue = valueInfo.value;
+      }
+    }
+
+    // 关键：更新进度条样式
+    updateProgressElements(theValue);
+  })();
+</script>

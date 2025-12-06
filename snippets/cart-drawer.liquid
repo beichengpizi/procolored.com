@@ -4,7 +4,72 @@
     assign free_shipping_minimum = settings.free_shipping_minimum | times: 100
     assign total = cart.total_price
     assign shadow_class = 'has-shadow--' | append: settings.block_shadows
+    assign storewide_discount = settings.storewide_discount
+    assign storewide_discount_price_value = settings.storewide_discount_price_value
+    assign storewide_discount_exclude_product_list = settings.storewide_discount_exclude_product_list
   -%}
+  <style>
+    #Cart-Drawer {
+      z-index: 9999;
+    }
+    #Cart-Drawer .product-card-small {
+      width: 100%;
+    }
+    #Cart-Drawer .product-card-small--link {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      font-size: 14px;
+      line-height: 1.3;
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+    .cart-drawer .complementary-products {
+      margin-top: 0;
+    }
+    #Cart-Drawer .side-panel-content {
+      justify-content: space-between;
+    }
+    #Cart-Drawer product-recommendations .price ins .amount:not(html) {
+      font-size: 12px;
+    }
+    #Cart-Drawer .product-card-small {
+      max-height: 92px;
+    }
+    @media screen and (max-width: 768px) {
+      #Cart-Drawer .product-card-small--link {
+        font-size: 13px;
+      }
+
+    }
+    /* 自定义竖向滚动条样式 */
+    /* 精致化滚动条样式 */
+    #Cart-Drawer .side-panel-content {
+      scrollbar-color: #b7bfc8 #f4f6fa; /* 更柔和的主色和底色 */
+      scrollbar-width: thin; /* Firefox */
+    }
+    #Cart-Drawer .side-panel-content::-webkit-scrollbar {
+      width: 6px;
+      background: #f4f6fa;
+      border-radius: 6px;
+      scrollbar-width: thin;
+    }
+    #Cart-Drawer .side-panel-content::-webkit-scrollbar-thumb {
+      background: linear-gradient(90deg, #cad4e1 0%, #b7bfc8 100%);
+      border-radius: 6px;
+      min-height: 24px;
+      transition: background 0.2s;
+      box-shadow: 0 1px 4px 0 rgba(183, 191, 200, 0.16);
+    }
+    #Cart-Drawer .side-panel-content::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(90deg, #b7bfc8 0%, #a3adb8 100%);
+    }
+    #Cart-Drawer .side-panel-content::-webkit-scrollbar-track {
+      background: #f4f6fa;
+      border-radius: 6px;
+    }
+  </style>
   <div class="side-panel cart-drawer {{ shadow_class }}" id="Cart-Drawer" tabindex="-1">
     <div class="side-panel-inner">
       <div class="side-panel-header">
@@ -17,6 +82,12 @@
         </div>
       </div>
       <div class="side-panel-content">
+        <!-- 满减优惠进度提示 -->
+        {%- liquid
+          if storewide_discount and storewide_discount_price_value != empty and storewide_discount_price_value != blank
+            render 'storewide-discount', storewide_discount_price_value: storewide_discount_price_value, storewide_discount_exclude_product_list: storewide_discount_exclude_product_list
+          endif
+        -%}
         {%- if cart != empty -%}
           <div class="product-cart-item--container">
             {%- liquid
@@ -24,6 +95,7 @@
                 render 'free-shipping', free_shipping_minimum: free_shipping_minimum, total: total
               endif
             -%}
+
             {% for item in cart.items %}
               <div class="product-cart-item" id="CartDrawerItem-{{ item.index | plus: 1 }}">
                 <div class="product-cart-item-image">
@@ -190,13 +262,19 @@
           >
             {% if recommendations.performed and recommendations.products_count > 0 %}
               <div class="complementary-products--heading">{{ 'general.cart_drawer.you_may_also_like' | t }}</div>
-              <scroll-shadow>
-                <div class="complementary-products--inner">
+
+              <div
+                class="swiper-container cart-Drawer-swiper-container"
+                id="cart-Drawer-swiper-container-{{ section.id | default: 'default' }}"
+              >
+                <div class="swiper-wrapper cart-Drawer-swiper-wrapper">
                   {% for recommendation in recommendations.products %}
-                    {% render 'product-card-small', product_small: recommendation %}
+                    <div class="swiper-slide">
+                      {% render 'product-card-small', product_small: recommendation %}
+                    </div>
                   {% endfor %}
                 </div>
-              </scroll-shadow>
+              </div>
             {% endif %}
           </product-recommendations>
         {%- endif -%}

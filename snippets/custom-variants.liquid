@@ -1,44 +1,175 @@
 {%- assign type = block.settings.type -%}
 
 <style>
+  custom-variants .custom-variants-options-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  custom-variants .custom-variants-options-text {
+    color: #000;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.38; /* 138% */
+  }
   .js-custom-variant {
-    border-color: #e5e7eb;
+    position: relative;
     background-color: #fff;
+    border-radius: 10px;
+    padding: 22px 20px 22px 22px;
+    box-shadow: 0 0 0 1px #d1d1d1 inset;
+    border-style: none;
   }
 
   .js-custom-variant:hover,
   .js-custom-variant.active {
     color: inherit;
-    border-color: #da291c;
-    background-color: rgba(218, 41, 28, 0.06);
+    box-shadow: 0 0 0 2px #ff8f1c inset;
+    background-color: #fff;
   }
-  .compare-link {
+  custom-variants .compare-link {
     font-size: 14px;
   }
+  .js-custom-variant .variant-text-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+  }
+  .js-custom-variant .variant-label-content {
+    position: absolute;
+    display: flex;
+    top: 0px;
+    right: 0px;
+    border-radius: 0 10px 0 5px;
+    background: #ff8f1c;
+    padding: 4px 14px;
+  }
+  .js-custom-variant .variant-label-content .variant-label-content-text {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+  }
+  .js-custom-variant .variant-product-img {
+    width: 62px;
+    height: 62px;
+  }
+  .js-custom-variant .variant-text-content-title {
+    color: #000;
+
+    font-size: 16px;
+
+    font-weight: 600;
+    line-height: 1.22;
+  }
+  .js-custom-variant .variant-diff-price-text {
+    display: flex;
+  }
+  .js-custom-variant .variant-diff-price-text-box {
+    color: #c10000;
+
+    font-size: 14px;
+
+    font-weight: 400;
+    line-height: 1;
+    border-radius: 2px;
+    background: #fdd;
+    padding: 2px 5px;
+    width: max-content;
+  }
+  .js-custom-variant .custom-product-price-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    width: 100%;
+  }
+  .js-custom-variant .custom-product-price-compare {
+    color: #c2c2c2;
+
+    font-size: 14px;
+
+    font-weight: 400;
+    line-height: 1.4;
+    text-decoration-line: line-through;
+  }
+  .js-custom-variant .custom-product-price {
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
   @media (max-width: 768px) {
-    .compare-link {
+    custom-variants .custom-variants-options-box {
+      margin-bottom: 10px;
+    }
+    custom-variants .custom-variants-options-text {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    custom-variants .compare-link {
       font-size: 12px;
     }
     .js-custom-variant {
-      padding-left: 10px;
-      padding-right: 10px;
+      position: relative;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 18px 10px 14px 10px;
+      box-shadow: 0 0 0 0.5px #d1d1d1 inset;
+      border-style: none;
+    }
+    .js-custom-variant:hover,
+    .js-custom-variant.active {
+      color: inherit;
+      box-shadow: 0 0 0 1px #ff8f1c inset;
+      background-color: #fff;
+    }
+    .js-custom-variant .variant-text-content {
+      gap: 2px;
+    }
+    .js-custom-variant .variant-label-content {
+      border-radius: 0 6px 0 6px;
+      background: #ff8f1c;
+      padding: 4px 14px;
+    }
+    .js-custom-variant .variant-label-content .variant-label-content-text {
+      font-size: 12px;
+    }
+    .js-custom-variant .variant-product-img {
+      width: 48px;
+      height: 48px;
+    }
+    .js-custom-variant .variant-text-content-title {
+      font-size: 14px;
+    }
+    .js-custom-variant .variant-diff-price-text-box {
+      font-size: 10px;
+    }
+    .js-custom-variant .custom-product-price-compare {
+      font-size: 12px;
+    }
+    .js-custom-variant .custom-product-price {
+      font-size: 14px;
     }
   }
 </style>
 
 <custom-variants class="relative block my-4 lg:mt-4 overflow-hidden" client:idle>
-  <div class="flex items-center justify-between mb-4">
-    <span class="text-base font-semibold">Options</span>
+  <div class="custom-variants-options-box">
+    <span class="custom-variants-options-text">Options</span>
     <a class="text-blue-500 compare-link" href="/pages/compare">Compare ></a>
   </div>
 
   {%- if type == 'type-1' -%}
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 lg:gap-3">
       {%- for index in (1..10) -%}
         {%- assign id = 'product-' | append: index -%}
         {%- assign title_handle = 'text-' | append: index -%}
+        {%- assign custom_variants_label_handle = 'custom_variants_label_text_' | append: index -%}
         {%- assign handle = block.settings[id] -%}
         {%- assign title = block.settings[title_handle] -%}
+        {%- assign product_custom_variants_label_text = block.settings[custom_variants_label_handle] -%}
         {%- assign product = all_products[handle] -%}
         {%- assign image = product.featured_image -%}
         <!-- 针对元对象显示 -->
@@ -140,7 +271,16 @@
               {%- endfor %}
             {%- endif %}
           >
-            <div class="aspect-square w-14 lg:w-12 bg-gray-50 rounded-lg overflow-hidden flex-shrink-0">
+            {%- assign show_custom_variants_label = settings.show_custom_variants_label -%}
+            {%- assign custom_variants_label_text = product_custom_variants_label_text
+              | default: settings.custom_variants_label_text
+            -%}
+            {%- if show_custom_variants_label and custom_variants_label_text != empty %}
+              <div class="variant-label-content">
+                <span class="variant-label-content-text">{{ custom_variants_label_text }}</span>
+              </div>
+            {%- endif -%}
+            <div class="variant-product-img aspect-square   rounded-lg overflow-hidden flex-shrink-0">
               {%- if image -%}
                 {%- liquid
                   assign master_width = image.src.width | append: 'x' | append: image.src.height
@@ -154,21 +294,49 @@
                 {%- render 'responsive-image', image: image, sizes: width, class: class -%}
               {%- endif -%}
             </div>
+            {%- assign select_variant_price = 'select_variant_price-' | append: index -%}
+            {%- assign select_variant_price_value = block.settings[select_variant_price] | plus: 0 -%}
+            {%- assign current_variant = product.variants[select_variant_price_value] -%}
+            {% if current_variant %}
+              {%- assign current_selected_variant = current_variant -%}
+            {% else %}
+              {%- assign current_selected_variant = product -%}
+            {% endif %}
+            <div class="flex  gap-3 items-center gap-y-1 lg:flex-row lg:items-center lg:justify-between lg:gap-4 w-full">
+              <div class="variant-text-content">
+                <span class="variant-text-content-title">{{ title | default: product.title }}</span>
+                <!-- 优惠价格 -->
+                {% if settings.show_custom_variants_discount_price %}
+                  <span class="variant-diff-price-text">
+                    {% if custom_discount %}
+                      <!-- 存在折扣值 售价显示 -->
+                      {% if custom_discount contains '%' %}
+                        {%- assign amount = custom_discount | split: '%' | first -%}
+                        {%- assign final_sale_price = current_selected_variant.price
+                          | times: amount
+                          | divided_by: 100
+                          | round
+                        -%}
+                        <span class="variant-diff-price-text-box"> {{ final_sale_price | money }} Off </span>
+                      {% else %}
+                        <span class="variant-diff-price-text-box"> {{ custom_discount | money }} Off </span>
+                      {% endif %}
 
-            <div class="flex flex-col gap-y-1 lg:flex-row lg:items-center lg:justify-between lg:gap-4 w-full">
-              <div class="">
-                <span class="text-sm font-semibold line-clamp-2">{{ title | default: product.title }}</span>
+                    {% else %}
+                      {% if current_selected_variant.compare_at_price > current_selected_variant.price
+                        and current_selected_variant.compare_at_price > 0
+                      %}
+                        {%- assign discount_price = current_selected_variant.compare_at_price
+                          | minus: current_selected_variant.price
+                        -%}
+                        <span class="variant-diff-price-text-box"> {{ discount_price | money }} Off </span>
+                      {% endif %}
+                    {% endif %}
+                  </span>
+                {% endif %}
               </div>
               {% comment %} 是否存在折扣折=={{ custom_discount }} {% endcomment %}
-              <div class="w-36 flex-shrink-0 space-x-2 text-left lg:text-right">
-                {%- assign select_variant_price = 'select_variant_price-' | append: index -%}
-                {%- assign select_variant_price_value = block.settings[select_variant_price] | plus: 0 -%}
-                {%- assign current_variant = product.variants[select_variant_price_value] -%}
-                {% if current_variant %}
-                  {%- assign current_selected_variant = current_variant -%}
-                {% else %}
-                  {%- assign current_selected_variant = product -%}
-                {% endif %}
+              <div class="custom-product-price-wrapper">
                 {% if custom_discount %}
                   <!-- 存在折扣值 原价显示 -->
 
@@ -227,6 +395,7 @@
                 </span>
               </div>
             </div>
+
             <script type="application/json">
               {{ product.variants | json }}
             </script>

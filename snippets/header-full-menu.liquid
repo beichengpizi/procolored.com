@@ -180,28 +180,33 @@
                     {% if forloop.first %}
                       <div class="series-name-wrap">
                         <div class="series-name-container">
-                          <div class="series-name-left">F Series</div>
                           <div class="series-name-right">
-                            <div class="series-name-right-item">
-                              <div class="series-name-right-item-name">
-                                {% comment %} <span class="dividing-line"></span> {% endcomment %}
-                                <span>P Series</span>
-                              </div>
-                            </div>
                             <div class="series-name-right-item">
                               <div class="series-name-right-item-name">
                                 {% comment %} <span class="dividing-line"></span> {% endcomment %}
                                 <span>K Series</span>
                               </div>
                             </div>
+                            <div class="series-name-right-item">
+                              <div class="series-name-right-item-name">
+                                {% comment %} <span class="dividing-line"></span> {% endcomment %}
+                                <span>P Series</span>
+                              </div>
+                            </div>
                           </div>
+                          <div class="series-name-left">F Series</div>
                         </div>
                       </div>
                       <div class="product-section product-section-grid">
                         {% for collection in collections %}
                           {% if collection.url == l.url %}
                             {% for prod in collection.products limit: 1 %}
-                              <div class="product-section-item grid-item" data-link="{{ prod.url }}">
+                             
+                              {% assign prod_url = prod.url %}
+                              {% if prod.metafields.custom.learn_more_link.value.url %}
+                                {% assign prod_url = prod.metafields.custom.learn_more_link.value.url %}
+                              {% endif %}
+                              <div class="product-section-item grid-item" data-link="{{ prod_url }}">
                                 {{ prod.images[0] | image_url: width: 500 | image_tag }}
                                 {% assign prod_tags = prod.tags | downcase %}
                                 <div class="prod-badge">
@@ -247,9 +252,65 @@
                                 {% endif %}
                               </div>
                             {% endfor %}
+
+                            {% for prod in collection.products limit: 2 offset: 1 %}
+                              {% assign prod_url = prod.url %}
+                              {% if prod.metafields.custom.learn_more_link.value.url %}
+                                {% assign prod_url = prod.metafields.custom.learn_more_link.value.url %}
+                              {% endif %}
+                              <div class="product-section-item grid-item" data-link="{{ prod_url }}">
+                                {{ prod.images[0] | image_url: width: 500 | image_tag }}
+                                {% assign prod_tags = prod.tags | downcase %}
+                                <div class="prod-badge">
+                                  {% if prod_tags contains 'save' %}
+                                    {% if prod.selected_or_first_available_variant.price
+                                        < prod.selected_or_first_available_variant.compare_at_price
+                                    %}
+                                      {%- capture save_num -%}
+                                        {{ prod.selected_or_first_available_variant.compare_at_price | minus: prod.selected_or_first_available_variant.price | money | remove: '.00' | remove: '.10'| remove: '.91'  }}
+                                      {%- endcapture -%}
+                                      <div class="badge-save">Save {{ save_num }}</div>
+                                    {% endif %}
+                                  {% elsif prod_tags contains 'new arrival' or prod_tags contains 'new' %}
+                                    <div class="badge-new-arrival">New Arrival</div>
+                                  {% elsif prod_tags contains 'best seller' %}
+                                    <div class="best-seller">
+                                      <img
+                                        class="best-seller-icon lazyload"
+                                        data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/best-seller.png?v=1747726975"
+                                      >
+                                      <span>Best Seller</span>
+                                    </div>
+                                  {% elsif prod_tags contains 'hot' %}
+                                    <div class="badge-hot">Hot</div>
+
+                                  {% elsif prod_tags contains 'free oven' %}
+                                    <div class="badge-free-oven">Free Oven</div>
+                                  {% elsif prod_tags contains 'starting' %}
+                                    {%- capture starting_num -%}
+                                      {{ prod.price_min | money }}
+                                    {%- endcapture -%}
+                                    <div class="badge-starting">Starting at {{ starting_num }}</div>
+                                  {% else %}
+                                    {%- unless prod.selected_or_first_available_variant.available -%}
+                                      <div class="badge-sold-out">Coming Soon</div>
+                                    {%- endunless -%}
+                                  {% endif %}
+                                </div>
+                                {% if prod.metafields.custom.menu_bar_product_name != blank %}
+                                  <div class="name">{{ prod.metafields.custom.menu_bar_product_name.value }}</div>
+                                {% else %}
+                                  <div class="name">{{ prod.title }}</div>
+                                {% endif %}
+                              </div>
+                            {% endfor %}
                             <div class="column-2">
-                              {% for prod in collection.products limit: 2 offset: 1 %}
-                                <div class="product-section-item column-2-item" data-link="{{ prod.url }}">
+                              {% for prod in collection.products limit: 2 offset: 3 %}
+                                {% assign prod_url = prod.url %}
+                                {% if prod.metafields.custom.learn_more_link.value.url %}
+                                  {% assign prod_url = prod.metafields.custom.learn_more_link.value.url %}
+                                {% endif %}
+                                <div class="product-section-item column-2-item" data-link="{{ prod_url }}">
                                   {{ prod.images[0] | image_url: width: 500 | image_tag }}
                                   {% assign prod_tags = prod.tags | downcase %}
                                   <div class="prod-badge">
@@ -296,53 +357,6 @@
                                 </div>
                               {% endfor %}
                             </div>
-                            {% for prod in collection.products limit: 2 offset: 3 %}
-                              <div class="product-section-item grid-item" data-link="{{ prod.url }}">
-                                {{ prod.images[0] | image_url: width: 500 | image_tag }}
-                                {% assign prod_tags = prod.tags | downcase %}
-                                <div class="prod-badge">
-                                  {% if prod_tags contains 'save' %}
-                                    {% if prod.selected_or_first_available_variant.price
-                                        < prod.selected_or_first_available_variant.compare_at_price
-                                    %}
-                                      {%- capture save_num -%}
-                                        {{ prod.selected_or_first_available_variant.compare_at_price | minus: prod.selected_or_first_available_variant.price | money | remove: '.00' | remove: '.10'| remove: '.91'  }}
-                                      {%- endcapture -%}
-                                      <div class="badge-save">Save {{ save_num }}</div>
-                                    {% endif %}
-                                  {% elsif prod_tags contains 'new arrival' or prod_tags contains 'new' %}
-                                    <div class="badge-new-arrival">New Arrival</div>
-                                  {% elsif prod_tags contains 'best seller' %}
-                                    <div class="best-seller">
-                                      <img
-                                        class="best-seller-icon lazyload"
-                                        data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/best-seller.png?v=1747726975"
-                                      >
-                                      <span>Best Seller</span>
-                                    </div>
-                                  {% elsif prod_tags contains 'hot' %}
-                                    <div class="badge-hot">Hot</div>
-
-                                  {% elsif prod_tags contains 'free oven' %}
-                                    <div class="badge-free-oven">Free Oven</div>
-                                  {% elsif prod_tags contains 'starting' %}
-                                    {%- capture starting_num -%}
-                                      {{ prod.price_min | money }}
-                                    {%- endcapture -%}
-                                    <div class="badge-starting">Starting at {{ starting_num }}</div>
-                                  {% else %}
-                                    {%- unless prod.selected_or_first_available_variant.available -%}
-                                      <div class="badge-sold-out">Coming Soon</div>
-                                    {%- endunless -%}
-                                  {% endif %}
-                                </div>
-                                {% if prod.metafields.custom.menu_bar_product_name != blank %}
-                                  <div class="name">{{ prod.metafields.custom.menu_bar_product_name.value }}</div>
-                                {% else %}
-                                  <div class="name">{{ prod.title }}</div>
-                                {% endif %}
-                              </div>
-                            {% endfor %}
                           {% endif %}
                         {% endfor %}
                       </div>
@@ -377,9 +391,13 @@
                               </style>
                             {% endunless %}
                             {% for prod in collection.products limit: 5 %}
+                              {% assign prod_url = prod.url %}
+                              {% if prod.metafields.custom.learn_more_link.value.url %}
+                                {% assign prod_url = prod.metafields.custom.learn_more_link.value.url %}
+                              {% endif %}
                               <div
                                 class="product-section-item product-section-item-{{ collection.id }}"
-                                data-link="{{ prod.url }}"
+                                data-link="{{ prod_url }}"
                               >
                                 {{ prod.images[0] | image_url: width: 500 | image_tag }}
                                 {% assign prod_tags = prod.tags | downcase %}

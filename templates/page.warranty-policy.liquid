@@ -1,0 +1,539 @@
+<style>
+  .warranty-policy-banner-wrapper {
+    background: #fbfbfb;
+  }
+
+  .warranty-policy-banner-container {
+    position: relative;
+    margin-bottom: 100px;
+  }
+
+  .warranty-policy-banner-container-img {
+    width: 100%;
+  }
+
+  .warranty-policy-banner-container-img img {
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    aspect-ratio: 64/25;
+  }
+
+  .warranty-policy-banner-container-img .pc {
+    display: block;
+  }
+
+  .warranty-policy-banner-container-img .mb {
+    display: none;
+  }
+
+  .warranty-policy-banner-content {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 50%;
+    transform: translateY(-50%);
+    padding-right: 60px;
+  }
+
+  .warranty-policy-banner-content-title {
+    text-align: left;
+    color: #000;
+    font-size: 35px;
+    font-weight: 500;
+    line-height: 1.22;
+    margin-bottom: 20px;
+  }
+
+  .warranty-policy-banner-content-desc,
+  .warranty-policy-banner-content-desc-info-text {
+    text-align: left;
+    color: #2c2d2e;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  .warranty-policy-banner-content-desc span {
+    cursor: pointer;
+    color: rgb(248, 158, 67);
+  }
+
+  .warranty-policy-banner-content-subtitle {
+    padding: 15px 0;
+    font-size: 20px;
+  }
+
+  .warranty-policy-banner-content-desc-2 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 20px;
+  }
+
+  .warranty-policy-banner-content-desc-info-text {
+    text-decoration: none;
+  }
+
+  .warranty-policy-banner-content-desc-info-text:focus,
+  .warranty-policy-banner-content-desc-info-text:hover {
+    color: #191919;
+    text-decoration: none;
+  }
+
+  .warranty-policy-banner-content-button {
+    margin-top: 20px;
+    background: #fcb05c;
+    font-size: 14px;
+    border-radius: 40px;
+    color: #fff;
+    padding: 10px 20px;
+    width: max-content;
+    line-height: 1;
+    margin-left: 20px;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 768px) {
+    .warranty-policy-banner-container {
+      position: relative;
+      margin-bottom: 50px;
+    }
+
+    .warranty-policy-banner-container-img {
+      width: 100%;
+    }
+
+    .warranty-policy-banner-container-img img {
+      width: 100%;
+      max-width: 100%;
+      object-fit: cover;
+      aspect-ratio: 1;
+    }
+
+    .warranty-policy-banner-container-img .pc {
+      display: none;
+    }
+
+    .warranty-policy-banner-container-img .mb {
+      display: block;
+    }
+
+    .warranty-policy-banner-content {
+      position: absolute;
+      top: 5%;
+      right: auto;
+      left: 50%;
+      width: 100%;
+      transform: translateY(0%);
+      transform: translateX(-50%);
+      padding-right: 0;
+    }
+
+    .warranty-policy-banner-content-title {
+      text-align: center;
+      color: #000;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.22;
+      margin-bottom: 10px;
+    }
+
+    .warranty-policy-banner-content-desc,
+    .warranty-policy-banner-content-desc-info-text {
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.25;
+      font-weight: 400;
+      padding: 0 24px;
+    }
+
+    .warranty-policy-banner-content-subtitle {
+      padding: 10px 0;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .warranty-policy-banner-content-desc-2 {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-left: 0;
+    }
+
+    .warranty-policy-banner-content-desc-info-text {
+      text-decoration: none;
+    }
+
+    .warranty-policy-banner-content-desc-info-text:focus,
+    .warranty-policy-banner-content-desc-info-text:hover {
+      color: #191919;
+      text-decoration: none;
+    }
+
+    .warranty-policy-banner-content-button {
+      margin-top: 10px;
+      font-size: 12px;
+      background: #fcb05c;
+      border-radius: 40px;
+      color: #fff;
+      padding: 5px 10px;
+      width: max-content;
+      line-height: 1;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+</style>
+<style>
+  /* warranty-policy-form start */
+  .warranty-policy-form-wrapper {
+    padding-bottom: 100px;
+  }
+
+  .warranty-policy-form-container {
+    max-width: 1248px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .warranty-policy-form-wrapper {
+      padding-bottom: 50px;
+    }
+  }
+
+  /* warranty-policy-form end */
+</style>
+<style>
+  /* warranty-policy-section-1 start */
+  .warranty-policy-section-1-wrapper,
+  .warranty-policy-section-2-wrapper {
+    padding-bottom: 50px;
+  }
+
+  .warranty-policy-section-1-container,
+  .warranty-policy-section-2-container {
+    max-width: 1248px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .warranty-policy-section-1-title,
+  .warranty-policy-section-2-title {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.22;
+    color: #000;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .warranty-policy-section-1-content,
+  .warranty-policy-section-2-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .warranty-policy-section-1-content-item,
+  .warranty-policy-section-2-content-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .warranty-policy-section-1-content-item-title,
+  .warranty-policy-section-2-content-item-title {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.22;
+    color: #000;
+    margin-bottom: 10px;
+  }
+
+  .warranty-policy-section-1-content-item-title.title,
+  .warranty-policy-section-2-content-item-title.title {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .warranty-policy-section-1-content-item-desc,
+  .warranty-policy-section-2-content-item-desc {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+  }
+
+  .warranty-policy-section-1-content-item-desc-content,
+  .warranty-policy-section-2-content-item-desc-content {
+    font-size: 16px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    color: #2c2d2e;
+  }
+
+  .warranty-policy-section-1-content-item-desc-content-icon,
+  .warranty-policy-section-2-content-item-desc-content-icon {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    background-color: #000;
+    border-radius: 50%;
+  }
+#16559-phone{
+    padding-left:0!important;
+}
+.globo-form-control .iti input{
+    max-width: 85%;
+}
+.globo-form-control input, .globo-form-control textarea, .globo-form-control select {
+
+    background-color: #fff;
+
+}
+  @media screen and (max-width: 768px) {
+    .warranty-policy-section-1-wrapper,
+    .warranty-policy-section-2-wrapper {
+      padding-bottom: 25px;
+    }
+
+    .warranty-policy-section-1-title,.warranty-policy-section-2-title {
+      font-size: 30px;
+
+      margin-bottom: 20px;
+    }
+
+    .warranty-policy-section-1-content-item-title,
+    .warranty-policy-section-2-content-item-title {
+      font-size: 16px;
+    }
+
+    .warranty-policy-section-1-content-item-title.title,
+    .warranty-policy-section-2-content-item-title.title {
+      font-size: 20px;
+    }
+
+    .warranty-policy-section-1-content-item-desc,
+    .warranty-policy-section-2-content-item-desc {
+      display: flex;
+      flex-direction: column;
+      margin-left: 10px;
+    }
+
+    .warranty-policy-section-1-content-item-desc-content,
+    .warranty-policy-section-2-content-item-desc-content {
+      font-size: 12px;
+    }
+
+    .warranty-policy-section-1-content-item-desc-content-icon,
+    .warranty-policy-section-2-content-item-desc-content-icon {
+      width: 6px;
+      height: 6px;
+    }
+    .globo-form-control .iti input{
+    max-width: 67%;
+}
+  }
+
+  /* warranty-policy-section-1 end */
+</style>
+    <!-- warranty-policy-banner start -->
+    <section id="warranty-policy-banner">
+        <div class="warranty-policy-banner-wrapper">
+            <div class="warranty-policy-banner-container">
+                <div class="warranty-policy-banner-container-img">
+                    <img class="pc lazyload"
+                        data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/banner-warranty.jpg?v=1696666486"
+                        alt="" />
+                    <img class="mb lazyload"
+                        data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/warranty-mobile.jpg?v=1696664000"
+                        alt="" />
+                </div>
+                <div class="warranty-policy-banner-content">
+                    <div class="warranty-policy-banner-content-title">
+                        Warranty Registration
+                    </div>
+                    <div class="warranty-policy-banner-content-desc">
+                        We are committed to providing you with the best products and
+                        services. Please note that Procolored's official self-operated
+                        stores are available only on the <span onclick="window.open('/','_blank')">official
+                            website</span> and <span
+                            onclick="window.open('https://www.amazon.com/stores/Procolored/page/2C1F261A-DBB9-4B93-B669-493A74FE6203','_blank')">Amazon</span>.
+                            <br>
+                        For
+                        components not directly contact with ink, a warranty period of 12
+                        months since printer shipment date is provided, unless damage is
+                        user-induced. Register warranty on our website to get warranty on
+                        some types of printhead limited to one replacement.
+                    </div>
+                    <div class="warranty-policy-banner-content-subtitle">Need Additional Help? Contact Us</div>
+                    <div class="warranty-policy-banner-content-desc-2">
+                        <a class="warranty-policy-banner-content-desc-info-text"
+                            href="mailto:support@procolored.com">Email:support@procolored.com</a>
+                        <a class="warranty-policy-banner-content-desc-info-text" href="tel:0018777171666">Tel: +1 877
+                            717
+                            1666</a>
+                    </div>
+                    <div class="warranty-policy-banner-content-button"
+                        onclick="window.open('https://chat.quickcep.com/h5.html?platform=others&accessId=7b656e18-cb12-4e09-aa92-8df7c651bd30','_blank')">
+                        Online Chat</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- warranty-policy-banner end -->
+
+    <!-- warranty-policy-form start -->
+    <section id="warranty-policy-form">
+        <div class="warranty-policy-form-wrapper">
+            <div class="warranty-policy-form-container">
+                <div class="globo-formbuilder" data-id="MTY1NTk="></div>
+                
+            </div>
+        </div>
+    </section>
+    <!-- warranty-policy-form end -->
+
+    <!-- warranty-policy-section-1 start -->
+    <section id="warranty-policy-section-1">
+        <div class="warranty-policy-section-1-wrapper">
+            <div class="warranty-policy-section-1-container">
+                <div class="warranty-policy-section-1-title">
+                    Section One - Warranty Policy
+                </div>
+                <div class="warranty-policy-section-1-content">
+                    <div class="warranty-policy-section-1-content-item">
+                        <div class="warranty-policy-section-1-content-item-title title">1. Warranty Coverage</div>
+
+                    </div>
+                    <div class="warranty-policy-section-1-content-item">
+                        <div class="warranty-policy-section-1-content-item-title">1.1 Mainboard</div>
+                        <div class="warranty-policy-section-1-content-item-desc">
+                            <div class="warranty-policy-section-1-content-item-desc-content">
+                                <span class="warranty-policy-section-1-content-item-desc-content-icon"></span>
+                                <span class="warranty-policy-section-1-content-item-desc-content-text">Mainboard for
+                                    dual-head printer is not covered by warranty. Customers may send them in for repairs
+                                    at their own expense.</span>
+                            </div>
+                            <div class="warranty-policy-section-1-content-item-desc-content">
+                                <span class="warranty-policy-section-1-content-item-desc-content-icon"></span>
+                                <span class="warranty-policy-section-1-content-item-desc-content-text">Mainboard for
+                                    single-head printer is covered by a 6-month warranty period since printer shipment
+                                    date. Within this warranty period, you are eligible for one replacement.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="warranty-policy-section-1-content-item">
+                        <div class="warranty-policy-section-1-content-item-title">1.2. Print Head and Related Components
+                        </div>
+                        <div class="warranty-policy-section-1-content-item-desc">
+                            <div class="warranty-policy-section-1-content-item-desc-content">
+
+                                <span class="warranty-policy-section-1-content-item-desc-content-text">After warranty
+                                    registration, the following printheads are covered by a 6-month warranty period
+                                    since printer shipment date, limited to one replacement: (L1800, R1390, L800, L805,
+                                    TX800, XP600). Other print heads or components that contact with ink are not covered
+                                    by warranty.</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="warranty-policy-section-1-content-item">
+                        <div class="warranty-policy-section-1-content-item-title">1.3 Warranty for Other Accessories
+                        </div>
+                        <div class="warranty-policy-section-1-content-item-desc">
+                            <div class="warranty-policy-section-1-content-item-desc-content">
+                                <span class="warranty-policy-section-1-content-item-desc-content-text">Other accessories
+                                    are covered by a 12-month warranty period since shipment date of the Procolored
+                                    printer.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="warranty-policy-section-1-content-item">
+                        <div class="warranty-policy-section-1-content-item-title">1.4 Disclaimer</div>
+                        <div class="warranty-policy-section-1-content-item-desc">
+                            <div class="warranty-policy-section-1-content-item-desc-content">
+                                <span class="warranty-policy-section-1-content-item-desc-content-icon"></span>
+                                <span class="warranty-policy-section-1-content-item-desc-content-text">The warranty for
+                                    the ink-contact components requires the printer exclusively use Procolored inks.
+                                    Warranty coverage does not include the printhead blockage resulting from the use of
+                                    inks from other brands.</span>
+                            </div>
+                            <div class="warranty-policy-section-1-content-item-desc-content">
+                                <span class="warranty-policy-section-1-content-item-desc-content-icon"></span>
+                                <span class="warranty-policy-section-1-content-item-desc-content-text">The warranty for
+                                    printer-related components is subject to the shipment date of a Procolored
+                                    printer.</span>
+                            </div>
+                            <div class="warranty-policy-section-1-content-item-desc-content">
+                                <span class="warranty-policy-section-1-content-item-desc-content-icon"></span>
+                                <span class="warranty-policy-section-1-content-item-desc-content-text">The damage must
+                                    not be caused by user negligence or misuse.</span>
+                            </div>
+                            <div class="warranty-policy-section-1-content-item-desc-content">
+                                <span class="warranty-policy-section-1-content-item-desc-content-icon"></span>
+                                <span class="warranty-policy-section-1-content-item-desc-content-text">The damage must
+                                    be confirmed by our customer service team or engineers as non-user-induced.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="warranty-policy-section-1-content-item">
+                        <div class="warranty-policy-section-1-content-item-title title">2. Warranty Costs
+                        </div>
+                        <div class="warranty-policy-section-1-content-item-desc">
+                            <div class="warranty-policy-section-1-content-item-desc-content">
+                                <span class="warranty-policy-section-1-content-item-desc-content-text">If the component
+                                    within warranty period is damaged within one month of printer receiving, we will
+                                    bear the cost of component and covering the shipping fees. For damage reported after
+                                    one month of printer receipt, we will cover the cost of component but will not cover
+                                    the shipping fees.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- warranty-policy-section-1 end -->
+    <!-- warranty-policy-section-2 start -->
+    <section id="warranty-policy-section-2">
+        <div class="warranty-policy-section-2-wrapper">
+            <div class="warranty-policy-section-2-container">
+                <div class="warranty-policy-section-2-title">Section Two - Return Policy</div>
+                <div class="warranty-policy-section-2-content">
+
+                    <div class="warranty-policy-section-2-content-item">
+
+                        <div class="warranty-policy-section-2-content-item-desc">
+                            <div class="warranty-policy-section-2-content-item-desc-content">
+
+                                <span class="warranty-policy-section-2-content-item-desc-content-text">If the printer is
+                                    received within one week and no ink is added, it can be shipped back in its original
+                                    packaging, and returns and exchanges are accepted. If any ink has been added into
+                                    the printer, we can not process returns or exchanges.</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="warranty-policy-section-2-content-item">
+
+                        <div class="warranty-policy-section-2-content-item-desc">
+                            <div class="warranty-policy-section-2-content-item-desc-content">
+                                <span class="warranty-policy-section-2-content-item-desc-content-text">Please note that
+                                    this warranty policy is subject to change, and any modifications will be posted on
+                                    our website. For any warranty claims or inquiries, please contact our customer
+                                    service team. For all customers who have purchased Procolored printer equipment but
+                                    are beyond the 12-month warranty period, we offer extended warranty services, which
+                                    include two programs: Remote Expert Service and Extended Warranty.</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- warranty-policy-section-2 end -->

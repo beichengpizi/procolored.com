@@ -113,6 +113,7 @@
   .activity-prizes-list-container .prizes-list .prize-item img {
     width: 100%;
     max-width: 100%;
+    aspect-ratio: 192/115;
   }
 
   .activity-prizes-list-container .prizes-list .prize-item .prize-name {
@@ -266,6 +267,7 @@
     position: relative;
     width: 520px;
     box-sizing: border-box;
+    visibility: hidden;
   }
 
   .lucky-wheel-activity-container-pc .panel-box #my-lucky {
@@ -437,6 +439,22 @@
     line-height: 1.4;
     /* 140% */
     margin-bottom: 8px;
+  }
+  .logined-winning-box-content-title-loading {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    border-top-color: #0069ff;
+    animation: spin-circle-10 0.6s linear infinite;
+    vertical-align: middle;
+  }
+  @keyframes spin-circle-10 {
+    to { transform: rotate(360deg); }
+  }
+  .logined-winning-box-content-title-num{
+    display: none;
   }
 
   .logined-winning-box-content-title>span {
@@ -921,6 +939,7 @@
       position: relative;
       width: 100%;
       box-sizing: border-box;
+      visibility: hidden;
     }
 
     .lucky-wheel-activity-container-mb .panel-box #my-lucky-mb {

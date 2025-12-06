@@ -1,0 +1,677 @@
+<style>
+  /* machine-related-materials start */
+  .machine-related-materials-wrapper {
+    background: #f9f9f9;
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+
+  .machine-related-materials-tabs {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 8px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    margin-bottom: 20px;
+  }
+
+  .machine-related-materials-tabs-item {
+    position: relative;
+    padding: 18px 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: #6d6d6d;
+    cursor: pointer;
+  }
+
+  .machine-related-materials-tabs-item.active {
+    color: #000;
+  }
+
+  .machine-related-materials-tabs-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #000000;
+  }
+
+  .machine-related-materials-tabs-content {
+    max-width: 1248px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .machine-related-materials-tab-content {
+    display: none;
+  }
+
+  .machine-related-materials-tab-content.active {
+    display: flex;
+    gap: 16px;
+  }
+
+  .machine-related-materials-tabs-content-machine-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
+    padding: 22px;
+    background-color: #fff;
+    width: 28.5%;
+    border-radius: 8px;
+  }
+
+  /* .machine-related-materials-tabs-content-machine-card-wraper {} */
+
+  .machine-related-materials-tabs-content-machine-card {
+    display: none;
+    text-decoration: none;
+  }
+
+  .machine-related-materials-tabs-content-machine-card:hover.machine-related-materials-tabs-content-machine-card:focus {
+    color: #000;
+  }
+
+  .machine-related-materials-tabs-content-machine-card.active {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .machine-related-materials-tabs-content-machine-img {
+    display: flex;
+    width: 100%;
+  }
+
+  .machine-related-materials-tabs-content-machine-img img {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 1/1;
+  }
+
+  .machine-related-materials-tabs-content-machine-title {
+    color: #000;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.33;
+  }
+
+  .machine-related-materials-tabs-content-machine-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 99px;
+    background: #f9f9f9;
+  }
+
+  .machine-related-materials-tabs-content-machine-tabs-item {
+    color: #6d6d6d;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.2;
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .machine-related-materials-tabs-content-machine-tabs-item.active {
+    color: #fff;
+    font-weight: 700;
+    border-radius: 99px;
+    background: #000;
+  }
+
+  .machine-related-materials-tabs-content-materials-list {
+    flex: 1;
+  }
+
+  .machine-related-materials-tabs-content-materials {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .machine-related-materials-tabs-content-materials.active {
+    display: grid;
+  }
+
+  .machine-related-materials-tabs-content-material-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 14px 20px 14px;
+    border-radius: 8px;
+    background: #fff;
+    text-decoration: none;
+  }
+
+  .machine-related-materials-tabs-content-material-card:hover,
+  .machine-related-materials-tabs-content-material-card:focus {
+    color: #000;
+  }
+
+  .machine-related-materials-tabs-content-material-card-img {
+    display: flex;
+    padding: 0 15px;
+    width: 100%;
+  }
+
+  .machine-related-materials-tabs-content-material-card-img img {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 1/1;
+  }
+
+  .machine-related-materials-tabs-content-material-card-title {
+    width: 100%;
+    color: #000;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .machine-related-materials-tabs-content-material-card-price-wrapper {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding-top: 4px;
+  }
+
+  .machine-related-materials-tabs-content-material-card-sale-price {
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .machine-related-materials-tabs-content-material-card-origin-price {
+    color: #d1d1d1;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    text-decoration-line: line-through;
+  }
+
+  @media screen and (max-width: 768px) {
+    .machine-related-materials-tabs {
+      border-radius: 8px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 14px;
+      padding-left: 24px;
+      padding-right: 24px;
+      flex-wrap: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      overflow-x: auto;
+      touch-action: pan-x;
+      justify-content: space-between;
+      gap: 26px;
+    }
+
+    .machine-related-materials-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .machine-related-materials-tabs-item {
+      position: relative;
+      padding: 18px 0;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.4;
+      color: #6d6d6d;
+      cursor: pointer;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+      /* 消除移动端点击背景 */
+      -webkit-touch-callout: none;
+      outline: none;
+    }
+
+    .machine-related-materials-tabs-item.active {
+      color: #000;
+    }
+
+    .machine-related-materials-tabs-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #000000;
+    }
+
+    .machine-related-materials-tabs-content {
+      max-width: 1248px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .machine-related-materials-tab-content {
+      display: none;
+    }
+
+    .machine-related-materials-tab-content.active {
+      display: flex;
+      gap: 14px;
+      flex-direction: column;
+    }
+
+    .machine-related-materials-tabs-content-machine-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      background-color: transparent;
+      width: 100%;
+    }
+
+    .machine-related-materials-tabs-content-machine-card-wraper {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 0 26px 36px 26px;
+    }
+
+    .machine-related-materials-tabs-content-machine-card {
+      display: none;
+      text-decoration: none;
+    }
+
+    .machine-related-materials-tabs-content-machine-card:hover.machine-related-materials-tabs-content-machine-card:focus {
+      color: #000;
+    }
+
+    .machine-related-materials-tabs-content-machine-card.active {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .machine-related-materials-tabs-content-machine-title {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .machine-related-materials-tabs-content-machine-tabs {
+      background: #fff;
+    }
+
+    .machine-related-materials-tabs-content-machine-tabs-item {
+      color: #6d6d6d;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.2;
+      padding: 10px 20px;
+      text-align: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      /* 消除移动端点击背景 */
+      -webkit-touch-callout: none;
+      outline: none;
+    }
+
+    .machine-related-materials-tabs-content-machine-tabs-item.active {
+      color: #fff;
+      font-weight: 700;
+      border-radius: 99px;
+      background: #000;
+    }
+
+    .machine-related-materials-tabs-content-materials {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .machine-related-materials-tabs-content-material-card {
+      padding: 0 6px 16px 6px;
+      border-radius: 10px;
+    }
+
+    .machine-related-materials-tabs-content-material-card:hover,
+    .machine-related-materials-tabs-content-material-card:focus {
+      color: #000;
+    }
+
+    .machine-related-materials-tabs-content-material-card-img {
+      padding: 0;
+    }
+
+    .machine-related-materials-tabs-content-material-card-title {
+      font-size: 12px;
+      font-weight: 400;
+      margin-top: 8px;
+    }
+
+    .machine-related-materials-tabs-content-material-card-price-wrapper {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .machine-related-materials-tabs-content-material-card-sale-price {
+      color: #000;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .machine-related-materials-tabs-content-material-card-origin-price {
+      color: #d1d1d1;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.4;
+      text-decoration-line: line-through;
+    }
+  }
+
+  /* machine-related-materials end*/
+</style>
+<!-- machine-related-materials  start -->
+<section class="machine-related-materials-{{ section.id }}" id="{{ section.settings.id }}">
+  <div class="machine-related-materials-wrapper">
+    <div class="machine-related-materials-containner">
+      <!--
+        <div class="machine-related-materials-title-wrapper">
+            <div class="machine-related-materials-title"></div>
+            <div class="machine-related-materials-subtitle"></div>
+        </div>
+      -->
+      <div class="machine-related-materials-content">
+        <div class="machine-related-materials-tabs">
+          {% for block in section.blocks %}
+            <div class="machine-related-materials-tabs-item{% if forloop.first %} active{% endif %}">
+              {{ block.settings.tab_collection_title }}
+            </div>
+            {% comment %}
+              <div class="machine-related-materials-tabs-item">UV DTF Printer</div>
+              <div class="machine-related-materials-tabs-item">UV Printer</div>
+            {% endcomment %}
+          {% endfor %}
+        </div>
+
+        <div class="machine-related-materials-tabs-content">
+          {% for block in section.blocks %}
+            {%- liquid
+              assign products = block.settings.tab_collection.products
+            -%}
+            <div class="machine-related-materials-tab-content {% if forloop.first %} active{% endif %}">
+              <div class="machine-related-materials-tabs-content-machine-cards">
+                <div class="machine-related-materials-tabs-content-machine-card-wraper">
+                  {% for prod in products limit: 3 %}
+                    {%- liquid
+                      assign product_image = prod.featured_image
+                    -%}
+                    <a
+                      href="{{ prod.url }}"
+                      class="machine-related-materials-tabs-content-machine-card {% if forloop.first %} active{% endif %}"
+                    >
+                      <div class="machine-related-materials-tabs-content-machine-img">
+                        {% if product_image %}
+                          <img
+                            style="aspect-ratio: {{ product_image.aspect_ratio }}"
+                            class=" lazyload"
+                            data-sizes="20vw"
+                            data-srcset="
+                              {%- if product_image.width >= 200 -%}{{ product_image | image_url: width: 200 }} 200w,{%- endif -%}
+                              {%- if product_image.width >= 375 -%}{{ product_image | image_url: width: 375 }} 375w,{%- endif -%}
+                              {%- if product_image.width >= 550 -%}{{ product_image | image_url: width: 550 }} 550w,{%- endif -%}
+                              {%- if product_image.width >= 750 -%}{{ product_image | image_url: width: 750 }} 750w,{%- endif -%}
+                              {%- if product_image.width >= 1100 -%}{{ product_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                              {%- if product_image.width >= 1500 -%}{{ product_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                              {%- if product_image.width >= 1780 -%}{{ product_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                              {%- if product_image.width >= 2000 -%}{{ product_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                              {%- if product_image.width >= 3000 -%}{{ product_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                              {%- if product_image.width >= 3840 -%}{{ product_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                              {{ product_image | image_url }} {{ product_image.width }}w
+                            "
+                            data-src="{{ product_image | image_url:width:750 }}"
+                            alt="{{ product_image.alt }}"
+                          >
+                        {% endif %}
+                 
+                      </div>
+                      <div class="machine-related-materials-tabs-content-machine-title">
+                        {{ prod.title }}
+                      </div>
+                    </a>
+                  {% endfor %}
+                </div>
+
+                <div class="machine-related-materials-tabs-content-machine-tabs">
+                  {% for prod in products limit: 3 %}
+                    {%- liquid
+                      assign product_tab_title_index = 'product_tab_title_' | append: forloop.index
+                      assign product_tab_title = block.settings[product_tab_title_index] | default: prod.metafields.custom.menu_bar_product_name
+                    -%}
+                    {% if product_tab_title != empty and product_tab_title != blank %}
+                      <div class="machine-related-materials-tabs-content-machine-tabs-item {% if forloop.first %} active{% endif %}">
+                        {{ product_tab_title }}
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="machine-related-materials-tabs-content-materials-list">
+                {% for prod in products limit: 3 %}
+                  <div class="machine-related-materials-tabs-content-materials {% if forloop.first %} active{% endif %}">
+                    {% for item in prod.metafields.custom.machine_related_materials.value.products %}
+                      {%- liquid
+                        assign product_image = item.featured_image
+                      -%}
+                      <a href="{{ item.url }}" class="machine-related-materials-tabs-content-material-card">
+                        <div class="machine-related-materials-tabs-content-material-card-img">
+                          {% if product_image %}
+                            <img
+                              style="aspect-ratio: {{ product_image.aspect_ratio }}"
+                              class=" lazyload"
+                              data-sizes="{{100 | divided_by: 4 }}vw"
+                              data-srcset="
+                                {%- if product_image.width >= 200 -%}{{ product_image | image_url: width: 200 }} 200w,{%- endif -%}
+                                {%- if product_image.width >= 375 -%}{{ product_image | image_url: width: 375 }} 375w,{%- endif -%}
+                                {%- if product_image.width >= 550 -%}{{ product_image | image_url: width: 550 }} 550w,{%- endif -%}
+                                {%- if product_image.width >= 750 -%}{{ product_image | image_url: width: 750 }} 750w,{%- endif -%}
+                                {%- if product_image.width >= 1100 -%}{{ product_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                {%- if product_image.width >= 1500 -%}{{ product_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                {%- if product_image.width >= 1780 -%}{{ product_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                {%- if product_image.width >= 2000 -%}{{ product_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                {%- if product_image.width >= 3000 -%}{{ product_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                {%- if product_image.width >= 3840 -%}{{ product_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                {{ product_image | image_url }} {{ product_image.width }}w
+                              "
+                              data-src="{{ product_image | image_url:width:750 }}"
+                              alt="{{ product_image.alt }}"
+                            >
+                          {% endif %}
+                        </div>
+                        <div class="machine-related-materials-tabs-content-material-card-title">
+                          {{ item.title }}
+                        </div>
+                        <div class="machine-related-materials-tabs-content-material-card-price-wrapper">
+                          <div
+                            class="machine-related-materials-tabs-content-material-card-sale-price"
+                          >
+                            {{ item.price | money }}
+                          </div>
+                          {% if item.compare_at_price > item.price and item.compare_at_price > 0 %}
+                            <div
+                              class="machine-related-materials-tabs-content-material-card-origin-price"
+                            >
+                              {{ item.compare_at_price | money }}
+                            </div>
+                          {% endif %}
+                        </div>
+                      </a>
+                    {% endfor %}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 点击顶部tabs 切换产品系列 -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // 获取顶部产品系列tab元素
+    const tabItems = document.querySelectorAll('.machine-related-materials-tabs-item');
+    // 获取产品系列对应的内容区域
+    const tabContents = document.querySelectorAll('.machine-related-materials-tab-content');
+
+    tabItems.forEach((item, idx) => {
+      item.addEventListener('click', function () {
+        // 1. 切换顶部tabs的active样式
+        tabItems.forEach((tab) => tab.classList.remove('active'));
+        this.classList.add('active');
+
+        // 2. 切换显示对应内容区域
+        tabContents.forEach((tc) => tc.classList.remove('active'));
+        if (tabContents[idx]) {
+          tabContents[idx].classList.add('active');
+
+          // 3. 切换对应tab下产品卡的高亮，默认第一个高亮
+          const cardContainer = tabContents[idx].querySelector(
+            '.machine-related-materials-tabs-content-machine-card-wraper'
+          );
+          if (cardContainer) {
+            const cards = cardContainer.querySelectorAll('.machine-related-materials-tabs-content-machine-card');
+            cards.forEach((card) => card.classList.remove('active'));
+            if (cards[0]) cards[0].classList.add('active');
+          }
+
+          // 4. 切换对应材料列表，只显示第一个
+          const materialsList = tabContents[idx].querySelectorAll('.machine-related-materials-tabs-content-materials');
+          materialsList.forEach((list) => list.classList.remove('active'));
+          if (materialsList[0]) materialsList[0].classList.add('active');
+
+          // 5. 切换机器型号子tab，默认第一个高亮
+          const machineTabs = tabContents[idx].querySelectorAll(
+            '.machine-related-materials-tabs-content-machine-tabs-item'
+          );
+          machineTabs.forEach((tab) => tab.classList.remove('active'));
+          if (machineTabs[0]) machineTabs[0].classList.add('active');
+        }
+      });
+    });
+  });
+</script>
+
+<!-- 点击机器tabs切换相关材料标签 -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // 获取所有机器型号子tab元素
+    const tabItems = document.querySelectorAll('.machine-related-materials-tabs-content-machine-tabs-item');
+    // 获取所有机器卡片元素
+    const machineCards = document.querySelectorAll('.machine-related-materials-tabs-content-machine-card');
+    // 获取所有材料列表元素
+    const materialsLists = document.querySelectorAll('.machine-related-materials-tabs-content-materials');
+
+    // 为每个机器型号tab添加点击事件
+    tabItems.forEach(function (tab, idx) {
+      tab.addEventListener('click', function () {
+        // 1. 切换tab的active样式（高亮当前tab）
+        tabItems.forEach((el) => el.classList.remove('active'));
+        tab.classList.add('active');
+
+        // 2. 切换机器卡片的active样式（高亮当前对应的机器卡）
+        machineCards.forEach((card, i) => {
+          if (i === idx) {
+            card.classList.add('active'); // 仅当前索引匹配的高亮
+          } else {
+            card.classList.remove('active');
+          }
+        });
+
+        // 3. 切换材料列表，只显示当前tab对应的材料列表
+        materialsLists.forEach((list, i) => {
+          if (i === idx) {
+            list.classList.add('active'); // 仅当前索引匹配的显示
+          } else {
+            list.classList.remove('active');
+          }
+        });
+      });
+    });
+  });
+</script>
+<!-- machine-related-materials  end -->
+{% schema %}
+{
+  "name": "machine related materials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "id",
+      "label": "用于锚定的section的id",
+      "info": "页面唯一，不能重复，必须全英文"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "tab_collection",
+          "label": "系列选择"
+        },
+        {
+          "type": "text",
+          "id": "tab_collection_title",
+          "label": "系列选项卡标题"
+        },
+        {
+          "type": "text",
+          "id": "product_tab_title_1",
+          "label": "产品选项卡1标题"
+        },
+        {
+          "type": "text",
+          "id": "product_tab_title_2",
+          "label": "产品选项卡2标题"
+        },
+        {
+          "type": "text",
+          "id": "product_tab_title_3",
+          "label": "产品选项卡3标题"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "machine related materials"
+    }
+  ]
+}
+{% endschema %}

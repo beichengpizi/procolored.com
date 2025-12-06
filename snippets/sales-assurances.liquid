@@ -1,0 +1,158 @@
+<style>
+  .product-information-sales-assurances-{{ section.id }} {
+    position: relative;
+    border-radius: 10px;
+    width: 100%;
+    padding: 40px 10px 30px 10px;
+    border: 1px solid rgba(209, 209, 209, 0.87);
+
+
+  }
+  .product-information-sales-assurances-{{ section.id }}  .product-information-sales-assurances-title{
+    position: absolute;
+    top: -24px;
+    left: -1px;
+    z-index: 1;
+    color: #000;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.38; /* 138% */
+    padding: 10px 20px 10px 0;
+    background: #fff
+
+  }
+  .product-information-sales-assurances-{{ section.id }}  .product-information-sales-assurances-list{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .product-information-sales-assurances-{{ section.id }}  .product-information-sales-assurances-list-item{
+    display: flex;
+    width: calc(100% / 4 - 15px);
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .product-information-sales-assurances-{{ section.id }}  .product-information-sales-assurances-list-item-icon{
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+  }
+  .product-information-sales-assurances-{{ section.id }}  .product-information-sales-assurances-list-item-title{
+    color: {{settings.product_sales_assurances_text_color}};
+    text-align: center;
+    font-size: 12px;
+    font-weight: 400;
+    line-height:1.4;
+  }
+  @media screen and (max-width: 768px){
+    .product-information-sales-assurances-{{ section.id }} {
+      border-radius:5px;
+      padding: 30px 0 28px 0;
+    }
+    .product-information-sales-assurances-{{ section.id }}  .product-information-sales-assurances-title{
+      position: absolute;
+      top: -24px;
+      left: -1px;
+      z-index: 1;
+      color: #000;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.38; /* 138% */
+      padding: 10px 20px 10px 0;
+      background: #fff
+
+    }
+    .product-information-sales-assurances-{{ section.id }}  .product-information-sales-assurances-list{
+      gap: 12px;
+    }
+    .product-information-sales-assurances-{{ section.id }}  .product-information-sales-assurances-list-item{
+      width: calc(100% / 2 - 6px);
+    }
+    .product-information-sales-assurances-{{ section.id }}  .product-information-sales-assurances-list-item-icon{
+      width: 32px;
+      height: 32px;
+    }
+    .product-information-sales-assurances-{{ section.id }}  .product-information-sales-assurances-list-item-title{
+      font-size: 14px;
+      padding: 0 5px;
+
+    }
+  }
+</style>
+{% assign product_sales_assurances_title = section.settings.product_sales_assurances_title
+  | default: settings.product_sales_assurances_title
+%}
+
+{% assign product_sales_assurances_icon_1 = section.settings.product_sales_assurances_icon_1
+  | default: settings.product_sales_assurances_icon_1
+%}
+{% assign product_sales_assurances_icon_2 = section.settings.product_sales_assurances_icon_2
+  | default: settings.product_sales_assurances_icon_2
+%}
+{% assign product_sales_assurances_icon_3 = section.settings.product_sales_assurances_icon_3
+  | default: settings.product_sales_assurances_icon_3
+%}
+{% assign product_sales_assurances_icon_4 = section.settings.product_sales_assurances_icon_4
+  | default: settings.product_sales_assurances_icon_4
+%}
+
+{% assign product_sales_assurances_text_1 = section.settings.product_sales_assurances_text_1
+  | default: settings.product_sales_assurances_text_1
+%}
+{% assign product_sales_assurances_text_2 = section.settings.product_sales_assurances_text_1
+  | default: settings.product_sales_assurances_text_2
+%}
+{% assign product_sales_assurances_text_3 = section.settings.product_sales_assurances_text_1
+  | default: settings.product_sales_assurances_text_3
+%}
+{% assign product_sales_assurances_text_4 = section.settings.product_sales_assurances_text_1
+  | default: settings.product_sales_assurances_text_4
+%}
+
+<div class="product-information-sales-assurances-{{ section.id }}">
+  <div class="product-information-sales-assurances-title">{{ product_sales_assurances_title }}</div>
+  <div class="product-information-sales-assurances-list">
+    {%- if product_sales_assurances_text_1 != empty -%}
+      <div class="product-information-sales-assurances-list-item">
+        <div class="product-information-sales-assurances-list-item-icon">
+          {{ product_sales_assurances_icon_1 }}
+        </div>
+        <div class="product-information-sales-assurances-list-item-title">
+          {{ product_sales_assurances_text_1 }}
+        </div>
+      </div>
+    {%- endif -%}
+    {%- if product_sales_assurances_text_2 != empty -%}
+      <div class="product-information-sales-assurances-list-item">
+        <div class="product-information-sales-assurances-list-item-icon">
+          {{ product_sales_assurances_icon_2 }}
+        </div>
+        <div class="product-information-sales-assurances-list-item-title">
+          {{ product_sales_assurances_text_2 }}
+        </div>
+      </div>
+    {%- endif -%}
+    {%- if product_sales_assurances_text_3 != empty -%}
+      <div class="product-information-sales-assurances-list-item">
+        <div class="product-information-sales-assurances-list-item-icon">
+          {{ product_sales_assurances_icon_3 }}
+        </div>
+        <div class="product-information-sales-assurances-list-item-title">
+          {{ product_sales_assurances_text_3 }}
+        </div>
+      </div>
+    {%- endif -%}
+    {%- if product_sales_assurances_text_4 != empty -%}
+      <div class="product-information-sales-assurances-list-item">
+        <div class="product-information-sales-assurances-list-item-icon">
+          {{ product_sales_assurances_icon_4 }}
+        </div>
+        <div class="product-information-sales-assurances-list-item-title">
+          {{ product_sales_assurances_text_4 }}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>

@@ -1,0 +1,410 @@
+<style>
+  /* Top promotional banner 顶部促销活动横幅 start */
+.top-promotional-banner-{{ section.id }}  .top-promotional-banner-wrapper {
+    background: linear-gradient(269deg, #000 11.94%, #fece67 120.47%);
+    background-color: {{ section.settings.bg_color }};
+    background: {{ section.settings.background_gradient_color }};
+    cursor: pointer;
+  }
+
+.top-promotional-banner-{{ section.id }}  .top-promotional-banner-containner {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-right: calc((136 / 1920) * 100vw);
+    {% comment %} padding-left: calc((360 / 1920) * 100vw); {% endcomment %}
+    gap: 120px;
+  }
+
+.top-promotional-banner-{{ section.id }}  .top-promotional-banner-containner-content {
+    display: flex;
+    align-items: center;
+    gap: 120px;
+  }
+
+.top-promotional-banner-{{ section.id }}  .top-promotional-banner-title-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+.top-promotional-banner-{{ section.id }}  .top-promotional-banner-title {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25;
+  }
+
+.top-promotional-banner-{{ section.id }}  .top-promotional-banner-subtitle {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+.top-promotional-banner-{{ section.id }}  .top-promotional-banner-subtitle span {
+    display: block;
+  }
+
+.top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box {
+    max-width: max-content;
+
+  }
+
+.top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .countdown-box > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+.top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 52px;
+    min-height: 56px;
+
+    position: relative;
+    border-radius: 6px;
+    border: 1px dashed #fff;
+  }
+
+.top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-value {
+    /* background-color: #000; */
+    color: #fff;
+
+    border-radius: 0;
+    font-size: 24px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+.top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-label {
+    font-size: 12px;
+    color: #fff;
+    line-height: 1;
+  }
+
+.top-promotional-banner-{{ section.id }}  .top-promotional-banner-img {
+    width: 228px;
+  }
+
+.top-promotional-banner-{{ section.id }}  .top-promotional-banner-img img {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  @media screen and (max-width: 768px) {
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-wrapper {
+      background: background: {{ section.settings.background_gradient_color_mb }};
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-containner {
+      display: flex;
+      padding-right: 0;
+      gap: 0;
+      justify-content: end;
+      position: relative;
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-containner-content {
+      display: flex;
+      align-items: start;
+      flex-direction: column;
+      position: absolute;
+      left: 14px;
+      top: 20px;
+      width: 48%;
+      gap: 0;
+      height: calc(100% - 20px);
+      padding-bottom: 13px;
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-title-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-title {
+      font-size: 12px;
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-subtitle {
+      font-size: 14px;
+
+      line-height: 1.14;
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-subtitle span {
+      display: inline;
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box {
+      margin-top: auto;
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .countdown-box > div {
+      gap: 6px;
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-block {
+      min-width: 29px;
+      min-height: 30px;
+      border-radius: 5px;
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-value {
+      font-size: 13px;
+
+      margin-bottom: 4px;
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-label {
+      font-size: 6px;
+      color: #fff;
+      line-height: 1;
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-img {
+      width: 196px;
+      flex-shrink: 0;
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-img img {
+      display: flex;
+      width: 100%;
+      max-width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  /* Top promotional banner 顶部促销活动横幅 end */
+</style>
+<!-- Top promotional banner 顶部促销活动横幅 start -->
+<section id="top-promotional-banner" class="top-promotional-banner-{{ section.id }}">
+  <div
+    class="top-promotional-banner-wrapper"
+    onclick="window.location.href='{{ section.settings.banner_link | default: '/' }}'"
+  >
+    <div class="top-promotional-banner-containner">
+      <div class="top-promotional-banner-containner-content">
+        <div class="top-promotional-banner-title-wrapper">
+          {%- if section.settings.title != empty -%}
+            <div class="top-promotional-banner-title">{{ section.settings.title }}</div>
+          {%- endif -%}
+          {%- if section.settings.subtitle != empty -%}
+            <div class="top-promotional-banner-subtitle">
+              {{ section.settings.subtitle }}
+            </div>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.show_flash_sale_countdown
+          and section.settings.flash_sale_countdown != empty
+          and section.settings.flash_sale_countdown_end != empty
+        -%}
+          <div class="top-promotional-banner-countdown-box">
+            {%- render 'flash-sale-countdown',
+              countdown_style: 2,
+              flash_sale_countdown_date: section.settings.flash_sale_countdown,
+              flash_sale_countdown_end_date: section.settings.flash_sale_countdown_end
+            -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="top-promotional-banner-img">
+        {% assign banner_image_pc = section.settings.banner_image_pc %}
+        {% assign banner_image_mb = section.settings.banner_image_mb %}
+        {% if banner_image_pc and banner_image_mb %}
+          <picture>
+            <!-- 移动端图片：屏幕宽度小于等于768px时显示 -->
+            <source
+              srcset="{{ section.settings.banner_image_mb | image_url:width:750 }}"
+              media="(max-width: 768px)"
+            >
+            <img
+              src="{{ section.settings.banner_image_pc | image_url:width:750 }}"
+              alt="Black Friday Promotion Banner"
+            >
+          </picture>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Top promotional banner 顶部促销活动横幅 end -->
+<script>
+  function formatUtcTime(v) {
+      let date = new Date(v);
+      return (
+          date.getFullYear() +
+          '/' +
+          (date.getMonth() + 1) +
+          '/' +
+          (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+          ' ' +
+          (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+          ':' +
+          (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+          ':' +
+          (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+      );
+  }
+  $(function () {
+      if ($('.top-promotional-banner-countdown-box [data-countdown]')) {
+          $('.top-promotional-banner-countdown-box [data-countdown]').each(function () {
+              const UTCDate = $(this).data('countdown'); // 活动开始倒计时
+              const UTCDate_end = $(this).data('countdown-end'); // 活动截止倒计时
+              console.log('UTCDate-活动开始倒计时：', UTCDate);
+              console.log('UTCDate_end-活动截止倒计时：', UTCDate_end);
+              const finalDate = formatUtcTime(UTCDate);
+              const finalDate_end = formatUtcTime(UTCDate_end);
+              const finalDate1 = finalDate;
+              const finalDate2 = finalDate_end ? finalDate_end : null;
+              const timestamp = new Date(finalDate1).getTime();
+              const timestamp_end = finalDate2 ? new Date(finalDate2).getTime() : null;
+              const currentTimestamp = new Date().getTime();
+              console.log('活动开始本地时间==', finalDate);
+              console.log('活动截止本地时间==', finalDate_end);
+              let format;
+              const style = $(this).data('countdown-style');
+              console.log('活动截止本地时间==', finalDate_end);
+              if (timestamp > currentTimestamp) {
+                  $(this)
+                      .parents('.top-promotional-banner-countdown-box')
+                      .css({ 'visibility': 'visible' });
+                  return;
+              }
+
+              $(this)
+                  .countdown(finalDate2)
+                  .on('update.countdown', function (event) {
+                      if (style == 1) {
+                          format = '<span>%D</span>:<span>%H</span>:<span>%M</span>:<span>%S</span>';
+                      } else if (style == 2) {
+                          {% comment %} format = '<span>%D<span>Days</span></span>:<span>%H<span>Hrs</span></span>:<span>%M<span>Mins</span></span>:<span>%S<span>Secs</span></span>'; {% endcomment %}
+                          format = '<div class="time-block">' +
+                              '<div class="time-value">%D</div>' +
+                              '<div class="time-label">Days</div>' +
+                              '</div>' +
+                              '<div class="time-block">' +
+                              '<div class="time-value">%H</div>' +
+                              '<div class="time-label">Hrs</div>' +
+                              '</div>' +
+                              '<div class="time-block">' +
+                              '<div class="time-value">%M</div>' +
+                              '<div class="time-label">Mins</div>' +
+                              '</div>' +
+                              '<div class="time-block">' +
+                              '<div class="time-value">%S</div>' +
+                              '<div class="time-label">Secs</div>' +
+                              '</div>';
+                      }
+                      $(this).html(event.strftime(format));
+                  })
+                  .on('finish.countdown', function (event) {
+                      {% comment %} $(this)
+                          .parents('.super-early-bird-countdown-date').css('display', 'none') {% endcomment %}
+                  });
+          });
+      }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Top promotional banner",
+  "tag": "section",
+  
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "html",
+      "id": "title",
+      "label": "标题",
+      "default": "<span>Black Friday Presale</span>"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "副标题",
+      "default": "<div>Lock in Huge Discounts & Win Prizes!<span> Up to $1249 OFF & Exciting Gifts</span></div>"
+    },
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "活动链接"
+      
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_flash_sale_countdown",
+      "label": "显示秒杀倒计时",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "flash_sale_countdown",
+      "label": "活动开始时间",
+      "info": "活动开始时间，格式为：2024-10-10T15:00:00+08:00",
+      "default": "2025-11-01T15:00:00+08:00"
+    },
+    {
+      "type": "text",
+      "id": "flash_sale_countdown_end",
+      "label": "活动截止时间",
+      "info": "活动截止时间，格式为：2024-10-24T15:00:00+08:00",
+      "default": "2025-11-24T15:00:00+08:00"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "banner_image_pc",
+      "label": "活动图标（PC端）"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image_mb",
+      "label": "活动图标(移动端)"
+    },
+
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "产品标题字体颜色",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "背景色"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient_color",
+      "label": "渐变背景色(PC端)",
+      "default": "linear-gradient(269deg, #000 11.94%, #fece67 120.47%)"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient_color_mb",
+      "label": "渐变背景色(移动端)",
+      "default": "linear-gradient(260deg, #000 15.48%, #fece67 127.47%)"
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Top promotional banner",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

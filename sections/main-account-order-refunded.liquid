@@ -186,7 +186,7 @@
               <div class="flex flex-col flex-wrap lg:flex-row lg:items-center gap-y-8 gap-x-3 py-4 md:py-6 lg:justify-between">
                 {% comment %} 订单项 {% endcomment %}
                 <div class="flex items-center gap-2">
-                  {%- for item in order.line_items limit: 4 -%}
+                  {%- for item in order.refunds limit: 4 -%}
                     <div class="w-16 md:w-24 h-16 md:h-24 flex justify-center items-center bg-white text-gray-500 text-sm rounded-lg shadow overflow-hidden">
                       <img
                         data-src="{{ item.image | image_url: width: 160 }}"
@@ -198,14 +198,24 @@
                     </div>
                   {%- endfor -%}
                   <div class="w-16 md:w-24 h-16 md:h-24 flex justify-center items-center bg-white text-gray-500 text-sm rounded-lg shadow">
-                    {{ order.item_count }} item(s)
+                    {{ order.refunds.size }} item(s)
                   </div>
                 </div>
 
                 <div class="flex items-center justify-between md:justify-end gap-x-4 md:ml-auto flex-shrink-0">
                   <div class="flex items-center text-gray-500 text-sm gap-x-2">
+                    {%- assign valid_total = 0 -%}
+
+                    {%- for line_item in order.line_items -%}
+                      {%- if line_item.refunded_quantity > 0 and line_item.cancelled != true and line_item.quantity > 0 -%}
+                        {%- assign refund_per_item = line_item.final_price | times: line_item.refunded_quantity -%}
+                        {%- assign valid_total = valid_total | plus: refund_per_item -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+
                     <span>{{ 'customer.orders.total' | t }}:</span>
-                    <span class="text-black">{{ order.total_price | money_with_currency }}</span>
+                    <span class="text-black">{{ order.total_refunded_amount | money_with_currency }}</span>
+
                   </div>
                   <div>
                     <a

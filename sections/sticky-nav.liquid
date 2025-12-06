@@ -73,13 +73,17 @@
 <script>
   !(function () {
     const navTop = 0;
+    // 根据 section.blocks 组合出 targetSectionNodes
     const targetSectionNodes = [
-      { title: "What's New", node: '#shopify-section-collection-tabs-new1' },
-      { title: 'Weekly Sale', node: '#shopify-section-collection-tabs-new2' },
-      { title: 'Discount Card', node: '#shopify-section-product-individual' },
-      { title: 'Shop Categories', node: '#shopify-section-shop-categories' },
-      { title: 'Materials', node: '#shopify-section-materials-tab' },
+      {% for block in section.blocks %}
+        {
+          title: {{ block.settings.nav_text | json }},
+          node: {{ block.settings.nav_node | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
     ];
+
+
     const $section = $(document.currentScript).closest('.page-sticky-nav');
     const tabHeight = $section.height();
     $section.on('click', '.nav-slide-pc', function () {
@@ -181,12 +185,7 @@
       "type": "nav_text",
       "name": "Nav text",
       "settings": [
-        {
-          "type": "text",
-          "id": "nav_id",
-          "label": "用于锚定的section的id",
-          "info": "跟需要锚定的section的id必须保持一致"
-        },
+
         {
           "type": "text",
           "id": "nav_text",
@@ -202,7 +201,7 @@
   ],
   "presets": [
     {
-      "name": "Mother Day Nav 2024"
+      "name": "Page Sticky Nav"
     }
   ]
 }

@@ -589,6 +589,9 @@
   {% assign deposit = product.metafields.custom.deposit.value | default: original_deposit %}
   {% assign available = product.selected_or_first_available_variant.available %}
 {%- endfor -%}
+{% for deposit_product in section.settings.product_deposit_list limit: 1 -%}
+  {% assign deposit_variant_id = deposit_product.selected_or_first_available_variant.id %}
+{%- endfor -%}
 
 <div class="rent-products-{{ section.id }}">
   <div class="main-card">
@@ -695,6 +698,14 @@
             <span class="free-tag">{{- section.settings.rental_period_description -}}</span>
           {%- endif -%}
         </div>
+        {%- comment -%}
+          section.settings.product_deposit_list 是一个数组，可以通过 section.settings.product_deposit_list[0] 获取第一个押金产品；
+          但 section.settings.product_deposit_list.value[0] 是不存在的，因为 product_deposit_list 是数组不是对象，.value 属性只有在某些特定字段类型时才存在。
+          示例如下：
+          第一个押金产品对象：{{ section.settings.product_deposit_list[0] }}
+          第一个押金产品的ID：{{ section.settings.product_deposit_list[0].id }}
+        {%- endcomment -%}
+
         <div class="product-option-area">
           {% for product in section.settings.product_list %}
             {% assign option_name = 'product_option_name_' | append: forloop.index %}
@@ -702,10 +713,16 @@
             {% assign product_option_name = section.settings[option_name] %}
             {% assign product_option_image = section.settings[option_image] | image_url %}
             {% assign product_option_price = product.selected_or_first_available_variant.price %}
+            {% for deposit_product in section.settings.product_deposit_list offset: forloop.index0 limit: 1 %}
+              {% assign product_deposit_option_id = deposit_product.selected_or_first_available_variant.id
+                | default: ''
+              %}
+            {% endfor %}
             {% if product_option_name != blank and product_option_image != blank %}
               <div
                 class="product-option-item {% if forloop.first %}active{% endif %}"
                 data-product-option-id="{{ product.selected_or_first_available_variant.id }}"
+                data-product-deposit-option-id="{{ product_deposit_option_id }}"
                 data-product-option-price="{{ product_option_price}}"
                 data-product-option-image="{{ product_option_image }}"
                 data-product-option-name="{{ product_option_name }}"
@@ -919,11 +936,12 @@
             Sign Contract{% render 'svg-icons' with 'thb-loading' %}
           </div>
 
-          <product-card>
+          <multiple-product-card>
             <div class="product-card--add-to-cart-button-wrapper">
               <button
-                class=" add-cart-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                class="add-cart-btn external-add-to-cart-button product-card--add-to-cart-button multiple-product-card--add-to-cart-button-simple button accent"
                 data-product-id="{{ variant_id }}"
+                data-product-deposit-id="{{ deposit_variant_id }}"
                 tabindex="-1"
                 {% unless available %}
                   disabled
@@ -945,7 +963,8 @@
                 </span>
               </button>
             </div>
-          </product-card>
+          </multiple-product-card>
+         
         </div>
       </div>
     </div>
@@ -1087,9 +1106,13 @@
       const productOptionId = currentItem.getAttribute('data-product-option-id');
       console.log('当前选中产品选项id:', productOptionId);
 
+      const productDepositOptionId = currentItem.getAttribute('data-product-deposit-option-id');
+      console.log('当前选中定金产品选项id:', productDepositOptionId);
+
       // 设置 .product-card--add-to-cart-button-wrapper 的 data-product-id 属性为 productOptionId
       document.querySelectorAll('.rent-products-{{ section.id }}  .add-cart-btn').forEach(function(wrapper) {
         wrapper.setAttribute('data-product-id', productOptionId);
+        wrapper.setAttribute('data-product-deposit-id', productDepositOptionId);
       });
       document.querySelectorAll('.rent-title span').forEach(function(wrapper) {
         
@@ -1104,6 +1127,27 @@
         thumbSlides[index].click();
       }
     }
+   
+   
+    // 监听 add-cart-btn external-add-to-cart-button 按钮的点击事件
+    // 动态元素无法直接绑定事件，使用事件委托
+    {% comment %} document.addEventListener('click', function(e) {
+      // 判断事件目标是否为目标按钮或其子元素
+      const btn = e.target.closest('.rent-products-{{ section.id }} multiple-product-card .product-card--add-to-cart-button');
+      if (btn) {
+        // 这里可以添加你需要执行的逻辑
+        console.log('Add to Cart 按钮被点击');
+        const productDepositOptionId = btn.getAttribute('data-product-deposit-id');
+        console.log('productDepositOptionId==',productDepositOptionId);
+      
+          addDepositProduct(productDepositOptionId)
+        
+        
+        // 如果需要阻止默认行为，例如表单提交，可取消注释下一行
+        // e.preventDefault();
+      }
+    }); {% endcomment %}
+   
     // galleryThumbs 增加点击切换功能
     // 同时激活.gallery-thumbs .swiper-slide 对应的
     document.querySelectorAll('.gallery-thumbs .swiper-slide').forEach(function (slide, idx) {
@@ -1262,7 +1306,15 @@
       "type": "product_list",
       "id": "product_list",
       "label": "产品列表",
-      "limit": 5
+      "limit": 5,
+      "info": "注：产品列表需和押金产品列表的顺序一致"
+    },
+    {
+      "type": "product_list",
+      "id": "product_deposit_list",
+      "label": "押金产品列表",
+      "limit": 5,
+      "info": "注：产品列表需和押金产品列表的顺序一致"
     },
 
     {

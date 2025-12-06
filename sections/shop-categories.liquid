@@ -89,17 +89,38 @@
     </div>
     <div class="categories">
       <div class="categories-box">
-        {% for item in section.settings.collection_list %}
-          <a href="{{ item.url }}" class="coll-url">
-            <div class="c-item">
-              <img
-                class="c-img"
-                src="{{ item.metafields.custom.materials_page_collimg | image_url: width: master }}"
-                alt=""
-              >
-              <p class="c-info">{{ item.title }}</p>
-            </div>
-          </a>
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'collection' %}
+              {% assign collection = block.settings.collection %}
+
+              <a href="{{collection.url}}" class="coll-url">
+                <div class="c-item">
+                  <img
+                    style="aspect-ratio: {{  collection.featured_image.aspect_ratio }};"
+                    class="c-img lazyload"
+                    data-src="{{ collection.featured_image | image_url: width: master }}"
+                    alt="{{  block.settings.collection_title | default: collection.title }}"
+                  >
+                  <p class="c-info">{{ block.settings.collection_title | default: collection.title }}</p>
+                </div>
+              </a>
+
+            {% when 'product' %}
+              {% assign product = block.settings.product %}
+
+              <a href="{{product.url}}" class="coll-url">
+                <div class="c-item">
+                  <img
+                    style="aspect-ratio: {{  product.featured_image.aspect_ratio }};"
+                    class="c-img lazyload"
+                    data-src="{{ product.featured_image | image_url: width: master }}"
+                    alt="{{ block.settings.product_title | default: product.title }}"
+                  >
+                  <p class="c-info">{{ block.settings.product_title | default: product.title }}</p>
+                </div>
+              </a>
+          {% endcase %}
         {% endfor %}
       </div>
       <div class="show-btn">
@@ -150,12 +171,40 @@
       "id": "id",
       "label": "用于锚定的section的id",
       "info": "页面唯一，不能重复，必须全英文"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "系列",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "系列"
+        },
+        {
+          "type": "text",
+          "id": "collection_title",
+          "label": "标题"
+        }
+      ]
     },
     {
-      "type": "collection_list",
-      "id": "collection_list",
-      "label": "Collections",
-      "limit": 16
+      "type": "product",
+      "name": "产品",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "产品"
+        },
+        {
+          "type": "text",
+          "id": "product_title",
+          "label": "标题"
+        }
+      ]
     }
   ],
   "presets": [

@@ -1009,7 +1009,30 @@
         "label": "Free shipping minimum amount",
         "default": "250",
         "info": "Enter the value without a currency symbol and use a decimal to separate dollars and cents. Example: '100.00'"
-      }
+      },
+      {
+        "type": "header",
+        "content": "全店满减优惠",
+        "info": "底部加购导航栏和侧边购物车栏显示满减优惠"
+      },
+      {
+        "type": "checkbox",
+        "id": "storewide_discount",
+        "label": "显示全店满减优惠信息",
+        "default": true
+      },
+      {
+        "type": "product_list",
+        "id": "storewide_discount_exclude_product_list",
+        "label": "产品列表",
+        "info": "选择要排除的优惠产品(不参与满减的产品)"
+      },
+      {
+        "type": "metaobject",
+        "id": "storewide_discount_price_value",
+        "label": "全店满减优惠价格配置（元对象discounts_for_all_purchases配置）",
+        "metaobject_type": "discounts_for_all_purchases"
+      },
     ]
   },
   {
@@ -1228,12 +1251,10 @@
           {
             "value": "1",
             "label": "1"
-            
           },
           {
             "value": "2",
             "label": "2"
-            
           }
         ],
         "default": "1",
@@ -1250,19 +1271,17 @@
         "id": "automatic_discount_reminder_icon",
         "label": "小图标",
         "info": "SVG格式"
-
       },
       {
         "type": "text",
         "id": "automatic_discount_reminder_text",
         "label": "活动文案",
-        "default":"Black Friday Special"
+        "default": "Black Friday Special"
       },
       {
         "type": "header",
         "content": "颜色设置"
       },
-    
       {
         "type": "color",
         "id": "automatic_discount_reminder_bg_color",
@@ -1288,7 +1307,7 @@
       },
     ]
   },
-   {
+  {
     "name": "产品页运送时效&规格&说明书设置",
     "settings": [
       {
@@ -1356,6 +1375,260 @@
         "label": "文案字体颜色",
         "default": "#686764"
       },
+    ]
+  },
+  {
+    "name": "产品页销售保证模块",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_product_sales_assurances",
+        "default": true,
+        "label": "显示产品页销售保证模块",
+        "info": "当此开关关闭后，产品页的销售保证模块都将关闭（优先级最高）"
+      },
+      {
+        "type": "html",
+        "id": "product_sales_assurances_title",
+        "label": "标题",
+        "default": "Sales Assurances"
+      },
+      {
+        "type": "header",
+        "content": "图标设置"
+      },
+      {
+        "type": "html",
+        "id": "product_sales_assurances_icon_1",
+        "label": "图标1",
+        "info": "SVG格式",
+        "default": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 36 36\" fill=\"none\"><path d=\"M7.20159 7.62846L19.498 4L31.5929 7.62846V14.8854C31.5929 26.7787 26.7549 29.3992 19.2964 31.8182C12.0395 29.3992 7 26.9802 7 14.8854V7.62846H7.20159Z\" stroke=\"#3D3D3D\" stroke-width=\"2\" stroke-miterlimit=\"2\" stroke-linejoin=\"round\"/><path d=\"M19.499 10.0474V25.5691\" stroke=\"#3D3D3D\" stroke-width=\"2\" stroke-miterlimit=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M23.3282 11.4585C23.3282 11.4585 19.6998 11.4585 18.0871 11.4585C16.2729 11.4585 14.8618 12.8696 14.8618 14.6838C14.8618 16.498 16.2729 17.9091 18.0871 17.9091\" stroke=\"#3D3D3D\" stroke-width=\"2\" stroke-miterlimit=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M15.6704 24.3595C15.6704 24.3595 19.2989 24.3595 20.9115 24.3595C22.7257 24.3595 24.1368 22.9485 24.1368 21.1342C24.1368 19.32 22.7257 17.9089 20.9115 17.9089H18.0894\" stroke=\"#3D3D3D\" stroke-width=\"2\" stroke-miterlimit=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>"
+      },
+      {
+        "type": "html",
+        "id": "product_sales_assurances_icon_2",
+        "label": "图标2",
+        "info": "SVG格式",
+        "default": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 36 36\" fill=\"none\"><path d=\"M29.3275 15.6545C29.5206 14.4961 29.5206 13.1447 29.1345 11.9863C28.7483 10.4418 27.9761 8.89728 26.6246 7.7389C25.4662 6.58051 23.9217 5.61519 22.3772 5.22906C21.2188 4.84293 19.8674 4.84293 18.709 5.03599\" stroke=\"#3D3D3D\" stroke-width=\"2\" stroke-miterlimit=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M23.9233 15.0753C24.1164 13.7239 23.7302 12.3724 22.7649 11.4071C21.7996 10.4418 20.4481 10.0556 19.0967 10.2487\" stroke=\"#3D3D3D\" stroke-width=\"2\" stroke-miterlimit=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M9.63487 7.15967C10.2141 7.15967 10.6002 7.35273 10.9863 7.93192L12.7239 11.021C12.917 11.4071 12.917 11.9863 12.7239 12.3724L10.9863 15.8476C10.9863 15.8476 11.5655 18.3574 13.4962 20.4811C15.6199 22.6048 18.1297 22.9909 18.1297 22.9909L21.6049 21.2534C21.991 21.0603 22.5702 21.0603 22.9563 21.2534L26.0453 22.9909C26.4315 23.184 26.8176 23.7632 26.8176 24.3424V27.8175C26.8176 29.7482 25.08 31.0996 23.3424 30.3274C19.6742 29.169 14.0754 26.8522 10.6002 23.184C7.12503 19.7088 4.80825 14.11 3.4568 10.4418C2.68455 8.89725 4.036 7.15967 5.96665 7.15967H9.63487Z\" stroke=\"#3D3D3D\" stroke-width=\"2\" stroke-miterlimit=\"2\" stroke-linejoin=\"round\"/></svg>"
+      },
+      {
+        "type": "html",
+        "id": "product_sales_assurances_icon_3",
+        "label": "图标3",
+        "info": "SVG格式",
+        "default": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 36 36\" fill=\"none\"><path d=\"M9.95703 13.1074H19.5\" stroke=\"#3D3D3D\" stroke-width=\"2\" stroke-miterlimit=\"10\" stroke-linecap=\"round\"/><path d=\"M9.95801 18.9993H15.4024\" stroke=\"#3D3D3D\" stroke-width=\"2\" stroke-miterlimit=\"10\" stroke-linecap=\"round\"/><path d=\"M26.8422 11V7.30248C26.8422 6.03132 25.8109 5 24.5397 5H8.30248C7.03132 5 6 6.03132 6 7.30248V26.6975C6 27.9687 7.03132 29 8.30248 29H16\" stroke=\"#3D3D3D\" stroke-width=\"2\" stroke-miterlimit=\"10\" stroke-linecap=\"round\"/><path d=\"M31.7185 17.4138C31.6841 17.3539 31.6007 17.3484 31.5573 17.402L31.5358 17.4286L29.063 20.4958C28.9944 20.5809 28.8702 20.5952 28.7841 20.5278L26.4475 18.7C26.3596 18.6312 26.345 18.5038 26.415 18.4169L28.8841 15.3543L28.903 15.331C28.9471 15.2764 28.9228 15.1946 28.8554 15.1751C27.0382 14.6467 24.9853 15.2308 23.7464 16.8009C22.4206 18.4385 22.393 20.7038 23.4978 22.3687L23.0283 22.9419L20.2385 26.4082C19.7137 27.0632 19.8241 28.0185 20.4871 28.5643C21.15 29.0829 22.1168 28.9737 22.6692 28.3187L25.5419 24.7705L25.9562 24.252C27.8345 24.907 30.0166 24.3611 31.3424 22.7235C32.5554 21.1522 32.6636 19.061 31.7185 17.4138Z\" stroke=\"#3D3D3D\" stroke-width=\"1.8\" stroke-miterlimit=\"10\"/></svg>"
+      },
+      {
+        "type": "html",
+        "id": "product_sales_assurances_icon_4",
+        "label": "图标4",
+        "info": "SVG格式",
+        "default": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 36 36\" fill=\"none\"><path d=\"M17.4587 4C22.7052 4.0001 27.07 7.8886 27.8201 12.9316C29.0959 12.9904 30.1863 13.6115 30.9753 14.4746L31.1365 14.6602L31.1609 14.6885L31.1824 14.7188C32.0554 15.9413 32.1921 17.3037 32.1921 18.5957C32.1921 19.731 32.2389 21.5431 30.9656 22.8438C30.0985 23.8607 28.7421 24.5399 27.3474 24.54H27.238C25.7248 28.4682 21.9098 31.2685 17.4587 31.2686C16.9068 31.2684 16.459 30.8205 16.4587 30.2686C16.4589 29.7165 16.9067 29.2688 17.4587 29.2686C22.1248 29.2684 25.935 25.459 25.9353 20.793V14.4756C25.9352 9.80948 22.1248 6.00011 17.4587 6C12.7225 6.00019 9.39537 9.73995 9.39525 14.4756V23.54C9.3948 24.0919 8.94716 24.5399 8.39525 24.54C8.37397 24.54 8.35273 24.5374 8.33178 24.5361L8.25756 24.54H7.84642C6.45784 24.54 5.10656 23.8669 4.239 22.8574C2.95293 21.5559 3.0007 19.7347 3.00072 18.5957C3.00074 17.3037 3.13754 15.9413 4.01049 14.7188L4.03295 14.6885L4.05638 14.6602L4.21752 14.4746C5.032 13.5835 6.16739 12.9516 7.49681 12.9287C8.1628 7.93627 12.0332 4.00018 17.4587 4ZM27.9353 20.793C27.9353 21.3731 27.8851 21.9422 27.7937 22.4971C28.4314 22.3788 29.0508 22.0203 29.4626 21.5264L29.4919 21.4912L29.5242 21.46C30.1438 20.8403 30.1921 19.9236 30.1921 18.5957C30.1921 17.435 30.0575 16.608 29.5769 15.915C29.1203 15.378 28.5508 15.0365 27.9353 14.9492V20.793ZM7.39525 14.9336C6.72628 14.9863 6.10469 15.338 5.614 15.916C5.13432 16.6086 5.00074 17.4359 5.00072 18.5957C5.00074 19.8406 5.04341 20.7238 5.55931 21.3398L5.66869 21.46L5.70092 21.4912L5.73021 21.5264C6.14112 22.0192 6.75886 22.3771 7.39525 22.4961V14.9336Z\" fill=\"#3D3D3D\"/><path d=\"M13.6143 20.1057C14.9876 22.1657 19.1075 22.8523 21.1675 20.1057\" stroke=\"#3D3D3D\" stroke-width=\"2\" stroke-linecap=\"round\"/></svg>"
+      },
+      {
+        "type": "header",
+        "content": "内容设置"
+      },
+      {
+        "type": "html",
+        "id": "product_sales_assurances_text_1",
+        "label": "文案1",
+        "default": "7-Day Price Guarantee"
+      },
+      {
+        "type": "html",
+        "id": "product_sales_assurances_text_2",
+        "label": "文案2",
+        "default": "6*24-hour Phone Support"
+      },
+      {
+        "type": "html",
+        "id": "product_sales_assurances_text_3",
+        "label": "文案3",
+        "default": "6-Month Print Head Warranty"
+      },
+      {
+        "type": "html",
+        "id": "product_sales_assurances_text_4",
+        "label": "文案4",
+        "default": "Lifetime Customer Support"
+      },
+      {
+        "type": "header",
+        "content": "颜色设置"
+      },
+      {
+        "type": "color",
+        "id": "product_sales_assurances_text_color",
+        "label": "文案字体颜色",
+        "default": "#000"
+      },
+    ]
+  },
+  {
+    "name": "全店满减优惠横幅",
+    "settings": [
+      {
+        "type": "header",
+        "content": "内容设置"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_full_discount_banner",
+        "default": false,
+        "label": "显示全店满减优惠横幅",
+        "info": "显示完整的全店满减优惠横幅（包括进度条和价格），当此开关关闭后，产品页的横幅都将关闭（优先级最高）"
+      },
+      {
+        "type": "header",
+        "content": "进度条配置"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_full_discount_banner_progress",
+        "default": true,
+        "label": "显示全店满减优惠进度条框",
+        "info": "备注：仅显示进度条框"
+      },
+      {
+        "type": "image_picker",
+        "id": "full_discount_progress_title_image",
+        "label": "进度条标题小图标"
+      },
+      {
+        "type": "image_picker",
+        "id": "full_discount_progress_desc_image",
+        "label": "进度条信息小图标"
+      },
+      {
+        "type": "text",
+        "id": "full_discount_progress_title",
+        "label": "进度条主标题",
+        "default": "Black Friday Sale"
+      },
+      {
+        "type": "color_background",
+        "id": "full_discount_progress_title_color",
+        "label": "进度条主标题字体颜色",
+        "default": "linear-gradient(180deg, #fbefda 29.63%, #ffb268 96.3%)"
+      },
+      {
+        "type": "image_picker",
+        "id": "full_discount_progress_bg_image",
+        "label": "进度条背景图片(pc)"
+      },
+      {
+        "type": "image_picker",
+        "id": "full_discount_progress_bg_image_mb",
+        "label": "进度条背景图片(移动端)"
+      },
+      {
+        "type": "html",
+        "id": "full_discount_progress_info_tips",
+        "label": "进度条提示文案",
+        "default": "<div>Only 60 left!</div>"
+      },
+      {
+        "type": "color_background",
+        "id": "full_discount_progress_info_tips_color",
+        "label": "进度条提示文案字体颜色",
+        "default": "#fff"
+      },
+      {
+        "type": "range",
+        "id": "full_discount_progress_value",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "label": "进度值",
+        "default": 100
+      },
+      {
+        "type": "header",
+        "content": "满减优惠价格配置"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_full_discount_banner_price",
+        "default": true,
+        "label": "显示全店满减优惠价格框",
+        "info": "备注：仅显示满减优惠价格框"
+      },
+      {
+        "type": "image_picker",
+        "id": "full_discount_price_image",
+        "label": "满减优惠价格标题小图标"
+      },
+      {
+        "type": "text",
+        "id": "full_discount_price_title",
+        "label": "满减优惠价格标题",
+        "default": "Add more to unlock bigger savings!"
+      },
+      {
+        "type": "color_background",
+        "id": "full_discount_price_title_color",
+        "label": "满减优惠价格标题字体颜色",
+        "default": "#fff"
+      },
+      {
+        "type": "metaobject",
+        "id": "full_discount_price_value",
+        "label": "全店满减优惠价格配置（元对象discounts_for_all_purchases配置）",
+        "metaobject_type": "discounts_for_all_purchases"
+      },
+      {
+        "type": "color_background",
+        "id": "full_discount_price_value_discount_color",
+        "label": "优惠折扣价格字体颜色",
+        "default": "#000"
+      },
+      {
+        "type": "color_background",
+        "id": "full_discount_price_value_total_color",
+        "label": "购买总额字体颜色",
+        "default": "#3d3d3d"
+      },
+      {
+        "type": "color_background",
+        "id": "full_discount_price_background",
+        "label": "满减优惠价格框背景色",
+        "default": "#000"
+      },
+      {
+        "type": "color_background",
+        "id": "full_discount_price_inner_background",
+        "label": "满减优惠价格框(内框)背景色",
+        "default": "#fff"
+      }
+    ]
+  },
+  {
+    "name": "自定义产品变体选项",
+    "settings": [
+      {
+        "type": "header",
+        "content": "内容设置"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_custom_variants_discount_price",
+        "default": false,
+        "label": "显示优惠价格"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_custom_variants_label",
+        "default": false,
+        "label": "显示活动标签"
+      },
+      {
+        "type": "text",
+        "id": "custom_variants_label_text",
+        "label": "活动标签文案",
+        "default": "Black Friday"
+      }
     ]
   }
 ]

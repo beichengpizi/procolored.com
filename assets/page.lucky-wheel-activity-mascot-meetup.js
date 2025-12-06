@@ -61,7 +61,7 @@ const api = "https://booster.procolored.com"; //正式环境
     // 查询个人用户中奖记录
     function getUserLotteryRecords(id,activityId) {
       console.log('用户ID:', id);
-      fetch(`${api}${lotteryRecordsApi}?customerId=${id}&activityId=${activityId}`, {
+      fetch(`${api}${lotteryRecordsApi}?customerId=${id}&activityId=${activityId}&origin=${origin}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

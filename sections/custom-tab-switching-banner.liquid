@@ -1,0 +1,1847 @@
+<style>
+  {%- assign total_blocks = section.blocks.size -%}
+  :root {
+    /* Font sizes */
+    --text-h0-n: 56px;
+    --text-h1-n: 40px;
+    --text-h2-n: 30px;
+    --text-h3-n: 26px;
+    --text-h4-n: 24px;
+    --text-h5-n: 20px;
+    --text-h6-n: 16px;
+    --text-xs-n: 12px;
+    --text-sm-n: 14px;
+    --text-base-n: 18px;
+    --text-lg-n: 19px;
+  }
+
+  .text-xxs { font-size: 10px; line-height: 1.3; }
+  .text-xs { font-size: var(--text-xs-n); line-height: 1.3; }
+  .text-sm { font-size: var(--text-sm-n); line-height: 1.3; }
+  .text-base { font-size: var(--text-base-n); line-height: 1.3; }
+  .text-md { font-size: var(--text-md-n); line-height: 1.2; }
+  .text-lg { font-size: var(--text-lg-n); line-height: 1.2; }
+
+  /* 重置样式 start */
+  #detail-section1-{{section.id}} .h0 { font-size: var(--text-h0-n); line-height: 1; }
+  #detail-section1-{{section.id}} h1,
+  #detail-section1-{{section.id}} .h1,
+  #detail-section1-{{section.id}} .prose h1:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h1-n); line-height: 1.1;
+  }
+  #detail-section1-{{section.id}} h2,
+  #detail-section1-{{section.id}} .h2,
+  #detail-section1-{{section.id}} .prose h2:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h2-n); line-height: 1.1;
+  }
+  #detail-section1-{{section.id}} h3,
+  #detail-section1-{{section.id}} .h3,
+  #detail-section1-{{section.id}} .prose h3:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h3-n); line-height: 1.2;
+  }
+  #detail-section1-{{section.id}} h4,
+  #detail-section1-{{section.id}} .h4,
+  #detail-section1-{{section.id}} .prose h4:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h4-n); line-height: 1.3;
+  }
+  #detail-section1-{{section.id}} h5,
+  #detail-section1-{{section.id}} .h5,
+  #detail-section1-{{section.id}} .prose h5:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h5-n); line-height: 1.4;
+  }
+  #detail-section1-{{section.id}} h6,
+  #detail-section1-{{section.id}} .h6,
+  #detail-section1-{{section.id}} .prose h6:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h6-n); line-height: 1.4;
+  }
+  /* 重置样式 end */
+
+  /* 图片文字左右调换模块 */
+  #detail-section1-{{section.id}} {
+    padding: {{section.settings.padding_top}}px 24px {{section.settings.padding_bottom}}px 24px;
+    background: {{section.settings.bg_color}};
+  }
+  #detail-section1-{{section.id}} .other_url_link {
+    display: block;
+    margin-top: 10px;
+    color: #007BFF;
+    font-size: 16px;
+    text-decoration: underline;
+  }
+  #detail-section1-{{section.id}} .detail-container {
+    {% if section.settings.section_max_width != 'none' %}
+      max-width: {{ section.settings.section_max_width }}px;
+      margin: 0 auto;
+    {% else %}
+      width: 100%;
+      max-width: 100%;
+    {% endif %}
+    background: {{section.settings.bg_content_color}};
+    border-radius: {{section.settings.content_border_radius}}px;
+    overflow: hidden;
+  }
+  #detail-section1-{{section.id}} .heading {
+    text-align: {{section.settings.title_alignment}};
+    color: {{section.settings.title_color}};
+    margin-bottom: {{section.settings.title_to_content_padding}}px;
+    justify-content: {{section.settings.title_alignment}};
+  }
+  #detail-section1-{{section.id}} .subtitle {
+    text-align: {{section.settings.title_alignment}};
+    color: {{section.settings.subtitle_color}};
+    margin-bottom: {{section.settings.subtitle_padding_bottom}}px;
+    font-weight: 400;
+    justify-content: {{section.settings.title_alignment}};
+  }
+  #detail-section1-{{section.id}} .custom-row {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    {% comment %} align-items: center; {% endcomment %}
+    flex-wrap: wrap;
+    {% if total_blocks > 1 %}
+      padding: 0 50px;
+    {% endif %}
+    column-gap: {{section.settings.flex_column_gap}}px;
+  }
+  #detail-section1-{{section.id}} .custom-media {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    padding: 0;
+    width: 100%;
+  }
+  {% comment %}
+  #detail-section1-{{section.id}} .custom-media img:hover {
+    transform: scale(1.1);
+    transition: all .3s;
+  }
+  {% endcomment %}
+  #detail-section1-{{section.id}} .custom-media video,
+  #detail-section1-{{section.id}} .custom-media img {
+    border-radius: {{section.settings.material_border_radius}}px;
+    {% comment %} box-shadow: rgb(0 0 0 / 25%) .4rem .4rem 1.6rem; {% endcomment %}
+  }
+  #detail-section1-{{section.id}} .info {
+    flex: 0 0 {{section.settings.content_space_percent}}%;
+    padding: 0;
+    padding-left: {{section.settings.content_padding_left_and_right}}px;
+    padding-right: {{section.settings.content_padding_left_and_right}}px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    {% if section.settings.text_content_color != empty %}
+      background: {{ section.settings.text_content_color }};
+    {% endif %}
+    border-radius: {{section.settings.text_border_radius}}px;
+  }
+  #detail-section1-{{section.id}} .title {
+    text-align: center;
+    margin-bottom: {{section.settings.heading_margin_bottom}}px;
+    color: {{section.settings.heading_color}};
+  }
+  #detail-section1-{{section.id}} .subheading {
+    margin-bottom: {{section.settings.subheading_margin_bottom}}px;
+    color: {{section.settings.subheading_color}};
+    text-transform: initial;
+    letter-spacing: 0px;
+  }
+  #detail-section1-{{section.id}} .title,
+  #detail-section1-{{section.id}} .subheading,
+  #detail-section1-{{section.id}} .content,
+  #detail-section1-{{section.id}} .info {
+    text-align: {{ section.settings.content_alignment }};
+  }
+  #detail-section1-{{section.id}} .content {
+    margin-bottom: {{section.settings.content_margin_bottom}}px;
+    color: {{section.settings.desc_color}};
+    line-height: 1.3;
+    text-align: {{ section.settings.content_alignment }};
+  }
+  #detail-section1-{{section.id}} .button_link {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 12px;
+    text-align: {{ section.settings.content_alignment }};
+    border-radius: {{ section.settings.button_border_radius }}px;
+    padding: 6px 20px;
+    font-size: 16px;
+    background: {{ section.settings.button_bg_color }};
+    font-family: ItalianPlateNo2Expanded-Bold;
+    line-height: 1;
+    color: {{ section.settings.button_font_color }};
+  }
+  #detail-section1-{{section.id}} .button_link .arrow-icon {
+    background: #000;
+    border-radius: 50%;
+    padding: 10px;
+    width: 33px;
+    height: 33px;
+  }
+  #detail-section1-{{section.id}} .button_link:hover {
+    color: {{ section.settings.button_font_color }};
+  }
+  #detail-section1-{{section.id}} .swiper-button-next,
+  #detail-section1-{{section.id}} .swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    width: 44px;
+    height: 44px;
+    margin-top: 0;
+    background-color: #F5F5F5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-50%);
+  }
+  #detail-section1-{{section.id}} .swiper-button-next svg,
+  #detail-section1-{{section.id}} .swiper-button-prev svg {
+    fill: #333333;
+    width: 20px;
+    height: 22px;
+    padding: 5.5px;
+  }
+  {% if total_blocks > 1 %}
+    #detail-section1-{{section.id}} .swiper-button-next.swiper-button-disabled,
+    #detail-section1-{{section.id}} .swiper-button-prev.swiper-button-disabled {
+      opacity: 1;
+      cursor: auto;
+      pointer-events: none;
+    }
+  {% endif %}
+  #detail-section1-{{section.id}} .swiper-button-next.swiper-button-disabled svg,
+  #detail-section1-{{section.id}} .swiper-button-prev.swiper-button-disabled svg {
+    fill: #c0c0c0;
+    width: 20px;
+    height: 20px;
+    padding: 5.5px;
+  }
+  #detail-section1-{{section.id}} .swiper-button-next { left: 47%; }
+  #detail-section1-{{section.id}} .swiper-button-prev { left: 0; }
+  #detail-section1-{{section.id}} .reverse { flex-direction: row-reverse; }
+  #detail-section1-{{section.id}} .item-column-reverse { flex-direction: column-reverse; }
+  #detail-section1-{{section.id}} .item-column { flex-direction: column; }
+  #detail-section1-{{section.id}} .show_desktop { display: flex; }
+  #detail-section1-{{section.id}} .show_mobile { display: none; }
+  #detail-section1-{{section.id}}  .tab-switching-banner-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 0;
+    margin-top: 40px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    {% comment %} padding-left: 12px;
+    padding-right: 12px; {% endcomment %}
+    border-bottom: 1px solid {{section.settings.tab_line_color}};
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    overflow-x: auto;
+    touch-action: pan-x;
+    width: max-content;
+  }
+
+  #detail-section1-{{section.id}}  .tab-switching-banner-tab {
+    cursor: pointer;
+    color: {{section.settings.tab_font_color}};
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.38;
+    padding-bottom: 20px;
+    -webkit-tap-highlight-color: transparent;
+    /* 消除移动端点击背景 */
+    -webkit-touch-callout: none;
+    outline: none;
+  }
+
+
+  #detail-section1-{{section.id}}  .tab-switching-banner-tab.active {
+    color: {{section.settings.tab_active_font_color}};
+    font-weight: 700;
+    position: relative;
+  }
+
+  #detail-section1-{{section.id}}  .tab-switching-banner-tab.active::after {
+    position: absolute;
+    bottom: -1px;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: {{section.settings.tab_active_line_color}};
+
+  }
+  @media screen and (min-width: 320px) and (max-width: 768px) {
+    #detail-section1-{{section.id}} .detail-container {
+      border-radius: {{section.settings.content_border_radius_mobile}}px;
+    }
+    #detail-section1-{{section.id}} .title,
+    #detail-section1-{{section.id}} .subheading,
+    #detail-section1-{{section.id}} .content,
+    #detail-section1-{{section.id}} .info {
+      text-align: {{ section.settings.content_alignment_mobile }};
+    }
+    #detail-section1-{{section.id}} .other_url_link {
+      display: block;
+      margin-top: 10px;
+      color: #007BFF;
+      font-size: 16px;
+      text-decoration: underline;
+    }
+    #detail-section1-{{section.id}} .heading {
+      font-size: {{section.settings.title_size_mobile}}px;
+      margin-bottom: {{section.settings.title_to_content_padding_mobile}}px;
+    }
+    #detail-section1-{{section.id}} .subtitle {
+      font-size: {{section.settings.subheading_size_mobile}}px;
+      margin-bottom: {{section.settings.subtitle_padding_bottom_mobile}}px;
+    }
+    #detail-section1-{{section.id}} .info {
+      padding-left: {{section.settings.content_padding_left_and_right_mobile}}px;
+      padding-right: {{section.settings.content_padding_left_and_right_mobile}}px;
+      border-radius: {{section.settings.text_border_radius_mb}}px;
+    }
+    #detail-section1-{{section.id}} .custom-row {
+      position: relative;
+      display: flex;
+      text-align: {{ section.settings.content_alignment_mobile }};
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 70px;
+      flex-wrap: wrap;
+      margin-right: -15px;
+      margin-left: -15px;
+      {% if total_blocks > 1 %}
+        padding: 0;
+      {% endif %}
+    }
+    #detail-section1-{{section.id}} .swiper-button-container {
+      width: 100%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      margin-top: 10px;
+    }
+    #detail-section1-{{section.id}} .custom-media video,
+    #detail-section1-{{section.id}} .custom-media img {
+      border-radius: {{section.settings.material_border_radius_mb}}px;
+      {% comment %} box-shadow: rgb(0 0 0 / 25%) .4rem .4rem 1.6rem; {% endcomment %}
+    }
+    #detail-section1-{{section.id}} .swiper-button-next,
+    #detail-section1-{{section.id}} .swiper-button-prev {
+      position: relative;
+      top: auto;
+      width: 44px;
+      height: 44px;
+      margin-top: 0;
+      background-color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: none;
+      left: auto;
+      right: auto;
+    }
+    #detail-section1-{{section.id}} {
+      padding: {{section.settings.padding_top_mobile}}px {{section.settings.padding_left_and_right_mobile}}px {{section.settings.padding_bottom_mobile}}px {{section.settings.padding_left_and_right_mobile}}px;
+      width: auto;
+    }
+    #detail-section1-{{section.id}} .title {
+      margin-top: {{section.settings.heading_margin_top_mobile}}px;
+      margin-bottom: {{section.settings.heading_margin_bottom_mobile}}px;
+      font-size: {{section.settings.heading_size_mobile}}px !important;
+    }
+    #detail-section1-{{section.id}} .subheading {
+      font-size: {{section.settings.subheading_size_mobile}}px !important;
+      margin-bottom: {{section.settings.subheading_margin_bottom_mobile}}px;
+    }
+    #detail-section1-{{section.id}} .custom-row {
+      {% if section.settings.material_position == 'top' %}
+        flex-direction: column;
+      {% elsif section.settings.material_position == 'bottom' %}
+        flex-direction: column-reverse;
+      {% endif %}
+      margin: 0;
+    }
+    #detail-section1-{{section.id}} .column {
+      width: 100%;
+      max-width: 100%;
+    }
+    #detail-section1-{{section.id}} .content {
+      padding: 0;
+      font-size: {{section.settings.desc_size_mobile}}px !important;
+      margin-bottom: {{section.settings.content_margin_bottom_mobile}}px;
+    }
+    #detail-section1-{{section.id}} .button_link {
+      padding: 6px 15px;
+      font-size: 14px;
+      margin-bottom: 1px;
+    }
+    #detail-section1-{{section.id}} .button_link .arrow-icon {
+      padding: 9px;
+      width: 28px;
+      height: 28px;
+    }
+    #detail-section1-{{section.id}} .button_link .arrow-icon svg {
+      width: 10px;
+      height: 10px;
+    }
+    #detail-section1-{{section.id}} .show_desktop {
+      display: none;
+    }
+    #detail-section1-{{section.id}} .show_mobile {
+      display: flex;
+    }
+
+    #detail-section1-{{section.id}}  .tab-switching-banner-tabs {
+        justify-content: start;
+        gap: 16px;
+        {% comment %} margin-bottom: 20px; {% endcomment %}
+        margin-top: 20px;
+        max-width: 100%;
+        width: 100%;
+        {% comment %} padding-left: 24px;
+        padding-right: 24px; {% endcomment %}
+    }
+
+    #detail-section1-{{section.id}}  .tab-switching-banner-tab {
+        font-size: 14px;
+        padding-bottom: 10px;
+    }
+
+    #detail-section1-{{section.id}}  .tab-switching-banner-tab.active::after {
+        height: 2px;
+        bottom: 0px;
+    }
+  }
+</style>
+
+<!-- 图片文字左右、上下调换模块 -->
+
+<div id="{%- if section.settings.nav_id != empty %}custom-nav-{{- section.settings.nav_id -}}{% endif -%}">
+  <div id="detail-section1-{{section.id}}">
+    <div class="detail-container">
+      {% if section.settings.title != empty %}
+        <h3
+          class="heading {{ section.settings.title_size }}  {{ section.settings.title_font_family }}  show_desktop"
+        >
+          {{ section.settings.title }}
+        </h3>
+        {% if section.settings.title_mobile != empty %}
+          <h3
+            class="heading {{ section.settings.title_size }} {{ section.settings.title_font_family }}   show_mobile"
+          >
+            {{ section.settings.title_mobile }}
+          </h3>
+        {% else %}
+          <h3
+            class="heading {{ section.settings.title_size }} {{ section.settings.title_font_family }}   show_mobile"
+          >
+            {{ section.settings.title }}
+          </h3>
+        {% endif %}
+      {% endif %}
+      {% if section.settings.subtitle != empty %}
+        <div
+          class="subtitle {{ section.settings.subtitle_size }}  {{ section.settings.subtitle_font_family }}  show_desktop"
+        >
+          {{ section.settings.subtitle }}
+        </div>
+        {% if section.settings.subtitle_mobile != empty %}
+          <h3
+            class="subtitle {{ section.settings.subtitle_size }} {{ section.settings.subtitle_font_family }}   show_mobile"
+          >
+            {{ section.settings.subtitle_mobile }}
+          </h3>
+        {% else %}
+          <h3
+            class="subtitle {{ section.settings.subtitle_size }} {{ section.settings.subtitle_font_family }}   show_mobile"
+          >
+            {{ section.settings.subtitle }}
+          </h3>
+        {% endif %}
+      {% endif %}
+      <div
+        class=" custom-row {% if section.settings.position == 'right'%} reverse {% elsif section.settings.position == 'top' %}  item-column {% elsif section.settings.position == 'bottom' %} item-column-reverse {% endif %} "
+      >
+        <div class="column custom-media   detail-section1-mySwiper-{{section.id}}">
+          <div class="swiper-wrapper">
+            {%- for block in section.blocks -%}
+              <div class="swiper-slide">
+                {% case block.type %}
+                  {%- when 'materialLRImage' -%}
+                    <div class="materialLRImage-container " data-slide="{{forloop.index}}">
+                      {%- if block.settings.image_pc -%}
+                        {% assign image = block.settings.image_pc %}
+                        <img
+                          style="aspect-ratio: {{ block.settings.image_pc.aspect_ratio }};"
+                          data-sizes="auto"
+                          data-srcset="
+                            {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                            {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                            {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                            {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                            {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                            {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                            {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                            {{ image | image_url }} {{ image.width }}w
+                          "
+                          class="show_desktop lazyload  "
+
+                          width="100%"
+                          loading="lazy"
+                          data-src="{{image | image_url:width:1000}}"
+                        >
+                      {% endif %}
+                      {%- if block.settings.image_mobile -%}
+                        {% assign image = block.settings.image_mobile %}
+                        <img
+                          style="aspect-ratio: {{ block.settings.image_mobile.aspect_ratio }};"
+                          data-sizes="auto"
+                          data-srcset="
+                            {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                            {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                            {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                            {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                            {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                            {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                            {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                            {{ image | image_url }} {{ image.width }}w
+                          "
+                          class="show_mobile lazyload "
+
+                          width="100%"
+                          loading="lazy"
+                          data-src="{{image | image_url:width:750}}"
+                        >
+                      {% endif %}
+                    </div>
+                  {%- when 'materialLRVideo' -%}
+                    {%- if block.settings.video -%}
+                      <div class="show_desktop">
+                        {{
+                          block.settings.video
+                          | video_tag:
+                            width: '100%',
+                            height: 'auto',
+                            autoplay: true,
+                            loop: true,
+                            muted: true,
+                            controls: false
+                        }}
+                      </div>
+                    {% endif %}
+
+                    {%- if block.settings.video_mobile -%}
+                      <div class="show_mobile">
+                        {{
+                          block.settings.video_mobile
+                          | video_tag:
+                            width: '100%',
+                            height: 'auto',
+                            autoplay: true,
+                            loop: true,
+                            muted: true,
+                            controls: false
+                        }}
+                      </div>
+                    {% endif %}
+                {%- endcase -%}
+              </div>
+            {% endfor %}
+          </div>
+          {% if total_blocks > 1 %}
+            <div class="tab-switching-banner-tabs" id="tab-switching-banner-tabs-{{section.id}}">
+              {%- for block in section.blocks -%}
+                <div
+                  class="tab-switching-banner-tab {% if forloop.first %} active{% endif %}"
+                  data-index="{{ forloop.index0 }}"
+                >
+                  {{ block.settings.tab_name | default: 'Tab' }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="column info">
+          <h3
+            class="title {{ section.settings.heading_size }} {{ section.settings.heading_font_family }} "
+          >
+            {{- section.settings.heading -}}
+          </h3>
+          <div
+            class="subheading {{ section.settings.subheading_size }} {{ section.settings.subheading_font_family }} "
+          >
+            {{- section.settings.subheading -}}
+          </div>
+          <div
+            class="content {{ section.settings.desc_size }} {{ section.settings.desc_font_family }}  "
+          >
+            {{- section.settings.content -}}
+          </div>
+          {%- if section.settings.button_link and section.settings.button_text != empty -%}
+            <a
+              class="button_link  "
+
+              href="{{section.settings.button_link}}"
+            >
+              <span> {{ section.settings.button_text }}</span>
+              <span class="arrow-icon">
+                <svg width="14" height="13" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M8.76254 0.428941L15.1265 6.7929C15.517 7.18343 15.517 7.81659 15.1265 8.20712L8.76254 14.5711C8.37202 14.9616 7.73885 14.9616 7.34833 14.5711C6.9578 14.1806 6.9578 13.5474 7.34833 13.1569L12.0052 8.50001L0.580688 8.50001L0.580688 6.50001L12.0052 6.50001L7.34833 1.84315C6.95781 1.45263 6.95781 0.819466 7.34833 0.428941C7.73885 0.0384169 8.37202 0.0384169 8.76254 0.428941Z" fill="#FECE67"/>
+                </svg>
+              </span>
+            </a>
+          {% endif %}
+          <!-- 额外链接 -->
+          {%- if section.settings.show_other_url and section.settings.other_url_link != empty -%}
+            <a
+              class="other_url_link"
+
+              href="{{section.settings.other_url_link}}"
+            >
+              View Results
+            </a>
+          {% endif %}
+          <!-- 会员登录按钮 -->
+          {%- if section.settings.button_text != empty
+            and section.settings.button_link == null
+            and section.settings.show_popup_login == true
+          -%}
+            <div
+              class="button_link_login_button button_link  "
+              data-wow-delay="1.2s"
+              style="cursor: pointer;"
+            >
+              <span> {{ section.settings.button_text }}</span>
+              <span class="arrow-icon">
+                <svg width="14" height="13" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M8.76254 0.428941L15.1265 6.7929C15.517 7.18343 15.517 7.81659 15.1265 8.20712L8.76254 14.5711C8.37202 14.9616 7.73885 14.9616 7.34833 14.5711C6.9578 14.1806 6.9578 13.5474 7.34833 13.1569L12.0052 8.50001L0.580688 8.50001L0.580688 6.50001L12.0052 6.50001L7.34833 1.84315C6.95781 1.45263 6.95781 0.819466 7.34833 0.428941C7.73885 0.0384169 8.37202 0.0384169 8.76254 0.428941Z" fill="#FECE67"/>
+                </svg>
+              </span>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script defer type="text/javascript">
+  $(document).ready(function () {
+      const totalNums = {{ section.blocks.size }}
+
+      if (totalNums > 1) {
+          // 初始化 Swiper
+          const custom_product_multiple_slider_swiper = new Swiper('.detail-section1-mySwiper-{{section.id}}', {
+              lazy: {
+                  loadPrevNext: true,
+              },
+              effect : 'fade',
+              fadeEffect: {
+                crossFade: true,
+              },
+              noSwiping: true,
+              slidesPerView: 1,
+              spaceBetween: 10,
+              on: {
+                  init: function (swiper) {
+                      // 初始化时设置激活按钮
+                      {% comment %} updateActiveZoomSwitchingButton(swiper.activeIndex); {% endcomment %}
+                  },
+                  slideChangeTransitionEnd: function (swiper) {
+                      // 切换后更新激活按钮
+                      updateActiveZoomSwitchingButton(swiper.activeIndex);
+                  },
+              },
+          });
+
+          function updateActiveZoomSwitchingButton(activeIndex) {
+              // 移除所有active
+              $('#detail-section1-{{section.id}} .tab-switching-banner-tab').removeClass('active');
+              // 给对应index添加active
+              $('#detail-section1-{{section.id}} .tab-switching-banner-tab[data-index="' + activeIndex + '"]').addClass('active');
+          }
+
+              // 滚动逻辑抽出为函数，每次高亮active时都调用，包括初始化
+              function scrollTabIntoView(activeTab) {
+                // 兼容jQuery对象和原生DOM对象
+                let tab = activeTab instanceof $ ? activeTab.get(0) : activeTab;
+                if (!tab || !tabContainer) return;
+                const tabCenter = tab.offsetLeft + tab.offsetWidth / 2;
+                const scrollTo = tabCenter - tabContainer.clientWidth / 2;
+                tabContainer.scrollTo({
+                    left: scrollTo,
+                    behavior: "smooth"
+                });
+              }
+              // 获取tab容器
+              const tabContainer = document.getElementById("tab-switching-banner-tabs-{{section.id}}");
+              if (!tabContainer) return;
+              // Zoom切换按钮点击事件
+              // 由于.tab-switching-banner-tab存在多个，需确保事件单独对应各自index正确响应
+              $('#detail-section1-{{section.id}} .tab-switching-banner-tab').each(function() {
+                  $(this).on('click', function() {
+                      const index = $(this).data('index');
+                      // 切换slide到对应index
+                      custom_product_multiple_slider_swiper.slideTo(index);
+                      // 更新激活状态
+                      updateActiveZoomSwitchingButton(index);
+                      // 使当前点击的tab横向滚动至容器中间（适配移动端横滑）
+                      scrollTabIntoView(this);
+                  });
+              });
+          custom_product_multiple_slider_swiper.allowTouchMove = false;
+          {% comment %} if (totalNums === 1) {
+              console.log('禁止拖动');
+              // 禁止拖动
+              custom_product_multiple_slider_swiper.allowTouchMove = false;
+          } else {
+              // 允许拖动
+              console.log('允许拖动');
+              custom_product_multiple_slider_swiper.allowTouchMove = true;
+          } {% endcomment %}
+      }
+    //  会员登录弹窗
+      const modalLogin = document.querySelector('modal-login');
+      $('#detail-section1-{{section.id}} .button_link_login_button').on('click', function () {
+        modalLogin.showModal(modalLogin.fetchForm.login.innerHTML);
+        const loginForm = modalLogin.showModal(modalLogin.fetchForm.login.innerHTML);
+        modalLogin.loginBindEvent(loginForm.el);
+      })
+  });
+</script>
+{% schema %}
+{
+  "name": "Tab switching banner",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "select",
+      "id": "section_max_width",
+      "label": "模块最大宽度",
+      "options": [
+        {
+          "value": "none",
+          "label": "全屏"
+        },
+        {
+          "value": "1400",
+          "label": "1400px"
+        },
+        {
+          "value": "1200",
+          "label": "1200px"
+        },
+        {
+          "value": "980",
+          "label": "980px"
+        }
+      ],
+      "default": "1200"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_other_url",
+      "label": "显示额外链接",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_popup_login",
+      "label": "显示按钮点击弹出会员登录",
+      "default": true,
+      "info": "当点击图片或按钮跳转地址为空时，点击按钮会弹出会员登录弹窗，方便用户快速登录。"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题",
+      "default": "大标题"
+    },
+    {
+      "type": "html",
+      "id": "title_mobile",
+      "label": "大标题（移动端）"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题",
+      "default": "小标题"
+    },
+    {
+      "type": "html",
+      "id": "subtitle_mobile",
+      "label": "小标题（移动端）"
+    },
+
+    {
+      "type": "radio",
+      "id": "position",
+      "label": "素材位置",
+      "info": "素材布局，默认素材居左",
+      "options": [
+        {
+          "label": "素材居左",
+          "value": "left"
+        },
+        {
+          "label": "素材居右",
+          "value": "right"
+        },
+        {
+          "label": "素材居上",
+          "value": "top"
+        },
+        {
+          "label": "素材居下",
+          "value": "bottom"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "radio",
+      "id": "material_position",
+      "label": "素材位置（移动端）",
+      "info": "素材布局，默认素材居上",
+      "options": [
+        {
+          "label": "素材居上",
+          "value": "top"
+        },
+        {
+          "label": "素材居下",
+          "value": "bottom"
+        }
+      ],
+      "default": "top"
+    },
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "主标题",
+      "default": "主标题"
+    },
+    {
+      "type": "html",
+      "id": "subheading",
+      "label": "副标题",
+      "default": "副标题"
+    },
+    {
+      "type": "html",
+      "id": "content",
+      "label": "正文",
+      "default": "Welcome to my shop!Welcome to my shop!Welcome to my shop!Welcome to my shop!Welcome to my shop!Welcome to my shop!Welcome to my shop!"
+    },
+    {
+      "type": "range",
+      "id": "content_space_percent",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "内容占比",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "flex_column_gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "内容与素材间隔大小",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "大标题及小标题对齐方式",
+      "options": [
+        {
+          "value": "start",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中对齐"
+        },
+        {
+          "value": "justify",
+          "label": "两端对齐"
+        },
+        {
+          "value": "end",
+          "label": "右对齐"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "内容对齐方式",
+      "options": [
+        {
+          "value": "start",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中对齐"
+        },
+        {
+          "value": "justify",
+          "label": "两端对齐"
+        },
+        {
+          "value": "end",
+          "label": "右对齐"
+        }
+      ],
+      "default": "start"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment_mobile",
+      "label": "内容对齐方式（移动端）",
+      "options": [
+        {
+          "value": "start",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中对齐"
+        },
+        {
+          "value": "justify",
+          "label": "两端对齐"
+        },
+        {
+          "value": "end",
+          "label": "右对齐"
+        }
+      ],
+      "default": "start"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "按钮文本"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "URL",
+      "info": "点击图片或按钮跳转地址"
+    },
+    {
+      "type": "url",
+      "id": "other_url_link",
+      "label": "URL",
+      "info": "额外链接"
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": "大标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题字体大小（移动端）",
+      "default": 30
+    },
+    {
+      "type": "select",
+      "id": "subtitle_size",
+      "label": "小标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题字体大小（移动端）",
+      "default": 14
+    },
+
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "主标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h3"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "主标题字体大小（移动端）",
+      "default": 18
+    },
+
+    {
+      "type": "select",
+      "id": "subheading_size",
+      "label": "副标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "text-base"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "副标题字体大小（移动端）",
+      "default": 14
+    },
+
+    {
+      "type": "select",
+      "id": "desc_size",
+      "label": "正文字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "text-base"
+    },
+    {
+      "type": "range",
+      "id": "desc_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "正文字体大小（移动端）",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "字体系列"
+    },
+    {
+      "type": "select",
+      "id": "title_font_family",
+      "label": "大标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-extraBold"
+    },
+    {
+      "type": "select",
+      "id": "subtitle_font_family",
+      "label": "小标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-regular"
+    },
+    {
+      "type": "select",
+      "id": "heading_font_family",
+      "label": "主标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-bold"
+    },
+    {
+      "type": "select",
+      "id": "subheading_font_family",
+      "label": "副标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-regular"
+    },
+    {
+      "type": "select",
+      "id": "desc_font_family",
+      "label": "正文字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-regular"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "大标题字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "小标题字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "主标题字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "副标题字体颜色",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "desc_color",
+      "label": "正文字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_font_color",
+      "label": "按钮字体颜色",
+      "default": "#0D0D0D"
+    },
+    {
+      "type": "color_background",
+      "id": "tab_font_color",
+      "label": "tab字体颜色",
+      "default": "#6D6D6D"
+    },
+    {
+      "type": "color_background",
+      "id": "tab_active_font_color",
+      "label": "tab激活字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color_background",
+      "id": "tab_line_color",
+      "label": "tab下划线颜色",
+      "default": "#E7E7E7"
+    },
+    {
+      "type": "color_background",
+      "id": "tab_active_line_color",
+      "label": "tab激活下划线颜色",
+      "default": "#FF8F1C"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "按钮背景色",
+      "default": "#FECE67"
+    },
+    {
+      "type": "color_background",
+      "id": "text_content_color",
+      "label": "文案区域背景色"
+    },
+    {
+      "type": "color",
+      "id": "bg_content_color",
+      "label": "内容区域背景色",
+      "default": "#F9F9F9"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#F9F9F9"
+    },
+    {
+      "type": "header",
+      "content": "分区填充"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮圆角大小",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "content_border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "内容边框圆角大小",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "material_border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "素材圆角大小",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "material_border_radius_mb",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "素材圆角大小(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "text_border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "文案框圆角大小",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "text_border_radius_mb",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "文案框圆角大小(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_border_radius_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "内容边框圆角大小(移动端)",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "title_to_content_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "subtitle_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "小标题底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "主标题底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "subheading_margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "副标题底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "正文底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_padding_left_and_right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "内容区域左右边距",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "title_to_content_padding_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "subtitle_padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "小标题底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "主标题顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "主标题底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "subheading_margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "副标题底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "正文底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_padding_left_and_right_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "内容区域左右边距(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_left_and_right_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "左右边距(移动端)",
+      "default": 14
+    }
+  ],
+  "blocks": [
+    {
+      "type": "materialLRImage",
+      "name": "图片",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_name",
+          "label": "tab 名称"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_pc",
+          "label": "图片"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "图片 移动端"
+        }
+      ]
+    },
+    {
+      "type": "materialLRVideo",
+      "name": "视频",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_name",
+          "label": "tab 名称"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "视频URL(PC)",
+          "info": "仅限于shopify素材地址"
+        },
+        {
+          "type": "video",
+          "id": "video_mobile",
+          "label": "视频URL(mobile)",
+          "info": "仅限于shopify素材地址"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tab switching banner",
+      "blocks": [
+        {
+          "type": "materialLRImage"
+        },
+        {
+          "type": "materialLRImage"
+        },
+        {
+          "type": "materialLRImage"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

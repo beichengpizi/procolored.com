@@ -1,5 +1,9 @@
 {%- assign product_form_id = 'product-form-' | append: section.id -%}
 <style>
+  .product-add-to-cart-sticky-l1800 {
+    display: flex;
+    flex-direction: column;
+  }
   .right-box-container {
     display: flex;
     flex-direction: column;
@@ -21,8 +25,8 @@
   product-add-to-cart-sticky .product-price {
     margin: 0;
   }
-  .klarna-osm-wrapper{
-    line-height:1;
+  .klarna-osm-wrapper {
+    line-height: 1;
   }
   @media (max-width: 768px) {
     .right-box-container {
@@ -65,7 +69,7 @@
     .bottom-nav-jump-container-info-product-info-klarna-mb klarna-placement::part(osm-logo) {
       font-size: 10px;
     }
-      .bottom-nav-jump-container-info-product-info-klarna-mb klarna-placement::part(osm-cta) {
+    .bottom-nav-jump-container-info-product-info-klarna-mb klarna-placement::part(osm-cta) {
       font-size: 10px;
       line-height: 1;
     }
@@ -109,6 +113,17 @@
       </defs>
     </svg>
   </div>
+  <!-- 满减优惠进度提示 -->
+  {%- liquid
+    assign storewide_discount = settings.storewide_discount
+    assign storewide_discount_price_value = settings.storewide_discount_price_value
+    assign storewide_discount_exclude_product_list = settings.storewide_discount_exclude_product_list
+  -%}
+  {%- liquid
+    if storewide_discount and storewide_discount_price_value != empty and storewide_discount_price_value != blank 
+      render 'storewide-discount-cart-sticky', storewide_discount_price_value: storewide_discount_price_value, storewide_discount_exclude_product_list: storewide_discount_exclude_product_list
+    endif
+  -%}
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var closeIcon = document.querySelector('.bottom-nav-jump-container-info-product-info-klarna-mb-close-icon');
@@ -191,6 +206,7 @@
         </div>
       </div>
       {%- if product != blank -%}
+         <div class="product-form__wrapper">
         <product-form
           class="product-form"
           data-sticky="1"
@@ -205,82 +221,7 @@
             <span class="product-form__error-message"></span>
           </div>
 
-          <style>
-            .product-add-to-cart-sticky-l1800 .product-add-to-cart-container .single-add-to-cart-button--text {
-              font-size: 14px !important;
-            }
-
-            @media (max-width: 768px) {
-              .product-add-to-cart-sticky-l1800 .product-add-to-cart-container .single-add-to-cart-button--text {
-                font-size: 16px !important;
-              }
-            }
-            .product-add-to-cart-sticky-l1800 .product-add-to-cart-container {
-              display: flex;
-              align-items: center;
-              gap: 10px;
-            }
-            .product-add-to-cart-sticky-l1800 .right-box {
-              align-items: center;
-              gap: 16px;
-            }
-
-            .product-add-to-cart-sticky-l1800 .shopify-payment-button__more-options {
-              display: none !important;
-            }
-
-            .product-add-to-cart-sticky-l1800
-              .product-form
-              .product-add-to-cart-container
-              button.single-add-to-cart-button.button:not(html),
-            .product-add-to-cart-sticky-l1800
-              .shopify-payment-button__button.shopify-payment-button__button--branded
-              .shopify-cleanslate
-              div[role='button'],
-            .product-add-to-cart-sticky-l1800
-              .shopify-payment-button__button.shopify-payment-button__button--unbranded {
-              height: 44px !important;
-              min-height: 44px !important;
-              padding: 0 33px !important;
-              font-size: 14px !important;
-            }
-
-            @media (min-width: 768px) {
-              .product-add-to-cart-sticky-l1800
-                .product-form
-                .product-add-to-cart-container
-                button.single-add-to-cart-button.button:not(html),
-              .product-add-to-cart-sticky-l1800
-                .shopify-payment-button__button.shopify-payment-button__button--branded
-                .shopify-cleanslate
-                div[role='button'],
-              .product-add-to-cart-sticky-l1800
-                .shopify-payment-button__button.shopify-payment-button__button--unbranded {
-                width: 150px !important;
-              }
-            }
-
-            .product-add-to-cart-sticky-l1800
-              .shopify-payment-button__button.shopify-payment-button__button--branded
-              .shopify-cleanslate
-              div[role='button']
-              svg {
-              height: 15px !important;
-            }
-
-            .product-add-to-cart-sticky-l1800 .add_to_cart_holder {
-              width: 150px;
-            }
-            .product-add-to-cart-sticky-l1800 .product-add-to-cart-container form {
-              width: 150px;
-            }
-
-            @media (max-width: 768px) {
-              .product-add-to-cart-sticky-l1800 .add_to_cart_holder {
-                width: 100%;
-              }
-            }
-          </style>
+     
 
           <div class="product-add-to-cart-container">
             <div class="form-notification error" style="display:none;"></div>
@@ -307,8 +248,13 @@
                 </span>
               </button>
             </div>
+            {% form 'product', product, id: {{product_form_id}} %}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
+                {{ form | payment_button }}
+              {% endform %}
           </div>
         </product-form>
+        </div>
       {%- else -%}
         <div class="product-form">
           <div class="product-form__buttons form">

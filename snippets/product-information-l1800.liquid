@@ -427,7 +427,17 @@
 
     {%- when 'description' -%}
       {%- if block.settings.show_description -%}
-        <div class="product-short-description rte" {{ block.shopify_attributes }}>{{ product.description }}</div>
+        {%- if product.metafields.custom.brief_product_description != empty -%}
+          {% assign product_description = product.metafields.custom.brief_product_description | metafield_tag %}
+        {% else %}
+          {% assign product_description = block.settings.product_description | default: product.description %}
+        {%- endif -%}
+
+        <div class="product-short-description rte" {{ block.shopify_attributes }}>
+          {%- if product_description != empty -%}
+            {{ product_description }}
+          {%- endif -%}
+        </div>
       {%- else -%}
         <div class="product_description" style="background:{{ block.settings.color_bg }};">
           <div class="description" style="color:{{ block.settings.color_text }};">{{ product.description }}</div>
@@ -592,6 +602,21 @@
           }
         </script>
       {%- endif %}
+      {% comment %} 显示完整的全店满减优惠横幅 {% endcomment %}
+      {% assign show_full_discount_banner = false %}
+      {%- if settings.show_full_discount_banner -%}
+        {%- if section.settings.show_full_discount_banner -%}
+          {% assign show_full_discount_banner = true %}
+        {%- else -%}
+          {% assign show_full_discount_banner = false %}
+        {%- endif -%}
+      {%- else -%}
+        {% assign show_full_discount_banner = false %}
+      {%- endif -%}
+      {%- if show_full_discount_banner -%}
+        <!-- 全店满减优惠价格显示 -->
+        {% render 'full-discount-banner', block: block %}
+      {%- endif -%}
       {% comment %}
         {%- when 'inventory_level' -%}
         {% render 'product-inventory-notice', product: product, section: section, block: block %}
@@ -824,9 +849,9 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 0;
+            padding: 20px 0 30px 0;
             font-size: 14px;
-            border-bottom: 1px solid #CCCCCC;
+            {% comment %} border-bottom: 1px solid #CCCCCC; {% endcomment %}
 
           }
           .product-info-wrap-{{ section.id }}  .product-info-item{
@@ -894,7 +919,47 @@
 
             }
           }
+        .footer-payment-icons-{{ section.id }}{
+            display: flex;
+            gap: 8px;
+            padding: 15px 10px !important;
+            border-radius: 10px;
+            background:  #F9F9F9;
+            flex-wrap: wrap;
+        }
+        .footer-payment-icons-{{ section.id }} figure{
+          width: 36px;
+          height: 22px;
+        }
+        .footer-payment-icons-{{ section.id }} figure svg,.footer-payment-icons-{{ section.id }} figure img{
+          display:flex;
+          width: 100% !important;
+          height:100% !important;
+        }
       </style>
+      {% comment %} 支付图标 {% endcomment %}
+      {%- liquid
+        assign show_payment_icons = section.settings.show_payment_icons
+      -%}
+      {%- if show_payment_icons -%}
+        <div class="footer-payment-icons-{{ section.id }}">
+          {%- unless shop.enabled_payment_types == empty -%}
+            {%- for type in shop.enabled_payment_types -%}
+              <figure>{{ type | payment_type_svg_tag: class: 'payment-icons__icon' }}</figure>
+            {%- endfor -%}
+            <figure>
+              <img
+                style="width: 36px;height: 22px"
+                width="36px"
+                height="22px"
+                class="lazyload"
+                data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Klarna_Payment_Badge_svg.png?v=1749782611"
+                alt="Klarna_Payment"
+              >
+            </figure>
+          {%- endunless -%}
+        </div>
+      {%- endif -%}
       {% comment %} 产品页运送时效&规格&说明书设置 {% endcomment %}
 
       <side-panel-links class="product-info-wrap-{{ section.id }}">
@@ -1079,83 +1144,21 @@
           {%- endif -%}
         {%- endif -%}
       </side-panel-links>
-      {% comment %}
-        <side-panel-links class="side-panel-links">
-          <div class="side-panel-links-inner">
-            {%- if block.settings.side_panel_1_label != '' -%}
-              <button
-                class="side-panel-links--link no-js-hidden"
-                data-id="1"
-                style="color:{{ block.settings.color_text }}"
-              >
-                {% render 'side-panel-icon-1' %}
-                <span class="text-button">{{ block.settings.side_panel_1_label }}</span>
-              </button>
-              <a
-                href="{{ block.settings.side_panel_1_page.url }}"
-                class="side-panel-links--link no-js"
-                target="_blank"
-              >
-                {% render 'side-panel-icon-1' %}
-                <span class="text-button" style="color:{{ block.settings.color_text }}">
-                  {{- block.settings.block.settings.side_panel_1_label -}}
-                </span>
-              </a>
-            {%- endif -%}
-            {%- if block.settings.side_panel_2_label != '' -%}
-              <button
-                class="side-panel-links--link no-js-hidden special"
-                data-id="2"
-                style="color:{{ block.settings.color_text }};"
-              >
-                {% render 'side-panel-icon-2' %}
-                <span class="text-button">{{ block.settings.side_panel_2_label }}</span>
-              </button>
-              <a
-                href="{{ block.settings.side_panel_2_page.url }}"
-                class="side-panel-links--link no-js"
-                target="_blank"
-              >
-                {% render 'side-panel-icon-2' %}
-                <span class="text-button">{{ block.settings.block.settings.side_panel_2_label }}</span>
-              </a>
-            {%- endif -%}
-            {%- if block.settings.side_panel_3_label != blank -%}
-              <a
-                class="side-panel-links--link"
-                data-id="3"
-                href="{{ block.settings.button_link_panel3 }}"
-              >
-                {% render 'side-panel-icon-1' %}
-                <span class="text-button" style="color:{{ block.settings.color_text }}">
-                  {{- block.settings.side_panel_3_label -}}
-                </span>
-              </a>
-            {%- endif -%}
-            {%- if block.settings.side_panel_4_label != blank -%}
-              <a
-                class="side-panel-links--link"
-                data-id="4"
-                href="{{ block.settings.button_link_panel4 }}"
-              >
-                {% render 'side-panel-icon-3' %}
-                <span class="text-button" style="color:{{ block.settings.color_text }}">
-                  {{- block.settings.side_panel_4_label -}}
-                </span>
-              </a>
-            {%- endif -%}
-            <style>
-              .side-panel-links--link span.text-button {
-                color: {{ block.settings.color_text }};
-              }
-              .side-panel-links--link svg {
-                fill: {{ block.settings.color_bg }} !important;
-              }
-            </style>
-          </div>
-        </side-panel-links>
-      {% endcomment %}
-
+      {% comment %} Sales Assurances  start{% endcomment %}
+      {% assign show_sales_assurances = false %}
+      {%- if settings.show_product_sales_assurances -%}
+        {%- if section.settings.show_product_sales_assurances -%}
+          {% assign show_sales_assurances = true %}
+        {% else %}
+          {% assign show_sales_assurances = false %}
+        {%- endif -%}
+      {% else %}
+        {% assign show_sales_assurances = false %}
+      {%- endif -%}
+      {%- if show_sales_assurances -%}
+        {% render 'sales-assurances' %}
+      {%- endif -%}
+      {% comment %} Sales Assurances  end{% endcomment %}
     {%- when 'share' -%}
       {% render 'social-share',
         share_label: true,
@@ -1174,7 +1177,11 @@
               type="button"
               aria-label="{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}"
             >
-              {% render 'svg-icons' with 'minus' %}
+              {% comment %} {% render 'svg-icons' with 'minus' %} {% endcomment %}
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                <rect width="22" height="22" rx="5" fill="#F9F9F9"/>
+                <path d="M7 11L15 11" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
             </button>
             <input
               type="number"
@@ -1197,15 +1204,20 @@
               type="button"
               aria-label="{{ 'products.product.quantity.increase' | t: product: product.title | escape }}"
             >
-              {% render 'svg-icons' with 'plus' %}
+              {% comment %} {% render 'svg-icons' with 'plus' %} {% endcomment %}
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                <rect width="22" height="22" rx="5" fill="#F9F9F9"/>
+                <path d="M7 11L15 11" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M11.0049 14.9951L11.0049 6.99512" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
             </button>
           </quantity-selector>
         </div>
       {%- endif -%}
     {%- when 'buy_buttons' -%}
-      <div class="product-price duplicate">
+       <div class="product-price duplicate">
         {% render 'product-price-new', product: product, use_variant: true, show_badges: true %}
-      </div>
+      </div> 
       {% render 'product-add-to-cart',
         product: product,
         form: form,
@@ -1328,11 +1340,12 @@
     {%- when 'custom_variants' -%}
       <!-- 多产品变体选择器 -->
       {% render 'custom-variants', block: block %}
-       {%- when 'custom_variants_options' -%}
+    {%- when 'custom_variants_options' -%}
       <!-- 自定义产品变体跳转选项 -->
       {% render 'custom-variants-options', block: block %}
   {%- endcase -%}
 {% endfor %}
+
 {%- if section.settings.enable_sticky_add_to_cart -%}
   {% render 'product-add-to-cart-sticky-l1800',
     product: product,

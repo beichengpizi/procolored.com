@@ -137,7 +137,9 @@
             <a href="{{ section.settings.pi_product.url }}" class="viewmore">View More</a>
           </div>
           <div class="pi-btn-adt">
-            {% render 'product-btn-adt', product: product, product_form_id: product_form_id %}
+            {% if product != blank %}
+              {% render 'product-btn-adt', product: product, product_form_id: product_form_id %}
+            {% endif %}
           </div>
         </div>
       </div>

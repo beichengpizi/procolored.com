@@ -27,332 +27,459 @@
     assign sizes = '345x255,610x450,1220x900'
   endif
 -%}
-
 <style>
-    .product-grid-container-left-placeholder{
-      min-height: 327px !important;
-      width: 100%;
-      background: linear-gradient(90deg, #f3f3f3 25%, #e1e1e1 50%, #f3f3f3 75%);
-      background-size: 400% 100%;
-      animation: placeholderShimmer 1.5s ease-in-out infinite;
-    }
-    #ProductInfo-{{ section.id }} custom-automatic-discount-reminder,product-recommendations custom-automatic-discount-reminder{
-      border-radius: 18px;
-      font-size: 14px;
-      opacity: 0;
-    }
-    #ProductInfo-{{ section.id }} custom-automatic-discount-reminder{
-      align-items: center !important;
-    }
-    #variant-selects-{{ section.id }}{
-      opacity: 0;
-    }
-    #ProductInfo-{{ section.id }} .activity-price-display{
-      display: none;
-    }
-     #ProductInfo-{{ section.id }}  .product-flash-sale-countdown{
-
-      width: 155px;
-    }
-     #ProductInfo-{{ section.id }}  .product-flash-sale-countdown .countdown-box {
-     margin-bottom: 0;
-     padding: 0;
-     border: none;
-     font-size: 12px;
-     height: auto;
-
+  .thb-product-detail {
+    width: 100%;
+    background-color: #fff;
+    margin-bottom: 0 !important;
+    padding-bottom: 90px;
   }
-   #ProductInfo-{{ section.id }}  .product-flash-sale-countdown  .finish-countdown-tips{
-   font-size: 12px;
-
+  .product-grid-container-left-placeholder {
+    min-height: 327px !important;
+    width: 100%;
+    background: linear-gradient(90deg, #f3f3f3 25%, #e1e1e1 50%, #f3f3f3 75%);
+    background-size: 400% 100%;
+    animation: placeholderShimmer 1.5s ease-in-out infinite;
   }
-
-   #ProductInfo-{{ section.id }}  .product-flash-sale-countdown .countdown-box > div {
-   display: flex;
-
-   justify-content: space-between;
-   align-items: center;
-   min-width: 155px;
-
-
-   }
-
-
-
-
-
-
-   #ProductInfo-{{ section.id }}  .product-flash-sale-countdown .countdown-box  .time-block {
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     min-width: 30px;
-     position: relative;
-   }
-
-    #ProductInfo-{{ section.id }}  .product-flash-sale-countdown .countdown-box .time-block:not(:last-child)::after {
-     content: ":";
-     position: absolute;
-     right: -7px;
-     top: 4px;
-     {% comment %} transform: translate(-50%,-50%); {% endcomment %}
-     font-size: 12px;
-     font-weight: bold;
-     color: {{section.settings.flash_sale_countdown_text_color}};
-     line-height:1;
-   }
-
-    #ProductInfo-{{ section.id }}  .product-flash-sale-countdown .countdown-box  .time-value {
-     background-color: {{section.settings.flash_sale_countdown_background_color}};
-     color: {{section.settings.flash_sale_countdown_text_color}};
-     padding: 6px;
-     border-radius: 8px;
-      min-height: 22px;
-     font-size: 12px;
-     line-height: 1;
-     margin-bottom: 4px;
-       display: flex;
-   align-items: center;
-   justify-content: center;
-   }
-
-    #ProductInfo-{{ section.id }}  .product-flash-sale-countdown .countdown-box  .time-label {
-     font-size: 12px;
-     color: {{section.settings.flash_sale_countdown_desc_text_color}};
-     line-height: 1;
-   }
-   #ProductInfo-{{ section.id }} .product-flash-sale-countdown-container{
+  #ProductInfo-{{ section.id }} custom-automatic-discount-reminder,
+  product-recommendations custom-automatic-discount-reminder {
+    border-radius: 18px;
+    font-size: 14px;
+    opacity: 0;
+  }
+  #ProductInfo-{{ section.id }} custom-automatic-discount-reminder {
+    align-items: center !important;
+  }
+  #variant-selects-{{ section.id }} {
+    opacity: 0;
+  }
+  #ProductInfo-{{ section.id }} .activity-price-display {
+    display: none;
+  }
+  #ProductInfo-{{ section.id }} .product-flash-sale-countdown {
+    width: 155px;
+  }
+  #ProductInfo-{{ section.id }} .product-flash-sale-countdown .countdown-box {
+    margin-bottom: 0;
+    padding: 0;
+    border: none;
+    font-size: 12px;
+    height: auto;
+  }
+  #ProductInfo-{{ section.id }} .product-flash-sale-countdown .finish-countdown-tips {
+    font-size: 12px;
+  }
+  #ProductInfo-{{ section.id }} .product-flash-sale-countdown .countdown-box > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 155px;
+  }
+  #ProductInfo-{{ section.id }} .product-flash-sale-countdown .countdown-box .time-block {
     display: flex;
     flex-direction: column;
-    {% comment %} background-image: url(https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20250722-142916.jpg?v=1753165782); {% endcomment %}
+    align-items: center;
+    min-width: 30px;
+    position: relative;
+  }
+  #ProductInfo-{{ section.id }} .product-flash-sale-countdown .countdown-box .time-block:not(:last-child)::after {
+    content: ":";
+    position: absolute;
+    right: -7px;
+    top: 4px;
+    /* transform: translate(-50%, -50%); */
+    font-size: 12px;
+    font-weight: bold;
+    color: {{ section.settings.flash_sale_countdown_text_color }};
+    line-height: 1;
+  }
+  #ProductInfo-{{ section.id }} .product-flash-sale-countdown .countdown-box .time-value {
+    background-color: {{ section.settings.flash_sale_countdown_background_color }};
+    color: {{ section.settings.flash_sale_countdown_text_color }};
+    padding: 6px;
+    border-radius: 8px;
+    min-height: 22px;
+    font-size: 12px;
+    line-height: 1;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #ProductInfo-{{ section.id }} .product-flash-sale-countdown .countdown-box .time-label {
+    font-size: 12px;
+    color: {{ section.settings.flash_sale_countdown_desc_text_color }};
+    line-height: 1;
+  }
+  #ProductInfo-{{ section.id }} .product-flash-sale-countdown-container {
+    display: flex;
+    flex-direction: column;
+    /* background-image: url(https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20250722-142916.jpg?v=1753165782); */
     background-image: url({{ section.settings.flash_sale__image_pc | image_url: width: 800 }});
     background-repeat: no-repeat;
     background-size: 100% 100%;
     position: relative;
     min-height: 88px;
-    padding:  16px;
+    padding: 16px;
     {%- if section.settings.flash_sale_countdown_title_position == 'bottom' -%}
       border-radius: 10px 10px 0px 0px;
       justify-content: center;
     {% else %}
-
       border-radius: 10px;
     {%- endif -%}
     {%- unless section.settings.flash_sale_countdown_link -%}
       cursor: auto;
     {%- endunless -%}
-
-
   }
-  #ProductInfo-{{ section.id }} .product-flash-sale-countdown-title-bottom-wraper{
+  #ProductInfo-{{ section.id }} .product-flash-sale-countdown-title-bottom-wraper {
     padding: 10px 30px;
     {%- if section.settings.flash_sale_countdown_title_position == 'bottom' -%}
-      background: {{section.settings.flash_sale_countdown_title_background_color}};
+      background: {{ section.settings.flash_sale_countdown_title_background_color }};
     {% endif %}
     border-radius: 0 0 10px 10px;
     font-size: 14px;
     line-height: 1.2;
   }
-  #ProductInfo-{{ section.id }}  .product-flash-sale-countdown-title{
-    color: {{section.settings.flash_sale_countdown_title_color}};
+  #ProductInfo-{{ section.id }} .product-flash-sale-countdown-title {
+    color: {{ section.settings.flash_sale_countdown_title_color }};
     font-family: Mulish;
     font-size: 12px;
     font-weight: 400;
     margin-bottom: 10px;
-
   }
-    @keyframes placeholderShimmer {
-      0% {
-        background-position: 100% 0;
-      }
-      100% {
-        background-position: -100% 0;
-      }
+  @keyframes placeholderShimmer {
+    0% {
+      background-position: 100% 0;
     }
-    custom-automatic-discount-reminder{
+    100% {
+      background-position: -100% 0;
+    }
+  }
+  custom-automatic-discount-reminder {
+    border-radius: 13px;
+    font-size: 14px;
+  }
+  @media only screen and (min-width: 1068px) {
+    .product-grid-container-left-placeholder {
+      min-height: 628px !important;
+    }
+    .product-grid-container {
+      display: grid;
+      align-items: start;
+      /* grid-gap: clamp(30px, 5%, 40px); */
+      /* grid-template-columns: minmax(45%, 740px) clamp(360px, 45%, 500px); */
+      grid-gap: clamp(30px, 5%, 108px);
+      grid-template-columns: minmax(45%, 628px) clamp(360px, 45%, 452px);
+    }
+  }
+  .product-gallery__tabs.show {
+    display: flex;
+    margin-top: 24px;
+    align-items: center;
+    justify-content: center;
+  }
+  .product-image-container {
+    position: absolute !important;
+    opacity: 0;
+    visibility: collapse;
+  }
+  .product-image-container.show {
+    position: relative !important;
+    opacity: 1;
+    visibility: visible;
+  }
+  .product-price-container .price .amount:not(html) {
+    color: #da291c;
+    /* font-size: calc(var(--font-heading-scale)* 1.4rem); */
+    font-size: 26px;
+  }
+  @media (max-width: 768px) {
+    #ProductInfo-{{ section.id }} .product-flash-sale-countdown-container {
+      background-image: url({{ section.settings.flash_sale__image_mb | image_url: width: 800 }});
+      /* background-image: url(https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20250722-142640.jpg?v=1753165781); */
+      {%- if section.settings.flash_sale_countdown_title_position == 'bottom' -%}
+        border-radius: 10px 10px 0px 0px;
+      {% else %}
+        border-radius: 10px;
+      {%- endif -%}
+    }
+    #ProductInfo-{{ section.id }} .product-flash-sale-countdown-title-bottom-wraper {
+      padding: 6px 12px;
+      border-radius: 0 0 10px 10px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+    #ProductInfo-{{ section.id }} .product-flash-sale-countdown {
+      width: 148px;
+    }
+    #ProductInfo-{{ section.id }} .product-flash-sale-countdown .countdown-box > div {
+      min-width: 148px;
+    }
+    custom-automatic-discount-reminder {
       border-radius: 13px;
-      font-size: 14px;
-
+      font-size: 12px;
     }
-
-    @media only screen and (min-width: 1068px) {
-      .product-grid-container-left-placeholder{
-        min-height: 628px !important;
-
-      }
-      .product-grid-container {
-        display: grid;
-        align-items: start;
-        /* grid-gap: clamp(30px, 5%, 40px); */
-        /* grid-template-columns: minmax(45%, 740px) clamp(360px, 45%, 500px); */
-        grid-gap: clamp(30px, 5%, 108px);
-        grid-template-columns: minmax(45%, 628px) clamp(360px, 45%, 452px);
-      }
+    #ProductInfo-{{ section.id }} custom-automatic-discount-reminder {
+      align-items: start !important;
+      padding-left: 0px;
     }
-
-    .product-gallery__tabs.show {
-      display: flex;
-      margin-top: 24px;
-      align-items: center;
-      justify-content: center;
+    #ProductInfo-{{ section.id }} custom-automatic-discount-reminder .product-price-container .price .amount:not(html) {
+      font-size: 24px;
     }
-
-
-
-    .product-image-container {
-      position: absolute !important;
-      opacity: 0;
-      visibility: collapse;
-    }
-    .product-image-container.show {
-      position: relative !important;
-      opacity: 1;
-      visibility: visible;
-    }
-    .product-price-container .price .amount:not(html) {
-      color: #da291c;
-      /* font-size: calc(var(--font-heading-scale)* 1.4rem); */
-      font-size: 26px;
-    }
-
-    @media (max-width: 768px) {
-      #ProductInfo-{{ section.id }} .product-flash-sale-countdown-container{
-        background-image: url({{ section.settings.flash_sale__image_mb | image_url: width: 800 }});
-        {% comment %} background-image: url(https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20250722-142640.jpg?v=1753165781  ); {% endcomment %}
-
-        {%- if section.settings.flash_sale_countdown_title_position == 'bottom' -%}
-          border-radius: 10px 10px 0px 0px;
-        {% else %}
-          border-radius: 10px;
-        {%- endif -%}
-      }
-      #ProductInfo-{{ section.id }}  .product-flash-sale-countdown-title-bottom-wraper{
-        padding: 6px 12px;
-        border-radius: 0 0 10px 10px;
-        font-size: 12px;
-        line-height: 1.2;
-      }
-      #ProductInfo-{{ section.id }}  .product-flash-sale-countdown{
-        width: 148px;
-      }
-
-   #ProductInfo-{{ section.id }}  .product-flash-sale-countdown .countdown-box > div {
-
-    min-width: 148px;
-
-
-    }
-      custom-automatic-discount-reminder{
-        border-radius: 13px;
-        font-size: 12px;
-      }
-      #ProductInfo-{{ section.id }} custom-automatic-discount-reminder{
-        align-items: start !important;
-      }
-      #ProductInfo-{{ section.id }} custom-automatic-discount-reminder .
-      .product-price-container .price .amount:not(html) {
-        font-size: 24px;
-      }
-    }
-
-    .product-title-container .product-price-container .no-js-hidden {
-      display: flex;
-    }
-
+  }
+  .product-title-container .product-price-container .no-js-hidden {
+    display: flex;
+  }
+  #ProductInfo-{{ section.id }} custom-automatic-discount-reminder {
+    padding: 0px;
+  }
+  .product-title-container .product-price-container span.discount_amount.color-,
+  .product-price span.discount_amount,
+  .product-price.duplicate span.discount_amount.color-:not(html) {
+    background: #f7e7e3;
+    border-radius: 16px;
+    padding: 4px 10px;
+    color: #da291c;
+    line-height: 20px;
+    height: 25px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    font-weight: normal;
+    /* height: auto; */
+  }
+  @media (max-width: 768px) {
     .product-title-container .product-price-container span.discount_amount.color-,
     .product-price span.discount_amount,
     .product-price.duplicate span.discount_amount.color-:not(html) {
-      background: #f7e7e3;
-      border-radius: 16px;
-      padding: 4px 10px;
-      color: #da291c;
-      line-height: 20px;
-      height: 25px;
-      font-size: 14px;
-      display: inline-flex;
-      align-items: center;
-      font-weight: normal;
-      /* height: auto; */
+      font-size: 12px;
+      padding: 0 8px;
     }
-
-    @media (max-width: 768px) {
-      .product-title-container .product-price-container span.discount_amount.color-,
-      .product-price span.discount_amount,
-      .product-price.duplicate span.discount_amount.color-:not(html) {
-        font-size: 12px;
-        padding: 0 8px;
-      }
-    }
-
-    .product-price .product-price {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .price ins .amount:not(html) {
-      font-size: 24px;
-    }
-
+  }
+  .product-price .product-price {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .price ins .amount:not(html) {
+    font-size: 24px;
+  }
+  .price span.del {
+    font-size: 16px;
+    text-decoration: line-through;
+    font-weight: 400;
+    margin-left: 10px;
+    color: #C2C2C2;
+    line-height: 1.5;
+  }
+  @media (max-width: 768px) {
     .price span.del {
       font-size: 14px;
-      text-decoration: line-through;
-      font-weight: normal;
-      margin-left: 10px;
+    }
+    .price ins .amount:not(html) {
+      font-size: 18px;
+    }
+  }
+  .side-panel-links .text-button {
+    text-decoration: none;
+  }
+  .flickity-nav {
+    background: rgba(0, 0, 0, 0.4) !important;
+    opacity: 0.2 !important;
+  }
+  .flickity-nav:hover {
+    background: rgba(0, 0, 0, 0.4) !important;
+    opacity: 0.6 !important;
+  }
+  .flickity-nav svg {
+    fill: rgba(255, 255, 255, 0.2);
+  }
+  .flickity-nav:hover svg {
+    fill: white !important;
+  }
+  .flickity-nav.flickity-next {
+    transform: rotate(180deg);
+  }
+  .product-image-container.product-image-container-video .flickity-viewport {
+    border-radius: 0 !important;
+  }
+  .side-panel,
+  .thb-full-menu .sub-menu,
+  .custom-select--list,
+  .flickity-nav,
+  .has-shadow--true {
+    box-shadow: none !important;
+  }
+  .add_to_cart_holder--multi {
+    {% if section.settings.show_pre_order_button %}
+      grid-template-columns: auto !important;
+    {%- else -%}
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+    {%- endif -%}
+  }
+  #ProductInfo-{{ section.id }} .product-price-container {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  #ProductInfo-{{ section.id }} .product-short-description {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background:  #F9F9F9;
+    color: #3D3D3D;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4; /* 140% */
+  }
+  #ProductInfo-{{ section.id }} .product-short-description a {
+    color: #1677FF;
+  }
+  #ProductInfo-{{ section.id }} custom-variants {
+    margin-top: 24px;
+    margin-bottom: 0;
+  }
+  #ProductInfo-{{ section.id }} .price > .amount,
+  .price ins {
+    line-height: 1;
+  }
+  #ProductInfo-{{ section.id }} klarna-placement {
+    display: flex;
+  }
+  #ProductInfo-{{ section.id }} klarna-placement::part(osm-container) {
+    text-align: left;
+    border: none;
+    padding: 0;
+    background: transparent;
+  }
+  #ProductInfo-{{ section.id }} klarna-placement::part(osm-message) {
+    margin-left: -14px;
+  }
+  #ProductInfo-{{ section.id }} klarna-placement::part(osm-badge) {
+    width: 52px;
+    height: 22px;
+  }
+  #ProductInfo-{{ section.id }} klarna-placement::part(osm-message) {
+    margin-left: 0;
+  }
+  #ProductInfo-{{ section.id }} klarna-placement::part(osm-cta) {
+    color: #1677FF;
+  }
+  @media only screen and (min-width: 768px) {
+    .thb-product-detail .row {
+      padding: 0 24px;
     }
 
-    @media (max-width: 768px) {
-      .price span.del {
-        font-size: 12px;
-      }
+  }
+  .thb-product-detail .row {
+    max-width: 1248px;
+  }
+  @media only screen and (min-width: 1068px) {
+    .thb-product-detail .product-grid-container {
+      grid-gap: 60px;
+      grid-template-columns: 53.5% 1fr;
+    }
+  }
+  #quantity-{{ section.id }} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 20px;
+    {% comment %} margin-bottom: 20px; {% endcomment %}
+  }
+  #quantity-{{ section.id }} .form__label {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 0;
+    color: #000;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.38; /* 138% */
+  }
+  .thb-product-detail #quantity-{{ section.id }} .quantity {
+    margin-bottom: 0;
+    width: 136px;
+    border-radius: 10px;
+  }
+  .thb-product-detail #quantity-{{ section.id }} .quantity .qty {
+    width: 100%;
+    color: #000;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4; /* 140% */
+  }
+  .thb-product-detail #quantity-{{ section.id }} .quantity .minus svg,
+  .thb-product-detail #quantity-{{ section.id }} .quantity .plus svg {
+    opacity: 1;
+  }
+  .thb-product-detail #quantity-{{ section.id }} .quantity .minus.disabled svg,
+  .thb-product-detail #quantity-{{ section.id }} .quantity .plus.disabled svg {
+    opacity: .6;
+  }
+  .thb-product-detail .product-add-to-cart-container button.single-add-to-cart-button.button {
+    padding: 14px 50px;
+    height: auto;
+    color: #FF8F1C;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.38;
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid #FF8F1C;
+  }
+  .thb-product-detail .button.accent .spinner-path,
+  .thb-product-detail input[type=submit].accent .spinner-path {
+    stroke: #ff8f1c;
+  }
+  .thb-product-detail .button:not(html),
+  .thb-product-detail .shopify-payment-button__button:not(.shopify-payment-button__button--branded):not(html) {
+    font-weight: 700;
+    border-radius: 5px;
+    background: #5433EB;
+  }
+  @media screen and (hover: hover) {
+    .thb-product-detail .shopify-payment-button__button:not(.shopify-payment-button__button--branded):not([disabled]):hover,
+    .thb-product-detail .shopify-payment-button__button:not(.shopify-payment-button__button--branded):not([disabled]):focus {
+      background: #5433EB;
+      color: #fff;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    #ProductInfo-{{ section.id }} .product-price-container {
+      margin-top: 15px;
+      margin-bottom: 8px;
+    }
+    #ProductInfo-{{ section.id }} .product-short-description {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 5px;
+      font-size: 12px;
 
-      .price ins .amount:not(html) {
-        font-size: 18px;
-      }
+    }
+    #ProductInfo-{{ section.id }} klarna-placement::part(osm-container) {
+      text-align: left;
+      border: none;
+      padding: 0;
+      background: transparent;
+      flex-direction: row;
+      align-items: center;
     }
 
-    .side-panel-links .text-button {
-      text-decoration: none;
+    #ProductInfo-{{ section.id }} klarna-placement::part(osm-badge) {
+      width: 36px;
+      height: 14px;
     }
-
-    .flickity-nav {
-      background: rgba(0, 0, 0, 0.4) !important;
-      opacity: 0.2 !important;
+    #ProductInfo-{{ section.id }} klarna-placement::part(osm-message) {
+      margin-left: 0;
+      font-size: 12px;
     }
-
-    .flickity-nav:hover {
-      background: rgba(0, 0, 0, 0.4) !important;
-      opacity: 0.6 !important;
+    #ProductInfo-{{ section.id }} klarna-placement::part(osm-cta) {
+      color: #1677FF;
+      font-size: 12px;
     }
-
-    .flickity-nav svg {
-      fill: rgba(255, 255, 255, 0.2);
-    }
-
-    .flickity-nav:hover svg {
-      fill: white !important;
-    }
-    .flickity-nav.flickity-next {
-      transform: rotate(180deg);
-    }
-    .product-image-container.product-image-container-video .flickity-viewport {
-      border-radius: 0 !important;
-    }
-
-    .side-panel,
-    .thb-full-menu .sub-menu,
-    .custom-select--list,
-    .flickity-nav,
-    .has-shadow--true {
-      box-shadow: none !important;
-    }
-    .add_to_cart_holder--multi {
-      {% if section.settings.show_pre_order_button %}
-        grid-template-columns: auto !important;
-      {%- else -%}
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
-      {%- endif -%}
-    }
+  }
 </style>
 {%- if first_3d_model -%}
   <link
@@ -1988,6 +2115,13 @@
     },
     {
       "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "显示支付图标",
+      "default": true,
+      "info": "默认情况下，您的主题会显示与您已启用的支付网关关联的图标。 [支付设置](/admin/settings/payments)."
+    },
+    {
+      "type": "checkbox",
       "id": "show_pre_order_button",
       "default": false,
       "label": "显示预购按钮"
@@ -2142,6 +2276,205 @@
       "type": "text",
       "id": "flash_sale_countdown_end",
       "label": "倒计时（结束时间）"
+    },
+    {
+      "type": "header",
+      "content": "全店满减优惠横幅配置"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_full_discount_banner",
+      "default": true,
+      "label": "显示全店满减优惠横幅",
+      "info": "显示完整的全店满减优惠横幅（包括进度条和价格）(全局配置处于开启状态才生效)"
+    },
+
+    {
+      "type": "header",
+      "content": "进度条配置,此配置优先级高于全局配置"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_full_discount_banner_progress",
+      "default": true,
+      "label": "显示全店满减优惠进度条框(全局配置处于开启状态才生效)",
+      "info": "备注：仅显示进度条框"
+    },
+    {
+      "type": "image_picker",
+      "id": "full_discount_progress_title_image",
+      "label": "进度条主标题小图标"
+    },
+    {
+      "type": "image_picker",
+      "id": "full_discount_progress_desc_image",
+      "label": "进度条信息小图标"
+    },
+    {
+      "type": "text",
+      "id": "full_discount_progress_title",
+      "label": "进度条标题"
+    },
+    {
+      "type": "color_background",
+      "id": "full_discount_progress_title_color",
+      "label": "进度条标题字体颜色"
+    },
+    {
+      "type": "image_picker",
+      "id": "full_discount_progress_bg_image",
+      "label": "进度条背景图片(pc)"
+    },
+    {
+      "type": "image_picker",
+      "id": "full_discount_progress_bg_image_mb",
+      "label": "进度条背景图片(移动端)"
+    },
+    {
+      "type": "html",
+      "id": "full_discount_progress_info_tips",
+      "label": "进度条提示文案"
+    },
+    {
+      "type": "color_background",
+      "id": "full_discount_progress_info_tips_color",
+      "label": "进度条提示文案字体颜色"
+    },
+    {
+      "type": "range",
+      "id": "full_discount_progress_value",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "进度值",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "满减优惠价格配置,此配置优先级高于全局配置"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_full_discount_banner_price",
+      "default": true,
+      "label": "显示全店满减优惠价格框(全局配置处于开启状态才生效)",
+      "info": "备注：仅显示满减优惠价格框"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "full_discount_price_image",
+      "label": "满减优惠价格标题小图标"
+    },
+
+    {
+      "type": "text",
+      "id": "full_discount_price_title",
+      "label": "满减优惠价格标题"
+    },
+    {
+      "type": "color_background",
+      "id": "full_discount_price_title_color",
+      "label": "满减优惠价格标题字体颜色"
+    },
+
+    {
+      "type": "metaobject",
+      "id": "full_discount_price_value",
+      "label": "全店满减优惠价格配置（元对象discounts_for_all_purchases配置）",
+      "metaobject_type": "discounts_for_all_purchases"
+    },
+    {
+      "type": "color_background",
+      "id": "full_discount_price_value_discount_color",
+      "label": "优惠折扣价格字体颜色"
+    },
+    {
+      "type": "color_background",
+      "id": "full_discount_price_value_total_color",
+      "label": "购买总额字体颜色"
+    },
+    {
+      "type": "color_background",
+      "id": "full_discount_price_background",
+      "label": "满减优惠价格框背景色"
+    },
+    {
+      "type": "color_background",
+      "id": "full_discount_price_inner_background",
+      "label": "满减优惠价格框(内框)背景色"
+    },
+    {
+      "type": "header",
+      "content": "产品页销售保证模块配置,此配置优先级高于全局配置"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_sales_assurances",
+      "default": true,
+      "label": "显示产品页销售保证模块",
+      "info": "(全局配置处于开启状态才生效)"
+    },
+    {
+      "type": "html",
+      "id": "product_sales_assurances_title",
+      "label": "标题",
+    
+    },
+    {
+      "type": "header",
+      "content": "图标设置"
+    },
+
+    {
+      "type": "html",
+      "id": "product_sales_assurances_icon_1",
+      "label": "图标1",
+      "info": "SVG格式"
+    },
+    {
+      "type": "html",
+      "id": "product_sales_assurances_icon_2",
+      "label": "图标2",
+      "info": "SVG格式"
+    },
+    {
+      "type": "html",
+      "id": "product_sales_assurances_icon_3",
+      "label": "图标3",
+      "info": "SVG格式"
+    },
+    {
+      "type": "html",
+      "id": "product_sales_assurances_icon_4",
+      "label": "图标4",
+      "info": "SVG格式"
+    },
+    {
+      "type": "header",
+      "content": "文案设置"
+    },
+    {
+      "type": "html",
+      "id": "product_sales_assurances_text_1",
+      "label": "文案1"
+    },
+    {
+      "type": "html",
+      "id": "product_sales_assurances_text_2",
+      "label": "文案2"
+    },
+    {
+      "type": "html",
+      "id": "product_sales_assurances_text_3",
+      "label": "文案3"
+    },
+    {
+      "type": "html",
+      "id": "product_sales_assurances_text_4",
+      "label": "文案4"
     }
   ],
   "blocks": [
@@ -2561,8 +2894,13 @@
         {
           "type": "checkbox",
           "id": "show_description",
-          "label": "Whether to enable more",
+          "label": "是否启用更多",
           "default": true
+        },
+        {
+          "type": "richtext",
+          "id": "product_description",
+          "label": "产品描述"
         },
         {
           "type": "range",
@@ -2709,6 +3047,11 @@
           "label": "自定义标题 1"
         },
         {
+          "type": "text",
+          "id": "custom_variants_label_text_1",
+          "label": "活动标签文案 1"
+        },
+        {
           "type": "product",
           "id": "product-2",
           "label": "产品 2"
@@ -2750,6 +3093,11 @@
           "type": "text",
           "id": "text-2",
           "label": "自定义标题 2"
+        },
+        {
+          "type": "text",
+          "id": "custom_variants_label_text_2",
+          "label": "活动标签文案 2"
         },
         {
           "type": "product",
@@ -2795,6 +3143,11 @@
           "label": "自定义标题 3"
         },
         {
+          "type": "text",
+          "id": "custom_variants_label_text_3",
+          "label": "活动标签文案 3"
+        },
+        {
           "type": "product",
           "id": "product-4",
           "label": "产品 4"
@@ -2836,6 +3189,11 @@
           "type": "text",
           "id": "text-4",
           "label": "自定义标题 4"
+        },
+        {
+          "type": "text",
+          "id": "custom_variants_label_text_4",
+          "label": "活动标签文案 4"
         },
         {
           "type": "product",
@@ -2881,6 +3239,11 @@
           "label": "自定义标题 5"
         },
         {
+          "type": "text",
+          "id": "custom_variants_label_text_5",
+          "label": "活动标签文案 5"
+        },
+        {
           "type": "product",
           "id": "product-6",
           "label": "产品 6"
@@ -2922,6 +3285,11 @@
           "type": "text",
           "id": "text-6",
           "label": "自定义标题 6"
+        },
+        {
+          "type": "text",
+          "id": "custom_variants_label_text_6",
+          "label": "活动标签文案 6"
         },
         {
           "type": "product",
@@ -2967,6 +3335,11 @@
           "label": "自定义标题 7"
         },
         {
+          "type": "text",
+          "id": "custom_variants_label_text_7",
+          "label": "活动标签文案 7"
+        },
+        {
           "type": "product",
           "id": "product-8",
           "label": "产品 8"
@@ -3008,6 +3381,11 @@
           "type": "text",
           "id": "text-8",
           "label": "自定义标题 8"
+        },
+        {
+          "type": "text",
+          "id": "custom_variants_label_text_8",
+          "label": "活动标签文案 8"
         },
         {
           "type": "product",
@@ -3053,6 +3431,11 @@
           "label": "自定义标题 9"
         },
         {
+          "type": "text",
+          "id": "custom_variants_label_text_9",
+          "label": "活动标签文案 9"
+        },
+        {
           "type": "product",
           "id": "product-10",
           "label": "产品 10"
@@ -3094,6 +3477,11 @@
           "type": "text",
           "id": "text-10",
           "label": "自定义标题 10"
+        },
+        {
+          "type": "text",
+          "id": "custom_variants_label_text_10",
+          "label": "活动标签文案 10"
         }
       ]
     },
@@ -3177,6 +3565,7 @@
         }
       ]
     },
+
     {
       "type": "custom_liquid",
       "name": "Custom liquid",

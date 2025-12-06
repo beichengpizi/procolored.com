@@ -1,0 +1,462 @@
+<style>
+  .cart-drawer-storewide-discount-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: #fff4e2;
+    padding: 16px;
+    margin-bottom: 15px;
+  }
+
+  .cart-drawer-storewide-discount-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cart-drawer-storewide-discount-info-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .cart-drawer-storewide-discount-info-text,
+  .cart-drawer-storewide-discount-max-discount-text {
+    color: #a4712c;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .cart-drawer-storewide-discount-current-discount {
+    color: #a4712c;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.33;
+  }
+
+  /* 进度条容器 */
+  .cart-drawer-storewide-discount-progress-bar {
+    --p: 100%;
+    position: relative;
+    width: 100%;
+    height: 12px;
+    border-radius: 99px;
+    margin-top: 14px;
+  }
+
+  /* 轨道：左渐变，右白色 */
+  .cart-drawer-storewide-discount-progress-track {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    /* background: linear-gradient(90deg, #ff2ace 0%, #FF8F1C 100%) 0 0 / var(--p) 100% no-repeat, #ffffff;  */
+    background: linear-gradient(90deg, #ff8f1c 0%, #ff8f1c 100%) 0 0 / var(--p) 100% no-repeat, #ffffff;
+  }
+  .cart-drawer-storewide-discount-max-discount-text {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
+  @media screen and (max-width: 768px) {
+    .cart-drawer-storewide-discount-wrapper {
+      padding: 0 10px;
+    }
+
+    .cart-drawer-storewide-discount-info {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .cart-drawer-storewide-discount-info-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    .cart-drawer-storewide-discount-info-text,
+    .cart-drawer-storewide-discount-max-discount-text {
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .cart-drawer-storewide-discount-current-discount {
+      font-size: 14px;
+      line-height: 1.25;
+    }
+
+    /* 进度条容器 */
+    .cart-drawer-storewide-discount-progress-bar {
+      height: 6px;
+      margin-top: 7px;
+    }
+  }
+</style>
+<div class="cart-drawer-storewide-discount-wrapper">
+  <div class="cart-drawer-storewide-discount-info">
+    <div class="cart-drawer-storewide-discount-info-icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="100%"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <g clip-path="url(#clip0_9866_21814)">
+            <path
+                d="M18.5297 1.0672L16.319 7.60616C16.1802 7.69679 16.081 7.83787 16.0367 7.99699L8.0051 19.8566C7.84324 20.4607 8.20268 21.0833 8.80675 21.2451L18.4966 23.8415C19.1007 24.0034 19.7232 23.6439 19.8851 23.0399L23.669 8.91201C23.7121 8.75093 23.6948 8.58027 23.6199 8.43237L20.1664 1.50743C19.8647 0.898679 19.0965 0.692826 18.5297 1.0672ZM18.7262 7.55772C18.0329 7.95797 17.147 7.72058 16.7467 7.02732C16.3465 6.33406 16.5839 5.44809 17.2771 5.04784C17.9704 4.64758 18.1294 5.05517 18.5297 5.74843C18.9299 6.44169 19.4195 7.15746 18.7262 7.55772Z"
+                fill="#FDB44D" />
+            <mask id="mask0_9866_21814" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="7" y="0"
+                width="17" height="24">
+                <path
+                    d="M18.5297 1.06623L12.0713 5.33697C11.9325 5.4276 11.8333 5.56868 11.789 5.72781L8.0051 19.8556C7.84324 20.4597 8.20268 21.0823 8.80675 21.2441L18.4966 23.8405C19.1007 24.0024 19.7232 23.643 19.8851 23.0389L23.669 8.91104C23.7121 8.74995 23.6948 8.57929 23.6199 8.43139L20.1664 1.50646C19.8647 0.897702 19.0965 0.69185 18.5297 1.06623ZM18.7262 7.55674C18.0329 7.957 17.147 7.7196 16.7467 7.02634C16.3465 6.33308 16.5839 5.44711 17.2771 5.04686C17.9704 4.6466 18.8563 4.884 19.2566 5.57726C19.6569 6.27052 19.4195 7.15649 18.7262 7.55674Z"
+                    fill="#FDB44D" />
+            </mask>
+            <g mask="url(#mask0_9866_21814)">
+                <path d="M7.00894 14.5515L12.9304 6.15308L5.34473 13.3518L5.46083 14.2032L7.00894 14.5515Z"
+                    fill="#DE870F" />
+            </g>
+            <path
+                d="M17.8392 0.111994L10.1861 1.28675C10.0221 1.31093 9.87293 1.39752 9.76609 1.52348L0.415223 12.7696C0.0153422 13.2504 0.0811331 13.9663 0.561956 14.3662L8.27485 20.7807C8.75567 21.1805 9.47153 21.1147 9.87141 20.6339L19.2223 9.38781C19.3289 9.25959 19.3846 9.09734 19.3785 8.93166L19.1413 1.19701C19.1221 0.517858 18.5106 0.00929096 17.8392 0.111994ZM15.3004 6.08864C14.5033 6.1619 13.7981 5.57541 13.7248 4.77826C13.6516 3.98111 14.2381 3.27591 15.0352 3.20264C15.8324 3.12938 16.5376 3.71587 16.6108 4.51302C16.6841 5.31017 16.0976 6.01538 15.3004 6.08864Z"
+                fill="url(#paint0_linear_9866_21814)" />
+            <g filter="url(#filter0_d_9866_21814)">
+                <path
+                    d="M10.7977 13.5168C11.0985 13.7776 11.3153 14.1217 11.4205 14.5057C11.5257 14.8896 11.5147 15.2962 11.3889 15.6738C11.2631 16.0515 11.0281 16.3834 10.7136 16.6276C10.3991 16.8717 10.0194 17.0171 9.62227 17.0454C9.22517 17.0737 8.8286 16.9836 8.48271 16.7865C8.13682 16.5895 7.85714 16.2942 7.67903 15.9382C7.50093 15.5821 7.43241 15.1813 7.48213 14.7863C7.53184 14.3913 7.69757 14.0199 7.95836 13.7191C8.68611 12.8792 9.95726 12.7886 10.7977 13.5168ZM5.85006 11.3281L12.5426 10.8514C12.7119 10.841 12.8787 10.8951 13.0097 11.0027C13.1407 11.1103 13.2262 11.2635 13.2489 11.4315C13.2717 11.5995 13.23 11.7699 13.1323 11.9084C13.0346 12.047 12.8882 12.1434 12.7223 12.1785L12.6389 12.1897L5.94633 12.6664C5.77712 12.6767 5.61025 12.6227 5.47924 12.5151C5.34823 12.4075 5.26277 12.2543 5.24003 12.0863C5.21729 11.9183 5.25895 11.7479 5.35664 11.6094C5.45433 11.4708 5.60082 11.3743 5.7667 11.3393L5.85006 11.3281ZM9.91935 14.5307C9.7849 14.4142 9.60969 14.3559 9.43226 14.3686C9.25483 14.3813 9.08971 14.464 8.97323 14.5984C8.85674 14.7329 8.79844 14.9081 8.81114 15.0855C8.82384 15.2629 8.90651 15.4281 9.04096 15.5445C9.1754 15.661 9.35061 15.7193 9.52805 15.7066C9.70548 15.6939 9.8706 15.6113 9.98708 15.4768C10.1036 15.3424 10.1619 15.1672 10.1492 14.9897C10.1365 14.8123 10.0538 14.6472 9.91935 14.5307ZM10.3216 6.8922C10.6224 7.15298 10.8391 7.4971 10.9443 7.88105C11.0495 8.265 11.0386 8.67152 10.9127 9.04922C10.7869 9.42691 10.5519 9.75882 10.2375 10.003C9.92301 10.2471 9.54322 10.3925 9.14612 10.4208C8.74903 10.4491 8.35246 10.359 8.00657 10.1619C7.66067 9.96482 7.38099 9.66959 7.20289 9.31355C7.02479 8.95751 6.95626 8.55665 7.00598 8.16167C7.0557 7.76668 7.22143 7.39531 7.48221 7.09451C8.20996 6.25453 9.48112 6.16401 10.3216 6.8922ZM9.44321 7.90606C9.37667 7.84835 9.29941 7.80431 9.21585 7.77646C9.13229 7.7486 9.04406 7.73748 8.9562 7.74373C8.77876 7.75634 8.6136 7.83893 8.49705 7.97331C8.3805 8.1077 8.32211 8.28288 8.33472 8.46032C8.34734 8.63776 8.42992 8.80292 8.56431 8.91947C8.69875 9.03595 8.87396 9.09426 9.0514 9.08156C9.22883 9.06885 9.39395 8.98619 9.51043 8.85174C9.62691 8.7173 9.68522 8.54208 9.67252 8.36465C9.65981 8.18722 9.57715 8.0221 9.4427 7.90562L9.44321 7.90606Z"
+                    fill="#421F03" />
+            </g>
+        </g>
+        <defs>
+            <filter id="filter0_d_9866_21814" x="4.9947" y="6.22895" width="8.49986" height="11.1297"
+                filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feColorMatrix in="SourceAlpha" type="matrix"
+                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                <feOffset dy="0.0684789" />
+                <feGaussianBlur stdDeviation="0.119838" />
+                <feComposite in2="hardAlpha" operator="out" />
+                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_9866_21814" />
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_9866_21814"
+                    result="shape" />
+            </filter>
+            <linearGradient id="paint0_linear_9866_21814" x1="17.26" y1="1.42861" x2="4.856" y2="17.4348"
+                gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FCD671" />
+                <stop offset="1" stop-color="#FBBB34" />
+            </linearGradient>
+            <clipPath id="clip0_9866_21814">
+                <rect width="24" height="24" fill="white" />
+            </clipPath>
+        </defs>
+      </svg>
+    </div>
+    <div class="cart-drawer-storewide-discount-info-text">
+      Spend
+      <span class="cart-drawer-storewide-discount-current-diff-price"></span>
+      more for Save
+      <span class="cart-drawer-storewide-discount-current-discount"></span>
+      .
+    </div>
+    <div class="cart-drawer-storewide-discount-max-discount-text">
+      You’ve unlocked the top savings: <span class="cart-drawer-storewide-discount-current-discount"></span>! 🎉
+    </div>
+  </div>
+  <div
+    class="cart-drawer-storewide-discount-progress-bar"
+    id="cart-drawer-storewide-discount-progress-bar"
+    style="--p:50%"
+  >
+    <div class="cart-drawer-storewide-discount-progress-track"></div>
+  </div>
+</div>
+<script>
+      {% comment %} // 格式化金额为货币字符串
+      function formatMoney(cents, format) {
+        // 如果 cents 是字符串类型，去除小数点
+        if (typeof cents === 'string') {
+          cents = cents.replace('.', '');
+        }
+        let value = '';
+        // 占位符正则，用于匹配格式字符串中的 {{ amount }} 等
+        const placeholderRegex = /\{\{\s*(\w+)\s*\}\}/;
+        // 如果未传入 format，则使用 moneyFormat 变量
+        const formatString = format || moneyFormat;
+
+        // 内部函数：根据分隔符和精度格式化数字
+        function formatWithDelimiters(number, precision = 2, thousands = ',', decimal = '.') {
+          // 非数字或空值时返回0
+          if (isNaN(number) || number == null) {
+            return 0;
+          }
+          // 将分单位转换为元单位，并保留指定小数位
+          number = (number / 100.0).toFixed(precision);
+
+          const parts = number.split('.');
+          // 千分位分隔
+          const dollarsAmount = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, `$1${thousands}`);
+          // 小数部分
+          const centsAmount = parts[1] ? decimal + parts[1] : '';
+
+          return dollarsAmount + centsAmount;
+        }
+
+        // 根据格式字符串中的占位符类型选择不同的格式化方式
+        switch (formatString.match(placeholderRegex)[1]) {
+          case 'amount':
+            // 2位小数，千分位逗号
+            value = formatWithDelimiters(cents, 2);
+            break;
+          case 'amount_no_decimals':
+            // 无小数，千分位逗号
+            value = formatWithDelimiters(cents, 0);
+            break;
+          case 'amount_with_comma_separator':
+            // 2位小数，千分位点，小数逗号
+            value = formatWithDelimiters(cents, 2, '.', ',');
+            break;
+          case 'amount_no_decimals_with_comma_separator':
+            // 无小数，千分位点
+            value = formatWithDelimiters(cents, 0, '.', ',');
+            break;
+          case 'amount_with_apostrophe_separator':
+            // 2位小数，千分位撇号
+            value = formatWithDelimiters(cents, 2, "'", '.');
+            break;
+        }
+
+        // 用格式化后的金额替换格式字符串中的占位符
+        return formatString.replace(placeholderRegex, value);
+      } {% endcomment %}
+
+
+
+  (function () {
+    let format=theme.settings.money_format;
+    const currency_code_enabled = theme.settings.currency_code_enabled
+    if(currency_code_enabled){
+      format = theme.settings.money_with_currency_format;
+    }else{
+      format = theme.settings.money_format;
+    }
+
+    // 如果 this.format 包含 <span class="money"></span>，则提取 > 和 < 之间的内容作为格式
+    const moneySpanMatch = format.match(
+      /<span\s+class=["']money["']>(.*?)<\/span>/i
+    );
+    if (moneySpanMatch) {
+      format = moneySpanMatch[1];
+    }    
+
+
+    function initProgressBar(all_products) {
+        // 获取进度条容器DOM元素
+   
+        const bar = document.getElementById('cart-drawer-storewide-discount-progress-bar');
+       
+        // 进度条轨道部分（可用于进度槽背景的自定义）
+        const progressTrack = bar.querySelector('.cart-drawer-storewide-discount-progress-track');
+        // 获得显示“还差多少钱可满足下一个满减”的元素
+        const progressDiffPriceValue = document.querySelector('.cart-drawer-storewide-discount-current-diff-price');
+        // 获得显示“当前可享受优惠金额”的元素
+        // 选择所有满足条件的元素（即使有多个一样的class）
+        const progressDiscountValues = document.querySelectorAll('.cart-drawer-storewide-discount-current-discount');
+        const progressInfoText = document.querySelector('.cart-drawer-storewide-discount-info-text');
+        const progressMaxDiscountText = document.querySelector('.cart-drawer-storewide-discount-max-discount-text');
+        
+
+
+        // 当前购物车中所有商品
+        {% comment %} let all_products = [
+            {% for item in cart.items %}
+            {
+                id: {{ item.product_id }},
+                price: {{ item.final_line_price }}
+            }{% unless forloop.last %},{% endunless %}
+            {% endfor %}
+        ]; {% endcomment %}
+        console.log('当前购物车中所有商品==',all_products);
+        // 定义一个变量，用于存储需要排除的product_id
+        let exclude_product_list = [
+            {%- if storewide_discount_exclude_product_list != blank -%}
+            {%- for product in storewide_discount_exclude_product_list -%}
+                {{- product.id -}}{% unless forloop.last %},{% endunless %}
+            {%- endfor -%}
+            {%- endif -%}
+        ];
+        console.log('不参与满减商品列表==',exclude_product_list);
+        {% comment %} 根据要求：将 all_products 中 id 等于 exclude_product_list 的商品去除，剩余商品 price 累加得到新的总价 {% endcomment %}
+        // 过滤掉不参与满减的商品
+        let filtered_products = (exclude_product_list.length > 0)
+          ? all_products.filter(function(item) {
+              return !exclude_product_list.includes(item.product_id);
+            })
+          : all_products;
+        // 累加剩余商品的价格
+        let filtered_total_price = filtered_products.reduce(function(sum, item) {
+        return sum + item.final_line_price;
+        }, 0);
+        console.log('参与满减商品==', filtered_products);
+        console.log('参与满减商品累计价格==', filtered_total_price);
+
+        // 各满减阶段所需满足的金额（从小到大，金额递增，可根据业务需要灵活扩展）
+        {% comment %} let phasedDiscountTotalPrice = [1000, 2000, 3000, 4000, 5000, 6000]; {% endcomment %}
+
+        let phasedDiscountTotalPrice = [
+        {% if storewide_discount_price_value.total_price_1 %}
+            {{ storewide_discount_price_value.total_price_1.value }},
+        {% endif %}
+        {% if storewide_discount_price_value.total_price_2 %}
+            {{ storewide_discount_price_value.total_price_2.value }},
+        {% endif %}
+        {% if storewide_discount_price_value.total_price_3 %}
+            {{ storewide_discount_price_value.total_price_3.value }},
+        {% endif %}
+        {% if storewide_discount_price_value.total_price_4 %}
+            {{ storewide_discount_price_value.total_price_4.value }},
+        {% endif %}
+        {% if storewide_discount_price_value.total_price_5 %}
+            {{ storewide_discount_price_value.total_price_5.value }},
+        {% endif %}
+        {% if storewide_discount_price_value.total_price_6 %}
+            {{ storewide_discount_price_value.total_price_6.value }},
+        {% endif %}
+        {% if storewide_discount_price_value.total_price_7 %}
+            {{ storewide_discount_price_value.total_price_7.value }},
+        {% endif %}
+        {% if storewide_discount_price_value.total_price_8 %}
+            {{ storewide_discount_price_value.total_price_8.value }},
+        {% endif %}
+        {% if storewide_discount_price_value.total_price_9 %}
+            {{ storewide_discount_price_value.total_price_9.value }}
+        {% endif %}
+        ];
+        console.log('各满减阶段所需满足的金额==',phasedDiscountTotalPrice)
+        // 对应每一档满减所能获得的优惠金额
+        {% comment %} let phasedDiscountPrices = [100, 200, 300, 400, 500, 600]; {% endcomment %}
+        let phasedDiscountPrices = [
+        {% if storewide_discount_price_value.discount_1 %}{{ storewide_discount_price_value.discount_1.value }},{% endif %}
+        {% if storewide_discount_price_value.discount_2 %}{{ storewide_discount_price_value.discount_2.value }},{% endif %}
+        {% if storewide_discount_price_value.discount_3 %}{{ storewide_discount_price_value.discount_3.value }},{% endif %}
+        {% if storewide_discount_price_value.discount_4 %}{{ storewide_discount_price_value.discount_4.value }},{% endif %}
+        {% if storewide_discount_price_value.discount_5 %}{{ storewide_discount_price_value.discount_5.value }},{% endif %}
+        {% if storewide_discount_price_value.discount_6 %}{{ storewide_discount_price_value.discount_6.value }},{% endif %}
+        {% if storewide_discount_price_value.discount_7 %}{{ storewide_discount_price_value.discount_7.value }},{% endif %}
+        {% if storewide_discount_price_value.discount_8 %}{{ storewide_discount_price_value.discount_8.value }},{% endif %}
+        {% if storewide_discount_price_value.discount_9 %}{{ storewide_discount_price_value.discount_9.value }}{% endif %}
+        ];
+        console.log('对应每一档满减所能获得的优惠金额==',phasedDiscountPrices)
+        // 离下一个满减档位的差价
+        let diffPriceValue = 0;
+        // 当前可享受的满减优惠金额
+        let discountValue = 0;
+        // 当前进度百分比
+        let percentage = 0;
+
+        // 计算当前处于哪个满减档位
+        let currentStage = -1; // -1表示已经超过最高档
+        for (let i = 0; i < phasedDiscountTotalPrice.length; i++) {
+            // 找到第一个"目标金额大于商品总价"的档位
+            if (filtered_total_price < phasedDiscountTotalPrice[i]) {
+                currentStage = i;
+                break;
+            }
+        }
+
+        // 根据当前状态进行进度/差额/优惠值的计算和DOM赋值
+        if (currentStage === 0) {
+            // 尚未到第一档满减
+            diffPriceValue = phasedDiscountTotalPrice[0] - filtered_total_price;
+            discountValue = phasedDiscountPrices[0];
+            // 百分比 = 已付款金额 / 第一档满减金额
+            percentage = Math.max(0, Math.min(100, (filtered_total_price / phasedDiscountTotalPrice[0]) * 100));
+        } else if (currentStage === -1) {
+            // 超过了最高档满减
+            diffPriceValue = 0;
+            discountValue = phasedDiscountPrices[phasedDiscountPrices.length - 1];
+            percentage = 100;
+        } else {
+            // 位于中间某一档
+            diffPriceValue = phasedDiscountTotalPrice[currentStage] - filtered_total_price;
+            discountValue = phasedDiscountPrices[currentStage];
+            let nextTarget = phasedDiscountTotalPrice[currentStage];
+            // 进度根据 nextTarget 计算
+            percentage = Math.max(0, Math.min(100, (filtered_total_price / nextTarget) * 100));
+            console.log('差额', diffPriceValue);
+        }
+
+        // 差额保留两位小数，显示在页面上
+        diffPriceValue = Math.max(0, Math.round(diffPriceValue * 100) / 100);
+        progressDiffPriceValue.innerHTML = window.formatMoney(
+            diffPriceValue,
+            format
+        );
+
+        // 为 progressDiscountValues 多个赋值
+        if (progressDiscountValues && progressDiscountValues.length > 0) {
+          progressDiscountValues.forEach(function(el) {
+            el.innerHTML = window.formatMoney(
+              discountValue,
+              format
+            );
+          });
+        }
+        if(percentage == 100){
+            progressInfoText.style.width = '0';
+            progressInfoText.style.height = '0';
+            progressInfoText.style.visibility = 'hidden';
+            progressMaxDiscountText.style.width = '100%';
+            progressMaxDiscountText.style.height = 'auto';
+            progressMaxDiscountText.style.visibility = 'visible';
+        }
+        /**
+        * 更新进度条动画样式和进度信息
+        * @param {number} v - 当前进度，值范围为0~100
+        */
+        function updateProgressElements(v) {
+            // 保证进度百分比在0~100之间
+            const p = Math.max(0, Math.min(100, v));
+            // 设置CSS自定义属性控制进度条
+            bar.style.setProperty('--p', p + '%');
+        }
+        // 更新进度条CSS
+        updateProgressElements(percentage);
+    }
+    {% comment %} 获取最新购物车信息 {% endcomment %}
+    window.updateCartDrawerProgressInfo =function () {
+        const cartStickyBarWrapper = document.querySelector('.cart-drawer-storewide-discount-wrapper');
+        fetch(`${window.location.origin}/cart.js`)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(cartData) {
+                console.log('Cart data:', cartData);
+                if (cartData.items.length === 0) {
+                    if (cartStickyBarWrapper) {
+                        cartStickyBarWrapper.style.height = '0';
+                        cartStickyBarWrapper.style.visibility = 'hidden';
+                    }
+                    return;
+                }
+                if (cartStickyBarWrapper) {
+                    cartStickyBarWrapper.style.height = 'auto';
+                    cartStickyBarWrapper.style.visibility = 'visible';
+                }
+                const all_products = cartData.items
+                initProgressBar(all_products);
+            
+               
+                
+            })
+            .catch(function(error) {
+                console.error('获取购物车信息失败:', error);
+            });
+    }
+    
+    window.updateCartDrawerProgressInfo()  
+
+ 
+
+
+  })();
+</script>

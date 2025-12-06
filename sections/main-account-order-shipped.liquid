@@ -184,26 +184,39 @@
               <div class="flex flex-col flex-wrap lg:flex-row lg:items-center gap-y-8 gap-x-3 py-4 md:py-6 lg:justify-between">
                 {% comment %} 订单项 {% endcomment %}
                 <div class="flex items-center gap-2">
+                  {%- assign unremoved_count = 0 -%}
                   {%- for item in order.line_items limit: 4 -%}
-                    <div class="w-16 md:w-24 h-16 md:h-24 flex justify-center items-center bg-white text-gray-500 text-sm rounded-lg shadow overflow-hidden">
-                      <img
-                        data-src="{{ item.image | image_url: width: 160 }}"
-                        class="lazyload object-cover object-center w-full h-full {% unless settings.lazy_loading %} no-blur{% endunless %}"
-                        width="{{ item.image.src.width }}"
-                        height="{{ item.image.src.height }}"
-                        alt="{{ item.image.alt |  default: order.name }}"
-                      >
-                    </div>
+                    {%- unless item.cancelled or item.refunded_quantity > 0 or item.quantity == 0 -%}
+                      {%- assign unremoved_count = unremoved_count | plus: item.quantity -%}
+                      <div class="w-16 md:w-24 h-16 md:h-24 flex justify-center items-center bg-white text-gray-500 text-sm rounded-lg shadow overflow-hidden">
+                        <img
+                          data-src="{{ item.image | image_url: width: 160 }}"
+                          class="lazyload object-cover object-center w-full h-full {% unless settings.lazy_loading %} no-blur{% endunless %}"
+                          width="{{ item.image.src.width }}"
+                          height="{{ item.image.src.height }}"
+                          alt="{{ item.image.alt |  default: order.name }}"
+                        >
+                      </div>
+                    {% endunless %}
                   {%- endfor -%}
                   <div class="w-16 md:w-24 h-16 md:h-24 flex justify-center items-center bg-white text-gray-500 text-sm rounded-lg shadow">
-                    {{ order.item_count }} item(s)
+                    {{ unremoved_count }} item(s)
                   </div>
                 </div>
 
                 <div class="flex items-center justify-between md:justify-end gap-x-4 md:ml-auto flex-shrink-0">
                   <div class="flex items-center text-gray-500 text-sm gap-x-2">
+                    {%- assign valid_total = 0 -%}
+
+                    {%- for line_item in order.line_items -%}
+                      {%- unless line_item.cancelled or line_item.refunded_quantity > 0 or line_item.quantity == 0 -%}
+                        {%- assign line_total = line_item.final_line_price | plus: 0 -%}
+                        {%- assign valid_total = valid_total | plus: line_total -%}
+                      {%- endunless -%}
+                    {%- endfor -%}
+
                     <span>{{ 'customer.orders.total' | t }}:</span>
-                    <span class="text-black">{{ order.total_price | money_with_currency }}</span>
+                    <span class="text-black">{{ valid_total | money_with_currency }}</span>
                   </div>
                   <div>
                     <a

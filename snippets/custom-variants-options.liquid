@@ -1,57 +1,82 @@
 <style>
-  .custom-variants-options-{{ block.settings.id }}{
+  .custom-variants-options-{{ block.id }}{
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 20px;
+      margin-top: 20px;
       margin-bottom: 20px;
   }
-  .custom-variants-options-{{ block.settings.id }} .custom-variants-options-name{
+  .custom-variants-options-{{ block.id }} .custom-variants-options-name{
       display: flex;
       color: #000;
-      font-size: 20px;
-      font-weight: 700;
+      font-size: 18px;
+      font-weight: 800;
 
   }
-  .custom-variants-options-{{ block.settings.id }} .custom-variants-options-container{
+  .custom-variants-options-{{ block.id }} .custom-variants-options-container{
     display: flex;
     align-items: stretch;
     width: 100%;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 14px;
   }
 
-  .custom-variants-options-{{ block.settings.id }} .custom-variants-options-container-item{
-    width: calc(50% - 20px);
-    min-width: 125px;
+  .custom-variants-options-{{ block.id }} .custom-variants-options-container-item{
+    width: calc(50% - 7px);
+    {% comment %} min-width: 125px; {% endcomment %}
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--input-border-radius, 6px);
-    padding: 20px 10px;
-    font-size: 14px;
+    padding: 20px 18px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
     cursor: pointer;
     border-radius: 10px;
     overflow: hidden;
-    line-height: 1.5;
     text-align: center;
     box-shadow: 0 0 0 1px var(--color-form-border) inset;
     cursor: pointer;
   }
-
-  .custom-variants-options-{{ block.settings.id }} .custom-variants-options-container-item.active{
-    box-shadow: 0 0 0 2px #da291c inset;
+  .custom-variants-options-{{ block.id }} .custom-variants-options-container-item:hover{
+    box-shadow: 0 0 0 1px #ff8f1c inset;
+  }
+  .custom-variants-options-{{ block.id }} .custom-variants-options-container-item.active{
+    box-shadow: 0 0 0 1px #ff8f1c inset;
   }
   @media screen and (max-width: 768px) {
-    .custom-variants-options-{{ block.settings.id }} .custom-variants-options-container-item {
-        padding: 15px;
-        line-height: 1.3;
+    .custom-variants-options-{{ block.id }}{
+
+      gap: 10px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+  }
+    .custom-variants-options-{{ block.id }} .custom-variants-options-container{
+      gap: 10px;
+    }
+
+    .custom-variants-options-{{ block.id }} .custom-variants-options-name{
+      display: flex;
+      color: #000;
+      font-size: 16px;
+      font-weight: 700;
+
+  }
+    .custom-variants-options-{{ block.id }} .custom-variants-options-container-item {
+        width: calc(50% - 5px);
+        padding: 14px 12px;
+        line-height: 1.4;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 6px;
+
     }
   }
 </style>
 {%- assign active_index = block.settings.select_variant_active | plus: 0 -%}
 
-<div class="custom-variants-options-{{ block.settings.id }}">
-  <div class="custom-variants-options-name">{{ block.settings.variant_option_title }}:</div>
+<div class="custom-variants-options-{{ block.id }}">
+  <div class="custom-variants-options-name">{{ block.settings.variant_option_title }}</div>
   <div class="custom-variants-options-container">
     {%- for index in (1..4) -%}
       {%- assign variant_url = 'variant_url_' | append: index -%}

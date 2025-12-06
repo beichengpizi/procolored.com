@@ -365,6 +365,251 @@ if (!customElements.get('product-card')) {
 
 /**
  *  @class
+ *  @function MultipleProductCard
+ *  @description 批量商品卡片 同时加购多个不同产品
+ */
+if (!customElements.get('multiple-product-card')) {
+  class MultipleProductCard extends HTMLElement {
+    constructor() {
+      super();
+      this.swatches = this.querySelector('.product-card-swatches');
+      this.image = this.querySelector('.product-featured-image-link .product-primary-image');
+      this.additional_images = this.querySelectorAll('.product-secondary-image');
+      this.additional_images_nav = this.querySelectorAll('.product-secondary-images-nav li');
+      this.quick_add = this.querySelector('.multiple-product-card--add-to-cart-button-simple');
+    }
+    connectedCallback() {
+      if (this.swatches) {
+        this.enableSwatches(this.swatches, this.image);
+      }
+      if (this.additional_images) {
+        this.enableAdditionalImages();
+      }
+      if (this.quick_add) {
+        this.enableQuickAdd();
+      }
+    }
+    enableAdditionalImages() {
+      let image_length = this.additional_images.length;
+      let images = this.additional_images;
+      let nav = this.additional_images_nav;
+      let image_container = this.querySelector('.product-featured-image');
+      const mousemove = function (e) {
+        let l = e.offsetX;
+        let w = this.getBoundingClientRect().width;
+        let prc = l / w;
+        let sel = Math.floor(prc * image_length);
+        let selimg = images[sel];
+        images.forEach((image, index) => {
+          if (image.classList.contains('hover')) {
+            image.classList.remove('hover');
+            if (nav.length) {
+              nav[index].classList.remove('active');
+            }
+          }
+        });
+        if (selimg) {
+          if (!selimg.classList.contains('hover')) {
+            selimg.classList.add('hover');
+            if (nav.length) {
+              nav[sel].classList.add('active');
+            }
+          }
+        }
+
+      };
+      const mouseleave = function (e) {
+        images.forEach((image, index) => {
+          image.classList.remove('hover');
+          if (nav.length) {
+            nav[index].classList.remove('active');
+          }
+        });
+      };
+      if (image_container) {
+        image_container.addEventListener('touchstart', mousemove, {
+          passive: true
+        });
+        image_container.addEventListener('touchmove', mousemove, {
+          passive: true
+        });
+        image_container.addEventListener('touchend', mouseleave, {
+          passive: true
+        });
+        image_container.addEventListener('mouseenter', mousemove, {
+          passive: true
+        });
+        image_container.addEventListener('mousemove', mousemove, {
+          passive: true
+        });
+        image_container.addEventListener('mouseleave', mouseleave, {
+          passive: true
+        });
+      }
+
+      images.forEach(function (image) {
+        window.addEventListener('load', (event) => {
+          lazySizes.loader.unveil(image);
+        });
+      });
+    }
+    enableSwatches(swatches, image) {
+      let swatch_list = swatches.querySelectorAll('.product-card-swatch'),
+        org_srcset = image ? image.dataset.srcset : '';
+
+      swatch_list.forEach((swatch, index) => {
+        window.addEventListener('load', (event) => {
+          let image = new Image();
+          image.srcset = swatch.dataset.srcset;
+          lazySizes.loader.unveil(image);
+        });
+        swatch.addEventListener('mouseover', function () {
+
+          [].forEach.call(swatch_list, function (el) {
+            el.classList.remove('active');
+          });
+          if (image) {
+            if (swatch.dataset.srcset) {
+              image.setAttribute('srcset', swatch.dataset.srcset);
+            } else {
+              image.setAttribute('srcset', org_srcset);
+            }
+          }
+
+          swatch.classList.add('active');
+        });
+        swatch.addEventListener('click', function (evt) {
+          window.location.href = this.dataset.href;
+          evt.preventDefault();
+        });
+      });
+    }
+    enableQuickAdd() {
+      this.quick_add.addEventListener('click', this.quickAdd.bind(this));
+    }
+
+    quickAdd(evt) {
+      evt.preventDefault();
+      if (this.quick_add.disabled) {
+        return;
+      }
+      this.quick_add.classList.add('loading');
+      this.quick_add.setAttribute('aria-disabled', true);
+      // 使用 FormData 格式提交数据
+      let formData = new FormData(this.form);
+      formData.append('items[0][id]', this.quick_add.dataset.productId);
+      formData.append('items[0][quantity]', 1);
+      formData.append('items[1][id]', this.quick_add.dataset.productDepositId);
+      formData.append('items[1][quantity]', 1);
+
+      if (this.quick_add.dataset.sellingPlanId) {
+        formData.append('selling_plan', this.quick_add.dataset.sellingPlanId);
+      }
+      // 添加联动sections
+      formData.append('sections', this.getSectionsToRender().map((section) => section.section));
+      formData.append('sections_url', window.location.pathname);
+
+      const config = {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/javascript'
+        },
+        body: formData
+      };
+
+      fetch(`${theme.routes.cart_add_url}`, config)
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.status) {
+            return;
+          }
+          this.renderContents(response);
+
+          dispatchCustomEvent('cart:item-added', {
+            product: response.hasOwnProperty('items') ? response.items[0] : response
+          });
+        })
+        .catch((e) => {
+          console.error(e);
+        })
+        .finally(() => {
+          this.quick_add.classList.remove('loading');
+          this.quick_add.removeAttribute('aria-disabled');
+        });
+
+      return false;
+    }
+    getSectionsToRender() {
+      return [{
+        id: 'Cart',
+        section: 'main-cart',
+        selector: '.thb-cart-form'
+      },
+      {
+        id: 'Cart-Drawer',
+        section: 'cart-drawer',
+        selector: '.cart-drawer'
+      },
+      {
+        id: 'cart-drawer-toggle',
+        section: 'cart-bubble',
+        selector: '.thb-item-count'
+      }];
+    }
+    renderContents(parsedState) {
+      this.getSectionsToRender().forEach((section => {
+        if (!document.getElementById(section.id)) {
+          return;
+        }
+        const elementToReplace = document.getElementById(section.id).querySelector(section.selector) || document.getElementById(section.id);
+        elementToReplace.innerHTML = this.getSectionInnerHTML(parsedState.sections[section.section], section.selector);
+        if (typeof CartDrawer !== 'undefined') {
+          new CartDrawer();
+        }
+        if (typeof Cart !== 'undefined') {
+          new Cart().renderContents(parsedState);
+        }
+      }));
+
+
+      if (document.getElementById('Cart-Drawer')) {
+        document.body.classList.add('open-cc');
+        document.getElementById('Cart-Drawer').classList.add('active');
+
+        dispatchCustomEvent('cart-drawer:open');
+      }
+
+    }
+    getSectionInnerHTML(html, selector = '.shopify-section') {
+      return new DOMParser()
+        .parseFromString(html, 'text/html')
+        .querySelector(selector).innerHTML;
+    }
+    // 在 ProductCard 类中添加一个静态方法 quickAddStatic,外部调用 quickAdd 方法
+    static quickAddStatic(productId, form) {
+      // 实例化 ProductCard 类：在 quickAddStatic 方法中，创建一个新的 ProductCard 实例，并设置必要的属性
+      const productCard = new ProductCard();
+      productCard.quick_add = {
+        dataset: { productId },
+        disabled: false,
+        classList: {
+          add: (className) => {},
+          remove: (className) => {}
+        },
+        setAttribute: (name, value) => {}
+      };
+      productCard.quickAdd(new Event('click'));
+    }
+  
+  
+
+  }
+  customElements.define('multiple-product-card', MultipleProductCard);
+}
+
+/**
+ *  @class
  *  @function ProductCardSmall
  */
 if (!customElements.get('product-card-small')) {
@@ -622,6 +867,13 @@ class CartDrawer {
         }
       });
     }
+    if (typeof window.updateCartStickyProgressInfo === 'function') {
+      window.updateCartStickyProgressInfo();
+    }
+    if (typeof window.updateCartDrawerProgressInfo === 'function') {
+      window.updateCartDrawerProgressInfo();
+    }
+
   }
   notesToggle() {
     let notes_toggle = document.getElementById('order-note-toggle');
@@ -1131,7 +1383,27 @@ class ProductRecommendations extends HTMLElement {
         }
 
         this.classList.add('product-recommendations--loaded');
-
+        // 判断 .cart-Drawer-swiper-container 是否存在并执行
+        const swiperContainer = document.querySelector('.cart-Drawer-swiper-container');
+        if (swiperContainer) {
+          new Swiper('.cart-Drawer-swiper-container', {
+            slidesPerView: 1.3,
+            loopedSlides: 4,
+            spaceBetween: 10,
+            observer: true,
+            observeParents: true,
+            breakpoints: {
+              1024: {
+                slidesPerView: 1.2,
+                spaceBetween: 16,
+              },
+              768: {
+                slidesPerView: 1.1,
+                spaceBetween: 10,
+              },
+            },
+          });
+        }
       })
       .catch(e => {
         console.error(e);

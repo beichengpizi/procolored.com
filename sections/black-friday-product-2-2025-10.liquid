@@ -1,0 +1,1215 @@
+<style>
+    /* Weekly Flash Deals 每周限时特惠 start */
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-wrapper {
+      background-color: {{ section.settings.bg_color }};
+      padding: {{ section.settings.padding_top }}px 0px {{ section.settings.padding_bottom }}px 0px;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-container {
+      max-width: 1232px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-title-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-title {
+      color: #fece67;
+      text-align: center;
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1;
+      /* 110% */
+      margin-bottom: 24px;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-desc {
+      color: #fff;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1;
+      /* 272.727% */
+      margin-bottom: 24px;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-banner {
+      width: 100%;
+      margin-bottom: 40px;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-banner img {
+      width: 100%;
+      max-width: 100%;
+      object-fit: cover;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-banner .pc {
+      display: block;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-banner .mb {
+      display: none;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-tips {
+      color: #fff;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1;
+      /* 83.333% */
+      margin-bottom: 40px;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-tips span {
+      color: #fece67;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-content {
+      display: flex;
+      flex-direction: column;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-content-tabs {
+      display: flex;
+      overflow-x: auto;
+      overflow-y: hidden;
+      gap: 24px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 40px;
+      width: 100%;
+      border-bottom: 1px solid #303030;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-content-tabs::-webkit-scrollbar {
+      display: none;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-content-tab {
+      color: #848484;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1;
+      padding-bottom: 25px;
+      cursor: pointer;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-content-tab.active {
+      color: #fece67;
+      font-weight: 800;
+      border-bottom: 2px solid #fece67;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-products {
+      display: none;
+      grid-template-columns: repeat({{- section.settings.prduct_num | minus: 0 -}}, 1fr);
+      grid-gap: {{ section.settings.card_gap }}px;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-products.active {
+      display: grid;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-products-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border-radius: 12px;
+      background-color: {{ section.settings.card_bg_color }};
+      background: {{ section.settings.card_background_gradient_color }};
+      padding-bottom: 36px;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 115px;
+      height: 34px;
+      /* background-color: #1c1c1c; */
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 115 34' fill='none'><path d='M0 12C0 5.37258 5.37258 0 12 0H111.581C113.7 0 115.151 2.13753 114.369 4.1071L103.753 30.8452C102.996 32.7497 101.155 34 99.1056 34H0V12Z' fill='url(%23paint0_linear_3210_260)'/><defs><linearGradient id='paint0_linear_3210_260' x1='116.264' y1='17.4994' x2='0.004933' y2='16.092' gradientUnits='userSpaceOnUse'><stop stop-color='%2308DEFF'/><stop offset='0.865' stop-color='%23FF2ACE'/></linearGradient></defs></svg>");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-label-text {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.12;
+      /* 112.5% */
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-image {
+      width: 100%;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-image img {
+      width: 100%;
+      max-width: 100%;
+      object-fit: cover;
+      aspect-ratio: 1;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-image .pc {
+      display: block;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-image .mb {
+      display: none;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-content {
+      padding: 0px 18px 0 18px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-name {
+      color: #fff;
+      color: {{ section.settings.product_title_color }};
+      text-align: left;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.25;
+      /* 125% */
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-content-bottom {
+      display: flex;
+      flex-direction: column;
+      margin-top: auto;
+      padding-top: 20px;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-price {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 15px;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-sale-price {
+      color: #ff9500;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1;
+      /* 75% */
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-original-price {
+      color: #c5c5c5;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1;
+      /* 112.5% */
+      text-decoration-line: line-through;
+    }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #000;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 1;
+      /* 0% */
+      padding: 9px 10px;
+      border-radius: 40px;
+      background: #fece67;
+      height: auto;
+    }
+    .product-card--add-to-cart-text{
+      color: #000;
+      font-size: 16px;
+  }
+    .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-button:hover {
+      color: #000;
+      background: #fece67;
+    }
+    .weekly-flash-deals-{{ section.id }} .product-flash-sale-countdown {
+      max-width: max-content;
+      background: #000;
+      border-radius: 90px;
+      margin-bottom: 40px;
+      color: #fff;
+    }
+    .weekly-flash-deals-{{ section.id }} .product-flash-sale-countdown .countdown-box>div{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+    .weekly-flash-deals-{{ section.id }} .product-flash-sale-countdown .time-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 52px;
+      min-height: 56px;
+
+      position: relative;
+      border-radius: 6px;
+      border: 1px dashed #FFF;
+    }
+    {% comment %} .weekly-flash-deals-{{ section.id }} .product-flash-sale-countdown .time-block:not(:last-child)::after {
+      content: ":";
+      position: absolute;
+      right: -2px;
+      top: 5px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #fff;
+      line-height: 1;
+    } {% endcomment %}
+    .weekly-flash-deals-{{ section.id }} .product-flash-sale-countdown .time-value {
+      /* background-color: #000; */
+      color: #fff;
+
+      border-radius: 0;
+      font-size: 24px;
+      line-height: 1;
+      margin-bottom: 8px;
+
+    }
+    .weekly-flash-deals-{{ section.id }} .product-flash-sale-countdown .time-label {
+      font-size: 12px;
+      color: #fff;
+      line-height: 1;
+    }
+    @media screen and (max-width: 768px) {
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-wrapper {
+        padding: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px 0;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-container {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-title-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-title {
+        font-size: 30px;
+        font-weight: 800;
+        line-height: 1.13;
+        margin-bottom: 12px;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-title span {
+        display: block;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-desc {
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-banner {
+        width: 100%;
+        margin-bottom: 22px;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-banner .pc {
+        display: none;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-banner .mb {
+        display: block;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-tips {
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 22px;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-tips span {
+        color: #fece67;
+        display: block;
+        margin-top: 6px;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-content {
+        display: flex;
+        flex-direction: column;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-content-tabs {
+        gap: 24px;
+        margin-bottom: 24px;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-content-tab {
+        font-size: 12px;
+        font-weight: 500;
+        padding-bottom: 12px;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-content-tab.active {
+        color: #fece67;
+        font-weight: 800;
+        border-bottom: 2px solid #fece67;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-products {
+        grid-template-columns: repeat({{- section.settings.prduct_num_mobile | minus: 0 -}}, 1fr);
+        grid-gap: {{ section.settings.card_gap_mobile }}px;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-products-card {
+        border-radius: 8px;
+        padding-bottom: 20px;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-label {
+        width: 79px;
+        height: 29px;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 79 29' fill='none'><path d='M0 8C0 3.58172 3.58172 0 8 0H75.6167C77.4242 0 78.6619 1.82319 77.9949 3.50311L68.9396 26.3091C68.2946 27.9336 66.7237 29 64.9759 29H0V8Z' fill='url(%23paint0_linear_3210_745)'/><defs><linearGradient id='paint0_linear_3210_745' x1='79.3242' y1='14.9259' x2='-0.000820435' y2='14.1578' gradientUnits='userSpaceOnUse'><stop stop-color='%2308DEFF'/><stop offset='0.865' stop-color='%23FF2ACE'/></linearGradient></defs></svg>");
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-label-text {
+        top: 8px;
+        left: 8px;
+        font-size: 10px;
+        font-weight: 800;
+        line-height: 1.12;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-image .pc {
+        display: none;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-image .mb {
+        display: block;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-content {
+        padding: 0px 10px 0 10px;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-name {
+        font-size: 12px;
+        font-weight: 800;
+        line-height: 1.3;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-content-bottom {
+        padding-top: 8px;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-price {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 16px;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-sale-price {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-original-price {
+        font-size: 10px;
+      }
+      .weekly-flash-deals-{{ section.id }} .weekly-flash-deals-product-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #000;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: 1;
+        /* 0% */
+        padding: 6px 10px;
+        border-radius: 24px;
+        background: #fece67;
+        margin:0;
+      }
+      .weekly-flash-deals-{{ section.id }} .product-flash-sale-countdown {
+        max-width: max-content;
+        background: #000;
+        border-radius: 90px;
+        margin-bottom: 22px;
+        color: #fff;
+      }
+      .weekly-flash-deals-{{ section.id }} .product-flash-sale-countdown .countdown-box>div{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+      }
+      .weekly-flash-deals-{{ section.id }} .product-flash-sale-countdown .time-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-width: 40px;
+        min-height: 42px;
+
+        position: relative;
+        border-radius: 5px;
+        border: 1px dashed #FFF;
+      }
+      {% comment %} .weekly-flash-deals-{{ section.id }} .product-flash-sale-countdown .time-block:not(:last-child)::after {
+        content: ":";
+        position: absolute;
+        right: -2px;
+        top: 5px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #fff;
+        line-height: 1;
+      } {% endcomment %}
+      .weekly-flash-deals-{{ section.id }} .product-flash-sale-countdown .time-value {
+        /* background-color: #000; */
+        color: #fff;
+
+        border-radius: 0;
+        font-size: 18px;
+        line-height: 1;
+        margin-bottom: 6px;
+
+      }
+      .weekly-flash-deals-{{ section.id }} .product-flash-sale-countdown .time-label {
+        font-size: 8px;
+        color: #fff;
+        line-height: 1;
+      }
+      .weekly-flash-deals-{{ section.id }} klarna-placement::part(osm-message) {
+        margin-left: 0;
+        font-size: 10px;
+        color: #6D6D6D;
+      }
+      .weekly-flash-deals-{{ section.id }} klarna-placement::part(osm-logo) {
+        font-size: 10px;
+      }
+      .weekly-flash-deals-{{ section.id }} klarna-placement::part(osm-cta) {
+        font-size: 10px;
+      }
+
+    }
+    /* Weekly Flash Deals 每周限时特惠 end */
+</style>
+<!-- Weekly Flash Deals 每周限时特惠 start -->
+<section
+  id="{%- if section.settings.nav_id != empty %}custom-nav-{{- section.settings.nav_id -}}{% endif -%}"
+  class="weekly-flash-deals-{{ section.id }}"
+>
+  <div class="weekly-flash-deals-wrapper">
+    <div class="weekly-flash-deals-container">
+      <div class="weekly-flash-deals-title-wrapper">
+        {%- if section.settings.title != empty -%}
+          <div class="weekly-flash-deals-title">{{ section.settings.title }}</div>
+        {%- endif -%}
+        {%- if section.settings.subtitle != empty -%}
+          <div class="weekly-flash-deals-desc">{{ section.settings.subtitle }}</div>
+        {%- endif -%}
+        <!-- 秒杀倒计时 模块 -->
+        {%- if section.settings.flash_sale_countdown != empty or section.settings.flash_sale_countdown_end != empty -%}
+          <div
+            class="product-flash-sale-countdown"
+          >
+            {%- render 'flash-sale-countdown',
+              countdown_style: 2,
+              flash_sale_countdown_date: section.settings.flash_sale_countdown,
+              flash_sale_countdown_end_date: section.settings.flash_sale_countdown_end
+            -%}
+          </div>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.promotional_image_pc -%}
+        <div class="weekly-flash-deals-banner">
+          {% assign image = section.settings.promotional_image_pc %}
+          {% assign mobile_image = section.settings.promotional_image_mb %}
+          <img
+            style="aspect-ratio: {{ image.aspect_ratio }};"
+            data-sizes="100vw"
+            data-srcset="
+              {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+              {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+              {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+              {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+              {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+              {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+              {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+              {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+              {{ image | image_url }} {{ image.width }}w
+            "
+            data-src="{{ image | image_url:width:750 }}"
+            class="pc lazyload "
+          >
+          <img
+            style="aspect-ratio: {{ mobile_image.aspect_ratio }};"
+            data-sizes="100vw"
+            data-srcset="
+              {%- if mobile_image.width >= 200 -%}{{ mobile_image | image_url: width: 200 }} 200w,{%- endif -%}
+              {%- if mobile_image.width >= 375 -%}{{ mobile_image | image_url: width: 375 }} 375w,{%- endif -%}
+              {%- if mobile_image.width >= 550 -%}{{ mobile_image | image_url: width: 550 }} 550w,{%- endif -%}
+              {%- if mobile_image.width >= 750 -%}{{ mobile_image | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if mobile_image.width >= 1100 -%}{{ mobile_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+              {%- if mobile_image.width >= 1500 -%}{{ mobile_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {%- if mobile_image.width >= 1780 -%}{{ mobile_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+              {%- if mobile_image.width >= 2000 -%}{{ mobile_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+              {%- if mobile_image.width >= 3000 -%}{{ mobile_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+              {%- if mobile_image.width >= 3840 -%}{{ mobile_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+              {{ mobile_image | image_url }} {{ mobile_image.width }}w
+            "
+            data-src="{{ mobile_image | image_url:width:750 }}"
+            class="mb lazyload "
+          >
+        </div>
+      {%- endif -%}
+      <div class="weekly-flash-deals-tips">{{ section.settings.promotional_title }}</div>
+      <div class="weekly-flash-deals-content">
+        {% assign tabs = section.blocks | where: 'type', 'tab' %}
+        <div class="weekly-flash-deals-content-tabs">
+          {%- for tab in tabs -%}
+            {% assign tab_label = tab.settings.shop_by_category_2_tab | default: 'Tab ' %}
+            {% assign tab_handle = tab.settings.tab_handle | default: tab_label | handle %}
+            <div
+              class="weekly-flash-deals-content-tab{% if forloop.first %} active{% endif %}"
+              role="tab"
+              data-category="{{ tab_handle }}"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            >
+              {{ tab_label }}
+            </div>
+          {%- endfor -%}
+        </div>
+        {% assign product_blocks = section.blocks | where: 'type', 'product' %}
+        {%- for tab in tabs -%}
+          {% assign tab_label = tab.settings.shop_by_category_2_tab | default: 'Tab ' %}
+          {% assign tab_handle = tab.settings.tab_handle | default: tab_label | handle %}
+          <div
+            class="weekly-flash-deals-products {% if forloop.first %}active{% endif %}"
+            data-category="{{ tab_handle }}"
+          >
+            {%- for block in product_blocks -%}
+              {%- liquid
+                assign current_product = block.settings.product
+                assign variant_index = block.settings.product_variant_location | default: '0' | plus: 0
+                assign variant = current_product.variants[variant_index]
+                assign product_image_pc = block.settings.product_image_pc | default: current_product.featured_image
+                assign product_image_mb = block.settings.product_image_mb | default: current_product.featured_image
+                assign title = block.settings.title | default: current_product.title
+                assign product_price = variant.metafields.custom.activity_sale_price.value | default: variant.price
+                assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: variant.compare_at_price
+                assign product_diff_price = product_origin_price | minus: product_price
+                assign product_tab_handle = block.settings.tab_handle | handle
+                assign product_tagline = block.settings.tagline
+              -%}
+              {% if product_tab_handle == tab_handle %}
+                <div class="weekly-flash-deals-products-card">
+                  {% if product_tagline != blank %}
+                    <div class="weekly-flash-deals-product-label">
+                      <div class="weekly-flash-deals-product-label-text">{{ product_tagline }}</div>
+                    </div>
+                  {% endif %}
+                  <a
+                    class="weekly-flash-deals-product-image"
+                    href="{{variant.url }}"
+                    target="_blank"
+                  >
+                    {% if product_image_pc %}
+                      <img
+                        style="aspect-ratio: {{ product_image_pc.aspect_ratio }}"
+                        class="pc lazyload"
+                        data-sizes="{{100 | divided_by: section.settings.prduct_num}}vw"
+                        data-srcset="
+                          {%- if product_image_pc.width >= 200 -%}{{ product_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                          {%- if product_image_pc.width >= 375 -%}{{ product_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                          {%- if product_image_pc.width >= 550 -%}{{ product_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if product_image_pc.width >= 750 -%}{{ product_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if product_image_pc.width >= 1100 -%}{{ product_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                          {%- if product_image_pc.width >= 1500 -%}{{ product_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                          {%- if product_image_pc.width >= 1780 -%}{{ product_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                          {%- if product_image_pc.width >= 2000 -%}{{ product_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                          {%- if product_image_pc.width >= 3000 -%}{{ product_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                          {%- if product_image_pc.width >= 3840 -%}{{ product_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                          {{ product_image_pc | image_url }} {{ product_image_pc.width }}w
+                        "
+                        data-src="{{ product_image_pc | image_url:width:750 }}"
+                        alt="{{ product_image_pc.alt }}"
+                      >
+                    {% endif %}
+                    {% if product_image_mb %}
+                      <img
+                        style="aspect-ratio: {{ product_image_mb.aspect_ratio }}"
+                        class="mb lazyload"
+                        data-sizes="{{100 | divided_by: section.settings.prduct_num_mobile}}vw"
+                        data-srcset="
+                          {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                          {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                          {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                          {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                          {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                          {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                          {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                          {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                          {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
+                        "
+                        data-src="{{ product_image_mb | image_url:width:750 }}"
+                        alt="{{ product_image_mb.alt }}"
+                      >
+                    {% endif %}
+                  </a>
+                  <div class="weekly-flash-deals-product-content">
+                    <div class="weekly-flash-deals-product-name">{{- title -}}</div>
+                    <div class="weekly-flash-deals-product-content-bottom">
+                      <div class="weekly-flash-deals-product-price">
+                        {% if product_price != blank and product_price > 0 %}
+                          <div class="weekly-flash-deals-product-sale-price">
+                            {{ product_price | money_without_trailing_zeros }}
+                          </div>
+                        {% endif %}
+                        {% if product_origin_price != blank
+                          and product_origin_price > 0
+                          and product_origin_price > product_price
+                        %}
+                          <div class="weekly-flash-deals-product-original-price">
+                            {{ product_origin_price | money_without_trailing_zeros }}
+                          </div>
+                        {% endif %}
+                      </div>
+                      {%- if section.settings.show_klarna -%}
+                        <div class="mascot-activities-product-info-klarna">
+                          {% assign klarna_id = 'shopify-block-AbFBFd0QvcXlzYkYva__klarna_on_site_messaging_app_block_gcU6LY' %}
+                          <!-- DO NOT DELETE -->
+                          <div class="klarna-osm-wrapper">
+                            <klarna-placement
+                              id="{{ klarna_id }}"
+                              data-key="credit-promotion-auto-size"
+                              data-theme="light"
+                              data-message-prefix=""
+                              data-integration-style="app-blocks"
+                              data-locale="en-US"
+                              {% if variant %}
+                                data-purchase-amount="{{ variant.price }}"
+                              {% endif %}
+                              data-preloaded="true"
+                            >
+                            </klarna-placement>
+                          </div>
+                        </div>
+                      {% endif %}
+
+                      {%- if product_tab_handle == 'coming-soon' -%}
+                        <div
+                          onclick="window.open('{{ variant.url }}', '_blank')"
+                          class="weekly-flash-deals-product-button "
+                          data-product-id="{{ variant.id }}"
+                          tabindex="-1"
+                          {% if variant.available == false %}
+                            disabled
+                          {% endif %}
+                        >
+                          <span class="product-card--add-to-cart-text">
+                            {{- 'products.product.sold_out' | t -}}
+                          </span>
+                        </div>
+                      {% elsif product_tab_handle == 'sold-out' %}
+                        <div
+                          onclick="window.open('{{ variant.url }}', '_blank')"
+                          class="weekly-flash-deals-product-button "
+                          data-product-id="{{ variant.id }}"
+                          tabindex="-1"
+                        >
+                          <span class="product-card--add-to-cart-text"> Sold Out </span>
+                        </div>
+                      {% else %}
+                        <product-card>
+                          <div
+                            class="weekly-flash-deals-product-button product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                            data-product-id="{{ variant.id }}"
+                            tabindex="-1"
+                            {% if variant.available == false %}
+                              disabled
+                            {% endif %}
+                          >
+                            {% render 'svg-icons' with 'thb-loading' %}
+                            <span class="product-card--add-to-cart-text">
+                              {%- if variant.available -%}
+                                {{ section.settings.buy_now_button_text }}
+                              {%- else -%}
+                                {{- 'products.product.sold_out' | t -}}
+                              {%- endif -%}
+                            </span>
+                          </div>
+                        </product-card>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {%- endfor -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Weekly Flash Deals 每周限时特惠 end -->
+<script>
+  function formatUtcTime(v) {
+    let date = new Date(v);
+    return (
+      date.getFullYear() +
+      '/' +
+      (date.getMonth() + 1) +
+      '/' +
+      (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+      ' ' +
+      (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+      ':' +
+      (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+      ':' +
+      (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+    );
+  }
+  $(function () {
+    if ($('.weekly-flash-deals-{{ section.id }} [data-countdown]')) {
+      $('.weekly-flash-deals-{{ section.id }} [data-countdown]').each(function () {
+        const UTCDate = $(this).data('countdown'); // 活动开始倒计时
+        const UTCDate_end = $(this).data('countdown-end'); // 活动截止倒计时
+        console.log('UTCDate-活动开始倒计时：', UTCDate);
+        console.log('UTCDate_end-活动截止倒计时：', UTCDate_end);
+        const finalDate = formatUtcTime(UTCDate);
+        const finalDate_end = formatUtcTime(UTCDate_end);
+        const finalDate1 = finalDate;
+        const finalDate2 = finalDate_end ? finalDate_end : null;
+        const timestamp = new Date(finalDate1).getTime();
+        const timestamp_end = finalDate2 ? new Date(finalDate2).getTime() : null;
+        const currentTimestamp = new Date().getTime();
+        console.log('活动开始本地时间==', finalDate);
+          console.log('活动截止本地时间==', finalDate_end);
+        let format;
+        const style = $(this).data('countdown-style');
+        console.log('活动截止本地时间==', finalDate_end);
+        if (timestamp > currentTimestamp){
+            $(this)
+            .parents('.product-flash-sale-countdown')
+            .siblings('.mascot-activities-product-info-button')
+            .children('product-card')
+            .find('.product-card--add-to-cart-text')
+            .text('Coming Soon');
+            $(this)
+            .parents('.product-flash-sale-countdown')
+            .siblings('.mascot-activities-product-info-button')
+            .children('product-card')
+            .find('.mascot-activities-product-info-button-buy-now')
+            .css({'visibility':'visible','background':'#FECF67','cursor':'not-allowed','pointer-events':'none','color':'#000'});
+            return;
+        }
+        $(this)
+            .parents('.product-flash-sale-countdown')
+            .siblings('.mascot-activities-product-info-button')
+            .children('product-card')
+            .find('.mascot-activities-product-info-button-buy-now')
+            .css({'visibility':'visible'});
+        $(this)
+          .countdown(finalDate2)
+          .on('update.countdown', function (event) {
+            if (style == 1) {
+              format = '<span>%D</span>:<span>%H</span>:<span>%M</span>:<span>%S</span>';
+            } else if (style == 2) {
+              {% comment %} format = '<span>%D<span>Days</span></span>:<span>%H<span>Hrs</span></span>:<span>%M<span>Mins</span></span>:<span>%S<span>Secs</span></span>'; {% endcomment %}
+              format = '<div class="time-block">' +
+                        '<div class="time-value">%D</div>' +
+                        '<div class="time-label">Days</div>' +
+                      '</div>' +
+                      '<div class="time-block">' +
+                        '<div class="time-value">%H</div>' +
+                        '<div class="time-label">Hrs</div>' +
+                      '</div>' +
+                      '<div class="time-block">' +
+                        '<div class="time-value">%M</div>' +
+                        '<div class="time-label">Mins</div>' +
+                      '</div>' +
+                      '<div class="time-block">' +
+                        '<div class="time-value">%S</div>' +
+                        '<div class="time-label">Secs</div>' +
+                      '</div>';
+            }
+            $(this).html(event.strftime(format));
+          })
+          .on('finish.countdown', function (event) {
+            {% comment %} $(this)
+            .parents('.super-early-bird-countdown-date').css('display', 'none') {% endcomment %}
+          });
+      });
+    }
+  });
+</script>
+<script>
+  (function () {
+    const shopByCategoryRoot = document.querySelector('.weekly-flash-deals-{{ section.id }}');
+    if (!shopByCategoryRoot) return;
+
+    const tabElements = shopByCategoryRoot.querySelectorAll('.weekly-flash-deals-content-tab');
+    const productGroups = shopByCategoryRoot.querySelectorAll('.weekly-flash-deals-products');
+
+    function showCategory(categoryHandle) {
+      productGroups.forEach(function (groupEl) {
+        if (groupEl.getAttribute('data-category') === categoryHandle) {
+          groupEl.classList.add('active');
+        } else {
+          groupEl.classList.remove('active');
+        }
+      });
+      tabElements.forEach(function (tabEl) {
+        if (tabEl.getAttribute('data-category') === categoryHandle) {
+          tabEl.classList.add('active');
+          tabEl.setAttribute('aria-selected', 'true');
+        } else {
+          tabEl.classList.remove('active');
+          tabEl.setAttribute('aria-selected', 'false');
+        }
+      });
+    }
+
+    tabElements.forEach(function (tabEl) {
+      tabEl.addEventListener('click', function () {
+        const categoryHandle = tabEl.getAttribute('data-category');
+        showCategory(categoryHandle);
+        // 移动端居中滚动
+        const tabsContainerEl = shopByCategoryRoot.querySelector('.weekly-flash-deals-content-tabs');
+        if (tabsContainerEl) {
+          const containerRect = tabsContainerEl.getBoundingClientRect();
+          const tabRect = tabEl.getBoundingClientRect();
+          const scrollLeft = tabsContainerEl.scrollLeft;
+          const tabLeft = tabRect.left - containerRect.left + scrollLeft;
+          const tabWidth = tabRect.width;
+          const containerWidth = containerRect.width;
+          const targetScrollLeft = tabLeft - (containerWidth - tabWidth) / 2;
+          tabsContainerEl.scrollTo({ left: Math.max(0, targetScrollLeft), behavior: 'smooth' });
+        }
+      });
+    });
+
+    // 初始化
+    const firstActiveTab = shopByCategoryRoot.querySelector('.weekly-flash-deals-content-tab.active');
+    if (firstActiveTab) {
+      showCategory(firstActiveTab.getAttribute('data-category'));
+    } else if (tabElements.length > 0) {
+      showCategory(tabElements[0].getAttribute('data-category'));
+    }
+  })();
+</script>
+{% schema %}
+{
+  "name": "black friday products 2",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "default": "weekly-flash-deals",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题",
+      "default": "<div>Weekly <span>Flash Deals</span></div>"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题",
+      "default": "<div>November 1st - November 23rd</div>"
+    },
+    {
+      "type": "html",
+      "id": "promotional_title",
+      "label": "宣传标题",
+      "default": "<div>Consumables deal weekly — <span>only 100 each, first come, first served!</span></div>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_klarna",
+      "label": "显示klarna横幅",
+      "default": false
+    },
+
+    {
+      "type": "text",
+      "id": "learn_more_button_text",
+      "label": "查看更多按钮文案配置",
+      "default": "Learn More"
+    },
+    {
+      "type": "text",
+      "id": "buy_now_button_text",
+      "label": "购买按钮文案配置",
+      "default": "Buy Now"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_flash_sale_countdown",
+      "label": "显示秒杀倒计时",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "promotional_image_pc",
+      "label": "宣传图 (PC 图片，留空则用产品图)"
+    },
+    {
+      "type": "image_picker",
+      "id": "promotional_image_mb",
+      "label": "宣传图 (移动端图片，留空则用产品图)"
+    },
+    {
+      "type": "text",
+      "id": "flash_sale_countdown",
+      "label": "活动开始时间",
+      "info": "活动开始时间，格式为：2024-10-10T15:00:00+08:00"
+    },
+    {
+      "type": "text",
+      "id": "flash_sale_countdown_end",
+      "label": "活动截止时间",
+      "info": "活动截止时间，格式为：2024-10-24T15:00:00+08:00"
+    },
+    {
+      "type": "radio",
+      "id": "prduct_num",
+      "label": "每行展示产品个数(PC端默认4个)",
+      "options": [
+        {
+          "value": "2",
+          "label": "2个"
+        },
+        {
+          "value": "3",
+          "label": "3个"
+        },
+        {
+          "value": "4",
+          "label": "4个"
+        },
+        {
+          "value": "5",
+          "label": "5个"
+        },
+        {
+          "value": "6",
+          "label": "6个"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "radio",
+      "id": "prduct_num_mobile",
+      "label": "每行展示产品个数(移动端默认2个)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1个"
+        },
+        {
+          "value": "2",
+          "label": "2个"
+        },
+        {
+          "value": "3",
+          "label": "3个"
+        },
+        {
+          "value": "4",
+          "label": "4个"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "产品标题字体颜色",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "卡片容器背景色",
+      "default": "#171717"
+    },
+    {
+      "type": "color_background",
+      "id": "card_background_gradient_color",
+      "label": "卡片容器渐变背景色"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片间隔",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_gap_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片间隔（移动端）",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "shop_by_category_2_tab",
+          "label": "shop-by-category-2-tab (标签名称)",
+          "default": "On Sale"
+        },
+        {
+          "type": "text",
+          "id": "tab_handle",
+          "label": "Tab handle (用于关联，留空则自动)",
+          "info": "产品块的 tab_handle 必须与此处一致（或自动由名称生成的 handle）。"
+        }
+      ]
+    },
+    {
+      "name": "product",
+      "type": "product",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_handle",
+          "label": "关联的 Tab handle",
+          "info": "输入需要归属的 Tab 的 handle（与标签块的 handle 相同）。"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "选择产品",
+          "info": "备注：产品原价字段配置：当前产品对应的变体元字段activity original price；产品售价字段配置：当前产品对应的变体元字段activity sale price；"
+        },
+        {
+          "type": "radio",
+          "id": "product_variant_location",
+          "label": "产品变体",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体"
+            }
+          ],
+          "default": "0",
+          "info": "查看对应产品后台，选择对应的变体所在位置，从上到下依次排序"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "产品标题",
+          "info": "默认产品标题"
+        },
+        {
+          "type": "text",
+          "id": "tagline",
+          "label": "自定义标签",
+          "default": "Limited 100"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image_pc",
+          "label": "产品主图（PC端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image_mb",
+          "label": "产品主图(移动端)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [
+    {
+      "name": "black friday products 2",
+      "blocks": [
+        { "type": "tab", "settings": { "shop_by_category_2_tab": "On Sale", "tab_handle": "on-sale" } },
+        { "type": "tab", "settings": { "shop_by_category_2_tab": "Coming Soon", "tab_handle": "coming-soon" } },
+        { "type": "tab", "settings": { "shop_by_category_2_tab": "Sold Out", "tab_handle": "sold-out" } },
+        {
+          "type": "product",
+          "settings": {
+            "tab_handle": "on-sale"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "tab_handle": "on-sale"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "tab_handle": "on-sale"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "tab_handle": "on-sale"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

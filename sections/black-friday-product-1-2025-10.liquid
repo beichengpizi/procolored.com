@@ -1,0 +1,1337 @@
+<style>
+    /* star-products-wrapper start */
+  .star-products-{{ section.id }}  .star-products-wrapper {
+      background-color: #000;
+      padding-top: 0px;
+      padding-bottom: 0px;
+      background-color: {{ section.settings.bg_color }};
+      padding: {{ section.settings.padding_top }}px 0px {{ section.settings.padding_bottom }}px 0px;
+    }
+
+    .star-products-{{ section.id }}  .star-products-container {
+      max-width: 1232px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .star-products-{{ section.id }}  .star-products-title-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .star-products-{{ section.id }}  .star-products-title {
+      color: #fece67;
+      text-align: center;
+
+      font-size: 40px;
+
+      font-weight: 800;
+      line-height: 1.5;
+      /* 150% */
+      margin-bottom: 24px;
+    }
+
+    .star-products-{{ section.id }}  .star-products-subtitle {
+      color: #fff;
+      text-align: center;
+
+      font-size: 22px;
+
+      font-weight: 400;
+      line-height: 1;
+      /* 272.727% */
+      margin-bottom: 24px;
+    }
+
+    .star-products-{{ section.id }}  .star-products-desc {
+      color: #fff;
+      text-align: center;
+      max-width: 650px;
+      font-size: 24px;
+
+      font-weight: 800;
+      line-height: 1.16;
+      margin-bottom: 24px;
+    }
+
+    .star-products-{{ section.id }}  .star-products-desc .star-products-desc-key {
+      display: block;
+      color: #fece67;
+    }
+
+    .star-products-{{ section.id }}  .star-products-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .star-products-{{ section.id }}  .star-products-products {
+      display: grid;
+      grid-template-columns: repeat({{- section.settings.prduct_num | minus: 0 -}}, 1fr);
+      grid-gap: {{ section.settings.card_gap }}px;
+    }
+
+    .star-products-{{ section.id }}  .star-products-products-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border-radius: 16px;
+      padding-bottom: 20px;
+      background-color: {{ section.settings.card_bg_color }};
+      background: {{ section.settings.card_background_gradient_color }};
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 177px;
+      height: 34px;
+      /* background-color: #1c1c1c; */
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 177 34' fill='none'><path d='M0 12C0 5.37258 5.37258 0 12 0H173.581C175.7 0 177.151 2.13753 176.369 4.1071L165.753 30.8452C164.996 32.7497 163.155 34 161.106 34H0V12Z' fill='url(%23paint0_linear_3210_385)'/><defs><linearGradient id='paint0_linear_3210_385' x1='179.173' y1='17.4994' x2='0.0436916' y2='14.1575' gradientUnits='userSpaceOnUse'><stop stop-color='%2308DEFF'/><stop offset='0.865' stop-color='%23FF2ACE'/></linearGradient></defs></svg>");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-label-discount {
+      position: absolute;
+      top: 0;
+      right: 16px;
+      width: 56px;
+      height: 43px;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='56' height='43' viewBox='0 0 56 43' fill='none'><path d='M0 0V26.7877C0 28.768 1.13069 30.5774 2.9178 31.453L25.4354 42.4664C26.8891 43.1779 28.5903 43.1779 30.0406 42.4664L52.5582 31.453C54.3453 30.5808 55.476 28.7715 55.476 26.7877V0H0Z' fill='url(%23paint0_linear_3210_381)'/><defs><linearGradient id='paint0_linear_3210_381' x1='55.476' y1='48.8688' x2='5.47437' y2='1.18798' gradientUnits='userSpaceOnUse'><stop offset='0.14626' stop-color='%23FFEFC8'/><stop offset='0.752721' stop-color='%23FECE67'/></linearGradient></defs></svg>");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-label-discount-text {
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #3c2a04;
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      align-items: center;
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-label-discount-text-value {
+      font-size: 14px;
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-label-text {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      color: #fff;
+
+      font-size: 14px;
+
+      font-weight: 800;
+      line-height: 1;
+      /* 112.5% */
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-image {
+      width: 100%;
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-image img {
+      width: 100%;
+      max-width: 100%;
+      object-fit: cover;
+      aspect-ratio: 1;
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-image .pc {
+      display: block;
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-image .mb {
+      display: none;
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-content {
+      padding: 0px 16px 0 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-name {
+      color: {{ section.settings.product_title_color }};
+      text-align: left;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.25;
+
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-tips {
+      color: #fff;
+
+      font-size: 12px;
+
+      font-weight: 400;
+      line-height: 1.33;
+      padding-top: 10px;
+      /* 133.333% */
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-content-bottom {
+      display: flex;
+      flex-direction: column;
+      margin-top: auto;
+      padding-top: 10px;
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-price {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-sale-price {
+      color: #ff9500;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1;
+      /* 75% */
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-original-price {
+      color: #848484;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1;
+      /* 112.5% */
+
+      text-decoration-line: line-through;
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-button-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-button-add-to-cart,
+    .star-products-{{ section.id }}  .star-products-product-button-view-more {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #000;
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1;
+      /* 0% */
+      padding: 10px 10px;
+      border-radius: 40px;
+      margin:0;
+      height: auto;
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-button-add-to-cart {
+      background: #fece67;
+    }
+
+    .star-products-{{ section.id }}  .star-products-product-button-view-more {
+      font-weight: 500;
+      color: #fece67;
+      border: 1px solid #fece67;
+      padding: 9px 10px;
+    }
+    .star-products-{{ section.id }}  .product-card--add-to-cart-text{
+      color: #000;
+      font-size: 18px;
+  }
+  .star-products-{{ section.id }} .star-products-product-button-add-to-cart:hover {
+      color: #000;
+      background: #fece67;
+    }
+    .star-products-{{ section.id }} .star-products-product-button-view-more:hover {
+      color: #fece67;
+      background: transparent;
+    }
+    .star-products-{{ section.id }} .product-flash-sale-countdown {
+      max-width: max-content;
+      background: #000;
+      border-radius: 90px;
+      margin-bottom: 40px;
+      color: #fff;
+    }
+    .star-products-{{ section.id }} .product-flash-sale-countdown .countdown-box>div{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+    .star-products-{{ section.id }} .product-flash-sale-countdown .time-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 52px;
+      min-height: 56px;
+
+      position: relative;
+      border-radius: 6px;
+      border: 1px dashed #FFF;
+    }
+    {% comment %} .star-products-{{ section.id }} .product-flash-sale-countdown .time-block:not(:last-child)::after {
+      content: ":";
+      position: absolute;
+      right: -2px;
+      top: 5px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #fff;
+      line-height: 1;
+    } {% endcomment %}
+    .star-products-{{ section.id }} .product-flash-sale-countdown .time-value {
+      /* background-color: #000; */
+      color: #fff;
+
+      border-radius: 0;
+      font-size: 24px;
+      line-height: 1;
+      margin-bottom: 8px;
+
+    }
+    .star-products-{{ section.id }} .product-flash-sale-countdown .time-label {
+      font-size: 12px;
+      color: #fff;
+      line-height: 1;
+    }
+
+    @media screen and (max-width: 768px) {
+      .star-products-{{ section.id }}  .star-products-wrapper {
+        padding: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px 0;
+      }
+
+      .star-products-{{ section.id }}  .star-products-container {
+        max-width: 100%;
+      }
+
+      .star-products-{{ section.id }}  .star-products-title {
+        font-size: 30px;
+
+        font-weight: 800;
+        line-height: 1.12;
+        /* 150% */
+        margin-bottom: 12px;
+      }
+
+      .star-products-{{ section.id }}  .star-products-subtitle {
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+
+      .star-products-{{ section.id }}  .star-products-desc {
+        font-size: 16px;
+        font-weight: 800;
+        margin-bottom: 12px;
+        max-width: 100%;
+        line-height: 1.3;
+      }
+
+      .star-products-{{ section.id }} .star-products-desc .star-products-desc-key {
+        display: inline;
+      }
+
+      .star-products-{{ section.id }}  .star-products-content {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .star-products-{{ section.id }}  .star-products-products {
+        display: grid;
+        grid-template-columns: repeat({{- section.settings.prduct_num_mobile | minus: 0 -}}, 1fr);
+        grid-gap: {{ section.settings.card_gap_mobile }}px;
+      }
+
+      .star-products-{{ section.id }}  .star-products-products-card {
+        border-radius: 8px;
+        padding-bottom: 20px;
+      }
+
+      .star-products-{{ section.id }}  .star-products-product-label {
+        width: 86px;
+        height: 39px;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 86 39' fill='none'><path d='M0 8C0 3.58172 3.58172 0 8 0H82.6167C84.4242 0 85.6619 1.82319 84.9949 3.50311L68.9396 36.3091C68.2946 37.9336 66.7237 39 64.9759 39H0V8Z' fill='url(%23paint0_linear_3210_934)'/><defs><linearGradient id='paint0_linear_3210_934' x1='86.4268' y1='20.0728' x2='-0.00367863' y2='19.3947' gradientUnits='userSpaceOnUse'><stop stop-color='%2308DEFF'/><stop offset='0.865' stop-color='%23FF2ACE'/></linearGradient></defs></svg>");
+      }
+
+      .star-products-{{ section.id }}  .star-products-product-label-discount {
+        position: absolute;
+        top: 0;
+        right: 10px;
+        width: 44px;
+        height: 34px;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 44 34' fill='none'><path d='M0 0V21.181C0 22.7468 0.894034 24.1775 2.3071 24.8698L20.1117 33.5781C21.2612 34.1406 22.6063 34.1406 23.7531 33.5781L41.5577 24.8698C42.9707 24.1802 43.8648 22.7495 43.8648 21.181V0H0Z' fill='url(%23paint0_linear_3210_937)'/><defs><linearGradient id='paint0_linear_3210_937' x1='43.8648' y1='38.6404' x2='4.32858' y2='0.939331' gradientUnits='userSpaceOnUse'><stop offset='0.14626' stop-color='%23FFEFC8'/><stop offset='0.752721' stop-color='%23FECE67'/></linearGradient></defs></svg>");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100% 100%;
+      }
+
+      .star-products-{{ section.id }}  .star-products-product-label-discount-text {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #3c2a04;
+        font-size: 6px;
+        font-weight: 800;
+        line-height: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        align-items: center;
+      }
+
+      .star-products-{{ section.id }}  .star-products-product-label-discount-text-value {
+        font-size: 12px;
+      }
+
+      .star-products-{{ section.id }}  .star-products-product-label-text {
+        left: 8px;
+        font-size: 10px;
+        font-weight: 800;
+        line-height: 1.4;
+        text-align: left;
+      }
+
+      .star-products-{{ section.id }}  .star-products-product-label-text span {
+        display: block;
+      }
+
+      .star-products-{{ section.id }}  .star-products-product-image .pc {
+        display: none;
+      }
+
+      .star-products-{{ section.id }}   .star-products-product-image .mb {
+        display: block;
+      }
+
+      .star-products-{{ section.id }}  .star-products-product-content {
+        padding: 0px 10px 0 10px;
+      }
+
+      .star-products-{{ section.id }}  .star-products-product-name {
+        font-size: 12px;
+        font-weight: 800;
+        line-height: 1.3;
+
+      }
+
+      .star-products-{{ section.id }}  .star-products-product-tips {
+        color: #fff;
+
+        font-size: 10px;
+
+        font-weight: 400;
+        line-height: 1.4;
+        padding-top: 10px;
+        /* 133.333% */
+      }
+
+      .star-products-{{ section.id }} .star-products-product-content-bottom {
+        padding-top: 10px;
+      }
+
+      .star-products-{{ section.id }}  .star-products-product-price {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 10px;
+      }
+
+      .star-products-{{ section.id }}  .star-products-product-sale-price {
+        font-size: 18px;
+        font-weight: 800;
+      }
+
+      .star-products-{{ section.id }}  .star-products-product-original-price {
+        font-size: 12px;
+      }
+
+      .star-products-{{ section.id }}  .star-products-product-button-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+      }
+
+      .star-products-{{ section.id }} .star-products-product-button-add-to-cart,
+      .star-products-{{ section.id }} .star-products-product-button-view-more {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #000;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 1;
+        /* 0% */
+        padding: 8px 10px;
+        border-radius: 40px;
+        margin:0;
+      }
+
+      .star-products-{{ section.id }}  .star-products-product-button-add-to-cart {
+        background: #fece67;
+      }
+
+      .star-products-{{ section.id }}  .star-products-product-button-view-more {
+        font-weight: 500;
+        color: #fece67;
+        border: 1px solid #fece67;
+        padding: 7px 10px;
+      }
+      .star-products-{{ section.id }} .product-flash-sale-countdown {
+          max-width: max-content;
+          background: #000;
+          border-radius: 90px;
+          margin-bottom: 22px;
+          color: #fff;
+        }
+        .star-products-{{ section.id }} .product-flash-sale-countdown .countdown-box>div{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .star-products-{{ section.id }} .product-flash-sale-countdown .time-block {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-width: 40px;
+          min-height: 42px;
+
+          position: relative;
+          border-radius: 5px;
+          border: 1px dashed #FFF;
+        }
+        {% comment %} .star-products-{{ section.id }} .product-flash-sale-countdown .time-block:not(:last-child)::after {
+          content: ":";
+          position: absolute;
+          right: -2px;
+          top: 5px;
+          font-size: 20px;
+          font-weight: bold;
+          color: #fff;
+          line-height: 1;
+        } {% endcomment %}
+        .star-products-{{ section.id }} .product-flash-sale-countdown .time-value {
+          /* background-color: #000; */
+          color: #fff;
+
+          border-radius: 0;
+          font-size: 18px;
+          line-height: 1;
+          margin-bottom: 6px;
+
+        }
+        .star-products-{{ section.id }} .product-flash-sale-countdown .time-label {
+          font-size: 8px;
+          color: #fff;
+          line-height: 1;
+        }
+    }
+
+    /* star-products-wrapper end */
+</style>
+<style>
+  /* star products banner start */
+  .star-products-banner-wrapper {
+    background: #171717;
+    margin-bottom: 60px;
+    padding: 20px 24px;
+  }
+
+  .star-products-banner-containner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .star-products-banner-content {
+    width: 43.3%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .star-products-banner-content-tips {
+    color: #fff;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.28;
+    margin-bottom: 10px;
+  }
+
+  .star-products-banner-content-title {
+    color: #fff;
+    width: 100%;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1.12;
+  }
+
+  .star-products-banner-img {
+    width: 38.75%;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .star-products-banner-img .pc {
+    display: block;
+  }
+  .star-products-banner-img .mb {
+    display: none;
+  }
+  .star-products-banner-img img {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  @media screen and (max-width: 768px) {
+    .star-products-banner-wrapper {
+      background: #171717;
+      margin-bottom: 16px;
+      padding: 40px 16px 16px 16px;
+    }
+
+    .star-products-banner-containner {
+      max-width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      gap: 20px;
+    }
+
+    .star-products-banner-content {
+      width: 100%;
+      align-items: center;
+    }
+
+    .star-products-banner-content-tips {
+      font-size: 14px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .star-products-banner-content-title {
+      text-align: center;
+      font-size: 20px;
+      line-height: 1.4;
+    }
+
+    .star-products-banner-img {
+      width: 100%;
+      border-radius: 5px;
+    }
+    .star-products-banner-img .pc {
+      display: none;
+    }
+    .star-products-banner-img .mb {
+      display: block;
+    }
+  }
+
+  /* star products banner end*/
+</style>
+<!-- Star Products start -->
+<section
+  id="{%- if section.settings.nav_id != empty %}custom-nav-{{- section.settings.nav_id -}}{% endif -%}"
+  class="star-products-{{ section.id }}"
+>
+  <div class="star-products-wrapper">
+    <div class="star-products-title-wrapper">
+      {%- if section.settings.title != empty -%}
+        <div class="star-products-title">{{ section.settings.title }}</div>
+      {%- endif -%}
+      {%- if section.settings.subtitle != empty -%}
+        <div class="star-products-subtitle">{{ section.settings.subtitle }}</div>
+      {%- endif -%}
+      {%- if section.settings.desc != empty -%}
+        <div class="star-products-desc">{{ section.settings.desc }}</div>
+      {%- endif -%}
+      <!-- 秒杀倒计时 模块 -->
+      {%- if section.settings.flash_sale_countdown != empty or section.settings.flash_sale_countdown_end != empty -%}
+        <div
+          class="product-flash-sale-countdown"
+        >
+          {%- render 'flash-sale-countdown',
+            countdown_style: 2,
+            flash_sale_countdown_date: section.settings.flash_sale_countdown,
+            flash_sale_countdown_end_date: section.settings.flash_sale_countdown_end
+          -%}
+        </div>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.show_product_banner -%}
+      <!-- star products banner  start -->
+      <div class="star-products-banner-wrapper">
+        <div class="star-products-banner-containner">
+          <div class="star-products-banner-content">
+            {%- if section.settings.product_banner_tips != empty -%}
+              <div class="star-products-banner-content-tips">{{ section.settings.product_banner_tips }}</div>
+            {%- endif -%}
+            {%- if section.settings.product_banner_title != empty -%}
+              <div class="star-products-banner-content-title">
+                {{ section.settings.product_banner_title }}
+              </div>
+            {%- endif -%}
+          </div>
+          <div class="star-products-banner-img">
+            {% assign product_banner_image_pc = section.settings.product_banner_image_pc %}
+            {% assign product_banner_image_mb = section.settings.product_banner_image_mb %}
+            {% if product_banner_image_pc %}
+              <img
+                style="aspect-ratio: {{ product_banner_image_pc.aspect_ratio }}"
+                class="pc lazyload"
+                data-sizes="50vw"
+                data-srcset="
+                  {%- if product_banner_image_pc.width >= 200 -%}{{ product_banner_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 375 -%}{{ product_banner_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 550 -%}{{ product_banner_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 750 -%}{{ product_banner_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 1100 -%}{{ product_banner_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 1500 -%}{{ product_banner_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 1780 -%}{{ product_banner_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 2000 -%}{{ product_banner_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 3000 -%}{{ product_banner_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 3840 -%}{{ product_banner_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                  {{ product_banner_image_pc | image_url }} {{ product_banner_image_pc.width }}w
+                "
+                data-src="{{ product_banner_image_pc | image_url:width:750 }}"
+                alt="{{ product_banner_image_pc.alt }}"
+              >
+            {% endif %}
+            {% if product_banner_image_mb %}
+              <img
+                style="aspect-ratio: {{ product_banner_image_mb.aspect_ratio }}"
+                class="mb lazyload"
+                data-sizes="100vw"
+                data-srcset="
+                  {%- if product_banner_image_mb.width >= 200 -%}{{ product_banner_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 375 -%}{{ product_banner_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 550 -%}{{ product_banner_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 750 -%}{{ product_banner_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 1100 -%}{{ product_banner_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 1500 -%}{{ product_banner_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 1780 -%}{{ product_banner_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 2000 -%}{{ product_banner_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 3000 -%}{{ product_banner_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 3840 -%}{{ product_banner_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                  {{ product_banner_image_mb | image_url }} {{ product_banner_image_mb.width }}w
+                "
+                data-src="{{ product_banner_image_mb | image_url:width:750 }}"
+                alt="{{ product_banner_image_mb.alt }}"
+              >
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <!-- star products banner  end -->
+    {% endif %}
+    <div class="star-products-container">
+      <div class="star-products-content">
+        <div class="star-products-products">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign current_product = block.settings.product
+              assign variant_index = block.settings.product_variant_location | default: '0' | plus: 0
+              assign variant = current_product.variants[variant_index]
+              assign product_image_pc = block.settings.product_image_pc | default: current_product.featured_image
+              assign product_image_mb = block.settings.product_image_mb | default: current_product.featured_image
+              assign title = block.settings.title | default: current_product.title
+              assign features = block.settings.features
+              assign product_price = variant.metafields.custom.activity_sale_price.value | default: variant.price
+              assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: variant.compare_at_price
+              assign product_diff_price = product_origin_price | minus: product_price
+              assign product_tagline = block.settings.tagline
+            -%}
+            {%- if current_product -%}
+              <div class="star-products-products-card">
+                <div class="star-products-product-label">
+                  {% if product_tagline != blank %}
+                    <div class="star-products-product-label-text">{{- product_tagline -}}</div>
+                  {% endif %}
+                </div>
+                {% if product_diff_price != blank
+                  and product_diff_price > 0
+                  and product_price > 0
+                  and product_origin_price > 0
+                %}
+                  <div class="star-products-product-label-discount">
+                    <div class="star-products-product-label-discount-text">
+                      <span class="star-products-product-label-discount-text-value">
+                        {{- product_diff_price | money_without_trailing_zeros -}}
+                      </span>
+                      <span class="star-products-product-label-discount-text-unit">SAVE</span>
+                    </div>
+                  </div>
+                {% endif %}
+                <a
+                  class="star-products-product-image"
+                  href="{{variant.url }}"
+                  target="_blank"
+                >
+                  {% if product_image_pc %}
+                    <img
+                      style="aspect-ratio: {{ product_image_pc.aspect_ratio }}"
+                      class="pc lazyload"
+                      data-sizes="{{100 | divided_by: section.settings.prduct_num}}vw"
+                      data-srcset="
+                        {%- if product_image_pc.width >= 200 -%}{{ product_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                        {%- if product_image_pc.width >= 375 -%}{{ product_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                        {%- if product_image_pc.width >= 550 -%}{{ product_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                        {%- if product_image_pc.width >= 750 -%}{{ product_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                        {%- if product_image_pc.width >= 1100 -%}{{ product_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                        {%- if product_image_pc.width >= 1500 -%}{{ product_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                        {%- if product_image_pc.width >= 1780 -%}{{ product_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                        {%- if product_image_pc.width >= 2000 -%}{{ product_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                        {%- if product_image_pc.width >= 3000 -%}{{ product_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                        {%- if product_image_pc.width >= 3840 -%}{{ product_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                        {{ product_image_pc | image_url }} {{ product_image_pc.width }}w
+                      "
+                      data-src="{{ product_image_pc | image_url:width:750 }}"
+                      alt="{{ product_image_pc.alt }}"
+                    >
+                  {% endif %}
+                  {% if product_image_mb %}
+                    <img
+                      style="aspect-ratio: {{ product_image_mb.aspect_ratio }}"
+                      class="mb lazyload"
+                      data-sizes="{{100 | divided_by: section.settings.prduct_num_mobile}}vw"
+                      data-srcset="
+                        {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                        {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                        {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                        {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                        {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                        {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                        {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                        {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                        {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                        {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                        {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
+                      "
+                      data-src="{{ product_image_mb | image_url:width:750 }}"
+                      alt="{{ product_image_mb.alt }}"
+                    >
+                  {% endif %}
+                </a>
+                <div class="star-products-product-content">
+                  <div class="star-products-product-name">{{- title -}}</div>
+                  {%- if section.settings.features != empty -%}
+                    <div class="star-products-product-tips">{{- features -}}</div>
+                  {% endif %}
+                  <div class="star-products-product-content-bottom">
+                    <div class="star-products-product-price">
+                      {% if product_price != blank and product_price > 0 %}
+                        <div class="star-products-product-sale-price">
+                          {{ product_price | money_without_trailing_zeros }}
+                        </div>
+                      {% endif %}
+                      {% if product_origin_price != blank
+                        and product_origin_price > 0
+                        and product_origin_price > product_price
+                      %}
+                        <div class="star-products-product-original-price">
+                          {{ product_origin_price | money_without_trailing_zeros }}
+                        </div>
+                      {% endif %}
+                    </div>
+                    {%- if section.settings.show_klarna -%}
+                      <div class="mascot-activities-product-info-klarna">
+                        {% assign klarna_id = 'shopify-block-AbFBFd0QvcXlzYkYva__klarna_on_site_messaging_app_block_gcU6LY' %}
+                        <!-- DO NOT DELETE -->
+                        <div class="klarna-osm-wrapper">
+                          <klarna-placement
+                            id="{{ klarna_id }}"
+                            data-key="credit-promotion-auto-size"
+                            data-theme="light"
+                            data-message-prefix=""
+                            data-integration-style="app-blocks"
+                            data-locale="en-US"
+                            {% if variant %}
+                              data-purchase-amount="{{ variant.price }}"
+                            {% endif %}
+                            data-preloaded="true"
+                          >
+                          </klarna-placement>
+                        </div>
+                      </div>
+                    {% endif %}
+                    <div class="star-products-product-button-wrapper">
+                      <product-card>
+                        <div
+                          class="star-products-product-button-add-to-cart product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                          data-product-id="{{ variant.id }}"
+                          tabindex="-1"
+                          {% if variant.available == false %}
+                            disabled
+                          {% endif %}
+                        >
+                          {% render 'svg-icons' with 'thb-loading' %}
+                          <span class="product-card--add-to-cart-text">
+                            {%- if variant.available -%}
+                              {%- if section.settings.buy_now_button_text != empty -%}
+                                {{ section.settings.buy_now_button_text }}
+                              {%- else -%}
+                                {%- if product_diff_price > 0 -%}
+                                  Save
+                                  {{ product_diff_price | money_without_trailing_zeros -}}
+                                {%- else -%}
+                                  Buy Now
+                                {%- endif -%}
+                              {%- endif -%}
+                            {%- else -%}
+                              {{- 'products.product.sold_out' | t -}}
+                            {%- endif -%}
+                          </span>
+                        </div>
+                      </product-card>
+                      <div
+                        class="star-products-product-button-view-more"
+                        onclick="window.open('{{variant.url }}','_blank');"
+                      >
+                        {{ section.settings.learn_more_button_text }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Star Products end -->
+<script>
+  function formatUtcTime(v) {
+    let date = new Date(v);
+    return (
+      date.getFullYear() +
+      '/' +
+      (date.getMonth() + 1) +
+      '/' +
+      (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+      ' ' +
+      (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+      ':' +
+      (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+      ':' +
+      (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+    );
+  }
+  $(function () {
+    if ($('.star-products-{{ section.id }} [data-countdown]')) {
+      $('.star-products-{{ section.id }} [data-countdown]').each(function () {
+        const UTCDate = $(this).data('countdown'); // 活动开始倒计时
+        const UTCDate_end = $(this).data('countdown-end'); // 活动截止倒计时
+        console.log('UTCDate-活动开始倒计时：', UTCDate);
+        console.log('UTCDate_end-活动截止倒计时：', UTCDate_end);
+        const finalDate = formatUtcTime(UTCDate);
+        const finalDate_end = formatUtcTime(UTCDate_end);
+        const finalDate1 = finalDate;
+        const finalDate2 = finalDate_end ? finalDate_end : null;
+        const timestamp = new Date(finalDate1).getTime();
+        const timestamp_end = finalDate2 ? new Date(finalDate2).getTime() : null;
+        const currentTimestamp = new Date().getTime();
+        console.log('活动开始本地时间==', finalDate);
+          console.log('活动截止本地时间==', finalDate_end);
+        let format;
+        const style = $(this).data('countdown-style');
+        console.log('活动截止本地时间==', finalDate_end);
+        if (timestamp > currentTimestamp){
+            $(this)
+            .parents('.product-flash-sale-countdown')
+            .siblings('.mascot-activities-product-info-button')
+            .children('product-card')
+            .find('.product-card--add-to-cart-text')
+            .text('Coming Soon');
+            $(this)
+            .parents('.product-flash-sale-countdown')
+            .siblings('.mascot-activities-product-info-button')
+            .children('product-card')
+            .find('.mascot-activities-product-info-button-buy-now')
+            .css({'visibility':'visible','background':'#FECF67','cursor':'not-allowed','pointer-events':'none','color':'#000'});
+            return;
+        }
+        $(this)
+            .parents('.product-flash-sale-countdown')
+            .siblings('.mascot-activities-product-info-button')
+            .children('product-card')
+            .find('.mascot-activities-product-info-button-buy-now')
+            .css({'visibility':'visible'});
+        $(this)
+          .countdown(finalDate2)
+          .on('update.countdown', function (event) {
+            if (style == 1) {
+              format = '<span>%D</span>:<span>%H</span>:<span>%M</span>:<span>%S</span>';
+            } else if (style == 2) {
+              {% comment %} format = '<span>%D<span>Days</span></span>:<span>%H<span>Hrs</span></span>:<span>%M<span>Mins</span></span>:<span>%S<span>Secs</span></span>'; {% endcomment %}
+              format = '<div class="time-block">' +
+                        '<div class="time-value">%D</div>' +
+                        '<div class="time-label">Days</div>' +
+                      '</div>' +
+                      '<div class="time-block">' +
+                        '<div class="time-value">%H</div>' +
+                        '<div class="time-label">Hrs</div>' +
+                      '</div>' +
+                      '<div class="time-block">' +
+                        '<div class="time-value">%M</div>' +
+                        '<div class="time-label">Mins</div>' +
+                      '</div>' +
+                      '<div class="time-block">' +
+                        '<div class="time-value">%S</div>' +
+                        '<div class="time-label">Secs</div>' +
+                      '</div>';
+            }
+            $(this).html(event.strftime(format));
+          })
+          .on('finish.countdown', function (event) {
+            {% comment %} $(this)
+            .parents('.super-early-bird-countdown-date').css('display', 'none') {% endcomment %}
+          });
+      });
+    }
+  });
+</script>
+{% schema %}
+{
+  "name": "black friday products 1",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "default": "star-products",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题",
+      "default": "<div>Unlock Early Offers</div>"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题",
+      "default": "<div>November 1st - November 23rd</div>"
+    },
+    {
+      "type": "html",
+      "id": "desc",
+      "label": "描述",
+      "default": "<div>Be the first to grab the doorbuster! Secure your Printer &amp; Oven bundle now at an exclusive early-bird price. <span class=\"star-products-desc-key\">Save up to $900 and get random gifts</span></div>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_klarna",
+      "label": "显示klarna横幅",
+      "default": false
+    },
+
+    {
+      "type": "text",
+      "id": "learn_more_button_text",
+      "label": "查看更多按钮文案配置",
+      "default": "View More"
+    },
+    {
+      "type": "text",
+      "id": "buy_now_button_text",
+      "label": "购买按钮文案配置",
+      "default": "Buy Now"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_flash_sale_countdown",
+      "label": "显示秒杀倒计时",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "flash_sale_countdown",
+      "label": "活动开始时间",
+      "info": "活动开始时间，格式为：2024-10-10T15:00:00+08:00"
+    },
+    {
+      "type": "text",
+      "id": "flash_sale_countdown_end",
+      "label": "活动截止时间",
+      "info": "活动截止时间，格式为：2024-10-24T15:00:00+08:00"
+    },
+    {
+      "type": "header",
+      "content": "产品横幅设置"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_banner",
+      "label": "显示产品横幅",
+      "default": false
+    },
+    {
+      "type": "html",
+      "id": "product_banner_tips",
+      "label": "产品横幅小标题"
+    },
+    {
+      "type": "html",
+      "id": "product_banner_title",
+      "label": "产品横幅主标题"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_banner_image_pc",
+      "label": "产品横幅主图（PC端）"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_banner_image_mb",
+      "label": "产品横幅主图(移动端)"
+    },
+    {
+      "type": "radio",
+      "id": "prduct_num",
+      "label": "每行展示产品个数(PC端默认4个)",
+      "options": [
+        {
+          "value": "2",
+          "label": "2个"
+        },
+        {
+          "value": "3",
+          "label": "3个"
+        },
+        {
+          "value": "4",
+          "label": "4个"
+        },
+        {
+          "value": "5",
+          "label": "5个"
+        },
+        {
+          "value": "6",
+          "label": "6个"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "radio",
+      "id": "prduct_num_mobile",
+      "label": "每行展示产品个数(移动端默认2个)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1个"
+        },
+        {
+          "value": "2",
+          "label": "2个"
+        },
+        {
+          "value": "3",
+          "label": "3个"
+        },
+        {
+          "value": "4",
+          "label": "4个"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "产品标题字体颜色",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "卡片容器背景色",
+      "default": "#171717"
+    },
+    {
+      "type": "color_background",
+      "id": "card_background_gradient_color",
+      "label": "卡片容器渐变背景色"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片间隔",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_gap_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片间隔（移动端）",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "name": "product",
+      "type": "product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "选择产品",
+          "info": "备注：产品原价字段配置：当前产品对应的变体元字段activity original price；产品售价字段配置：当前产品对应的变体元字段activity sale price；"
+        },
+        {
+          "type": "radio",
+          "id": "product_variant_location",
+          "label": "产品变体",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体"
+            }
+          ],
+          "default": "0",
+          "info": "查看对应产品后台，选择对应的变体所在位置，从上到下依次排序"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "产品标题",
+          "info": "默认产品标题"
+        },
+        {
+          "type": "text",
+          "id": "features",
+          "label": "产品特色文案"
+        },
+        {
+          "type": "html",
+          "id": "tagline",
+          "label": "自定义标签",
+          "default": "<div>Black Friday <span>Exclusive</span></div>"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image_pc",
+          "label": "产品主图（PC端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image_mb",
+          "label": "产品主图(移动端)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [
+    {
+      "name": "black friday products 1",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

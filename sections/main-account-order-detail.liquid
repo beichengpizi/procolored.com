@@ -165,169 +165,337 @@
           <div class="flex flex-col lg:flex-row lg:items-start gap-x-14">
             <div class="lg:w-3/5">
               {%- for line_item in order.line_items -%}
-                <div class="flex space-x-6 border-b border-solid border-x-0 border-t-0 border-gray-100 py-8 first:pt-0">
-                  <div class="flex-none h-20 w-20 sm:h-30 sm:w-30 rounded-lg border border-solid border-gray-100 bg-gray-100 overflow-hidden">
-                    <img
-                      src="{{ line_item.image | image_url: width: 300 }}"
-                      alt="{{ line_item.image.alt }}"
-                      width="{{ line_item.image.width }}"
-                      height="{{ line_item.image.height }}"
-                      class="lazyload h-full w-full object-cover object-center{% unless settings.lazy_loading %} no-blur{% endunless %}"
-                    >
-                  </div>
-                  <div class="flex flex-auto flex-col">
-                    <div>
-                      <h4 class="font-medium text-lg text-gray-900 m-0">
-                        {%- if line_item.url != blank -%}
-                          <a href="{{ line_item.url }}">{{ line_item.title }}</a>
-                        {%- else -%}
-                          <span>{{ line_item.title }}</span>
+                                {%- if order.financial_status_label == 'Refunded' and line_item.fulfillment -%}
+                  <div class="flex space-x-6 border-b border-solid border-x-0 border-t-0 border-gray-100 py-8 first:pt-0">
+                    <div class="flex-none h-20 w-20 sm:h-30 sm:w-30 rounded-lg border border-solid border-gray-100 bg-gray-100 overflow-hidden">
+                      <img
+                        src="{{ line_item.image | image_url: width: 300 }}"
+                        alt="{{ line_item.image.alt }}"
+                        width="{{ line_item.image.width }}"
+                        height="{{ line_item.image.height }}"
+                        class="lazyload h-full w-full object-cover object-center{% unless settings.lazy_loading %} no-blur{% endunless %}"
+                      >
+                    </div>
+                    <div class="flex flex-auto flex-col">
+                      <div>
+                        <h4 class="font-medium text-lg text-gray-900 m-0">
+                          {%- if line_item.url != blank -%}
+                            <a href="{{ line_item.url }}">{{ line_item.title }}</a>
+                          {%- else -%}
+                            <span>{{ line_item.title }}</span>
+                          {%- endif -%}
+                        </h4>
+
+                        {%- if line_item.sku != blank -%}
+                          <div class="flex items-center gap-2 mt-2 text-sm">
+                            <span class="font-medium text-gray-900">{{ 'customer.order.sku' | t }}</span>
+                            <span class="text-gray-700">{{ line_item.sku }}</span>
+                          </div>
                         {%- endif -%}
-                      </h4>
+                        {%- assign property_size = line_item.properties | size -%}
+                        {%- unless line_item.selling_plan_allocation == null and property_size == 0 -%}
+                          <div class="mt-2 text-sm text-gray-600 flex items-center gap-2">
+                            {%- unless line_item.product.has_only_default_variant -%}
+                              <span>
+                                {{ line_item.variant.title }}
+                              </span>
+                            {%- endunless -%}
+                            {%- unless line_item.selling_plan_allocation == null -%}
+                              <span>
+                                {{ line_item.selling_plan_allocation.selling_plan.name }}
+                              </span>
+                            {%- endunless -%}
+                            {%- if property_size != 0 -%}
+                              {%- for property in line_item.properties -%}
+                                {% assign property_first_char = property.first | slice: 0 %}
+                                {%- if property.last != blank and property_first_char != '_' -%}
+                                  <span>
+                                    {{ property.first }}:&nbsp;
+                                    {%- if property.last contains '/uploads/' -%}
+                                      <a href="{{ property.last }}">{{ property.last | split: '/' | last }}</a>
+                                    {%- else -%}
+                                      {{ property.last }}
+                                    {%- endif -%}
+                                  </span>
+                                {%- endif -%}
+                              {%- endfor -%}
+                            {%- endif -%}
+                          </div>
+                        {%- endunless -%}
 
-                      {%- if line_item.sku != blank -%}
-                        <div class="flex items-center gap-2 mt-2 text-sm">
-                          <span class="font-medium text-gray-900">{{ 'customer.order.sku' | t }}</span>
-                          <span class="text-gray-700">{{ line_item.sku }}</span>
-                        </div>
-                      {%- endif -%}
-                      {%- assign property_size = line_item.properties | size -%}
-                      {%- unless line_item.selling_plan_allocation == null and property_size == 0 -%}
-                        <div class="mt-2 text-sm text-gray-600 flex items-center gap-2">
-                          {%- unless line_item.product.has_only_default_variant -%}
+                        {%- if line_item.line_level_discount_allocations != blank -%}
+                          <div class="mt-2">
+                            <ul class="list m-0" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+                              {%- for discount_allocation in line_item.line_level_discount_allocations -%}
+                                <li class="flex items-center gap-2 text-sm text-accent">
+                                  {%- render 'svg-icons' with 'discount' -%}
+                                  {{- discount_allocation.discount_application.title }} (-
+                                  {{- discount_allocation.amount | money -}}
+                                  )
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          </div>
+                        {%- endif -%}
+
+                        {%- if line_item.fulfillment -%}
+                          <div class="flex items-center flex-wrap gap-1 text-sm md:text-base mt-2 text-gray-500">
+                            {%- assign created_at = line_item.fulfillment.created_at | time_tag: format: 'date' -%}
+                            <span>{{ 'customer.order.fulfilled_at_html' | t: date: created_at }}</span>
+
+                            {%- if line_item.fulfillment.tracking_url -%}
+                              <a
+                                class="text-accent hover:text-accent-hover"
+                                href="{{ line_item.fulfillment.tracking_url }}"
+                              >
+                                {{ 'customer.order.track_shipment' | t }}
+                              </a>
+                            {%- endif -%}
                             <span>
-                              {{ line_item.variant.title }}
-                            </span>
-                          {%- endunless -%}
-                          {%- unless line_item.selling_plan_allocation == null -%}
-                            <span>
-                              {{ line_item.selling_plan_allocation.selling_plan.name }}
-                            </span>
-                          {%- endunless -%}
-                          {%- if property_size != 0 -%}
-                            {%- for property in line_item.properties -%}
-                              {% assign property_first_char = property.first | slice: 0 %}
-                              {%- if property.last != blank and property_first_char != '_' -%}
-                                <span>
-                                  {{ property.first }}:&nbsp;
-                                  {%- if property.last contains '/uploads/' -%}
-                                    <a href="{{ property.last }}">{{ property.last | split: '/' | last }}</a>
-                                  {%- else -%}
-                                    {{ property.last }}
-                                  {%- endif -%}
-                                </span>
+                              {{ line_item.fulfillment.tracking_company }}
+                              {%- if line_item.fulfillment.tracking_number -%}
+                                #{{ line_item.fulfillment.tracking_number }}
                               {%- endif -%}
-                            {%- endfor -%}
-                          {%- endif -%}
-                        </div>
-                      {%- endunless -%}
-
-                      {%- if line_item.line_level_discount_allocations != blank -%}
-                        <div class="mt-2">
-                          <ul class="list m-0" role="list" aria-label="{{ 'customer.order.discount' | t }}">
-                            {%- for discount_allocation in line_item.line_level_discount_allocations -%}
-                              <li class="flex items-center gap-2 text-sm text-accent">
-                                {%- render 'svg-icons' with 'discount' -%}
-                                {{- discount_allocation.discount_application.title }} (-
-                                {{- discount_allocation.amount | money -}}
-                                )
-                              </li>
-                            {%- endfor -%}
-                          </ul>
-                        </div>
-                      {%- endif -%}
-
-                      {%- if line_item.fulfillment -%}
-                        <div class="flex items-center flex-wrap gap-1 text-sm md:text-base mt-2 text-gray-500">
-                          {%- assign created_at = line_item.fulfillment.created_at | time_tag: format: 'date' -%}
-                          <span>{{ 'customer.order.fulfilled_at_html' | t: date: created_at }}</span>
-
-                          {%- if line_item.fulfillment.tracking_url -%}
-                            <a
-                              class="text-accent hover:text-accent-hover"
-                              href="{{ line_item.fulfillment.tracking_url }}"
-                            >
-                              {{ 'customer.order.track_shipment' | t }}
-                            </a>
-                          {%- endif -%}
-                          <span>
-                            {{ line_item.fulfillment.tracking_company }}
-                            {%- if line_item.fulfillment.tracking_number -%}
-                              #{{ line_item.fulfillment.tracking_number }}
-                            {%- endif -%}
-                          </span>
-                        </div>
-                      {%- endif -%}
-                    </div>
-                    <div class="mt-2 flex flex-1 items-end">
-                      <dl class="flex space-x-4 text-sm sm:space-x-6 m-0">
-                        <div class="flex">
-                          <dt class="font-medium text-gray-900">{{ 'customer.order.quantity' | t }}</dt>
-                          <dd class="ml-2 text-gray-700">{{ line_item.quantity | prepend: 'x' }}</dd>
-                        </div>
-                        <div class="flex pl-4 sm:pl-6">
-                          <dt class="font-medium text-gray-900">{{ 'customer.order.price' | t }}</dt>
-                          <dd class="ml-2 text-gray-700">
-                            {%- if line_item.original_price != line_item.final_price
-                              or line_item.unit_price_measurement
-                            -%}
-                              <dl class="flex items-center gap-1 m-0">
-                                {%- if line_item.original_price != line_item.final_price -%}
-                                  <dt>
-                                    <span class="sr-only">
-                                      {{- 'products.product.price.regular_price' | t -}}
-                                    </span>
-                                  </dt>
-                                  <dd class="regular-price">
-                                    <s class="text-sm text-gray-700">{{ line_item.original_price | money }}</s>
-                                  </dd>
-                                  <dt>
-                                    <span class="sr-only">{{ 'products.product.price.sale_price' | t }}</span>
-                                  </dt>
-                                  <dd>
-                                    <span>{{ line_item.final_price | money }}</span>
-                                  </dd>
-                                {%- else -%}
-                                  <dt>
-                                    <span class="sr-only">
-                                      {{- 'products.product.price.regular_price' | t -}}
-                                    </span>
-                                  </dt>
-                                  <dd>
-                                    {{ line_item.original_price | money }}
-                                  </dd>
-                                {%- endif -%}
-                                {%- if line_item.unit_price_measurement -%}
-                                  <dt>
-                                    <span class="sr-only">{{ 'products.product.price.unit_price' | t }}</span>
-                                  </dt>
-                                  <dd class="unit-price">
-                                    <span>
-                                      {%- capture unit_price_separator -%}
-																				<span aria-hidden="true">/</span><span class="sr-only">{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span>
-																			{%- endcapture -%}
-                                      {%- capture unit_price_base_unit -%}
-																				{%- if line_item.unit_price_measurement.reference_value != 1 -%}
-																					{{- line_item.unit_price_measurement.reference_value -}}
-																				{%- endif -%}
-																				{{ line_item.unit_price_measurement.reference_unit }}
-																			{%- endcapture -%}
-                                      <span data-unit-price>{{ line_item.unit_price | money }}</span>
-                                      {{- unit_price_separator -}}
-                                      {{- unit_price_base_unit -}}
-                                    </span>
-                                  </dd>
-                                {%- endif -%}
-                              </dl>
-                            {%- else -%}
-                              <span>{{ line_item.final_price | money }}</span>
-                            {%- endif -%}
-                          </dd>
-                        </div>
-                      </dl>
+                            </span>
+                          </div>
+                        {%- endif -%}
+                      </div>
+                      <div class="mt-2 flex flex-1 items-end">
+                        <dl class="flex space-x-4 text-sm sm:space-x-6 m-0">
+                          <div class="flex">
+                            <dt class="font-medium text-gray-900">{{ 'customer.order.quantity' | t }}</dt>
+                            <dd class="ml-2 text-gray-700">{{ line_item.quantity | prepend: 'x' }}</dd>
+                          </div>
+                          <div class="flex pl-4 sm:pl-6">
+                            <dt class="font-medium text-gray-900">{{ 'customer.order.price' | t }}</dt>
+                            <dd class="ml-2 text-gray-700">
+                              {%- if line_item.original_price != line_item.final_price
+                                or line_item.unit_price_measurement
+                              -%}
+                                <dl class="flex items-center gap-1 m-0">
+                                  {%- if line_item.original_price != line_item.final_price -%}
+                                    <dt>
+                                      <span class="sr-only">
+                                        {{- 'products.product.price.regular_price' | t -}}
+                                      </span>
+                                    </dt>
+                                    <dd class="regular-price">
+                                      <s class="text-sm text-gray-700">{{ line_item.original_price | money }}</s>
+                                    </dd>
+                                    <dt>
+                                      <span class="sr-only">{{ 'products.product.price.sale_price' | t }}</span>
+                                    </dt>
+                                    <dd>
+                                      <span>{{ line_item.final_price | money }}</span>
+                                    </dd>
+                                  {%- else -%}
+                                    <dt>
+                                      <span class="sr-only">
+                                        {{- 'products.product.price.regular_price' | t -}}
+                                      </span>
+                                    </dt>
+                                    <dd>
+                                      {{ line_item.original_price | money }}
+                                    </dd>
+                                  {%- endif -%}
+                                  {%- if line_item.unit_price_measurement -%}
+                                    <dt>
+                                      <span class="sr-only">{{ 'products.product.price.unit_price' | t }}</span>
+                                    </dt>
+                                    <dd class="unit-price">
+                                      <span>
+                                        {%- capture unit_price_separator -%}
+                                          <span aria-hidden="true">/</span><span class="sr-only">{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span>
+                                        {%- endcapture -%}
+                                        {%- capture unit_price_base_unit -%}
+                                          {%- if line_item.unit_price_measurement.reference_value != 1 -%}
+                                            {{- line_item.unit_price_measurement.reference_value -}}
+                                          {%- endif -%}
+                                          {{ line_item.unit_price_measurement.reference_unit }}
+                                        {%- endcapture -%}
+                                        <span data-unit-price>{{ line_item.unit_price | money }}</span>
+                                        {{- unit_price_separator -}}
+                                        {{- unit_price_base_unit -}}
+                                      </span>
+                                    </dd>
+                                  {%- endif -%}
+                                </dl>
+                              {%- else -%}
+                                <span>{{ line_item.final_price | money }}</span>
+                              {%- endif -%}
+                            </dd>
+                          </div>
+                        </dl>
+                      </div>
                     </div>
                   </div>
-                </div>
+                {%- else -%}
+                  {%- unless line_item.cancelled or line_item.refunded_quantity > 0 or line_item.quantity == 0 -%}
+                  <div class="flex space-x-6 border-b border-solid border-x-0 border-t-0 border-gray-100 py-8 first:pt-0">
+                    <div class="flex-none h-20 w-20 sm:h-30 sm:w-30 rounded-lg border border-solid border-gray-100 bg-gray-100 overflow-hidden">
+                      <img
+                        src="{{ line_item.image | image_url: width: 300 }}"
+                        alt="{{ line_item.image.alt }}"
+                        width="{{ line_item.image.width }}"
+                        height="{{ line_item.image.height }}"
+                        class="lazyload h-full w-full object-cover object-center{% unless settings.lazy_loading %} no-blur{% endunless %}"
+                      >
+                    </div>
+                    <div class="flex flex-auto flex-col">
+                      <div>
+                        <h4 class="font-medium text-lg text-gray-900 m-0">
+                          {%- if line_item.url != blank -%}
+                            <a href="{{ line_item.url }}">{{ line_item.title }}</a>
+                          {%- else -%}
+                            <span>{{ line_item.title }}</span>
+                          {%- endif -%}
+                        </h4>
+
+                        {%- if line_item.sku != blank -%}
+                          <div class="flex items-center gap-2 mt-2 text-sm">
+                            <span class="font-medium text-gray-900">{{ 'customer.order.sku' | t }}</span>
+                            <span class="text-gray-700">{{ line_item.sku }}</span>
+                          </div>
+                        {%- endif -%}
+                        {%- assign property_size = line_item.properties | size -%}
+                        {%- unless line_item.selling_plan_allocation == null and property_size == 0 -%}
+                          <div class="mt-2 text-sm text-gray-600 flex items-center gap-2">
+                            {%- unless line_item.product.has_only_default_variant -%}
+                              <span>
+                                {{ line_item.variant.title }}
+                              </span>
+                            {%- endunless -%}
+                            {%- unless line_item.selling_plan_allocation == null -%}
+                              <span>
+                                {{ line_item.selling_plan_allocation.selling_plan.name }}
+                              </span>
+                            {%- endunless -%}
+                            {%- if property_size != 0 -%}
+                              {%- for property in line_item.properties -%}
+                                {% assign property_first_char = property.first | slice: 0 %}
+                                {%- if property.last != blank and property_first_char != '_' -%}
+                                  <span>
+                                    {{ property.first }}:&nbsp;
+                                    {%- if property.last contains '/uploads/' -%}
+                                      <a href="{{ property.last }}">{{ property.last | split: '/' | last }}</a>
+                                    {%- else -%}
+                                      {{ property.last }}
+                                    {%- endif -%}
+                                  </span>
+                                {%- endif -%}
+                              {%- endfor -%}
+                            {%- endif -%}
+                          </div>
+                        {%- endunless -%}
+
+                        {%- if line_item.line_level_discount_allocations != blank -%}
+                          <div class="mt-2">
+                            <ul class="list m-0" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+                              {%- for discount_allocation in line_item.line_level_discount_allocations -%}
+                                <li class="flex items-center gap-2 text-sm text-accent">
+                                  {%- render 'svg-icons' with 'discount' -%}
+                                  {{- discount_allocation.discount_application.title }} (-
+                                  {{- discount_allocation.amount | money -}}
+                                  )
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          </div>
+                        {%- endif -%}
+
+                        {%- if line_item.fulfillment -%}
+                          <div class="flex items-center flex-wrap gap-1 text-sm md:text-base mt-2 text-gray-500">
+                            {%- assign created_at = line_item.fulfillment.created_at | time_tag: format: 'date' -%}
+                            <span>{{ 'customer.order.fulfilled_at_html' | t: date: created_at }}</span>
+
+                            {%- if line_item.fulfillment.tracking_url -%}
+                              <a
+                                class="text-accent hover:text-accent-hover"
+                                href="{{ line_item.fulfillment.tracking_url }}"
+                              >
+                                {{ 'customer.order.track_shipment' | t }}
+                              </a>
+                            {%- endif -%}
+                            <span>
+                              {{ line_item.fulfillment.tracking_company }}
+                              {%- if line_item.fulfillment.tracking_number -%}
+                                #{{ line_item.fulfillment.tracking_number }}
+                              {%- endif -%}
+                            </span>
+                          </div>
+                        {%- endif -%}
+                      </div>
+                      <div class="mt-2 flex flex-1 items-end">
+                        <dl class="flex space-x-4 text-sm sm:space-x-6 m-0">
+                          <div class="flex">
+                            <dt class="font-medium text-gray-900">{{ 'customer.order.quantity' | t }}</dt>
+                            <dd class="ml-2 text-gray-700">{{ line_item.quantity | prepend: 'x' }}</dd>
+                          </div>
+                          <div class="flex pl-4 sm:pl-6">
+                            <dt class="font-medium text-gray-900">{{ 'customer.order.price' | t }}</dt>
+                            <dd class="ml-2 text-gray-700">
+                              {%- if line_item.original_price != line_item.final_price
+                                or line_item.unit_price_measurement
+                              -%}
+                                <dl class="flex items-center gap-1 m-0">
+                                  {%- if line_item.original_price != line_item.final_price -%}
+                                    <dt>
+                                      <span class="sr-only">
+                                        {{- 'products.product.price.regular_price' | t -}}
+                                      </span>
+                                    </dt>
+                                    <dd class="regular-price">
+                                      <s class="text-sm text-gray-700">{{ line_item.original_price | money }}</s>
+                                    </dd>
+                                    <dt>
+                                      <span class="sr-only">{{ 'products.product.price.sale_price' | t }}</span>
+                                    </dt>
+                                    <dd>
+                                      <span>{{ line_item.final_price | money }}</span>
+                                    </dd>
+                                  {%- else -%}
+                                    <dt>
+                                      <span class="sr-only">
+                                        {{- 'products.product.price.regular_price' | t -}}
+                                      </span>
+                                    </dt>
+                                    <dd>
+                                      {{ line_item.original_price | money }}
+                                    </dd>
+                                  {%- endif -%}
+                                  {%- if line_item.unit_price_measurement -%}
+                                    <dt>
+                                      <span class="sr-only">{{ 'products.product.price.unit_price' | t }}</span>
+                                    </dt>
+                                    <dd class="unit-price">
+                                      <span>
+                                        {%- capture unit_price_separator -%}
+                                          <span aria-hidden="true">/</span><span class="sr-only">{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span>
+                                        {%- endcapture -%}
+                                        {%- capture unit_price_base_unit -%}
+                                          {%- if line_item.unit_price_measurement.reference_value != 1 -%}
+                                            {{- line_item.unit_price_measurement.reference_value -}}
+                                          {%- endif -%}
+                                          {{ line_item.unit_price_measurement.reference_unit }}
+                                        {%- endcapture -%}
+                                        <span data-unit-price>{{ line_item.unit_price | money }}</span>
+                                        {{- unit_price_separator -}}
+                                        {{- unit_price_base_unit -}}
+                                      </span>
+                                    </dd>
+                                  {%- endif -%}
+                                </dl>
+                              {%- else -%}
+                                <span>{{ line_item.final_price | money }}</span>
+                              {%- endif -%}
+                            </dd>
+                          </div>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                {% endunless %}
+              {% endif %}
               {%- endfor -%}
             </div>
 
@@ -390,9 +558,27 @@
               {% comment %} </dl> {% endcomment %}
 
               <div class="space-y-2 mt-4 text-base bg-gray-50 rounded-md px-4 py-6">
+                {%- assign valid_subtotal = 0 -%}
+
+                {%- for line_item in order.line_items -%}
+                  {%- unless line_item.cancelled or line_item.refunded_quantity > 0 or line_item.quantity == 0 -%}
+                    {%- assign line_total = line_item.line_price | plus: 0 -%}
+                    {%- assign valid_subtotal = valid_subtotal | plus: line_total -%}
+                  {%- endunless -%}
+                {%- endfor -%}
+
+                {%- if order.financial_status_label == 'Refunded' -%}
+                  {%- for line_item in order.line_items -%}
+                    {%- if line_item.fulfillment -%}
+                      {%- assign line_total = line_item.original_line_price | plus: 0 -%}
+                      {%- assign valid_subtotal = valid_subtotal | plus: line_total -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endif -%}
+
                 <div class="flex justify-between">
                   <h3 class="font-medium text-xl text-gray-900 m-0">{{ 'customer.order.subtotal' | t }}</h3>
-                  <p class="text-gray-700 m-0">{{ order.line_items_subtotal_price | money }}</p>
+                  <p class="text-gray-700 m-0">{{ valid_subtotal | money }}</p>
                 </div>
                 {%- if order.cart_level_discount_applications != blank -%}
                   {%- for discount_application in order.cart_level_discount_applications -%}
@@ -436,9 +622,22 @@
                   </div>
                 {%- endfor -%}
 
+                {%- assign valid_total = 0 -%}
+
+                {%- for line_item in order.line_items -%}
+                  {%- unless line_item.cancelled or line_item.refunded_quantity > 0 or line_item.quantity == 0 -%}
+                    {%- assign line_total = line_item.final_line_price | plus: 0 -%}
+                    {%- assign valid_total = valid_total | plus: line_total -%}
+                  {%- endunless -%}
+                {%- endfor -%}
+
+                {%- if order.financial_status_label == 'Refunded' -%}
+                  {%- assign valid_total = order.total_refunded_amount -%}
+                {%- endif -%}
+                
                 <div class="flex justify-between">
                   <div class="font-medium text-gray-900">{{ 'customer.order.total' | t }}</div>
-                  <div class="text-gray-900">{{ order.total_price | money_with_currency }}</div>
+                  <div class="text-gray-900">{{ valid_total | money_with_currency }}</div>
                 </div>
               </div>
             </div>
