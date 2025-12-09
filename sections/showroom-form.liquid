@@ -1,0 +1,1324 @@
+<style>
+    #shopify-section-{{ section.id }} .max-width {
+      max-width: 1400px;
+      display: flex;
+      gap: 30px;
+    }
+
+    #shopify-section-{{ section.id }} p {
+      margin-bottom: 0;
+    }
+
+    /* 统一修改所有 Checkbox & Radio 选中颜色 */
+    #shopify-section-{{ section.id }} input[type="checkbox"],
+    #shopify-section-{{ section.id }} input[type="radio"] {
+      accent-color: #5E8DFF !important;
+    }
+
+    #shopify-section-{{ section.id }} .form-box {
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    #shopify-section-{{ section.id }} .title {
+        font-size: 22px;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    #shopify-section-{{ section.id }} .form-row {
+        display: flex;
+        gap: 32px;
+        margin-bottom: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .form-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #shopify-section-{{ section.id }} label,
+    #shopify-section-{{ section.id }} .section-title {
+        font-weight: bold;
+        margin-bottom: 12px;
+        color: #0F0C00;
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    #shopify-section-{{ section.id }} .checkbox-group label,
+    #shopify-section-{{ section.id }} .radio-group label {
+      color: #0F0C00;
+      font-size: 18px;
+      line-height: 24px; /* 133.333% */
+      margin-bottom: 0;
+    }
+
+    #shopify-section-{{ section.id }} .required {
+        color: red;
+        margin-left: 4px;
+    }
+
+    #shopify-section-{{ section.id }} input[type="text"], 
+    #shopify-section-{{ section.id }} input[type="email"],
+    #shopify-section-{{ section.id }} input[type="date"],
+    #shopify-section-{{ section.id }} select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+
+    #shopify-section-{{ section.id }} input[type=radio],
+    #shopify-section-{{ section.id }} input[type=checkbox] {
+      margin-right: 0;
+      width: 18px;
+    }
+
+    #shopify-section-{{ section.id }} input.error {
+        border-color: red;
+    }
+
+    #shopify-section-{{ section.id }} .error-text {
+        color: red;
+        font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .checkbox-group,
+    #shopify-section-{{ section.id }} .radio-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        margin-bottom: 32px;
+        padding: 12px 0;
+    }
+
+    #shopify-section-{{ section.id }} .checkbox-group label,
+    #shopify-section-{{ section.id }} .radio-group label {
+        font-weight: normal;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    #shopify-section-{{ section.id }} .checkbox-group.agree label {
+      color: #939393;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    #shopify-section-{{ section.id }} button {
+        width: 100%;
+        background: #006aff;
+        color: #fff;
+        border-radius: 6px;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        font-weight: bold;
+        height: 52px;
+    }
+
+    #shopify-section-{{ section.id }} button:hover {
+        background: #0057d1;
+    }
+
+    #shopify-section-{{ section.id }} input {
+        padding: 12px;
+        font-size: 15px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+    }
+
+    /* Calendar popup */
+    #shopify-section-{{ section.id }} .calendar-wrapper {
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #shopify-section-{{ section.id }} .calendar-wrapper input {
+        height: 50px;
+        width: 100%;
+        background: transparent;
+    }
+
+    #shopify-section-{{ section.id }} .calendar-popup {
+        position: absolute;
+        top: 105px;
+        background: #fff;
+        width: 100%;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0px 6px 25px rgba(0,0,0,0.15);
+        display: none;
+        z-index: 10;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #shopify-section-{{ section.id }} .calendar-header {
+        display: flex;
+        font-size: 16px;
+        margin-bottom: 10px;
+        font-weight: 600;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .calendar-header button {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: #000;
+        height: fit-content;
+    }
+
+    #shopify-section-{{ section.id }} .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        margin-top: 10px;
+        gap: 10px 16px;
+        text-align: center;
+        justify-items: center;
+        max-width: 292px;
+    }
+
+    #shopify-section-{{ section.id }} .calendar-grid .selected {
+      background: #165DFF;
+      color: #fff;
+    }
+
+    #shopify-section-{{ section.id }} .day-name {
+        font-size: 14px;
+        color: #7D8896;
+    }
+
+    #shopify-section-{{ section.id }} #monthLabel {
+        height: fit-content;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    #shopify-section-{{ section.id }} .nav {
+        display: flex;
+        gap: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .day {
+        border-radius: 6px;
+        cursor: pointer;
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+        padding: 2px;
+    }
+
+    #shopify-section-{{ section.id }} .disabled {
+        color: #ccc;
+        pointer-events: none;
+        opacity: 0.4;
+    }
+
+    #shopify-section-{{ section.id }} .selected {
+        background: rgba(22, 93, 255, 0.10);
+        color: white;
+    }
+
+    /* Time slots */
+    #shopify-section-{{ section.id }} .time-slots {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px 12px;
+    }
+
+    #shopify-section-{{ section.id }} .slot {
+        padding: 8px 36px;
+        border-radius: 4px;
+        background: rgba(93, 93, 93, 0.10);
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .slot.selected {
+        background: rgba(22, 93, 255, 0.10);
+        color: #165DFF;
+    }
+
+    /* —— 两栏布局 —— */
+    #shopify-section-{{ section.id }} .page-layout {
+        display: flex;
+        gap: 30px;
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 48px;
+    }
+
+    #shopify-section-{{ section.id }} .left-column {
+      max-width: 928px;
+    }
+
+    /* 右栏固定宽度 */
+    #shopify-section-{{ section.id }} .right-column {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    /* 信息卡片样式 */
+    #shopify-section-{{ section.id }} .info-card {
+        background: #fff;
+        padding: 32px 36px;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    /* 卡片标题 */
+    #shopify-section-{{ section.id }} .info-title,
+    #shopify-section-{{ section.id }} .title-card {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 4px;
+        line-height: 1.4;
+    }
+
+    /* 卡片正文 */
+    #shopify-section-{{ section.id }} .info-text p {
+        font-size: 18px;
+        color: #555;
+        line-height: 1.6;
+    }
+
+    /* 灰色遮罩层 */
+    #shopify-section-{{ section.id }} .success-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    /* 白色弹窗框 */
+    #shopify-section-{{ section.id }} .success-popup-box {
+      background: #fff;
+      width: 800px;
+      padding: 32px;
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    #shopify-section-{{ section.id }} .success-title {
+      color: #121212;
+      text-align: center;
+      font-size: 40px;
+      font-weight: 700;
+      padding-bottom: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .success-desc {
+      color: #5D5D5D;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 500;
+      padding-bottom: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .success-btn {
+      width: 536px;
+      padding: 12px 20px;
+      background: #165DFF;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    #shopify-section-{{ section.id }} input::placeholder {
+      color: #999 !important;
+      opacity: 1 !important;
+    }
+
+    #shopify-section-{{ section.id }} .date-display {
+      width: 100%;
+      height: 48px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 0 40px 0 12px;
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      background: #fff;
+      cursor: pointer;
+      align-content: flex-start;
+    }
+
+    #shopify-section-{{ section.id }} .date-display .time-chip {
+      background: rgba(22, 93, 255, 0.10);
+      color: #165DFF;
+      padding: 8px 36px;
+      border-radius: 4px;
+      margin-left: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .date-display.empty {
+      color: #999;
+    }
+
+    #shopify-section-{{ section.id }} .date-icon {
+      position: absolute;
+      right: 12px;
+      top: 50px;
+      cursor: pointer;
+    }
+
+    @media screen and (max-width: 1400px) {
+      #shopify-section-{{ section.id }} .page-layout {
+        padding-left: 36px;
+        padding-right: 36px;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      #shopify-section-{{ section.id }} .page-layout {
+        padding: 0 16px;
+      }
+
+      #shopify-section-{{ section.id }} .form-box {
+          background: transparent;
+          padding: 0;
+          box-shadow: unset;
+      }
+
+      #shopify-section-{{ section.id }} .form-row {
+          display: flex;
+          gap: 12px;
+          margin-bottom: 12px;
+          flex-direction: column;
+      }
+
+      #shopify-section-{{ section.id }} .form-item {
+          flex-direction: column;
+      }
+
+      #shopify-section-{{ section.id }} label,
+      #shopify-section-{{ section.id }} .section-title {
+          margin-bottom: 8px;
+          font-size: 16px;
+      }
+
+      #shopify-section-{{ section.id }} .checkbox-group label,
+      #shopify-section-{{ section.id }} .radio-group label {
+        font-size: 12px;
+      }
+
+      #shopify-section-{{ section.id }} input[type="text"], 
+      #shopify-section-{{ section.id }} input[type="email"],
+      #shopify-section-{{ section.id }} input[type="date"],
+      #shopify-section-{{ section.id }} select {
+          padding: 8px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          font-size: 12px;
+          margin-bottom: 0;
+          height: 32px;
+      }
+
+      #shopify-section-{{ section.id }} input[type=radio] {
+        margin-right: 0;
+      }
+
+      #shopify-section-{{ section.id }} input[type=radio],
+      #shopify-section-{{ section.id }} input[type=checkbox] {
+        width: 12px;
+      }
+
+      #shopify-section-{{ section.id }} input.error {
+          border-color: red;
+      }
+
+      #shopify-section-{{ section.id }} .error-text {
+          color: red;
+          font-size: 12px;
+      }
+
+      #shopify-section-{{ section.id }} .checkbox-group,
+      #shopify-section-{{ section.id }} .radio-group {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 4px 12px;
+          margin-bottom: 8px;
+          padding: 8px 0;
+      }
+
+      #shopify-section-{{ section.id }} .checkbox-group:not(.agree) label,
+      #shopify-section-{{ section.id }} .radio-group label {
+          font-weight: normal;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+      }
+
+      #shopify-section-{{ section.id }}  .checkbox-group.agree label {
+        font-size: 10px;
+        font-weight: 700;
+      }
+
+      #shopify-section-{{ section.id }} button {
+          border-radius: 4px;
+          font-size: 14px;
+          font-weight: 700;
+      }
+
+      #shopify-section-{{ section.id }} input {
+          padding: 8px;
+          font-size: 12px;
+      }
+
+      /* Calendar popup */
+      #shopify-section-{{ section.id }} .calendar-wrapper {
+          position: relative;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+      }
+
+      #shopify-section-{{ section.id }} .calendar-wrapper input {
+          height: 32px;
+          padding: 8px;
+      }
+
+      #shopify-section-{{ section.id }} .calendar-popup {
+          top: 65px;
+          padding: 26px;
+          border-radius: 4px;
+      }
+
+      #shopify-section-{{ section.id }} .calendar-header {
+          align-items: center;
+          gap: 16px;
+          justify-content: center;
+      }
+
+      #shopify-section-{{ section.id }} .calendar-grid {
+          display: grid;
+          grid-template-columns: repeat(7, 1fr);
+          margin-top: 10px;
+          row-gap: 12px;
+          text-align: center;
+          justify-items: center;
+      }
+
+      /* 让所有表单中的 text 输入框背景透明 */
+      #shopify-section-{{ section.id }} input[type="text"] {
+          background-color: transparent !important;
+          box-shadow: none !important;   /* 可选：移除边缘阴影 */
+      }
+
+      /* 如果你只想改 radio/checkbox 后面的 Other 输入框 */
+      #shopify-section-{{ section.id }} .radio-other-input,
+      #shopify-section-{{ section.id }} .checkbox-other-input {
+          background-color: transparent !important;
+          box-shadow: none !important;
+      }
+
+      #shopify-section-{{ section.id }} .date-display {
+        height: 32px;
+        background: transparent;
+        font-size: 12px;
+      }
+
+      #shopify-section-{{ section.id }} .date-display .time-chip {
+        padding: 2px 4px;
+      }
+
+      #shopify-section-{{ section.id }} .day-name {
+          font-size: 14px;
+          color: #7D8896;
+      }
+
+      #shopify-section-{{ section.id }} #monthLabel {
+          height: fit-content;
+      }
+
+      #shopify-section-{{ section.id }} .nav {
+          display: flex;
+          gap: 16px;
+      }
+
+      #shopify-section-{{ section.id }} .day {
+          border-radius: 6px;
+          font-size: 14px;
+      }
+
+      #shopify-section-{{ section.id }} .date-icon {
+        top: 37px;
+      }
+
+      #shopify-section-{{ section.id }} .date-icon svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      #shopify-section-{{ section.id }} .input-time {
+        display: flex;
+        padding: 8px 12px;
+        align-items: center;
+        gap: 8px;
+        border-radius: 4px;
+        background: rgba(22, 93, 255, 0.10);
+      }
+
+      #shopify-section-{{ section.id }} .disabled {
+          color: #ccc;
+          pointer-events: none;
+          opacity: 0.4;
+      }
+
+      /* Time slots */
+      #shopify-section-{{ section.id }} .time-slots {
+          gap: 12px 20px;
+          justify-content: flex-start;
+      }
+
+      #shopify-section-{{ section.id }} .slot {
+          padding: 8px 12px;
+          font-size: 16px;
+      }
+
+      /* —— 两栏布局 —— */
+      #shopify-section-{{ section.id }} .page-layout {
+          display: flex;
+          gap: 30px;
+          align-items: flex-start;
+          justify-content: center;
+      }
+
+      /* 左栏（你的表单原样） */
+      #shopify-section-{{ section.id }} .left-column {
+          flex: 1;
+          max-width: 928px;
+      }
+
+      /* 右栏固定宽度 */
+      #shopify-section-{{ section.id }} .right-column {
+          display: none;
+      }
+
+      /* 信息卡片样式 */
+      #shopify-section-{{ section.id }} .info-card {
+          background: #fff;
+          padding: 32px 36px;
+          border-radius: 12px;
+          box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      }
+
+      /* 卡片标题 */
+      #shopify-section-{{ section.id }} .info-title,
+      #shopify-section-{{ section.id }} .title-card {
+          font-size: 24px;
+          font-weight: 700;
+          margin-bottom: 4px;
+          line-height: 1.4;
+      }
+
+      /* 卡片正文 */
+      #shopify-section-{{ section.id }} .info-text {
+          font-size: 14px;
+          color: #555;
+          line-height: 1.6;
+      }
+
+      /* 灰色遮罩层 */
+      #shopify-section-{{ section.id }} .success-popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.55);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+
+      /* 白色弹窗框 */
+      #shopify-section-{{ section.id }} .success-popup-box {
+        background: #fff;
+        width: 800px;
+        padding: 32px;
+        border-radius: 24px;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      }
+
+      #shopify-section-{{ section.id }} .success-title {
+        color: #121212;
+        text-align: center;
+        font-size: 40px;
+        font-weight: 700;
+        padding-bottom: 16px;
+      }
+
+      #shopify-section-{{ section.id }} .success-desc {
+        color: #5D5D5D;
+        text-align: center;
+        font-size: 24px;
+        font-weight: 500;
+        padding-bottom: 24px;
+      }
+
+      #shopify-section-{{ section.id }} .success-btn {
+        width: 536px;
+        padding: 12px 20px;
+        background: #165DFF;
+        color: #fff;
+        border: none;
+        border-radius: 50px;
+        font-size: 18px;
+        cursor: pointer;
+      }
+    }
+</style>
+
+<div class="page-layout">
+  <div class="max-width">
+    <div class="left-column">
+      <div class="form-box">
+        <!-- Row 1 -->
+        <div class="form-row">
+          <div class="form-item">
+            <label>Name <span class="required">*</span></label>
+            <input type="text" id="name" placeholder="Please Fill Your Name">
+            <div class="error-text" id="nameErr"></div>
+          </div>
+
+          <div class="form-item">
+            <label>Phone Number <span class="required">*</span></label>
+            <input type="text" id="phone" placeholder="Please Fill Your Phone">
+            <div class="error-text" id="phoneErr"></div>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="form-row">
+          <div class="form-item">
+            <label>Email <span class="required">*</span></label>
+            <input type="email" id="email" placeholder="Please Fill Your Email">
+            <div class="error-text" id="emailErr"></div>
+          </div>
+
+          <div class="form-item">
+            <div class="calendar-wrapper">
+              <label>Visit Date <span class="required">*</span></label>
+              <!-- fake input (可显示富文本) -->
+              <div id="dateInputDisplay" class="date-display" contenteditable="false" placeholder="Select a date & time"></div>
+
+              <!-- 真正隐藏提交值 -->
+              <input type="hidden" id="dateInput">
+              <input type="hidden" id="date" name="date">
+
+              <div class="date-icon">
+                <!-- calendar svg -->
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11.3333 14.0001C11.3333 13.2637 11.9302 12.6667 12.6666 12.6667H35.3333C36.0697 12.6667 36.6666 13.2637 36.6666 14.0001V20.6667H11.3333V14.0001Z" stroke="#0F0C00" stroke-width="2" stroke-linejoin="round"/>
+                  <path d="M18.6667 10.6667V16.0001" stroke="#0F0C00" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M29.3333 10.6667V16.0001" stroke="#0F0C00" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M36.666 19.3335C37.4023 19.3335 37.9998 19.9303 38 20.6665V34.6665C38 36.1393 36.8058 37.3335 35.333 37.3335H12.666C11.1936 37.3331 10 36.1391 10 34.6665V20.6665C10.0002 19.9304 10.5969 19.3337 11.333 19.3335H36.666ZM17.333 29.3335C16.5969 29.3337 16.0002 29.9304 16 30.6665C16 31.4028 16.5968 31.9993 17.333 31.9995H21.333C22.0694 31.9995 22.666 31.4029 22.666 30.6665C22.6658 29.9303 22.0693 29.3335 21.333 29.3335H17.333ZM26.667 29.3335C25.9307 29.3335 25.3342 29.9303 25.334 30.6665C25.334 31.4029 25.9306 31.9995 26.667 31.9995H30.667C31.4032 31.9993 32 31.4028 32 30.6665C31.9998 29.9304 31.4031 29.3337 30.667 29.3335H26.667ZM17.333 24.0005C16.5968 24.0007 16 24.5972 16 25.3335C16 26.0698 16.5968 26.6663 17.333 26.6665H21.333C22.0694 26.6665 22.666 26.0699 22.666 25.3335C22.666 24.5971 22.0694 24.0005 21.333 24.0005H17.333ZM26.667 24.0005C25.9306 24.0005 25.334 24.5971 25.334 25.3335C25.334 26.0699 25.9306 26.6665 26.667 26.6665H30.667C31.4032 26.6663 32 26.0698 32 25.3335C32 24.5972 31.4032 24.0007 30.667 24.0005H26.667Z" fill="#0F0C00"/>
+                </svg>
+              </div>
+
+              <div class="error-text" id="dateErr"></div>
+
+              <!-- hidden input used for submission -->
+              <input type="hidden" id="date" name="date">
+
+              <!-- calendar popup -->
+              <div class="calendar-popup" id="calendarPopup" aria-hidden="true">
+                <div class="calendar-header">
+                  <div class="nav">
+                    <button id="yearPrev" title="Prev Year">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <rect opacity="0.01" x="16" width="16" height="16" transform="rotate(90 16 0)" fill="white"/>
+                          <path d="M8.14648 11.8535C8.34175 12.0488 8.65825 12.0488 8.85352 11.8535C9.02708 11.6799 9.04613 11.4107 8.91113 11.2158L8.85352 11.1465L5.20703 7.5L8.85352 3.85352L8.91113 3.78418C9.04613 3.58931 9.02708 3.32005 8.85352 3.14648C8.65825 2.95122 8.34175 2.95122 8.14648 3.14648L4.14648 7.14648L4.08887 7.21582C3.95387 7.41069 3.97292 7.67995 4.14648 7.85352L8.14648 11.8535ZM11.1465 11.8535C11.3417 12.0488 11.6583 12.0488 11.8535 11.8535C12.0271 11.6799 12.0461 11.4107 11.9111 11.2158L11.8535 11.1465L8.20703 7.5L11.8535 3.85352L11.9111 3.78418C12.0461 3.58931 12.0271 3.32005 11.8535 3.14648C11.6583 2.95122 11.3417 2.95122 11.1465 3.14648L7.14648 7.14648C6.97292 7.32005 6.95387 7.58931 7.08887 7.78418L7.14648 7.85352L11.1465 11.8535Z" fill="#6A6D8E"/>
+                      </svg>
+                    </button>
+                    <button id="monthPrev" title="Prev Month">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <rect opacity="0.01" width="16" height="16" fill="white"/>
+                          <path d="M10.3525 12.3535C10.5261 12.1799 10.5452 11.9107 10.4102 11.7158L10.3525 11.6465L6.70605 8L10.3525 4.35352L10.4102 4.28418C10.5452 4.08931 10.5261 3.82005 10.3525 3.64648C10.1573 3.45122 9.84077 3.45122 9.64551 3.64648L5.64551 7.64648C5.47194 7.82005 5.45289 8.08931 5.58789 8.28418L5.64551 8.35352L9.64551 12.3535C9.84077 12.5488 10.1573 12.5488 10.3525 12.3535Z" fill="#6A6D8E"/>
+                      </svg>
+                    </button>
+                  </div>
+                  <div id="monthLabel"></div>
+                  <div class="nav">
+                    <button id="monthNext" title="Next Month">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <rect opacity="0.01" width="16" height="16" fill="white"/>
+                          <path d="M5.64746 12.3535C5.47389 12.1799 5.45485 11.9107 5.58984 11.7158L5.64746 11.6465L9.29395 8L5.64746 4.35352L5.58984 4.28418C5.45485 4.08931 5.47389 3.82005 5.64746 3.64648C5.84272 3.45122 6.15923 3.45122 6.35449 3.64648L10.3545 7.64648C10.5281 7.82005 10.5471 8.08931 10.4121 8.28418L10.3545 8.35352L6.35449 12.3535C6.15923 12.5488 5.84272 12.5488 5.64746 12.3535Z" fill="#6A6D8E"/>
+                      </svg>
+                    </button>
+                    <button id="yearNext" title="Next Year">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <rect opacity="0.01" x="16" width="16" height="16" transform="rotate(90 16 0)" fill="white"/>
+                          <path d="M4.64746 4.14648C4.84272 3.95122 5.15923 3.95122 5.35449 4.14648L9.35449 8.14648C9.52806 8.32005 9.54711 8.58931 9.41211 8.78418L9.35449 8.85352L5.35449 12.8535C5.15923 13.0488 4.84272 13.0488 4.64746 12.8535C4.47389 12.6799 4.45485 12.4107 4.58984 12.2158L4.64746 12.1465L8.29395 8.5L4.64746 4.85352L4.58984 4.78418C4.45485 4.58931 4.47389 4.32005 4.64746 4.14648ZM7.14648 4.14648C7.34173 3.95124 7.65825 3.95127 7.85352 4.14648L11.8535 8.14648C12.0271 8.32005 12.0461 8.58931 11.9111 8.78418L11.8535 8.85352L7.85352 12.8535C7.65825 13.0487 7.34173 13.0488 7.14648 12.8535C6.97297 12.68 6.95391 12.4107 7.08887 12.2158L7.14648 12.1465L10.793 8.5L7.14648 4.85352L7.08887 4.78418C6.95391 4.58933 6.97297 4.32004 7.14648 4.14648Z" fill="#6A6D8E"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="calendar-grid" id="calendarGrid"></div>
+
+                <div class="time-slots" id="timeSlots">
+                  <div class="slot" data-start="10:00" data-end="12:00">10:00 ~ 12:00</div>
+                  <div class="slot" data-start="12:00" data-end="14:00">12:00 ~ 14:00</div>
+                  <div class="slot" data-start="14:00" data-end="16:00">14:00 ~ 16:00</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Model of Interest -->
+        <div class="section-title">Model of Interest <span class="required">*</span></div>
+        <div class="error-text" id="modelsErr"></div>
+        <div class="checkbox-group model-group">
+          <label><input type="checkbox" name="model" value="K13 Lite"> K13 Lite</label>
+          <label><input type="checkbox" name="model" value="F13 Pro"> F13 Pro</label>
+          <label><input type="checkbox" name="model" value="VF13 Pro"> VF13 Pro</label>
+          <label><input type="checkbox" name="model" value="Oven"> Oven</label>
+          <label><input type="checkbox" name="model" value="Heat Press"> Heat Press</label>
+        </div>
+
+        <!-- Business Type -->
+        <div class="section-title">Business Type <span class="required">*</span></div>
+        <div class="error-text" id="businessTypesErr"></div>
+        <!-- Business Type (Single Choice) -->
+      <div class="radio-group business-group">
+          <label><input type="radio" name="type" value="Garment Customization"> Garment Customization</label>
+          <label><input type="radio" name="type" value="Sports Goods"> Sports Goods</label>
+          <label><input type="radio" name="type" value="Gift Retail"> Gift Retail</label>
+          <label><input type="radio" name="type" value="Brand/Corporate"> Brand/Corporate</label>
+          <label class="other-type-wrapper">
+            <input type="radio" name="type" value="Other">
+            <input type="text" id="otherTypeInput" class="other-input" placeholder="Other" style="margin-left:8px; width: 72px; height: 32px;">
+          </label>
+      </div>
+
+        <!-- Primary Purpose -->
+        <div class="section-title">Primary Purpose <span class="required">*</span></div>
+        <div class="error-text" id="purposesErr"></div>
+        <div class="checkbox-group purpose-group">
+          <label><input type="checkbox" value="Business Startup"> Business Startup</label>
+          <label><input type="checkbox" value="Adding New Product Categories"> Adding New Product Categories</label>
+          <label><input type="checkbox" value="Replacing Old Equipment"> Replacing Old Equipment</label>
+          <label><input type="checkbox" value="Capacity Expansion"> Capacity Expansion</label>
+        </div>
+
+        <!-- Materials -->
+        <div class="section-title">Primary Materials <span class="required">*</span></div>
+        <div class="error-text" id="materialsErr"></div>
+        <!-- Primary Materials (Single Choice) -->
+          <div class="radio-group material-group">
+              <label><input type="radio" name="material" value="Textiles/Fabrics"> Textiles/Fabrics</label>
+              <label><input type="radio" name="material" value="Leather"> Leather</label>
+              <label><input type="radio" name="material" value="Plastics/Acrylic/Glass"> Plastics/Acrylic/Glass</label>
+              <label class="other-material-wrapper">
+                <input type="radio" name="material" value="Other">
+                <input type="text" id="otherMaterialInput" class="other-input" placeholder="Other" style="margin-left:8px; width: 72px; height: 32px;">
+              </label>
+          </div>
+
+        <!-- Output -->
+        <div class="section-title">Expected Daily Output <span class="required">*</span></div>
+        <div class="error-text" id="outputErr"></div>
+        <div class="radio-group">
+          <label><input type="radio" name="output" value="<10 pieces"> &lt;10 pieces</label>
+          <label><input type="radio" name="output" value="10-50 pieces"> 10-50 pieces</label>
+          <label><input type="radio" name="output" value=">50 pieces"> &gt;50 pieces</label>
+        </div>
+
+        <!-- Checkbox for agreement -->
+        <div class="checkbox-group agree" style="margin-top:12px;">
+          <label><input type="checkbox" id="agree"> I agree to the Privacy Policy and Terms of Service</label>
+        </div>
+
+        <!-- Submit -->
+        <button id="submitBtn">Submit Your Reserve Application</button>
+        <div style="margin-top:8px;" id="submitMsg"></div>
+      </div>
+    </div>
+
+    <div class="right-column">
+      {% for block in section.blocks %}
+        <div class="info-card">
+          <div class="info-title">{{ block.settings.heading }}</div>
+          {% if block.settings.content != blank %}
+            <div class="info-text">{{ block.settings.content }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- ===== 成功弹窗 ===== -->
+<div id="successPopup" class="success-popup-overlay" style="display:none;">
+  <div class="success-popup-box">
+      <div class="success-title">Submitted successfully</div>
+      <div class="success-desc">we'll contact you soon!</div>
+      <button id="successOk" class="success-btn">OK</button>
+  </div>
+</div>
+
+<script>
+const dateInputDisplay = document.getElementById("dateInputDisplay");
+
+dateInputDisplay.classList.add("empty");
+dateInputDisplay.textContent = dateInputDisplay.getAttribute("placeholder");
+
+/* ===== Calendar / Timepicker logic ===== */
+const popup = document.getElementById("calendarPopup");
+const input = document.getElementById("dateInput");
+const hiddenDate = document.getElementById("date");
+const grid = document.getElementById("calendarGrid");
+const monthLabel = document.getElementById("monthLabel");
+const timeSlots = document.getElementById("timeSlots");
+
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+let current = new Date();
+let selectedDateObj = null; // Date object
+let selectedSlot = null;
+
+const dayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+// render calendar grid (with day names header)
+function renderCalendar() {
+  const year = current.getFullYear();
+  const month = current.getMonth();
+  monthLabel.textContent = `${year} / ${String(month+1).padStart(2,'0')}`;
+
+  grid.innerHTML = "";
+
+  // day names row
+  dayNames.forEach(d => {
+    const el = document.createElement("div");
+    el.textContent = d;
+    el.className = "day-name";
+    grid.appendChild(el);
+  });
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+
+  // blank placeholders
+  for (let i = 0; i < firstDay; i++) {
+    const placeholder = document.createElement("div");
+    grid.appendChild(placeholder);
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateObj = new Date(year, month, d);
+    const day = dateObj.getDay();
+    const cell = document.createElement("div");
+    cell.textContent = String(d).padStart(2, '0');
+    cell.className = "day";
+
+    /* ⭐ 新增：禁用过去日期 */
+    if (dateObj < today) {
+      cell.classList.add("disabled");
+    }
+
+    // disable weekend
+    if (day === 0 || day === 6) {
+      cell.classList.add("disabled");
+    } else {
+      cell.addEventListener("click", () => {
+        // select date
+        selectedDateObj = dateObj;
+        // clear previous selection
+        document.querySelectorAll(".day").forEach(c => c.classList.remove("selected"));
+        cell.classList.add("selected");
+        // when selecting a new date, clear previously selected time
+        selectedSlot = null;
+        document.querySelectorAll(".slot").forEach(s => s.classList.remove("selected"));
+        // show date only in input (waiting for time)
+        input.value = formatDate(selectedDateObj);
+        hiddenDate.value = ""; // not final until time picked
+        document.getElementById("dateErr").textContent = "";
+
+        refreshTimeSlots();
+      });
+    }
+    grid.appendChild(cell);
+  }
+}
+
+/* ------------------ 刷新当天过期时间段 ------------------ */
+function refreshTimeSlots() {
+  const now = new Date();
+
+  timeSlots.querySelectorAll(".slot").forEach(slot => {
+    slot.classList.remove("disabled");
+
+    if (!selectedDateObj) return;
+
+    const [h, m] = slot.dataset.start.split(":").map(Number);
+
+    const slotDate = new Date(
+      selectedDateObj.getFullYear(),
+      selectedDateObj.getMonth(),
+      selectedDateObj.getDate(),
+      h, m, 0
+    );
+
+    // ⭐ 新增：今天的已过时间禁用
+    if (selectedDateObj.getTime() === today.getTime() && slotDate <= now) {
+      slot.classList.add("disabled");
+    }
+  });
+}
+
+// helpers
+function formatDate(d) {
+  if (!d) return "";
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${m} / ${day} / ${y}`;
+}
+
+function formatLocalISO(dateObj, timeStr) {
+  const [h, m] = timeStr.split(":").map(Number);
+  const d = new Date(
+    dateObj.getFullYear(),
+    dateObj.getMonth(),
+    dateObj.getDate(),
+    h, m, 0
+  );
+
+  // 输出本地时间 ISO：2025-12-20T10:00:00
+  const y = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  const hh = String(d.getHours()).padStart(2, "0");
+  const mm = String(d.getMinutes()).padStart(2, "0");
+  const ss = String(d.getSeconds()).padStart(2, "0");
+
+  return `${y}-${month}-${day}T${hh}:${mm}:${ss}`;
+}
+
+
+function formatFinal(d, slot) {
+  // final format like "2025-12-16   10:00 ~ 12:00"
+  return `${formatDate(d)}   ${slot}`;
+}
+
+// month/year navigation
+/* ------------------ Month Navigation ------------------ */
+document.getElementById("monthPrev").onclick = () => {
+  const prev = new Date(current.getFullYear(), current.getMonth() - 1, 1);
+
+  // ⭐ 新增：阻止跳到今天前的月份
+  if (prev.getFullYear() < today.getFullYear() ||
+      (prev.getFullYear() === today.getFullYear() && prev.getMonth() < today.getMonth())) {
+    return;
+  }
+
+  current = prev;
+  renderCalendar();
+};
+
+document.getElementById("monthNext").onclick = () => { current.setMonth(current.getMonth()+1); renderCalendar(); };
+
+document.getElementById("yearPrev").onclick = () => {
+  const prev = new Date(current.getFullYear() - 1, current.getMonth(), 1);
+
+  if (prev < new Date(today.getFullYear(), today.getMonth(), 1)) return;
+
+  current = prev;
+  renderCalendar();
+};
+
+document.getElementById("yearNext").onclick = () => {
+  current.setFullYear(current.getFullYear() + 1);
+  renderCalendar();
+};
+document.getElementById("yearNext").onclick = () => { current.setFullYear(current.getFullYear()+1); renderCalendar(); };
+
+// time slot click (only works after date selected)
+timeSlots.querySelectorAll(".slot").forEach(slot => {
+  slot.addEventListener("click", () => {
+    // 如果还没选日期，阻止并提示
+    if (!selectedDateObj) {
+      document.getElementById("dateErr").textContent = "Please select a date first.";
+      return;
+    }
+
+    // ⭐ 新增：禁止点 disabled slot
+    if (slot.classList.contains("disabled")) return;
+
+    // mark selected slot
+    timeSlots.querySelectorAll(".slot").forEach(s => s.classList.remove("selected"));
+    slot.classList.add("selected");
+    const start = slot.dataset.start;
+    const end = slot.dataset.end;
+
+    // 本地时间格式化 → 2025-03-01T10:00:00
+    const startISO = formatLocalISO(selectedDateObj, start);
+    const endISO = formatLocalISO(selectedDateObj, end);
+
+    selectedSlot = { startISO, endISO };
+
+    dateInputDisplay.innerHTML = `
+      ${formatDate(selectedDateObj)}
+      <span class="time-chip">${start} ~ ${end}</span>
+    `;
+    dateInputDisplay.classList.remove("empty");
+
+    // 只展示，不用于提交
+    hiddenDate.value = JSON.stringify({
+      start: selectedSlot.startISO,
+      end: selectedSlot.endISO
+    });
+
+    popup.style.display = "none";
+    popup.setAttribute("aria-hidden","true");
+    // clear error
+    document.getElementById("dateErr").textContent = "";
+  });
+});
+
+
+// open popup
+dateInputDisplay.addEventListener("click", (e) => {
+  e.stopPropagation();
+  popup.style.display = "flex";
+  popup.setAttribute("aria-hidden","false");
+});
+
+const calendarIcon = dateInputDisplay.parentElement.querySelector(".date-icon");
+
+// ✅ 点击日历 icon → 也打开日历
+calendarIcon.addEventListener("click", (e) => {
+    e.stopPropagation();
+    popup.style.display = "flex";
+    popup.setAttribute("aria-hidden","false");
+});
+
+// close on outside click
+document.addEventListener("click", (e) => {
+  if (!popup.contains(e.target) && e.target !== input) {
+    popup.style.display = "none";
+    popup.setAttribute("aria-hidden","true");
+  }
+});
+
+// prevent clicks inside popup from closing (stopPropagation)
+popup.addEventListener("click", (e) => e.stopPropagation());
+
+renderCalendar();
+
+/* ===== Form helpers ===== */
+function getCheckedValues(selector) {
+  return Array.from(document.querySelectorAll(selector)).map(el => {
+    // prefer value attribute (we set values for models/types), fallback to label text
+    return el.value ? el.value.trim() : el.parentElement.textContent.trim();
+  });
+}
+
+/* ===== Validation and submit ===== */
+const submitBtn = document.getElementById("submitBtn");
+const submitMsg = document.getElementById("submitMsg");
+
+submitBtn.addEventListener("click", async () => {
+  // reset errors
+  ["nameErr","phoneErr","emailErr","dateErr","modelsErr","businessTypesErr","purposesErr","materialsErr","outputErr"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = "";
+  });
+
+  document.getElementById("submitMsg").textContent = "";
+
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const visit = document.getElementById("date").value.trim(); // hidden final value
+  const models = getCheckedValues('input[name="model"]:checked');
+
+  // 先声明 hasError
+  let hasError = false;
+
+  // 这里即时获取被选中的 radio（避免未定义错误）
+  const businessTypeEl = document.querySelector('input[name="type"]:checked');
+  const materialEl = document.querySelector('input[name="material"]:checked');
+
+  // Business Type 处理
+  let businessTypes = [];
+  if (businessTypeEl) {
+    if (businessTypeEl.value === "Other") {
+      if (!otherTypeInput.value || !otherTypeInput.value.trim()) {
+        document.getElementById("businessTypesErr").textContent = "Please fill in Other business type.";
+        hasError = true;
+      } else {
+        businessTypes = [otherTypeInput.value.trim()];
+      }
+    } else {
+      businessTypes = [businessTypeEl.value];
+    }
+  }
+
+  // Purposes
+  const purposes = getCheckedValues('.purpose-group input[type="checkbox"]:checked');
+
+  // Materials 处理
+  let materials = [];
+  if (materialEl) {
+    if (materialEl.value === "Other") {
+      if (!otherMaterialInput.value || !otherMaterialInput.value.trim()) {
+        document.getElementById("materialsErr").textContent = "Please fill in Other material.";
+        hasError = true;
+      } else {
+        materials = [otherMaterialInput.value.trim()];
+      }
+    } else {
+      materials = [materialEl.value];
+    }
+  }
+
+  const outputEl = document.querySelector('input[name="output"]:checked');
+  const output = outputEl ? outputEl.value : "";
+  const agree = document.getElementById("agree").checked;
+
+  // 基础校验
+  if (!name) { document.getElementById("nameErr").textContent = "Please fill your name"; hasError = true; }
+  if (!phone) { document.getElementById("phoneErr").textContent = "Please fill your phone"; hasError = true; }
+  if (!email) { document.getElementById("emailErr").textContent = "Please fill your email"; hasError = true; }
+
+  // 检查是否有最终选好的时间段
+  if (!selectedSlot || !selectedSlot.startISO || !selectedSlot.endISO) {
+    document.getElementById("dateErr").textContent = "Please select a date and time (weekdays only).";
+    hasError = true;
+  }
+
+  if (!models.length) { document.getElementById("modelsErr").textContent = "Please select at least one model."; hasError = true; }
+  if (!businessTypes.length) { document.getElementById("businessTypesErr").textContent = "Please select at least one business type."; hasError = true; }
+  if (!purposes.length) { document.getElementById("purposesErr").textContent = "Please select at least one purpose."; hasError = true; }
+  if (!materials.length) { document.getElementById("materialsErr").textContent = "Please select at least one material."; hasError = true; }
+  if (!output) { document.getElementById("outputErr").textContent = "Please select expected daily output."; hasError = true; }
+
+  if(hasError) return;
+
+  // build payload
+  const postData = {
+    showroomId: document.querySelector('.showroom-item.active').dataset.id,
+    name,
+    phoneNumber: phone,
+    email,
+    visitDateStart: selectedSlot.startISO,
+    visitDateEnd: selectedSlot.endISO,
+    modelOfInterest: models.join(", "),
+    businessType: businessTypes.join(", "),
+    primaryPurpose: purposes.join(", "),
+    primaryMaterials: materials.join(", "),
+    expectedDailyOutput: output,
+    agreePolicy: agree ? 1 : 0
+  };
+
+  // send request
+  const api = 'https://booster.procolored.com';
+  const showRoomBookingApi = "/procolored/activity/showroom/booking";
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Submitting...";
+
+  try {
+    const res = await fetch(`${api}${showRoomBookingApi}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(postData),
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Server error: ${res.status} ${text}`);
+    }
+
+    // success
+    document.getElementById("successPopup").style.display = "flex";
+    submitBtn.textContent = "Submit Your Reserve Application";
+  } catch (err) {
+    console.error(err);
+    submitMsg.style.color = "red";
+    submitMsg.textContent = "Submit failed. Please try again later.";
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Submit Your Reserve Application";
+  }
+});
+
+document.getElementById("successOk").addEventListener("click", () => {
+  document.getElementById("successPopup").style.display = "none";
+});
+
+/* ===== Other Option Logic ===== */
+
+// Business Type - Other
+const typeRadios = document.querySelectorAll('input[name="type"]');
+const otherTypeInput = document.getElementById("otherTypeInput");
+
+// Material - Other
+const materialRadios = document.querySelectorAll('input[name="material"]');
+const otherMaterialInput = document.getElementById("otherMaterialInput");
+</script>
+
+{% schema %}
+  {
+    "name": "Showroom Form",
+    "tag": "section",
+    "settings": [
+      
+    ],
+    "blocks": [
+        {
+            "name": "Instructions",
+            "type": "instructions",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "richtext",
+                    "id": "content",
+                    "label": "Content"
+                }
+            ]
+        }
+    ],
+    "presets": [
+      {
+        "name": "Showroom Form"
+      }
+    ]
+  }
+{% endschema %}

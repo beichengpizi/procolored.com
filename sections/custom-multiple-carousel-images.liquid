@@ -1,0 +1,1185 @@
+<!-- 无限滚动 -->
+<style>
+  /* multiple-carousel-images  无限滚动  */
+  #multiple-carousel-images-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    position: relative;
+    box-sizing: border-box;
+  }
+  #multiple-carousel-images-{{ section.id }} .multiple-carousel-images-container {
+    margin: 0 auto;
+    width: 100%;
+  }
+  #multiple-carousel-images-{{ section.id }} .multiple-carousel-images-title {
+    display: flex;
+    width: 100%;
+    line-height: 1;
+    align-items: center;
+    color: {{ section.settings.title_color }};
+    justify-content: {{ section.settings.title_alignment }};
+    text-align: {{ section.settings.title_alignment }};
+    margin-top: {{ section.settings.title_margin_top }}px;
+    margin-bottom: {{ section.settings.title_margin_bottom }}px;
+  }
+  #multiple-carousel-images-{{ section.id }} .multiple-carousel-images-subtitle {
+    color: {{ section.settings.subtitle_color }};
+    margin-top: {{ section.settings.subtitle_margin_top }}px;
+    margin-bottom: {{ section.settings.subtitle_margin_bottom }}px;
+    width: 100%;
+    text-align: {{ section.settings.title_alignment }};
+  }
+  #multiple-carousel-images-{{ section.id }} .multiple-carousel-images-swiper-container-{{ section.id }} {
+    position: relative;
+    overflow: hidden;
+  }
+  #multiple-carousel-images-{{ section.id }} .multiple-carousel-images-contaner-item {
+    position: relative;
+    {% if section.settings.is_openMinHeight %}
+      min-height: {{ section.settings.card_container_min_height }}px;
+    {% else %}
+      min-height: auto;
+    {% endif %}
+  }
+  #multiple-carousel-images-{{ section.id }} .multiple-carousel-images-contaner-item .text-container {
+    text-align: {{ section.settings.content_alignment }};
+  }
+  #multiple-carousel-images-{{ section.id }} .multiple-carousel-images-contaner-item img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+  }
+  #multiple-carousel-images-{{ section.id }} .multiple-carousel-images-contaner-heading {
+
+    padding-top: {{ section.settings.heading_padding_top }}px;
+    padding-bottom: {{ section.settings.heading_padding_bottom }}px;
+    text-align: {{ section.settings.content_alignment }};
+  }
+  #multiple-carousel-images-{{ section.id }} .desktopShow {
+    display: block;
+  }
+  #multiple-carousel-images-{{ section.id }} .mobileShow {
+    display: none;
+  }
+  #multiple-carousel-images-{{ section.id }} .multiple-carousel-images-swiper-container-{{ section.id }} .swiper-wrapper {
+    transition-timing-function: linear !important; /* 匀速滚动 */
+    -webkit-transition-timing-function: linear !important;
+    -moz-transition-timing-function: linear !important;
+    -ms-transition-timing-function: linear !important;
+    -o-transition-timing-function: linear !important;
+  }
+  .multiple-carousel-images-mask{
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        padding: 46px 70px;
+        border-radius: 20px;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.57) 0%, rgba(0, 0, 0, 0.57) 100%);
+        backdrop-filter: blur(17.799999237060547px);
+        z-index: 9;
+        width: max-content;
+  }
+  .multiple-carousel-images-mask-subheading,.multiple-carousel-images-mask-subtitle{
+      color: #FFF;
+      text-align: center;
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 1.26;
+
+  }
+  .multiple-carousel-images-mask-title{
+      color: #FFF;
+      text-align: center;
+      font-size: 56px;
+      font-weight: 800;
+      line-height: 1.14;
+  }
+
+  @media screen and (max-width: 768px) {
+    #multiple-carousel-images-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top_mobile }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    }
+    #multiple-carousel-images-{{ section.id }} .multiple-carousel-images-title {
+      font-size: {{ section.settings.title_size_mobile }}px;
+      gap: 7px;
+      margin-top: {{ section.settings.title_margin_top_mobile }}px;
+      margin-bottom: {{ section.settings.title_margin_bottom_mobile }}px;
+    }
+    #multiple-carousel-images-{{ section.id }} .multiple-carousel-images-subtitle {
+      font-size: {{ section.settings.subtitle_size_mobile }}px;
+      margin-top: {{ section.settings.subtitle_margin_top_mobile }}px;
+      margin-bottom: {{ section.settings.subtitle_margin_bottom_mobile }}px;
+    }
+    #multiple-carousel-images-{{ section.id }} .multiple-carousel-images-swiper-container-{{ section.id }} {
+      overflow: hidden;
+    }
+    #multiple-carousel-images-{{ section.id }} .multiple-carousel-images-contaner-item {
+      position: relative;
+      {% if section.settings.is_openMinHeight %}
+        min-height: {{ section.settings.card_container_min_height_mobile }}px;
+      {% else %}
+        min-height: auto;
+      {% endif %}
+    }
+    #multiple-carousel-images-{{ section.id }} .multiple-carousel-images-contaner-item .text-container {
+      font-size: {{ section.settings.text_size_mobile }}px;
+    }
+    #multiple-carousel-images-{{ section.id }} .multiple-carousel-images-contaner-heading {
+      font-size: {{ section.settings.heading_font_size_mobile }}px;
+      padding-top: {{ section.settings.heading_padding_top_mobile }}px;
+      padding-bottom: {{ section.settings.heading_padding_bottom_mobile }}px;
+    }
+    .multiple-carousel-images-mask{
+        gap: 6px;
+        padding: 20px 22px;
+        border-radius: 8px;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.57) 0%, rgba(0, 0, 0, 0.57) 100%);
+        backdrop-filter: blur(17.799999237060547px);
+        z-index: 9;
+    }
+    .multiple-carousel-images-mask-subheading,.multiple-carousel-images-mask-subtitle{
+        font-size: 12px;
+    }
+    .multiple-carousel-images-mask-title{
+        font-size: 22px;
+    }
+  }
+</style>
+
+<!-- multiple-carousel-images -->
+<section
+  id="{% if section.settings.nav_id != empty %}custom-nav-{{ section.settings.nav_id }}{% endif %}"
+  class="multiple-carousel-images-section"
+>
+  <div id="multiple-carousel-images-{{section.id}}" class="multiple-carousel-images-wrap">
+    <div class="multiple-carousel-images-container">
+      <div class="multiple-carousel-images-title {{ section.settings.title_size }} {{ section.settings.title_font_family }} ">
+        {{ section.settings.title }}
+      </div>
+      <div class="multiple-carousel-images-subtitle {{ section.settings.subtitle_size }} {{ section.settings.subtitle_font_family }}">
+        {{ section.settings.subtitle }}
+      </div>
+      {% for block in section.blocks %}
+        {%- assign materials_images_list = block.settings.materials_images_list -%}
+        {%- if materials_images_list != blank -%}
+          {%- assign materials_images = materials_images_list.images.value -%}
+          {%- assign materials_title_list = materials_images_list.title.value -%}
+          <style>
+            .image-container-{{ block.id }} {
+              padding: {{ block.settings.card_container_padding_top_bottom }}px {{ block.settings.card_container_padding_left_right }}px;
+              border-radius: {{ block.settings.card_container_border_radius }}px;
+              background: {{ block.settings.background_color }};
+              overflow: hidden;
+            }
+            .multiple-carousel-images-swiper-container-{{ block.id }} .multiple-carousel-images-contaner-heading{
+                color: {{ block.settings.text_color }};
+            }
+            .multiple-carousel-images-swiper-container-{{ block.id }}{
+                margin-top: {{ block.settings.margin_top }}px;
+                margin-bottom: {{ block.settings.margin_bottom }}px;
+            }
+            @media screen and (max-width: 768px){
+                .multiple-carousel-images-swiper-container-{{ block.id }}{
+                    margin-top: {{ block.settings.margin_top_mb }}px;
+                    margin-bottom: {{ block.settings.margin_bottom_mb }}px;
+                }
+              .image-container-{{ block.id }} {
+                padding: {{ block.settings.card_container_padding_top_bottom_mobile }}px {{ block.settings.card_container_padding_left_right_mobile }}px;
+                border-radius: {{ block.settings.card_container_border_radius_mobile }}px;
+              }
+            }
+          </style>
+
+          <div
+            class="swiper-container multiple-carousel-images-swiper-container-{{ block.id }} multiple-carousel-images-swiper-container-{{ section.id }}"
+            data-direction="{{ block.settings.is_reverseDirection }}"
+          >
+            <div class="swiper-wrapper">
+              {% for image in materials_images %}
+                <div class="swiper-slide">
+                  <div class="multiple-carousel-images-contaner-item image-container-{{ block.id }}">
+                    {% assign size = 100 | divided_by: section.settings.card_item_count | round %}
+                    {% if image %}
+                      <img
+                        style="aspect-ratio: {{ image.aspect_ratio }}"
+                        data-sizes="{{ size }}vw"
+                        data-srcset="
+                          {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                          {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                          {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                          {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                          {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                          {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                          {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                          {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                          {{ image | image_url }} {{ image.width }}w
+                        "
+                        data-src="{{ image | image_url:width:750 }}"
+                        class="lazyload"
+                        alt="{{ image.alt }}"
+                      >
+                    {% endif %}
+                  </div>
+                  {% if materials_title_list[forloop.index0] != blank %}
+                    <div class="multiple-carousel-images-contaner-heading {{ section.settings.heading_font_size }} {{ section.settings.heading_font_family }}">
+                      {{ materials_title_list[forloop.index0] }}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            </div>
+            {% if block.settings.is_showMask %}
+              <div class="multiple-carousel-images-mask">
+                {% if block.settings.mask_subheading != empty %}
+                  <div class="multiple-carousel-images-mask-subheading">
+                    {{ block.settings.mask_subheading }}
+                  </div>
+                {% endif %}
+                {% if block.settings.mask_title != empty %}
+                  <div class="multiple-carousel-images-mask-title">
+                    {{ block.settings.mask_title }}
+                  </div>
+                {% endif %}
+                {% if block.settings.mask_subtitle != empty %}
+                  <div class="multiple-carousel-images-mask-subtitle">
+                    {{ block.settings.mask_subtitle }}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+<script>
+  {% comment %} 修复初始化显示时，第一个slide占满全屏才显示6个的问题，核心是通过设置"watchSlidesVisibility: true"与"watchOverflow: true"以及移除observer相关配置，保证一初始化就显示正确slide数 {% endcomment %}
+
+  // 针对页面上每一个swiper实例，依据其 data-direction 属性动态设置轮播方向
+  document.querySelectorAll('.multiple-carousel-images-swiper-container-{{ section.id }}').forEach(function (swiperContainer) {
+    const reverseDirection = swiperContainer.getAttribute('data-direction') === 'true';
+    const slidesPerView = {{ section.settings.card_item_count | minus:0 | plus:section.settings.card_item_count_per_page }};
+    const swiper = new Swiper(swiperContainer, {
+      loop: true,
+      initialSlide: 0,
+      spaceBetween: 16,
+      freeMode: true,
+      loopedSlides: 50,
+      speed: 5000, //匀速时间5秒
+      allowTouchMove: false, // 禁止拖动
+      watchSlidesVisibility: true,
+      watchOverflow: true,
+      // 这里可根据需要动态配置 slidesPerView, 下方仅作简单设置
+      slidesPerView: slidesPerView,
+      autoplay: {
+        delay: 0,
+        disableOnInteraction: false,
+        reverseDirection: reverseDirection, // 根据 data-direction 属性设置
+        stopOnLastSlide: false,
+        waitForTransition: true,
+      },
+      breakpoints: {
+        1024: {
+          slidesPerView: {{ section.settings.card_item_count | minus:2 | plus:section.settings.card_item_count_per_page }},
+          spaceBetween: 10,
+        },
+        768: {
+          slidesPerView: {{ section.settings.card_item_count_mobile | minus:0  | plus:section.settings.card_item_count_per_page_mobile }},
+          spaceBetween: 10,
+        },
+      },
+      on: {
+        init: function () {
+          this.autoplay.start();
+          // 强制更新尺寸和slide显示数量，确保首次渲染就正确
+          this.update();
+        },
+        reachEnd: function () {
+          this.autoplay.start();
+        },
+      },
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "multiple carousel images",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_openMinHeight",
+      "label": "开启卡片最小高度设定",
+      "default": true
+    },
+
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "大标题对齐方式",
+      "options": [
+        {
+          "value": "start",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中对齐"
+        },
+
+        {
+          "value": "end",
+          "label": "右对齐"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "内容对齐方式",
+      "options": [
+        {
+          "value": "start",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中对齐"
+        },
+
+        {
+          "value": "end",
+          "label": "右对齐"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "card_item_count",
+      "min": 2,
+      "max": 20,
+      "step": 1,
+      "unit": "个",
+      "label": "轮播显示个数",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "card_item_count_per_page",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "unit": "个",
+      "label": "轮播显示个数(小数点调节)",
+      "default": 0.8
+    },
+
+    {
+      "type": "range",
+      "id": "card_item_count_mobile",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "unit": "个",
+      "label": "轮播显示个数(移动端)",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "card_item_count_per_page_mobile",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "unit": "个",
+      "label": "轮播显示个数(移动端)(小数点调节)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "card_container_min_height",
+      "min": 100,
+      "max": 400,
+      "step": 4,
+      "unit": "px",
+      "label": "卡片容器的最小高度",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "card_container_min_height_mobile",
+      "min": 100,
+      "max": 400,
+      "step": 4,
+      "unit": "px",
+      "label": "卡片容器的最小高度（移动端）",
+      "default": 120
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题",
+      "default": "大标题"
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": "大标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题字体大小（移动端）",
+      "default": 30
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题",
+      "default": "小标题"
+    },
+    {
+      "type": "select",
+      "id": "subtitle_size",
+      "label": "小标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题字体大小（移动端）",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "heading_font_size",
+      "label": "主标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "text-base"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "主标题字体大小（移动端）",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "label": "文本字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "text-base"
+    },
+    {
+      "type": "range",
+      "id": "text_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "文本字体大小（移动端）",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "颜色"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "大标题字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "小标题字体颜色",
+      "default": "#000000"
+    },
+
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "背景色",
+      "default": "#FFFAF6"
+    },
+    {
+      "type": "header",
+      "content": "字体系列"
+    },
+    {
+      "type": "select",
+      "id": "title_font_family",
+      "label": "大标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-bold"
+    },
+    {
+      "type": "select",
+      "id": "subtitle_font_family",
+      "label": "小标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-regular"
+    },
+    {
+      "type": "select",
+      "id": "heading_font_family",
+      "label": "主标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-bold"
+    },
+    {
+      "type": "select",
+      "id": "content_font_family",
+      "label": "内容字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-bold"
+    },
+    {
+      "type": "header",
+      "content": "分区填充"
+    },
+    {
+      "type": "range",
+      "id": "title_margin_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题顶部填充",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "title_margin_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "title_margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "title_margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题底部填充(移动端)",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "subtitle_margin_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "小标题顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "subtitle_margin_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "小标题顶部填充(移动端)",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "subtitle_margin_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "小标题底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "subtitle_margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "小标题底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "主标题顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "主标题顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "主标题底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "主标题底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image-carousel-group",
+      "name": "图片轮播组",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "is_reverseDirection",
+          "label": "开启反向自动轮播",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "is_showMask",
+          "label": "显示遮罩层",
+          "default": false
+        },
+        {
+          "type": "metaobject",
+          "id": "materials_images_list",
+          "label": "图片列表",
+          "metaobject_type": "materials_images_list"
+        },
+
+        {
+          "type": "range",
+          "id": "card_container_border_radius",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "卡片容器的圆角大小",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "card_container_border_radius_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "卡片容器的圆角大小（移动端）",
+          "default": 10
+        },
+        {
+          "type": "html",
+          "id": "mask_subheading",
+          "label": "遮罩层小标题",
+          "default": "Create on Anything"
+        },
+        {
+          "type": "html",
+          "id": "mask_title",
+          "label": "遮罩层主标题",
+          "default": "3000+ Materials"
+        },
+        {
+          "type": "html",
+          "id": "mask_subtitle",
+          "label": "遮罩层副标题",
+          "default": "Endless Possibilities"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "文本颜色"
+        },
+        {
+          "type": "color_background",
+          "id": "background_color",
+          "label": "背景颜色"
+        },
+        {
+          "type": "range",
+          "id": "card_container_padding_top_bottom",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "卡片容器上下填充",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "card_container_padding_left_right",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "卡片容器左右填充",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "card_container_padding_left_right_mobile",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "卡片容器左右填充(移动端)",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "card_container_padding_top_bottom_mobile",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "卡片容器上下填充(移动端)",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "顶部填充",
+          "default": 0
+        },
+
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "底部填充",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_top_mb",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "顶部填充(移动端)",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom_mb",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "底部填充(移动端)",
+          "default": 0
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "multiple carousel images",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}
