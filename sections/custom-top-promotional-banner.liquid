@@ -1,187 +1,217 @@
 <style>
-  /* Top promotional banner 顶部促销活动横幅 start */
-.top-promotional-banner-{{ section.id }}  .top-promotional-banner-wrapper {
-    background: linear-gradient(269deg, #000 11.94%, #fece67 120.47%);
-    background-color: {{ section.settings.bg_color }};
-    background: {{ section.settings.background_gradient_color }};
-    cursor: pointer;
-  }
-
-.top-promotional-banner-{{ section.id }}  .top-promotional-banner-containner {
-    display: flex;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-right: calc((136 / 1920) * 100vw);
-    {% comment %} padding-left: calc((360 / 1920) * 100vw); {% endcomment %}
-    gap: 120px;
-  }
-
-.top-promotional-banner-{{ section.id }}  .top-promotional-banner-containner-content {
-    display: flex;
-    align-items: center;
-    gap: 120px;
-  }
-
-.top-promotional-banner-{{ section.id }}  .top-promotional-banner-title-wrapper {
-    display: flex;
-    flex-direction: column;
-  }
-
-.top-promotional-banner-{{ section.id }}  .top-promotional-banner-title {
-    color: #fff;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.25;
-  }
-
-.top-promotional-banner-{{ section.id }}  .top-promotional-banner-subtitle {
-    color: #fff;
-    font-size: 20px;
-    font-weight: 800;
-    line-height: 1.2;
-  }
-
-.top-promotional-banner-{{ section.id }}  .top-promotional-banner-subtitle span {
-    display: block;
-  }
-
-.top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box {
-    max-width: max-content;
-
-  }
-
-.top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .countdown-box > div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-
-.top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-width: 52px;
-    min-height: 56px;
-
-    position: relative;
-    border-radius: 6px;
-    border: 1px dashed #fff;
-  }
-
-.top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-value {
-    /* background-color: #000; */
-    color: #fff;
-
-    border-radius: 0;
-    font-size: 24px;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-.top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-label {
-    font-size: 12px;
-    color: #fff;
-    line-height: 1;
-  }
-
-.top-promotional-banner-{{ section.id }}  .top-promotional-banner-img {
-    width: 228px;
-  }
-
-.top-promotional-banner-{{ section.id }}  .top-promotional-banner-img img {
-    display: flex;
-    width: 100%;
-    max-width: 100%;
-  }
-
-  @media screen and (max-width: 768px) {
+    /* Top promotional banner 顶部促销活动横幅 start */
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-wrapper {
-      background: background: {{ section.settings.background_gradient_color_mb }};
+      background: linear-gradient(269deg, #000 11.94%, #fece67 120.47%);
+      background-color: {{ section.settings.bg_color }};
+      background: {{ section.settings.background_gradient_color }};
+      cursor: pointer;
+      {% if section.settings.banner_bg_image_pc %}
+        background-image: url({{ section.settings.banner_bg_image_pc | image_url :width:1920 }});
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        aspect-ratio: {{ section.settings.banner_bg_image_pc.aspect_ratio }};
+        min-height: 98px;
+        display: flex;
+        width: 100%;
+      {%- endif -%}
+
     }
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-containner {
       display: flex;
-      padding-right: 0;
-      gap: 0;
-      justify-content: end;
-      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-right: calc((136 / 1920) * 100vw);
+      {% comment %} padding-left: calc((360 / 1920) * 100vw); {% endcomment %}
+      gap: 120px;
     }
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-containner-content {
       display: flex;
-      align-items: start;
-      flex-direction: column;
-      position: absolute;
-      left: 14px;
-      top: 20px;
-      width: 48%;
-      gap: 0;
-      height: calc(100% - 20px);
-      padding-bottom: 13px;
+      align-items: center;
+      gap: 120px;
     }
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-title-wrapper {
       display: flex;
       flex-direction: column;
-      gap: 6px;
     }
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-title {
-      font-size: 12px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.25;
     }
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-subtitle {
-      font-size: 14px;
-
-      line-height: 1.14;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.2;
     }
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-subtitle span {
-      display: inline;
+      display: block;
     }
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box {
-      margin-top: auto;
+      max-width: max-content;
+
     }
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .countdown-box > div {
-      gap: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-block {
-      min-width: 29px;
-      min-height: 30px;
-      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 52px;
+      min-height: 56px;
+
+      position: relative;
+      border-radius: 6px;
+      border: 1px dashed #fff;
     }
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-value {
-      font-size: 13px;
+      /* background-color: #000; */
+      color: #fff;
 
+      border-radius: 0;
+      font-size: 24px;
+      line-height: 1;
       margin-bottom: 4px;
     }
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-label {
-      font-size: 6px;
+      font-size: 12px;
       color: #fff;
       line-height: 1;
     }
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-img {
-      width: 196px;
-      flex-shrink: 0;
+      width: 228px;
     }
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-img img {
       display: flex;
       width: 100%;
       max-width: 100%;
-      object-fit: cover;
     }
-  }
 
-  /* Top promotional banner 顶部促销活动横幅 end */
+    @media screen and (max-width: 768px) {
+    .top-promotional-banner-{{ section.id }}  .top-promotional-banner-wrapper {
+        background: {{ section.settings.background_gradient_color_mb }};
+        {% if section.settings.banner_mb_image_pc %}
+          aspect-ratio: {{ section.settings.banner_mb_image_pc.aspect_ratio }};
+          background-image: url({{ section.settings.banner_mb_image_pc | image_url :width:750 }});
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+        {%- endif -%}
+      }
+
+    .top-promotional-banner-{{ section.id }}  .top-promotional-banner-containner {
+        display: flex;
+        padding-right: 0;
+        gap: 0;
+        justify-content: end;
+        position: relative;
+        {% if section.settings.banner_bg_image_pc %}
+          margin: 0;
+        {%- endif -%}
+      }
+
+    .top-promotional-banner-{{ section.id }}  .top-promotional-banner-containner-content {
+        display: flex;
+        align-items: start;
+        flex-direction: column;
+        position: absolute;
+        left: 14px;
+        top: 20px;
+        width: 48%;
+
+        height: calc(100% - 20px);
+        padding-bottom: 13px;
+        {% if section.settings.banner_bg_image_pc %}
+          gap: 0 !important;
+          width: 100%;
+          top: 5px;
+          left: 10px;
+        {%- endif -%}
+      }
+
+    .top-promotional-banner-{{ section.id }}  .top-promotional-banner-title-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+    .top-promotional-banner-{{ section.id }}  .top-promotional-banner-title {
+        font-size: 12px;
+      }
+
+    .top-promotional-banner-{{ section.id }}  .top-promotional-banner-subtitle {
+        font-size: 14px;
+
+        line-height: 1.14;
+      }
+
+    .top-promotional-banner-{{ section.id }}  .top-promotional-banner-subtitle span {
+        display: inline;
+      }
+
+    .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box {
+        margin-top: auto;
+        {% if section.settings.banner_bg_image_pc %}
+          margin-top: 5px;
+        {%- endif -%}
+      }
+
+    .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .countdown-box > div {
+        gap: 6px;
+      }
+
+    .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-block {
+        min-width: 29px;
+        min-height: 30px;
+        border-radius: 5px;
+      }
+
+    .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-value {
+        font-size: 13px;
+
+        margin-bottom: 4px;
+      }
+
+    .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-label {
+        font-size: 6px;
+        color: #fff;
+        line-height: 1;
+      }
+
+    .top-promotional-banner-{{ section.id }}  .top-promotional-banner-img {
+        width: 196px;
+        flex-shrink: 0;
+      }
+
+    .top-promotional-banner-{{ section.id }}  .top-promotional-banner-img img {
+        display: flex;
+        width: 100%;
+        max-width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    /* Top promotional banner 顶部促销活动横幅 end */
 </style>
 <!-- Top promotional banner 顶部促销活动横幅 start -->
 <section id="top-promotional-banner" class="top-promotional-banner-{{ section.id }}">
@@ -318,7 +348,7 @@
 {
   "name": "Top promotional banner",
   "tag": "section",
-  
+
   "enabled_on": {
     "groups": ["header"]
   },
@@ -339,7 +369,6 @@
       "type": "url",
       "id": "banner_link",
       "label": "活动链接"
-      
     },
 
     {
@@ -374,7 +403,16 @@
       "id": "banner_image_mb",
       "label": "活动图标(移动端)"
     },
-
+    {
+      "type": "image_picker",
+      "id": "banner_bg_image_pc",
+      "label": "背景图（PC端）"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_mb_image_pc",
+      "label": "背景图（移动端）"
+    },
     {
       "type": "color",
       "id": "product_title_color",

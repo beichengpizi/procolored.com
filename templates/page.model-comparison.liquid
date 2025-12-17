@@ -1,0 +1,594 @@
+<!-- 引入样式文件 -->
+{{ 'model-comparison.css' | asset_url | stylesheet_tag }}
+{{ 'compare.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #wrapper #main-content {
+    background: #fff;
+  }
+
+  .comparison-wrapper {
+    padding: 0;
+  }
+
+  .multi-page-with-navigation {
+    width: min(1200px, 100%);
+  }
+
+  .comparison-section .compared-product {
+    max-width: 314px;
+  }
+
+  .comparison-section hr {
+    margin-bottom: 30px;
+  }
+
+  .multi-page-with-navigation--page .rte p, .multi-page-with-navigation--page .rte li, .multi-page-with-navigation--page .rte>div {
+    color: #6D6D6D;
+  }
+
+  .comparison-section:not(:first-child) .comparison-content {
+    padding-bottom: 40px;
+  }
+
+  .comparison-section .comparison-content .printer-selector-wrapper select {
+    height: 56px;
+  }
+
+  .comparison-section .comparison-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: calc(calc(100% - 942px) / 2);
+  }
+  @media only screen and (max-width: 768px) {
+    .comparison-section:first-child .compared-product{
+      padding-bottom: 10px;
+    }
+    .comparison-section:not(:first-child) .comparison-content {
+      padding-bottom: 0;
+  }
+    .comparison-section .comparison-content .printer-selector-wrapper{
+      padding: 0;
+
+    }
+    .comparison-section .comparison-content .printer-selector-wrapper select {
+      font-size: 12px;
+      padding: 0 16px 0 10px;
+      height: 35px;
+      margin: 0 5px;
+  }
+    .comparison-section .comparison-content{
+      column-gap: 15px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+<!-- 主容器 -->
+<div class="multi-contact-forms-container">
+  <div class="multi-contact-forms-header">
+    <h1>Compare Procolored Machines</h1>
+  </div>
+
+  <!-- 多页面导航组件 -->
+  <multi-page-with-navigation class="multi-page-with-navigation section-spacing section-spacing--disable-top">
+    <div class="row">
+      <div class="small-12 columns"></div>
+    </div>
+
+    <div class="multi-page-with-navigation--inner">
+      <!-- 内容区域 -->
+      <div class="multi-page-with-navigation--content">
+        <div class="multi-page-with-navigation--page">
+          <div data-selector-section-id="compare" class="multi-page-switch">
+            <!-- DTF打印机对比 -->
+            {% assign option_groups = 'DTF Printer,UV DTF Printer,UV Printer,DTG Printer' | split: ',' %}
+            {% assign option_values = 'dtf_printer,uv_dtf_printer,uv_printer,dtg_printer' | split: ',' %}
+            <div data-selector-option-value="dtf_printer" class="rte active">
+              <div class="comparison-wrapper">
+                <!-- 产品基本信息对比区域 -->
+                <div class="comparison-section">
+                  <div class="comparison-content">
+                    {% for i in (0..2) %}
+                      <!-- 每个产品系列的对比区块 -->
+                      <div
+                        id="{{ forloop.index0 }}-{{ product.id }}"
+                        class="dtf-comparison-{{ forloop.index0 }}-section compared-product"
+                      >
+                        <!-- 产品选择器 -->
+                        <div class="printer-selector-wrapper">
+                          <div 
+                            class="custom-select printer-custom-select" 
+                            data-index="{{ forloop.index0 }}"
+                          >
+                            <!-- 显示选中内容 -->
+                            <div class="select-trigger">
+                              <span class="trigger-label"></span>
+
+                              <svg class="trigger-arrow" xmlns="http://www.w3.org/2000/svg" width="12" height="11" viewBox="0 0 12 11" fill="none">
+                                <path d="M7.13107 9.75C6.55372 10.75 5.11034 10.75 4.53299 9.75L0.202866 2.25C-0.374484 1.25 0.347204 -7.28468e-07 1.5019 -8.29415e-07L10.1622 -1.58652e-06C11.3169 -1.68747e-06 12.0385 1.25 11.4612 2.25L7.13107 9.75Z" fill="black"/>
+                              </svg>
+                            </div>
+
+                            <!-- 下拉内容 -->
+                            <div class="options">
+
+                              {% for group_title in option_groups %}
+                                {% assign group_index = forloop.index0 %}
+                                <div class="optgroup-label">{{ group_title }}</div>
+
+                                {% for model_comparison in shop.metaobjects.model_compare_8_4.values %}
+                                  {% if model_comparison[option_values[group_index]] != blank %}
+                                    {% assign series = model_comparison[option_values[group_index]].value %}
+
+                                    {% for product in series %}
+                                      <div 
+                                        class="option"
+                                        data-value="{{ product.id }}"
+                                        data-name="{{ product.metafields.custom.name | default: product.title }}"
+                                        data-selected="{% if group_index == 0 and forloop.index0 == i %}true{% else %}false{% endif %}"
+                                      >
+                                        {{ product.metafields.custom.name | default: product.title }}
+                                      </div>
+                                    {% endfor %}
+                                  {% endif %}
+                                {% endfor %}
+
+                              {% endfor %}
+
+                            </div>
+                          </div>
+
+                        </div>
+
+                        {% comment %} 产品详细信息 {% endcomment %}
+                        {%- for group_values in option_values -%}
+                          {%- assign group_index = forloop.index0 -%}
+
+                          {% for model_comparison in shop.metaobjects.model_compare_8_4.values %}
+                            {%- if model_comparison[group_values] != blank -%}
+                              {% assign series = model_comparison[group_values].value %}
+                              {%- for product in series -%}
+                                <div
+                                  class="product-info-wrapper"
+                                  data-product-id="{{ product.id }}"
+                                  data-product-index="{{ i }}"
+                                  data-product-active="{% if forloop.index0 == i and group_index == 0 %}true{% else %}false{% endif %}"
+                                >
+                                  <!-- 产品图片和价格 -->
+                                  <div>
+                                    <a
+                                      href="{{ product.url | split: '?' | first }}"
+                                      title="{{- product.title | escape -}}"
+                                      class="product-img"
+                                    >
+                                      {% assign image = product.featured_image %}
+                                      {% assign size = 100 | divided_by: forloop.length | round %}
+                                      <img
+                                        width="{{ image.width }}"
+                                        height="{{ image.height }}"
+                                        style="aspect-ratio: {{ image.aspect_ratio }};width: 100%;"
+                                        data-sizes="{{ size }}vw"
+                                        data-srcset="
+                                          {%- if image.width >= 200 -%}{{ image | image_url: width: 200 }} 200w,{%- endif -%}
+                                          {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                                          {%- if image.width >= 550 -%}{{ image | image_url: width: 550 }} 550w,{%- endif -%}
+                                          {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                                          {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                          {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                          {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                          {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                          {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                          {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                          {{ image | image_url }} {{ image.width }}w
+                                        "
+                                        data-src="{{ image | image_url:width:750 }}"
+                                        class="lazyload"
+                                        alt="{{ product.title | escape }}"
+                                      >
+                                    </a>
+                                    <div class="price">{% render 'product-price', product: product, use_variant: true %}</div>
+                                  </div>
+
+                                  <!-- 购买按钮和了解更多链接 -->
+                                  <div>
+                                    <form method="post" action="/cart/add">
+                                      <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                                      <input min="1" type="number" id="quantity" name="quantity" value="1">
+                                      <input type="submit" value="Buy Now" class="btn">
+                                    </form>
+                                    <a class="learn-more" href="{{ product.url }}">Learn More</a>
+                                  </div>
+                                </div>
+                              {% endfor %}
+                            {%- endif -%}
+                          {% endfor %}
+                        {%- endfor -%}
+                        
+                      </div>
+                    {% endfor %}
+                  </div>
+                </div>
+
+                <!-- 产品详细参数对比区域 -->
+                <div class="comparison-section">
+                  <h2>Details</h2>
+
+                  <!-- 打印材料 -->
+                  <hr>
+                  <h3>Printing Matetials</h3>
+                  <div class="comparison-content">
+                    {% for i in (0..2) %}
+                      <div class="dtf-comparison-{{ i }}-section compared-product">
+
+                        {% for group_values in option_values %}
+                          {% assign group_index = forloop.index0 %}
+
+                          {% for model_comparison in shop.metaobjects.model_compare_8_4.values %}
+                            {% if model_comparison[group_values] != blank %}
+                              {% assign series = model_comparison[group_values].value %}
+
+                              {% for product in series %}
+                                <div
+                                  class="product-info-wrapper"
+                                  data-product-id="{{ product.id }}"
+                                  data-product-index="{{ i }}"
+                                  data-product-active="{% if forloop.index0 == i and group_index == 0 %}true{% else %}false{% endif %}"
+                                >
+                                  <p>{{ product.metafields.custom.print_material | default: '—' }}</p>
+                                </div>
+                              {% endfor %}
+                            {% endif %}
+                          {% endfor %}
+
+                        {% endfor %}
+                      </div>
+                    {% endfor %}
+
+                  </div>
+
+                  <!-- 额外设备需求 -->
+                  <hr>
+                  <h3>Extra Equipment Needed</h3>
+                  <div class="comparison-content">
+                    {% for i in (0..2) %}
+                      <div class="dtf-comparison-{{ forloop.index0 }}-section compared-product">
+                        {%- for group_values in option_values -%}
+                          {%- assign group_index = forloop.index0 -%}
+
+                          {% for model_comparison in shop.metaobjects.model_compare_8_4.values %}
+                            {%- if model_comparison[group_values] != blank -%}
+                              {% assign series = model_comparison[group_values].value %}
+
+                              {%- for product in series -%}
+                                <div
+                                  class="product-info-wrapper"
+                                  data-product-id="{{ product.id }}"
+                                  data-product-index="{{ i }}"
+                                  data-product-active="{% if forloop.index0 == i and group_index == 0 %}true{% else %}false{% endif %}"
+                                >
+                                  <p>
+                                    {% if product.metafields.custom.printer_description == blank -%}
+                                      —
+                                    {%- else -%}
+                                      {{- product.metafields.custom.printer_description -}}
+                                    {%- endif %}
+                                  </p>
+                                </div>
+                              {% endfor %}
+                            {%- endif -%}
+                          {% endfor %}
+                        {% endfor %}
+                      </div>
+                    {%- endfor -%}
+                  </div>
+
+                  <!-- 适合的企业规模 -->
+                  <hr>
+                  <h3>Suitable Business Size</h3>
+                  <div class="comparison-content">
+                    {% for i in (0..2) %}
+                      <div class="dtf-comparison-{{ forloop.index0 }}-section compared-product">
+
+                        {% for group_values in option_values %}
+                          {% assign group_index = forloop.index0 %}
+
+                          {% for model_comparison in shop.metaobjects.model_compare_8_4.values %}
+                            {% if model_comparison[group_values] != blank %}
+                              {% assign series = model_comparison[group_values].value %}
+
+                              {% for product in series %}
+                                <div
+                                  class="product-info-wrapper"
+                                  data-product-id="{{ product.id }}"
+                                  data-product-index="{{ i }}"
+                                  data-product-active="{% if forloop.index0 == i and group_index == 0 %}true{% else %}false{% endif %}"
+                                >
+                                  <p>{{ product.metafields.custom.printer_suitable_business_size | default: '—' }}</p>
+                                </div>
+                              {% endfor %}
+                            {% endif %}
+                          {% endfor %}
+
+                        {% endfor %}
+                      </div>
+                    {%- endfor -%}
+                  </div>
+
+                  <!-- 每小时打印量 -->
+                  <hr>
+                  <h3>Prints Per Hour</h3>
+                  <div class="comparison-content">
+                   {% for i in (0..2) %}
+                      <div class="dtf-comparison-{{ forloop.index0 }}-section compared-product">
+                        {% for group_values in option_values %}
+                          {% assign group_index = forloop.index0 %}
+
+                          {% for model_comparison in shop.metaobjects.model_compare_8_4.values %}
+                            {% if model_comparison[group_values] != blank %}
+                              {% assign series = model_comparison[group_values].value %}
+
+                              {% for product in series %}
+                                <div
+                                  class="product-info-wrapper"
+                                  data-product-id="{{ product.id }}"
+                                  data-product-index="{{ i }}"
+                                  data-product-active="{% if forloop.index0 == i and group_index == 0 %}true{% else %}false{% endif %}"
+                                >
+                                  <p>{{ product.metafields.custom.prints_per_hour | default: '—' }}</p>
+                                </div>
+                              {% endfor %}
+                            {% endif %}
+                          {% endfor %}
+
+                        {% endfor %}
+                      </div>
+                    {%- endfor -%}
+                  </div>
+
+                  <!-- 打印头 -->
+                  <hr>
+                  <h3>Printer Head</h3>
+                  <div class="comparison-content">
+                    {% for i in (0..2) %}
+                      <div class="dtf-comparison-{{ forloop.index0 }}-section compared-product">
+                        {% for group_values in option_values %}
+                          {% assign group_index = forloop.index0 %}
+
+                          {% for model_comparison in shop.metaobjects.model_compare_8_4.values %}
+                            {% if model_comparison[group_values] != blank %}
+                              {% assign series = model_comparison[group_values].value %}
+
+                              {% for product in series %}
+                                <div
+                                  class="product-info-wrapper"
+                                  data-product-id="{{ product.id }}"
+                                  data-product-index="{{ i }}"
+                                  data-product-active="{% if forloop.index0 == i and group_index == 0 %}true{% else %}false{% endif %}"
+                                >
+                                  <p>{{ product.metafields.custom.Printer_head | default: '—' }}</p>
+                                </div>
+                              {% endfor %}
+                            {% endif %}
+                          {% endfor %}
+
+                        {% endfor %}
+                      </div>
+                    {%- endfor -%}
+                  </div>
+
+                  <!-- 打印速度 -->
+                  <hr>
+                  <h3>Printing speed</h3>
+                  <div class="comparison-content">
+                    {% for i in (0..2) %}
+                      <div class="dtf-comparison-{{ forloop.index0 }}-section compared-product">
+
+                        {% for group_values in option_values %}
+                          {% assign group_index = forloop.index0 %}
+
+                          {% for model_comparison in shop.metaobjects.model_compare_8_4.values %}
+                            {% if model_comparison[group_values] != blank %}
+                              {% assign series = model_comparison[group_values].value %}
+
+                              {% for product in series %}
+                                <div
+                                  class="product-info-wrapper"
+                                  data-product-id="{{ product.id }}"
+                                  data-product-index="{{ i }}"
+                                  data-product-active="{% if forloop.index0 == i and group_index == 0 %}true{% else %}false{% endif %}"
+                                >
+                                  <p>{{ product.metafields.custom.print_speed | default: '—' }}</p>
+                                </div>
+                              {% endfor %}
+                            {% endif %}
+                          {% endfor %}
+
+                        {% endfor %}
+                      </div>
+                    {%- endfor -%}
+                  </div>
+
+                  <!-- 打印尺寸 -->
+                  <hr>
+                  <h3>Print Size</h3>
+                  <div class="comparison-content">
+                    {% for i in (0..2) %}
+                      <div class="dtf-comparison-{{ forloop.index0 }}-section compared-product">
+                        {% for group_values in option_values %}
+                          {% assign group_index = forloop.index0 %}
+
+                          {% for model_comparison in shop.metaobjects.model_compare_8_4.values %}
+                            {% if model_comparison[group_values] != blank %}
+                              {% assign series = model_comparison[group_values].value %}
+
+                              {% for product in series %}
+                                <div
+                                  class="product-info-wrapper"
+                                  data-product-id="{{ product.id }}"
+                                  data-product-index="{{ i }}"
+                                  data-product-active="{% if forloop.index0 == i and group_index == 0 %}true{% else %}false{% endif %}"
+                                >
+                                  <p>{{ product.metafields.custom.print_size | default: '—' }}</p>
+                                </div>
+                              {% endfor %}
+                            {% endif %}
+                          {% endfor %}
+
+                        {% endfor %}
+                      </div>
+                    {%- endfor -%}
+                  </div>
+
+                  <!-- 支持的材料厚度 -->
+                  <hr>
+                  <h3>Substrate Thickness Allows</h3>
+                  <div class="comparison-content">
+                    {% for i in (0..2) %}
+                      <div class="dtf-comparison-{{ forloop.index0 }}-section compared-product">
+                        {% for group_values in option_values %}
+                          {% assign group_index = forloop.index0 %}
+
+                          {% for model_comparison in shop.metaobjects.model_compare_8_4.values %}
+                            {% if model_comparison[group_values] != blank %}
+                              {% assign series = model_comparison[group_values].value %}
+
+                              {% for product in series %}
+                                <div
+                                  class="product-info-wrapper"
+                                  data-product-id="{{ product.id }}"
+                                  data-product-index="{{ i }}"
+                                  data-product-active="{% if forloop.index0 == i and group_index == 0 %}true{% else %}false{% endif %}"
+                                >
+                                  <p>{{ product.metafields.custom.substrate_thickness_allows | default: '—' }}</p>
+                                </div>
+                              {% endfor %}
+                            {% endif %}
+                          {% endfor %}
+
+                        {% endfor %}
+                      </div>
+                    {%- endfor -%}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </multi-page-with-navigation>
+</div>
+
+<script>
+  class MultiPageWithNavigation extends HTMLElement {
+    constructor() {
+      super();
+      this.linkClicked = false;
+      this.init();
+    }
+
+    /**
+     * 初始化组件
+     */
+    init() {
+      this.buttons = Array.from(this.querySelectorAll('button.multi-page-with-navigation--button'));
+      this.pages = Array.from(this.querySelectorAll('.multi-page-switch .rte'));
+      this.buttons.forEach((button, index) => {
+        button.addEventListener('click', () => this.handleButtonClick(button, index));
+      });
+    }
+
+    /**
+     * 处理按钮点击事件
+     * @param {HTMLElement} button - 被点击的按钮
+     * @param {number} index - 按钮索引
+     */
+    handleButtonClick(button, index) {
+      this.linkClicked = true;
+
+      // 更新按钮状态
+      this.buttons.forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // 更新页面显示
+      this.pages.forEach((page) => page.classList.remove('active'));
+      this.pages[index].classList.add('active');
+
+      // 同步更新自定义选择器显示值
+      const selectedValue = button.getAttribute('data-value');
+      const customSelect = document.querySelector('#customSelect-compare');
+      if (customSelect) {
+        const selectedText = button.textContent.trim();
+        customSelect.querySelector('.selected-value').textContent = selectedText;
+      }
+
+      // 重置点击状态
+      setTimeout(() => {
+        this.linkClicked = false;
+      }, 1000);
+    }
+  }
+
+  // 注册自定义元素
+  if (!customElements.get('multi-page-with-navigation')) {
+    customElements.define('multi-page-with-navigation', MultiPageWithNavigation);
+  }
+  /**
+   * 多页面导航组件类
+   */
+  function handleSelectChange(event, index) {
+    const selectedValue = event.target.value;
+    const selectIndex = index;
+
+    console.log(event.target.value, ',', selectIndex);
+
+    // 更新产品显示状态
+    document.querySelectorAll(`[data-product-index="${selectIndex}"]`).forEach((item) => {
+      item.dataset.productActive = (selectedValue === item.dataset.productId).toString();
+    });
+  }
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  document.querySelectorAll(".printer-custom-select").forEach(select => {
+    const trigger = select.querySelector(".select-trigger");
+    const index   = select.dataset.index;
+
+    // 找到默认选中的 option
+    const defaultOption = select.querySelector('.option[data-selected="true"]')
+                         || select.querySelector(".option"); // 兜底
+
+    // 初始化显示默认值
+    trigger.querySelector(".trigger-label").textContent = defaultOption.dataset.name;
+
+    // 绑定点击展开
+    trigger.addEventListener("click", () => {
+      select.classList.toggle("open");
+    });
+
+    // 点击选项切换
+    select.querySelectorAll(".option").forEach(option => {
+      option.addEventListener("click", () => {
+
+        trigger.querySelector(".trigger-label").textContent = option.dataset.name;
+        select.classList.remove("open");
+
+        // 调用你的回调
+        handleSelectChange(
+          { target: { value: option.dataset.value } },
+          index
+        );
+      });
+    });
+
+    // 点击外部收起
+    document.addEventListener("click", e => {
+      if (!select.contains(e.target)) select.classList.remove("open");
+    });
+  });
+
+});
+</script>

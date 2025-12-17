@@ -201,13 +201,15 @@
                         {% for collection in collections %}
                           {% if collection.url == l.url %}
                             {% for prod in collection.products limit: 1 %}
-                             
                               {% assign prod_url = prod.url %}
                               {% if prod.metafields.custom.learn_more_link.value.url %}
                                 {% assign prod_url = prod.metafields.custom.learn_more_link.value.url %}
                               {% endif %}
                               <div class="product-section-item grid-item" data-link="{{ prod_url }}">
-                                {{ prod.images[0] | image_url: width: 500 | image_tag }}
+                                {% assign prod_image = prod.metafields.custom.navigation_activity_images
+                                  | default: prod.images[0]
+                                %}
+                                {{ prod_image | image_url: width: 500 | image_tag }}
                                 {% assign prod_tags = prod.tags | downcase %}
                                 <div class="prod-badge">
                                   {% if prod_tags contains 'save' %}
@@ -259,7 +261,10 @@
                                 {% assign prod_url = prod.metafields.custom.learn_more_link.value.url %}
                               {% endif %}
                               <div class="product-section-item grid-item" data-link="{{ prod_url }}">
-                                {{ prod.images[0] | image_url: width: 500 | image_tag }}
+                                {% assign prod_image = prod.metafields.custom.navigation_activity_images
+                                  | default: prod.images[0]
+                                %}
+                                {{ prod_image | image_url: width: 500 | image_tag }}
                                 {% assign prod_tags = prod.tags | downcase %}
                                 <div class="prod-badge">
                                   {% if prod_tags contains 'save' %}
@@ -311,7 +316,10 @@
                                   {% assign prod_url = prod.metafields.custom.learn_more_link.value.url %}
                                 {% endif %}
                                 <div class="product-section-item column-2-item" data-link="{{ prod_url }}">
-                                  {{ prod.images[0] | image_url: width: 500 | image_tag }}
+                                  {% assign prod_image = prod.metafields.custom.navigation_activity_images
+                                    | default: prod.images[0]
+                                  %}
+                                  {{ prod_image | image_url: width: 500 | image_tag }}
                                   {% assign prod_tags = prod.tags | downcase %}
                                   <div class="prod-badge">
                                     {% if prod_tags contains 'save' %}
@@ -399,7 +407,10 @@
                                 class="product-section-item product-section-item-{{ collection.id }}"
                                 data-link="{{ prod_url }}"
                               >
-                                {{ prod.images[0] | image_url: width: 500 | image_tag }}
+                                {% assign prod_image = prod.metafields.custom.navigation_activity_images
+                                  | default: prod.images[0]
+                                %}
+                                {{ prod_image | image_url: width: 500 | image_tag }}
                                 {% assign prod_tags = prod.tags | downcase %}
 
                                 <div

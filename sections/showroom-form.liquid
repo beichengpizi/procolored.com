@@ -9,6 +9,17 @@
       margin-bottom: 0;
     }
 
+    #shopify-section-{{ section.id }} .section-header--title {
+      font-weight: 700;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .section-header--description {
+      color: #5D5D5D;
+      text-align: center;
+      font-size: 24px;
+    }
+
     /* 统一修改所有 Checkbox & Radio 选中颜色 */
     #shopify-section-{{ section.id }} input[type="checkbox"],
     #shopify-section-{{ section.id }} input[type="radio"] {
@@ -247,11 +258,19 @@
         background: rgba(93, 93, 93, 0.10);
         cursor: pointer;
         font-size: 14px;
+        width: calc(50% - 10px);
+        text-align: center;
     }
 
     #shopify-section-{{ section.id }} .slot.selected {
         background: rgba(22, 93, 255, 0.10);
         color: #165DFF;
+    }
+
+    #shopify-section-{{ section.id }} .section-header {
+      justify-content: center;
+      padding-top: 60px;
+      padding-bottom: 0;
     }
 
     /* —— 两栏布局 —— */
@@ -545,6 +564,15 @@
         font-size: 12px;
       }
 
+      #shopify-section-{{ section.id }} .section-header--title {
+        font-size: 20px;
+      }
+
+      #shopify-section-{{ section.id }} .section-header--description {
+        font-size: 16px;
+      }
+
+
       #shopify-section-{{ section.id }} .date-display .time-chip {
         padding: 2px 4px;
       }
@@ -609,6 +637,10 @@
           gap: 30px;
           align-items: flex-start;
           justify-content: center;
+      }
+      
+      #shopify-section-{{ section.id }} .section-header {
+        padding: 20px 16px 0 16px;
       }
 
       /* 左栏（你的表单原样） */
@@ -699,6 +731,7 @@
     }
 </style>
 
+{% render 'section-header', section_heading: section.settings.section_heading, section_description: section.settings.description %}
 <div class="page-layout">
   <div class="max-width">
     <div class="left-column">
@@ -788,9 +821,11 @@
                 <div class="calendar-grid" id="calendarGrid"></div>
 
                 <div class="time-slots" id="timeSlots">
-                  <div class="slot" data-start="10:00" data-end="12:00">10:00 ~ 12:00</div>
-                  <div class="slot" data-start="12:00" data-end="14:00">12:00 ~ 14:00</div>
-                  <div class="slot" data-start="14:00" data-end="16:00">14:00 ~ 16:00</div>
+                  <div class="slot" data-start="10:00" data-end="12:00">9:00 ~ 10:30</div>
+                  <div class="slot" data-start="10:00" data-end="12:00">10:30 ~ 12:00</div>
+                  <div class="slot" data-start="10:00" data-end="12:00">12:30 ~ 14:00</div>
+                  <div class="slot" data-start="12:00" data-end="14:00">14:00 ~ 15:30</div>
+                  <div class="slot" data-start="14:00" data-end="16:00">15:00 ~ 17:00</div>
                 </div>
               </div>
             </div>
@@ -1150,7 +1185,6 @@ function getCheckedValues(selector) {
 /* ===== Validation and submit ===== */
 const submitBtn = document.getElementById("submitBtn");
 const submitMsg = document.getElementById("submitMsg");
-
 submitBtn.addEventListener("click", async () => {
   // reset errors
   ["nameErr","phoneErr","emailErr","dateErr","modelsErr","businessTypesErr","purposesErr","materialsErr","outputErr"].forEach(id => {
@@ -1242,7 +1276,9 @@ submitBtn.addEventListener("click", async () => {
     primaryPurpose: purposes.join(", "),
     primaryMaterials: materials.join(", "),
     expectedDailyOutput: output,
-    agreePolicy: agree ? 1 : 0
+    agreePolicy: agree ? 1 : 0,
+    customerId: JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer.id || {},
+    origin: "Shopify_US"
   };
 
   // send request
@@ -1250,7 +1286,7 @@ submitBtn.addEventListener("click", async () => {
   const showRoomBookingApi = "/procolored/activity/showroom/booking";
   submitBtn.disabled = true;
   submitBtn.textContent = "Submitting...";
-
+  {% comment %} const customId = JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer.id || {}; {% endcomment %}
   try {
     const res = await fetch(`${api}${showRoomBookingApi}`, {
       method: "POST",
@@ -1295,7 +1331,16 @@ const otherMaterialInput = document.getElementById("otherMaterialInput");
     "name": "Showroom Form",
     "tag": "section",
     "settings": [
-      
+      {
+        "type": "text",
+        "id": "section_heading",
+        "label": "Section heading"
+      },
+      {
+        "type": "text",
+        "id": "description",
+        "label": "Description"
+      }
     ],
     "blocks": [
         {

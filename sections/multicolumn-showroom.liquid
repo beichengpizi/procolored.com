@@ -1,506 +1,621 @@
 {{- 'multicolumn.css' | asset_url | stylesheet_tag -}}
 
 <style>
-	#shopify-section-{{ section.id }} .row {
-		max-width: 1400px;
-		padding: 0 36px;
-	}
+  #shopify-section-{{ section.id }} .row {
+  	max-width: 1400px;
+  	padding: 0 36px;
+  }
 
-	#shopify-section-{{ section.id }} .section-header {
-		justify-content: center;
-		padding-bottom: 48px;
-	}
+  #shopify-section-{{ section.id }} .section-header {
+  	justify-content: center;
+  	padding-bottom: 48px;
+  }
 
-	#shopify-section-{{ section.id }} .section-header--title {
-		text-align: center;
-		color: #121212;
-		text-align: center;
-		font-size: 40px;
-		font-weight: 700;
-	}
+  #shopify-section-{{ section.id }} .section-header--title {
+  	text-align: center;
+  	color: #121212;
+  	text-align: center;
+  	font-size: 40px;
+  	font-weight: 700;
+  }
 
-	#shopify-section-{{ section.id }} .section-header--description p {
-		color: #5D5D5D;
-		text-align: center;
-		font-size: 24px;
-	}
+  #shopify-section-{{ section.id }} .section-header--description p {
+  	color: #5D5D5D;
+  	text-align: center;
+  	font-size: 24px;
+  }
 
-	#shopify-section-{{ section.id }} .multicolumn-swiper-wrapper {
-		display: flex;
-		gap: 32px;
-	}
-	
-	#shopify-section-{{ section.id }} .multicolumn__column {
-		display: flex;
-		padding: 24px;
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 16px;
-		flex-shrink: 0;
-		border-radius: 12px;
-		background: #FFF;
-		box-shadow: 0 4px 4px 0 rgba(15, 12, 0, 0.25);
-		margin-bottom: 0;
-		flex: 1;
-	}
+  #shopify-section-{{ section.id }} .multicolumn-swiper-wrapper {
+  	display: flex;
+  	gap: 32px;
+  }
 
-	#shopify-section-{{ section.id }} .multicolumn__column .h5 {
-		font-size: 24px;
-		margin-bottom: 0;
-	}
+  #shopify-section-{{ section.id }} .multicolumn__column {
+  	display: flex;
+  	padding: 24px;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	gap: 16px;
+  	flex-shrink: 0;
+  	border-radius: 12px;
+  	background: #FFF;
+  	box-shadow: 0 4px 4px 0 rgba(15, 12, 0, 0.25);
+  	margin-bottom: 0;
+  	flex: 1;
+  }
 
-	#shopify-section-{{ section.id }} .multicolumn__inner .row {
-		gap: 32px;
-		padding: 0;
-	}
+  #shopify-section-{{ section.id }} .multicolumn__column .h5 {
+  	font-size: 24px;
+  	margin-bottom: 0;
+  }
 
-	#shopify-section-{{ section.id }} .multicolumn__column p {
-		color: #5D5D5D;
-		font-size: 18px;
-		line-height: 24px; /* 133.333% */
-	}
+  #shopify-section-{{ section.id }} .multicolumn__inner .row {
+  	gap: 32px;
+  	padding: 0;
+  }
 
-	#shopify-section-{{ section.id }} .multicolumn__image {
-		margin-bottom: 0;
-	}
+  #shopify-section-{{ section.id }} .multicolumn__column p {
+  	color: #5D5D5D;
+  	font-size: 18px;
+  	line-height: 24px; /* 133.333% */
+  }
 
-	#shopify-section-{{ section.id }} .row .row {
-		margin-left: 0;
-		margin-right: 0;
-	}
+  #shopify-section-{{ section.id }} .multicolumn__image {
+  	margin-bottom: 0;
+  }
 
-	@media screen and (max-width: 768px) {
-		#shopify-section-{{ section.id }} .row {
-			padding: 0 16px;
-		}
-		#shopify-section-{{ section.id }} .multicolumn__inner .row {
-			flex-direction: column;
-		}
+  #shopify-section-{{ section.id }} .row .row {
+  	margin-left: 0;
+  	margin-right: 0;
+  }
 
-		#shopify-section-{{ section.id }} .section-header {
-			justify-content: center;
-			padding-bottom: 32px;
-		}
+  @media screen and (max-width: 768px) {
+  	#shopify-section-{{ section.id }} .row {
+  		padding: 0 16px;
+  	}
+  	#shopify-section-{{ section.id }} .multicolumn__inner .row {
+  		flex-direction: column;
+  	}
 
-		#shopify-section-{{ section.id }} .section-header--title {
-			font-size: 20px;
-		}
+  	#shopify-section-{{ section.id }} .section-header {
+  		justify-content: center;
+  		padding-bottom: 32px;
+  	}
 
-		#shopify-section-{{ section.id }} .section-header--description p {
-			font-size: 16px;
-		}
+  	#shopify-section-{{ section.id }} .section-header--title {
+  		font-size: 20px;
+  	}
 
-		#shopify-section-{{ section.id }} .multicolumn__column figure {
-			width: 48px;
-			height: 48px;
-		}
+  	#shopify-section-{{ section.id }} .section-header--description p {
+  		font-size: 16px;
+  	}
 
-		#shopify-section-{{ section.id }} .multicolumn__column img {
-			width: 48px;
-			height: 48px;
-		}
+  	#shopify-section-{{ section.id }} .multicolumn__column figure {
+  		width: 48px;
+  		height: 48px;
+  	}
 
-		#shopify-section-{{ section.id }} .multicolumn__column .h5 {
-			font-size: 16px;
-			opacity: 0.95;
-		}
+  	#shopify-section-{{ section.id }} .multicolumn__column img {
+  		width: 48px;
+  		height: 48px;
+  	}
 
-		#shopify-section-{{ section.id }} .multicolumn__inner .row {
-			gap: 16px;
-		}
+  	#shopify-section-{{ section.id }} .multicolumn__column .h5 {
+  		font-size: 16px;
+  		opacity: 0.95;
+  	}
 
-		#shopify-section-{{ section.id }} .multicolumn__column p {
-			font-size: 14px;
-		}
+  	#shopify-section-{{ section.id }} .multicolumn__inner .row {
+  		gap: 16px;
+  	}
 
-		#shopify-section-{{ section.id }} .multicolumn-swiper-wrapper {
-			display: flex;
-			overflow-x: auto;
-			scroll-snap-type: x mandatory;
-			scroll-behavior: smooth;
-			gap: 16px;
-			padding-bottom: 8px;
-			-webkit-overflow-scrolling: touch;
-		}
+  	#shopify-section-{{ section.id }} .multicolumn__column p {
+  		font-size: 14px;
+  	}
 
-		#shopify-section-{{ section.id }} .multicolumn-slide {
-			min-width: 80%;
-			scroll-snap-align: center;
-			flex: 0 0 auto;
-		}
+  	#shopify-section-{{ section.id }} .multicolumn-swiper-wrapper {
+  		display: flex;
+  		overflow-x: auto;
+  		scroll-snap-type: x mandatory;
+  		scroll-behavior: smooth;
+  		gap: 16px;
+  		padding-bottom: 8px;
+  		-webkit-overflow-scrolling: touch;
+  	}
 
-		/* 隐藏滚动条 */
-		#shopify-section-{{ section.id }} .multicolumn-swiper-wrapper::-webkit-scrollbar {
-			display: none;
-		}
-	}
+  	#shopify-section-{{ section.id }} .multicolumn-slide {
+  		min-width: 80%;
+  		scroll-snap-align: center;
+  		flex: 0 0 auto;
+  	}
+
+  	/* 隐藏滚动条 */
+  	#shopify-section-{{ section.id }} .multicolumn-swiper-wrapper::-webkit-scrollbar {
+  		display: none;
+  	}
+
+  	/* 分页圆点容器 */
+  	#shopify-section-{{ section.id }} .multicolumn-pagination {
+  		display: flex;
+  		justify-content: center;
+  		gap: 10px;
+  		margin-top: 16px;
+  	}
+
+  	/* 单个圆点 */
+  	#shopify-section-{{ section.id }} .pagination-dot {
+  		width: 18px;
+  		height: 18px;
+  		border-radius: 50%;
+  		position: relative;
+  		display: flex;
+  		align-items: center;
+  		justify-content: center;
+  		cursor: pointer;
+  	}
+
+  	/* 外圈（灰色） */
+  	#shopify-section-{{ section.id }} .pagination-dot::before {
+  		content: "";
+  		width: 12px;
+  		height: 12px;
+  		border-radius: 50%;
+  		border: 1px solid #D8D8D8; /* 非激活状态的外圈 */
+  		box-sizing: border-box;
+  	}
+
+  	/* 内圈（默认透明） */
+  	#shopify-section-{{ section.id }} .pagination-dot::after {
+  		content: "";
+  		width: 8px;
+  		height: 8px;
+  		border-radius: 50%;
+  		background: transparent;
+  		transition: 0.25s;
+  		position: absolute;
+  	}
+
+  	/* 激活状态 */
+  	#shopify-section-{{ section.id }} .pagination-dot.active::before {
+  		border-color: #0066FF; /* 激活外圈颜色（蓝色） */
+  	}
+
+  	#shopify-section-{{ section.id }} .pagination-dot.active::after {
+  		background: #0066FF; /* 激活内圆 */
+  	}
+  }
 </style>
 {%- liquid
-	assign section_heading = section.settings.heading
-	assign marker_style = section.settings.marker_style
-	assign section_description = section.settings.description
-	assign columns_desktop = section.settings.columns_desktop
-	assign heading_size = section.settings.heading_size
-	assign mobile_swipe = section.settings.mobile_swipe
-	assign image_ratio = section.settings.image_ratio
-	assign text_alignment = section.settings.text_alignment
+  assign section_heading = section.settings.heading
+  assign marker_style = section.settings.marker_style
+  assign section_description = section.settings.description
+  assign columns_desktop = section.settings.columns_desktop
+  assign heading_size = section.settings.heading_size
+  assign mobile_swipe = section.settings.mobile_swipe
+  assign image_ratio = section.settings.image_ratio
+  assign text_alignment = section.settings.text_alignment
 
-	assign color_heading = section.settings.color_heading
-	assign marker_color = section.settings.marker_color
-	assign color_text = section.settings.color_text
-	assign color_links = section.settings.color_links
+  assign color_heading = section.settings.color_heading
+  assign marker_color = section.settings.marker_color
+  assign color_text = section.settings.color_text
+  assign color_links = section.settings.color_links
 
-	assign disable_top_spacing = section.settings.disable_top_spacing
-	assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+  assign disable_top_spacing = section.settings.disable_top_spacing
+  assign disable_bottom_spacing = section.settings.disable_bottom_spacing
 
-	case columns_desktop
-		when 2
-			assign columns_desktop_class = 'medium-6'
-		when 3
-			assign columns_desktop_class = 'medium-4'
-		when 4
-			assign columns_desktop_class = 'medium-3'
-		when 5
-			assign columns_desktop_class = 'medium-1/5 large-1/5'
-	endcase
+  case columns_desktop
+    when 2
+      assign columns_desktop_class = 'medium-6'
+    when 3
+      assign columns_desktop_class = 'medium-4'
+    when 4
+      assign columns_desktop_class = 'medium-3'
+    when 5
+      assign columns_desktop_class = 'medium-1/5 large-1/5'
+  endcase
 -%}
-<div class="multicolumn {% if mobile_swipe %} swipe-on-mobile{% endif %} section-spacing{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %} text-alignment--{{ text_alignment }}" style="--color-heading: {{ color_heading }}; --color-text: {{ color_text }}; --color-accent: {{ color_links }}; --color-accent-rgb: {{ color_links.rgb | replace: ' ' , ',' }};">
-	<div class="row">
-		<div class="small-12 columns">
-			{% render 'section-header', section_heading: section_heading, section_description: section_description, marker_color: marker_color, marker_style: marker_style %}
-			<div class="multicolumn__inner text-{{ text_alignment }}">
-				<div class="multicolumn-swiper-wrapper">
-					{%- for block in section.blocks -%}
-						<div class="multicolumn__column small-12 {{ columns_desktop_class }} columns multicolumn-slide">
-							{% if block.settings.image != blank %}
-								{%- liquid
-									assign ratio = 1
-									assign max_width = block.settings.image.width | divided_by: 2 | append: 'px'
-									assign image_link = block.settings.image_link
-									if image_ratio == 'adapt'
-										assign ratio = block.settings.image.aspect_ratio
-									endif
-									if block.settings.image_full_width
-										assign max_width = '100%'
-									endif
-								-%}
-								<figure class="multicolumn__image" style="width: {{ max_width }};">
-									<div class="multicolumn__image--inner aspect-ratio aspect-ratio--{{ image_ratio }}" style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;">
-										{% if image_link != blank %}
-											<a href="{{ image_link }}">
-										{% endif %}
-										{%- render 'responsive-image', image: block.settings.image, sizes: '407x0,814x0', retina: true -%}
-										{% if image_link != blank %}
-											</a>
-										{% endif %}
-									</div>
-								</figure>
-							{% endif %}
-							<div>
-								{% if block.settings.title != blank %}
-									<h4 class="{{ heading_size }}">{{ block.settings.title | newline_to_br }}</h4>
-								{% endif %}
-								{% if block.settings.text != blank %}
-									<div class="rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
-								{% endif %}
-							</div>
-							{% if block.settings.link_label != blank %}
-								{% render 'text-button', url: block.settings.link, title: block.settings.link_label %}
-							{% endif %}
-						</div>
-					{%- endfor -%}
-				</div>
-			</div>
-		</div>
-	</div>
+<div
+  class="multicolumn {% if mobile_swipe %} swipe-on-mobile{% endif %} section-spacing{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %} text-alignment--{{ text_alignment }}"
+  style="--color-heading: {{ color_heading }}; --color-text: {{ color_text }}; --color-accent: {{ color_links }}; --color-accent-rgb: {{ color_links.rgb | replace: ' ' , ',' }};"
+>
+  <div class="row">
+    <div class="small-12 columns">
+      {% render 'section-header',
+        section_heading: section_heading,
+        section_description: section_description,
+        marker_color: marker_color,
+        marker_style: marker_style
+      %}
+      <div class="multicolumn__inner text-{{ text_alignment }}">
+        <div class="multicolumn-swiper-wrapper">
+          {%- for block in section.blocks -%}
+            <div class="multicolumn__column small-12 {{ columns_desktop_class }} columns multicolumn-slide">
+              {% if block.settings.image != blank %}
+                {%- liquid
+                  assign ratio = 1
+                  assign max_width = block.settings.image.width | divided_by: 2 | append: 'px'
+                  assign image_link = block.settings.image_link
+                  if image_ratio == 'adapt'
+                    assign ratio = block.settings.image.aspect_ratio
+                  endif
+                  if block.settings.image_full_width
+                    assign max_width = '100%'
+                  endif
+                -%}
+                <figure class="multicolumn__image" style="width: {{ max_width }};">
+                  <div
+                    class="multicolumn__image--inner aspect-ratio aspect-ratio--{{ image_ratio }}"
+                    style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+                  >
+                    {% if image_link != blank %}
+                      <a href="{{ image_link }}">
+                    {% endif %}
+                    {%- render 'responsive-image', image: block.settings.image, sizes: '407x0,814x0', retina: true -%}
+                    {% if image_link != blank %}
+                      </a>
+                    {% endif %}
+                  </div>
+                </figure>
+              {% endif %}
+              <div>
+                {% if block.settings.title != blank %}
+                  <h4 class="{{ heading_size }}">{{ block.settings.title | newline_to_br }}</h4>
+                {% endif %}
+                {% if block.settings.text != blank %}
+                  <div class="rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+                {% endif %}
+              </div>
+              {% if block.settings.link_label != blank %}
+                {% render 'text-button', url: block.settings.link, title: block.settings.link_label %}
+              {% endif %}
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <!-- ⭐ 分页点容器 -->
+        <div class="multicolumn-pagination"></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const wrapper = document.querySelector(
-    '#shopify-section-{{ section.id }} .multicolumn-swiper-wrapper'
-  );
+  document.addEventListener('DOMContentLoaded', function () {
+    const wrapper = document.querySelector('#shopify-section-{{ section.id }} .multicolumn-swiper-wrapper');
+    const paginationContainer = document.querySelector('#shopify-section-{{ section.id }} .multicolumn-pagination');
 
-  if (!wrapper) return;
+    if (!wrapper || !paginationContainer) return;
 
-  function isMobile() {
-    return window.innerWidth <= 768;
-  }
-
-  let autoSlideTimer;
-
-  function startAutoSlide() {
-    if (!isMobile()) return;
+    function isMobile() {
+      return window.innerWidth <= 768;
+    }
 
     const slides = wrapper.querySelectorAll('.multicolumn-slide');
-    let index = 0;
+    const total = slides.length;
+    let currentIndex = 0;
+    let autoSlideTimer;
 
-    autoSlideTimer = setInterval(() => {
-      index = (index + 1) % slides.length;
+    /* -------------------------------
+     创建分页点
+  --------------------------------*/
+    function createDots() {
+      paginationContainer.innerHTML = '';
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'pagination-dot' + (i === 0 ? ' active' : '');
 
-      const next = slides[index];
-      wrapper.scrollTo({
-        left: next.offsetLeft - 16,
-        behavior: 'smooth'
+        // 点击圆点切换
+        dot.addEventListener('click', () => {
+          currentIndex = i;
+          scrollToSlide(i);
+          updatePaginationDots(i);
+          stopAutoSlide();
+        });
+
+        paginationContainer.appendChild(dot);
+      }
+    }
+
+    /* -------------------------------
+     更新圆点 active 状态
+  --------------------------------*/
+    function updatePaginationDots(index) {
+      const dots = paginationContainer.querySelectorAll('.pagination-dot');
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
       });
-    }, 3000); // 自动轮播间隔 3 秒
-  }
+    }
 
-  function stopAutoSlide() {
-    clearInterval(autoSlideTimer);
-  }
+    /* -------------------------------
+     滚动到指定 slide
+  --------------------------------*/
+    function scrollToSlide(index) {
+      const slide = slides[index];
+      if (!slide) return;
 
-  // 用户滑动时停止自动轮播
-  wrapper.addEventListener("touchstart", stopAutoSlide);
+      wrapper.scrollTo({
+        left: slide.offsetLeft - 16,
+        behavior: 'smooth',
+      });
+    }
 
-  // 页面加载启动
-  startAutoSlide();
+    /* -------------------------------
+     自动轮播
+  --------------------------------*/
+    function startAutoSlide() {
+      if (!isMobile()) return;
 
-  // 屏幕变化时重启
-  window.addEventListener("resize", () => {
-    stopAutoSlide();
+      stopAutoSlide(); // 避免重复定时器
+
+      autoSlideTimer = setInterval(() => {
+        currentIndex = (currentIndex + 1) % total;
+        scrollToSlide(currentIndex);
+        updatePaginationDots(currentIndex);
+      }, 3000);
+    }
+
+    function stopAutoSlide() {
+      clearInterval(autoSlideTimer);
+    }
+
+    /* -------------------------------
+     监听手势滑动（停止自动播放）
+  --------------------------------*/
+    wrapper.addEventListener('touchstart', stopAutoSlide);
+
+    /* -------------------------------
+     初始化
+  --------------------------------*/
+    createDots();
+    updatePaginationDots(0);
     startAutoSlide();
+
+    /* -------------------------------
+     监听窗口变化：重启轮播
+  --------------------------------*/
+    window.addEventListener('resize', () => {
+      stopAutoSlide();
+      startAutoSlide();
+    });
   });
-});
 </script>
 
-
 {% schema %}
-  {
-    "name": "Multicolumn ShowRoom",
-		"class": "section-multicolumn",
-    "settings": [
-			{
-        "type": "text",
-        "id": "heading",
-        "label": "Heading",
-        "default": "Multicolumn",
-				"info": "Wrap your text between | to add animated markers. For example: Animated |marker| will underline marker text."
-      },
-			{
-				"type": "select",
-				"id": "marker_style",
-				"options": [
-					{
-						"value": "style1",
-						"label": "Basic"
-					},
-					{
-						"value": "style2",
-						"label": "Double"
-					},
-					{
-						"value": "style3",
-						"label": "Squiggle"
-					},
-					{
-						"value": "style4",
-						"label": "Zigzag"
-					}
-				],
-				"default": "style1",
-				"label": "Marker"
-			},
-      {
-        "type": "richtext",
-        "id": "description",
-        "label": "Description",
-        "default": "<p>Add a short description for this section</p>"
-      },
+{
+  "name": "Multicolumn ShowRoom",
+  "class": "section-multicolumn",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Multicolumn",
+      "info": "Wrap your text between | to add animated markers. For example: Animated |marker| will underline marker text."
+    },
+    {
+      "type": "select",
+      "id": "marker_style",
+      "options": [
+        {
+          "value": "style1",
+          "label": "Basic"
+        },
+        {
+          "value": "style2",
+          "label": "Double"
+        },
+        {
+          "value": "style3",
+          "label": "Squiggle"
+        },
+        {
+          "value": "style4",
+          "label": "Zigzag"
+        }
+      ],
+      "default": "style1",
+      "label": "Marker"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Add a short description for this section</p>"
+    },
 
-			{
-	      "type": "range",
-	      "id": "columns_desktop",
-	      "min": 2,
-	      "max": 5,
-	      "step": 1,
-	      "default": 4,
-	      "label": "Number of columns on desktop"
-	    },
-			{
-	      "type": "checkbox",
-	      "id": "mobile_swipe",
-	      "default": false,
-	      "label": "Enable swipe on mobile"
-	    },
-			{
-	      "type": "select",
-	      "id": "image_ratio",
-	      "options": [
-	        {
-	          "value": "adapt",
-	          "label": "Adapt to image"
-	        },
-	        {
-	          "value": "portrait",
-	          "label": "Portrait"
-	        },
-	        {
-	          "value": "square",
-	          "label": "Square"
-	        },
-	        {
-	          "value": "circle",
-	          "label": "Circle"
-	        }
-	      ],
-	      "default": "adapt",
-	      "label": "Image ratio"
-	    },
-			{
-	      "type": "select",
-	      "id": "text_alignment",
-	      "options": [
-	        {
-	          "value": "left",
-	          "label": "Left"
-	        },
-	        {
-	          "value": "center",
-	          "label": "Center"
-	        },
-	        {
-	          "value": "right",
-	          "label": "Right"
-	        }
-	      ],
-	      "default": "left",
-	      "label": "Content alignment"
-	    },
-			{
-				"type": "select",
-				"id": "heading_size",
-				"label": "Content heading size",
-				"options": [
-					{
-						"value": "h3",
-						"label": "Extra Large"
-					},
-					{
-						"value": "h4",
-						"label": "Large"
-					},
-					{
-						"value": "h5",
-						"label": "Medium"
-					},
-					{
-						"value": "h6",
-						"label": "Small"
-					}
-				],
-				"default": "h5"
-			},
-			{
-	      "type": "header",
-	      "content": "Colors"
-	    },
-			{
-        "type": "color",
-        "id": "color_heading",
-        "label": "Heading",
-        "default": "#1a1c1d"
-      },
-			{
-				"type": "color",
-				"id": "marker_color",
-				"label": "Marker",
-				"default": "#FD6262"
-			},
-			{
-        "type": "color",
-        "id": "color_text",
-        "label": "Text",
-        "default": "#2c2d2e"
-      },
-			{
-        "type": "color",
-        "id": "color_links",
-        "label": "Links",
-        "default": "#2c2d2e"
-      },
-			{
-	      "type": "header",
-	      "content": "Spacing"
-	    },
-			{
-				"type": "checkbox",
-				"id": "disable_top_spacing",
-				"default": false,
-				"label": "Remove top spacing"
-			},
-			{
-				"type": "checkbox",
-				"id": "disable_bottom_spacing",
-				"default": false,
-				"label": "Remove bottom spacing"
-			}
-    ],
-    "blocks": [
-      {
-        "type": "column",
-        "name": "Column",
-        "settings": [
-					{
-						"type": "image_picker",
-						"id": "image",
-						"label": "Image",
-						"info": "770 x 770 .jpg recommended."
-					},
-					{
-						"type": "checkbox",
-						"id": "image_full_width",
-						"label": "Fit image to column",
-						"default": false
-					},
-	        {
-	          "type": "url",
-	          "id": "image_link",
-	          "label": "Image link"
-	        },
-					{
-						"type": "text",
-						"id": "title",
-						"default": "Column",
-						"label": "Heading"
-					},
-					{
-						"type": "richtext",
-						"id": "text",
-						"default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-						"label": "Description"
-					},
-	        {
-	          "type": "text",
-	          "id": "link_label",
-	          "label": "Link label"
-	        },
-	        {
-	          "type": "url",
-	          "id": "link",
-	          "label": "Link"
-	        }
-        ]
-      }
-    ],
-    "presets": [
-      {
-        "name": "Multicolumn showroom",
-				"blocks": [
-	        {
-	          "type": "column"
-	        },
-	        {
-	          "type": "column"
-	        },
-	        {
-	          "type": "column"
-	        },
-	        {
-	          "type": "column"
-	        }
-	      ]
-      }
-    ]
-  }
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "Number of columns on desktop"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_swipe",
+      "default": false,
+      "label": "Enable swipe on mobile"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Adapt to image"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "circle",
+          "label": "Circle"
+        }
+      ],
+      "default": "adapt",
+      "label": "Image ratio"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "label": "Content alignment"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Content heading size",
+      "options": [
+        {
+          "value": "h3",
+          "label": "Extra Large"
+        },
+        {
+          "value": "h4",
+          "label": "Large"
+        },
+        {
+          "value": "h5",
+          "label": "Medium"
+        },
+        {
+          "value": "h6",
+          "label": "Small"
+        }
+      ],
+      "default": "h5"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading",
+      "default": "#1a1c1d"
+    },
+    {
+      "type": "color",
+      "id": "marker_color",
+      "label": "Marker",
+      "default": "#FD6262"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text",
+      "default": "#2c2d2e"
+    },
+    {
+      "type": "color",
+      "id": "color_links",
+      "label": "Links",
+      "default": "#2c2d2e"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_top_spacing",
+      "default": false,
+      "label": "Remove top spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_bottom_spacing",
+      "default": false,
+      "label": "Remove bottom spacing"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "770 x 770 .jpg recommended."
+        },
+        {
+          "type": "checkbox",
+          "id": "image_full_width",
+          "label": "Fit image to column",
+          "default": false
+        },
+        {
+          "type": "url",
+          "id": "image_link",
+          "label": "Image link"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Column",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Multicolumn showroom",
+      "blocks": [
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        }
+      ]
+    }
+  ]
+}
 {% endschema %}

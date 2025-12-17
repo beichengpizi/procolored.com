@@ -1,0 +1,2624 @@
+<style>
+    /* black friday Official Promotion product1  start  */
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-wrapper {
+      background-color: {{ section.settings.bg_color }};
+      padding: {{ section.settings.padding_top }}px 0px {{ section.settings.padding_bottom }}px 0px;
+      overflow: hidden;
+    }
+    .christmas-product-tab-{{ section.id }}  .christmas-second-banner-top-1 {
+      width: 100%;
+      max-width: 100%;
+      margin-bottom:60px;
+
+  }
+
+  .christmas-product-tab-{{ section.id }} .christmas-second-banner-top-1 .pc {
+      display: flex;
+  }
+
+  .christmas-product-tab-{{ section.id }} .christmas-second-banner-top-1 .mb {
+      display: none;
+  }
+
+  .christmas-product-tab-{{ section.id }}  .christmas-second-banner-top-1 img {
+      width: 100%;
+      max-width: 100%;
+  }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-container {
+        position: relative;
+    }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-container-left-snow{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 19.5%;
+        height: 100%;
+
+    }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-container-right-snow{
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 19.5%;
+        height: 100%;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-title-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 50px;
+      max-width: 1248px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 24px;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-title {
+      color: #fece67;
+      text-align: center;
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-subtitle {
+      color: rgba(255, 255, 255, 0.90);
+      text-align: center;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.3;
+      {%- if section.settings.desc != empty or section.blocks.size > 1 -%}
+      margin-bottom: 30px;
+      {% endif %}
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-desc {
+      color: #fff;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-desc span {
+      color: #fece67;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-products-main-banner-box {
+      max-width: 639px;
+      margin-bottom: 50px;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-products-main-banner-box img {
+      display: flex;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-products-main-banner-box .pc {
+      display: flex;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-products-main-banner-box .mb {
+      display: none;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-tabs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: {{section.settings.content_box_text_percent}}%;
+      {% comment %} margin-left: auto;
+      margin-right: auto;
+      white-space: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      touch-action: pan-x; {% endcomment %}
+      background: #fff;
+      margin-top: 16px;
+      {% comment %} border-radius: 99px; {% endcomment %}
+    }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-tab-dropdown-wrapper{
+        width: 100%;
+
+    }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-tab {
+      cursor: pointer;
+      text-align: center;
+      color: #000;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1;
+      padding: 16px 20px;
+      {% comment %} -webkit-tap-highlight-color: transparent;
+      /* 消除移动端点击背景 */
+      -webkit-touch-callout: none;
+      outline: none; {% endcomment %}
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-tab.active {
+      color: #000;
+      font-weight: 700;
+      {% comment %} background: #A31C22; {% endcomment %}
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-banner {
+      width: 100%;
+      max-width: 1232px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-banner-box {
+      display: none;
+      position: relative;
+      padding: 0 16px;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-banner-box.active {
+      display: flex;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-banner img {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 16px;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-banner .pc {
+      display: flex;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-banner .mb {
+      display: none;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-banner-box-content {
+      position: absolute;
+      bottom: 40px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-banner-box-content-title {
+      color: #fff;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.27;
+      margin-bottom: 5px;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-banner-box-content-desc {
+      color: #fff;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.16;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-content {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab {
+      {% comment %} display: none; {% endcomment %}
+       opacity: 0;
+       height: 0;
+      grid-template-columns: repeat(1, 1fr);
+      grid-gap: {{ section.settings.card_gap }}px;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab.active {
+      display: grid;
+      opacity: 1;
+      height: auto;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-card {
+      position: relative;
+      display: flex;
+      {% comment %} overflow: hidden; {% endcomment %}
+      border-radius: 20px;
+      background-color: {{ section.settings.card_bg_color }};
+      background: {{ section.settings.card_background_gradient_color }};
+      {% if section.settings.position == 'row'%}
+        flex-direction: row;
+        {% else %}
+        flex-direction: row-reverse;
+    {% endif %}
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label {
+      display: flex;
+      margin-bottom: 4px;
+      width: 100%;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label-discount {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 137px;
+      height: 44px;
+      {% if section.settings.position == 'row'%}
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='137' height='44' viewBox='0 0 137 44' fill='none'><path d='M0 0H137V34C137 39.5228 132.523 44 127 44H0V0Z' fill='%23B90500'/><mask id='mask0_10262_13086' style='mask-type:alpha' maskUnits='userSpaceOnUse' x='0' y='0' width='137' height='44'><path d='M0 0H137V34C137 39.5228 132.523 44 127 44H0V0Z' fill='%23D9D9D9'/></mask><g mask='url(%23mask0_10262_13086)'><path d='M54.1875 -58.52L51.5894 -59.84L-22.4106 52.9511L-19.8125 54.2711L54.1875 -58.52Z' fill='white'/><path d='M61.9805 -54.5601L59.3824 -55.8801L-14.6176 56.9111L-12.0195 58.2311L61.9805 -54.5601Z' fill='white'/><path d='M69.7734 -50.6001L67.1754 -51.9201L-6.82464 60.871L-4.22656 62.1911L69.7734 -50.6001Z' fill='white'/><path d='M77.5703 -46.6399L74.9722 -47.9599L0.972231 64.8313L3.57031 66.1513L77.5703 -46.6399Z' fill='white'/><path d='M85.3633 -42.6799L82.7652 -43.9999L8.7652 68.7912L11.3633 70.1112L85.3633 -42.6799Z' fill='white'/><path d='M93.1562 -38.72L90.5582 -40.04L16.5582 72.7512L19.1563 74.0712L93.1562 -38.72Z' fill='white'/><path d='M100.953 -34.76L98.355 -36.08L24.355 76.7111L26.9531 78.0311L100.953 -34.76Z' fill='white'/><path d='M108.746 -30.8L106.148 -32.1201L32.148 80.6711L34.7461 81.9911L108.746 -30.8Z' fill='white'/><path d='M116.539 -26.8401L113.941 -28.1601L39.941 84.6311L42.5391 85.9511L116.539 -26.8401Z' fill='white'/><path d='M124.336 -22.8799L121.738 -24.1999L47.7379 88.5913L50.3359 89.9113L124.336 -22.8799Z' fill='white'/><path d='M132.129 -18.9199L129.531 -20.2399L55.5308 92.5512L58.1289 93.8712L132.129 -18.9199Z' fill='white'/><path d='M139.922 -14.96L137.324 -16.28L63.3238 96.5112L65.9219 97.8312L139.922 -14.96Z' fill='white'/><path d='M147.719 -11L145.121 -12.32L71.1207 100.471L73.7188 101.791L147.719 -11Z' fill='white'/><path d='M155.512 -7.04004L152.914 -8.36004L78.9136 104.431L81.5117 105.751L155.512 -7.04004Z' fill='white'/><path d='M162.598 -3.95996L160 -5.27996L85.9996 107.511L88.5977 108.831L162.598 -3.95996Z' fill='white'/><path d='M171.102 0.879883L168.503 -0.44012L94.5035 112.351L97.1016 113.671L171.102 0.879883Z' fill='white'/></g><path d='M2 1.76001H135V32.24C135 37.7629 130.523 42.24 125 42.24H2V1.76001Z' fill='url(%23paint0_linear_10262_13086)'/><defs><linearGradient id='paint0_linear_10262_13086' x1='69' y1='2.00025' x2='69' y2='42.0002' gradientUnits='userSpaceOnUse'><stop stop-color='%23266843'/><stop offset='1' stop-color='%231C6D52'/></linearGradient></defs></svg>");
+
+        {% else %}
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='137' height='44' viewBox='0 0 137 44' fill='none'><path d='M0 20C0 8.9543 8.9543 0 20 0H137V34C137 39.5228 132.523 44 127 44H0V20Z' fill='%23B90500'/><mask id='mask0_10169_16472' style='mask-type:alpha' maskUnits='userSpaceOnUse' x='0' y='0' width='137' height='44'><path d='M0 20C0 8.9543 8.9543 0 20 0H137V34C137 39.5228 132.523 44 127 44H0V20Z' fill='%23D9D9D9'/></mask><g mask='url(%23mask0_10169_16472)'><path d='M54.1875 -58.52L51.5894 -59.84L-22.4106 52.9511L-19.8125 54.2711L54.1875 -58.52Z' fill='white'/><path d='M61.9805 -54.5601L59.3824 -55.8801L-14.6176 56.9111L-12.0195 58.2311L61.9805 -54.5601Z' fill='white'/><path d='M69.7734 -50.6001L67.1754 -51.9201L-6.82464 60.871L-4.22656 62.1911L69.7734 -50.6001Z' fill='white'/><path d='M77.5703 -46.6399L74.9722 -47.9599L0.972231 64.8313L3.57031 66.1513L77.5703 -46.6399Z' fill='white'/><path d='M85.3633 -42.6799L82.7652 -43.9999L8.7652 68.7912L11.3633 70.1112L85.3633 -42.6799Z' fill='white'/><path d='M93.1562 -38.72L90.5582 -40.04L16.5582 72.7512L19.1563 74.0712L93.1562 -38.72Z' fill='white'/><path d='M100.953 -34.76L98.355 -36.08L24.355 76.7111L26.9531 78.0311L100.953 -34.76Z' fill='white'/><path d='M108.746 -30.8L106.148 -32.1201L32.148 80.6711L34.7461 81.9911L108.746 -30.8Z' fill='white'/><path d='M116.539 -26.8401L113.941 -28.1601L39.941 84.6311L42.5391 85.9511L116.539 -26.8401Z' fill='white'/><path d='M124.336 -22.8799L121.738 -24.1999L47.7379 88.5913L50.3359 89.9113L124.336 -22.8799Z' fill='white'/><path d='M132.129 -18.9199L129.531 -20.2399L55.5308 92.5512L58.1289 93.8712L132.129 -18.9199Z' fill='white'/><path d='M139.922 -14.96L137.324 -16.28L63.3238 96.5112L65.9219 97.8312L139.922 -14.96Z' fill='white'/><path d='M147.719 -11L145.121 -12.32L71.1207 100.471L73.7188 101.791L147.719 -11Z' fill='white'/><path d='M155.512 -7.04004L152.914 -8.36004L78.9136 104.431L81.5117 105.751L155.512 -7.04004Z' fill='white'/><path d='M162.598 -3.95996L160 -5.27996L85.9996 107.511L88.5977 108.831L162.598 -3.95996Z' fill='white'/><path d='M171.102 0.879883L168.503 -0.44012L94.5035 112.351L97.1016 113.671L171.102 0.879883Z' fill='white'/></g><path d='M2 21.76C2 10.7143 10.9543 1.76001 22 1.76001H135V32.24C135 37.7629 130.523 42.24 125 42.24H2V21.76Z' fill='url(%23paint0_linear_10169_16472)'/><defs><linearGradient id='paint0_linear_10169_16472' x1='69' y1='2.00025' x2='69' y2='42.0002' gradientUnits='userSpaceOnUse'><stop stop-color='%23266843'/><stop offset='1' stop-color='%231C6D52'/></linearGradient></defs></svg>");
+
+    {% endif %}
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label-discount-hat-icon {
+      display: flex;
+      position: absolute;
+      top: -20px;
+      right: -25px;
+      width: 45px;
+      height: 37px;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='45' height='37' viewBox='0 0 45 37' fill='none'><g clip-path='url(%23clip0_10262_13111)'><path d='M4.45946 17.2403C15.1702 26.8298 25.8893 24.5843 25.8893 24.5843C26.6463 20.4601 25.1342 18.0071 25.1342 18.0071C25.1342 18.0071 26.0036 18.6558 26.8993 18.6735C27.795 18.6911 27.9854 17.0578 27.9854 17.0578C28.6126 20.5997 34.4301 25.3907 34.4301 25.3907L34.8142 25.2751L35.7875 24.9801C33.8296 14.4308 24.9513 4.71755 20.1484 4.50435C16.6784 4.34945 10.0299 11.0685 6.61129 14.8074C5.2955 16.243 4.45946 17.2403 4.45946 17.2403Z' fill='%23D9371D'/><path d='M4.46147 17.2402C15.1722 26.8297 25.8913 24.5841 25.8913 24.5841C26.6483 20.4599 25.1362 18.0069 25.1362 18.0069C25.1362 18.0069 26.0056 18.6556 26.9013 18.6733C27.797 18.691 27.9874 17.0577 27.9874 17.0577C28.6146 20.5996 34.4321 25.3906 34.4321 25.3906L34.8162 25.2749C31.5317 21.885 29.3839 17.5275 27.3334 13.2402C27.5969 14.0117 27.2535 14.9654 26.5888 15.4774C25.8236 16.0662 24.7666 16.1479 23.8315 15.9192C22.8977 15.6934 22.0554 15.1937 21.2298 14.7003C21.9805 15.7202 22.7505 16.7834 23.0047 18.0273C23.2569 19.2705 22.8385 20.7507 21.7085 21.3286C21.1453 21.6158 20.4881 21.6475 19.8609 21.5997C18.0651 21.4622 16.3801 20.7352 14.7313 20.0195C15.1948 19.599 15.6562 19.1777 16.1197 18.7572C13.2558 17.9869 10.4807 16.8866 7.86735 15.4839C7.45601 15.2617 7.03584 15.0313 6.61042 14.8085C5.29464 16.2441 4.4586 17.2415 4.4586 17.2415L4.46147 17.2402Z' fill='%23BC2B1D'/><path d='M35.0781 27.2569C34.9565 27.333 34.8711 27.4394 34.8237 27.565C34.9286 27.4826 35.0161 27.377 35.0781 27.2569Z' fill='%23E2EDE5'/><path d='M31.6095 26.4033C31.6029 26.4462 31.5975 26.492 31.5929 26.5357C31.565 26.805 31.5669 27.0903 31.6912 27.3286C31.8168 27.5697 32.0961 27.7445 32.3572 27.6709C32.1113 28.152 32.2076 28.7863 32.587 29.1687C32.9636 29.5524 33.5926 29.6583 34.0763 29.4176C34.1013 29.7236 34.1263 30.0296 34.1492 30.3348C35.4757 30.5988 36.9395 29.8935 37.5661 28.6879C37.7561 28.9414 38.1602 28.9433 38.4206 28.7642C38.6811 28.5851 38.8221 28.2748 38.9064 27.9694C39.0085 27.5918 39.0336 27.1972 38.9894 26.8098C38.8682 25.7308 38.2164 24.7075 37.2476 24.215C37.5505 24.1883 37.8678 24.155 38.1176 23.9791C38.3653 23.8023 38.5051 23.4318 38.331 23.1867C38.1722 22.9641 37.853 22.9393 37.5824 22.9687C37.2332 23.0043 36.8883 23.0917 36.5612 23.2265C36.5228 23.0948 36.4523 22.9726 36.3514 22.8866C36.0079 22.5919 35.5013 22.5968 35.0575 22.6875C33.2965 23.0511 31.8506 24.617 31.6095 26.4033Z' fill='white'/><path d='M31.6083 26.4031C31.6017 26.446 31.5963 26.4918 31.5917 26.5355C31.5638 26.8048 31.5657 27.0901 31.69 27.3283C31.8156 27.5695 32.0949 27.7443 32.356 27.6707C32.1101 28.1518 32.2064 28.786 32.5858 29.1684C32.9624 29.5521 33.5914 29.6581 34.0751 29.4174C34.1001 29.7234 34.1251 30.0293 34.148 30.3345C35.4745 30.5985 36.9384 29.8932 37.5649 28.6877C37.7549 28.9412 38.159 28.943 38.4194 28.7639C38.6799 28.5848 38.8209 28.2745 38.9052 27.9692C39.0073 27.5916 39.0324 27.1969 38.9882 26.8095C38.3445 27.2218 37.7071 27.6173 37.1265 26.6639C37.1266 27.2188 37.0232 27.8016 36.6734 28.2363C36.3244 28.6689 35.6777 28.8936 35.1919 28.6288C34.8311 28.4305 34.68 27.9286 34.8225 27.5639C34.5402 27.7945 34.1369 27.879 33.7967 27.7458C33.3294 27.5646 33.0474 27.0061 33.1785 26.5199C32.6699 26.713 32.084 26.6568 31.6071 26.4002L31.6083 26.4031Z' fill='%23E2EDE5'/><path d='M1.49509 21.5722C1.99134 23.821 5.12149 24.9142 7.35501 25.4561C9.58567 25.9993 12.0479 26.6227 13.339 28.5259C13.3462 27.7561 13.2032 26.9871 12.9205 26.2729C15.6861 28.8045 20.0874 30.1193 23.8357 30.0038C24.6769 29.3839 25.3483 28.5515 25.8087 27.6157C26.3414 26.5325 26.588 25.3055 26.4732 24.1022C21.1257 23.8939 15.8906 22.757 11.1096 20.3542C11.526 20.1216 11.9424 19.8889 12.3596 19.6542C9.51469 18.8146 6.81028 17.5018 4.39089 15.7873C4.39089 15.7873 2.54915 16.9574 1.75201 18.8735C1.42542 19.6566 1.27576 20.5639 1.49667 21.568L1.49509 21.5722Z' fill='white'/><path d='M1.49497 21.572C1.99122 23.8209 5.12136 24.9141 7.35489 25.4559C9.58554 25.9991 12.0478 26.6225 13.3388 28.5257C13.3461 27.756 13.2031 26.9869 12.9203 26.2727C15.686 28.8044 20.0873 30.1191 23.8356 30.0036C24.6768 29.3837 25.3482 28.5514 25.8086 27.6155C23.5125 28.198 20.8656 27.4331 18.6628 26.3432C15.891 24.9692 13.2205 23.1001 10.1354 22.8585C10.3568 23.3128 10.5774 23.7692 10.8 24.2263C7.15787 24.0543 3.69859 21.9472 1.75318 18.8762C1.42659 19.6593 1.27693 20.5666 1.49784 21.5707L1.49497 21.572Z' fill='%23E2EDE5'/><path d='M13.7069 12.5957C13.2174 13.2933 12.5266 13.8553 11.7781 14.2423C11.0202 14.6354 9.5826 14.9369 9.74056 13.6166C9.77876 13.301 9.9233 13.0064 10.0819 12.7314C10.7534 11.5644 11.9732 9.99205 13.3536 9.64027C14.5395 9.33702 14.5111 10.6106 14.2828 11.4045C14.1589 11.8336 13.9608 12.2323 13.7077 12.5936L13.7069 12.5957Z' fill='%23FF6252'/><path d='M16.7363 8.92002C16.5625 9.13425 16.3466 9.32777 16.0849 9.41551C15.8232 9.50326 15.5088 9.46586 15.3128 9.2723C15.089 9.0515 15.0713 8.68847 15.1632 8.38834C15.6558 6.78066 17.9767 7.39377 16.7363 8.92002Z' fill='%23FF6252'/><path d='M24.8091 23.8921C25.1161 23.0537 24.9718 22.1933 24.9718 22.1933C24.9718 22.1933 26.5661 23.2807 27.3207 21.5088C27.3207 21.5088 28.4333 22.6296 29.2211 21.4132C29.2211 21.4132 29.5187 22.353 30.8602 22.2304C30.8602 22.2304 29.6377 22.9838 29.9382 23.6952C29.9382 23.6952 28.805 23.5687 28.3483 24.9675C28.3483 24.9675 26.9645 24.1868 25.9701 25.5405C25.9701 25.5405 25.676 25.0014 24.939 24.8093C24.939 24.8093 24.5172 24.6716 24.3473 24.6863C24.3473 24.6863 24.7598 24.0289 24.8112 23.8929L24.8091 23.8921Z' fill='%23216A4B'/><path d='M30.3203 22.4058C30.3203 22.4058 25.8392 23.8064 24.3478 24.6855C24.3478 24.6855 26.1779 22.9848 30.3203 22.4058Z' fill='%2398B22D'/><path d='M29.7572 23.5323L28.8544 22.8017L29.1593 21.6851C29.1593 21.6851 28.7209 22.6508 28.731 22.8196C28.731 22.8196 28.9594 23.1355 29.7564 23.5344L29.7572 23.5323Z' fill='%2398B22D'/><path d='M27.3414 21.714L27.0072 23.3624L28.2772 24.8104L27.2357 23.2932L27.3414 21.714Z' fill='%2398B22D'/><path d='M25.9842 25.3038L26.2279 23.7312L25.0695 22.4162L26.0137 23.7939L25.9842 25.3038Z' fill='%2398B22D'/><path d='M24.323 24.7499C24.1793 24.6574 23.7413 24.5878 23.7413 24.5878C22.9977 24.4194 22.4873 24.7625 22.4873 24.7625C22.2294 23.1058 20.6416 23.1617 20.6416 23.1617C20.8825 21.7101 19.8171 21.3031 19.8171 21.3031C20.4134 20.8083 19.6755 19.5779 19.6755 19.5779C20.8091 20.3024 21.5082 19.6049 21.5082 19.6049C21.645 21.0461 23.1506 20.5646 23.1506 20.5646C23.0022 22.484 24.9188 22.2509 24.9188 22.2509C24.9188 22.2509 24.3953 22.9501 24.2783 23.8339C24.2598 23.9775 24.323 24.7499 24.323 24.7499Z' fill='%23216A4B'/><path d='M20.0719 19.9846C20.0719 19.9846 23.4037 23.2872 24.3217 24.753C24.3217 24.753 23.4833 22.4013 20.0719 19.9846Z' fill='%2398B22D'/><path d='M20.0513 21.2421L21.19 21.0071L21.4362 19.8756C21.4362 19.8756 21.3799 20.9329 21.2935 21.0797C21.2935 21.0797 20.9457 21.2569 20.0534 21.2429L20.0513 21.2421Z' fill='%2398B22D'/><path d='M23.0408 20.7382L22.5761 22.354L20.7802 23.0559L22.4058 22.1869L23.0408 20.7382Z' fill='%2398B22D'/><path d='M22.5815 24.5484L23.0892 23.0396L24.7266 22.4046L23.253 23.1923L22.5815 24.5484Z' fill='%2398B22D'/><path d='M24.3604 24.6064C24.3807 24.748 24.5752 25.0653 24.5752 25.0653C24.8768 25.6288 25.3706 25.765 25.3706 25.765C24.4672 26.8398 25.3698 27.8167 25.3698 27.8167C24.3238 28.4621 24.6484 29.3619 24.6484 29.3619C24.0102 29.2549 23.6393 30.4015 23.6393 30.4015C23.478 29.2835 22.6552 29.224 22.6552 29.224C23.49 28.3434 22.362 27.6545 22.362 27.6545C23.6536 26.6929 22.4593 25.6058 22.4593 25.6058C22.4593 25.6058 23.1857 25.5548 23.8062 25.1409C23.9076 25.074 24.3596 24.6085 24.3596 24.6085L24.3604 24.6064Z' fill='%23216A4B'/><path d='M23.6767 29.9276C23.6767 29.9276 23.9371 25.9961 24.3609 24.6088C24.3609 24.6088 23.3361 26.4341 23.6767 29.9276Z' fill='%2398B22D'/><path d='M24.4805 29.246L23.709 28.6534L22.8613 29.1202C22.8613 29.1202 23.5585 28.5727 23.6984 28.549C23.6984 28.549 23.9995 28.6722 24.4776 29.2473L24.4805 29.246Z' fill='%2398B22D'/><path d='M22.532 27.6308L23.8045 27.035L25.2289 27.7904L23.7928 27.2363L22.532 27.6308Z' fill='%2398B22D'/><path d='M25.1836 25.8231L23.9542 26.3299L22.6597 25.6403L23.9632 26.142L25.1836 25.8231Z' fill='%2398B22D'/><path d='M24.3294 24.2467C24.1729 24.6612 24.3812 25.1248 24.7939 25.2806C25.2065 25.4364 25.6692 25.226 25.8257 24.8116C25.9821 24.3971 25.7739 23.9334 25.3612 23.7777C24.9486 23.6219 24.4859 23.8323 24.3294 24.2467Z' fill='%23D9371D'/><path d='M24.3295 24.2468C24.173 24.6613 24.3813 25.1249 24.7939 25.2807C25.1753 25.4247 25.5974 25.2588 25.7831 24.9056C25.5694 25.0808 25.2707 25.1402 24.9957 25.0364C24.581 24.8798 24.3727 24.4162 24.5291 24.0017C24.541 23.9703 24.5549 23.9397 24.5709 23.9099C24.4645 23.9964 24.3808 24.1107 24.3287 24.2489L24.3295 24.2468Z' fill='%23BC2B1D'/><g style='mix-blend-mode:soft-light' opacity='0.5'><path d='M25.7794 24.4163C25.7999 24.5197 25.7932 24.632 25.7373 24.7233C25.6822 24.8125 25.5711 24.8734 25.4705 24.8498C25.3803 24.8301 25.3143 24.7525 25.2625 24.6755C25.2046 24.5891 25.1533 24.498 25.132 24.3967C25.1078 24.2967 25.1137 24.1865 25.1626 24.095C25.2114 24.0034 25.3066 23.9341 25.4097 23.9324C25.6299 23.9294 25.7456 24.2409 25.7794 24.4163Z' fill='%23F2E9DA'/></g><g style='mix-blend-mode:soft-light' opacity='0.5'><path d='M25.6631 24.32C25.6566 24.4634 25.5329 24.4884 25.4401 24.3936C25.3676 24.3208 25.295 24.1977 25.3619 24.0962C25.492 23.8966 25.6699 24.1886 25.6631 24.32Z' fill='%23F2E9DA'/></g><path d='M22.9036 23.4254C22.7472 23.8399 22.9555 24.3036 23.3681 24.4593C23.7807 24.6151 24.2434 24.4047 24.3999 23.9903C24.5564 23.5758 24.3481 23.1122 23.9355 22.9564C23.5228 22.8006 23.0601 23.011 22.9036 23.4254Z' fill='%23D9371D'/><path d='M22.9037 23.426C22.7472 23.8405 22.9555 24.3041 23.3681 24.4599C23.7495 24.6039 24.1716 24.438 24.3574 24.0848C24.1436 24.26 23.845 24.3194 23.5699 24.2156C23.1552 24.059 22.9469 23.5954 23.1034 23.1809C23.1152 23.1495 23.1291 23.1189 23.1452 23.0891C23.0387 23.1756 22.9551 23.2899 22.9029 23.4281L22.9037 23.426Z' fill='%23BC2B1D'/><g style='mix-blend-mode:soft-light' opacity='0.5'><path d='M24.3536 23.595C24.3741 23.6984 24.3674 23.8107 24.3115 23.902C24.2564 23.9912 24.1453 24.0521 24.0447 24.0285C23.9545 24.0088 23.8886 23.9312 23.8367 23.8543C23.7788 23.7678 23.7275 23.6767 23.7062 23.5754C23.6821 23.4754 23.688 23.3652 23.7368 23.2737C23.7857 23.1821 23.8809 23.1128 23.9839 23.1111C24.2041 23.1081 24.3198 23.4196 24.3536 23.595Z' fill='%23F2E9DA'/></g><g style='mix-blend-mode:soft-light' opacity='0.5'><path d='M24.2374 23.4984C24.2308 23.6419 24.1071 23.6669 24.0143 23.5721C23.9418 23.4993 23.8692 23.3762 23.9361 23.2747C24.0662 23.0751 24.2441 23.3671 24.2374 23.4984Z' fill='%23F2E9DA'/></g><path d='M22.9232 24.9274C22.7667 25.3418 22.975 25.8055 23.3876 25.9613C23.8002 26.117 24.263 25.9067 24.4194 25.4922C24.5759 25.0778 24.3676 24.6141 23.955 24.4583C23.5424 24.3026 23.0796 24.5129 22.9232 24.9274Z' fill='%23D9371D'/><path d='M22.9232 24.9275C22.7668 25.3419 22.975 25.8056 23.3877 25.9614C23.769 26.1053 24.1912 25.9395 24.3769 25.5863C24.1631 25.7615 23.8645 25.8209 23.5894 25.7171C23.1747 25.5605 22.9664 25.0968 23.1229 24.6824C23.1347 24.651 23.1487 24.6204 23.1647 24.5905C23.0582 24.6771 22.9746 24.7914 22.9224 24.9296L22.9232 24.9275Z' fill='%23BC2B1D'/><g style='mix-blend-mode:soft-light' opacity='0.5'><path d='M24.3731 25.0989C24.3936 25.2023 24.3869 25.3146 24.331 25.4059C24.2759 25.4951 24.1648 25.556 24.0642 25.5324C23.9741 25.5127 23.9081 25.4352 23.8562 25.3582C23.7983 25.2718 23.747 25.1806 23.7258 25.0793C23.7016 24.9793 23.7075 24.8692 23.7563 24.7776C23.8052 24.686 23.9004 24.6167 24.0034 24.615C24.2236 24.612 24.3393 24.9235 24.3731 25.0989Z' fill='%23F2E9DA'/></g><g style='mix-blend-mode:soft-light' opacity='0.5'><path d='M24.253 25.0011C24.2465 25.1445 24.1227 25.1696 24.0299 25.0748C23.9574 25.002 23.8848 24.8789 23.9517 24.7774C24.0819 24.5778 24.2597 24.8697 24.253 25.0011Z' fill='%23F2E9DA'/></g></g><defs><clipPath id='clip0_10262_13111'><rect width='37.9878' height='25.1106' fill='white' transform='matrix(-0.935553 -0.353187 -0.353187 0.935553 44.4102 13.4168)'/></clipPath></defs></svg>");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label-discount-text {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1;
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label-discount-text-value {
+      font-size: 20px;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label-text {
+      color: #1F6B4D;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-image {
+      flex: 1;
+      overflow: hidden;
+      padding: 0;
+      width: 100%;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-image img {
+      width: 100%;
+      max-width: 100%;
+      object-fit: cover;
+      aspect-ratio: 1;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-image .pc {
+      display: flex;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-image .mb {
+      display: none;
+    }
+    .christmas-product-tab-{{ section.id }}  .christmas-product-tab-product-main-image-mb{
+      display: none;
+    }
+    .christmas-product-tab-card-mySwiper-{{section.id}} .pc{
+      display: flex;
+      {% if section.settings.position == 'row'%}
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        {% else %}
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+    {% endif %}
+
+  }
+  .christmas-product-tab-card-mySwiper-{{section.id}} .mb{
+      display: none;
+  }
+  .christmas-product-tab-card-mySwiper-{{section.id}}{
+      width: 100%;
+      overflow: hidden;
+  }
+  .christmas-product-tab-card-mySwiper-{{section.id}} .swiper-slide{
+      width: 100% !important;
+    }
+  .christmas-product-tab-card-mySwiper-{{section.id}}    .swiper-pagination-bullet {
+      width: 20%;
+      height: 4px;
+      display: inline-block;
+      border-radius: 99px;
+      background: #D9D9D9;
+      opacity: 1;
+  }
+    /* 增加动画效果：5秒从左至右的加载条 */
+    .christmas-product-tab-card-mySwiper-{{section.id}} .swiper-pagination-bullet-active {
+        opacity: 1;
+        background: #D9D9D9;
+        position: relative;
+        overflow: hidden;
+    }
+    .christmas-product-tab-card-mySwiper-{{section.id}} .swiper-pagination-bullet-active::after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 0;
+        background: #fff;
+        border-radius: 99px;
+        animation: christmas-tab-bar-fill-{{section.id}} 3.2s linear forwards;
+        z-index: 1;
+    }
+
+    @keyframes christmas-tab-bar-fill-{{section.id}} {
+        from {
+            width: 0%;
+        }
+        to {
+            width: 100%;
+        }
+    }
+    .christmas-product-tab-card-mySwiper-{{section.id}} .video-wrap{
+        height: 100%;
+        background: #000;
+        }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-content {
+      position: relative;
+      padding-left: {{section.settings.content_padding_left_and_right}}px;
+      padding-right: {{section.settings.content_padding_left_and_right}}px;
+      flex: 0 0 {{section.settings.content_space_percent}}%;
+      display: flex;
+      align-items: center;
+      gap: 33px;
+      width: {{section.settings.content_space_percent}}%;
+
+    }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-main-image{
+        width: 200px;
+        max-width: 100%;
+        flex-shrink: 0;
+    }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-main-image .pc{
+         display: flex;
+    }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-main-image .mb{
+        display: none;
+    }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-main-content{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: {{section.settings.content_box_text_percent}}%;
+        {% comment %} flex:1; {% endcomment %}
+    }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-name {
+      color: {{ section.settings.product_title_color }};
+      text-align: left;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.3;
+      max-width: {{section.settings.content_box_text_percent}}%;
+      {% if section.settings.product_divider_line %}
+        padding-bottom: 10px;
+        border-bottom: 1px solid #E7E7E7;
+      {% endif %}
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-features {
+      margin-top: 4px;
+      color: #3D3D3D;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 140%;
+      max-width: {{section.settings.content_box_text_percent}}%;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-description {
+      color: #3D3D3D;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 140%;
+      margin-top: 10px;
+      max-width: {{section.settings.content_box_text_percent}}%;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-tips {
+      color: #3D3D3D;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.4;
+      padding-top: 4px;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-content-bottom {
+      display: flex;
+      flex-direction: column;
+      padding-top: 24px;
+      width: 100%;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-price {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-sale-price {
+      color: #A31C22;
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-original-price {
+      color: #848484;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1;
+      text-decoration-line: line-through;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-wrapper {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-add-to-cart,
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-view-more {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1;
+      padding: 12px 22px;
+      border-radius: 10px;
+      margin: 0;
+      height: auto;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-add-to-cart {
+      background: #A31C22;
+    }
+
+    @media screen and (hover: hover) {
+      .christmas-product-tab-{{ section.id }} .button.accent:hover,
+      .christmas-product-tab-{{ section.id }} input[type=submit].accent:hover {
+        background: #A31C22;
+      }
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-view-more {
+      color: #000;
+      border: 1px solid #000;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-add-to-cart:hover {
+      color: #fff;
+      background: #A31C22;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-view-more:hover {
+      color: #000;
+      background: transparent;
+    }
+
+    .christmas-product-tab-{{ section.id }} .product-flash-sale-countdown {
+      max-width: max-content;
+      background: #DA291C;
+      margin-bottom: 10px;
+      color: #fff;
+      padding: 0px 12px;
+      border-radius: 17px;
+    }
+
+    .christmas-product-tab-{{ section.id }} .product-flash-sale-countdown .countdown-box > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 14px;
+    }
+
+    .christmas-product-tab-{{ section.id }} .product-flash-sale-countdown .time-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 52px;
+      min-height: 56px;
+      position: relative;
+      {% comment %} border-radius: 6px;
+      border: 1px dashed #FFF; {% endcomment %}
+    }
+
+    .christmas-product-tab-{{ section.id }} .product-flash-sale-countdown .time-block:not(:last-child)::after {
+      content: ":";
+      position: absolute;
+      right: -2px;
+      top: 0px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .christmas-product-tab-{{ section.id }} .product-flash-sale-countdown .time-value {
+      /* background-color: #000; */
+      color: #fff;
+      border-radius: 0;
+      font-size: 24px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .christmas-product-tab-{{ section.id }} .product-flash-sale-countdown .time-label {
+      font-size: 12px;
+      color: #fff;
+      line-height: 1;
+    }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-select{
+      width:100%;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: transparent;
+      padding-right: 42px;
+      height: auto;
+      margin-bottom: 0;
+      margin-top: 16px;
+    }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-select option{
+      margin:12px;
+      padding:10px;
+      text-align: left;
+
+
+    }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-select option[selected]{
+      border-radius: 4px;
+      background:  #F9F9F9;
+
+
+    }
+    .christmas-product-tab-tab-dropdown-icon{
+      pointer-events:none;
+      position:absolute;
+      right:16px;
+      top:50%;
+      transform:translateY(-50%);
+      width:16px;
+      height:16px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-wrapper {
+        padding: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px 0;
+      }
+    .christmas-product-tab-{{ section.id }} .christmas-second-banner-top-1  {
+
+        margin-bottom:15px;
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-second-banner-top-1 .pc {
+        display: none;
+
+    }
+
+    .christmas-product-tab-{{ section.id }} .christmas-second-banner-top-1 .mb {
+        display: flex;
+    }
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-container {
+        max-width: 100%;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-title-wrapper {
+        margin-bottom: 20px;
+        padding: 0;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-title {
+        font-size: 30px;
+        line-height: 1.13;
+        margin-bottom: 10px;
+        padding: 0 24px;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-subtitle {
+        font-size: 14px;
+        padding: 0 24px;
+        max-width: 280px;
+        {%- if section.settings.desc != empty or section.blocks.size > 1 -%}
+          margin-bottom: 20px;
+      {% endif %}
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-desc {
+        font-size: 16px;
+        line-height: 1.4;
+        margin-bottom: 20px;
+        padding: 0 24px;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-products-main-banner-box {
+        max-width: 639px;
+        margin-bottom: 40px;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-products-main-banner-box .pc {
+        display: none;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-products-main-banner-box .mb {
+        display: flex;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-tabs {
+        gap: 8px;
+        width: 100%;
+        max-width: 100%;
+        justify-content: start;
+        padding-left: {{section.settings.content_padding_left_and_right_mobile}}px;
+          padding-right: {{section.settings.content_padding_left_and_right_mobile}}px;
+        background: transparent;
+        border-radius: 0;
+        margin-top: 16px;
+      }
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-content {
+          max-width:100%;
+          margin-left: 24px;
+          margin-right: 24px;
+          padding-top:0;
+        }
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-tab {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1;
+        padding: 10px 16px;
+        background: #fff;
+      }
+
+
+
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-tab.active {
+        color: #000;
+        font-weight: 700;
+
+      }
+
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-banner img {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 4px;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-banner .pc {
+        display: none;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-banner .mb, {
+        display: flex;
+      }
+      .christmas-product-tab-card-mySwiper-{{section.id}} .pc{
+          display: none;
+
+
+
+      }
+      .christmas-product-tab-card-mySwiper-{{section.id}} .mb{
+          display: flex;
+
+        border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+
+      }
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-banner-box-content {
+        bottom: 8px;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-banner-box-content-title {
+        font-size: 10px;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-banner-box-content-desc {
+        font-size: 10px;
+        line-height: 1.2;
+      }
+
+      {% if section.settings.show_swiper %}
+        .christmas-product-tab-{{ section.id }} .christmas-product-tab.active {
+          display: flex;
+          flex-direction: row;
+          overflow-x: auto;
+           overflow-y: auto;
+          gap: {{ section.settings.card_gap_mobile }}px;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          /* 允许左右上下滑动 */
+          touch-action: pan-x pan-y;
+          overscroll-behavior-x: contain;
+          
+        }
+        .christmas-product-tab-{{ section.id }} .christmas-products-products::-webkit-scrollbar {
+          display: none;
+        }
+        .christmas-product-tab-{{ section.id }} .christmas-product-tab-card {
+          border-radius: 10px;
+          width: 100%;
+          flex-shrink: 0;
+          flex-direction: column;
+
+        }
+      {%- else -%}
+        .christmas-product-tab-{{ section.id }} .christmas-product-tab.active {
+          display: grid;
+          grid-template-columns: repeat(1, 1fr);
+          grid-gap: {{ section.settings.card_gap_mobile }}px;
+          padding: 0;
+        }
+      {%- endif -%}
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-image {
+          flex: none;
+        }
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label {
+          display: flex;
+          margin-bottom: 4px;
+          margin-top: 16px;
+          width: 100%;
+          padding-left: {{section.settings.content_padding_left_and_right_mobile}}px;
+          padding-right: {{section.settings.content_padding_left_and_right_mobile}}px;
+        }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label-discount {
+        width: 102px;
+        height: 36px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='102' height='36' viewBox='0 0 102 36' fill='none'%3E%3Cpath d='M0 0H102V26C102 31.5228 97.5229 36 92 36H0V0Z' fill='%23B90500'/%3E%3Cmask id='mask0_10401_8725' style='mask-type:alpha' maskUnits='userSpaceOnUse' x='0' y='0' width='102' height='36'%3E%3Cpath d='M0 0H102V26C102 31.5228 97.5229 36 92 36H0V0Z' fill='%23D9D9D9'/%3E%3C/mask%3E%3Cg mask='url(%23mask0_10401_8725)'%3E%3Cpath d='M54.1875 -47.8794L51.5894 -48.9594L-22.4112 43.3238L-19.8131 44.4038L54.1875 -47.8794Z' fill='white'/%3E%3Cpath d='M61.9844 -44.6394L59.3863 -45.7194L-14.6143 46.5638L-12.0162 47.6438L61.9844 -44.6394Z' fill='white'/%3E%3Cpath d='M69.7734 -41.3995L67.1753 -42.4795L-6.82526 49.8037L-4.22717 50.8836L69.7734 -41.3995Z' fill='white'/%3E%3Cpath d='M77.5703 -38.1595L74.9722 -39.2395L0.971613 53.0436L3.5697 54.1236L77.5703 -38.1595Z' fill='white'/%3E%3Cpath d='M85.3594 -34.9197L82.7613 -35.9997L8.76068 56.2835L11.3588 57.3635L85.3594 -34.9197Z' fill='white'/%3E%3Cpath d='M93.1562 -31.6797L90.5582 -32.7597L16.5576 59.5235L19.1556 60.6035L93.1562 -31.6797Z' fill='white'/%3E%3Cpath d='M100.953 -28.4395L98.355 -29.5194L24.3544 62.7637L26.9525 63.8437L100.953 -28.4395Z' fill='white'/%3E%3Cpath d='M108.75 -25.1995L106.152 -26.2795L32.1513 66.0037L34.7494 67.0837L108.75 -25.1995Z' fill='white'/%3E%3Cpath d='M116.539 -21.9596L113.941 -23.0396L39.9404 69.2436L42.5385 70.3236L116.539 -21.9596Z' fill='white'/%3E%3Cpath d='M124.336 -18.7196L121.738 -19.7996L47.7372 72.4836L50.3353 73.5636L124.336 -18.7196Z' fill='white'/%3E%3Cpath d='M132.125 -15.48L129.527 -16.56L55.5269 75.7237L58.125 76.8037L132.125 -15.48Z' fill='white'/%3E%3Cpath d='M139.922 -12.24L137.324 -13.32L63.3238 78.9637L65.9219 80.0437L139.922 -12.24Z' fill='white'/%3E%3Cpath d='M147.719 -9L145.121 -10.08L71.1207 82.2037L73.7188 83.2837L147.719 -9Z' fill='white'/%3E%3Cpath d='M155.516 -5.76001L152.918 -6.84001L78.9175 85.4437L81.5156 86.5237L155.516 -5.76001Z' fill='white'/%3E%3Cpath d='M162.594 -3.23999L159.996 -4.31999L85.9957 87.9637L88.5938 89.0437L162.594 -3.23999Z' fill='white'/%3E%3Cpath d='M171.102 0.719849L168.503 -0.360154L94.5035 91.9235L97.1016 93.0035L171.102 0.719849Z' fill='white'/%3E%3C/g%3E%3Cpath d='M2 2H100V24C100 29.5228 95.5229 34 90 34H2V2Z' fill='url(%23paint0_linear_10401_8725)'/%3E%3Cdefs%3E%3ClinearGradient id='paint0_linear_10401_8725' x1='51.3684' y1='2.18991' x2='51.3684' y2='33.8105' gradientUnits='userSpaceOnUse'%3E%3Cstop stop-color='%23266843'/%3E%3Cstop offset='1' stop-color='%231C6D52'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E");
+
+        position: relative;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label-discount-hat-icon {
+        top: -15px;
+        right: -15px;
+        width: 29px;
+        height: 28px;
+        z-index: 1;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='28' viewBox='0 0 29 28' fill='none'%3E%3Cg clip-path='url(%23clip0_10401_8751)'%3E%3Cpath d='M1.43061 15.0485C9.69568 22.4484 17.9672 20.7156 17.9672 20.7156C18.5514 17.5331 17.3846 15.6402 17.3846 15.6402C17.3846 15.6402 18.0555 16.1408 18.7467 16.1544C19.4378 16.168 19.5848 14.9077 19.5848 14.9077C20.0687 17.6408 24.5579 21.3379 24.5579 21.3379L24.8543 21.2486L25.6053 21.021C24.0945 12.8805 17.2434 5.38512 13.5372 5.2206C10.8595 5.10107 5.72912 10.2859 3.0911 13.1711C2.07575 14.2789 1.43061 15.0485 1.43061 15.0485Z' fill='%23D9371D'/%3E%3Cpath d='M1.43183 15.0485C9.6969 22.4483 17.9685 20.7155 17.9685 20.7155C18.5526 17.533 17.3858 15.6401 17.3858 15.6401C17.3858 15.6401 18.0567 16.1407 18.7479 16.1543C19.4391 16.168 19.586 14.9076 19.586 14.9076C20.0699 17.6408 24.5591 21.3378 24.5591 21.3378L24.8555 21.2486C22.321 18.6327 20.6636 15.2701 19.0813 11.9618C19.2846 12.5571 19.0196 13.2931 18.5067 13.6882C17.9163 14.1426 17.1006 14.2056 16.379 14.0291C15.6584 13.8549 15.0085 13.4693 14.3714 13.0885C14.9506 13.8756 15.5448 14.696 15.741 15.6559C15.9356 16.6152 15.6127 17.7574 14.7407 18.2033C14.3061 18.425 13.799 18.4494 13.315 18.4125C11.9293 18.3065 10.629 17.7455 9.35665 17.1931C9.71433 16.8687 10.0704 16.5436 10.4281 16.2191C8.21806 15.6247 6.07661 14.7756 4.06002 13.6932C3.74261 13.5217 3.41837 13.3439 3.09009 13.172C2.07475 14.2799 1.42961 15.0495 1.42961 15.0495L1.43183 15.0485Z' fill='%23BC2B1D'/%3E%3Cpath d='M25.0593 22.7783C24.9655 22.837 24.8995 22.9192 24.8629 23.0161C24.9439 22.9525 25.0114 22.871 25.0593 22.7783Z' fill='%23E2EDE5'/%3E%3Cpath d='M22.3834 22.1199C22.3783 22.153 22.3741 22.1883 22.3706 22.2221C22.3491 22.4299 22.3505 22.65 22.4464 22.8339C22.5434 23.02 22.7589 23.1548 22.9604 23.098C22.7706 23.4693 22.8449 23.9587 23.1377 24.2538C23.4283 24.5499 23.9137 24.6316 24.287 24.4459C24.3062 24.682 24.3255 24.9181 24.3432 25.1536C25.3668 25.3574 26.4964 24.8131 26.9799 23.8828C27.1265 24.0784 27.4383 24.0799 27.6393 23.9417C27.8403 23.8035 27.9491 23.564 28.0141 23.3284C28.0929 23.037 28.1123 22.7325 28.0782 22.4335C27.9846 21.601 27.4817 20.8113 26.7341 20.4313C26.9679 20.4106 27.2127 20.385 27.4055 20.2492C27.5966 20.1128 27.7045 19.8269 27.5701 19.6378C27.4476 19.466 27.2013 19.4468 26.9924 19.4695C26.723 19.497 26.4569 19.5644 26.2045 19.6684C26.1748 19.5668 26.1204 19.4725 26.0426 19.4062C25.7775 19.1788 25.3866 19.1825 25.0441 19.2525C23.6852 19.5331 22.5694 20.7414 22.3834 22.1199Z' fill='white'/%3E%3Cpath d='M22.379 22.1196C22.3738 22.1528 22.3697 22.1881 22.3661 22.2218C22.3446 22.4296 22.346 22.6498 22.442 22.8336C22.5389 23.0197 22.7544 23.1546 22.9559 23.0978C22.7662 23.4691 22.8404 23.9585 23.1333 24.2536C23.4238 24.5497 23.9093 24.6314 24.2825 24.4457C24.3018 24.6818 24.3211 24.9179 24.3387 25.1534C25.3623 25.3571 26.492 24.8129 26.9754 23.8826C27.1221 24.0782 27.4339 24.0796 27.6349 23.9414C27.8359 23.8032 27.9446 23.5638 28.0097 23.3281C28.0885 23.0368 28.1079 22.7322 28.0738 22.4333C27.577 22.7514 27.0852 23.0566 26.6372 22.3209C26.6372 22.7491 26.5575 23.1988 26.2875 23.5343C26.0182 23.8681 25.5191 24.0414 25.1443 23.8372C24.8658 23.6841 24.7493 23.2968 24.8592 23.0154C24.6414 23.1934 24.3302 23.2586 24.0676 23.1558C23.707 23.0159 23.4894 22.585 23.5906 22.2098C23.1982 22.3588 22.746 22.3154 22.378 22.1174L22.379 22.1196Z' fill='%23E2EDE5'/%3E%3Cpath d='M-0.853231 18.3912C-0.470292 20.1265 1.94513 20.9701 3.66866 21.3882C5.38998 21.8074 7.29001 22.2885 8.28626 23.7571C8.29186 23.1631 8.18151 22.5696 7.96332 22.0185C10.0975 23.9721 13.4938 24.9867 16.3863 24.8975C17.0354 24.4191 17.5534 23.7769 17.9087 23.0547C18.3198 22.2189 18.5101 21.272 18.4215 20.3435C14.295 20.1827 10.2553 19.3054 6.56598 17.4513C6.88729 17.2718 7.20861 17.0922 7.53053 16.9111C5.33521 16.2632 3.24831 15.2502 1.38135 13.9272C1.38135 13.9272 -0.0398493 14.8301 -0.654977 16.3086C-0.906995 16.9129 -1.02248 17.6131 -0.852011 18.3879L-0.853231 18.3912Z' fill='white'/%3E%3Cpath d='M-0.855035 18.3911C-0.472096 20.1265 1.94333 20.9701 3.66686 21.3882C5.38817 21.8074 7.28821 22.2884 8.28445 23.7571C8.29005 23.1631 8.1797 22.5696 7.96151 22.0185C10.0957 23.9721 13.492 24.9866 16.3845 24.8975C17.0336 24.4191 17.5516 23.7769 17.9069 23.0547C16.1351 23.5042 14.0926 22.9139 12.3927 22.0729C10.2539 21.0126 8.19311 19.5703 5.81252 19.3839C5.98334 19.7344 6.15355 20.0866 6.32537 20.4393C3.51482 20.3066 0.84542 18.6806 -0.655782 16.3108C-0.907798 16.9151 -1.02329 17.6153 -0.852816 18.3901L-0.855035 18.3911Z' fill='%23E2EDE5'/%3E%3Cpath d='M8.56695 11.4647C8.18917 12.003 7.65617 12.4366 7.07858 12.7353C6.49373 13.0386 5.38436 13.2713 5.50625 12.2525C5.53573 12.0089 5.64727 11.7816 5.76963 11.5694C6.28783 10.6688 7.22909 9.45552 8.29431 9.18406C9.20943 8.95006 9.18751 9.9328 9.01135 10.5454C8.91573 10.8766 8.76283 11.1843 8.56756 11.463L8.56695 11.4647Z' fill='%23FF6252'/%3E%3Cpath d='M10.9031 8.62836C10.7691 8.79367 10.6024 8.94301 10.4005 9.01072C10.1986 9.07843 9.95591 9.04957 9.80468 8.9002C9.632 8.72982 9.61833 8.44968 9.68923 8.21808C10.0694 6.97749 11.8603 7.45061 10.9031 8.62836Z' fill='%23FF6252'/%3E%3Cpath d='M17.14 20.1823C17.3769 19.5354 17.2656 18.8714 17.2656 18.8714C17.2656 18.8714 18.4958 19.7105 19.0781 18.3432C19.0781 18.3432 19.9367 19.2081 20.5446 18.2694C20.5446 18.2694 20.7743 18.9946 21.8094 18.9001C21.8094 18.9001 20.8661 19.4814 21.098 20.0303C21.098 20.0303 20.2235 19.9327 19.8711 21.0122C19.8711 21.0122 18.8033 20.4097 18.0359 21.4543C18.0359 21.4543 17.809 21.0383 17.2403 20.8901C17.2403 20.8901 16.9148 20.7838 16.7837 20.7952C16.7837 20.7952 17.102 20.2879 17.1416 20.1829L17.14 20.1823Z' fill='%23216A4B'/%3E%3Cpath d='M21.3913 19.0356C21.3913 19.0356 17.9334 20.1164 16.7825 20.7948C16.7825 20.7948 18.1948 19.4824 21.3913 19.0356Z' fill='%2398B22D'/%3E%3Cpath d='M20.9583 19.9047L20.2617 19.3409L20.497 18.4793C20.497 18.4793 20.1587 19.2245 20.1665 19.3548C20.1665 19.3548 20.3427 19.5985 20.9577 19.9063L20.9583 19.9047Z' fill='%2398B22D'/%3E%3Cpath d='M19.0908 18.5018L18.8329 19.7738L19.813 20.8912L19.0093 19.7204L19.0908 18.5018Z' fill='%2398B22D'/%3E%3Cpath d='M18.0478 21.2718L18.2358 20.0584L17.342 19.0436L18.0706 20.1067L18.0478 21.2718Z' fill='%2398B22D'/%3E%3Cpath d='M16.7645 20.8438C16.6536 20.7724 16.3156 20.7187 16.3156 20.7187C15.7418 20.5888 15.3479 20.8535 15.3479 20.8535C15.1489 19.5751 13.9237 19.6182 13.9237 19.6182C14.1096 18.498 13.2874 18.184 13.2874 18.184C13.7476 17.8022 13.1782 16.8527 13.1782 16.8527C14.053 17.4118 14.5924 16.8736 14.5924 16.8736C14.698 17.9857 15.8598 17.6141 15.8598 17.6141C15.7453 19.0952 17.2242 18.9154 17.2242 18.9154C17.2242 18.9154 16.8203 19.4549 16.73 20.1369C16.7157 20.2478 16.7645 20.8438 16.7645 20.8438Z' fill='%23216A4B'/%3E%3Cpath d='M13.4809 17.1667C13.4809 17.1667 16.0519 19.7152 16.7603 20.8463C16.7603 20.8463 16.1134 19.0316 13.4809 17.1667Z' fill='%2398B22D'/%3E%3Cpath d='M13.4661 18.1367L14.3448 17.9554L14.5348 17.0822C14.5348 17.0822 14.4913 17.8981 14.4247 18.0114C14.4247 18.0114 14.1563 18.1481 13.4677 18.1373L13.4661 18.1367Z' fill='%2398B22D'/%3E%3Cpath d='M15.7737 17.748L15.415 18.9949L14.0292 19.5365L15.2837 18.8659L15.7737 17.748Z' fill='%2398B22D'/%3E%3Cpath d='M15.4236 20.6882L15.8153 19.524L17.0788 19.0339L15.9417 19.6418L15.4236 20.6882Z' fill='%2398B22D'/%3E%3Cpath d='M16.7933 20.7333C16.809 20.8425 16.9591 21.0874 16.9591 21.0874C17.1918 21.5222 17.5728 21.6273 17.5728 21.6273C16.8757 22.4567 17.5723 23.2105 17.5723 23.2105C16.7651 23.7086 17.0156 24.4029 17.0156 24.4029C16.5231 24.3204 16.2368 25.2052 16.2368 25.2052C16.1124 24.3425 15.4775 24.2966 15.4775 24.2966C16.1217 23.617 15.2512 23.0854 15.2512 23.0854C16.2479 22.3433 15.3263 21.5045 15.3263 21.5045C15.3263 21.5045 15.8868 21.4651 16.3656 21.1458C16.4439 21.0941 16.7927 20.7349 16.7927 20.7349L16.7933 20.7333Z' fill='%23216A4B'/%3E%3Cpath d='M16.2661 24.8391C16.2661 24.8391 16.4671 21.8053 16.7941 20.7347C16.7941 20.7347 16.0033 22.1432 16.2661 24.8391Z' fill='%2398B22D'/%3E%3Cpath d='M16.8865 24.3136L16.2912 23.8563L15.6371 24.2165C15.6371 24.2165 16.175 23.794 16.283 23.7757C16.283 23.7757 16.5153 23.8708 16.8843 24.3146L16.8865 24.3136Z' fill='%2398B22D'/%3E%3Cpath d='M15.3836 23.0672L16.3656 22.6074L17.4647 23.1903L16.3566 22.7628L15.3836 23.0672Z' fill='%2398B22D'/%3E%3Cpath d='M17.4265 21.6721L16.4778 22.0632L15.4789 21.5311L16.4847 21.9182L17.4265 21.6721Z' fill='%2398B22D'/%3E%3Cpath d='M16.7717 20.4559C16.6509 20.7757 16.8117 21.1335 17.1301 21.2537C17.4485 21.3739 17.8056 21.2116 17.9263 20.8918C18.047 20.5719 17.8863 20.2141 17.5679 20.0939C17.2495 19.9737 16.8924 20.1361 16.7717 20.4559Z' fill='%23D9371D'/%3E%3Cpath d='M16.7691 20.4558C16.6483 20.7756 16.8091 21.1334 17.1275 21.2536C17.4218 21.3647 17.7475 21.2367 17.8908 20.9641C17.7259 21.0993 17.4954 21.1452 17.2832 21.0651C16.9631 20.9443 16.8024 20.5865 16.9232 20.2666C16.9323 20.2424 16.9431 20.2188 16.9554 20.1958C16.8732 20.2626 16.8087 20.3508 16.7685 20.4574L16.7691 20.4558Z' fill='%23BC2B1D'/%3E%3Cg style='mix-blend-mode:soft-light' opacity='0.5'%3E%3Cpath d='M17.8897 20.5867C17.9055 20.6665 17.9004 20.7531 17.8572 20.8236C17.8147 20.8924 17.729 20.9394 17.6513 20.9212C17.5818 20.906 17.5308 20.8462 17.4908 20.7868C17.4462 20.7201 17.4066 20.6498 17.3901 20.5716C17.3715 20.4944 17.376 20.4094 17.4137 20.3387C17.4514 20.2681 17.5249 20.2146 17.6044 20.2133C17.7743 20.211 17.8636 20.4514 17.8897 20.5867Z' fill='%23F2E9DA'/%3E%3C/g%3E%3Cg style='mix-blend-mode:soft-light' opacity='0.5'%3E%3Cpath d='M17.796 20.5125C17.791 20.6232 17.6955 20.6425 17.6239 20.5693C17.568 20.5131 17.512 20.4182 17.5636 20.3398C17.664 20.1858 17.8012 20.4111 17.796 20.5125Z' fill='%23F2E9DA'/%3E%3C/g%3E%3Cpath d='M15.6701 19.8221C15.5494 20.1419 15.7101 20.4997 16.0285 20.6199C16.3469 20.7401 16.704 20.5778 16.8247 20.258C16.9455 19.9382 16.7847 19.5804 16.4663 19.4602C16.1479 19.34 15.7909 19.5023 15.6701 19.8221Z' fill='%23D9371D'/%3E%3Cpath d='M15.6714 19.8225C15.5507 20.1423 15.7114 20.5001 16.0298 20.6203C16.3241 20.7314 16.6499 20.6034 16.7932 20.3308C16.6282 20.466 16.3978 20.5119 16.1855 20.4318C15.8655 20.311 15.7048 19.9532 15.8255 19.6333C15.8346 19.6091 15.8454 19.5855 15.8578 19.5625C15.7756 19.6293 15.7111 19.7175 15.6708 19.8241L15.6714 19.8225Z' fill='%23BC2B1D'/%3E%3Cg style='mix-blend-mode:soft-light' opacity='0.5'%3E%3Cpath d='M16.7881 19.9534C16.8039 20.0332 16.7988 20.1198 16.7557 20.1903C16.7131 20.2591 16.6274 20.3061 16.5498 20.2879C16.4802 20.2727 16.4293 20.2129 16.3892 20.1535C16.3446 20.0868 16.305 20.0165 16.2886 19.9383C16.2699 19.8611 16.2745 19.7761 16.3122 19.7054C16.3499 19.6348 16.4233 19.5813 16.5029 19.58C16.6728 19.5777 16.7621 19.8181 16.7881 19.9534Z' fill='%23F2E9DA'/%3E%3C/g%3E%3Cg style='mix-blend-mode:soft-light' opacity='0.5'%3E%3Cpath d='M16.6984 19.8787C16.6933 19.9894 16.5979 20.0087 16.5263 19.9355C16.4703 19.8793 16.4143 19.7844 16.4659 19.7061C16.5663 19.552 16.7036 19.7773 16.6984 19.8787Z' fill='%23F2E9DA'/%3E%3C/g%3E%3Cpath d='M15.6857 20.981C15.565 21.3009 15.7257 21.6586 16.0441 21.7789C16.3625 21.8991 16.7196 21.7367 16.8404 21.4169C16.9611 21.0971 16.8004 20.7393 16.482 20.6191C16.1636 20.4989 15.8065 20.6612 15.6857 20.981Z' fill='%23D9371D'/%3E%3Cpath d='M15.6831 20.9809C15.5624 21.3007 15.7231 21.6585 16.0415 21.7787C16.3358 21.8898 16.6616 21.7618 16.8049 21.4893C16.6399 21.6245 16.4095 21.6704 16.1972 21.5902C15.8772 21.4694 15.7165 21.1116 15.8372 20.7918C15.8464 20.7676 15.8571 20.7439 15.8695 20.7209C15.7873 20.7877 15.7228 20.8759 15.6825 20.9825L15.6831 20.9809Z' fill='%23BC2B1D'/%3E%3Cg style='mix-blend-mode:soft-light' opacity='0.5'%3E%3Cpath d='M16.8038 21.1137C16.8196 21.1935 16.8144 21.2801 16.7713 21.3506C16.7288 21.4194 16.643 21.4664 16.5654 21.4482C16.4958 21.433 16.4449 21.3731 16.4049 21.3137C16.3602 21.2471 16.3206 21.1767 16.3042 21.0986C16.2856 21.0214 16.2901 20.9364 16.3278 20.8657C16.3655 20.7951 16.439 20.7416 16.5185 20.7402C16.6884 20.7379 16.7777 20.9783 16.8038 21.1137Z' fill='%23F2E9DA'/%3E%3C/g%3E%3Cg style='mix-blend-mode:soft-light' opacity='0.5'%3E%3Cpath d='M16.714 21.0385C16.709 21.1492 16.6135 21.1685 16.5419 21.0953C16.4859 21.0391 16.4299 20.9442 16.4815 20.8659C16.582 20.7118 16.7192 20.9371 16.714 21.0385Z' fill='%23F2E9DA'/%3E%3C/g%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0_10401_8751'%3E%3Crect width='30.5217' height='20.1754' fill='white' transform='matrix(-0.935553 -0.353187 -0.353187 0.935553 35.6804 8.77991)'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label-discount-text {
+        font-size: 12px;
+        gap: 2px;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label-discount-text-value {
+        font-size: 14px;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-products-product-gifts-icon {
+        top: 8px;
+        right: 8px;
+        width: 38px;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label-text {
+        left: 8px;
+        font-size: 10px;
+        font-weight: 800;
+        line-height: 1.4;
+        text-align: left;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label-text span {
+        display: block;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-image .pc {
+        display: none;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-image .mb {
+        display: flex;
+      }
+      .christmas-product-tab-card-mySwiper-{{section.id}} .pc{
+          display: none;
+      }
+      .christmas-product-tab-card-mySwiper-{{section.id}} .mb{
+          display: flex;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-content {
+        padding:0 0 20px 0;
+        flex: none;
+        flex-direction: column;
+        align-items: start;
+        gap: 0;
+        width: 100%;
+
+      }
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-main-content{
+        width: 100%;
+    }
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-main-image .pc{
+        display: none;
+      }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-main-image .mb{
+        display: flex;
+      }
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-main-image{
+        display: none;
+      }
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-name {
+          padding-left: {{section.settings.content_padding_left_and_right_mobile}}px;
+          padding-right: {{section.settings.content_padding_left_and_right_mobile}}px;
+        font-size: 16px;
+        line-height: 1.4;
+        max-width: 100%;
+        {% if section.settings.product_divider_line %}
+          padding-bottom: 8px;
+        {% endif %}
+      }
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-features {
+          margin-top: 4px;
+          color: #3D3D3D;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 140%;
+          max-width: 100%;
+          padding-left: {{section.settings.content_padding_left_and_right_mobile}}px;
+          padding-right: {{section.settings.content_padding_left_and_right_mobile}}px;
+        }
+
+        .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-description {
+          color: #3D3D3D;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 140%;
+          margin-top: 10px;
+          max-width: 100%;
+          padding-left: {{section.settings.content_padding_left_and_right_mobile}}px;
+          padding-right: {{section.settings.content_padding_left_and_right_mobile}}px;
+        }
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-tips {
+        font-size: 12px;
+        line-height: 1.4;
+        padding-top: 4px;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-content-bottom {
+        padding-top: 8px;
+        padding-left: {{section.settings.content_padding_left_and_right_mobile}}px;
+        padding-right: {{section.settings.content_padding_left_and_right_mobile}}px;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-price {
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-sale-price {
+        font-size: 20px;
+        font-weight: 800;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-original-price {
+        font-size: 14px;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-wrapper {
+        display: flex;
+        gap: 12px;
+        width: 100%;
+      }
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-wrapper>*{
+          width: calc(50% - 6px);
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-add-to-cart,
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-view-more {
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 4px;
+        margin: 0;
+      }
+
+      .christmas-product-tab-{{ section.id }} .product-flash-sale-countdown {
+        max-width: max-content;
+        background: #DA291C;
+        margin-bottom: 10px;
+        color: #fff;
+        padding: 0px 12px;
+        border-radius: 17px;
+      }
+
+      .christmas-product-tab-{{ section.id }} .product-flash-sale-countdown .countdown-box > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        font-size: 12px;
+      }
+
+      .christmas-product-tab-{{ section.id }} .product-flash-sale-countdown .time-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-width: 52px;
+        min-height: 56px;
+        position: relative;
+        {% comment %} border-radius: 6px;
+        border: 1px dashed #FFF; {% endcomment %}
+      }
+
+      .christmas-product-tab-{{ section.id }} .product-flash-sale-countdown .time-block:not(:last-child)::after {
+        content: ":";
+        position: absolute;
+        right: -2px;
+        top: 4px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #fff;
+        line-height: 1;
+      }
+
+      .christmas-product-tab-{{ section.id }} .product-flash-sale-countdown .time-value {
+        /* background-color: #000; */
+        color: #fff;
+        border-radius: 0;
+        font-size: 12px;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+
+      .christmas-product-tab-{{ section.id }} .product-flash-sale-countdown .time-label {
+        font-size: 12px;
+        color: #fff;
+        line-height: 1;
+      }
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-select{
+        width:100%;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: transparent;
+        padding-right: 30px;
+        height: auto;
+        margin-bottom: 0;
+        margin-top: 9px;
+        padding-left: 60px;
+        height:48px;
+      }
+      .christmas-product-tab-{{ section.id }}  .christmas-product-tab-product-main-image-mb{
+        position:absolute;
+        left:8px;
+        display: flex;
+        width:48px;
+      top:50%;
+        transform:translateY(-50%);
+
+      }
+      .christmas-product-tab-{{ section.id }}  .christmas-product-tab-product-main-image-mb img{
+        width:100%;
+        max-width:100%;
+
+      }
+      .christmas-product-tab-tab-dropdown-icon{
+        pointer-events:none;
+        position:absolute;
+        right:8px;
+        top:50%;
+        transform:translateY(-50%);
+        width:16px;
+        height:16px;
+      }
+    }
+    /* black friday Official Promotion product1  end  */
+</style>
+<!-- black friday Official Promotion product1  start -->
+
+<section
+  id="{%- if section.settings.nav_id != empty %}custom-nav-{{- section.settings.nav_id -}}{% endif -%}"
+  class="christmas-product-tab-{{ section.id }}"
+>
+  <div class="christmas-product-tab-wrapper">
+    {%- if section.settings.show_top_bg -%}
+      <div class="christmas-second-banner-top-1">
+        <img
+          class="pc lazyload"
+          data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20251211-131155.png?v=1765430032"
+          alt=""
+        >
+        <img
+          class="mb lazyload"
+          data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/mb_94f1f363-b8bd-46bd-9a52-81b791208746.png?v=1765434084"
+          alt=""
+        >
+      </div>
+    {%- endif -%}
+    <div class="christmas-product-tab-container">
+      {%- if section.settings.show_snow_bg -%}
+        {% assign snow_bg_left = section.settings.snow_bg_left %}
+        {% assign snow_bg_right = section.settings.snow_bg_right %}
+        {%- if snow_bg_left -%}
+          <div class="christmas-product-tab-container-left-snow">
+            <img
+              style="aspect-ratio: {{ snow_bg_left.aspect_ratio }}"
+              class="lazyload"
+              data-src="{{ snow_bg_left | image_url:width:750 }}"
+              alt=""
+            >
+          </div>
+        {%- endif -%}
+        {%- if snow_bg_right -%}
+          <div class="christmas-product-tab-container-right-snow">
+            <img
+              style="aspect-ratio: {{ snow_bg_right.aspect_ratio }}"
+              class="lazyload"
+              data-src="{{ snow_bg_right | image_url:width:750 }}"
+              alt=""
+            >
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+      {%- if section.settings.title != empty -%}
+        <div class="christmas-product-tab-title-wrapper">
+          {%- if section.settings.title != empty -%}
+            <div class="christmas-product-tab-title">
+              {{ section.settings.title }}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.subtitle != empty -%}
+            <div class="christmas-product-tab-subtitle">
+              {{ section.settings.subtitle }}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.desc != empty -%}
+            <div class="christmas-product-tab-desc">
+              {{ section.settings.desc }}
+            </div>
+          {%- endif -%}
+          {% assign main_banner_image_pc = section.settings.main_banner_image_pc %}
+          {% assign main_banner_image_mb = section.settings.main_banner_image_mb %}
+          {% if main_banner_image_pc and main_banner_image_mb %}
+            <div
+              class="christmas-products-main-banner-box"
+            >
+              {% if main_banner_image_pc %}
+                <img
+                  style="aspect-ratio: {{ main_banner_image_pc.aspect_ratio }}"
+                  class="pc lazyload"
+                  data-sizes="100vw"
+                  data-srcset="
+                    {%- if main_banner_image_pc.width >= 200 -%}{{ main_banner_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 375 -%}{{ main_banner_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 550 -%}{{ main_banner_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 750 -%}{{ main_banner_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 1100 -%}{{ main_banner_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 1500 -%}{{ main_banner_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 1780 -%}{{ main_banner_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 2000 -%}{{ main_banner_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 3000 -%}{{ main_banner_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 3840 -%}{{ main_banner_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ main_banner_image_pc | image_url }} {{ main_banner_image_pc.width }}w
+                  "
+                  data-src="{{ main_banner_image_pc | image_url:width:750 }}"
+                  alt="{{ main_banner_image_pc.alt }}"
+                >
+              {% endif %}
+              {% if main_banner_image_mb %}
+                <img
+                  style="aspect-ratio: {{ main_banner_image_mb.aspect_ratio }}"
+                  class="mb lazyload"
+                  data-sizes="100vw"
+                  data-srcset="
+                    {%- if main_banner_image_mb.width >= 200 -%}{{ main_banner_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 375 -%}{{ main_banner_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 550 -%}{{ main_banner_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 750 -%}{{ main_banner_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 1100 -%}{{ main_banner_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 1500 -%}{{ main_banner_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 1780 -%}{{ main_banner_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 2000 -%}{{ main_banner_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 3000 -%}{{ main_banner_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 3840 -%}{{ main_banner_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ main_banner_image_mb | image_url }} {{ main_banner_image_mb.width }}w
+                  "
+                  data-src="{{ main_banner_image_mb | image_url:width:750 }}"
+                  alt="{{ main_banner_image_mb.alt }}"
+                >
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div class="christmas-product-tab-banner">
+        {%- for block in section.blocks -%}
+          {% assign product_banner_image_pc = block.settings.product_banner_image_pc %}
+          {% assign product_banner_image_mb = block.settings.product_banner_image_mb %}
+          {% assign product_banner_title = block.settings.product_banner_title %}
+          {% assign product_banner_subtitle = block.settings.product_banner_subtitle %}
+
+          <div
+            class="christmas-product-tab-banner-box {% if forloop.first %} active{% endif %}"
+          >
+            {% if product_banner_image_pc %}
+              <img
+                style="aspect-ratio: {{ product_banner_image_pc.aspect_ratio }}"
+                class="pc lazyload"
+                data-sizes="100vw"
+                data-srcset="
+                  {%- if product_banner_image_pc.width >= 200 -%}{{ product_banner_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 375 -%}{{ product_banner_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 550 -%}{{ product_banner_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 750 -%}{{ product_banner_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 1100 -%}{{ product_banner_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 1500 -%}{{ product_banner_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 1780 -%}{{ product_banner_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 2000 -%}{{ product_banner_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 3000 -%}{{ product_banner_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 3840 -%}{{ product_banner_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                  {{ product_banner_image_pc | image_url }} {{ product_banner_image_pc.width }}w
+                "
+                data-src="{{ product_banner_image_pc | image_url:width:750 }}"
+                alt="{{ product_banner_image_pc.alt }}"
+              >
+            {% endif %}
+            {% if product_banner_image_mb %}
+              <img
+                style="aspect-ratio: {{ product_banner_image_mb.aspect_ratio }}"
+                class="mb lazyload"
+                data-sizes="100vw"
+                data-srcset="
+                  {%- if product_banner_image_mb.width >= 200 -%}{{ product_banner_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 375 -%}{{ product_banner_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 550 -%}{{ product_banner_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 750 -%}{{ product_banner_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 1100 -%}{{ product_banner_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 1500 -%}{{ product_banner_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 1780 -%}{{ product_banner_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 2000 -%}{{ product_banner_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 3000 -%}{{ product_banner_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 3840 -%}{{ product_banner_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                  {{ product_banner_image_mb | image_url }} {{ product_banner_image_mb.width }}w
+                "
+                data-src="{{ product_banner_image_mb | image_url:width:750 }}"
+                alt="{{ product_banner_image_mb.alt }}"
+              >
+            {% endif %}
+            <div class="christmas-product-tab-banner-box-content">
+              {%- if product_banner_title != empty -%}
+                <div class="christmas-product-tab-banner-box-content-title">
+                  {{ product_banner_title }}
+                </div>
+              {%- endif -%}
+              {%- if product_banner_subtitle != empty -%}
+                <div class="christmas-product-tab-banner-box-content-desc">
+                  {{ product_banner_subtitle }}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="christmas-product-tab-content">
+        {% assign scene_image_pc_1 = section.settings.scene_image_pc_1 %}
+        {% assign scene_image_mb_1 = section.settings.scene_image_mb_1 %}
+        {% assign scene_image_pc_2 = section.settings.scene_image_pc_2 %}
+        {% assign scene_image_mb_2 = section.settings.scene_image_mb_2 %}
+        {% assign scene_image_pc_3 = section.settings.scene_image_pc_3 %}
+        {% assign scene_image_mb_3 = section.settings.scene_image_mb_3 %}
+        {%- for block in section.blocks -%}
+          <div
+            class="christmas-product-tab {% if forloop.first %} active{% endif %}"
+            data-tab="{{ forloop.index0  }}"
+          >
+            {%- liquid
+              assign current_product = block.settings.product
+              assign variant_index = block.settings.product_variant_location | default: '0' | plus: 0
+              assign variant = current_product.variants[variant_index]
+              assign product_image_pc = block.settings.product_image_pc | default: current_product.featured_image
+              assign product_image_mb = block.settings.product_image_mb | default: current_product.featured_image
+
+              assign title = block.settings.title | default: current_product.title
+              assign features = block.settings.features
+              assign desc = block.settings.desc
+
+              assign product_price = variant.metafields.custom.activity_sale_price.value | default: variant.price
+              assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: variant.compare_at_price
+              assign product_diff_price = product_origin_price | minus: product_price
+              assign product_tagline = block.settings.tagline
+            -%}
+            {%- if current_product != blank -%}
+              <div class="christmas-product-tab-card">
+                {%- if scene_image_pc_1 and scene_image_pc_2 -%}
+                  <div class="swiper-container christmas-product-tab-card-mySwiper-{{section.id}}">
+                    <div class="swiper-wrapper">
+                      {% if scene_image_pc_1 and scene_image_mb_1 %}
+                        <div class="swiper-slide">
+                          {% if scene_image_pc_1 %}
+                            <img
+                              style="aspect-ratio: {{ scene_image_pc_1.aspect_ratio }}"
+                              class="pc lazyload"
+                              data-sizes="{{100 | minus: section.settings.content_space_percent}}vw"
+                              data-srcset="
+                                {%- if scene_image_pc_1.width >= 200 -%}{{ scene_image_pc_1 | image_url: width: 200 }} 200w,{%- endif -%}
+                                {%- if scene_image_pc_1.width >= 375 -%}{{ scene_image_pc_1 | image_url: width: 375 }} 375w,{%- endif -%}
+                                {%- if scene_image_pc_1.width >= 550 -%}{{ scene_image_pc_1 | image_url: width: 550 }} 550w,{%- endif -%}
+                                {%- if scene_image_pc_1.width >= 750 -%}{{ scene_image_pc_1 | image_url: width: 750 }} 750w,{%- endif -%}
+                                {%- if scene_image_pc_1.width >= 1100 -%}{{ scene_image_pc_1 | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                {%- if scene_image_pc_1.width >= 1500 -%}{{ scene_image_pc_1 | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                {%- if scene_image_pc_1.width >= 1780 -%}{{ scene_image_pc_1 | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                {%- if scene_image_pc_1.width >= 2000 -%}{{ scene_image_pc_1 | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                {%- if scene_image_pc_1.width >= 3000 -%}{{ scene_image_pc_1 | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                {%- if scene_image_pc_1.width >= 3840 -%}{{ scene_image_pc_1 | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                {{ scene_image_pc_1 | image_url }} {{ scene_image_pc_1.width }}w
+                              "
+                              data-src="{{ scene_image_pc_1 | image_url:width:750 }}"
+                              alt="{{ scene_image_pc_1.alt }}"
+                            >
+                          {% endif %}
+                          {% if scene_image_mb_1 %}
+                            <img
+                              style="aspect-ratio: {{ scene_image_mb_1.aspect_ratio }}"
+                              class="mb lazyload"
+                              data-sizes="100vw"
+                              data-srcset="
+                                {%- if scene_image_mb_1.width >= 200 -%}{{ scene_image_mb_1 | image_url: width: 200 }} 200w,{%- endif -%}
+                                {%- if scene_image_mb_1.width >= 375 -%}{{ scene_image_mb_1 | image_url: width: 375 }} 375w,{%- endif -%}
+                                {%- if scene_image_mb_1.width >= 550 -%}{{ scene_image_mb_1 | image_url: width: 550 }} 550w,{%- endif -%}
+                                {%- if scene_image_mb_1.width >= 750 -%}{{ scene_image_mb_1 | image_url: width: 750 }} 750w,{%- endif -%}
+                                {%- if scene_image_mb_1.width >= 1100 -%}{{ scene_image_mb_1 | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                {%- if scene_image_mb_1.width >= 1500 -%}{{ scene_image_mb_1 | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                {%- if scene_image_mb_1.width >= 1780 -%}{{ scene_image_mb_1 | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                {%- if scene_image_mb_1.width >= 2000 -%}{{ scene_image_mb_1 | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                {%- if scene_image_mb_1.width >= 3000 -%}{{ scene_image_mb_1 | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                {%- if scene_image_mb_1.width >= 3840 -%}{{ scene_image_mb_1 | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                {{ scene_image_mb_1 | image_url }} {{ scene_image_mb_1.width }}w
+                              "
+                              data-src="{{ scene_image_mb_1 | image_url:width:750 }}"
+                              alt="{{ scene_image_mb_1.alt }}"
+                            >
+                          {% endif %}
+                        </div>
+                      {% endif %}
+                      {% if scene_image_pc_2 and scene_image_mb_2 %}
+                        <div class="swiper-slide">
+                          {% if scene_image_pc_2 %}
+                            <img
+                              style="aspect-ratio: {{ scene_image_pc_2.aspect_ratio }}"
+                              class="pc lazyload"
+                              data-sizes="{{100 | minus: section.settings.content_space_percent}}vw"
+                              data-srcset="
+                                {%- if scene_image_pc_2.width >= 200 -%}{{ scene_image_pc_2 | image_url: width: 200 }} 200w,{%- endif -%}
+                                {%- if scene_image_pc_2.width >= 375 -%}{{ scene_image_pc_2 | image_url: width: 375 }} 375w,{%- endif -%}
+                                {%- if scene_image_pc_2.width >= 550 -%}{{ scene_image_pc_2 | image_url: width: 550 }} 550w,{%- endif -%}
+                                {%- if scene_image_pc_2.width >= 750 -%}{{ scene_image_pc_2 | image_url: width: 750 }} 750w,{%- endif -%}
+                                {%- if scene_image_pc_2.width >= 1100 -%}{{ scene_image_pc_2 | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                {%- if scene_image_pc_2.width >= 1500 -%}{{ scene_image_pc_2 | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                {%- if scene_image_pc_2.width >= 1780 -%}{{ scene_image_pc_2 | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                {%- if scene_image_pc_2.width >= 2000 -%}{{ scene_image_pc_2 | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                {%- if scene_image_pc_2.width >= 3000 -%}{{ scene_image_pc_2 | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                {%- if scene_image_pc_2.width >= 3840 -%}{{ scene_image_pc_2 | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                {{ scene_image_pc_2 | image_url }} {{ scene_image_pc_2.width }}w
+                              "
+                              data-src="{{ scene_image_pc_2 | image_url:width:750 }}"
+                              alt="{{ scene_image_pc_2.alt }}"
+                            >
+                          {% endif %}
+                          {% if scene_image_mb_2 %}
+                            <img
+                              style="aspect-ratio: {{ scene_image_mb_2.aspect_ratio }}"
+                              class="mb lazyload"
+                              data-sizes="100vw"
+                              data-srcset="
+                                {%- if scene_image_mb_2.width >= 200 -%}{{ scene_image_mb_2 | image_url: width: 200 }} 200w,{%- endif -%}
+                                {%- if scene_image_mb_2.width >= 375 -%}{{ scene_image_mb_2 | image_url: width: 375 }} 375w,{%- endif -%}
+                                {%- if scene_image_mb_2.width >= 550 -%}{{ scene_image_mb_2 | image_url: width: 550 }} 550w,{%- endif -%}
+                                {%- if scene_image_mb_2.width >= 750 -%}{{ scene_image_mb_2 | image_url: width: 750 }} 750w,{%- endif -%}
+                                {%- if scene_image_mb_2.width >= 1100 -%}{{ scene_image_mb_2 | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                {%- if scene_image_mb_2.width >= 1500 -%}{{ scene_image_mb_2 | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                {%- if scene_image_mb_2.width >= 1780 -%}{{ scene_image_mb_2 | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                {%- if scene_image_mb_2.width >= 2000 -%}{{ scene_image_mb_2 | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                {%- if scene_image_mb_2.width >= 3000 -%}{{ scene_image_mb_2 | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                {%- if scene_image_mb_2.width >= 3840 -%}{{ scene_image_mb_2 | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                {{ scene_image_mb_2 | image_url }} {{ scene_image_mb_2.width }}w
+                              "
+                              data-src="{{ scene_image_mb_2 | image_url:width:750 }}"
+                              alt="{{ scene_image_mb_2.alt }}"
+                            >
+                          {% endif %}
+                        </div>
+                      {% endif %}
+                      {% if scene_image_pc_3 and scene_image_mb_3 %}
+                        <div class="swiper-slide">
+                          {% if scene_image_pc_3 %}
+                            <img
+                              style="aspect-ratio: {{ scene_image_pc_3.aspect_ratio }}"
+                              class="pc lazyload"
+                              data-sizes="{{100 | minus: section.settings.content_space_percent}}vw"
+                              data-srcset="
+                                {%- if scene_image_pc_3.width >= 200 -%}{{ scene_image_pc_3 | image_url: width: 200 }} 200w,{%- endif -%}
+                                {%- if scene_image_pc_3.width >= 375 -%}{{ scene_image_pc_3 | image_url: width: 375 }} 375w,{%- endif -%}
+                                {%- if scene_image_pc_3.width >= 550 -%}{{ scene_image_pc_3 | image_url: width: 550 }} 550w,{%- endif -%}
+                                {%- if scene_image_pc_3.width >= 750 -%}{{ scene_image_pc_3 | image_url: width: 750 }} 750w,{%- endif -%}
+                                {%- if scene_image_pc_3.width >= 1100 -%}{{ scene_image_pc_3 | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                {%- if scene_image_pc_3.width >= 1500 -%}{{ scene_image_pc_3 | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                {%- if scene_image_pc_3.width >= 1780 -%}{{ scene_image_pc_3 | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                {%- if scene_image_pc_3.width >= 2000 -%}{{ scene_image_pc_3 | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                {%- if scene_image_pc_3.width >= 3000 -%}{{ scene_image_pc_3 | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                {%- if scene_image_pc_3.width >= 3840 -%}{{ scene_image_pc_3 | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                {{ scene_image_pc_3 | image_url }} {{ scene_image_pc_3.width }}w
+                              "
+                              data-src="{{ scene_image_pc_3 | image_url:width:750 }}"
+                              alt="{{ scene_image_pc_3.alt }}"
+                            >
+                          {% endif %}
+                          {% if scene_image_mb_3 %}
+                            <img
+                              style="aspect-ratio: {{ scene_image_mb_3.aspect_ratio }}"
+                              class="mb lazyload"
+                              data-sizes="100vw"
+                              data-srcset="
+                                {%- if scene_image_mb_3.width >= 200 -%}{{ scene_image_mb_3 | image_url: width: 200 }} 200w,{%- endif -%}
+                                {%- if scene_image_mb_3.width >= 375 -%}{{ scene_image_mb_3 | image_url: width: 375 }} 375w,{%- endif -%}
+                                {%- if scene_image_mb_3.width >= 550 -%}{{ scene_image_mb_3 | image_url: width: 550 }} 550w,{%- endif -%}
+                                {%- if scene_image_mb_3.width >= 750 -%}{{ scene_image_mb_3 | image_url: width: 750 }} 750w,{%- endif -%}
+                                {%- if scene_image_mb_3.width >= 1100 -%}{{ scene_image_mb_3 | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                {%- if scene_image_mb_3.width >= 1500 -%}{{ scene_image_mb_3 | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                {%- if scene_image_mb_3.width >= 1780 -%}{{ scene_image_mb_3 | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                {%- if scene_image_mb_3.width >= 2000 -%}{{ scene_image_mb_3 | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                {%- if scene_image_mb_3.width >= 3000 -%}{{ scene_image_mb_3 | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                {%- if scene_image_mb_3.width >= 3840 -%}{{ scene_image_mb_3 | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                {{ scene_image_mb_3 | image_url }} {{ scene_image_mb_3.width }}w
+                              "
+                              data-src="{{ scene_image_mb_3 | image_url:width:750 }}"
+                              alt="{{ scene_image_mb_3.alt }}"
+                            >
+                          {% endif %}
+                        </div>
+                      {% endif %}
+                    </div>
+                    <div class="swiper-pagination swiper-pagination-{{ section.id }}"></div>
+                  </div>
+                {% elsif scene_image_pc_1 and scene_image_pc_2 == null and scene_image_pc_3 == null %}
+                  <a
+                    class="christmas-product-tab-product-image"
+                    href="{{variant.url }}"
+                    target="_blank"
+                  >
+                    {% if scene_image_pc_1 %}
+                      <img
+                        style="aspect-ratio: {{ scene_image_pc_1.aspect_ratio }}"
+                        class="pc lazyload"
+                        data-sizes="{{100 | minus: section.settings.content_space_percent}}vw"
+                        data-srcset="
+                          {%- if scene_image_pc_1.width >= 200 -%}{{ scene_image_pc_1 | image_url: width: 200 }} 200w,{%- endif -%}
+                          {%- if scene_image_pc_1.width >= 375 -%}{{ scene_image_pc_1 | image_url: width: 375 }} 375w,{%- endif -%}
+                          {%- if scene_image_pc_1.width >= 550 -%}{{ scene_image_pc_1 | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if scene_image_pc_1.width >= 750 -%}{{ scene_image_pc_1 | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if scene_image_pc_1.width >= 1100 -%}{{ scene_image_pc_1 | image_url: width: 1100 }} 1100w,{%- endif -%}
+                          {%- if scene_image_pc_1.width >= 1500 -%}{{ scene_image_pc_1 | image_url: width: 1500 }} 1500w,{%- endif -%}
+                          {%- if scene_image_pc_1.width >= 1780 -%}{{ scene_image_pc_1 | image_url: width: 1780 }} 1780w,{%- endif -%}
+                          {%- if scene_image_pc_1.width >= 2000 -%}{{ scene_image_pc_1 | image_url: width: 2000 }} 2000w,{%- endif -%}
+                          {%- if scene_image_pc_1.width >= 3000 -%}{{ scene_image_pc_1 | image_url: width: 3000 }} 3000w,{%- endif -%}
+                          {%- if scene_image_pc_1.width >= 3840 -%}{{ scene_image_pc_1 | image_url: width: 3840 }} 3840w,{%- endif -%}
+                          {{ scene_image_pc_1 | image_url }} {{ scene_image_pc_1.width }}w
+                        "
+                        data-src="{{ scene_image_pc_1 | image_url:width:750 }}"
+                        alt="{{ scene_image_pc_1.alt }}"
+                      >
+                    {% endif %}
+                    {% if scene_image_mb_1 %}
+                      <img
+                        style="aspect-ratio: {{ scene_image_mb_1.aspect_ratio }}"
+                        class="mb lazyload"
+                        data-sizes="100vw"
+                        data-srcset="
+                          {%- if scene_image_mb_1.width >= 200 -%}{{ scene_image_mb_1 | image_url: width: 200 }} 200w,{%- endif -%}
+                          {%- if scene_image_mb_1.width >= 375 -%}{{ scene_image_mb_1 | image_url: width: 375 }} 375w,{%- endif -%}
+                          {%- if scene_image_mb_1.width >= 550 -%}{{ scene_image_mb_1 | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if scene_image_mb_1.width >= 750 -%}{{ scene_image_mb_1 | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if scene_image_mb_1.width >= 1100 -%}{{ scene_image_mb_1 | image_url: width: 1100 }} 1100w,{%- endif -%}
+                          {%- if scene_image_mb_1.width >= 1500 -%}{{ scene_image_mb_1 | image_url: width: 1500 }} 1500w,{%- endif -%}
+                          {%- if scene_image_mb_1.width >= 1780 -%}{{ scene_image_mb_1 | image_url: width: 1780 }} 1780w,{%- endif -%}
+                          {%- if scene_image_mb_1.width >= 2000 -%}{{ scene_image_mb_1 | image_url: width: 2000 }} 2000w,{%- endif -%}
+                          {%- if scene_image_mb_1.width >= 3000 -%}{{ scene_image_mb_1 | image_url: width: 3000 }} 3000w,{%- endif -%}
+                          {%- if scene_image_mb_1.width >= 3840 -%}{{ scene_image_mb_1 | image_url: width: 3840 }} 3840w,{%- endif -%}
+                          {{ scene_image_mb_1 | image_url }} {{ scene_image_mb_1.width }}w
+                        "
+                        data-src="{{ scene_image_mb_1 | image_url:width:750 }}"
+                        alt="{{ scene_image_mb_1.alt }}"
+                      >
+                    {% endif %}
+                  </a>
+                {% endif %}
+
+                <div class="christmas-product-tab-product-content">
+                  {% if product_diff_price != blank
+                    and product_diff_price > 0
+                    and product_price > 0
+                    and product_origin_price > 0
+                  %}
+                    <div class="christmas-product-tab-product-label-discount">
+                      <div class="christmas-product-tab-product-label-discount-text">
+                        <span
+                          class="christmas-product-tab-product-label-discount-text-unit"
+                          >SAVE</span
+                        >
+                        <span
+                          class="christmas-product-tab-product-label-discount-text-value"
+                        >
+                          {{- product_diff_price | money_without_trailing_zeros -}}
+                        </span>
+                      </div>
+                      <div class="christmas-product-tab-product-label-discount-hat-icon"></div>
+                    </div>
+                  {% endif %}
+                  <div class="christmas-product-tab-product-main-image">
+                    {% if product_image_pc %}
+                      <img
+                        style="aspect-ratio: {{ product_image_pc.aspect_ratio }}"
+                        class="pc lazyload"
+                        data-sizes="{{100 | minus: section.settings.content_space_percent}}vw"
+                        data-srcset="
+                          {%- if product_image_pc.width >= 200 -%}{{ product_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                          {%- if product_image_pc.width >= 375 -%}{{ product_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                          {%- if product_image_pc.width >= 550 -%}{{ product_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if product_image_pc.width >= 750 -%}{{ product_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if product_image_pc.width >= 1100 -%}{{ product_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                          {%- if product_image_pc.width >= 1500 -%}{{ product_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                          {%- if product_image_pc.width >= 1780 -%}{{ product_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                          {%- if product_image_pc.width >= 2000 -%}{{ product_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                          {%- if product_image_pc.width >= 3000 -%}{{ product_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                          {%- if product_image_pc.width >= 3840 -%}{{ product_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                          {{ product_image_pc | image_url }} {{ product_image_pc.width }}w
+                        "
+                        data-src="{{ product_image_pc | image_url:width:750 }}"
+                        alt="{{ product_image_pc.alt }}"
+                      >
+                    {% endif %}
+                    {% if product_image_mb %}
+                      <img
+                        style="aspect-ratio: {{ product_image_mb.aspect_ratio }}"
+                        class="mb lazyload"
+                        data-sizes="100vw"
+                        data-srcset="
+                          {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                          {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                          {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                          {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                          {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                          {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                          {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                          {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                          {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
+                        "
+                        data-src="{{ product_image_mb | image_url:width:750 }}"
+                        alt="{{ product_image_mb.alt }}"
+                      >
+                    {% endif %}
+                  </div>
+                  <div class="christmas-product-tab-product-main-content">
+                    {% if product_tagline != empty %}
+                      <div class="christmas-product-tab-product-label">
+                        <div class="christmas-product-tab-product-label-text">
+                          {{- product_tagline -}}
+                        </div>
+                      </div>
+                    {% endif %}
+                    <div class="christmas-product-tab-product-name">{{- title -}}</div>
+
+                    {% if features != empty %}
+                      <div class="christmas-product-tab-product-features">{{- features -}}</div>
+                    {% endif %}
+                    {% if section.blocks.size > 1 %}
+                      <div
+                        id="christmas-product-tab-tabs-{{ block.id }}"
+                        class="christmas-product-tab-tabs"
+                      >
+                        <div class="christmas-product-tab-tab-dropdown-wrapper" style="position:relative;">
+                          <style>
+                            .christmas-dropdown-mock {
+                              display: inline-block;
+                              position: relative;
+                              width: 100%;
+                              min-width: 160px;
+                              max-width: 100%;
+                              font-size: 14px;
+                              line-height: 1.5;
+                              background: #fff;
+                              border-radius: 999px;
+                              border-radius: 10px;
+                              border: 1px solid #e7e7e7;
+                              cursor: pointer;
+                              transition: border-color 0.18s;
+                              z-index: 22;
+                            }
+                            .christmas-dropdown-mock.open {
+                              border-color: #e7e7e7;
+                              {% comment %} box-shadow: 0 2px 12px rgba(29, 100, 60, 0.08); {% endcomment %}
+                            }
+                            .christmas-dropdown-mock-selected {
+                              display: block;
+                              width: 100%;
+                              padding: 20px 38px 20px 16px;
+                              background: none;
+                              color: #000;
+                              font-weight: 700;
+                              user-select: none;
+                              white-space: nowrap;
+                              overflow: hidden;
+                              text-overflow: ellipsis;
+                              /* 一行显示，溢出省略号 */
+                            }
+                            .christmas-dropdown-mock.open .christmas-dropdown-mock-selected {
+                              color: #000;
+                            }
+                            .christmas-dropdown-mock-options {
+                              position: absolute;
+                              left: 0;
+                              top: 110%;
+                              width: 100%;
+                              background: #fff;
+                              border-radius: 10px;
+                              border: 1px solid #e7e7e7;
+                              padding: 12px;
+                              margin-top: 6px;
+                              margin-left: 0;
+                              display: none;
+                              z-index: 20;
+                              animation: fadeIn 0.13s;
+                            }
+                            .christmas-dropdown-mock.open .christmas-dropdown-mock-options {
+                              display: block;
+                            }
+                            @keyframes fadeIn {
+                              from {
+                                opacity: 0;
+                              }
+                              to {
+                                opacity: 1;
+                              }
+                            }
+                            .christmas-dropdown-mock-option {
+                              padding: 5px;
+                              font-size: 12px;
+                              font-weight: 700;
+                              color: #000;
+                              cursor: pointer;
+                              transition: background 0.1s, color 0.13s;
+                              border-radius: 9px;
+                              white-space: nowrap;
+                              overflow: hidden;
+                              text-overflow: ellipsis;
+                              margin: 0 4px;
+                              background: none;
+                            }
+                            .christmas-dropdown-mock-option.active,
+                            .christmas-dropdown-mock-option:hover {
+                              background: #f9f9f9;
+                              color: #000;
+                            }
+                            .christmas-dropdown-mock-dropdown-icon {
+                              position: absolute;
+                              right: 18px;
+                              top: 50%;
+                              transform: translateY(-50%);
+                              pointer-events: none;
+                              display: flex;
+                              align-items: center;
+                              justify-content: center;
+                              width: 16px;
+                              height: 16px;
+                            }
+                            @media screen and (max-width: 768px) {
+                                .christmas-dropdown-mock{
+
+
+                                    font-size: 12px;
+                                }
+                                .christmas-dropdown-mock-selected{
+                                    padding-left: 66px;
+                                    padding-top: 18px;
+                                    padding-bottom: 18px;
+
+
+
+                                }
+                            }
+                          </style>
+                          <div
+                            id="christmas-dropdown-mock-{{ block.id }}"
+                            class="christmas-dropdown-mock"
+                            tabindex="0"
+                            data-dropdown
+                          >
+                            <div class="christmas-product-tab-product-main-image-mb">
+                              {% if product_image_mb %}
+                                <img
+                                  style="aspect-ratio: {{ product_image_mb.aspect_ratio }}"
+                                  class="mb lazyload"
+                                  data-sizes="100vw"
+                                  data-srcset="
+                                    {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                                    {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                                    {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                                    {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                                    {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                    {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                    {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                    {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                    {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                    {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                    {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
+                                  "
+                                  data-src="{{ product_image_mb | image_url:width:750 }}"
+                                  alt="{{ product_image_mb.alt }}"
+                                >
+                              {% endif %}
+                            </div>
+                            <div class="christmas-dropdown-mock-selected" data-selected>
+                              {% assign first_tab_label = section.blocks[0].settings.title
+                                | default: section.blocks[0].settings.product.title
+                              %}
+                              {{ first_tab_label }}
+                            </div>
+                            <span class="christmas-dropdown-mock-dropdown-icon">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="100%"
+                                height="100%"
+                                viewBox="0 0 16 16"
+                                fill="none"
+                              >
+                                <path d="M14.7967 5.81836L8.72001 12.4633C8.63026 12.5654 8.51977 12.6472 8.3959 12.7033C8.27204 12.7593 8.13765 12.7883 8.00169 12.7883C7.86573 12.7883 7.73132 12.7593 7.60745 12.7033C7.48357 12.6473 7.37307 12.5654 7.28332 12.4633L1.20668 5.81836C0.910028 5.50504 0.81836 5.04837 0.97167 4.64503C1.12498 4.24168 1.495 3.96003 1.92502 3.92171L14.0734 3.92171C14.505 3.95838 14.8767 4.23836 15.03 4.64338C15.185 5.04837 15.0934 5.50336 14.7967 5.81836Z" fill="#000"/>
+                              </svg>
+                            </span>
+                            <ul class="christmas-dropdown-mock-options" data-options>
+                              {%- for block in section.blocks -%}
+                                {% assign tab_label = block.settings.title | default: block.settings.product.title %}
+                                <li
+                                  class="christmas-dropdown-mock-option{% if forloop.first %} active{% endif %}"
+                                  data-value="{{ tab_label | escape }}"
+                                  data-idx="{{ forloop.index0 }}"
+                                  id="christmas-product-tab-tab-option-{{ section.id }}-{{ forloop.index0 }}"
+                                >
+                                  {{ tab_label }}
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          </div>
+                          <script>
+                            $(function () {
+                              function hasParent(ele, p) {
+                                while (ele && ele !== document.body) {
+                                  if (ele === p) return true;
+                                  ele = ele.parentNode;
+                                }
+                                return false;
+                              }
+                              // 获取当前下拉元素
+                              const dropdown = document.getElementById('christmas-dropdown-mock-{{ block.id }}');
+                              console.log('dropdown==', dropdown);
+                              const sectionRoot = dropdown.closest('section');
+                              console.log('sectionRoot==', sectionRoot);
+                              const cardContainer = sectionRoot.querySelectorAll('.christmas-product-tab');
+                              console.log('cardContainer==', cardContainer);
+                              if (!dropdown || dropdown.getAttribute('data-bind')) return;
+                              dropdown.setAttribute('data-bind', '1');
+                              const selected = dropdown.querySelector('[data-selected]');
+                              const optionsUl = dropdown.querySelector('[data-options]');
+                              const options = optionsUl
+                                ? optionsUl.querySelectorAll('.christmas-dropdown-mock-option')
+                                : [];
+                              // 点击展开收起
+                              function closeDropdown() {
+                                dropdown.classList.remove('open');
+                              }
+                              function openDropdown() {
+                                dropdown.classList.add('open');
+                              }
+                              selected &&
+                                selected.addEventListener('click', function (e) {
+                                  e.stopPropagation();
+                                  // 点击当前元素，获取父元素christmas-product-tab-{{ section.id }}
+                                  const parent = dropdown.closest('.christmas-product-tab-{{ section.id }}');
+                                  // 如需使用 parent，可在此处添加逻辑
+                                  if (dropdown.classList.contains('open')) {
+                                    closeDropdown();
+                                  } else {
+                                    openDropdown();
+                                  }
+                                });
+                              // 选项点击
+                              options.forEach(function (option, idx) {
+                                option.addEventListener('click', function (e) {
+                                  e.stopPropagation();
+                                  // 激活当前
+                                  options.forEach(function (opt) {
+                                    opt.classList.remove('active');
+                                  });
+                                  option.classList.add('active');
+                                  if (selected) selected.innerText = option.innerText;
+                                  closeDropdown();
+                                  // 分发事件
+                                  // 如何触发该事件：直接通过下拉选项点击（option click）时会执行如下代码，从而触发事件
+                                  // 如果你想在其他地方手动触发，可以调用 dropdown.dispatchEvent(new CustomEvent('christmasTabCustomDropdownChange', {...}))，传递需要的 detail
+                                  var event = new CustomEvent('christmasTabCustomDropdownChange', {
+                                    detail: {
+                                      idx: idx,
+                                      value: option.getAttribute('data-value'),
+                                      text: option.innerText,
+                                    },
+                                    bubbles: true,
+                                  });
+                                  dropdown.dispatchEvent(event);
+
+                                  // 触发例子（在别处代码调用下拉变更）：
+                                  /*
+                                  dropdown.dispatchEvent(new CustomEvent('christmasTabCustomDropdownChange', {
+                                    detail: {
+                                      idx: 想要激活的下标,
+                                      value: '某个对应的data-value',
+                                      text: '某个选项文本',
+                                    },
+                                    bubbles: true,
+                                  }));
+                                  */
+
+                                  // 联动select
+                                  try {
+                                    var tabContainers = dropdown
+                                      .closest('section')
+                                      .querySelectorAll('.christmas-product-tab');
+                                    cardContainer.forEach(function (tabCt, index) {
+                                      console.log('tabCt', tabCt);
+
+                                      if (index === idx) {
+                                        tabCt.classList.add('active');
+                                        // tabContainers 下的 .christmas-product-tab 是否含有 active
+                                        const activeTabs = Array.from(tabContainers).filter(function (ct) {
+                                          return ct.classList.contains('active');
+                                        });
+                                        console.log('tabContainers 内包含 active 的元素:', activeTabs);
+                                        // 遍历activeTabs 下的christmas-dropdown-mock-option，当idx相等则激活
+                                        activeTabs.forEach(function (activeTab) {
+                                          const dropdownOptions = activeTab.querySelectorAll(
+                                            '.christmas-dropdown-mock-option'
+                                          );
+                                          var dropdownMockParent = null;
+                                          if (dropdownOptions.length > 0) {
+                                            dropdownMockParent = dropdownOptions[0].closest('.christmas-dropdown-mock');
+                                          }
+                                          console.log('christmas-dropdown-mock-{{ block.id }} 元素:', dropdownMockParent);
+                                          dropdownOptions.forEach(function (opt, optIdx) {
+                                            if(optIdx === idx){
+                                            opt.classList.add('active');
+                                            console.log('data-value',opt.getAttribute('data-value'))
+                                            console.log('innerText',opt.innerText)
+                                            const selected = dropdownMockParent.querySelector('[data-selected]');
+                                            if (selected) selected.innerText = opt.getAttribute('data-value');
+                                            // 初始化activeTabs下的swiper-container
+                                            {% comment %} activeTabs.forEach(function(activeTab) {
+                                              var swiperContainers = activeTab.querySelectorAll('.swiper-container');
+                                              swiperContainers.forEach(function(container) {
+                                                if (!container.classList.contains('swiper-initialized')) {
+                                                  new Swiper(container, {
+                                                    // 可以根据需要配置swiper参数
+                                                    slidesPerView: 1,
+                                                    spaceBetween: 10,
+                                                    pagination: {
+                                                      el: container.querySelector('.swiper-pagination'),
+                                                      clickable: true,
+                                                    },
+                                                    navigation: {
+                                                      nextEl: container.querySelector('.swiper-button-next'),
+                                                      prevEl: container.querySelector('.swiper-button-prev'),
+                                                    },
+                                                  });
+                                                  container.classList.add('swiper-initialized');
+                                                }
+                                              });
+                                            }); {% endcomment %}
+
+                                            return;
+                                        }else{
+                                            opt.classList.remove('active');
+                                        }
+
+                                            {% comment %} opt.classList.toggle('active', optIdx === idx); {% endcomment %}
+                                          });
+                                        });
+                                        return; // 跳出forEach循环
+                                      } else {
+                                        tabCt.classList.remove('active');
+                                      }
+                                    });
+                                  } catch (e) {}
+                                });
+                              });
+                              // 外部点击收起
+                              document.addEventListener('click', function (e) {
+                                if (!hasParent(e.target, dropdown)) {
+                                  closeDropdown();
+                                }
+                              });
+                              // 键盘ESC收起
+                              dropdown.addEventListener('keydown', function (e) {
+                                if (e.key === 'Escape') {
+                                  closeDropdown();
+                                }
+                              });
+                            });
+                          </script>
+                        </div>
+                      </div>
+                    {% endif %}
+                    {% if desc != empty %}
+                      <div class="christmas-product-tab-product-description">{{- desc -}}</div>
+                    {% endif %}
+                    <div class="christmas-product-tab-product-content-bottom">
+                      <!-- 秒杀倒计时 模块 -->
+                      {%- if section.settings.show_flash_sale_countdown -%}
+                        {%- if section.settings.flash_sale_countdown != empty
+                          or section.settings.flash_sale_countdown_end != empty
+                        -%}
+                          <div class="product-flash-sale-countdown">
+                            {%- render 'flash-sale-countdown',
+                              countdown_style: 1,
+                              flash_sale_countdown_date: section.settings.flash_sale_countdown,
+                              flash_sale_countdown_end_date: section.settings.flash_sale_countdown_end
+                            -%}
+                          </div>
+                        {%- endif -%}
+                      {%- endif -%}
+                      <div class="christmas-product-tab-product-price">
+                        {% if product_price != blank and product_price > 0 %}
+                          <div class="christmas-product-tab-product-sale-price">
+                            {{ product_price | money_without_trailing_zeros }}
+                          </div>
+                        {% endif %}
+                        {% if product_origin_price != blank
+                          and product_origin_price > 0
+                          and product_origin_price > product_price
+                        %}
+                          <div class="christmas-product-tab-product-original-price">
+                            {{ product_origin_price | money_without_trailing_zeros }}
+                          </div>
+                        {% endif %}
+                      </div>
+                      {%- if section.settings.show_klarna -%}
+                        <div class="mascot-activities-product-info-klarna">
+                          {% assign klarna_id = 'shopify-block-AbFBFd0QvcXlzYkYva__klarna_on_site_messaging_app_block_gcU6LY' %}
+                          <!-- DO NOT DELETE -->
+                          <div class="klarna-osm-wrapper">
+                            <klarna-placement
+                              id="{{ klarna_id }}"
+                              data-key="credit-promotion-auto-size"
+                              data-theme="light"
+                              data-message-prefix=""
+                              data-integration-style="app-blocks"
+                              data-locale="en-US"
+                              {% if variant %}
+                                data-purchase-amount="{{ variant.price }}"
+                              {% endif %}
+                              data-preloaded="true"
+                            >
+                            </klarna-placement>
+                          </div>
+                        </div>
+                      {% endif %}
+                      <div class="christmas-product-tab-product-button-wrapper">
+                        <product-card>
+                          <div
+                            class="christmas-product-tab-product-button-add-to-cart product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                            data-product-id="{{ variant.id }}"
+                            tabindex="-1"
+                            {% if variant.available == false %}
+                              disabled
+                            {% endif %}
+                          >
+                            {% render 'svg-icons' with 'thb-loading' %}
+                            <span class="product-card--add-to-cart-text">
+                              {%- if variant.available -%}
+                                {%- if section.settings.buy_now_button_text != empty -%}
+                                  {{ section.settings.buy_now_button_text }}
+                                {%- else -%}
+                                  {%- if product_diff_price > 0 -%}
+                                    Save
+                                    {{ product_diff_price | money_without_trailing_zeros -}}
+                                  {%- else -%}
+                                    Buy Now
+                                  {%- endif -%}
+                                {%- endif -%}
+                              {%- else -%}
+                                {{- 'products.product.sold_out' | t -}}
+                              {%- endif -%}
+                            </span>
+                          </div>
+                        </product-card>
+                        <div
+                          class="christmas-product-tab-product-button-view-more"
+                          onclick="window.open('{{variant.url }}','_blank');"
+                        >
+                          {{ section.settings.learn_more_button_text }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- black friday Official Promotion product1  end -->
+<script>
+  // 监听页面DOM加载，初始化swiper与tab交互
+  {% comment %}
+    修复：之前只作用于初始active的tab，切换后没有更新active类导致jQuery选择器始终只对初始active操作。
+    方案：每次select切换，都要移除所有christmas-product-tab的active类，再切到对应的索引。
+    - 这样每次切换都会正常触发显示和隐藏，无论当前active在哪。
+  {% endcomment %}
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // swiper实例管理，防止重复初始化
+    let swiperInstances = [];
+
+    function initAllSwipers() {
+      // 销毁旧的swiper实例
+      if (swiperInstances && swiperInstances.length > 0) {
+        swiperInstances.forEach(function (swiper) {
+          if (swiper && typeof swiper.destroy === 'function') {
+            swiper.destroy(true, true);
+          }
+        });
+        swiperInstances = [];
+      } else {
+        swiperInstances = [];
+      }
+      // 初始化所有当前可见的swiper
+      document
+        .querySelectorAll('.christmas-product-tab-card-mySwiper-{{section.id}}')
+        .forEach(function (swiperEl) {
+          var swiperInstance = new Swiper(swiperEl, {
+            lazy: {
+              loadPrevNext: true,
+            },
+            loop: true,
+            autoplay: {
+              delay: 3000,
+              stopOnLastSlide: false,
+              disableOnInteraction: true,
+            },
+            effect: 'fade',
+            fadeEffect: {
+              crossFade: true,
+            },
+            observer: true,
+            observeParents: true,
+            noSwiping: true,
+            slidesPerView: 1,
+            spaceBetween: 0,
+            pagination: {
+              el: swiperEl.closest('.christmas-product-tab')
+                ? swiperEl
+                    .closest('.christmas-product-tab')
+                    .querySelector('.swiper-pagination-{{section.id}}')
+                : '.swiper-pagination-{{section.id}}',
+              clickable: true,
+            },
+          });
+          swiperInstances.push(swiperInstance);
+        });
+    }
+
+    // 首次初始化swiper（页面默认active的tab）
+    initAllSwipers();
+
+    // 获取所有christmas-product-tab-tabs容器（有多个section时都生效）
+    {% comment %} const tabContainers = document.querySelectorAll('.christmas-product-tab-tabs');
+    if (!tabContainers || tabContainers.length === 0) return;
+
+    tabContainers.forEach(function (tabContainer) {
+      // select直接取tabContainer下的select，因为.tabs外面包裹了wrapper
+      const select = tabContainer.querySelector('select.christmas-product-tab-tab');
+      if (!select) return;
+
+      // 取到对应的card和banner盒子，但必须限制到本section范围，否则多个section会串
+      // section 元素, .christmas-product-tab-tabs总会在某个section的唯一实例下
+      const sectionRoot =
+        tabContainer.closest('section[id^="christmas-product-tab"]') ||
+        tabContainer.closest('section');
+      // 获取本section下所有tab/main tab卡片和banner
+      const cardContainer = sectionRoot
+        ? sectionRoot.querySelectorAll('.christmas-product-tab')
+        : [];
+      const bannerBoxes = sectionRoot
+        ? sectionRoot.querySelectorAll('.christmas-product-tab-banner-box')
+        : [];
+      // 如果有额外自定义tab元素高亮也一并处理
+      const tabs = tabContainer.querySelectorAll('.christmas-product-tab-tab');
+
+      // 移动端 select 切换
+      select.addEventListener('change', function (e) {
+        const idx = select.selectedIndex;
+        // 清除所有tab active
+        cardContainer.forEach((cardbox, i) => {
+          cardbox.classList.toggle('active', i === idx);
+        });
+        // 切换banner高亮
+        if (bannerBoxes && bannerBoxes.length > 0) {
+          bannerBoxes.forEach((bannerBox, i) => {
+            bannerBox.classList.toggle('active', i === idx);
+          });
+        }
+        // 兼容有没有可单独tab高亮元素
+        if (tabs && tabs.length > 0) {
+            console.log('tabs', tabs);
+          tabs.forEach((t, i) => {
+            // 延迟加载 option 操作，提升性能
+
+              // 移除 t 下所有 option 的 selected 属性
+            const options = t.querySelectorAll('option');
+              // 仅将选中的 option 变为 selected 状态
+              options.forEach((option, optIdx) => {
+                if (optIdx === idx) {
+                    console.log('option', option);
+                  option.setAttribute('selected', 'selected');
+                } else {
+                  option.removeAttribute('selected');
+                }
+              });
+              t.classList.toggle('active', i === idx);
+
+          });
+        }
+
+      });
+
+
+    }); {% endcomment %}
+  });
+</script>
+
+<script>
+  function formatUtcTime(v) {
+    let date = new Date(v);
+    return (
+      date.getFullYear() +
+      '/' +
+      (date.getMonth() + 1) +
+      '/' +
+      (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+      ' ' +
+      (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+      ':' +
+      (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+      ':' +
+      (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+    );
+  }
+  $(function () {
+    if ($('.christmas-product-tab-{{ section.id }}  [data-countdown]')) {
+      $('.christmas-product-tab-{{ section.id }}  [data-countdown]').each(function () {
+        const UTCDate = $(this).data('countdown'); // 活动开始倒计时
+        const UTCDate_end = $(this).data('countdown-end'); // 活动截止倒计时
+        console.log('UTCDate-活动开始倒计时：', UTCDate);
+        console.log('UTCDate_end-活动截止倒计时：', UTCDate_end);
+        const finalDate = formatUtcTime(UTCDate);
+        const finalDate_end = formatUtcTime(UTCDate_end);
+        const finalDate1 = finalDate;
+        const finalDate2 = finalDate_end ? finalDate_end : null;
+        const timestamp = new Date(finalDate1).getTime();
+        const timestamp_end = finalDate2 ? new Date(finalDate2).getTime() : null;
+        const currentTimestamp = new Date().getTime();
+        console.log('活动开始本地时间==', finalDate);
+          console.log('活动截止本地时间==', finalDate_end);
+        let format;
+        const style = $(this).data('countdown-style');
+        console.log('活动截止本地时间==', finalDate_end);
+        if (timestamp > currentTimestamp){
+            $(this)
+            .parents('.product-flash-sale-countdown')
+            .siblings('.mascot-activities-product-info-button')
+            .children('product-card')
+            .find('.product-card--add-to-cart-text')
+            .text('Coming Soon');
+            $(this)
+            .parents('.product-flash-sale-countdown')
+            .siblings('.mascot-activities-product-info-button')
+            .children('product-card')
+            .find('.mascot-activities-product-info-button-buy-now')
+            .css({'visibility':'visible','background':'#FECF67','cursor':'not-allowed','pointer-events':'none','color':'#000'});
+            return;
+        }
+        $(this)
+            .parents('.product-flash-sale-countdown')
+            .siblings('.mascot-activities-product-info-button')
+            .children('product-card')
+            .find('.mascot-activities-product-info-button-buy-now')
+            .css({'visibility':'visible'});
+        $(this)
+          .countdown(finalDate2)
+          .on('update.countdown', function (event) {
+            if (style == 1) {
+              format = '<span>%D</span>:<span>%H</span>:<span>%M</span>:<span>%S</span>';
+            } else if (style == 2) {
+              {% comment %} format = '<span>%D<span>Days</span></span>:<span>%H<span>Hrs</span></span>:<span>%M<span>Mins</span></span>:<span>%S<span>Secs</span></span>'; {% endcomment %}
+              format = '<div class="time-block">' +
+                        '<div class="time-value">%D</div>' +
+                        '<div class="time-label">Days</div>' +
+                      '</div>' +
+                      '<div class="time-block">' +
+                        '<div class="time-value">%H</div>' +
+                        '<div class="time-label">Hrs</div>' +
+                      '</div>' +
+                      '<div class="time-block">' +
+                        '<div class="time-value">%M</div>' +
+                        '<div class="time-label">Mins</div>' +
+                      '</div>' +
+                      '<div class="time-block">' +
+                        '<div class="time-value">%S</div>' +
+                        '<div class="time-label">Secs</div>' +
+                      '</div>';
+            }
+            $(this).html(event.strftime(format));
+          })
+          .on('finish.countdown', function (event) {
+            {% comment %} $(this)
+            .parents('.super-early-bird-countdown-date').css('display', 'none') {% endcomment %}
+          });
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "christmas products select",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题",
+      "default": "<div>Black Friday Madness</div>"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题",
+      "default": "<div>November 24th - November 30th</div>"
+    },
+    {
+      "type": "html",
+      "id": "desc",
+      "label": "描述"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_top_bg",
+      "label": "显示顶部图片",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_snow_bg",
+      "label": "显示雪花背景",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "snow_bg_left",
+      "label": "雪花背景左侧图片"
+    },
+    {
+      "type": "image_picker",
+      "id": "snow_bg_right",
+      "label": "雪花背景右侧图片"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_swiper",
+      "label": "移动端开启滑动切换",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_klarna",
+      "label": "显示klarna横幅",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "learn_more_button_text",
+      "label": "查看更多按钮文案配置",
+      "default": "Learn More"
+    },
+    {
+      "type": "text",
+      "id": "buy_now_button_text",
+      "label": "购买按钮文案配置",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_flash_sale_countdown",
+      "label": "显示秒杀倒计时",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "product_divider_line",
+      "label": "显示产品名称分割线",
+      "default": true
+    },
+    {
+      "type": "radio",
+      "id": "position",
+      "label": "素材位置",
+      "info": "素材布局，默认素材居左",
+      "options": [
+        {
+          "label": "素材居左",
+          "value": "row"
+        },
+        {
+          "label": "素材居右",
+          "value": "row-reverse"
+        }
+      ],
+      "default": "row"
+    },
+    {
+      "type": "text",
+      "id": "flash_sale_countdown",
+      "label": "活动开始时间",
+      "info": "活动开始时间，格式为：2024-10-10T15:00:00+08:00"
+    },
+    {
+      "type": "text",
+      "id": "flash_sale_countdown_end",
+      "label": "活动截止时间",
+      "info": "活动截止时间，格式为：2024-10-24T15:00:00+08:00"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_banner_image_pc",
+      "label": "系列横幅主图（PC端）"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_banner_image_mb",
+      "label": "系列横幅主图(移动端)"
+    },
+    {
+      "type": "image_picker",
+      "id": "scene_image_pc_1",
+      "label": "场景主图1（PC端）"
+    },
+    {
+      "type": "image_picker",
+      "id": "scene_image_mb_1",
+      "label": "场景主图1(移动端)"
+    },
+    {
+      "type": "image_picker",
+      "id": "scene_image_pc_2",
+      "label": "场景主图2（PC端）"
+    },
+    {
+      "type": "image_picker",
+      "id": "scene_image_mb_2",
+      "label": "场景主图2(移动端)"
+    },
+    {
+      "type": "image_picker",
+      "id": "scene_image_pc_3",
+      "label": "场景主图3（PC端）"
+    },
+    {
+      "type": "image_picker",
+      "id": "scene_image_mb_3",
+      "label": "场景主图3(移动端)"
+    },
+    {
+      "type": "range",
+      "id": "content_space_percent",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "内容占比",
+      "default": 55
+    },
+    {
+      "type": "range",
+      "id": "content_box_text_percent",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "文案内容占比",
+      "default": 85
+    },
+    {
+      "type": "range",
+      "id": "flex_column_gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "内容与素材间隔大小",
+      "default": 0
+    },
+
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "产品标题字体颜色",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#173168"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "卡片容器背景色",
+      "default": "#fff"
+    },
+    {
+      "type": "color_background",
+      "id": "card_background_gradient_color",
+      "label": "卡片容器渐变背景色"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片间隔",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_gap_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片间隔（移动端）",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "content_padding_left_and_right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "内容区域左右边距",
+      "default": 40
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_padding_left_and_right_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "内容区域左右边距(移动端)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "name": "product",
+      "type": "product",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_name",
+          "label": "tab名称"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "产品列表",
+          "info": "备注：产品原价字段配置：当前产品对应的变体元字段activity original price；产品售价字段配置：当前产品对应的变体元字段activity sale price；"
+        },
+        {
+          "type": "radio",
+          "id": "product_variant_location",
+          "label": "产品变体",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体"
+            }
+          ],
+          "default": "0",
+          "info": "查看对应产品后台，选择对应的变体所在位置，从上到下依次排序"
+        },
+        {
+          "type": "html",
+          "id": "tagline",
+          "label": "自定义标签",
+          "default": "Perfect for low-volume printing"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "产品标题",
+          "info": "默认产品标题"
+        },
+        {
+          "type": "text",
+          "id": "features",
+          "label": "产品特色文案"
+        },
+        {
+          "type": "html",
+          "id": "desc",
+          "label": "产品描述",
+          "default": "<div>Bundle Includes: <span>Includes 1 Roll Film I 1 Transfer Film Ink (250ml) I 1 Transfer Film Powder (0.5kg)</span></div>"
+        },
+
+        {
+          "type": "image_picker",
+          "id": "product_image_pc",
+          "label": "产品主图（PC端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image_mb",
+          "label": "产品主图(移动端)"
+        },
+
+        {
+          "type": "html",
+          "id": "product_banner_title",
+          "label": "横幅主标题"
+        },
+        {
+          "type": "html",
+          "id": "product_banner_subtitle",
+          "label": "横幅副标题"
+        },
+
+        {
+          "type": "image_picker",
+          "id": "product_banner_image_pc",
+          "label": "横幅主图（PC端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_banner_image_mb",
+          "label": "横幅主图(移动端)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [
+    {
+      "name": "christmas products select",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

@@ -165,7 +165,10 @@
                                         {% assign prod_url = prod.metafields.custom.learn_more_link.value.url %}
                                       {% endif %}
                                       <div class="product-section-item-mobile" data-link="{{ prod_url }}">
-                                        {{ prod.images[0] | image_url: width: 500 | image_tag }}
+                                        {% assign prod_image = prod.metafields.custom.navigation_activity_images
+                                          | default: prod.images[0]
+                                        %}
+                                        {{ prod_image | image_url: width: 500 | image_tag }}
 
                                         {% assign prod_tags = prod.tags | downcase %}
                                         {% if prod_tags contains 'save'
@@ -261,7 +264,10 @@
                                         {% assign prod_url = prod.metafields.custom.learn_more_link.value.url %}
                                       {% endif %}
                                       <div class="product-section-item-mobile" data-link="{{ prod_url }}">
-                                        {{ prod.images[0] | image_url: width: 500 | image_tag }}
+                                        {% assign prod_image = prod.metafields.custom.navigation_activity_images
+                                          | default: prod.images[0]
+                                        %}
+                                        {{ prod_image | image_url: width: 500 | image_tag }}
                                         {% assign prod_tags = prod.tags | downcase %}
                                         {% if prod_tags contains 'save'
                                           or prod_tags contains 'new arrival'
@@ -391,7 +397,10 @@
                                         class="product-section-item-mobile product-section-item-mobile-{{ collection.id }}"
                                         data-link="{{ prod_url }}"
                                       >
-                                        {{ prod.images[0] | image_url: width: 300 | image_tag }}
+                                        {% assign prod_image = prod.metafields.custom.navigation_activity_images
+                                          | default: prod.images[0]
+                                        %}
+                                        {{ prod_image | image_url: width: 300 | image_tag }}
                                         {% assign prod_tags = prod.tags | downcase %}
                                         {% if prod_tags contains 'save'
                                           or prod_tags contains 'new arrival'
@@ -522,7 +531,10 @@
                                         class="product-section-item-mobile product-section-item-mobile-{{ collection.id }}"
                                         data-link="{{ prod_url }}"
                                       >
-                                        {{ prod.images[0] | image_url: width: 300 | image_tag }}
+                                        {% assign prod_image = prod.metafields.custom.navigation_activity_images
+                                          | default: prod.images[0]
+                                        %}
+                                        {{ prod_image | image_url: width: 300 | image_tag }}
                                         {% assign prod_tags = prod.tags | downcase %}
                                         {% if prod_tags contains 'save'
                                           or prod_tags contains 'new arrival'
