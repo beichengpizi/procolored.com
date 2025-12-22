@@ -462,31 +462,47 @@
                   {%- when 'materialLRVideo' -%}
                     {%- if block.settings.video -%}
                       <div class="show_desktop">
-                        {{
-                          block.settings.video
-                          | video_tag:
-                            width: '100%',
-                            height: 'auto',
-                            autoplay: true,
-                            loop: true,
-                            muted: true,
-                            controls: false
-                        }}
+                          <video
+                          data-poster="{{ block.settings.video.preview_image | image_url:width:1000 }}"
+                          class="lazy"
+                          preload="none"
+                          autoplay
+                          width="100%"
+                          height="auto"
+                          muted
+                          loop
+                          playsinline
+                          webkit-playsinline
+                          x5-playsinline
+                          x5-video-player-type="h5"
+                          x-webkit-airplay="allow"
+                          controlslist="nodownload noremoteplayback"
+                          data-src="{{ block.settings.video.sources[0].url  }}"
+                          type="video/mp4"
+                        ></video>
                       </div>
                     {% endif %}
 
                     {%- if block.settings.video_mobile -%}
                       <div class="show_mobile">
-                        {{
-                          block.settings.video_mobile
-                          | video_tag:
-                            width: '100%',
-                            height: 'auto',
-                            autoplay: true,
-                            loop: true,
-                            muted: true,
-                            controls: false
-                        }}
+                         <video
+                          data-poster="{{ block.settings.video_mobile.preview_image | image_url:width:1000 }}"
+                          class="lazy"
+                          preload="none"
+                          autoplay
+                          width="100%"
+
+                          height="auto"
+                          muted
+                          loop
+                          playsinline
+                          webkit-playsinline
+                          x5-playsinline
+                          x5-video-player-type="h5"
+                          x-webkit-airplay="allow"
+                          data-src="{{ block.settings.video_mobile.sources[0].url   }}"
+                          type="video/mp4"
+                        ></video>
                       </div>
                     {% endif %}
                 {%- endcase -%}

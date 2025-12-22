@@ -1,0 +1,408 @@
+<style>
+    #shopify-section-{{ section.id }} {
+        display: none;
+        justify-content: center;
+    }
+
+    #shopify-section-{{ section.id }} .showroom-appointment {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 98px 0 48px 0;
+    }
+
+    #shopify-section-{{ section.id }} .section-header--title {
+      font-weight: 700;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .section-header--description {
+      color: #5D5D5D;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .appointment-wrapper {
+        display: flex;
+        gap: 10px;
+        padding: 10px 0;
+        max-width: 1400px;
+        width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-slide {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        /* 设置每个 slide 的最小宽度 */
+        width: 100%;
+        flex-direction: column;
+    }
+
+    #shopify-section-{{ section.id }} .swiper {
+        width: 1400px;
+    }
+
+    #shopify-section-{{ section.id }} .appointment-item {
+        display: flex;
+        width: 736px;  /* 每个 item 的宽度 */
+        height: fit-content;
+        padding: 16px 36px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        border-radius: 12px;
+        border: 1px solid #E0E0E0;
+        background: #FFF;
+    }
+
+    #shopify-section-{{ section.id }} .appointment-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .appointment-info-text {
+        font-size: 24px;
+        color: #0F0C00;
+    }
+
+    #shopify-section-{{ section.id }} .appointment-button-group {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        align-self: stretch;
+    }
+
+    #shopify-section-{{ section.id }} .appointment-button {
+        display: flex;
+        padding: 12px 0;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex: 1 0 0;
+        border-radius: 4px;
+        color: #FFF;
+        text-align: center;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    #shopify-section-{{ section.id }} .cancel-button {
+        background: #DA291C;
+    }
+
+    #shopify-section-{{ section.id }} .cancelled-button,
+    #shopify-section-{{ section.id }} .expired-button,
+    #shopify-section-{{ section.id }} .disabled-button {
+        opacity: 0.3;
+        background: #121212;
+    }
+
+    #shopify-section-{{ section.id }} .check-in-button {
+        background: #165DFF;
+    }
+
+    #shopify-section-{{ section.id }} .checked-in-button {
+        background: #36D399;
+    }
+
+    #shopify-section-{{ section.id }} .reminding-message {
+        color: #DA291C;
+        font-size: 18px;
+    }
+
+    @media screen and (max-width: 768px) {
+        #shopify-section-{{ section.id }} .section-header--title {
+            font-size: 20px;
+        }
+
+        #shopify-section-{{ section.id }} .section-header--description {
+            font-size: 16px;
+        }
+    }
+</style>
+
+<div class="showroom-appointment">
+    {% render 'section-header', section_heading: section.settings.section_heading, section_description: section.settings.description %}
+
+    <div class="swiper mySwiper">
+        <div class="appointment-wrapper swiper-wrapper"></div>
+    </div>
+</div>
+
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+{{ 'swiper-bundle.min.js' | asset_url | script_tag }}
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const api = 'https://booster.procolored.com';
+        const showroomAppointmentApi = "/procolored/activity/showroom/getReservationRecord";
+        const showroomCheckInApi = "/procolored/activity/showroom/checkin";
+        const showroomCancelApi = "/procolored/activity/showroom/cancelReservation";
+        let customerId = null;
+        if(JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer != null) {
+            customerId = JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer.id;
+        }
+
+        function formatDateToCustomFormat(startDateStr, endDateStr) {
+            // 创建起始和结束时间的 Date 对象
+            const startDate = new Date(startDateStr);
+            const endDate = new Date(endDateStr);
+
+            // 使用 Intl.DateTimeFormat 获取格式化后的日期
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const startFormatted = new Intl.DateTimeFormat('en-US', options).format(startDate);
+
+            // 获取小时和分钟
+            const startHours = String(startDate.getHours()).padStart(2, '0');
+            const startMinutes = String(startDate.getMinutes()).padStart(2, '0');
+            const endHours = String(endDate.getHours()).padStart(2, '0');
+            const endMinutes = String(endDate.getMinutes()).padStart(2, '0');
+
+            // 组合结果
+            const formattedDate = `${startFormatted} ${startHours}:${startMinutes} - ${endHours}:${endMinutes}`;
+
+            return formattedDate;
+        }
+
+
+        function loadShowroomAppointment() {
+            fetch(`${api}${showroomAppointmentApi}?customerId=${customerId}&origin=Shopify_US`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if(!response.ok) {
+                    throw new Error('网络请求失败');
+                }
+                return response.json();
+            }).then(data => {
+                if(data.code === 200) {
+                    document.querySelector("#shopify-section-{{ section.id }}").style.display = 'flex';
+                    let result = data.result;
+                    const appointmentWrapper = document.querySelector('#shopify-section-{{ section.id }} .appointment-wrapper');
+                    result.forEach((item, index) => {
+                        const el = document.createElement("div");
+                        el.className = 'appointment-record swiper-slide';
+                        let startDate = item.visitDateStart;
+                        let endDate = item.visitDateEnd;
+                        el.dataset.appointmentId = item.id;
+                        el.dataset.startTime = startDate;
+                        el.innerHTML = `
+                            <div class="appointment-item">
+                                <div class="appointment-info">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+                                        <path d="M13.0005 4.15088C18.4603 4.15123 22.8862 8.57775 22.8862 14.0376C22.8859 19.4972 18.4601 23.923 13.0005 23.9233C7.54063 23.9233 3.11409 19.4974 3.11377 14.0376C3.11377 8.57754 7.54043 4.15088 13.0005 4.15088ZM12.8833 7.88818C12.3463 7.88818 11.9107 8.32382 11.9106 8.86084L11.9097 14.2134C11.9097 14.4712 12.0125 14.7185 12.1948 14.9009L15.9741 18.6802C16.3539 19.0596 16.9695 19.0597 17.3491 18.6802C17.7287 18.3005 17.7285 17.6849 17.3491 17.3052L13.855 13.811V8.86084C13.855 8.32393 13.4202 7.8884 12.8833 7.88818Z" fill="#165DFF"/>
+                                        <path d="M3.27588 5.7714L6.67937 3.34033L3.27588 5.7714Z" fill="#165DFF"/>
+                                        <path d="M3.27588 5.7714L6.67937 3.34033" stroke="#165DFF" stroke-width="1.94485" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M22.7243 5.7714L19.3208 3.34033L22.7243 5.7714Z" fill="#165DFF"/>
+                                        <path d="M22.7243 5.7714L19.3208 3.34033" stroke="#165DFF" stroke-width="1.94485" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span class="appointment-info-text">${formatDateToCustomFormat(startDate, endDate)}</span>
+                                </div>
+                                <div class="appointment-info">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+                                        <mask id="path-1-outside-1_461_5378" maskUnits="userSpaceOnUse" x="-0.0405273" y="14.3369" width="26" height="11" fill="black">
+                                            <rect fill="white" x="-0.0405273" y="14.3369" width="26" height="11"/>
+                                            <path d="M5.90031 17.3369C4.08331 17.882 2.95947 18.6351 2.95947 19.4668C2.95947 21.1304 7.45482 22.479 13.0001 22.479C18.5454 22.479 23.0408 21.1304 23.0408 19.4668C23.0408 18.6351 21.9169 17.882 20.0999 17.3369"/>
+                                        </mask>
+                                        <path d="M6.52291 19.4122C7.66905 19.0684 8.31945 17.8605 7.9756 16.7143C7.63175 15.5682 6.42386 14.9178 5.27771 15.2616L5.90031 17.3369L6.52291 19.4122ZM20.7225 15.2616C19.5764 14.9178 18.3685 15.5682 18.0246 16.7143C17.6808 17.8605 18.3312 19.0684 19.4773 19.4122L20.0999 17.3369L20.7225 15.2616ZM5.90031 17.3369L5.27771 15.2616C4.25655 15.568 3.27233 15.9758 2.49504 16.5271C1.77404 17.0385 0.792806 18.0005 0.792806 19.4668H2.95947H5.12614C5.12614 19.7728 5.01688 19.9876 4.95338 20.0807C4.90058 20.1581 4.88771 20.1427 5.002 20.0616C5.24087 19.8922 5.72707 19.651 6.52291 19.4122L5.90031 17.3369ZM2.95947 19.4668H0.792806C0.792806 20.9332 1.77402 21.8952 2.49503 22.4066C3.27233 22.9579 4.25656 23.3657 5.27772 23.6721C7.34764 24.293 10.0774 24.6457 13.0001 24.6457V22.479V20.3124C10.3776 20.3124 8.08698 19.9907 6.5229 19.5215C5.72706 19.2827 5.24087 19.0415 5.002 18.8721C4.70685 18.6627 5.12614 18.8323 5.12614 19.4668H2.95947ZM13.0001 22.479V24.6457C15.9229 24.6457 18.6526 24.293 20.7225 23.6721C21.7437 23.3657 22.7279 22.9579 23.5052 22.4066C24.2262 21.8952 25.2074 20.9332 25.2074 19.4668H23.0408H20.8741C20.8741 18.8323 21.2934 18.6627 20.9983 18.8721C20.7594 19.0415 20.2732 19.2827 19.4774 19.5215C17.9133 19.9907 15.6227 20.3124 13.0001 20.3124V22.479ZM23.0408 19.4668H25.2074C25.2074 18.0005 24.2262 17.0385 23.5052 16.5271C22.7279 15.9758 21.7437 15.568 20.7225 15.2616L20.0999 17.3369L19.4773 19.4122C20.2732 19.651 20.7594 19.8922 20.9983 20.0617C21.1125 20.1427 21.0997 20.1581 21.0469 20.0807C20.9834 19.9876 20.8741 19.7728 20.8741 19.4668H23.0408Z" fill="#165DFF" mask="url(#path-1-outside-1_461_5378)"/>
+                                        <path d="M13 2.01465C17.0145 2.01465 20.2686 5.18928 20.2686 9.10547C20.2685 14.5907 13.0179 19.336 13 19.3477C12.9619 19.3227 5.73149 14.583 5.73145 9.10547C5.73145 5.1893 8.98558 2.01469 13 2.01465ZM13 5.91211C11.0595 5.91232 9.48654 7.48525 9.48633 9.42578C9.48636 11.3665 11.0594 12.9402 13 12.9404C14.9407 12.9403 16.5146 11.3665 16.5146 9.42578C16.5144 7.48522 14.9406 5.91227 13 5.91211Z" fill="#165DFF"/>
+                                    </svg>
+                                    <span class="appointment-info-text">1180 Centre Drive, Unit B, City of Industry, California 91789, USA</span>
+                                </div>
+                            </div>
+
+                            <div class="reminding-message"></div>
+                        `;
+                        const buttonGroup = document.createElement('div');
+                        buttonGroup.className = "appointment-button-group";
+                        if(item.reservationStatus == 0) {
+                            const cancelledButton = document.createElement('button');
+                            cancelledButton.className = "appointment-button cancelled-button";
+                            cancelledButton.innerHTML = "Cancelled";
+                            buttonGroup.appendChild(cancelledButton);
+                        }
+                        else if(item.reservationStatus == 1) {
+                            const cancelButton = document.createElement('button');
+                            cancelButton.className = "appointment-button cancel-button";
+                            cancelButton.innerHTML = "Cancel appointment";
+                            if(isLiminitTimeToStart(item.visitDateStart, 1440) == true) {
+                                cancelButton.disabled = true;
+                                cancelButton.className = "appointment-button cancel-button disabled-button";
+                            }
+                            buttonGroup.appendChild(cancelButton);
+
+                            const checkInButton = document.createElement('button');
+                            checkInButton.className = "appointment-button check-in-button";
+                            checkInButton.innerHTML = "Check In";
+                            buttonGroup.appendChild(checkInButton);
+                        } else if(item.reservationStatus == 2) {
+                            const expiredButton = document.createElement('button');
+                            expiredButton.className = "appointment-button expired-button";
+                            expiredButton.innerHTML = "Expired";
+                            expiredButton.disabled = true;
+                            buttonGroup.appendChild(expiredButton);
+                        } else if(item.reservationStatus == 3) {
+                            const checkedInButton = document.createElement('button');
+                            checkedInButton.className = "appointment-button checked-in-button";
+                            checkedInButton.innerHTML = "Checked In";
+                            checkedInButton.disabled = true;
+                            buttonGroup.appendChild(checkedInButton);
+                        }
+                        el.querySelector('.appointment-item').appendChild(buttonGroup);
+                        appointmentWrapper.appendChild(el);
+                    });
+
+                    var swiper = new Swiper(".mySwiper", {
+                        slidesPerView: 1.8,
+                        spaceBetween: 10,
+                        centeredSlides: true,
+                    });
+
+                    appointmentWrapper.querySelectorAll('.check-in-button').forEach((item) => {
+                        item.addEventListener("click", (event) => handleCheckIn(event));
+                    });
+
+                    appointmentWrapper.querySelectorAll('.cancel-button').forEach((item) => {
+                        item.addEventListener("click", (event) => handleCancel(event));
+                    });
+                }
+            });
+        }
+
+        async function handleCheckIn(event) {
+            const startTime = event.target.closest('.appointment-item').dataset.startTime;
+            if(isLiminitTimeToStart(startTime, 30) == false) {
+                event.target.closest('.appointment-record').querySelector(".reminding-message").innerHTML = 'This is not the scheduled time yet.';
+                return;
+            } else {
+                event.target.closest('.appointment-record').querySelector(".reminding-message").innerHTML = '';
+            }
+             // 检查浏览器是否支持 Geolocation API
+             let latitude = 0, longitude = 0;
+            if (navigator.geolocation) {
+                // 获取当前位置
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    // 获取经纬度
+                    latitude = position.coords.latitude;
+                    longitude = position.coords.longitude;
+                    console.log("当前经度", latitude);
+                    console.log("当前纬度", longitude);
+
+                    // 可以在这里将经纬度传递到地图或其他应用中
+                }, function(error) {
+                    // 如果获取位置失败
+                    console.error("无法获取位置:", error);
+                    alert('Failed to fetch your location.')
+                });
+            }
+            
+            const postData = {
+              id: event.target.closest(".appointment-item").dataset.appointmentId,
+              checkinLat: latitude,
+              checkinLng: longitude
+            };
+
+            try {
+                const res = await fetch(`${api}${showroomCheckInApi}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(postData),
+                }).then(response => {
+                    if(!response.ok) {
+                        throw new Error('网络请求失败');
+                    }
+                    return response.json();
+                }).then(data => {
+                    if(data.code !== 200) {
+                        const text = data.msg;
+                        document.querySelector("#shopify-section-{{ section.id }} .reminding-message").innerHTML = `${text}`;
+                        throw new Error(`Server error: ${res.status} ${text}`);
+                    } else {
+                        event.target.className = "appointment-button checked-in-button";
+                        event.target.innerHTML = "Checked In";
+                        event.target.disabled = true;
+                        event.target.closest('.appointment-button-group').querySelector('.cancel-button').style.display = 'none';
+                    }
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function handleCancel(event) {
+            const postData = {
+                id: event.target.closest(".appointment-item").dataset.appointmentId
+            };
+            try {
+                const res = await fetch(`${api}${showroomCancelApi}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(postData),
+                });
+
+                if(!res.ok) {
+                    const text = await res.text();
+                    throw new Error(`Server error: ${res.status} ${text}`);
+                }
+                event.target.className = "appointment-button cancelled-button";
+                event.target.innerHTML = "Cancelled";
+                event.target.disabled = true;
+                event.target.closest('.appointment-button-group').querySelector('.check-in-button').style.display = 'none';
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function isLiminitTimeToStart(startDateStr, limitTime) {
+            // 获取当前时间和开始时间的 Date 对象
+            const currentTime = new Date();
+            const startTime = new Date(startDateStr);
+
+            // 计算当前时间与开始时间的差值（毫秒）
+            const timeDifference = startTime - currentTime;
+
+            // 将半个小时的时间（30分钟）转化为毫秒
+            const halfHourInMilliseconds = Number(limitTime) * 60 * 1000;
+            const visitTime = 90 * 60 * 1000 * (-1);
+
+            // 判断是否在半小时之内
+            if (timeDifference > visitTime && timeDifference <= halfHourInMilliseconds) {
+                return true;  // 当前时间距离开始时间还有半个小时
+            } else {
+                return false; // 当前时间距离开始时间不再半个小时内
+            }
+        }
+
+        if(customerId != null) {
+            loadShowroomAppointment();
+        }
+    });
+</script>
+
+{% schema %}
+{
+  "name": "Showroom Appointment",
+  "tag": "section",
+  "settings": [
+    {
+        "type": "text",
+        "id": "section_heading",
+        "label": "Section heading"
+    },
+    {
+        "type": "text",
+        "id": "description",
+        "label": "Description"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Showroom Appointment"
+    }
+  ]
+}
+{% endschema %}

@@ -25,6 +25,7 @@
         padding: 0 24px;
         margin: 0 auto;
         text-align: center;
+        width:100%;
         {% comment %} margin-bottom: 50px; {% endcomment %}
 
 
@@ -61,7 +62,8 @@
         display: flex;
         justify-content: center;
         gap: 20px;
-        margin-top: 40px;
+        margin-top: 80px;
+        margin-bottom: 40px;
     }
 
     .black-friday-winning-video-nav-button {
@@ -1006,12 +1008,778 @@
             <div class="black-friday-winning-video-title-wrapper">
                 <div class="black-friday-winning-video-title">Celebrate the Lucky Winners</div>
                 <div class="black-friday-winning-video-subtitle">The holiday magic is real! Check out the winners of our exclusive festive prizes in the official reveal videos.</div>
-                <div class="black-friday-winning-video-timeline">
-                  <img data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/PC_da41ccc8-79fc-4f43-a17c-873489561d50.png?v=1765768813"
-                    alt="iPhone 17" class="pc lazyload">
-                    <img data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/mb_38f93631-412d-4c4e-a50f-8652a3bf46d2.png?v=1765768860"
-                      alt="iPhone 17" class="mb lazyload">
-                </div>
+             <style>
+                  .activity-time-progress-bar {
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                      width: 100%;
+                      max-width: 1200px;
+                      margin: 0 auto;
+                      justify-content: space-between;
+                  }
+              
+                  /* 进度条样式 */
+                  .activity-time-progress-bar-wrapper {
+                      width: 100%;
+                      overflow: hidden;
+                  }
+              
+                  .activity-time-progress-bar-title-wrap {
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                      margin-bottom: 50px;
+              
+                  }
+              
+                  .activity-time-progress-bar-title {
+                      color: #FFF;
+                      text-align: center;
+                      font-size: 40px;
+                      font-weight: 800;
+                      line-height: 1.22;
+                      width: 100%;
+                      margin-bottom: 20px;
+                  }
+              
+                  .activity-time-progress-bar-desc {
+                      color: rgba(255, 255, 255, 0.90);
+                      text-align: center;
+                      font-size: 18px;
+                      width: 100%;
+                      font-weight: 400;
+                      line-height: 1.38;
+                      max-width: 717px;
+                  }
+              
+                  .activity-time-progress-bar-content {
+                      max-width: 100%;
+                      margin-top: 65px;
+                  }
+              
+                  .k13-lite-unlock-VIP-access-price-section {
+                      display: flex;
+                      justify-content: space-between;
+                      position: relative;
+                      min-height: 25px;
+                      margin-bottom: 30px;
+                  }
+              
+                  .k13-lite-unlock-VIP-access-price-point {
+                      text-align: center;
+                      position: relative;
+                      /* min-width: 100px; */
+                  }
+              
+                  .k13-lite-unlock-VIP-access-price-section .k13-lite-unlock-VIP-access-price-point {
+                      position: absolute;
+                      transform: translate(-50%, 0);
+                  }
+              
+                  .k13-lite-unlock-VIP-access-price-section .k13-lite-unlock-VIP-access-price-point:first-child {
+                      left: 10%;
+                  }
+              
+                  .k13-lite-unlock-VIP-access-current-price {
+                      color: #000;
+                      font-size: 18px;
+                      font-weight: 400;
+                      margin: 0;
+                      width: max-content;
+                  }
+              
+                  .original-price {
+                      color: #2c2d2e;
+                      text-decoration: line-through;
+                      margin: 0;
+                      font-size: 16px;
+                  }
+              
+                  .k13-lite-unlock-VIP-access-price-section .k13-lite-unlock-VIP-access-price-point:nth-child(2) {
+                      left: 50%;
+                  }
+              
+                  .k13-lite-unlock-VIP-access-price-section .k13-lite-unlock-VIP-access-price-point:nth-child(3) {
+                      left: 90%;
+                  }
+              
+                  .activity-time-progress-bar-process-wrap {
+                      height: 8px;
+                      background-color: rgba(255, 255, 255, 0.39);
+                      border-radius: 99px;
+                      position: relative;
+                      margin: 15px 0;
+                  }
+              
+                  .activity-time-progress-bar-process-line {
+                      height: 100%;
+                      background-color: #fff;
+                      border-radius: 99px;
+                      position: relative;
+                      width: 100%;
+                      transform: scaleX(0);
+                      transform-origin: left;
+                  }
+              
+                  @keyframes fillProgress {
+                      from {
+                          transform: scaleX(0);
+                      }
+              
+                      to {
+                          transform: scaleX(1);
+                      }
+                  }
+              
+                  .activity-time-progress-bar-process-line.animate {
+                      animation: fillProgress 1.5s ease-in-out forwards;
+                  }
+              
+                  .activity-time-progress-bar-process-point {
+                      width: 38px;
+                      height: 43px;
+                      position: absolute;
+                      top: 50%;
+                      transform: translate(-50%, -50%);
+                      z-index: 2;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      background-image: url("https://cdn.shopify.com/s/files/1/0509/3454/6613/files/1_8_1.png?v=1766041471");
+                      background-size: 100% 100%;
+                      background-repeat: no-repeat;
+                      background-position: center;
+                      border: none;
+                  }
+              
+                  .activity-time-progress-bar-process-point.first {
+                      left: 33%;
+                  }
+              
+                  .activity-time-progress-bar-process-point.active,
+                  .activity-time-progress-bar-process-point.completed {
+                      background-image: url("https://cdn.shopify.com/s/files/1/0509/3454/6613/files/1_8_2_22ef11d4-0d15-4ce0-a087-2b2eb33379a1.png?v=1766041471");
+                  }
+              
+                  .activity-time-progress-bar-process-point.second {
+                      left: 66%;
+                  }
+              
+              
+              
+                  .activity-time-progress-bar-process-text-container-mb {
+                      display: none;
+                  }
+              
+                  .activity-time-progress-bar-process-text-container-pc {
+                      margin-top: 29px;
+                      position: relative;
+                      display: flex;
+              
+                  }
+              
+                  .activity-time-progress-bar-process-text-container-pc .date-point {
+                      text-align: center;
+                      max-width: 305px;
+                      position: relative;
+                      transform: translate(-50%, 0);
+                      width: max-content;
+                      display: inline-block;
+                      vertical-align: top;
+                      min-width: 305px;
+                  }
+              
+                  .activity-time-progress-bar-process-text-container-pc .date-point:first-child {
+                      left: 33%;
+                  }
+              
+                  .activity-time-progress-bar-process-text-container-pc .date-point:nth-child(2) {
+                      left: calc(66% - 305px);
+                  }
+              
+              
+              
+                  .activity-time-progress-bar-process-text-container-pc .date {
+                      color: #FFF;
+                      text-align: center;
+                      font-size: 16px;
+                      font-weight: 700;
+                      line-height: 1.4;
+                      margin-bottom: 20px;
+                  }
+              
+                  .activity-time-progress-bar-process-text-container-pc .label-content {
+                      border-radius: 10px;
+                      padding: 22px;
+                      border: 1px solid #7498E3;
+                      background: linear-gradient(182deg, #173168 1.77%, rgba(23, 27, 104, 0.18) 124.12%);
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                      justify-content: center;
+                      gap: 7px;
+                  }
+              
+                  .activity-time-progress-bar-process-text-container-pc .label-content-title {
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      gap: 7px;
+                  }
+              
+                  .activity-time-progress-bar-process-text-container-pc .label-content-title-icon {
+                      width: 24px;
+                      height: 24px;
+                      flex-shrink: 0;
+                  }
+              
+                  .activity-time-progress-bar-process-text-container-pc .label-content-title-text {
+                      color: #FFF;
+                      text-align: center;
+                      font-size: 20px;
+                      font-weight: 700;
+                      line-height: 1.33;
+              
+                  }
+              
+                  .activity-time-progress-bar-process-text-container-pc .label-content-desc {
+                      color: rgba(255, 255, 255, 0.90);
+                      text-align: center;
+                      font-size: 14px;
+                      font-weight: 400;
+                      line-height: 1.2;
+                  }
+              
+              
+                  @media screen and (max-width: 768px) {
+              
+                      .activity-time-progress-bar {
+                          display: flex;
+                          flex-direction: column;
+                          align-items: center;
+                          width: 100%;
+                          max-width: 1200px;
+                          margin: 0 auto;
+                          padding: 0 24px;
+                      }
+              
+              
+              
+                      .activity-time-progress-bar-title-wrap {
+              
+                          margin-bottom: 20px;
+              
+                      }
+              
+                      .activity-time-progress-bar-title {
+              
+                          font-size: 24px;
+                          font-weight: 800;
+                          line-height: 1.3;
+              
+                          margin-bottom: 10px;
+                      }
+              
+                      .activity-time-progress-bar-desc {
+              
+                          font-size: 14px;
+              
+                          line-height: 1.4;
+                          max-width: 100%;
+                      }
+              
+                      .activity-time-progress-bar-content {
+                          width: 100%;
+                          max-width: none;
+                          padding: 0 0 0px 12px;
+                          overflow: hidden;
+                          display: flex;
+                          column-gap: 37px;
+                          margin-top:20px;
+                      }
+              
+                      .activity-time-progress-bar-process-wrap {
+                          width: 8px;
+                          height: 320px;
+                          margin: 0;
+                      }
+              
+                      .k13-lite-unlock-VIP-access-price-section,
+                      .activity-time-progress-bar-process-text-container-pc {
+                          display: none;
+                      }
+              
+                      .activity-time-progress-bar-process-line {
+                          height: 100%;
+                          transform: scaleY(0);
+                          transform-origin: top;
+                      }
+              
+                      .activity-time-progress-bar-process-line.animate {
+                          animation: fillProgressMobile 1.5s ease-in-out forwards !important;
+                      }
+              
+                      .activity-time-progress-bar-process-point {
+                          left: 50% !important;
+                          width: 32px;
+                          height: 36px;
+                      }
+              
+                      .activity-time-progress-bar-process-point.first {
+                          top: 33%;
+                      }
+              
+                      .activity-time-progress-bar-process-point.second {
+                          top: 66%;
+                      }
+              
+              
+              
+                      @keyframes fillProgressMobile {
+                          from {
+                              transform: scaleY(0);
+                          }
+              
+                          to {
+                              transform: scaleY(1);
+                          }
+                      }
+              
+              
+              
+                      .activity-time-progress-bar-process-text-container-mb {
+                          display: flex;
+                          position: relative;
+                          height: auto;
+                          width: 100%;
+                          flex-direction: column;
+                          justify-content: space-between;
+                      }
+              
+                      .activity-time-progress-bar-process-text-container-mb .date-point-mb:first-child {}
+              
+                      .activity-time-progress-bar-process-text-container-mb .date-point-mb:nth-child(2) {}
+              
+              
+              
+                      .activity-time-progress-bar-process-text-container-mb .date-point-mb {
+                          display: flex;
+                          flex-direction: column;
+                          row-gap: 20px;
+                          /* position: absolute; */
+                      }
+              
+                      .activity-time-progress-bar-process-text-container-mb .date-mb {
+                          color: #FFF;
+              
+                          /* PC/H6六级标题 */
+                          font-family: Mulish;
+                          font-size: 16px;
+                          font-style: normal;
+                          font-weight: 700;
+                          line-height: 22.4px;
+                          text-align: left;
+                          /* 140% */
+              
+                      }
+              
+                      .activity-time-progress-bar-process-text-container-mb .label-content-mb {
+                          border-radius: 10px;
+                          border: 1px solid #7498E3;
+                          background: linear-gradient(182deg, #173168 1.77%, rgba(23, 27, 104, 0.18) 124.12%);
+                          padding: 24px;
+                          max-width: 250px;
+                          display: flex;
+                          flex-direction: column;
+                          align-items: center;
+                          justify-content: center;
+                          gap: 10px;
+              
+              
+                      }
+              
+                      .activity-time-progress-bar-process-text-container-mb .label-content-title-mb {
+                          display: flex;
+                          align-items: center;
+                          gap: 7px;
+              
+                      }
+              
+                      .activity-time-progress-bar-process-text-container-mb .label-content-title-icon-mb {
+                          width: 24px;
+                          height: 24px;
+                          flex-shrink: 0;
+              
+                      }
+              
+                      .activity-time-progress-bar-process-text-container-mb .label-content-title-text-mb {
+                          color: #FFF;
+                          text-align: center;
+              
+                          /* PC/H6六级标题 */
+                          font-family: Mulish;
+                          font-size: 16px;
+                          font-style: normal;
+                          font-weight: 700;
+                          line-height: 22.4px;
+                          /* 140% */
+              
+                      }
+              
+                      .activity-time-progress-bar-process-text-container-mb .label-content-desc-mb {
+                          color: rgba(255, 255, 255, 0.90);
+                          text-align: center;
+                          font-family: Mulish;
+                          font-size: 14px;
+                          font-style: normal;
+                          font-weight: 400;
+                          line-height: 120%;
+                          /* 16.8px */
+              
+                      }
+              
+              
+              
+              
+              
+              
+              
+                      .k13-lite-unlock-VIP-access-wrapper .date-point-mb-title {
+                          margin-top: 4px;
+                          color: #000;
+              
+                          font-size: 14px;
+              
+                          font-weight: 400;
+                          line-height: 1.4;
+                      }
+              
+                  }
+              </style>
+              <div class="activity-time-progress-bar-content">
+                  <div class="activity-time-progress-bar-process-wrap">
+                      <div id="progressBar" class="activity-time-progress-bar-process-line"></div>
+                      <div class="activity-time-progress-bar-process-point first "></div>
+                      <div class="activity-time-progress-bar-process-point second"></div>
+              
+                  </div>
+                  <!-- 移动端文案样式 -->
+                  <div class="activity-time-progress-bar-process-text-container-mb">
+                      <div class="date-point-mb">
+                          <div class="date-mb">Week 1 Draw</div>
+                          <div class="label-content-mb">
+                              <div class="label-content-title-mb">
+                                  <div class="label-content-title-icon-mb">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+                                          viewBox="0 0 24 24" fill="none">
+                                          <path
+                                              d="M2.5 9.5H21.5V20C21.5 20.5523 21.0523 21 20.5 21H3.5C2.94771 21 2.5 20.5523 2.5 20V9.5Z"
+                                              stroke="white" stroke-width="2" stroke-linejoin="round" />
+                                          <path
+                                              d="M2.5 4.5C2.5 3.94771 2.94771 3.5 3.5 3.5H20.5C21.0523 3.5 21.5 3.94771 21.5 4.5V9.5H2.5V4.5Z"
+                                              stroke="white" stroke-width="2" stroke-linejoin="round" />
+                                          <path d="M8 2V6" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M16 2V6" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M14 17H17" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M7 17H10" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M14 13H17" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M7 13H10" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                      </svg>
+                                  </div>
+                                  <div class="label-content-title-text-mb">December 15-22</div>
+                              </div>
+                              <div class="label-content-desc-mb">Announced:December 25</div>
+                          </div>
+              
+                      </div>
+                      <div class="date-point-mb">
+                          <div class="date-mb">Week 2 Draw</div>
+                          <div class="label-content-mb">
+                              <div class="label-content-title-mb">
+                                  <div class="label-content-title-icon-mb">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+                                          viewBox="0 0 24 24" fill="none">
+                                          <path
+                                              d="M2.5 9.5H21.5V20C21.5 20.5523 21.0523 21 20.5 21H3.5C2.94771 21 2.5 20.5523 2.5 20V9.5Z"
+                                              stroke="white" stroke-width="2" stroke-linejoin="round" />
+                                          <path
+                                              d="M2.5 4.5C2.5 3.94771 2.94771 3.5 3.5 3.5H20.5C21.0523 3.5 21.5 3.94771 21.5 4.5V9.5H2.5V4.5Z"
+                                              stroke="white" stroke-width="2" stroke-linejoin="round" />
+                                          <path d="M8 2V6" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M16 2V6" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M14 17H17" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M7 17H10" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M14 13H17" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M7 13H10" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                      </svg>
+                                  </div>
+                                  <div class="label-content-title-text-mb">December 23-31</div>
+                              </div>
+                              <div class="label-content-desc-mb">Announced: January 4</div>
+                          </div>
+                      </div>
+              
+                  </div>
+                  <!-- PC端文案样式 -->
+                  <div class="activity-time-progress-bar-process-text-container-pc">
+                      <div class="date-point">
+                          <div class="date">Week 1 Draw</div>
+                          <div class="label-content">
+                              <div class="label-content-title">
+                                  <div class="label-content-title-icon">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+                                          viewBox="0 0 24 24" fill="none">
+                                          <path
+                                              d="M2.5 9.5H21.5V20C21.5 20.5523 21.0523 21 20.5 21H3.5C2.94771 21 2.5 20.5523 2.5 20V9.5Z"
+                                              stroke="white" stroke-width="2" stroke-linejoin="round" />
+                                          <path
+                                              d="M2.5 4.5C2.5 3.94771 2.94771 3.5 3.5 3.5H20.5C21.0523 3.5 21.5 3.94771 21.5 4.5V9.5H2.5V4.5Z"
+                                              stroke="white" stroke-width="2" stroke-linejoin="round" />
+                                          <path d="M8 2V6" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M16 2V6" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M14 17H17" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M7 17H10" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M14 13H17" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M7 13H10" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                      </svg>
+                                  </div>
+                                  <div class="label-content-title-text">December 15-22</div>
+                              </div>
+                              <div class="label-content-desc">Announced:December 25</div>
+                          </div>
+                      </div>
+                      <div class="date-point">
+                          <div class="date">Week 2 Draw</div>
+                          <div class="label-content">
+                              <div class="label-content-title">
+                                  <div class="label-content-title-icon">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+                                          viewBox="0 0 24 24" fill="none">
+                                          <path
+                                              d="M2.5 9.5H21.5V20C21.5 20.5523 21.0523 21 20.5 21H3.5C2.94771 21 2.5 20.5523 2.5 20V9.5Z"
+                                              stroke="white" stroke-width="2" stroke-linejoin="round" />
+                                          <path
+                                              d="M2.5 4.5C2.5 3.94771 2.94771 3.5 3.5 3.5H20.5C21.0523 3.5 21.5 3.94771 21.5 4.5V9.5H2.5V4.5Z"
+                                              stroke="white" stroke-width="2" stroke-linejoin="round" />
+                                          <path d="M8 2V6" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M16 2V6" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M14 17H17" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M7 17H10" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M14 13H17" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                          <path d="M7 13H10" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                      </svg>
+                                  </div>
+                                  <div class="label-content-title-text">December 23-31</div>
+                              </div>
+                              <div class="label-content-desc">Announced: January 4</div>
+                          </div>
+                      </div>
+              
+                  </div>
+              </div>
+              <script>
+                  (function () {
+              
+                      // 进度条
+                      const progressBar = document.getElementById("progressBar");
+                      const progressPoints = document.querySelectorAll(
+                          ".activity-time-progress-bar-process-point"
+                      );
+                      const timelineContainer = document.querySelector(
+                          ".activity-time-progress-bar-content"
+                      );
+                      const startDateUTC = "2025-12-15T15:00:00+08:00";
+                      const firstPhaseEndUTC = "2025-12-25T15:00:00+08:00";
+                      const secondPhaseEndUTC = "2026-01-04T15:00:00+08:00";
+              
+                      function formatUtcTime(v) {
+                          let date = new Date(v);
+                          return (
+                              date.getFullYear() +
+                              "/" +
+                              (date.getMonth() + 1) +
+                              "/" +
+                              (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
+                              " " +
+                              (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) +
+                              ":" +
+                              (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) +
+                              ":" +
+                              (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds())
+                          );
+                      }
+                      // 创建 Intersection Observer
+                      const observer = new IntersectionObserver(
+                          (entries) => {
+                              entries.forEach((entry) => {
+                                  if (entry.isIntersecting) {
+                                      // 添加动画类
+                                      progressBar.classList.add("animate");
+                                      calculateProgress(
+                                          startDateUTC,
+                                          firstPhaseEndUTC,
+                                          secondPhaseEndUTC,
+              
+                                          progressBar,
+                                          progressPoints
+                                      );
+                                      observer.unobserve(entry.target);
+                                  }
+                              });
+                          },
+                          {
+                              threshold: 0.2,
+                          }
+                      );
+              
+                      if (progressBar && progressPoints.length > 0 && timelineContainer) {
+                          observer.observe(timelineContainer);
+                      }
+                      // 计算进度（根据当前日期按比例计算）
+                      function calculateProgress(
+                          startDateUTC,
+                          firstPhaseEndUTC,
+                          secondPhaseEndUTC,
+                          progressBar,
+                          progressPoints
+                      ) {
+                          // 如果 progressBar 为空，直接返回，防止报错
+                          if (!progressBar) {
+                              return;
+                          }
+                          const now = formatUtcTime(new Date().toUTCString());
+                          const nowDateTimestamp = new Date(now).getTime();
+                          const startDate = formatUtcTime(startDateUTC);
+                          const firstPhaseEnd = formatUtcTime(firstPhaseEndUTC);
+                          const secondPhaseEnd = formatUtcTime(secondPhaseEndUTC);
+              
+              
+                          // 新增对应的时间戳（毫秒数）
+                          const startDateTimestamp = new Date(startDate).getTime();
+                          const firstPhaseEndTimestamp = new Date(firstPhaseEnd).getTime();
+                          const secondPhaseEndTimestamp = new Date(secondPhaseEnd).getTime();
+              
+              
+                          // 计算天数差
+                          const getDaysDifference = (date1, date2) => {
+                              const d1 = new Date(date1);
+                              const d2 = new Date(date2);
+                              return Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24));
+                          };
+              
+                          let progress = 0;
+                          // 进度规则：
+                          // 未到startDate，进度为0
+                          if (nowDateTimestamp < startDateTimestamp) {
+                              progress = 0;
+                          }
+                          // 第一阶段：startDate ~ firstPhaseEnd，0%~33%
+                          else if (
+                              nowDateTimestamp >= startDateTimestamp &&
+                              nowDateTimestamp < firstPhaseEndTimestamp
+                          ) {
+                              const totalDays = getDaysDifference(startDate, firstPhaseEnd);
+                              const passedDays = getDaysDifference(startDate, now);
+                              progress = 0 + ((passedDays / totalDays) * (33 - 0));
+                              if (progress > 33) progress = 33;
+                          }
+                          // 第二阶段：firstPhaseEnd ~ secondPhaseEnd，33%~66%
+                          else if (
+                              nowDateTimestamp >= firstPhaseEndTimestamp &&
+                              nowDateTimestamp < secondPhaseEndTimestamp
+                          ) {
+                              const totalDays = getDaysDifference(firstPhaseEnd, secondPhaseEnd);
+                              const passedDays = getDaysDifference(firstPhaseEnd, now);
+                              progress = 33 + ((passedDays / totalDays) * (66 - 33));
+                              if (progress > 66) progress = 66;
+                          }
+                          else if (nowDateTimestamp >= secondPhaseEndTimestamp) {
+                              progress = 100;
+                          }
+              
+                          // 确保进度在0-100之间
+                          progress = Math.max(0, Math.min(100, progress));
+                          console.log("进度==", progress);
+              
+                          // 判断是否为移动端
+                          const isMobile = window.innerWidth <= 768;
+              
+                          // 根据设备类型设置不同的transform-origin和transform
+                          if (isMobile) {
+                              console.log("移动端");
+                              progressBar.style.transformOrigin = "top";
+                              progressBar.style.transform = `scaleY(${progress / 100})`;
+                              progressBar.style.height = `${progress}%`;
+                          } else {
+                              console.log("pc端");
+                              progressBar.style.width = `${progress}%`;
+                              progressBar.style.transformOrigin = "left";
+                              progressBar.style.transform = `scaleX(${progress / 100})`;
+                          }
+              
+                          // 更新点的状态
+                          // 3个点：第一个33%，第二个66%，第三个100%
+                          const pointThresholds = [33, 66, 100];
+                          progressPoints.forEach((point, index) => {
+                              if (progress >= pointThresholds[index]) {
+                                  point.classList.add("completed");
+                              } else {
+                                  point.classList.remove("completed");
+                              }
+                          });
+                      }
+              
+                      if (progressBar && progressPoints.length > 0 && timelineContainer) {
+                          calculateProgress(
+                              startDateUTC,
+                              firstPhaseEndUTC,
+                              secondPhaseEndUTC,
+              
+                              progressBar,
+                              progressPoints
+                          );
+                          // 监听窗口大小变化
+                          window.addEventListener("resize", function () {
+                              if (progressBar) {
+                                  calculateProgress(
+                                      startDateUTC,
+                                      firstPhaseEndUTC,
+                                      secondPhaseEndUTC,
+              
+                                      progressBar,
+                                      progressPoints
+                                  );
+                              }
+                          });
+                      }
+                  })();
+              </script>
+
                 {% comment %} <div class="black-friday-winning-video-navigation-buttons">
                     <div class="black-friday-winning-video-nav-button" id="black-friday-winning-video-prevButton">
                         <svg width="11" height="16" viewBox="0 0 11 16" fill="none"

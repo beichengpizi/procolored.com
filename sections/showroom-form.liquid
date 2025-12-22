@@ -108,6 +108,10 @@
         padding: 12px 0;
     }
 
+    #shopify-section-{{ section.id }} .disabled {
+      opacity: 0.3;
+    }
+
     #shopify-section-{{ section.id }} .checkbox-group label,
     #shopify-section-{{ section.id }} .radio-group label {
         font-weight: normal;
@@ -788,12 +792,6 @@
               <div class="calendar-popup" id="calendarPopup" aria-hidden="true">
                 <div class="calendar-header">
                   <div class="nav">
-                    <button id="yearPrev" title="Prev Year">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                          <rect opacity="0.01" x="16" width="16" height="16" transform="rotate(90 16 0)" fill="white"/>
-                          <path d="M8.14648 11.8535C8.34175 12.0488 8.65825 12.0488 8.85352 11.8535C9.02708 11.6799 9.04613 11.4107 8.91113 11.2158L8.85352 11.1465L5.20703 7.5L8.85352 3.85352L8.91113 3.78418C9.04613 3.58931 9.02708 3.32005 8.85352 3.14648C8.65825 2.95122 8.34175 2.95122 8.14648 3.14648L4.14648 7.14648L4.08887 7.21582C3.95387 7.41069 3.97292 7.67995 4.14648 7.85352L8.14648 11.8535ZM11.1465 11.8535C11.3417 12.0488 11.6583 12.0488 11.8535 11.8535C12.0271 11.6799 12.0461 11.4107 11.9111 11.2158L11.8535 11.1465L8.20703 7.5L11.8535 3.85352L11.9111 3.78418C12.0461 3.58931 12.0271 3.32005 11.8535 3.14648C11.6583 2.95122 11.3417 2.95122 11.1465 3.14648L7.14648 7.14648C6.97292 7.32005 6.95387 7.58931 7.08887 7.78418L7.14648 7.85352L11.1465 11.8535Z" fill="#6A6D8E"/>
-                      </svg>
-                    </button>
                     <button id="monthPrev" title="Prev Month">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                           <rect opacity="0.01" width="16" height="16" fill="white"/>
@@ -809,23 +807,12 @@
                           <path d="M5.64746 12.3535C5.47389 12.1799 5.45485 11.9107 5.58984 11.7158L5.64746 11.6465L9.29395 8L5.64746 4.35352L5.58984 4.28418C5.45485 4.08931 5.47389 3.82005 5.64746 3.64648C5.84272 3.45122 6.15923 3.45122 6.35449 3.64648L10.3545 7.64648C10.5281 7.82005 10.5471 8.08931 10.4121 8.28418L10.3545 8.35352L6.35449 12.3535C6.15923 12.5488 5.84272 12.5488 5.64746 12.3535Z" fill="#6A6D8E"/>
                       </svg>
                     </button>
-                    <button id="yearNext" title="Next Year">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                          <rect opacity="0.01" x="16" width="16" height="16" transform="rotate(90 16 0)" fill="white"/>
-                          <path d="M4.64746 4.14648C4.84272 3.95122 5.15923 3.95122 5.35449 4.14648L9.35449 8.14648C9.52806 8.32005 9.54711 8.58931 9.41211 8.78418L9.35449 8.85352L5.35449 12.8535C5.15923 13.0488 4.84272 13.0488 4.64746 12.8535C4.47389 12.6799 4.45485 12.4107 4.58984 12.2158L4.64746 12.1465L8.29395 8.5L4.64746 4.85352L4.58984 4.78418C4.45485 4.58931 4.47389 4.32005 4.64746 4.14648ZM7.14648 4.14648C7.34173 3.95124 7.65825 3.95127 7.85352 4.14648L11.8535 8.14648C12.0271 8.32005 12.0461 8.58931 11.9111 8.78418L11.8535 8.85352L7.85352 12.8535C7.65825 13.0487 7.34173 13.0488 7.14648 12.8535C6.97297 12.68 6.95391 12.4107 7.08887 12.2158L7.14648 12.1465L10.793 8.5L7.14648 4.85352L7.08887 4.78418C6.95391 4.58933 6.97297 4.32004 7.14648 4.14648Z" fill="#6A6D8E"/>
-                      </svg>
-                    </button>
                   </div>
                 </div>
 
                 <div class="calendar-grid" id="calendarGrid"></div>
 
                 <div class="time-slots" id="timeSlots">
-                  <div class="slot" data-start="10:00" data-end="12:00">9:00 ~ 10:30</div>
-                  <div class="slot" data-start="10:00" data-end="12:00">10:30 ~ 12:00</div>
-                  <div class="slot" data-start="10:00" data-end="12:00">12:30 ~ 14:00</div>
-                  <div class="slot" data-start="12:00" data-end="14:00">14:00 ~ 15:30</div>
-                  <div class="slot" data-start="14:00" data-end="16:00">15:00 ~ 17:00</div>
                 </div>
               </div>
             </div>
@@ -925,405 +912,547 @@
 </div>
 
 <script>
-const dateInputDisplay = document.getElementById("dateInputDisplay");
+  document.addEventListener('DOMContentLoaded', () => {
+          
+    const dateInputDisplay = document.getElementById("dateInputDisplay");
 
-dateInputDisplay.classList.add("empty");
-dateInputDisplay.textContent = dateInputDisplay.getAttribute("placeholder");
+    const api = 'https://booster.procolored.com';
+    const showRoomBookingApi = "/procolored/activity/showroom/booking";
+    const showRoomTimeSlotApi = "/procolored/activity/showroom/getTimeSlot";
+    const availableTimeSlotsApi = "/procolored/activity/showroom/availableTimeSlots";
 
-/* ===== Calendar / Timepicker logic ===== */
-const popup = document.getElementById("calendarPopup");
-const input = document.getElementById("dateInput");
-const hiddenDate = document.getElementById("date");
-const grid = document.getElementById("calendarGrid");
-const monthLabel = document.getElementById("monthLabel");
-const timeSlots = document.getElementById("timeSlots");
+    dateInputDisplay.classList.add("empty");
+    dateInputDisplay.textContent = dateInputDisplay.getAttribute("placeholder");
 
-const today = new Date();
-today.setHours(0, 0, 0, 0);
+    /* ===== Calendar / Timepicker logic ===== */
+    const popup = document.getElementById("calendarPopup");
+    const input = document.getElementById("dateInput");
+    const hiddenDate = document.getElementById("date");
+    const grid = document.getElementById("calendarGrid");
+    const monthLabel = document.getElementById("monthLabel");
+    const timeSlots = document.getElementById("timeSlots");
 
-let current = new Date();
-let selectedDateObj = null; // Date object
-let selectedSlot = null;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-const dayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    let current = new Date();
+    let selectedDateObj = null; // Date object
+    let selectedSlot = null;
 
-// render calendar grid (with day names header)
-function renderCalendar() {
-  const year = current.getFullYear();
-  const month = current.getMonth();
-  monthLabel.textContent = `${year} / ${String(month+1).padStart(2,'0')}`;
+    const dayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
-  grid.innerHTML = "";
+    let availableDates = [];
 
-  // day names row
-  dayNames.forEach(d => {
-    const el = document.createElement("div");
-    el.textContent = d;
-    el.className = "day-name";
-    grid.appendChild(el);
-  });
-
-  const firstDay = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month+1, 0).getDate();
-
-  // blank placeholders
-  for (let i = 0; i < firstDay; i++) {
-    const placeholder = document.createElement("div");
-    grid.appendChild(placeholder);
-  }
-
-  for (let d = 1; d <= daysInMonth; d++) {
-    const dateObj = new Date(year, month, d);
-    const day = dateObj.getDay();
-    const cell = document.createElement("div");
-    cell.textContent = String(d).padStart(2, '0');
-    cell.className = "day";
-
-    /* ⭐ 新增：禁用过去日期 */
-    if (dateObj < today) {
-      cell.classList.add("disabled");
+    // helpers
+    function formatDate(d) {
+      if (!d) return "";
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,'0');
+      const day = String(d.getDate()).padStart(2,'0');
+      return `${m} / ${day} / ${y}`;
+    }
+    
+    function formatDate2(d) {
+      if (!d) return "";
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,'0');
+      const day = String(d.getDate()).padStart(2,'0');
+      return `${y}-${m}-${day}`;
     }
 
-    // disable weekend
-    if (day === 0 || day === 6) {
-      cell.classList.add("disabled");
-    } else {
-      cell.addEventListener("click", () => {
-        // select date
-        selectedDateObj = dateObj;
-        // clear previous selection
-        document.querySelectorAll(".day").forEach(c => c.classList.remove("selected"));
-        cell.classList.add("selected");
-        // when selecting a new date, clear previously selected time
-        selectedSlot = null;
-        document.querySelectorAll(".slot").forEach(s => s.classList.remove("selected"));
-        // show date only in input (waiting for time)
-        input.value = formatDate(selectedDateObj);
-        hiddenDate.value = ""; // not final until time picked
-        document.getElementById("dateErr").textContent = "";
+    // render calendar grid (with day names header)
+  function renderCalendar() {
+    const year = current.getFullYear();
+    const month = current.getMonth();
+    
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-        refreshTimeSlots();
+    monthLabel.textContent = `${year} / ${String(month + 1).padStart(2, '0')}`;
+
+    grid.innerHTML = ""; // 清空当前日历内容
+
+    // day names row
+    dayNames.forEach(d => {
+      const el = document.createElement("div");
+      el.textContent = d;
+      el.className = "day-name";
+      grid.appendChild(el);
+    });
+
+
+    // blank placeholders
+    for (let i = 0; i < firstDay; i++) {
+      const placeholder = document.createElement("div");
+      grid.appendChild(placeholder);
+    }
+
+    // 获取所有可用的时间段数据
+  function getAvailableTimeSlots() {
+    let showroomId = 1;
+    if(document.querySelector('.showroom-item.active') != null) {
+      showroomId = document.querySelector('.showroom-item.active').dataset.id
+    }
+    return new Promise((resolve, reject) => {
+      fetch(`${api}${availableTimeSlotsApi}?showroomId=${showroomId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(response => {
+        if (!response.ok) {
+          throw new Error('网络请求失败');
+        }
+        return response.json();
+      }).then(data => {
+        if (data.code === 200) {
+          availableDates = data.result;
+          resolve();  // 完成获取数据
+        } else {
+          reject('返回数据错误');
+        }
+      }).catch(err => {
+        reject(err);
+      });
+    });
+  }
+
+    // 获取所有可预约时间并渲染日历
+    getAvailableTimeSlots().then(() => {
+      // 遍历每一天
+      const year = current.getFullYear();
+      const month = current.getMonth();
+            
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+    
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateObj = new Date(year, month, d);
+        const day = dateObj.getDay();
+        const cell = document.createElement("div");
+        cell.textContent = String(d).padStart(2, '0');
+        cell.className = "day";
+
+        // 禁用过去的日期
+        if (dateObj < today) {
+          cell.classList.add("disabled");
+        }
+
+        // 禁用周末
+        if (day === 0 || day === 6) {
+          cell.classList.add("disabled");
+        } else {
+          // 检查是否该日期是可预约的
+          const dateString = formatDate2(dateObj);
+          const availableDate = availableDates.find(item => item.date === dateString);
+          
+          if (!availableDate) {
+            // 如果该日期没有可预约的时间段，禁用该日期
+            cell.classList.add("disabled");
+          } else {
+            // 否则显示该日期的所有可能时间段
+            cell.addEventListener("click", () => {
+              // 选中日期
+              selectedDateObj = dateObj;
+              // 清除之前的选择
+              document.querySelectorAll(".day").forEach(c => c.classList.remove("selected"));
+              cell.classList.add("selected");
+              // 清除之前选的时间段
+              selectedSlot = null;
+              document.querySelectorAll(".slot").forEach(s => s.classList.remove("selected"));
+              // 显示日期
+              input.value = formatDate(selectedDateObj);
+              hiddenDate.value = ""; // 时间未选定
+              document.getElementById("dateErr").textContent = "";
+              refreshTimeSlots(); // 刷新可选时间段
+              let showroomId = 1;
+              if(document.querySelector('.showroom-item.active') != null) {
+                showroomId = document.querySelector('.showroom-item.active').dataset.id
+              }
+              timeSlots.querySelectorAll(".slot").forEach((slot) => {
+                if(slot.dataset.start == "09:00" && showroomId == 1) slot.classList.add("disabled");
+                if(slot.dataset.start == "10:30" && showroomId == 1) slot.classList.add("disabled");
+                if(slot.dataset.start == "12:30" && showroomId == 1) slot.classList.add("disabled");
+                if(slot.dataset.start == "14:00" && showroomId == 1) slot.classList.remove("disabled");
+                if(slot.dataset.start == "15:30" && showroomId == 1) slot.classList.remove("disabled");
+                if(slot.dataset.start == "09:00" && showroomId == 2) slot.classList.remove("disabled");
+                if(slot.dataset.start == "10:30" && showroomId == 2) slot.classList.remove("disabled");
+                if(slot.dataset.start == "12:30" && showroomId == 2) slot.classList.remove("disabled");
+                if(slot.dataset.start == "14:00" && showroomId == 2) slot.classList.remove("disabled");
+                if(slot.dataset.start == "15:30" && showroomId == 2) slot.classList.remove("disabled");
+              })
+            });
+          }
+        }
+        grid.appendChild(cell);
+      }
+    }).catch((err) => {
+      console.error('获取可预约时间失败', err);
+    });
+
+    // 刷新时间段并禁用已过的时间段
+    function refreshTimeSlots() {
+      const now = new Date();
+      let available = availableDates.find((item) => item.date === formatDate2(selectedDateObj));
+
+      timeSlots.querySelectorAll(".slot").forEach(slot => {
+        slot.classList.remove("disabled");
+
+        if (!selectedDateObj) return;
+
+        const [h, m] = slot.dataset.timeSlot.split(":").map(Number);
+        const slotDate = new Date(
+          selectedDateObj.getFullYear(),
+          selectedDateObj.getMonth(),
+          selectedDateObj.getDate(),
+          h, m, 0
+        );
+
+        // 禁用已过的时间段
+        if (selectedDateObj.getTime() === today.getTime() && slotDate <= now) {
+          slot.classList.add("disabled");
+        }
+
+        available.timeSlots.forEach((item) => {
+          console.log("slot", slot, "item", item);
+          if(slot.innerHTML != item) {
+            slot.classList.add("disabled");
+          }
+        })
       });
     }
-    grid.appendChild(cell);
-  }
-}
 
-/* ------------------ 刷新当天过期时间段 ------------------ */
-function refreshTimeSlots() {
-  const now = new Date();
+    function formatLocalISO(dateObj, timeStr) {
+      const [h, m] = timeStr.split(":").map(Number);
+      const d = new Date(
+        dateObj.getFullYear(),
+        dateObj.getMonth(),
+        dateObj.getDate(),
+        h, m, 0
+      );
 
-  timeSlots.querySelectorAll(".slot").forEach(slot => {
-    slot.classList.remove("disabled");
+      // 输出本地时间 ISO：2025-12-20T10:00:00
+      const y = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      const hh = String(d.getHours()).padStart(2, "0");
+      const mm = String(d.getMinutes()).padStart(2, "0");
+      const ss = String(d.getSeconds()).padStart(2, "0");
 
-    if (!selectedDateObj) return;
-
-    const [h, m] = slot.dataset.start.split(":").map(Number);
-
-    const slotDate = new Date(
-      selectedDateObj.getFullYear(),
-      selectedDateObj.getMonth(),
-      selectedDateObj.getDate(),
-      h, m, 0
-    );
-
-    // ⭐ 新增：今天的已过时间禁用
-    if (selectedDateObj.getTime() === today.getTime() && slotDate <= now) {
-      slot.classList.add("disabled");
-    }
-  });
-}
-
-// helpers
-function formatDate(d) {
-  if (!d) return "";
-  const y = d.getFullYear();
-  const m = String(d.getMonth()+1).padStart(2,'0');
-  const day = String(d.getDate()).padStart(2,'0');
-  return `${m} / ${day} / ${y}`;
-}
-
-function formatLocalISO(dateObj, timeStr) {
-  const [h, m] = timeStr.split(":").map(Number);
-  const d = new Date(
-    dateObj.getFullYear(),
-    dateObj.getMonth(),
-    dateObj.getDate(),
-    h, m, 0
-  );
-
-  // 输出本地时间 ISO：2025-12-20T10:00:00
-  const y = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  const hh = String(d.getHours()).padStart(2, "0");
-  const mm = String(d.getMinutes()).padStart(2, "0");
-  const ss = String(d.getSeconds()).padStart(2, "0");
-
-  return `${y}-${month}-${day}T${hh}:${mm}:${ss}`;
-}
-
-
-function formatFinal(d, slot) {
-  // final format like "2025-12-16   10:00 ~ 12:00"
-  return `${formatDate(d)}   ${slot}`;
-}
-
-// month/year navigation
-/* ------------------ Month Navigation ------------------ */
-document.getElementById("monthPrev").onclick = () => {
-  const prev = new Date(current.getFullYear(), current.getMonth() - 1, 1);
-
-  // ⭐ 新增：阻止跳到今天前的月份
-  if (prev.getFullYear() < today.getFullYear() ||
-      (prev.getFullYear() === today.getFullYear() && prev.getMonth() < today.getMonth())) {
-    return;
-  }
-
-  current = prev;
-  renderCalendar();
-};
-
-document.getElementById("monthNext").onclick = () => { current.setMonth(current.getMonth()+1); renderCalendar(); };
-
-document.getElementById("yearPrev").onclick = () => {
-  const prev = new Date(current.getFullYear() - 1, current.getMonth(), 1);
-
-  if (prev < new Date(today.getFullYear(), today.getMonth(), 1)) return;
-
-  current = prev;
-  renderCalendar();
-};
-
-document.getElementById("yearNext").onclick = () => {
-  current.setFullYear(current.getFullYear() + 1);
-  renderCalendar();
-};
-document.getElementById("yearNext").onclick = () => { current.setFullYear(current.getFullYear()+1); renderCalendar(); };
-
-// time slot click (only works after date selected)
-timeSlots.querySelectorAll(".slot").forEach(slot => {
-  slot.addEventListener("click", () => {
-    // 如果还没选日期，阻止并提示
-    if (!selectedDateObj) {
-      document.getElementById("dateErr").textContent = "Please select a date first.";
-      return;
+      return `${y}-${month}-${day}T${hh}:${mm}:${ss}`;
     }
 
-    // ⭐ 新增：禁止点 disabled slot
-    if (slot.classList.contains("disabled")) return;
 
-    // mark selected slot
-    timeSlots.querySelectorAll(".slot").forEach(s => s.classList.remove("selected"));
-    slot.classList.add("selected");
-    const start = slot.dataset.start;
-    const end = slot.dataset.end;
+    function formatFinal(d, slot) {
+      // final format like "2025-12-16   10:00 ~ 12:00"
+      return `${formatDate(d)}   ${slot}`;
+    }
 
-    // 本地时间格式化 → 2025-03-01T10:00:00
-    const startISO = formatLocalISO(selectedDateObj, start);
-    const endISO = formatLocalISO(selectedDateObj, end);
+    // month/year navigation
+    /* ------------------ Month Navigation ------------------ */
+    document.getElementById("monthPrev").onclick = () => {
+      const prev = new Date(current.getFullYear(), current.getMonth() - 1, 1);
 
-    selectedSlot = { startISO, endISO };
+      // ⭐ 新增：阻止跳到今天前的月份
+      if (prev.getFullYear() < today.getFullYear() ||
+          (prev.getFullYear() === today.getFullYear() && prev.getMonth() < today.getMonth())) {
+        return;
+      }
 
-    dateInputDisplay.innerHTML = `
-      ${formatDate(selectedDateObj)}
-      <span class="time-chip">${start} ~ ${end}</span>
-    `;
-    dateInputDisplay.classList.remove("empty");
+      current = prev;
+      renderCalendar();
+    };
 
-    // 只展示，不用于提交
-    hiddenDate.value = JSON.stringify({
-      start: selectedSlot.startISO,
-      end: selectedSlot.endISO
+    /* ------------------ Month Navigation ------------------ */
+    document.getElementById("monthNext").onclick = () => {
+      const next = new Date(current.getFullYear(), current.getMonth() + 1, 1);
+      // ⭐ 新增：检查该月份是否有可用数据
+    if (!isMonthAvailable(next)) {
+      return;  // 如果没有可用数据，则不跳转
+    }
+      current = next;
+      renderCalendar();
+    };
+
+    // 新增的检查月份是否有数据的函数
+    function isMonthAvailable(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // 获取月为 2 位数字格式
+
+      // 检查 availableDates 中是否有该月的数据
+      return availableDates.some(item => item.date.startsWith(`${year}-${month}`));
+    }
+
+    getTimeSlot();
+
+    function getTimeSlot() {
+      let showroomId = 1;
+      if(document.querySelector('.showroom-item.active') != null) {
+        showroomId = document.querySelector('.showroom-item.active')?.dataset?.id;
+      }
+      fetch(`${api}${showRoomTimeSlotApi}?showroomId=${showroomId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            if(!response.ok) {
+                throw new Error('网络请求失败');
+            }
+            return response.json();
+        }).then(data => {
+          if(data.code === 200) {
+              timeSlots.innerHTML = '';
+              let timeSlotList = data.result.timeSlots;
+              timeSlotList.forEach((item) => {
+                const timeSlotItem = document.createElement('div');
+                timeSlotItem.className = "slot";
+                timeSlotItem.dataset.start = item.split('~')[0];
+                timeSlotItem.dataset.end = item.split('~')[1];
+                timeSlotItem.dataset.timeSlot = item;
+                timeSlotItem.innerHTML = item;
+                timeSlots.appendChild(timeSlotItem);
+              });
+
+              // time slot click (only works after date selected)
+              timeSlots.querySelectorAll(".slot").forEach(slot => {
+                slot.addEventListener("click", () => {
+                  // 如果还没选日期，阻止并提示
+                  if (!selectedDateObj) {
+                    document.getElementById("dateErr").textContent = "Please select a date first.";
+                    return;
+                  }
+
+                  // ⭐ 新增：禁止点 disabled slot
+                  if (slot.classList.contains("disabled")) return;
+
+                  // mark selected slot
+                  timeSlots.querySelectorAll(".slot").forEach(s => s.classList.remove("selected"));
+                  slot.classList.add("selected");
+                  const start = slot.dataset.start;
+                  const end = slot.dataset.end;
+
+                  // 本地时间格式化 → 2025-03-01T10:00:00
+                  const startISO = formatLocalISO(selectedDateObj, start);
+                  const endISO = formatLocalISO(selectedDateObj, end);
+
+                  selectedSlot = { startISO, endISO };
+
+                  dateInputDisplay.innerHTML = `
+                    ${formatDate(selectedDateObj)}
+                    <span class="time-chip">${start} ~ ${end}</span>
+                  `;
+                  dateInputDisplay.classList.remove("empty");
+
+                  // 只展示，不用于提交
+                  hiddenDate.value = JSON.stringify({
+                    start: selectedSlot.startISO,
+                    end: selectedSlot.endISO
+                  });
+
+                  popup.style.display = "none";
+                  popup.setAttribute("aria-hidden","true");
+                  // clear error
+                  document.getElementById("dateErr").textContent = "";
+                });
+              });
+          }
+      });
+    }
+  }
+
+    // open popup
+    dateInputDisplay.addEventListener("click", (e) => {
+      e.stopPropagation();
+      popup.style.display = "flex";
+      popup.setAttribute("aria-hidden","false");
+      renderCalendar();
     });
 
-    popup.style.display = "none";
-    popup.setAttribute("aria-hidden","true");
-    // clear error
-    document.getElementById("dateErr").textContent = "";
-  });
-});
+    const calendarIcon = dateInputDisplay.parentElement.querySelector(".date-icon");
 
-
-// open popup
-dateInputDisplay.addEventListener("click", (e) => {
-  e.stopPropagation();
-  popup.style.display = "flex";
-  popup.setAttribute("aria-hidden","false");
-});
-
-const calendarIcon = dateInputDisplay.parentElement.querySelector(".date-icon");
-
-// ✅ 点击日历 icon → 也打开日历
-calendarIcon.addEventListener("click", (e) => {
-    e.stopPropagation();
-    popup.style.display = "flex";
-    popup.setAttribute("aria-hidden","false");
-});
-
-// close on outside click
-document.addEventListener("click", (e) => {
-  if (!popup.contains(e.target) && e.target !== input) {
-    popup.style.display = "none";
-    popup.setAttribute("aria-hidden","true");
-  }
-});
-
-// prevent clicks inside popup from closing (stopPropagation)
-popup.addEventListener("click", (e) => e.stopPropagation());
-
-renderCalendar();
-
-/* ===== Form helpers ===== */
-function getCheckedValues(selector) {
-  return Array.from(document.querySelectorAll(selector)).map(el => {
-    // prefer value attribute (we set values for models/types), fallback to label text
-    return el.value ? el.value.trim() : el.parentElement.textContent.trim();
-  });
-}
-
-/* ===== Validation and submit ===== */
-const submitBtn = document.getElementById("submitBtn");
-const submitMsg = document.getElementById("submitMsg");
-submitBtn.addEventListener("click", async () => {
-  // reset errors
-  ["nameErr","phoneErr","emailErr","dateErr","modelsErr","businessTypesErr","purposesErr","materialsErr","outputErr"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = "";
-  });
-
-  document.getElementById("submitMsg").textContent = "";
-
-  const name = document.getElementById("name").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const visit = document.getElementById("date").value.trim(); // hidden final value
-  const models = getCheckedValues('input[name="model"]:checked');
-
-  // 先声明 hasError
-  let hasError = false;
-
-  // 这里即时获取被选中的 radio（避免未定义错误）
-  const businessTypeEl = document.querySelector('input[name="type"]:checked');
-  const materialEl = document.querySelector('input[name="material"]:checked');
-
-  // Business Type 处理
-  let businessTypes = [];
-  if (businessTypeEl) {
-    if (businessTypeEl.value === "Other") {
-      if (!otherTypeInput.value || !otherTypeInput.value.trim()) {
-        document.getElementById("businessTypesErr").textContent = "Please fill in Other business type.";
-        hasError = true;
-      } else {
-        businessTypes = [otherTypeInput.value.trim()];
-      }
-    } else {
-      businessTypes = [businessTypeEl.value];
-    }
-  }
-
-  // Purposes
-  const purposes = getCheckedValues('.purpose-group input[type="checkbox"]:checked');
-
-  // Materials 处理
-  let materials = [];
-  if (materialEl) {
-    if (materialEl.value === "Other") {
-      if (!otherMaterialInput.value || !otherMaterialInput.value.trim()) {
-        document.getElementById("materialsErr").textContent = "Please fill in Other material.";
-        hasError = true;
-      } else {
-        materials = [otherMaterialInput.value.trim()];
-      }
-    } else {
-      materials = [materialEl.value];
-    }
-  }
-
-  const outputEl = document.querySelector('input[name="output"]:checked');
-  const output = outputEl ? outputEl.value : "";
-  const agree = document.getElementById("agree").checked;
-
-  // 基础校验
-  if (!name) { document.getElementById("nameErr").textContent = "Please fill your name"; hasError = true; }
-  if (!phone) { document.getElementById("phoneErr").textContent = "Please fill your phone"; hasError = true; }
-  if (!email) { document.getElementById("emailErr").textContent = "Please fill your email"; hasError = true; }
-
-  // 检查是否有最终选好的时间段
-  if (!selectedSlot || !selectedSlot.startISO || !selectedSlot.endISO) {
-    document.getElementById("dateErr").textContent = "Please select a date and time (weekdays only).";
-    hasError = true;
-  }
-
-  if (!models.length) { document.getElementById("modelsErr").textContent = "Please select at least one model."; hasError = true; }
-  if (!businessTypes.length) { document.getElementById("businessTypesErr").textContent = "Please select at least one business type."; hasError = true; }
-  if (!purposes.length) { document.getElementById("purposesErr").textContent = "Please select at least one purpose."; hasError = true; }
-  if (!materials.length) { document.getElementById("materialsErr").textContent = "Please select at least one material."; hasError = true; }
-  if (!output) { document.getElementById("outputErr").textContent = "Please select expected daily output."; hasError = true; }
-
-  if(hasError) return;
-
-  // build payload
-  const postData = {
-    showroomId: document.querySelector('.showroom-item.active').dataset.id,
-    name,
-    phoneNumber: phone,
-    email,
-    visitDateStart: selectedSlot.startISO,
-    visitDateEnd: selectedSlot.endISO,
-    modelOfInterest: models.join(", "),
-    businessType: businessTypes.join(", "),
-    primaryPurpose: purposes.join(", "),
-    primaryMaterials: materials.join(", "),
-    expectedDailyOutput: output,
-    agreePolicy: agree ? 1 : 0,
-    customerId: JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer.id || {},
-    origin: "Shopify_US"
-  };
-
-  // send request
-  const api = 'https://booster.procolored.com';
-  const showRoomBookingApi = "/procolored/activity/showroom/booking";
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Submitting...";
-  {% comment %} const customId = JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer.id || {}; {% endcomment %}
-  try {
-    const res = await fetch(`${api}${showRoomBookingApi}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(postData),
+    // ✅ 点击日历 icon → 也打开日历
+    calendarIcon.addEventListener("click", (e) => {
+        e.stopPropagation();
+        popup.style.display = "flex";
+        popup.setAttribute("aria-hidden","false");
+        renderCalendar();
     });
 
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(`Server error: ${res.status} ${text}`);
+    // close on outside click
+    document.addEventListener("click", (e) => {
+      if (!popup.contains(e.target) && e.target !== input) {
+        popup.style.display = "none";
+        popup.setAttribute("aria-hidden","true");
+      }
+    });
+
+    // prevent clicks inside popup from closing (stopPropagation)
+    popup.addEventListener("click", (e) => e.stopPropagation());
+
+    /* ===== Form helpers ===== */
+    function getCheckedValues(selector) {
+      return Array.from(document.querySelectorAll(selector)).map(el => {
+        // prefer value attribute (we set values for models/types), fallback to label text
+        return el.value ? el.value.trim() : el.parentElement.textContent.trim();
+      });
     }
 
-    // success
-    document.getElementById("successPopup").style.display = "flex";
-    submitBtn.textContent = "Submit Your Reserve Application";
-  } catch (err) {
-    console.error(err);
-    submitMsg.style.color = "red";
-    submitMsg.textContent = "Submit failed. Please try again later.";
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Submit Your Reserve Application";
-  }
-});
+    /* ===== Validation and submit ===== */
+    const submitBtn = document.getElementById("submitBtn");
+    const submitMsg = document.getElementById("submitMsg");
+    submitBtn.addEventListener("click", async () => {
+      // reset errors
+      ["nameErr","phoneErr","emailErr","dateErr","modelsErr","businessTypesErr","purposesErr","materialsErr","outputErr"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = "";
+      });
 
-document.getElementById("successOk").addEventListener("click", () => {
-  document.getElementById("successPopup").style.display = "none";
-});
+      document.getElementById("submitMsg").textContent = "";
 
-/* ===== Other Option Logic ===== */
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const visit = document.getElementById("date").value.trim(); // hidden final value
+      const models = getCheckedValues('input[name="model"]:checked');
 
-// Business Type - Other
-const typeRadios = document.querySelectorAll('input[name="type"]');
-const otherTypeInput = document.getElementById("otherTypeInput");
+      // 先声明 hasError
+      let hasError = false;
 
-// Material - Other
-const materialRadios = document.querySelectorAll('input[name="material"]');
-const otherMaterialInput = document.getElementById("otherMaterialInput");
+      // 这里即时获取被选中的 radio（避免未定义错误）
+      const businessTypeEl = document.querySelector('input[name="type"]:checked');
+      const materialEl = document.querySelector('input[name="material"]:checked');
+
+      // Business Type 处理
+      let businessTypes = [];
+      if (businessTypeEl) {
+        if (businessTypeEl.value === "Other") {
+          if (!otherTypeInput.value || !otherTypeInput.value.trim()) {
+            document.getElementById("businessTypesErr").textContent = "Please fill in Other business type.";
+            hasError = true;
+          } else {
+            businessTypes = [otherTypeInput.value.trim()];
+          }
+        } else {
+          businessTypes = [businessTypeEl.value];
+        }
+      }
+
+      // Purposes
+      const purposes = getCheckedValues('.purpose-group input[type="checkbox"]:checked');
+
+      // Materials 处理
+      let materials = [];
+      if (materialEl) {
+        if (materialEl.value === "Other") {
+          if (!otherMaterialInput.value || !otherMaterialInput.value.trim()) {
+            document.getElementById("materialsErr").textContent = "Please fill in Other material.";
+            hasError = true;
+          } else {
+            materials = [otherMaterialInput.value.trim()];
+          }
+        } else {
+          materials = [materialEl.value];
+        }
+      }
+
+      const outputEl = document.querySelector('input[name="output"]:checked');
+      const output = outputEl ? outputEl.value : "";
+      const agree = document.getElementById("agree").checked;
+
+      // 基础校验
+      if (!name) { document.getElementById("nameErr").textContent = "Please fill your name"; hasError = true; }
+      if (!phone) { document.getElementById("phoneErr").textContent = "Please fill your phone"; hasError = true; }
+      if (!email) { document.getElementById("emailErr").textContent = "Please fill your email"; hasError = true; }
+
+      // 检查是否有最终选好的时间段
+      if (!selectedSlot || !selectedSlot.startISO || !selectedSlot.endISO) {
+        document.getElementById("dateErr").textContent = "Please select a date and time (weekdays only).";
+        hasError = true;
+      }
+
+      if (!models.length) { document.getElementById("modelsErr").textContent = "Please select at least one model."; hasError = true; }
+      if (!businessTypes.length) { document.getElementById("businessTypesErr").textContent = "Please select at least one business type."; hasError = true; }
+      if (!purposes.length) { document.getElementById("purposesErr").textContent = "Please select at least one purpose."; hasError = true; }
+      if (!materials.length) { document.getElementById("materialsErr").textContent = "Please select at least one material."; hasError = true; }
+      if (!output) { document.getElementById("outputErr").textContent = "Please select expected daily output."; hasError = true; }
+
+      if(hasError) return;
+      if(JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer === null) {
+        const modalLogin = document.querySelector("modal-login");
+        if (modalLogin) {
+          console.log("modalLogin", modalLogin);
+          const loginForm = modalLogin.showModal(
+            modalLogin.fetchForm.login.innerHTML
+          );
+          modalLogin.loginBindEvent(loginForm.el);
+        } else {
+          console.warn("modalLogin 元素不存在");
+        }
+      } else {
+        // build payload
+        const postData = {
+          showroomId: document.querySelector('.showroom-item.active').dataset.id,
+          name,
+          phoneNumber: phone,
+          email,
+          visitDateStart: selectedSlot.startISO,
+          visitDateEnd: selectedSlot.endISO,
+          modelOfInterest: models.join(", "),
+          businessType: businessTypes.join(", "),
+          primaryPurpose: purposes.join(", "),
+          primaryMaterials: materials.join(", "),
+          expectedDailyOutput: output,
+          agreePolicy: agree ? 1 : 0,
+          customerId: JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer.id || {},
+          origin: "Shopify_US"
+        };
+
+        // send request
+        
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Submitting...";
+        {% comment %} const customId = JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer.id || {}; {% endcomment %}
+        try {
+          const res = await fetch(`${api}${showRoomBookingApi}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(postData),
+          });
+
+          if (!res.ok) {
+            const text = await res.text();
+            throw new Error(`Server error: ${res.status} ${text}`);
+          }
+
+          // success
+          document.getElementById("successPopup").style.display = "flex";
+          submitBtn.textContent = "Submit Your Reserve Application";
+        } catch (err) {
+          console.error(err);
+          submitMsg.style.color = "red";
+          submitMsg.textContent = "Submit failed. Please try again later.";
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Submit Your Reserve Application";
+        }
+      }
+      
+    });
+
+    document.getElementById("successOk").addEventListener("click", () => {
+      document.getElementById("successPopup").style.display = "none";
+    });
+
+    /* ===== Other Option Logic ===== */
+
+    // Business Type - Other
+    const typeRadios = document.querySelectorAll('input[name="type"]');
+    const otherTypeInput = document.getElementById("otherTypeInput");
+
+    // Material - Other
+    const materialRadios = document.querySelectorAll('input[name="material"]');
+    const otherMaterialInput = document.getElementById("otherMaterialInput");
+  })
 </script>
 
 {% schema %}

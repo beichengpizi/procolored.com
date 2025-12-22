@@ -1,0 +1,105 @@
+<script src="https://unpkg.com/localstorage-slim@2.7.0/dist/localstorage-slim.js" defer></script>
+<script async src="https://asset.fwcdn3.com/js/storyblock.js"></script>
+<div id="fw_combined_player-{{ section.id }}"></div>
+<script>
+  $(document).ready(function () {
+    const channel = '{{ section.settings.channel }}';
+    const playlist_ID = '{{ section.settings.playlist_ID }}';
+    const ttl = {{ section.settings.ttl | default: 1 }}; 
+    const floating_player_placement = '{{ section.settings.floating_player_placement }}';
+    {% comment %} 判断#fw-player是否存在 {% endcomment %}
+    if (document.getElementById('fw_combined_player-{{ section.id }}') && channel != '' && playlist_ID != '' ) {
+      console.log('#fw-player 存在');
+      // 设置localstorage-slim全局默认ttl为24小时
+      ls.config.ttl = 3600 * 24; // global ttl set to 24 hours
+
+      // 监听浮窗播放器关闭事件，在本地存储中标记player_closed，并设置ttl为30秒（即30秒内不再弹出浮窗）
+      // 监听自定义事件 fw:player:quit（代表 Firework 浮窗播放器被用户主动关闭）
+      // 作用：当播放器被关闭时，在 localStorage 中标记 player_closed 状态，且设置一个有效期（ttl，单位秒），
+      //      在这段 ttl 时间内，下次页面刷新不会再次弹出浮窗播放器，实现“短期内不再显示”效果。
+      document.addEventListener('fw:player:quit', function(event) {
+        ls.set('player_closed', 'OFF', { ttl: ttl }); // ttl为弹窗关闭后短期不再显示的秒数
+      });
+
+      // 检查浮窗是否应该显示（30秒内用户关闭过则不显示)
+      function check_widget_visibility() {
+        // 如果没有关闭（值不是"OFF"），则显示播放器
+        if (ls.get('player_closed') !== "OFF") {
+          const player = document.createElement("span");
+          // 插入fw-storyblock播放器到页面
+          player.innerHTML = `<fw-storyblock id="move-to-body" channel="${channel}" playlist="${playlist_ID}" hashtag="" mode="pinned" size="medium" pip="true" placement="middle" player_placement="${floating_player_placement}" class="needsclick"></fw-storyblock>`;
+          document.getElementById("fw_combined_player-{{ section.id }}").appendChild(player);
+        }
+      }
+
+      // 页面加载时检查是否显示浮窗
+      check_widget_visibility();
+    } else {
+      console.log('#fw-player 不存在');
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Firework Embed",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "内容配置"
+    },
+    {
+      "type": "text",
+      "id": "channel",
+      "label": "Channel*",
+      "default": "procolored"
+    },
+    {
+      "type": "text",
+      "id": "playlist_ID",
+      "label": "Playlist ID",
+      "default": "gOdre6",
+      "info": "[How to find Channel and Playlist ID](https://help.firework.com/leveraging-the-shopify-embed-app)"
+    },
+    {
+      "type": "number",
+      "id": "ttl",
+      "label": "ttl（秒）",
+      "default": 86400,
+      "info": "浮窗播放器关闭事件,设置ttl为86400秒（24小时）（即24小时内不再弹出浮窗）"
+    },
+    {
+      "type": "select",
+      "id": "floating_player_placement",
+      "label": "浮窗播放器位置",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "左上角"
+        },
+        {
+          "value": "top-right",
+          "label": "右上角"
+        },
+        {
+          "value": "bottom-left",
+          "label": "左下角"
+        },
+        {
+          "value": "bottom-right",
+          "label": "右下角"
+        }
+      ],
+      "default": "bottom-left",
+      "info": "仅适用于浮窗播放器布局"
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Firework Embed"
+    }
+  ]
+}
+{% endschema %}

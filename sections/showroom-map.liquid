@@ -325,27 +325,38 @@
 <script>
   const api = 'https://booster.procolored.com';
   const showRoomMapApi = "/procolored/activity/showroom/getShowroomList";
+  const showRoomTimeSlotApi = "/procolored/activity/showroom/getTimeSlot";
+  const availableTimeSlotsApi = "/procolored/activity/showroom/availableTimeSlots";
 
   let map;
   let marker;
 
+  let showroomId = 1;
+
+  const timeSlots = document.getElementById("timeSlots");
+
   async function loadShowrooms() {
     try {
-      const response = await fetch(`${api}${showRoomMapApi}?pageNum=1&pageSize=10`);
-      const data = await response.json();
-
-      if (data.code !== 200) return;
-
-      const result = data.result;
-
-      // 渲染右侧列表
-      renderShowroomList(result);
-
-      document.querySelector(".result-num").innerHTML = `${data.resultSize} Results`;
-
-      // 初始化地图（使用第一个 showroom）
-      initMap(result[0]);
-
+      await fetch(`${api}${showRoomMapApi}?pageNum=1&pageSize=10`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+      }).then(response => {
+        if(!response.ok) {
+            throw new Error('网络请求失败');
+        }
+        return response.json();
+      }).then(data => {
+        if(data.code === 200) {
+          const result = data.result;
+          // 渲染右侧列表
+          renderShowroomList(result);
+          document.querySelector(".result-num").innerHTML = `${data.resultSize} Results`;
+          // 初始化地图（使用第一个 showroom）
+          initMap(result[0]);
+        }
+      });
     } catch (err) {
       console.error("请求失败", err);
     }
@@ -495,12 +506,11 @@
         </svg>
         Resting
      </div>`;
-    else if(status === 1) return `<div class="status open">
+    else if(status === 1 && isWithinBusinessHours()) return `<div class="status open">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M4.08331 4.08337L9.91665 9.91671" stroke="#5D5D5D" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M4.08331 9.91671L9.91665 4.08337" stroke="#5D5D5D" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12.5416 3.2085L4.92185 10.7918L1.45831 7.34485" stroke="#36D399" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        Resting
+        Opening
     </div>`;
     else return `<div class="status construction">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -509,6 +519,39 @@
         Under Construction
     </div>`;
   }
+
+  function isWithinBusinessHours() {
+      const now = new Date(); // 获取当前时间
+      const dayOfWeek = now.getDay(); // 获取当前星期几 (0: Sun, 1: Mon, ..., 6: Sat)
+      const hours = now.getHours(); // 当前小时
+      const minutes = now.getMinutes(); // 当前分钟
+
+      // 判断是否是工作日（周一至周五）
+      if (dayOfWeek < 1 || dayOfWeek > 5) {
+          return false; // 如果是周末，返回 false
+      }
+
+      // 判断当前时间是否在指定时间段内
+      // 上午 09:00 - 12:00
+      const morningStart = 9 * 60; // 09:00 转换为分钟
+      const morningEnd = 12 * 60; // 12:00 转换为分钟
+
+      // 下午 12:30 - 17:00
+      const afternoonStart = 12 * 60 + 30; // 12:30 转换为分钟
+      const afternoonEnd = 17 * 60; // 17:00 转换为分钟
+
+      // 当前时间的分钟数
+      const currentTimeInMinutes = hours * 60 + minutes;
+
+      // 判断当前时间是否在工作时间内
+      if ((currentTimeInMinutes >= morningStart && currentTimeInMinutes <= morningEnd) || 
+          (currentTimeInMinutes >= afternoonStart && currentTimeInMinutes <= afternoonEnd)) {
+          return true; // 在工作时间内
+      }
+
+      return false; // 不在工作时间内
+  }
+
 
   /** 初始化地图 */
   function initMap(firstItem) {
@@ -538,10 +581,21 @@
     
   const banner = document.querySelector('.section-image-with-text-overlay');
   banner.addEventListener('click', () => {
-    document.getElementById("showroom-map").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-    });
+    if(JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer === null) {
+      const modalLogin = document.querySelector("modal-login");
+      if (modalLogin) {
+        console.log("modalLogin", modalLogin);
+        const loginForm = modalLogin.showModal(
+          modalLogin.fetchForm.login.innerHTML
+        );
+        modalLogin.loginBindEvent(loginForm.el);
+      }
+    } else {
+      document.getElementById("showroom-map").scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+      });
+    }
   })
 </script>
 

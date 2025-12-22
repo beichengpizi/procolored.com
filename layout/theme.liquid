@@ -549,7 +549,6 @@
       </div>
       <!-- 直播小窗口 Live broadcast window start -->
       {% if template contains 'index' %}
-        
         {% comment %} {% render 'live-broadcast-window' %} {% endcomment %}
       {% endif %}
       <!-- 跳转到社区站点 start -->
@@ -669,6 +668,13 @@
     <link rel="preload" as="script" href="{{ 'wow.js' | asset_url }}">
     <script type="text/javascript" src="{{ 'wow.js' | asset_url }}"></script>
     <script type="text/javascript" src="{{ 'lazysizes.js' | asset_url }}" defer></script>
+    {% comment %} 视频懒加载 {% endcomment %}
+    <script src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/lazyload.min.js?v=1766372431"></script>
+    <script>
+      var lazyLoadInstance = new LazyLoad({
+        // Your custom settings go here
+      });
+    </script>
     <script type="text/javascript" src="{{ 'jquery.countdown.min.js' | asset_url }}"></script>
     <script type="text/javascript" src="{{ 'bootstrap.min.js' | asset_url }}"></script>
     {{ 'product.js' | asset_url | script_tag }}
