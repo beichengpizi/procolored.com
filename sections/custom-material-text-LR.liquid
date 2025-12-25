@@ -137,13 +137,27 @@
   #detail-section1-{{section.id}} .title {
     text-align: center;
     margin-bottom: {{section.settings.heading_margin_bottom}}px;
-    color: {{section.settings.heading_color}};
+    {% if section.settings.heading_gradient_color != blank and section.settings.heading_gradient_color != '' %}
+      background: {{ section.settings.heading_gradient_color }};
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    {% else %}
+      color: {{section.settings.heading_color}};
+    {% endif %}
   }
   #detail-section1-{{section.id}} .subheading {
     margin-bottom: {{section.settings.subheading_margin_bottom}}px;
-    color: {{section.settings.subheading_color}};
-    text-transform: initial;
-    letter-spacing: 0px;
+    {% if section.settings.subheading_gradient_color != blank and section.settings.subheading_gradient_color != '' %}
+      background: {{ section.settings.subheading_gradient_color }};
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    {% else %}
+      color: {{section.settings.subheading_color}};
+    {% endif %}
   }
   #detail-section1-{{section.id}} .title,
   #detail-section1-{{section.id}} .subheading,
@@ -153,9 +167,17 @@
   }
   #detail-section1-{{section.id}} .content {
     margin-bottom: {{section.settings.content_margin_bottom}}px;
-    color: {{section.settings.desc_color}};
     line-height: 1.3;
     text-align: {{ section.settings.content_alignment }};
+    {% if section.settings.desc_gradient_color != blank and section.settings.desc_gradient_color != '' %}
+      background: {{ section.settings.desc_gradient_color }};
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    {% else %}
+      color: {{section.settings.desc_color}};
+    {% endif %}
   }
   #detail-section1-{{section.id}} .button_link {
     display: inline-flex;
@@ -462,7 +484,7 @@
                   {%- when 'materialLRVideo' -%}
                     {%- if block.settings.video -%}
                       <div class="show_desktop">
-                          <video
+                        <video
                           data-poster="{{ block.settings.video.preview_image | image_url:width:1000 }}"
                           class="lazy"
                           preload="none"
@@ -485,7 +507,7 @@
 
                     {%- if block.settings.video_mobile -%}
                       <div class="show_mobile">
-                         <video
+                        <video
                           data-poster="{{ block.settings.video_mobile.preview_image | image_url:width:1000 }}"
                           class="lazy"
                           preload="none"
@@ -1419,16 +1441,31 @@
       "default": "#000000"
     },
     {
+      "type": "color_background",
+      "id": "heading_gradient_color",
+      "label": "主标题字体渐变色"
+    },
+    {
       "type": "color",
-      "id": "subheading_color",
+      "id": "subheading_color", 
       "label": "副标题字体颜色",
       "default": "#000"
+    },
+    {
+      "type": "color_background",
+      "id": "subheading_gradient_color",
+      "label": "副标题字体渐变色"
     },
     {
       "type": "color",
       "id": "desc_color",
       "label": "正文字体颜色",
       "default": "#000000"
+    },
+    {
+      "type": "color_background",
+      "id": "desc_gradient_color",
+      "label": "正文字体渐变色"
     },
     {
       "type": "color",

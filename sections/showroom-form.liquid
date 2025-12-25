@@ -917,6 +917,7 @@
     const dateInputDisplay = document.getElementById("dateInputDisplay");
 
     const api = 'https://booster.procolored.com';
+    {% comment %} const api = 'https://test.procolored.com'; //测试环境 {% endcomment %}
     const showRoomBookingApi = "/procolored/activity/showroom/booking";
     const showRoomTimeSlotApi = "/procolored/activity/showroom/getTimeSlot";
     const availableTimeSlotsApi = "/procolored/activity/showroom/availableTimeSlots";
@@ -961,305 +962,296 @@
     }
 
     // render calendar grid (with day names header)
-  function renderCalendar() {
-    const year = current.getFullYear();
-    const month = current.getMonth();
-    
-    const firstDay = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-    monthLabel.textContent = `${year} / ${String(month + 1).padStart(2, '0')}`;
-
-    grid.innerHTML = ""; // 清空当前日历内容
-
-    // day names row
-    dayNames.forEach(d => {
-      const el = document.createElement("div");
-      el.textContent = d;
-      el.className = "day-name";
-      grid.appendChild(el);
-    });
-
-
-    // blank placeholders
-    for (let i = 0; i < firstDay; i++) {
-      const placeholder = document.createElement("div");
-      grid.appendChild(placeholder);
-    }
-
-    // 获取所有可用的时间段数据
-  function getAvailableTimeSlots() {
-    let showroomId = 1;
-    if(document.querySelector('.showroom-item.active') != null) {
-      showroomId = document.querySelector('.showroom-item.active').dataset.id
-    }
-    return new Promise((resolve, reject) => {
-      fetch(`${api}${availableTimeSlotsApi}?showroomId=${showroomId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then(response => {
-        if (!response.ok) {
-          throw new Error('网络请求失败');
-        }
-        return response.json();
-      }).then(data => {
-        if (data.code === 200) {
-          availableDates = data.result;
-          resolve();  // 完成获取数据
-        } else {
-          reject('返回数据错误');
-        }
-      }).catch(err => {
-        reject(err);
-      });
-    });
-  }
-
-    // 获取所有可预约时间并渲染日历
-    getAvailableTimeSlots().then(() => {
-      // 遍历每一天
+    function renderCalendar() {
       const year = current.getFullYear();
       const month = current.getMonth();
-            
+      
       const firstDay = new Date(year, month, 1).getDay();
       const daysInMonth = new Date(year, month + 1, 0).getDate();
-    
-      for (let d = 1; d <= daysInMonth; d++) {
-        const dateObj = new Date(year, month, d);
-        const day = dateObj.getDay();
-        const cell = document.createElement("div");
-        cell.textContent = String(d).padStart(2, '0');
-        cell.className = "day";
 
-        // 禁用过去的日期
-        if (dateObj < today) {
-          cell.classList.add("disabled");
+      monthLabel.textContent = `${year} / ${String(month + 1).padStart(2, '0')}`;
+
+      grid.innerHTML = ""; // 清空当前日历内容
+
+      // day names row
+      dayNames.forEach(d => {
+        const el = document.createElement("div");
+        el.textContent = d;
+        el.className = "day-name";
+        grid.appendChild(el);
+      });
+
+
+      // blank placeholders
+      for (let i = 0; i < firstDay; i++) {
+        const placeholder = document.createElement("div");
+        grid.appendChild(placeholder);
+      }
+
+      // 获取所有可用的时间段数据
+      function getAvailableTimeSlots() {
+        let showroomId = 1;
+        if(document.querySelector('.showroom-item.active') != null) {
+          showroomId = document.querySelector('.showroom-item.active').dataset.id
         }
+        return new Promise((resolve, reject) => {
+          fetch(`${api}${availableTimeSlotsApi}?showroomId=${showroomId}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then(response => {
+            if (!response.ok) {
+              throw new Error('网络请求失败');
+            }
+            return response.json();
+          }).then(data => {
+            if (data.code === 200) {
+              availableDates = data.result;
+              resolve();  // 完成获取数据
+            } else {
+              reject('返回数据错误');
+            }
+          }).catch(err => {
+            reject(err);
+          });
+        });
+      }
 
-        // 禁用周末
-        if (day === 0 || day === 6) {
-          cell.classList.add("disabled");
-        } else {
-          // 检查是否该日期是可预约的
-          const dateString = formatDate2(dateObj);
-          const availableDate = availableDates.find(item => item.date === dateString);
-          
-          if (!availableDate) {
-            // 如果该日期没有可预约的时间段，禁用该日期
+      getTimeSlot().then(() => getAvailableTimeSlots())
+      .then(() => {
+        // 遍历每一天
+        const year = current.getFullYear();
+        const month = current.getMonth();
+              
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+      
+        for (let d = 1; d <= daysInMonth; d++) {
+          const dateObj = new Date(year, month, d);
+          const day = dateObj.getDay();
+          const cell = document.createElement("div");
+          cell.textContent = String(d).padStart(2, '0');
+          cell.className = "day";
+
+          // 禁用过去的日期
+          if (dateObj < today) {
+            cell.classList.add("disabled");
+          }
+
+          // 禁用周末
+          if (day === 0 || day === 6) {
             cell.classList.add("disabled");
           } else {
-            // 否则显示该日期的所有可能时间段
-            cell.addEventListener("click", () => {
-              // 选中日期
-              selectedDateObj = dateObj;
-              // 清除之前的选择
-              document.querySelectorAll(".day").forEach(c => c.classList.remove("selected"));
-              cell.classList.add("selected");
-              // 清除之前选的时间段
-              selectedSlot = null;
-              document.querySelectorAll(".slot").forEach(s => s.classList.remove("selected"));
-              // 显示日期
-              input.value = formatDate(selectedDateObj);
-              hiddenDate.value = ""; // 时间未选定
-              document.getElementById("dateErr").textContent = "";
-              refreshTimeSlots(); // 刷新可选时间段
-              let showroomId = 1;
-              if(document.querySelector('.showroom-item.active') != null) {
-                showroomId = document.querySelector('.showroom-item.active').dataset.id
-              }
-              timeSlots.querySelectorAll(".slot").forEach((slot) => {
-                if(slot.dataset.start == "09:00" && showroomId == 1) slot.classList.add("disabled");
-                if(slot.dataset.start == "10:30" && showroomId == 1) slot.classList.add("disabled");
-                if(slot.dataset.start == "12:30" && showroomId == 1) slot.classList.add("disabled");
-                if(slot.dataset.start == "14:00" && showroomId == 1) slot.classList.remove("disabled");
-                if(slot.dataset.start == "15:30" && showroomId == 1) slot.classList.remove("disabled");
-                if(slot.dataset.start == "09:00" && showroomId == 2) slot.classList.remove("disabled");
-                if(slot.dataset.start == "10:30" && showroomId == 2) slot.classList.remove("disabled");
-                if(slot.dataset.start == "12:30" && showroomId == 2) slot.classList.remove("disabled");
-                if(slot.dataset.start == "14:00" && showroomId == 2) slot.classList.remove("disabled");
-                if(slot.dataset.start == "15:30" && showroomId == 2) slot.classList.remove("disabled");
-              })
-            });
+            // 检查是否该日期是可预约的
+            const dateString = formatDate2(dateObj);
+            const availableDate = availableDates.find(item => item.date === dateString);
+            
+            if (!availableDate) {
+              // 如果该日期没有可预约的时间段，禁用该日期
+              cell.classList.add("disabled");
+            } else {
+              // 否则显示该日期的所有可能时间段
+              cell.addEventListener("click", () => {
+                // 选中日期
+                selectedDateObj = dateObj;
+                // 清除之前的选择
+                document.querySelectorAll(".day").forEach(c => c.classList.remove("selected"));
+                cell.classList.add("selected");
+                // 清除之前选的时间段
+                selectedSlot = null;
+                document.querySelectorAll(".slot").forEach(s => s.classList.remove("selected"));
+                // 显示日期
+                input.value = formatDate(selectedDateObj);
+                hiddenDate.value = ""; // 时间未选定
+                document.getElementById("dateErr").textContent = "";
+                refreshTimeSlots(); // 刷新可选时间段
+              });
+            }
           }
+          grid.appendChild(cell);
         }
-        grid.appendChild(cell);
+
+        // 默认选中最早可用时间
+        if (availableDates.length > 0) {
+            const earliestDate = availableDates[0];
+            selectedDateObj = new Date(earliestDate.date);
+            grid.querySelector(".day:not(.disabled)").classList.add("selected");
+            input.value = formatDate(selectedDateObj);
+            hiddenDate.value = earliestDate.date;
+            refreshTimeSlots(); // 刷新可选时间段
+        }
+      }).catch((err) => {
+        console.error('获取可预约时间失败', err);
+      });
+
+      // 刷新时间段并禁用已过的时间段
+      function refreshTimeSlots() {
+        const now = new Date();
+        let available = availableDates.find((item) => item.date === formatDate2(selectedDateObj));
+
+        timeSlots.querySelectorAll(".slot").forEach(slot => {
+          if (!selectedDateObj) return;
+
+          const [h, m] = slot.dataset.timeSlot.split(":").map(Number);
+          const slotDate = new Date(
+            selectedDateObj.getFullYear(),
+            selectedDateObj.getMonth(),
+            selectedDateObj.getDate(),
+            h, m, 0
+          );
+
+          // 禁用已过的时间段
+          if (selectedDateObj.getTime() === today.getTime() && slotDate <= now) {
+            slot.classList.add("disabled");
+          }
+
+          available.timeSlots.forEach((item) => {
+            if(slot.innerHTML == item) {
+              slot.classList.remove("disabled");
+            }
+          })
+        });
       }
-    }).catch((err) => {
-      console.error('获取可预约时间失败', err);
-    });
 
-    // 刷新时间段并禁用已过的时间段
-    function refreshTimeSlots() {
-      const now = new Date();
-      let available = availableDates.find((item) => item.date === formatDate2(selectedDateObj));
-
-      timeSlots.querySelectorAll(".slot").forEach(slot => {
-        slot.classList.remove("disabled");
-
-        if (!selectedDateObj) return;
-
-        const [h, m] = slot.dataset.timeSlot.split(":").map(Number);
-        const slotDate = new Date(
-          selectedDateObj.getFullYear(),
-          selectedDateObj.getMonth(),
-          selectedDateObj.getDate(),
+      function formatLocalISO(dateObj, timeStr) {
+        const [h, m] = timeStr.split(":").map(Number);
+        const d = new Date(
+          dateObj.getFullYear(),
+          dateObj.getMonth(),
+          dateObj.getDate(),
           h, m, 0
         );
 
-        // 禁用已过的时间段
-        if (selectedDateObj.getTime() === today.getTime() && slotDate <= now) {
-          slot.classList.add("disabled");
+        // 输出本地时间 ISO：2025-12-20T10:00:00
+        const y = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, "0");
+        const day = String(d.getDate()).padStart(2, "0");
+        const hh = String(d.getHours()).padStart(2, "0");
+        const mm = String(d.getMinutes()).padStart(2, "0");
+        const ss = String(d.getSeconds()).padStart(2, "0");
+
+        return `${y}-${month}-${day}T${hh}:${mm}:${ss}`;
+      }
+
+
+      function formatFinal(d, slot) {
+        // final format like "2025-12-16   10:00 ~ 12:00"
+        return `${formatDate(d)}   ${slot}`;
+      }
+
+      // month/year navigation
+      /* ------------------ Month Navigation ------------------ */
+      document.getElementById("monthPrev").onclick = () => {
+        const prev = new Date(current.getFullYear(), current.getMonth() - 1, 1);
+
+        // ⭐ 新增：阻止跳到今天前的月份
+        if (prev.getFullYear() < today.getFullYear() ||
+            (prev.getFullYear() === today.getFullYear() && prev.getMonth() < today.getMonth())) {
+          return;
         }
 
-        available.timeSlots.forEach((item) => {
-          console.log("slot", slot, "item", item);
-          if(slot.innerHTML != item) {
-            slot.classList.add("disabled");
+        current = prev;
+        renderCalendar();
+      };
+
+      /* ------------------ Month Navigation ------------------ */
+      document.getElementById("monthNext").onclick = () => {
+        const next = new Date(current.getFullYear(), current.getMonth() + 1, 1);
+        // ⭐ 新增：检查该月份是否有可用数据
+      if (!isMonthAvailable(next)) {
+        return;  // 如果没有可用数据，则不跳转
+      }
+        current = next;
+        renderCalendar();
+      };
+
+      // 新增的检查月份是否有数据的函数
+      function isMonthAvailable(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 获取月为 2 位数字格式
+
+        // 检查 availableDates 中是否有该月的数据
+        return availableDates.some(item => item.date.startsWith(`${year}-${month}`));
+      }
+
+      function getTimeSlot() {
+        let showroomId = 1;
+        if(document.querySelector('.showroom-item.active') != null) {
+          showroomId = document.querySelector('.showroom-item.active')?.dataset?.id;
+        }
+        return fetch(`${api}${showRoomTimeSlotApi}?showroomId=${showroomId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
           }
-        })
-      });
-    }
-
-    function formatLocalISO(dateObj, timeStr) {
-      const [h, m] = timeStr.split(":").map(Number);
-      const d = new Date(
-        dateObj.getFullYear(),
-        dateObj.getMonth(),
-        dateObj.getDate(),
-        h, m, 0
-      );
-
-      // 输出本地时间 ISO：2025-12-20T10:00:00
-      const y = d.getFullYear();
-      const month = String(d.getMonth() + 1).padStart(2, "0");
-      const day = String(d.getDate()).padStart(2, "0");
-      const hh = String(d.getHours()).padStart(2, "0");
-      const mm = String(d.getMinutes()).padStart(2, "0");
-      const ss = String(d.getSeconds()).padStart(2, "0");
-
-      return `${y}-${month}-${day}T${hh}:${mm}:${ss}`;
-    }
-
-
-    function formatFinal(d, slot) {
-      // final format like "2025-12-16   10:00 ~ 12:00"
-      return `${formatDate(d)}   ${slot}`;
-    }
-
-    // month/year navigation
-    /* ------------------ Month Navigation ------------------ */
-    document.getElementById("monthPrev").onclick = () => {
-      const prev = new Date(current.getFullYear(), current.getMonth() - 1, 1);
-
-      // ⭐ 新增：阻止跳到今天前的月份
-      if (prev.getFullYear() < today.getFullYear() ||
-          (prev.getFullYear() === today.getFullYear() && prev.getMonth() < today.getMonth())) {
-        return;
-      }
-
-      current = prev;
-      renderCalendar();
-    };
-
-    /* ------------------ Month Navigation ------------------ */
-    document.getElementById("monthNext").onclick = () => {
-      const next = new Date(current.getFullYear(), current.getMonth() + 1, 1);
-      // ⭐ 新增：检查该月份是否有可用数据
-    if (!isMonthAvailable(next)) {
-      return;  // 如果没有可用数据，则不跳转
-    }
-      current = next;
-      renderCalendar();
-    };
-
-    // 新增的检查月份是否有数据的函数
-    function isMonthAvailable(date) {
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0'); // 获取月为 2 位数字格式
-
-      // 检查 availableDates 中是否有该月的数据
-      return availableDates.some(item => item.date.startsWith(`${year}-${month}`));
-    }
-
-    getTimeSlot();
-
-    function getTimeSlot() {
-      let showroomId = 1;
-      if(document.querySelector('.showroom-item.active') != null) {
-        showroomId = document.querySelector('.showroom-item.active')?.dataset?.id;
-      }
-      fetch(`${api}${showRoomTimeSlotApi}?showroomId=${showroomId}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
         }).then(response => {
-            if(!response.ok) {
-                throw new Error('网络请求失败');
-            }
-            return response.json();
-        }).then(data => {
-          if(data.code === 200) {
-              timeSlots.innerHTML = '';
-              let timeSlotList = data.result.timeSlots;
-              timeSlotList.forEach((item) => {
-                const timeSlotItem = document.createElement('div');
-                timeSlotItem.className = "slot";
-                timeSlotItem.dataset.start = item.split('~')[0];
-                timeSlotItem.dataset.end = item.split('~')[1];
-                timeSlotItem.dataset.timeSlot = item;
-                timeSlotItem.innerHTML = item;
-                timeSlots.appendChild(timeSlotItem);
-              });
-
-              // time slot click (only works after date selected)
-              timeSlots.querySelectorAll(".slot").forEach(slot => {
-                slot.addEventListener("click", () => {
-                  // 如果还没选日期，阻止并提示
-                  if (!selectedDateObj) {
-                    document.getElementById("dateErr").textContent = "Please select a date first.";
-                    return;
-                  }
-
-                  // ⭐ 新增：禁止点 disabled slot
-                  if (slot.classList.contains("disabled")) return;
-
-                  // mark selected slot
-                  timeSlots.querySelectorAll(".slot").forEach(s => s.classList.remove("selected"));
-                  slot.classList.add("selected");
-                  const start = slot.dataset.start;
-                  const end = slot.dataset.end;
-
-                  // 本地时间格式化 → 2025-03-01T10:00:00
-                  const startISO = formatLocalISO(selectedDateObj, start);
-                  const endISO = formatLocalISO(selectedDateObj, end);
-
-                  selectedSlot = { startISO, endISO };
-
-                  dateInputDisplay.innerHTML = `
-                    ${formatDate(selectedDateObj)}
-                    <span class="time-chip">${start} ~ ${end}</span>
-                  `;
-                  dateInputDisplay.classList.remove("empty");
-
-                  // 只展示，不用于提交
-                  hiddenDate.value = JSON.stringify({
-                    start: selectedSlot.startISO,
-                    end: selectedSlot.endISO
-                  });
-
-                  popup.style.display = "none";
-                  popup.setAttribute("aria-hidden","true");
-                  // clear error
-                  document.getElementById("dateErr").textContent = "";
-                });
-              });
+          if (!response.ok) {
+            throw new Error('网络请求失败');
           }
-      });
+          return response.json();
+        }).then(data => {
+          if (data.code === 200) {
+            timeSlots.innerHTML = '';
+                let timeSlotList = data.result.timeSlots;
+                timeSlotList.forEach((item) => {
+                  const timeSlotItem = document.createElement('div');
+                  timeSlotItem.className = "slot disabled";
+                  timeSlotItem.dataset.start = item.split('~')[0];
+                  timeSlotItem.dataset.end = item.split('~')[1];
+                  timeSlotItem.dataset.timeSlot = item;
+                  timeSlotItem.innerHTML = item;
+                  timeSlots.appendChild(timeSlotItem);
+                });
+
+                // time slot click (only works after date selected)
+                timeSlots.querySelectorAll(".slot").forEach(slot => {
+                  slot.addEventListener("click", () => {
+                    // 如果还没选日期，阻止并提示
+                    if (!selectedDateObj) {
+                      document.getElementById("dateErr").textContent = "Please select a date first.";
+                      return;
+                    }
+
+                    // ⭐ 新增：禁止点 disabled slot
+                    if (slot.classList.contains("disabled")) return;
+
+                    // mark selected slot
+                    timeSlots.querySelectorAll(".slot").forEach(s => s.classList.remove("selected"));
+                    slot.classList.add("selected");
+                    const start = slot.dataset.start;
+                    const end = slot.dataset.end;
+
+                    // 本地时间格式化 → 2025-03-01T10:00:00
+                    const startISO = formatLocalISO(selectedDateObj, start);
+                    const endISO = formatLocalISO(selectedDateObj, end);
+
+                    selectedSlot = { startISO, endISO };
+
+                    dateInputDisplay.innerHTML = `
+                      ${formatDate(selectedDateObj)}
+                      <span class="time-chip">${start} ~ ${end}</span>
+                    `;
+                    dateInputDisplay.classList.remove("empty");
+
+                    // 只展示，不用于提交
+                    hiddenDate.value = JSON.stringify({
+                      start: selectedSlot.startISO,
+                      end: selectedSlot.endISO
+                    });
+
+                    popup.style.display = "none";
+                    popup.setAttribute("aria-hidden","true");
+                    // clear error
+                    document.getElementById("dateErr").textContent = "";
+                  });
+                });
+          } else {
+            throw new Error('获取时间段失败');
+          }
+        });
+      }
     }
-  }
 
     // open popup
     dateInputDisplay.addEventListener("click", (e) => {
@@ -1391,6 +1383,10 @@
         }
       } else {
         // build payload
+        let showroomId = 1;
+        if(document.querySelector('.showroom-item.active')) {
+          showroomId = document.querySelector('.showroom-item.active').dataset.id;
+        }
         const postData = {
           showroomId: document.querySelector('.showroom-item.active').dataset.id,
           name,
@@ -1420,14 +1416,20 @@
             body: JSON.stringify(postData),
           });
 
+          const data = await res.json();  // 解析 JSON 数据
+
           if (!res.ok) {
             const text = await res.text();
             throw new Error(`Server error: ${res.status} ${text}`);
           }
 
-          // success
-          document.getElementById("successPopup").style.display = "flex";
-          submitBtn.textContent = "Submit Your Reserve Application";
+          if(data.code == 200) {
+            // success
+            document.getElementById("successPopup").style.display = "flex";
+            submitBtn.textContent = "Submit Your Reserve Application";
+          } else {
+            alert(data.msg || 'Error: Unknown error');
+          }
         } catch (err) {
           console.error(err);
           submitMsg.style.color = "red";

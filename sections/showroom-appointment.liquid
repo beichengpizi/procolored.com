@@ -120,6 +120,54 @@
         #shopify-section-{{ section.id }} .section-header--description {
             font-size: 16px;
         }
+
+        #shopify-section-{{ section.id }} .showroom-appointment {
+            padding: 80px 0 0 0;
+            width: 100%;
+        }
+
+        #shopify-section-{{ section.id }} .swiper-slide {
+            width: calc(100vw - 54px) !important;
+        }
+
+        #shopify-section-{{ section.id }} .swiper {
+            width: calc(100% + 10px) !important;
+            transform: translate(-10px);
+        }
+
+        #shopify-section-{{ section.id }} .appointment-info svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        #shopify-section-{{ section.id }} .appointment-wrapper {
+            gap: 0;
+        }
+
+        #shopify-section-{{ section.id }} .appointment-item {
+            width: 100%;  /* 每个 item 的宽度 */
+            padding: 24px;
+        }
+
+        #shopify-section-{{ section.id }} .appointment-info-text {
+            font-size: 14px;
+            flex: 1;
+        }
+
+        #shopify-section-{{ section.id }} .appointment-button-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            align-self: stretch;
+        }
+
+        #shopify-section-{{ section.id }} .appointment-button {
+            font-size: 12px;
+        }
+
+        #shopify-section-{{ section.id }} .reminding-message {
+            font-size: 14px;
+        }
     }
 </style>
 
@@ -141,9 +189,29 @@
         const showroomCheckInApi = "/procolored/activity/showroom/checkin";
         const showroomCancelApi = "/procolored/activity/showroom/cancelReservation";
         let customerId = null;
-        if(JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer != null) {
-            customerId = JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer.id;
+        function checkLocalStorage() {
+            const smileShopifyData = window.localStorage.getItem("smile_shopify_data");
+            
+            // 如果数据存在且有效，解析并获取 customerId
+            if (smileShopifyData) {
+                try {
+                    const parsedData = JSON.parse(smileShopifyData);
+                    if (parsedData && parsedData.customer) {
+                        customerId = parsedData.customer.id;
+                        console.log("Customer ID found:", customerId);
+
+                        // 停止检查并加载预约数据
+                        clearInterval(storageCheckInterval);
+                        loadShowroomAppointment();
+                    }
+                } catch (error) {
+                    console.error("Error parsing localStorage data:", error);
+                }
+            }
         }
+
+        // 每500毫秒检查一次 localStorage 中的数据，直到数据准备好
+        const storageCheckInterval = setInterval(checkLocalStorage, 500);
 
         function formatDateToCustomFormat(startDateStr, endDateStr) {
             // 创建起始和结束时间的 Date 对象
@@ -180,7 +248,7 @@
                 return response.json();
             }).then(data => {
                 if(data.code === 200) {
-                    document.querySelector("#shopify-section-{{ section.id }}").style.display = 'flex';
+                    if(data.result.length > 0) document.querySelector("#shopify-section-{{ section.id }}").style.display = 'flex';
                     let result = data.result;
                     const appointmentWrapper = document.querySelector('#shopify-section-{{ section.id }} .appointment-wrapper');
                     result.forEach((item, index) => {
@@ -190,6 +258,8 @@
                         let endDate = item.visitDateEnd;
                         el.dataset.appointmentId = item.id;
                         el.dataset.startTime = startDate;
+                        el.dataset.endTime = endDate;
+                        el.dataset.timeZone = item.showroomId == 1 ? 'America/Los_Angeles' : 'America/Chicago';
                         el.innerHTML = `
                             <div class="appointment-item">
                                 <div class="appointment-info">
@@ -229,7 +299,7 @@
                             const cancelButton = document.createElement('button');
                             cancelButton.className = "appointment-button cancel-button";
                             cancelButton.innerHTML = "Cancel appointment";
-                            if(isLiminitTimeToStart(item.visitDateStart, 1440) == true) {
+                            if(isOneDayToStart(item.visitDateStart, item.showroomId) == true) {
                                 cancelButton.disabled = true;
                                 cancelButton.className = "appointment-button cancel-button disabled-button";
                             }
@@ -257,9 +327,16 @@
                     });
 
                     var swiper = new Swiper(".mySwiper", {
-                        slidesPerView: 1.8,
+                        slidesPerView: 1.2,
                         spaceBetween: 10,
                         centeredSlides: true,
+                        breakpoints: {
+                            768: {
+                                slidesPerView: 1.8,
+                                spaceBetween: 10,
+                                centeredSlides: true
+                            }
+                        }
                     });
 
                     appointmentWrapper.querySelectorAll('.check-in-button').forEach((item) => {
@@ -273,19 +350,20 @@
             });
         }
 
-        async function handleCheckIn(event) {
-            const startTime = event.target.closest('.appointment-item').dataset.startTime;
-            if(isLiminitTimeToStart(startTime, 30) == false) {
+        function handleCheckIn(event) {
+            const startTime = event.target.closest('.appointment-record').dataset.startTime;
+            const endTime = event.target.closest('.appointment-record').dataset.endTime;
+            if(isHalfHourToStart(startTime, endTime, 30, event) == false) {
                 event.target.closest('.appointment-record').querySelector(".reminding-message").innerHTML = 'This is not the scheduled time yet.';
                 return;
             } else {
                 event.target.closest('.appointment-record').querySelector(".reminding-message").innerHTML = '';
             }
              // 检查浏览器是否支持 Geolocation API
-             let latitude = 0, longitude = 0;
+            let latitude = 0, longitude = 0;
             if (navigator.geolocation) {
                 // 获取当前位置
-                navigator.geolocation.getCurrentPosition(function(position) {
+                navigator.geolocation.getCurrentPosition(async function(position) {
                     // 获取经纬度
                     latitude = position.coords.latitude;
                     longitude = position.coords.longitude;
@@ -293,49 +371,51 @@
                     console.log("当前纬度", longitude);
 
                     // 可以在这里将经纬度传递到地图或其他应用中
+                            
+                    const postData = {
+                    id: event.target.closest(".appointment-record").dataset.appointmentId,
+                    checkinLat: latitude,
+                    checkinLng: longitude
+                    };
+
+                    try {
+                        const res = await fetch(`${api}${showroomCheckInApi}`, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(postData),
+                        }).then(response => {
+                            if(!response.ok) {
+                                throw new Error('网络请求失败');
+                            }
+                            return response.json();
+                        }).then(data => {
+                            if(data.code !== 200) {
+                                const text = data.msg;
+                                event.target.closest('.appointment-record').querySelector('.reminding-message').innerHTML = `${text}`;
+                                throw new Error(`Server error: ${res.status} ${text}`);
+                            } else {
+                                event.target.className = "appointment-button checked-in-button";
+                                event.target.innerHTML = "Checked In";
+                                event.target.disabled = true;
+                                event.target.closest('.appointment-button-group').querySelector('.cancel-button').style.display = 'none';
+                            }
+                        });
+                    } catch (err) {
+                        console.error(err);
+                    }
                 }, function(error) {
                     // 如果获取位置失败
                     console.error("无法获取位置:", error);
                     alert('Failed to fetch your location.')
                 });
-            }
-            
-            const postData = {
-              id: event.target.closest(".appointment-item").dataset.appointmentId,
-              checkinLat: latitude,
-              checkinLng: longitude
-            };
-
-            try {
-                const res = await fetch(`${api}${showroomCheckInApi}`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(postData),
-                }).then(response => {
-                    if(!response.ok) {
-                        throw new Error('网络请求失败');
-                    }
-                    return response.json();
-                }).then(data => {
-                    if(data.code !== 200) {
-                        const text = data.msg;
-                        document.querySelector("#shopify-section-{{ section.id }} .reminding-message").innerHTML = `${text}`;
-                        throw new Error(`Server error: ${res.status} ${text}`);
-                    } else {
-                        event.target.className = "appointment-button checked-in-button";
-                        event.target.innerHTML = "Checked In";
-                        event.target.disabled = true;
-                        event.target.closest('.appointment-button-group').querySelector('.cancel-button').style.display = 'none';
-                    }
-                });
-            } catch (err) {
-                console.error(err);
+            } else {
+                return;
             }
         }
 
         async function handleCancel(event) {
             const postData = {
-                id: event.target.closest(".appointment-item").dataset.appointmentId
+                id: event.target.closest(".appointment-record").dataset.appointmentId
             };
             try {
                 const res = await fetch(`${api}${showroomCancelApi}`, {
@@ -348,34 +428,73 @@
                     const text = await res.text();
                     throw new Error(`Server error: ${res.status} ${text}`);
                 }
-                event.target.className = "appointment-button cancelled-button";
-                event.target.innerHTML = "Cancelled";
-                event.target.disabled = true;
-                event.target.closest('.appointment-button-group').querySelector('.check-in-button').style.display = 'none';
+
+                const data = await res.json();
+
+                if(data.code == 200) {
+                    event.target.className = "appointment-button cancelled-button";
+                    event.target.innerHTML = "Cancelled";
+                    event.target.disabled = true;
+                    event.target.closest('.appointment-button-group').querySelector('.check-in-button').style.display = 'none';
+                }
+                else {
+                    alert(data.msg || 'Unknown error.');
+                }
             } catch (err) {
                 console.error(err);
             }
         }
 
-        function isLiminitTimeToStart(startDateStr, limitTime) {
-            // 获取当前时间和开始时间的 Date 对象
-            const currentTime = new Date();
+        function isHalfHourToStart(startDateStr, endDateStr, limitTime, event) { 
+            console.log(startDateStr, "startDateStr", endDateStr, "endDateStr");
+            
+            // 获取当前时间的 Los Angeles 时区时间
+            const currentTime = new Date().toLocaleString('en-US', { timeZone: event.target.closest('.appointment-record').dataset.timeZone });
             const startTime = new Date(startDateStr);
+            const endTime = new Date(endDateStr);
+
+            // 将当前时间转换为 Date 对象
+            const currentDate = new Date(currentTime);
 
             // 计算当前时间与开始时间的差值（毫秒）
-            const timeDifference = startTime - currentTime;
+            const timeDifference = startTime - currentDate;
 
-            // 将半个小时的时间（30分钟）转化为毫秒
-            const halfHourInMilliseconds = Number(limitTime) * 60 * 1000;
-            const visitTime = 90 * 60 * 1000 * (-1);
+            // 将限制时间（limitTime，单位为分钟）转化为毫秒
+            const limitTimeInMilliseconds = Number(limitTime) * 60 * 1000;
 
-            // 判断是否在半小时之内
-            if (timeDifference > visitTime && timeDifference <= halfHourInMilliseconds) {
-                return true;  // 当前时间距离开始时间还有半个小时
+            // 判断是否在限制时间内
+            console.log("currentTime", currentDate, "startTime", startTime, "endTime", endTime);
+            if (timeDifference <= limitTimeInMilliseconds || (currentDate > startTime && endTime > currentDate)) {
+                return true;  // 当前时间距离开始时间还在限制时间范围内
             } else {
-                return false; // 当前时间距离开始时间不再半个小时内
+                return false; // 当前时间距离开始时间超过限制时间
             }
         }
+
+
+        function isOneDayToStart(startDateStr, showroomId) { 
+            // 获取当前时间的 Los Angeles 时区时间
+            const timeZone = showroomId == 1 ? 'America/Los_Angeles' : 'America/Chicago';
+            const currentTime = new Date().toLocaleString('en-US', { timeZone: timeZone });
+            const startTime = new Date(startDateStr);
+
+            // 将当前时间转换为 Date 对象
+            const currentDate = new Date(currentTime);
+
+            // 计算当前时间与开始时间的差值（毫秒）
+            const timeDifference = startTime - currentDate;
+
+            // 将一天的时间（1440分钟）转化为毫秒
+            const oneDayInMilliseconds = 1440 * 60 * 1000;
+
+            // 判断是否在一天之内
+            if (timeDifference <= oneDayInMilliseconds) {
+                return true;  // 当前时间距离开始时间还有一天
+            } else {
+                return false; // 当前时间距离开始时间不再一天内
+            }
+        }
+
 
         if(customerId != null) {
             loadShowroomAppointment();

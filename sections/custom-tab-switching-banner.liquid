@@ -477,6 +477,29 @@
           <div class="swiper-wrapper">
             {%- for block in section.blocks -%}
               <div class="swiper-slide">
+                <div class="column info">
+                  {% if block.settings.heading != empty %}
+                    <div
+                      class="title {{ section.settings.heading_size }} {{ section.settings.heading_font_family }} "
+                    >
+                      {{- block.settings.heading -}}
+                    </div>
+                  {% endif %}
+                  {% if block.settings.subheading != empty %}
+                    <div
+                      class="subheading {{ section.settings.subheading_size }} {{ section.settings.subheading_font_family }} "
+                    >
+                      {{- block.settings.subheading -}}
+                    </div>
+                  {% endif %}
+                  {% if block.settings.content != empty %}
+                    <div
+                      class="content {{ section.settings.desc_size }} {{ section.settings.desc_font_family }}  "
+                    >
+                      {{- block.settings.content -}}
+                    </div>
+                  {% endif %}
+                </div>
                 {% case block.type %}
                   {%- when 'materialLRImage' -%}
                     <div class="materialLRImage-container " data-slide="{{forloop.index}}">
@@ -573,66 +596,6 @@
                   {{ block.settings.tab_name | default: 'Tab' }}
                 </div>
               {% endfor %}
-            </div>
-          {% endif %}
-        </div>
-
-        <div class="column info">
-          <h3
-            class="title {{ section.settings.heading_size }} {{ section.settings.heading_font_family }} "
-          >
-            {{- section.settings.heading -}}
-          </h3>
-          <div
-            class="subheading {{ section.settings.subheading_size }} {{ section.settings.subheading_font_family }} "
-          >
-            {{- section.settings.subheading -}}
-          </div>
-          <div
-            class="content {{ section.settings.desc_size }} {{ section.settings.desc_font_family }}  "
-          >
-            {{- section.settings.content -}}
-          </div>
-          {%- if section.settings.button_link and section.settings.button_text != empty -%}
-            <a
-              class="button_link  "
-
-              href="{{section.settings.button_link}}"
-            >
-              <span> {{ section.settings.button_text }}</span>
-              <span class="arrow-icon">
-                <svg width="14" height="13" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M8.76254 0.428941L15.1265 6.7929C15.517 7.18343 15.517 7.81659 15.1265 8.20712L8.76254 14.5711C8.37202 14.9616 7.73885 14.9616 7.34833 14.5711C6.9578 14.1806 6.9578 13.5474 7.34833 13.1569L12.0052 8.50001L0.580688 8.50001L0.580688 6.50001L12.0052 6.50001L7.34833 1.84315C6.95781 1.45263 6.95781 0.819466 7.34833 0.428941C7.73885 0.0384169 8.37202 0.0384169 8.76254 0.428941Z" fill="#FECE67"/>
-                </svg>
-              </span>
-            </a>
-          {% endif %}
-          <!-- 额外链接 -->
-          {%- if section.settings.show_other_url and section.settings.other_url_link != empty -%}
-            <a
-              class="other_url_link"
-
-              href="{{section.settings.other_url_link}}"
-            >
-              View Results
-            </a>
-          {% endif %}
-          <!-- 会员登录按钮 -->
-          {%- if section.settings.button_text != empty
-            and section.settings.button_link == null
-            and section.settings.show_popup_login == true
-          -%}
-            <div
-              class="button_link_login_button button_link  "
-              data-wow-delay="1.2s"
-              style="cursor: pointer;"
-            >
-              <span> {{ section.settings.button_text }}</span>
-              <span class="arrow-icon">
-                <svg width="14" height="13" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M8.76254 0.428941L15.1265 6.7929C15.517 7.18343 15.517 7.81659 15.1265 8.20712L8.76254 14.5711C8.37202 14.9616 7.73885 14.9616 7.34833 14.5711C6.9578 14.1806 6.9578 13.5474 7.34833 13.1569L12.0052 8.50001L0.580688 8.50001L0.580688 6.50001L12.0052 6.50001L7.34833 1.84315C6.95781 1.45263 6.95781 0.819466 7.34833 0.428941C7.73885 0.0384169 8.37202 0.0384169 8.76254 0.428941Z" fill="#FECE67"/>
-                </svg>
-              </span>
             </div>
           {% endif %}
         </div>
@@ -1792,6 +1755,21 @@
           "label": "tab 名称"
         },
         {
+          "type": "html",
+          "id": "heading",
+          "label": "主标题"
+        },
+        {
+          "type": "html",
+          "id": "subheading",
+          "label": "副标题"
+        },
+        {
+          "type": "html",
+          "id": "content",
+          "label": "正文"
+        },
+        {
           "type": "image_picker",
           "id": "image_pc",
           "label": "图片"
@@ -1811,6 +1789,21 @@
           "type": "text",
           "id": "tab_name",
           "label": "tab 名称"
+        },
+        {
+          "type": "html",
+          "id": "heading",
+          "label": "主标题"
+        },
+        {
+          "type": "html",
+          "id": "subheading",
+          "label": "副标题"
+        },
+        {
+          "type": "html",
+          "id": "content",
+          "label": "正文"
         },
         {
           "type": "video",

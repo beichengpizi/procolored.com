@@ -94,6 +94,10 @@
   #shopify-section-{{ section.id }} .status.open {
     color: #2ecc71;
     background: #eafaf1;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
   #shopify-section-{{ section.id }} .status.resting {
     color: #888;
@@ -324,6 +328,7 @@
 
 <script>
   const api = 'https://booster.procolored.com';
+   {% comment %} const api = 'https://test.procolored.com'; //测试环境 {% endcomment %}
   const showRoomMapApi = "/procolored/activity/showroom/getShowroomList";
   const showRoomTimeSlotApi = "/procolored/activity/showroom/getTimeSlot";
   const availableTimeSlotsApi = "/procolored/activity/showroom/availableTimeSlots";
@@ -512,7 +517,14 @@
         </svg>
         Opening
     </div>`;
-    else return `<div class="status construction">
+    else if(status === 1) return `<div class="status resting">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M4.08331 4.08337L9.91665 9.91671" stroke="#5D5D5D" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4.08331 9.91671L9.91665 4.08337" stroke="#5D5D5D" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Resting
+     </div>`;
+     else return `<div class="status construction">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M6.49518 1.74829C6.71983 1.36025 7.28021 1.36034 7.50494 1.74829L13.4151 11.9573C13.6402 12.3462 13.3596 12.8333 12.9102 12.8333H1.08893C0.639751 12.8331 0.359025 12.3461 0.584045 11.9573L6.49518 1.74829ZM7.00006 9.62524C6.67791 9.62524 6.41707 9.8861 6.41705 10.2083V10.5002C6.41723 10.8223 6.678 11.0833 7.00006 11.0833C7.32208 11.0832 7.58289 10.8222 7.58307 10.5002V10.2083C7.58305 9.88613 7.32218 9.62529 7.00006 9.62524ZM7.00006 4.95923C6.6779 4.95923 6.41705 5.22007 6.41705 5.54224V8.45923C6.41756 8.78095 6.67823 9.04221 7.00006 9.04224C7.32187 9.04219 7.58256 8.78093 7.58307 8.45923V5.54224C7.58306 5.2201 7.32218 4.95927 7.00006 4.95923Z" fill="#FFC107"/>
         </svg>
