@@ -23,6 +23,17 @@
     margin-bottom: 30px;
   }
 
+  .product-info-wrapper .btn {
+    width: fit-content;
+    border-radius: 9999px;
+    height: fit-content;
+  }
+
+  .button-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
   .multi-page-with-navigation--page .rte p, .multi-page-with-navigation--page .rte li, .multi-page-with-navigation--page .rte>div {
     color: #6D6D6D;
   }
@@ -191,12 +202,26 @@
                                   </div>
 
                                   <!-- 购买按钮和了解更多链接 -->
-                                  <div>
-                                    <form method="post" action="/cart/add">
-                                      <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-                                      <input min="1" type="number" id="quantity" name="quantity" value="1">
-                                      <input type="submit" value="Buy Now" class="btn">
-                                    </form>
+                                  <div class="button-wrapper">
+                                    <product-card>
+                                      <div
+                                        class="christmas-products-product-button-add-to-cart product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent btn"
+                                        data-product-id="{{ product.variants.first.id }}"
+                                        tabindex="-1"
+                                        {% if product.variants.first.available == false %}
+                                          disabled
+                                        {% endif %}
+                                      >
+                                        {% render 'svg-icons' with 'thb-loading' %}
+                                        <span class="product-card--add-to-cart-text">
+                                          {%- if product.variants.first.available -%}
+                                            Buy Now
+                                          {%- else -%}
+                                            {{- 'products.product.sold_out' | t -}}
+                                          {%- endif -%}
+                                        </span>
+                                      </div>
+                                    </product-card>
                                     <a class="learn-more" href="{{ product.url }}">Learn More</a>
                                   </div>
                                 </div>

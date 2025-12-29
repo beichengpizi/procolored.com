@@ -1,231 +1,326 @@
 <style>
-     {%- assign total_blocks = section.blocks.size -%}
-     :root {
-       /* Font sizes */
-       --text-h0-n: 56px;
-       --text-h1-n: 40px;
-       --text-h2-n: 30px;
-       --text-h3-n: 26px;
-       --text-h4-n: 24px;
-       --text-h5-n: 20px;
-       --text-h6-n: 16px;
-       --text-xs-n: 12px;
-       --text-sm-n: 14px;
-       --text-base-n: 18px;
-       --text-lg-n: 19px;
-     }
-
-     .text-xxs { font-size: 10px; line-height: 1.3; }
-     .text-xs { font-size: var(--text-xs-n); line-height: 1.3; }
-     .text-sm { font-size: var(--text-sm-n); line-height: 1.3; }
-     .text-base { font-size: var(--text-base-n); line-height: 1.3; }
-     .text-md { font-size: var(--text-md-n); line-height: 1.2; }
-     .text-lg { font-size: var(--text-lg-n); line-height: 1.2; }
-
-     /* 重置样式 start */
-     #video-up-and-down-switching-{{section.id}} .h0 { font-size: var(--text-h0-n); line-height: 1; }
-     #video-up-and-down-switching-{{section.id}} h1,
-     #video-up-and-down-switching-{{section.id}} .h1,
-     #video-up-and-down-switching-{{section.id}} .prose h1:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
-       font-size: var(--text-h1-n); line-height: 1.1;
-     }
-     #video-up-and-down-switching-{{section.id}} h2,
-     #video-up-and-down-switching-{{section.id}} .h2,
-     #video-up-and-down-switching-{{section.id}} .prose h2:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
-       font-size: var(--text-h2-n); line-height: 1.1;
-     }
-     #video-up-and-down-switching-{{section.id}} h3,
-     #video-up-and-down-switching-{{section.id}} .h3,
-     #video-up-and-down-switching-{{section.id}} .prose h3:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
-       font-size: var(--text-h3-n); line-height: 1.2;
-     }
-     #video-up-and-down-switching-{{section.id}} h4,
-     #video-up-and-down-switching-{{section.id}} .h4,
-     #video-up-and-down-switching-{{section.id}} .prose h4:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
-       font-size: var(--text-h4-n); line-height: 1.3;
-     }
-     #video-up-and-down-switching-{{section.id}} h5,
-     #video-up-and-down-switching-{{section.id}} .h5,
-     #video-up-and-down-switching-{{section.id}} .prose h5:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
-       font-size: var(--text-h5-n); line-height: 1.4;
-     }
-     #video-up-and-down-switching-{{section.id}} h6,
-     #video-up-and-down-switching-{{section.id}} .h6,
-     #video-up-and-down-switching-{{section.id}} .prose h6:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
-       font-size: var(--text-h6-n); line-height: 1.4;
-     }
-     /* 重置样式 end */
-
-     /* 图片文字左右调换模块 */
-     #video-up-and-down-switching-{{section.id}} {
-       padding: {{section.settings.padding_top}}px 24px {{section.settings.padding_bottom}}px 24px;
-       background: {{section.settings.bg_color}};
-     }
-     #video-up-and-down-switching-{{section.id}} .other_url_link {
-       display: block;
-       margin-top: 10px;
-       color: #007BFF;
-       font-size: 16px;
-       text-decoration: underline;
-     }
-     #video-up-and-down-switching-{{section.id}} .detail-container {
-       {% if section.settings.section_max_width != 'none' %}
-         max-width: {{ section.settings.section_max_width }}px;
-         margin: 0 auto;
-       {% else %}
-         width: 100%;
-         max-width: 100%;
-       {% endif %}
-       background: {{section.settings.bg_content_color}};
-       border-radius: {{section.settings.content_border_radius}}px;
-       overflow: hidden;
-     }
-     #video-up-and-down-switching-{{section.id}} .heading {
-       text-align: {{section.settings.title_alignment}};
-       color: {{section.settings.title_color}};
-       margin-bottom: {{section.settings.title_to_content_padding}}px;
-       justify-content: {{section.settings.title_alignment}};
-     }
-     #video-up-and-down-switching-{{section.id}} .subtitle {
-       text-align: {{section.settings.title_alignment}};
-       color: {{section.settings.subtitle_color}};
-       margin-bottom: {{section.settings.subtitle_padding_bottom}}px;
-       font-weight: 400;
-       justify-content: {{section.settings.title_alignment}};
-     }
-     #video-up-and-down-switching-{{section.id}} .custom-row {
-       position: relative;
-       display: flex;
-       justify-content: center;
-       {% comment %} align-items: center; {% endcomment %}
-       flex-wrap: wrap;
-
-       column-gap: {{section.settings.flex_column_gap}}px;
-     }
-    #video-up-and-down-switching-{{section.id}} .custom-media {
-       flex: 1;
-       overflow: hidden;
-       padding: 0;
-       width: 100%;
-     }
-     {% comment %}
-     #video-up-and-down-switching-{{section.id}} .custom-media img:hover {
-       transform: scale(1.1);
-       transition: all .3s;
-     }
-     {% endcomment %}
-     #detail-section1-{{section.id}} .custom-media video,
-     #detail-section1-{{section.id}} .custom-media img{
-       border-radius: {{section.settings.material_border_radius}}px;
-       {% comment %} box-shadow: rgb(0 0 0 / 25%) .4rem .4rem 1.6rem; {% endcomment %}
-     }
-     #video-up-and-down-switching-{{section.id}}  .info{
-       display: flex;
-       align-items: center;
-       gap:32px;
-       flex: 0 0 {{section.settings.content_space_percent}}%;
-
-     }
-     #video-up-and-down-switching-{{section.id}} .info-details {
-
-       padding: 0;
-       padding-left: {{section.settings.content_padding_left_and_right}}px;
-       padding-right: {{section.settings.content_padding_left_and_right}}px;
-       display: flex;
-       flex-direction: column;
-       justify-content: center;
-       {% if section.settings.text_content_color != empty %}
-         background: {{ section.settings.text_content_color }};
-       {% endif %}
-       border-radius: {{section.settings.text_border_radius}}px;
-     }
-     #video-up-and-down-switching-{{section.id}} .title {
-       text-align: center;
-       margin-bottom: {{section.settings.heading_margin_bottom}}px;
-       color: {{section.settings.heading_color}};
-     }
-     #video-up-and-down-switching-{{section.id}} .subheading {
-       margin-bottom: {{section.settings.subheading_margin_bottom}}px;
-       color: {{section.settings.subheading_color}};
-       text-transform: initial;
-       letter-spacing: 0px;
-     }
-     #video-up-and-down-switching-{{section.id}} .title,
-     #video-up-and-down-switching-{{section.id}} .subheading,
-     #video-up-and-down-switching-{{section.id}} .content,
-     #video-up-and-down-switching-{{section.id}} .info-details {
-       text-align: {{ section.settings.content_alignment }};
-     }
-     #video-up-and-down-switching-{{section.id}} .content {
-       margin-bottom: {{section.settings.content_margin_bottom}}px;
-       color: {{section.settings.desc_color}};
-       line-height: 1.3;
-       text-align: {{ section.settings.content_alignment }};
-     }
-     #video-up-and-down-switching-{{section.id}} .button_link {
-       display: inline-flex;
-       align-items: center;
-       column-gap: 12px;
-       text-align: {{ section.settings.content_alignment }};
-       border-radius: {{ section.settings.button_border_radius }}px;
-       padding: 6px 20px;
-       font-size: 16px;
-       background: {{ section.settings.button_bg_color }};
-       font-family: ItalianPlateNo2Expanded-Bold;
-       line-height: 1;
-       color: {{ section.settings.button_font_color }};
-     }
-     #video-up-and-down-switching-{{section.id}} .button_link .arrow-icon {
-       background: #000;
-       border-radius: 50%;
-       padding: 10px;
-       width: 33px;
-       height: 33px;
-     }
-     #video-up-and-down-switching-{{section.id}} .button_link:hover {
-       color: {{ section.settings.button_font_color }};
-     }
-
-     #video-up-and-down-switching-{{section.id}} .swiper-button-next,
-     #video-up-and-down-switching-{{section.id}} .swiper-button-prev {
-       position: absolute;
-       top: 50%;
-       width: 44px;
-       height: 44px;
-       margin-top: 0;
-       background-color: #F5F5F5;
-       border-radius: 50%;
-       display: flex;
-       align-items: center;
-       justify-content: center;
-       transform: translateY(-50%);
-     }
-     #video-up-and-down-switching-{{section.id}} .swiper-button-next svg,
-     #video-up-and-down-switching-{{section.id}} .swiper-button-prev svg {
-       fill: #333333;
-       width: 20px;
-       height: 22px;
-       padding: 5.5px;
-     }
-     {% if total_blocks > 1 %}
-       #video-up-and-down-switching-{{section.id}} .swiper-button-next.swiper-button-disabled,
-       #video-up-and-down-switching-{{section.id}} .swiper-button-prev.swiper-button-disabled {
-         opacity: 1;
-         cursor: auto;
-         pointer-events: none;
-       }
-     {% endif %}
-     .video-up-and-down-switching-mySwiper-{{section.id}}{
-      height: {{section.settings.material_height}}px;
+    {%- assign total_blocks = section.blocks.size -%}
+    :root {
+      /* Font sizes */
+      --text-h0-n: 56px;
+      --text-h1-n: 40px;
+      --text-h2-n: 30px;
+      --text-h3-n: 26px;
+      --text-h4-n: 24px;
+      --text-h5-n: 20px;
+      --text-h6-n: 16px;
+      --text-xs-n: 12px;
+      --text-sm-n: 14px;
+      --text-base-n: 18px;
+      --text-lg-n: 19px;
     }
-     #video-up-and-down-switching-{{section.id}}  .swiper-scrollbar{
+
+    .text-xxs { font-size: 10px; line-height: 1.3; }
+    .text-xs { font-size: var(--text-xs-n); line-height: 1.3; }
+    .text-sm { font-size: var(--text-sm-n); line-height: 1.3; }
+    .text-base { font-size: var(--text-base-n); line-height: 1.3; }
+    .text-md { font-size: var(--text-md-n); line-height: 1.2; }
+    .text-lg { font-size: var(--text-lg-n); line-height: 1.2; }
+
+    /* 重置样式 start */
+    #video-up-and-down-switching-{{section.id}} .h0 { font-size: var(--text-h0-n); line-height: 1; }
+    #video-up-and-down-switching-{{section.id}} h1,
+    #video-up-and-down-switching-{{section.id}} .h1,
+    #video-up-and-down-switching-{{section.id}} .prose h1:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h1-n); line-height: 1.1;
+    }
+    #video-up-and-down-switching-{{section.id}} h2,
+    #video-up-and-down-switching-{{section.id}} .h2,
+    #video-up-and-down-switching-{{section.id}} .prose h2:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h2-n); line-height: 1.1;
+    }
+    #video-up-and-down-switching-{{section.id}} h3,
+    #video-up-and-down-switching-{{section.id}} .h3,
+    #video-up-and-down-switching-{{section.id}} .prose h3:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h3-n); line-height: 1.2;
+    }
+    #video-up-and-down-switching-{{section.id}} h4,
+    #video-up-and-down-switching-{{section.id}} .h4,
+    #video-up-and-down-switching-{{section.id}} .prose h4:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h4-n); line-height: 1.3;
+    }
+    #video-up-and-down-switching-{{section.id}} h5,
+    #video-up-and-down-switching-{{section.id}} .h5,
+    #video-up-and-down-switching-{{section.id}} .prose h5:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h5-n); line-height: 1.4;
+    }
+    #video-up-and-down-switching-{{section.id}} h6,
+    #video-up-and-down-switching-{{section.id}} .h6,
+    #video-up-and-down-switching-{{section.id}} .prose h6:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+      font-size: var(--text-h6-n); line-height: 1.4;
+    }
+    /* 重置样式 end */
+
+    /* 图片文字左右调换模块 */
+    #video-up-and-down-switching-{{section.id}} {
+      padding: {{section.settings.padding_top}}px 24px {{section.settings.padding_bottom}}px 24px;
+      background: {{section.settings.bg_color}};
+    }
+    #video-up-and-down-switching-{{section.id}} .other_url_link {
+      display: block;
+      margin-top: 10px;
+      color: #007BFF;
+      font-size: 16px;
+      text-decoration: underline;
+    }
+    #video-up-and-down-switching-{{section.id}} .detail-container {
+      {% if section.settings.section_max_width != 'none' %}
+        max-width: {{ section.settings.section_max_width }}px;
+        margin: 0 auto;
+      {% else %}
+        width: 100%;
+        max-width: 100%;
+      {% endif %}
+      background: {{section.settings.bg_content_color}};
+      border-radius: {{section.settings.content_border_radius}}px;
+      overflow: hidden;
+    }
+    #video-up-and-down-switching-{{section.id}} .heading {
+      text-align: {{section.settings.title_alignment}};
+      color: {{section.settings.title_color}};
+      margin-bottom: {{section.settings.title_to_content_padding}}px;
+      justify-content: {{section.settings.title_alignment}};
+    }
+    #video-up-and-down-switching-{{section.id}} .subtitle {
+      text-align: {{section.settings.title_alignment}};
+      color: {{section.settings.subtitle_color}};
+      margin-bottom: {{section.settings.subtitle_padding_bottom}}px;
+      font-weight: 400;
+      justify-content: {{section.settings.title_alignment}};
+    }
+    #video-up-and-down-switching-{{section.id}} .custom-row {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      {% comment %} align-items: center; {% endcomment %}
+      flex-wrap: wrap;
+
+      column-gap: {{section.settings.flex_column_gap}}px;
+    }
+   #video-up-and-down-switching-{{section.id}} .custom-media {
+      flex: 1;
+      overflow: hidden;
+      padding: 0;
+      width: 100%;
+    }
+    {% comment %}
+    #video-up-and-down-switching-{{section.id}} .custom-media img:hover {
+      transform: scale(1.1);
+      transition: all .3s;
+    }
+    {% endcomment %}
+    #detail-section1-{{section.id}} .custom-media video,
+    #detail-section1-{{section.id}} .custom-media img{
+      border-radius: {{section.settings.material_border_radius}}px;
+      {% comment %} box-shadow: rgb(0 0 0 / 25%) .4rem .4rem 1.6rem; {% endcomment %}
+    }
+    #video-up-and-down-switching-{{section.id}}  .info{
+      display: flex;
+      align-items: center;
+      gap:32px;
+      flex: 0 0 {{section.settings.content_space_percent}}%;
+
+    }
+    #video-up-and-down-switching-{{section.id}} .info-details{
+      display:none;
+
+    }
+    #video-up-and-down-switching-{{section.id}} .info-details.active {
+
+      padding: 0;
+      padding-left: {{section.settings.content_padding_left_and_right}}px;
+      padding-right: {{section.settings.content_padding_left_and_right}}px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      {% if section.settings.text_content_color != empty %}
+        background: {{ section.settings.text_content_color }};
+      {% endif %}
+      border-radius: {{section.settings.text_border_radius}}px;
+    }
+    #video-up-and-down-switching-{{section.id}} .title {
+      text-align: center;
+      margin-bottom: {{section.settings.heading_margin_bottom}}px;
+      color: {{section.settings.heading_color}};
+    }
+    #video-up-and-down-switching-{{section.id}} .subheading {
+      margin-bottom: {{section.settings.subheading_margin_bottom}}px;
+      color: {{section.settings.subheading_color}};
+      text-transform: initial;
+      letter-spacing: 0px;
+    }
+    #video-up-and-down-switching-{{section.id}} .title,
+    #video-up-and-down-switching-{{section.id}} .subheading,
+    #video-up-and-down-switching-{{section.id}} .content,
+    #video-up-and-down-switching-{{section.id}} .info-details {
+      text-align: {{ section.settings.content_alignment }};
+    }
+    #video-up-and-down-switching-{{section.id}} .content {
+      margin-bottom: {{section.settings.content_margin_bottom}}px;
+      color: {{section.settings.desc_color}};
+      line-height: 1.3;
+      text-align: {{ section.settings.content_alignment }};
+    }
+    #video-up-and-down-switching-{{section.id}} .button_link {
+      display: inline-flex;
+      align-items: center;
+      column-gap: 12px;
+      text-align: {{ section.settings.content_alignment }};
+      border-radius: {{ section.settings.button_border_radius }}px;
+      padding: 6px 20px;
+      font-size: 16px;
+      background: {{ section.settings.button_bg_color }};
+      font-family: ItalianPlateNo2Expanded-Bold;
+      line-height: 1;
+      color: {{ section.settings.button_font_color }};
+    }
+    #video-up-and-down-switching-{{section.id}} .button_link .arrow-icon {
+      background: #000;
+      border-radius: 50%;
+      padding: 10px;
+      width: 33px;
+      height: 33px;
+    }
+    #video-up-and-down-switching-{{section.id}} .button_link:hover {
+      color: {{ section.settings.button_font_color }};
+    }
+
+    #video-up-and-down-switching-{{section.id}} .swiper-button-next,
+    #video-up-and-down-switching-{{section.id}} .swiper-button-prev {
+      position: absolute;
+      top: 50%;
+      width: 44px;
+      height: 44px;
+      margin-top: 0;
+      background-color: #F5F5F5;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateY(-50%);
+    }
+    #video-up-and-down-switching-{{section.id}} .swiper-button-next svg,
+    #video-up-and-down-switching-{{section.id}} .swiper-button-prev svg {
+      fill: #333333;
+      width: 20px;
+      height: 22px;
+      padding: 5.5px;
+    }
+    {% if total_blocks > 1 %}
+      #video-up-and-down-switching-{{section.id}} .swiper-button-next.swiper-button-disabled,
+      #video-up-and-down-switching-{{section.id}} .swiper-button-prev.swiper-button-disabled {
+        opacity: 1;
+        cursor: auto;
+        pointer-events: none;
+      }
+    {% endif %}
+    .video-up-and-down-switching-mySwiper-{{section.id}}{
+     height: {{section.settings.material_height}}px;
+   }
+    #video-up-and-down-switching-{{section.id}}  .swiper-scrollbar{
+      background: #D9D9D9;
+      height:50%;
+      width:2px !important;
+
+    }
+    #video-up-and-down-switching-{{section.id}}   .swiper-scrollbar-drag {
+     height: 100%;
+     width: 2px;
+     position: relative;
+     background:#FF8F1C;
+     border-radius: 10px;
+     left: 0;
+     top: 0;
+  }
+    #video-up-and-down-switching-{{section.id}} .swiper-button-next.swiper-button-disabled svg,
+    #video-up-and-down-switching-{{section.id}} .swiper-button-prev.swiper-button-disabled svg {
+      fill: #c0c0c0;
+      width: 20px;
+      height: 20px;
+      padding: 5.5px;
+    }
+    #video-up-and-down-switching-{{section.id}} .swiper-button-next { left: 47%; }
+    #video-up-and-down-switching-{{section.id}} .swiper-button-prev { left: 0; }
+    #video-up-and-down-switching-{{section.id}} .reverse { flex-direction: row-reverse; }
+    #video-up-and-down-switching-{{section.id}} .item-column-reverse { flex-direction: column-reverse; }
+    #video-up-and-down-switching-{{section.id}} .item-column { flex-direction: column; }
+    #video-up-and-down-switching-{{section.id}} .show_desktop { display: flex; }
+    #video-up-and-down-switching-{{section.id}} .show_mobile { display: none; }
+
+    @media screen and (min-width: 320px) and (max-width: 768px) {
+      #video-up-and-down-switching-{{section.id}} .detail-container {
+        border-radius: {{section.settings.content_border_radius_mobile}}px;
+      }
+      #video-up-and-down-switching-{{section.id}} .title,
+      #video-up-and-down-switching-{{section.id}} .subheading,
+      #video-up-and-down-switching-{{section.id}} .content,
+      #video-up-and-down-switching-{{section.id}} .info-details {
+        text-align: {{ section.settings.content_alignment_mobile }};
+      }
+      #video-up-and-down-switching-{{section.id}} .other_url_link {
+        display: block;
+        margin-top: 10px;
+        color: #007BFF;
+        font-size: 16px;
+        text-decoration: underline;
+      }
+      #video-up-and-down-switching-{{section.id}} .heading {
+        font-size: {{section.settings.title_size_mobile}}px;
+        margin-bottom: {{section.settings.title_to_content_padding_mobile}}px;
+      }
+      #video-up-and-down-switching-{{section.id}} .subtitle {
+        font-size: {{section.settings.subheading_size_mobile}}px;
+        margin-bottom: {{section.settings.subtitle_padding_bottom_mobile}}px;
+      }
+      #video-up-and-down-switching-{{section.id}} .info-details {
+        padding-left: {{section.settings.content_padding_left_and_right_mobile}}px;
+        padding-right: {{section.settings.content_padding_left_and_right_mobile}}px;
+        border-radius: {{section.settings.text_border_radius_mb}}px;
+      }
+      #video-up-and-down-switching-{{section.id}} .custom-row {
+        position: relative;
+        display: flex;
+        text-align: {{ section.settings.content_alignment_mobile }};
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 70px;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+        {% if total_blocks > 1 %}
+          padding: 0;
+        {% endif %}
+      }
+      #video-up-and-down-switching-{{section.id}} .swiper-button-container {
+        width: 100%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        margin-top: 10px;
+      }
+      .video-up-and-down-switching-mySwiper-{{section.id}}{
+       height: {{section.settings.material_height_mb}}px;
+     }
+      #video-up-and-down-switching-{{section.id}} video,
+      #video-up-and-down-switching-{{section.id}} img {
+        border-radius: {{section.settings.material_border_radius_mb}}px;
+        {% comment %} box-shadow: rgb(0 0 0 / 25%) .4rem .4rem 1.6rem; {% endcomment %}
+      }
+      #video-up-and-down-switching-{{section.id}}  .swiper-scrollbar{
        background: #D9D9D9;
-       height:50%;
+       height:137px;
        width:2px !important;
 
      }
      #video-up-and-down-switching-{{section.id}}   .swiper-scrollbar-drag {
-      height: 100%;
+      height: 50% !important;
       width: 2px;
       position: relative;
       background:#FF8F1C;
@@ -233,165 +328,74 @@
       left: 0;
       top: 0;
   }
-     #video-up-and-down-switching-{{section.id}} .swiper-button-next.swiper-button-disabled svg,
-     #video-up-and-down-switching-{{section.id}} .swiper-button-prev.swiper-button-disabled svg {
-       fill: #c0c0c0;
-       width: 20px;
-       height: 20px;
-       padding: 5.5px;
-     }
-     #video-up-and-down-switching-{{section.id}} .swiper-button-next { left: 47%; }
-     #video-up-and-down-switching-{{section.id}} .swiper-button-prev { left: 0; }
-     #video-up-and-down-switching-{{section.id}} .reverse { flex-direction: row-reverse; }
-     #video-up-and-down-switching-{{section.id}} .item-column-reverse { flex-direction: column-reverse; }
-     #video-up-and-down-switching-{{section.id}} .item-column { flex-direction: column; }
-     #video-up-and-down-switching-{{section.id}} .show_desktop { display: flex; }
-     #video-up-and-down-switching-{{section.id}} .show_mobile { display: none; }
-
-     @media screen and (min-width: 320px) and (max-width: 768px) {
-       #video-up-and-down-switching-{{section.id}} .detail-container {
-         border-radius: {{section.settings.content_border_radius_mobile}}px;
-       }
-       #video-up-and-down-switching-{{section.id}} .title,
-       #video-up-and-down-switching-{{section.id}} .subheading,
-       #video-up-and-down-switching-{{section.id}} .content,
-       #video-up-and-down-switching-{{section.id}} .info-details {
-         text-align: {{ section.settings.content_alignment_mobile }};
-       }
-       #video-up-and-down-switching-{{section.id}} .other_url_link {
-         display: block;
-         margin-top: 10px;
-         color: #007BFF;
-         font-size: 16px;
-         text-decoration: underline;
-       }
-       #video-up-and-down-switching-{{section.id}} .heading {
-         font-size: {{section.settings.title_size_mobile}}px;
-         margin-bottom: {{section.settings.title_to_content_padding_mobile}}px;
-       }
-       #video-up-and-down-switching-{{section.id}} .subtitle {
-         font-size: {{section.settings.subheading_size_mobile}}px;
-         margin-bottom: {{section.settings.subtitle_padding_bottom_mobile}}px;
-       }
-       #video-up-and-down-switching-{{section.id}} .info-details {
-         padding-left: {{section.settings.content_padding_left_and_right_mobile}}px;
-         padding-right: {{section.settings.content_padding_left_and_right_mobile}}px;
-         border-radius: {{section.settings.text_border_radius_mb}}px;
-       }
-       #video-up-and-down-switching-{{section.id}} .custom-row {
-         position: relative;
-         display: flex;
-         text-align: {{ section.settings.content_alignment_mobile }};
-         justify-content: space-between;
-         align-items: center;
-         margin-bottom: 70px;
-         flex-wrap: wrap;
-         margin-right: -15px;
-         margin-left: -15px;
-         {% if total_blocks > 1 %}
-           padding: 0;
-         {% endif %}
-       }
-       #video-up-and-down-switching-{{section.id}} .swiper-button-container {
-         width: 100%;
-         position: relative;
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         gap: 40px;
-         margin-top: 10px;
-       }
-       .video-up-and-down-switching-mySwiper-{{section.id}}{
-        height: {{section.settings.material_height_mb}}px;
+      #video-up-and-down-switching-{{section.id}} .swiper-button-next,
+      #video-up-and-down-switching-{{section.id}} .swiper-button-prev {
+        position: relative;
+        top: auto;
+        width: 44px;
+        height: 44px;
+        margin-top: 0;
+        background-color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: none;
+        left: auto;
+        right: auto;
       }
-       #video-up-and-down-switching-{{section.id}} video,
-       #video-up-and-down-switching-{{section.id}} img {
-         border-radius: {{section.settings.material_border_radius_mb}}px;
-         {% comment %} box-shadow: rgb(0 0 0 / 25%) .4rem .4rem 1.6rem; {% endcomment %}
-       }
-       #video-up-and-down-switching-{{section.id}}  .swiper-scrollbar{
-        background: #D9D9D9;
-        height:137px;
-        width:2px !important;
-
+      #video-up-and-down-switching-{{section.id}} {
+        padding: {{section.settings.padding_top_mobile}}px {{section.settings.padding_left_and_right_mobile}}px {{section.settings.padding_bottom_mobile}}px {{section.settings.padding_left_and_right_mobile}}px;
+        width: auto;
       }
-      #video-up-and-down-switching-{{section.id}}   .swiper-scrollbar-drag {
-       height: 50% !important;
-       width: 2px;
-       position: relative;
-       background:#FF8F1C;
-       border-radius: 10px;
-       left: 0;
-       top: 0;
-   }
-       #video-up-and-down-switching-{{section.id}} .swiper-button-next,
-       #video-up-and-down-switching-{{section.id}} .swiper-button-prev {
-         position: relative;
-         top: auto;
-         width: 44px;
-         height: 44px;
-         margin-top: 0;
-         background-color: #fff;
-         border-radius: 50%;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         transform: none;
-         left: auto;
-         right: auto;
-       }
-       #video-up-and-down-switching-{{section.id}} {
-         padding: {{section.settings.padding_top_mobile}}px {{section.settings.padding_left_and_right_mobile}}px {{section.settings.padding_bottom_mobile}}px {{section.settings.padding_left_and_right_mobile}}px;
-         width: auto;
-       }
-       #video-up-and-down-switching-{{section.id}} .title {
-         margin-top: {{section.settings.heading_margin_top_mobile}}px;
-         margin-bottom: {{section.settings.heading_margin_bottom_mobile}}px;
-         font-size: {{section.settings.heading_size_mobile}}px !important;
-       }
-       #video-up-and-down-switching-{{section.id}} .subheading {
-         font-size: {{section.settings.subheading_size_mobile}}px !important;
-         margin-bottom: {{section.settings.subheading_margin_bottom_mobile}}px;
-       }
-       #video-up-and-down-switching-{{section.id}} .custom-row {
-         {% if section.settings.material_position == 'top' %}
-           flex-direction: column;
-         {% elsif section.settings.material_position == 'bottom' %}
-           flex-direction: column-reverse;
-         {% endif %}
-         margin: 0;
-       }
-       #video-up-and-down-switching-{{section.id}} .column {
-         width: 100%;
-         max-width: 100%;
-         height:100%
-       }
-       #video-up-and-down-switching-{{section.id}} .content {
-         padding: 0;
-         font-size: {{section.settings.desc_size_mobile}}px !important;
-         margin-bottom: {{section.settings.content_margin_bottom_mobile}}px;
-       }
-       #video-up-and-down-switching-{{section.id}} .button_link {
-         padding: 6px 15px;
-         font-size: 14px;
-         margin-bottom: 1px;
-       }
-       #video-up-and-down-switching-{{section.id}} .button_link .arrow-icon {
-         padding: 9px;
-         width: 28px;
-         height: 28px;
-       }
-       #video-up-and-down-switching-{{section.id}} .button_link .arrow-icon svg {
-         width: 10px;
-         height: 10px;
-       }
-       #video-up-and-down-switching-{{section.id}} .show_desktop {
-         display: none;
-       }
-       #video-up-and-down-switching-{{section.id}} .show_mobile {
-         display: flex;
-       }
-     }
+      #video-up-and-down-switching-{{section.id}} .title {
+        margin-top: {{section.settings.heading_margin_top_mobile}}px;
+        margin-bottom: {{section.settings.heading_margin_bottom_mobile}}px;
+        font-size: {{section.settings.heading_size_mobile}}px !important;
+      }
+      #video-up-and-down-switching-{{section.id}} .subheading {
+        font-size: {{section.settings.subheading_size_mobile}}px !important;
+        margin-bottom: {{section.settings.subheading_margin_bottom_mobile}}px;
+      }
+      #video-up-and-down-switching-{{section.id}} .custom-row {
+        {% if section.settings.material_position == 'top' %}
+          flex-direction: column;
+        {% elsif section.settings.material_position == 'bottom' %}
+          flex-direction: column-reverse;
+        {% endif %}
+        margin: 0;
+      }
+      #video-up-and-down-switching-{{section.id}} .column {
+        width: 100%;
+        max-width: 100%;
+        height:100%
+      }
+      #video-up-and-down-switching-{{section.id}} .content {
+        padding: 0;
+        font-size: {{section.settings.desc_size_mobile}}px !important;
+        margin-bottom: {{section.settings.content_margin_bottom_mobile}}px;
+      }
+      #video-up-and-down-switching-{{section.id}} .button_link {
+        padding: 6px 15px;
+        font-size: 14px;
+        margin-bottom: 1px;
+      }
+      #video-up-and-down-switching-{{section.id}} .button_link .arrow-icon {
+        padding: 9px;
+        width: 28px;
+        height: 28px;
+      }
+      #video-up-and-down-switching-{{section.id}} .button_link .arrow-icon svg {
+        width: 10px;
+        height: 10px;
+      }
+      #video-up-and-down-switching-{{section.id}} .show_desktop {
+        display: none;
+      }
+      #video-up-and-down-switching-{{section.id}} .show_mobile {
+        display: flex;
+      }
+    }
 </style>
 
 <!-- 图片文字左右、上下调换模块 -->
@@ -499,38 +503,22 @@
                       {% endif %}
                     {%- when 'materialLRVideo' -%}
                       {%- if block.settings.video -%}
-                        <div class=" video1">
-                           <video
-                          data-poster="{{ block.settings.video.preview_image | image_url:width:1000 }}"
-                          class="lazy"
-                          preload="none"
-                          autoplay
-                          width="100%"
-                          height="auto"
-                          muted
-                          loop
-                          playsinline
-                          webkit-playsinline
-                          x5-playsinline
-                          x5-video-player-type="h5"
-                          x-webkit-airplay="allow"
-                          controlslist="nodownload noremoteplayback"
-                          data-src="{{ block.settings.video.sources[0].url  }}"
-                          type="video/mp4"
-                        ></video>
+                        <div class="show_desktop video1">
+                          {{
+                            block.settings.video
+                            | video_tag: width: '100%', height: 'auto', autoplay: true, muted: true, controls: false
+                          }}
                         </div>
                       {% endif %}
 
-                      {% comment %}
-                        {%- if block.settings.video_mobile -%}
-                          <div class="show_mobile video1">
-                            {{
-                              block.settings.video_mobile
-                              | video_tag: width: '100%', height: 'auto', autoplay: true, muted: true, controls: false
-                            }}
-                          </div>
-                        {% endif %}
-                      {% endcomment %}
+                      {%- if block.settings.video_mobile -%}
+                        <div class="show_mobile">
+                          {{
+                            block.settings.video_mobile
+                            | video_tag: width: '100%', height: 'auto', autoplay: true, muted: true, controls: false
+                          }}
+                        </div>
+                      {% endif %}
                   {%- endcase -%}
                 </div>
               {% endfor %}
@@ -539,170 +527,156 @@
         </div>
         <div class="column info">
           <div class=" swiper-scrollbar video-up-and-down-switching-swiper-scrollbar-{{ section.id }}"></div>
-
-          <div class="info-details">
-            <h3
-              class="title {{ section.settings.heading_size }} {{ section.settings.heading_font_family }} "
-            >
-              {{- section.settings.heading -}}
-            </h3>
-            <div
-              class="subheading {{ section.settings.subheading_size }} {{ section.settings.subheading_font_family }} "
-              data-wow-delay="1s"
-            >
-              {{- section.settings.subheading -}}
-            </div>
-            <div
-              class="content {{ section.settings.desc_size }} {{ section.settings.desc_font_family }}  "
-              data-wow-delay="1s"
-            >
-              {{- section.settings.content -}}
-            </div>
-            {%- if section.settings.button_link and section.settings.button_text != empty -%}
-              <a
-                class="button_link  "
-                data-wow-delay="1.2s"
-                href="{{section.settings.button_link}}"
+          {%- for block in section.blocks -%}
+            <div class="info-details {% if forloop.first %}active{% endif %}">
+              <h3
+                class="title {{ section.settings.heading_size }} {{ section.settings.heading_font_family }} "
               >
-                <span> {{ section.settings.button_text }}</span>
-                <span class="arrow-icon">
-                  <svg width="14" height="13" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.76254 0.428941L15.1265 6.7929C15.517 7.18343 15.517 7.81659 15.1265 8.20712L8.76254 14.5711C8.37202 14.9616 7.73885 14.9616 7.34833 14.5711C6.9578 14.1806 6.9578 13.5474 7.34833 13.1569L12.0052 8.50001L0.580688 8.50001L0.580688 6.50001L12.0052 6.50001L7.34833 1.84315C6.95781 1.45263 6.95781 0.819466 7.34833 0.428941C7.73885 0.0384169 8.37202 0.0384169 8.76254 0.428941Z" fill="#FECE67"/>
-                  </svg>
-                </span>
-              </a>
-            {% endif %}
-            <!-- 额外链接 -->
-            {%- if section.settings.show_other_url and section.settings.other_url_link != empty -%}
-              <a
-                class="other_url_link"
-                data-wow-delay="1.2s"
-                href="{{section.settings.other_url_link}}"
-              >
-                View Results
-              </a>
-            {% endif %}
-            <!-- 会员登录按钮 -->
-            {%- if section.settings.button_text != empty
-              and section.settings.button_link == null
-              and section.settings.show_popup_login == true
-            -%}
+                {{- block.settings.heading -}}
+              </h3>
               <div
-                class="button_link_login_button button_link  "
-                data-wow-delay="1.2s"
-                style="cursor: pointer;"
+                class="subheading {{ section.settings.subheading_size }} {{ section.settings.subheading_font_family }} "
               >
-                <span> {{ section.settings.button_text }}</span>
-                <span class="arrow-icon">
-                  <svg width="14" height="13" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.76254 0.428941L15.1265 6.7929C15.517 7.18343 15.517 7.81659 15.1265 8.20712L8.76254 14.5711C8.37202 14.9616 7.73885 14.9616 7.34833 14.5711C6.9578 14.1806 6.9578 13.5474 7.34833 13.1569L12.0052 8.50001L0.580688 8.50001L0.580688 6.50001L12.0052 6.50001L7.34833 1.84315C6.95781 1.45263 6.95781 0.819466 7.34833 0.428941C7.73885 0.0384169 8.37202 0.0384169 8.76254 0.428941Z" fill="#FECE67"/>
-                  </svg>
-                </span>
+                {{- block.settings.subheading -}}
               </div>
-            {% endif %}
-          </div>
+              <div
+                class="content {{ section.settings.desc_size }} {{ section.settings.desc_font_family }}  "
+              >
+                {{- block.settings.content -}}
+              </div>
+            </div>
+          {% endfor %}
         </div>
       </div>
     </div>
   </div>
 </div>
-<script type="text/javascript">
+<script defer type="text/javascript">
   $(document).ready(function () {
-      const totalNums = {{ section.blocks.size }}
+     const totalNums = {{ section.blocks.size }}
 
-      if (totalNums > 1) {
-          // direction: 'vertical', 解决 slide 高度溢出问题，需设置 autoHeight 为 true
-          const custom_product_multiple_slider_swiper = new Swiper('.video-up-and-down-switching-mySwiper-{{section.id}}', {
-            direction: 'vertical',
-            effect : 'fade',
-            fadeEffect: {
-              crossFade: true,
-            },
-            height: {{section.settings.material_height}},
-            slidesPerView: 1,
-            spaceBetween: 0,
-            allowTouchMove: false,
-            scrollbar: {
-              el: '.video-up-and-down-switching-swiper-scrollbar-{{ section.id }}',
-            },
-            breakpoints: {
-              //当宽度小于等于768时显示
-              768: {
-                height: {{section.settings.material_height_mb}},
+     if (totalNums > 1) {
+         // direction: 'vertical', 解决 slide 高度溢出问题，需设置 autoHeight 为 true
+         const custom_product_multiple_slider_swiper = new Swiper('.video-up-and-down-switching-mySwiper-{{section.id}}', {
+           direction: 'vertical',
+           effect : 'fade',
+           fadeEffect: {
+             crossFade: true,
+           },
+           height: {{section.settings.material_height}},
+           slidesPerView: 1,
+           spaceBetween: 0,
+           allowTouchMove: false,
+           scrollbar: {
+             el: '.video-up-and-down-switching-swiper-scrollbar-{{ section.id }}',
+           },
+           breakpoints: {
+             //当宽度小于等于768时显示
+             768: {
+               height: {{section.settings.material_height_mb}},
 
-              },
-            },
-          });
+             },
+           },
+         });
 
-          // 播放视频 .video1 下的 video 到结尾自动切换下一个
-          function setupVideoAutoSwitch() {
-            // 获取所有 .video1 下的 video 元素
-            const videos = document.querySelectorAll('.video-up-and-down-switching-mySwiper-{{section.id}} .swiper-slide .video1 video');
-            if (!videos.length) return;
+         // 播放视频 .video1 下的 video 到结尾自动切换下一个
+         function setupVideoAutoSwitch() {
+           // 获取所有 .video1 下的 video 元素
+           const videos = document.querySelectorAll('.video-up-and-down-switching-mySwiper-{{section.id}} .swiper-slide .video1 video');
+           if (!videos.length) return;
 
-            videos.forEach((video, idx) => {
-              video.addEventListener('ended', function() {
-                // 切换到下一个slide
-                let nextIndex = idx + 1;
-                if (nextIndex >= videos.length) nextIndex = 0; // 回到第一个，循环
-                custom_product_multiple_slider_swiper.slideTo(nextIndex);
+           videos.forEach((video, idx) => {
+             video.addEventListener('ended', function() {
+               // 切换到下一个slide
+               let nextIndex = idx + 1;
+               if (nextIndex >= videos.length) nextIndex = 0; // 回到第一个，循环
+               custom_product_multiple_slider_swiper.slideTo(nextIndex);
 
-                // 确保下一个视频从头开始播放，可能需要等待slide切换完成
-                setTimeout(() => {
-                  // 重新获取当前活跃slide下的 .video1 video
-                  const slides = document.querySelectorAll('.video-up-and-down-switching-mySwiper-{{section.id}} .swiper-slide');
-                  slides.forEach(s => {
-                    // 只有当前slide播放，其它全部暂停
-                    const v = s.querySelector('.video1 video');
-                    if (v) {
-                      if (s.classList.contains('swiper-slide-active')) {
-                        v.currentTime = 0;
-                        v.play();
-                      } else {
-                        v.pause();
-                        v.currentTime = 0;
-                      }
-                    }
-                  });
-                }, 400); // 适当延迟，等待swiper切换完成再play
-              });
-            });
+               // 确保下一个视频从头开始播放，可能需要等待slide切换完成
+               setTimeout(() => {
+                 // 重新获取当前活跃slide下的 .video1 video
+                 const slides = document.querySelectorAll('.video-up-and-down-switching-mySwiper-{{section.id}} .swiper-slide');
+                 slides.forEach(s => {
+                   // 只有当前slide播放，其它全部暂停
+                   const v = s.querySelector('.video1 video');
+                   if (v) {
+                     if (s.classList.contains('swiper-slide-active')) {
+                       v.currentTime = 0;
+                       v.play();
+                     } else {
+                       v.pause();
+                       v.currentTime = 0;
+                     }
+                   }
+                 });
+               }, 400); // 适当延迟，等待swiper切换完成再play
+             });
+           });
 
-            // 可选：初始就播放第一个视频
-            if (videos[0]) {
-              videos[0].currentTime = 0;
-              videos[0].play();
+           // 可选：初始就播放第一个视频
+           if (videos[0]) {
+             videos[0].currentTime = 0;
+             videos[0].play();
+           }
+         }
+
+         // swiper切换时，只让当前slide的 .video1 video 播放，其它全部暂停
+         custom_product_multiple_slider_swiper.on('slideChange', function () {
+           const slides = document.querySelectorAll('.video-up-and-down-switching-mySwiper-{{section.id}} .swiper-slide');
+           const infoDetails = document.querySelectorAll('#video-up-and-down-switching-{{section.id}} .info-details');
+           slides.forEach((slide, idx) => {
+             const video = slide.querySelector('.video1 video');
+             if (video) {
+               if (slide.classList.contains('swiper-slide-active')) {
+                 video.currentTime = 0;
+                 video.play();
+
+               } else {
+                 video.pause();
+                 video.currentTime = 0;
+      
+               }
+             }
+           });
+
+           // 切换显示对应的 info-details
+           // 假定 info-details 按顺序渲染，例如 .video-up-and-down-switching-info-details-{{section.id}} .info-details
+
+          const activeIndex = Array.from(slides).findIndex(slide => slide.classList.contains('swiper-slide-active'));
+           infoDetails.forEach((detail, idx) => {
+            console.log(idx);
+            console.log('activeIndex=======',activeIndex);
+            if(activeIndex == 0){
+              infoDetails[1].classList.add('active');
+                  infoDetails[0].classList.remove('active');
             }
-          }
+            if(activeIndex == 1){
+              infoDetails[0].classList.add('active');
+                  infoDetails[1].classList.remove('active');
+            }
+          
+           });
+         });
 
-          // swiper切换时，只让当前slide的 .video1 video 播放，其它全部暂停
-          custom_product_multiple_slider_swiper.on('slideChange', function () {
-            const slides = document.querySelectorAll('.video-up-and-down-switching-mySwiper-{{section.id}} .swiper-slide');
-            slides.forEach(slide => {
-              const video = slide.querySelector('.video1 video');
-              if (video) {
-                if (slide.classList.contains('swiper-slide-active')) {
-                  video.currentTime = 0;
-                  video.play();
-                } else {
-                  video.pause();
-                  video.currentTime = 0;
-                }
-              }
-            });
-          });
-
-          // 页面加载后初始化监听
-          setupVideoAutoSwitch();
-
-      }
-    //  会员登录弹窗
-      const modalLogin = document.querySelector('modal-login');
-      $('#video-up-and-down-switching-{{section.id}} .button_link_login_button').on('click', function () {
-        modalLogin.showModal(modalLogin.fetchForm.login.innerHTML);
-        const loginForm = modalLogin.showModal(modalLogin.fetchForm.login.innerHTML);
-        modalLogin.loginBindEvent(loginForm.el);
-      })
+         // 页面加载后初始化监听
+         setupVideoAutoSwitch();
+        {% comment %} if (totalNums === 1) {
+             console.log('禁止拖动');
+             // 禁止拖动
+             custom_product_multiple_slider_swiper.allowTouchMove = false;
+         } else {
+             // 允许拖动
+             console.log('允许拖动');
+             custom_product_multiple_slider_swiper.allowTouchMove = true;
+         } {% endcomment %}
+     }
+   //  会员登录弹窗
+     const modalLogin = document.querySelector('modal-login');
+     $('#video-up-and-down-switching-{{section.id}} .button_link_login_button').on('click', function () {
+       modalLogin.showModal(modalLogin.fetchForm.login.innerHTML);
+       const loginForm = modalLogin.showModal(modalLogin.fetchForm.login.innerHTML);
+       modalLogin.loginBindEvent(loginForm.el);
+     })
   });
 </script>
 {% schema %}
@@ -1781,6 +1755,24 @@
           "id": "video_mobile",
           "label": "视频URL(mobile)",
           "info": "仅限于shopify素材地址"
+        },
+        {
+          "type": "html",
+          "id": "heading",
+          "label": "主标题",
+          "default": "主标题"
+        },
+        {
+          "type": "html",
+          "id": "subheading",
+          "label": "副标题",
+          "default": "副标题"
+        },
+        {
+          "type": "html",
+          "id": "content",
+          "label": "正文",
+          "default": "Welcome to my shop!Welcome to my shop!Welcome to my shop!Welcome to my shop!Welcome to my shop!Welcome to my shop!Welcome to my shop!"
         }
       ]
     }
