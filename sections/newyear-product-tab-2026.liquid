@@ -1,4 +1,9 @@
 <style>
+  {% if localization.country.iso_code == 'MX' %}
+    a[href="#custom-nav-Consumables-Savings"] {
+      display: none;
+    }
+  {% endif %}
       /* black friday Official Promotion product1  start  */
     .christmas-products-tab-{{ section.id }}  .christmas-products-tab-wrapper {
         background-color: {{ section.settings.bg_color }};
@@ -558,6 +563,9 @@
 
         .christmas-products-tab-{{ section.id }}  .christmas-products-main-banner-box .mb {
           display: flex;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
         .christmas-products-tab-{{ section.id }}    .christmas-products-tab-tabs {
           gap: 8px;
@@ -841,371 +849,377 @@
       /* black friday Official Promotion product1  end  */
 </style>
 <!-- black friday Official Promotion product1  start -->
-{% assign blocks_count = section.blocks.size %}
-<section
-  id="{%- if section.settings.nav_id != empty %}custom-nav-{{- section.settings.nav_id -}}{% endif -%}"
-  class="christmas-products-tab-{{ section.id }}"
->
-  <div class="christmas-products-tab-wrapper">
-    <div class="christmas-products-tab-container">
-      {%- if section.settings.show_snow_bg -%}
-        {% assign snow_bg_left = section.settings.snow_bg_left %}
-        {% assign snow_bg_right = section.settings.snow_bg_right %}
-        {%- if snow_bg_left -%}
-          <div class="christmas-product-tab-container-left-snow">
-            <img
-              style="aspect-ratio: {{ snow_bg_left.aspect_ratio }}"
-              class="lazyload"
-              data-src="{{ snow_bg_left | image_url:width:750 }}"
-              alt=""
+{% if localization.country.iso_code != 'MX' %}
+  {% assign blocks_count = section.blocks.size %}
+  <section
+    id="{%- if section.settings.nav_id != empty %}custom-nav-{{- section.settings.nav_id -}}{% endif -%}"
+    class="christmas-products-tab-{{ section.id }}"
+  >
+    <div class="christmas-products-tab-wrapper">
+      <div class="christmas-products-tab-container">
+        {%- if section.settings.show_snow_bg -%}
+          {% assign snow_bg_left = section.settings.snow_bg_left %}
+          {% assign snow_bg_right = section.settings.snow_bg_right %}
+          {%- if snow_bg_left -%}
+            <div class="christmas-product-tab-container-left-snow">
+              <img
+                style="aspect-ratio: {{ snow_bg_left.aspect_ratio }}"
+                class="lazyload"
+                data-src="{{ snow_bg_left | image_url:width:750 }}"
+                alt=""
+              >
+            </div>
+          {%- endif -%}
+          {%- if snow_bg_right -%}
+            <div class="christmas-product-tab-container-right-snow">
+              <img
+                style="aspect-ratio: {{ snow_bg_right.aspect_ratio }}"
+                class="lazyload"
+                data-src="{{ snow_bg_right | image_url:width:750 }}"
+                alt=""
+              >
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+        <div class="christmas-products-tab-title-wrapper">
+          {%- if section.settings.title != empty -%}
+            <div class="christmas-products-tab-title">
+              {{ section.settings.title }}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.subtitle != empty -%}
+            <div class="christmas-products-tab-subtitle">
+              {{ section.settings.subtitle }}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.desc != empty -%}
+            <div class="christmas-products-tab-desc">
+              {{ section.settings.desc }}
+            </div>
+          {%- endif -%}
+          {% assign main_banner_image_pc = section.settings.main_banner_image_pc %}
+          {% assign main_banner_image_mb = section.settings.main_banner_image_mb %}
+          {% if main_banner_image_pc and main_banner_image_mb %}
+            <div
+              class="christmas-products-main-banner-box"
             >
-          </div>
-        {%- endif -%}
-        {%- if snow_bg_right -%}
-          <div class="christmas-product-tab-container-right-snow">
-            <img
-              style="aspect-ratio: {{ snow_bg_right.aspect_ratio }}"
-              class="lazyload"
-              data-src="{{ snow_bg_right | image_url:width:750 }}"
-              alt=""
-            >
-          </div>
-        {%- endif -%}
-      {%- endif -%}
-      <div class="christmas-products-tab-title-wrapper">
-        {%- if section.settings.title != empty -%}
-          <div class="christmas-products-tab-title">
-            {{ section.settings.title }}
-          </div>
-        {%- endif -%}
-        {%- if section.settings.subtitle != empty -%}
-          <div class="christmas-products-tab-subtitle">
-            {{ section.settings.subtitle }}
-          </div>
-        {%- endif -%}
-        {%- if section.settings.desc != empty -%}
-          <div class="christmas-products-tab-desc">
-            {{ section.settings.desc }}
-          </div>
-        {%- endif -%}
-        {% assign main_banner_image_pc = section.settings.main_banner_image_pc %}
-        {% assign main_banner_image_mb = section.settings.main_banner_image_mb %}
-        {% if main_banner_image_pc and main_banner_image_mb %}
+              {% if main_banner_image_pc %}
+                <img
+                  style="aspect-ratio: {{ main_banner_image_pc.aspect_ratio }}"
+                  class="pc lazyload"
+                  data-sizes="100vw"
+                  data-srcset="
+                    {%- if main_banner_image_pc.width >= 200 -%}{{ main_banner_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 375 -%}{{ main_banner_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 550 -%}{{ main_banner_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 750 -%}{{ main_banner_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 1100 -%}{{ main_banner_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 1500 -%}{{ main_banner_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 1780 -%}{{ main_banner_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 2000 -%}{{ main_banner_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 3000 -%}{{ main_banner_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 3840 -%}{{ main_banner_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ main_banner_image_pc | image_url }} {{ main_banner_image_pc.width }}w
+                  "
+                  data-src="{{ main_banner_image_pc | image_url:width:750 }}"
+                  alt="{{ main_banner_image_pc.alt }}"
+                >
+              {% endif %}
+              {% if main_banner_image_mb %}
+                <img
+                  style="aspect-ratio: {{ main_banner_image_mb.aspect_ratio }}"
+                  class="mb lazyload"
+                  data-sizes="100vw"
+                  data-srcset="
+                    {%- if main_banner_image_mb.width >= 200 -%}{{ main_banner_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 375 -%}{{ main_banner_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 550 -%}{{ main_banner_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 750 -%}{{ main_banner_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 1100 -%}{{ main_banner_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 1500 -%}{{ main_banner_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 1780 -%}{{ main_banner_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 2000 -%}{{ main_banner_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 3000 -%}{{ main_banner_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 3840 -%}{{ main_banner_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ main_banner_image_mb | image_url }} {{ main_banner_image_mb.width }}w
+                  "
+                  data-src="{{ main_banner_image_mb | image_url:width:750 }}"
+                  alt="{{ main_banner_image_mb.alt }}"
+                >
+              {% endif %}
+            </div>
+          {% endif %}
           <div
-            class="christmas-products-main-banner-box"
+            id="christmas-products-tab-tabs"
+            class="christmas-products-tab-tabs"
           >
-            {% if main_banner_image_pc %}
-              <img
-                style="aspect-ratio: {{ main_banner_image_pc.aspect_ratio }}"
-                class="pc lazyload"
-                data-sizes="100vw"
-                data-srcset="
-                  {%- if main_banner_image_pc.width >= 200 -%}{{ main_banner_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
-                  {%- if main_banner_image_pc.width >= 375 -%}{{ main_banner_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
-                  {%- if main_banner_image_pc.width >= 550 -%}{{ main_banner_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
-                  {%- if main_banner_image_pc.width >= 750 -%}{{ main_banner_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
-                  {%- if main_banner_image_pc.width >= 1100 -%}{{ main_banner_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
-                  {%- if main_banner_image_pc.width >= 1500 -%}{{ main_banner_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
-                  {%- if main_banner_image_pc.width >= 1780 -%}{{ main_banner_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
-                  {%- if main_banner_image_pc.width >= 2000 -%}{{ main_banner_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
-                  {%- if main_banner_image_pc.width >= 3000 -%}{{ main_banner_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
-                  {%- if main_banner_image_pc.width >= 3840 -%}{{ main_banner_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
-                  {{ main_banner_image_pc | image_url }} {{ main_banner_image_pc.width }}w
-                "
-                data-src="{{ main_banner_image_pc | image_url:width:750 }}"
-                alt="{{ main_banner_image_pc.alt }}"
-              >
-            {% endif %}
-            {% if main_banner_image_mb %}
-              <img
-                style="aspect-ratio: {{ main_banner_image_mb.aspect_ratio }}"
-                class="mb lazyload"
-                data-sizes="100vw"
-                data-srcset="
-                  {%- if main_banner_image_mb.width >= 200 -%}{{ main_banner_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
-                  {%- if main_banner_image_mb.width >= 375 -%}{{ main_banner_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
-                  {%- if main_banner_image_mb.width >= 550 -%}{{ main_banner_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
-                  {%- if main_banner_image_mb.width >= 750 -%}{{ main_banner_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
-                  {%- if main_banner_image_mb.width >= 1100 -%}{{ main_banner_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
-                  {%- if main_banner_image_mb.width >= 1500 -%}{{ main_banner_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
-                  {%- if main_banner_image_mb.width >= 1780 -%}{{ main_banner_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
-                  {%- if main_banner_image_mb.width >= 2000 -%}{{ main_banner_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
-                  {%- if main_banner_image_mb.width >= 3000 -%}{{ main_banner_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
-                  {%- if main_banner_image_mb.width >= 3840 -%}{{ main_banner_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
-                  {{ main_banner_image_mb | image_url }} {{ main_banner_image_mb.width }}w
-                "
-                data-src="{{ main_banner_image_mb | image_url:width:750 }}"
-                alt="{{ main_banner_image_mb.alt }}"
-              >
-            {% endif %}
-          </div>
-        {% endif %}
-        <div
-          id="christmas-products-tab-tabs"
-          class="christmas-products-tab-tabs"
-        >
-          {% comment %} 获取section.blocks的数量 {% endcomment %}
+            {% comment %} 获取section.blocks的数量 {% endcomment %}
 
+            {%- for block in section.blocks -%}
+              {% assign tab_label = block.settings.tab_name | default: 'Tab' %}
+
+              <div
+                class="christmas-products-tab-tab {% if forloop.first %} active{% endif %}"
+              >
+                {{ tab_label }}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+        <div class="christmas-products-tab-banner">
           {%- for block in section.blocks -%}
-            {% assign tab_label = block.settings.tab_name | default: 'Tab' %}
+            {% assign product_banner_image_pc = block.settings.product_banner_image_pc %}
+            {% assign product_banner_image_mb = block.settings.product_banner_image_mb %}
+            {% assign product_banner_title = block.settings.product_banner_title %}
+            {% assign product_banner_subtitle = block.settings.product_banner_subtitle %}
 
             <div
-              class="christmas-products-tab-tab {% if forloop.first %} active{% endif %}"
+              class="christmas-products-tab-banner-box {% if forloop.first %} active{% endif %}"
             >
-              {{ tab_label }}
+              {% if product_banner_image_pc %}
+                <img
+                  style="aspect-ratio: {{ product_banner_image_pc.aspect_ratio }}"
+                  class="pc lazyload"
+                  data-sizes="100vw"
+                  data-srcset="
+                    {%- if product_banner_image_pc.width >= 200 -%}{{ product_banner_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                    {%- if product_banner_image_pc.width >= 375 -%}{{ product_banner_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if product_banner_image_pc.width >= 550 -%}{{ product_banner_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if product_banner_image_pc.width >= 750 -%}{{ product_banner_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if product_banner_image_pc.width >= 1100 -%}{{ product_banner_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if product_banner_image_pc.width >= 1500 -%}{{ product_banner_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if product_banner_image_pc.width >= 1780 -%}{{ product_banner_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if product_banner_image_pc.width >= 2000 -%}{{ product_banner_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if product_banner_image_pc.width >= 3000 -%}{{ product_banner_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if product_banner_image_pc.width >= 3840 -%}{{ product_banner_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ product_banner_image_pc | image_url }} {{ product_banner_image_pc.width }}w
+                  "
+                  data-src="{{ product_banner_image_pc | image_url:width:750 }}"
+                  alt="{{ product_banner_image_pc.alt }}"
+                >
+              {% endif %}
+              {% if product_banner_image_mb %}
+                <img
+                  style="aspect-ratio: {{ product_banner_image_mb.aspect_ratio }}"
+                  class="mb lazyload"
+                  data-sizes="100vw"
+                  data-srcset="
+                    {%- if product_banner_image_mb.width >= 200 -%}{{ product_banner_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                    {%- if product_banner_image_mb.width >= 375 -%}{{ product_banner_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if product_banner_image_mb.width >= 550 -%}{{ product_banner_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if product_banner_image_mb.width >= 750 -%}{{ product_banner_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if product_banner_image_mb.width >= 1100 -%}{{ product_banner_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if product_banner_image_mb.width >= 1500 -%}{{ product_banner_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if product_banner_image_mb.width >= 1780 -%}{{ product_banner_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if product_banner_image_mb.width >= 2000 -%}{{ product_banner_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if product_banner_image_mb.width >= 3000 -%}{{ product_banner_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if product_banner_image_mb.width >= 3840 -%}{{ product_banner_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ product_banner_image_mb | image_url }} {{ product_banner_image_mb.width }}w
+                  "
+                  data-src="{{ product_banner_image_mb | image_url:width:750 }}"
+                  alt="{{ product_banner_image_mb.alt }}"
+                >
+              {% endif %}
+              <div class="christmas-products-tab-banner-box-content">
+                {%- if product_banner_title != empty -%}
+                  <div class="christmas-products-tab-banner-box-content-title">
+                    {{ product_banner_title }}
+                  </div>
+                {%- endif -%}
+                {%- if product_banner_subtitle != empty -%}
+                  <div class="christmas-products-tab-banner-box-content-desc">
+                    {{ product_banner_subtitle }}
+                  </div>
+                {%- endif -%}
+              </div>
             </div>
           {%- endfor -%}
         </div>
-      </div>
-      <div class="christmas-products-tab-banner">
-        {%- for block in section.blocks -%}
-          {% assign product_banner_image_pc = block.settings.product_banner_image_pc %}
-          {% assign product_banner_image_mb = block.settings.product_banner_image_mb %}
-          {% assign product_banner_title = block.settings.product_banner_title %}
-          {% assign product_banner_subtitle = block.settings.product_banner_subtitle %}
 
-          <div
-            class="christmas-products-tab-banner-box {% if forloop.first %} active{% endif %}"
-          >
-            {% if product_banner_image_pc %}
-              <img
-                style="aspect-ratio: {{ product_banner_image_pc.aspect_ratio }}"
-                class="pc lazyload"
-                data-sizes="100vw"
-                data-srcset="
-                  {%- if product_banner_image_pc.width >= 200 -%}{{ product_banner_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
-                  {%- if product_banner_image_pc.width >= 375 -%}{{ product_banner_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
-                  {%- if product_banner_image_pc.width >= 550 -%}{{ product_banner_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
-                  {%- if product_banner_image_pc.width >= 750 -%}{{ product_banner_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
-                  {%- if product_banner_image_pc.width >= 1100 -%}{{ product_banner_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
-                  {%- if product_banner_image_pc.width >= 1500 -%}{{ product_banner_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
-                  {%- if product_banner_image_pc.width >= 1780 -%}{{ product_banner_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
-                  {%- if product_banner_image_pc.width >= 2000 -%}{{ product_banner_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
-                  {%- if product_banner_image_pc.width >= 3000 -%}{{ product_banner_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
-                  {%- if product_banner_image_pc.width >= 3840 -%}{{ product_banner_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
-                  {{ product_banner_image_pc | image_url }} {{ product_banner_image_pc.width }}w
-                "
-                data-src="{{ product_banner_image_pc | image_url:width:750 }}"
-                alt="{{ product_banner_image_pc.alt }}"
-              >
-            {% endif %}
-            {% if product_banner_image_mb %}
-              <img
-                style="aspect-ratio: {{ product_banner_image_mb.aspect_ratio }}"
-                class="mb lazyload"
-                data-sizes="100vw"
-                data-srcset="
-                  {%- if product_banner_image_mb.width >= 200 -%}{{ product_banner_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
-                  {%- if product_banner_image_mb.width >= 375 -%}{{ product_banner_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
-                  {%- if product_banner_image_mb.width >= 550 -%}{{ product_banner_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
-                  {%- if product_banner_image_mb.width >= 750 -%}{{ product_banner_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
-                  {%- if product_banner_image_mb.width >= 1100 -%}{{ product_banner_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
-                  {%- if product_banner_image_mb.width >= 1500 -%}{{ product_banner_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
-                  {%- if product_banner_image_mb.width >= 1780 -%}{{ product_banner_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
-                  {%- if product_banner_image_mb.width >= 2000 -%}{{ product_banner_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
-                  {%- if product_banner_image_mb.width >= 3000 -%}{{ product_banner_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
-                  {%- if product_banner_image_mb.width >= 3840 -%}{{ product_banner_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
-                  {{ product_banner_image_mb | image_url }} {{ product_banner_image_mb.width }}w
-                "
-                data-src="{{ product_banner_image_mb | image_url:width:750 }}"
-                alt="{{ product_banner_image_mb.alt }}"
-              >
-            {% endif %}
-            <div class="christmas-products-tab-banner-box-content">
-              {%- if product_banner_title != empty -%}
-                <div class="christmas-products-tab-banner-box-content-title">
-                  {{ product_banner_title }}
-                </div>
-              {%- endif -%}
-              {%- if product_banner_subtitle != empty -%}
-                <div class="christmas-products-tab-banner-box-content-desc">
-                  {{ product_banner_subtitle }}
-                </div>
-              {%- endif -%}
-            </div>
-          </div>
-        {%- endfor -%}
-      </div>
-
-      <div class="christmas-products-tab-content">
-        {%- for block in section.blocks -%}
-          <div
-            class="christmas-products-tab {% if forloop.first %} active{% endif %}"
-            data-tab="{{ forloop.index0  }}"
-          >
-            {% for item in block.settings.product_list %}
-              {%- liquid
-                assign current_product = item
-                assign variant = current_product.variants[0]
-                assign product_image_pc = current_product.metafields.custom.product_card_image_pc | default: current_product.featured_image
-                assign product_image_mb = current_product.metafields.custom.product_card_image_mb | default: current_product.featured_image
-                assign title = current_product.metafields.custom.product_card_title | default: current_product.title
-                assign product_price = variant.metafields.custom.activity_sale_price.value | default: variant.price
-                assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: variant.compare_at_price
-                assign product_diff_price = product_origin_price | minus: product_price
-                assign product_tagline = current_product.metafields.custom.product_activity_label
-              -%}
-              {%- if current_product != blank -%}
-                <div class="christmas-products-tab-card">
-                  {% comment %}
-                    {% if product_tagline != blank %}
-                      <div class="christmas-products-tab-product-label">
-                        <div class="christmas-products-tab-product-label-text">
-                          {{- product_tagline -}}
-                        </div>
-                      </div>
-                    {% endif %}
-                  {% endcomment %}
-                  <a
-                    class="christmas-products-tab-product-image"
-                    href="{{variant.url }}"
-                    target="_blank"
-                  >
-                    {% if product_image_pc %}
-                      <img
-                        style="aspect-ratio: {{ product_image_pc.aspect_ratio }}"
-                        class="pc lazyload"
-                        data-sizes="{{100 | divided_by: section.settings.prduct_num}}vw"
-                        data-srcset="
-                          {%- if product_image_pc.width >= 200 -%}{{ product_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
-                          {%- if product_image_pc.width >= 375 -%}{{ product_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
-                          {%- if product_image_pc.width >= 550 -%}{{ product_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
-                          {%- if product_image_pc.width >= 750 -%}{{ product_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
-                          {%- if product_image_pc.width >= 1100 -%}{{ product_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
-                          {%- if product_image_pc.width >= 1500 -%}{{ product_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
-                          {%- if product_image_pc.width >= 1780 -%}{{ product_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
-                          {%- if product_image_pc.width >= 2000 -%}{{ product_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
-                          {%- if product_image_pc.width >= 3000 -%}{{ product_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
-                          {%- if product_image_pc.width >= 3840 -%}{{ product_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
-                          {{ product_image_pc | image_url }} {{ product_image_pc.width }}w
-                        "
-                        data-src="{{ product_image_pc | image_url:width:750 }}"
-                        alt="{{ product_image_pc.alt }}"
-                      >
-                    {% endif %}
-                    {% if product_image_mb %}
-                      <img
-                        style="aspect-ratio: {{ product_image_mb.aspect_ratio }}"
-                        class="mb lazyload"
-                        data-sizes="{{100 | divided_by: section.settings.prduct_num_mobile}}vw"
-                        data-srcset="
-                          {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
-                          {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
-                          {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
-                          {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
-                          {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
-                          {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
-                          {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
-                          {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
-                          {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
-                          {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
-                          {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
-                        "
-                        data-src="{{ product_image_mb | image_url:width:750 }}"
-                        alt="{{ product_image_mb.alt }}"
-                      >
-                    {% endif %}
-                  </a>
-                  <div class="christmas-products-tab-product-content">
-                    <div class="christmas-products-tab-product-name">{{- title -}}</div>
-                    <div class="christmas-products-tab-product-content-bottom">
-                      <!-- 秒杀倒计时 模块 -->
-                      {%- if section.settings.show_flash_sale_countdown -%}
-                        {%- if section.settings.flash_sale_countdown != empty
-                          or section.settings.flash_sale_countdown_end != empty
-                        -%}
-                          <div class="product-flash-sale-countdown">
-                            {%- render 'flash-sale-countdown',
-                              countdown_style: 1,
-                              flash_sale_countdown_date: section.settings.flash_sale_countdown,
-                              flash_sale_countdown_end_date: section.settings.flash_sale_countdown_end
-                            -%}
-                          </div>
-                        {%- endif -%}
-                      {%- endif -%}
-                      <div class="christmas-products-tab-product-price">
-                        {% if product_price != blank and product_price > 0 %}
-                          <div class="christmas-products-tab-product-sale-price">
-                            {{ product_price | money_without_trailing_zeros }}
-                          </div>
-                        {% endif %}
-                        {% if product_origin_price != blank
-                          and product_origin_price > 0
-                          and product_origin_price > product_price
-                        %}
-                          <div class="christmas-products-tab-product-original-price">
-                            {{ product_origin_price | money_without_trailing_zeros }}
-                          </div>
-                        {% endif %}
-                      </div>
-                      {%- if section.settings.show_klarna -%}
-                        <div class="mascot-activities-product-info-klarna">
-                          {% assign klarna_id = 'shopify-block-AbFBFd0QvcXlzYkYva__klarna_on_site_messaging_app_block_gcU6LY' %}
-                          <!-- DO NOT DELETE -->
-                          <div class="klarna-osm-wrapper">
-                            <klarna-placement
-                              id="{{ klarna_id }}"
-                              data-key="credit-promotion-auto-size"
-                              data-theme="light"
-                              data-message-prefix=""
-                              data-integration-style="app-blocks"
-                              data-locale="en-US"
-                              {% if variant %}
-                                data-purchase-amount="{{ variant.price }}"
-                              {% endif %}
-                              data-preloaded="true"
-                            >
-                            </klarna-placement>
+        <div class="christmas-products-tab-content">
+          {%- for block in section.blocks -%}
+            {% assign product_title = block.settings.product_title | split: ',' %}
+            {% assign product_sku = block.settings.product_sku | split: ',' %}
+            <div
+              class="christmas-products-tab {% if forloop.first %} active{% endif %}"
+              data-tab="{{ forloop.index0  }}"
+            >
+              {% for item in block.settings.product_list %}
+                {%- liquid
+                  assign current_product = item
+                  assign item_sku = product_sku[forloop.index0] | minus: 1
+                  assign variant = current_product.variants[item_sku] | default: current_product.variants[0]
+                  assign product_image_pc = current_product.metafields.custom.product_card_image_pc | default: current_product.featured_image
+                  assign product_image_mb = current_product.metafields.custom.product_card_image_mb | default: current_product.featured_image
+                  assign title = current_product.metafields.custom.product_card_title | default: current_product.title
+                  assign product_price = variant.metafields.custom.activity_sale_price.value | default: variant.price
+                  assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: variant.compare_at_price
+                  assign product_diff_price = product_origin_price | minus: product_price
+                  assign product_tagline = current_product.metafields.custom.product_activity_label
+                -%}
+                {%- if current_product != blank -%}
+                  <div class="christmas-products-tab-card">
+                    {% comment %}
+                      {% if product_tagline != blank %}
+                        <div class="christmas-products-tab-product-label">
+                          <div class="christmas-products-tab-product-label-text">
+                            {{- product_tagline -}}
                           </div>
                         </div>
                       {% endif %}
-                      <div class="christmas-products-tab-product-button-wrapper">
-                        <product-card>
-                          <div
-                            class="christmas-products-tab-product-button-add-to-cart product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
-                            data-product-id="{{ variant.id }}"
-                            tabindex="-1"
-                            {% if variant.available == false %}
-                              disabled
-                            {% endif %}
-                          >
-                            {% render 'svg-icons' with 'thb-loading' %}
-                            <span class="product-card--add-to-cart-text">
-                              {%- if variant.available -%}
-                                {%- if section.settings.buy_now_button_text != empty -%}
-                                  {{ section.settings.buy_now_button_text }}
-                                {%- else -%}
-                                  {%- if product_diff_price > 0 -%}
-                                    Save
-                                    {{ product_diff_price | money_without_trailing_zeros -}}
-                                  {%- else -%}
-                                    Buy Now
-                                  {%- endif -%}
-                                {%- endif -%}
-                              {%- else -%}
-                                {{- 'products.product.sold_out' | t -}}
-                              {%- endif -%}
-                            </span>
-                          </div>
-                        </product-card>
-                        <div
-                          class="christmas-products-tab-product-button-view-more"
-                          onclick="window.open('{{variant.url }}','_blank');"
+                    {% endcomment %}
+                    <a
+                      class="christmas-products-tab-product-image"
+                      href="{{variant.url }}"
+                      target="_blank"
+                    >
+                      {% if product_image_pc %}
+                        <img
+                          style="aspect-ratio: {{ product_image_pc.aspect_ratio }}"
+                          class="pc lazyload"
+                          data-sizes="{{100 | divided_by: section.settings.prduct_num}}vw"
+                          data-srcset="
+                            {%- if product_image_pc.width >= 200 -%}{{ product_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                            {%- if product_image_pc.width >= 375 -%}{{ product_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                            {%- if product_image_pc.width >= 550 -%}{{ product_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                            {%- if product_image_pc.width >= 750 -%}{{ product_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if product_image_pc.width >= 1100 -%}{{ product_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                            {%- if product_image_pc.width >= 1500 -%}{{ product_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {%- if product_image_pc.width >= 1780 -%}{{ product_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                            {%- if product_image_pc.width >= 2000 -%}{{ product_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                            {%- if product_image_pc.width >= 3000 -%}{{ product_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                            {%- if product_image_pc.width >= 3840 -%}{{ product_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                            {{ product_image_pc | image_url }} {{ product_image_pc.width }}w
+                          "
+                          data-src="{{ product_image_pc | image_url:width:750 }}"
+                          alt="{{ product_image_pc.alt }}"
                         >
-                          {{ section.settings.learn_more_button_text }}
+                      {% endif %}
+                      {% if product_image_mb %}
+                        <img
+                          style="aspect-ratio: {{ product_image_mb.aspect_ratio }}"
+                          class="mb lazyload"
+                          data-sizes="{{100 | divided_by: section.settings.prduct_num_mobile}}vw"
+                          data-srcset="
+                            {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                            {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                            {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                            {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                            {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                            {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                            {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                            {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                            {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
+                          "
+                          data-src="{{ product_image_mb | image_url:width:750 }}"
+                          alt="{{ product_image_mb.alt }}"
+                        >
+                      {% endif %}
+                    </a>
+                    <div class="christmas-products-tab-product-content">
+                      <div class="christmas-products-tab-product-name">{{- product_title[forloop.index0] | default: title -}}</div>
+                      <div class="christmas-products-tab-product-content-bottom">
+                        <!-- 秒杀倒计时 模块 -->
+                        {%- if section.settings.show_flash_sale_countdown -%}
+                          {%- if section.settings.flash_sale_countdown != empty
+                            or section.settings.flash_sale_countdown_end != empty
+                          -%}
+                            <div class="product-flash-sale-countdown">
+                              {%- render 'flash-sale-countdown',
+                                countdown_style: 1,
+                                flash_sale_countdown_date: section.settings.flash_sale_countdown,
+                                flash_sale_countdown_end_date: section.settings.flash_sale_countdown_end
+                              -%}
+                            </div>
+                          {%- endif -%}
+                        {%- endif -%}
+                        <div class="christmas-products-tab-product-price">
+                          {% if product_price != blank and product_price > 0 %}
+                            <div class="christmas-products-tab-product-sale-price">
+                              {{ product_price | money_without_trailing_zeros }}
+                            </div>
+                          {% endif %}
+                          {% if product_origin_price != blank
+                            and product_origin_price > 0
+                            and product_origin_price > product_price
+                          %}
+                            <div class="christmas-products-tab-product-original-price">
+                              {{ product_origin_price | money_without_trailing_zeros }}
+                            </div>
+                          {% endif %}
+                        </div>
+                        {%- if section.settings.show_klarna -%}
+                          <div class="mascot-activities-product-info-klarna">
+                            {% assign klarna_id = 'shopify-block-AbFBFd0QvcXlzYkYva__klarna_on_site_messaging_app_block_gcU6LY' %}
+                            <!-- DO NOT DELETE -->
+                            <div class="klarna-osm-wrapper">
+                              <klarna-placement
+                                id="{{ klarna_id }}"
+                                data-key="credit-promotion-auto-size"
+                                data-theme="light"
+                                data-message-prefix=""
+                                data-integration-style="app-blocks"
+                                data-locale="en-US"
+                                {% if variant %}
+                                  data-purchase-amount="{{ variant.price }}"
+                                {% endif %}
+                                data-preloaded="true"
+                              >
+                              </klarna-placement>
+                            </div>
+                          </div>
+                        {% endif %}
+                        <div class="christmas-products-tab-product-button-wrapper">
+                          <product-card>
+                            <div
+                              class="christmas-products-tab-product-button-add-to-cart product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                              data-product-id="{{ variant.id }}"
+                              tabindex="-1"
+                              {% if variant.available == false %}
+                                disabled
+                              {% endif %}
+                            >
+                              {% render 'svg-icons' with 'thb-loading' %}
+                              <span class="product-card--add-to-cart-text">
+                                {%- if variant.available -%}
+                                  {%- if section.settings.buy_now_button_text != empty -%}
+                                    {{ section.settings.buy_now_button_text }}
+                                  {%- else -%}
+                                    {%- if product_diff_price > 0 -%}
+                                      Save
+                                      {{ product_diff_price | money_without_trailing_zeros -}}
+                                    {%- else -%}
+                                      Buy Now
+                                    {%- endif -%}
+                                  {%- endif -%}
+                                {%- else -%}
+                                  {{- 'products.product.sold_out' | t -}}
+                                {%- endif -%}
+                              </span>
+                            </div>
+                          </product-card>
+                          <div
+                            class="christmas-products-tab-product-button-view-more"
+                            onclick="window.open('{{variant.url }}','_blank');"
+                          >
+                            {{ section.settings.learn_more_button_text }}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              {%- endif -%}
-            {%- endfor -%}
-          </div>
-        {%- endfor -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endfor -%}
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+{% endif %}
+
 <!-- black friday Official Promotion product1  end -->
 <script>
   // 监听页面DOM加载，初始化swiper与tab交互
@@ -1599,7 +1613,6 @@
           "id": "tab_name",
           "label": "系列名称"
         },
-
         {
           "type": "html",
           "id": "product_banner_title",
@@ -1626,6 +1639,18 @@
           "id": "product_list",
           "label": "产品列表",
           "info": "备注：产品标签元字段：product activity label； 产品原价字段配置：当前产品对应的变体元字段activity original price；产品售价字段配置：当前产品对应的变体元字段activity sale price；"
+        },
+        {
+          "type": "text",
+          "id": "product_title",
+          "label": "Product title",
+          "info": "产品名字之间用英文逗号隔开"
+        },
+        {
+          "type": "text",
+          "id": "product_sku",
+          "label": "Product sku",
+          "info": "产品变体之间用英文逗号隔开"
         }
       ]
     }

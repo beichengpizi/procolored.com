@@ -1,4 +1,5 @@
 <style>
+
     /* black friday Official Promotion product1  start  */
     .christmas-product-tab-{{ section.id }} .christmas-product-tab-wrapper {
       background-color: {{ section.settings.bg_color }};
@@ -64,6 +65,39 @@
       padding: 0;
     }
 
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-content {
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+
+    }
+
+    @media screen and (max-width: 1400px) {
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-content {
+        max-width:100%;
+        padding-left: 24px;
+        padding-right: 24px;
+        padding-top:0;
+      }
+
+      .christmas-product-tab-{{ section.id }} .christmas-frist-banner {
+        max-width:100%;
+        padding-left: 24px;
+        padding-right: 24px;
+        padding-top:0;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+
+      .christmas-product-tab-{{ section.id }} .christmas-frist-banner {
+        max-width:100%;
+        padding-left: 0;
+        padding-right: 0;
+        padding-top:0;
+      }
+    }
+
     .christmas-product-tab-{{ section.id }} .christmas-product-tab-title {
       color: #fece67;
       text-align: center;
@@ -77,7 +111,6 @@
       color: #FF472E;
       text-align: center;
       font-size: 24px;
-      text-transform: capitalize;
       text-align: center;
       font-weight: 400;
       line-height: 1.3;
@@ -114,6 +147,33 @@
 
     .christmas-product-tab-{{ section.id }} .christmas-products-main-banner-box .mb {
       display: none;
+    }
+
+    .christmas-product-tab-{{ section.id }} .with-stand-button-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-top: 16px;
+    }
+
+    .christmas-product-tab-{{ section.id }} .with-stand-button-wrapper > * {
+      display: flex;
+      padding: 16px;
+      align-items: center;
+      gap: 8px;
+      border-radius: 10px;
+      border: 1px solid #E7E7E7;
+      color: #121212;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .christmas-product-tab-{{ section.id }} .with-stand-button-wrapper .active {
+      border-radius: 10px;
+      border: 1px solid #FFDAAE;
+      background: #CC2A1F;
+      color: #FFDAAE;
     }
 
     .christmas-product-tab-{{ section.id }} .christmas-product-tab-tabs {
@@ -215,13 +275,6 @@
       line-height: 1.16;
     }
 
-    .christmas-product-tab-{{ section.id }} .christmas-product-tab-content {
-      max-width: 1400px;
-      margin-left: auto;
-      margin-right: auto;
-
-    }
-
     .christmas-product-tab-{{ section.id }} .christmas-product-tab {
       {% comment %} display: none; {% endcomment %}
        opacity: 0;
@@ -248,6 +301,7 @@
         {% else %}
         flex-direction: row-reverse;
     {% endif %}
+      border: 1px solid #FFC65C;
     }
 
     .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label {
@@ -264,6 +318,7 @@
       border-radius: 4px;
       background: #CC2A1F;
       margin-bottom: 16px;
+      padding-left: {{  }}
     }
 
     .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label-discount-hat-icon {
@@ -287,7 +342,6 @@
       padding: 4px 12px;
       width: fit-content;
       border-radius: 4px;
-      background: #CC2A1F;
     }
 
     .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label-text {
@@ -439,6 +493,13 @@
       flex-wrap: wrap;
     }
 
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-features.pc {
+      display: flex;
+    }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-features.mb {
+      display: none;
+    }
+
     .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-feature-item {
       color: #CC2A1F;
       font-size: 10px;
@@ -508,6 +569,8 @@
 
     .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-wrapper > * {
       width: 100%;
+      display: flex;
+      gap: 16px;
     }
 
     .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-add-to-cart,
@@ -528,7 +591,7 @@
 
     .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-add-to-cart {
       background: #CC2A1F;
-
+      flex: 1;
     }
 
     @media screen and (hover: hover) {
@@ -541,6 +604,7 @@
     .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-view-more {
       color: #CC2A1F;
       border: 1px solid #CC2A1F;
+      flex: 1;
     }
 
     .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-add-to-cart:hover {
@@ -649,14 +713,33 @@
 
         margin-bottom:15px;
     }
+    .christmas-product-tab-card-mySwiper-{{section.id}}{
+      height: 200px;
+  }
 
     .christmas-product-tab-{{ section.id }} .christmas-second-banner-top-1 .pc {
         display: none;
 
     }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-main-image.pc {
+      display: none;
+    }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-main-image.mb {
+      display: flex;
+      width: 80px;
+      height: fit-content;
+      padding-left: 16px;
+    }
 
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-main-image-content-wrapper {
+      display: flex;
+      align-items: center;
+    }
     .christmas-product-tab-{{ section.id }} .christmas-second-banner-top-1 .mb {
         display: flex;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
       .christmas-product-tab-{{ section.id }} .christmas-product-tab-container {
         max-width: 100%;
@@ -697,6 +780,13 @@
         display: none;
       }
 
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-features.pc {
+      display: none;
+    }
+    .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-features.mb {
+      display: flex;
+    }
+
       .christmas-product-tab-{{ section.id }} .christmas-products-main-banner-box .mb {
         display: flex;
       }
@@ -712,12 +802,7 @@
         border-radius: 0;
         margin-top: 16px;
       }
-      .christmas-product-tab-{{ section.id }} .christmas-product-tab-content {
-          max-width:100%;
-          margin-left: 24px;
-          margin-right: 24px;
-          padding-top:0;
-        }
+
       .christmas-product-tab-{{ section.id }} .christmas-product-tab-tab {
         font-size: 12px;
         font-weight: 400;
@@ -726,7 +811,14 @@
         background: #fff;
       }
 
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-wrapper {
+        padding: 0 16px;
+        flex-direction: column;
+      }
 
+      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-wrapper > * {
+        width: 100%;
+      }
 
 
       .christmas-product-tab-{{ section.id }} .christmas-product-tab-tab.active {
@@ -757,7 +849,9 @@
       }
       .christmas-product-tab-card-mySwiper-{{section.id}} .mb{
           display: flex;
-
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         border-top-left-radius: 10px;
           border-top-right-radius: 10px;
 
@@ -784,6 +878,7 @@
           overflow-x: auto;
            overflow-y: auto;
           gap: {{ section.settings.card_gap_mobile }}px;
+          overflow: visible;
           {% comment %} -webkit-overflow-scrolling: touch;
           scrollbar-width: none;
           /* 允许左右上下滑动 */
@@ -807,6 +902,7 @@
           grid-template-columns: repeat(1, 1fr);
           grid-gap: {{ section.settings.card_gap_mobile }}px;
           padding: 0;
+          overflow: visible;
         }
       {%- endif -%}
 
@@ -824,10 +920,9 @@
 
       .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label-discount {
         width: 102px;
-        height: 36px;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='102' height='36' viewBox='0 0 102 36' fill='none'%3E%3Cpath d='M0 0H102V26C102 31.5228 97.5229 36 92 36H0V0Z' fill='%23B90500'/%3E%3Cmask id='mask0_10401_8725' style='mask-type:alpha' maskUnits='userSpaceOnUse' x='0' y='0' width='102' height='36'%3E%3Cpath d='M0 0H102V26C102 31.5228 97.5229 36 92 36H0V0Z' fill='%23D9D9D9'/%3E%3C/mask%3E%3Cg mask='url(%23mask0_10401_8725)'%3E%3Cpath d='M54.1875 -47.8794L51.5894 -48.9594L-22.4112 43.3238L-19.8131 44.4038L54.1875 -47.8794Z' fill='white'/%3E%3Cpath d='M61.9844 -44.6394L59.3863 -45.7194L-14.6143 46.5638L-12.0162 47.6438L61.9844 -44.6394Z' fill='white'/%3E%3Cpath d='M69.7734 -41.3995L67.1753 -42.4795L-6.82526 49.8037L-4.22717 50.8836L69.7734 -41.3995Z' fill='white'/%3E%3Cpath d='M77.5703 -38.1595L74.9722 -39.2395L0.971613 53.0436L3.5697 54.1236L77.5703 -38.1595Z' fill='white'/%3E%3Cpath d='M85.3594 -34.9197L82.7613 -35.9997L8.76068 56.2835L11.3588 57.3635L85.3594 -34.9197Z' fill='white'/%3E%3Cpath d='M93.1562 -31.6797L90.5582 -32.7597L16.5576 59.5235L19.1556 60.6035L93.1562 -31.6797Z' fill='white'/%3E%3Cpath d='M100.953 -28.4395L98.355 -29.5194L24.3544 62.7637L26.9525 63.8437L100.953 -28.4395Z' fill='white'/%3E%3Cpath d='M108.75 -25.1995L106.152 -26.2795L32.1513 66.0037L34.7494 67.0837L108.75 -25.1995Z' fill='white'/%3E%3Cpath d='M116.539 -21.9596L113.941 -23.0396L39.9404 69.2436L42.5385 70.3236L116.539 -21.9596Z' fill='white'/%3E%3Cpath d='M124.336 -18.7196L121.738 -19.7996L47.7372 72.4836L50.3353 73.5636L124.336 -18.7196Z' fill='white'/%3E%3Cpath d='M132.125 -15.48L129.527 -16.56L55.5269 75.7237L58.125 76.8037L132.125 -15.48Z' fill='white'/%3E%3Cpath d='M139.922 -12.24L137.324 -13.32L63.3238 78.9637L65.9219 80.0437L139.922 -12.24Z' fill='white'/%3E%3Cpath d='M147.719 -9L145.121 -10.08L71.1207 82.2037L73.7188 83.2837L147.719 -9Z' fill='white'/%3E%3Cpath d='M155.516 -5.76001L152.918 -6.84001L78.9175 85.4437L81.5156 86.5237L155.516 -5.76001Z' fill='white'/%3E%3Cpath d='M162.594 -3.23999L159.996 -4.31999L85.9957 87.9637L88.5938 89.0437L162.594 -3.23999Z' fill='white'/%3E%3Cpath d='M171.102 0.719849L168.503 -0.360154L94.5035 91.9235L97.1016 93.0035L171.102 0.719849Z' fill='white'/%3E%3C/g%3E%3Cpath d='M2 2H100V24C100 29.5228 95.5229 34 90 34H2V2Z' fill='url(%23paint0_linear_10401_8725)'/%3E%3Cdefs%3E%3ClinearGradient id='paint0_linear_10401_8725' x1='51.3684' y1='2.18991' x2='51.3684' y2='33.8105' gradientUnits='userSpaceOnUse'%3E%3Cstop stop-color='%23266843'/%3E%3Cstop offset='1' stop-color='%231C6D52'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E");
-
+        height: fit-content;
         position: relative;
+        margin-left: {{ section.settings.content_padding_left_and_right_mobile }}px;
       }
 
       .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-label-discount-hat-icon {
@@ -898,9 +993,6 @@
     .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-main-image .mb{
         display: flex;
       }
-      .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-main-image{
-        display: none;
-      }
       .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-name {
           padding-left: {{section.settings.content_padding_left_and_right_mobile}}px;
           padding-right: {{section.settings.content_padding_left_and_right_mobile}}px;
@@ -966,6 +1058,28 @@
       }
       .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-wrapper>*{
           width: calc(50% - 6px);
+      }
+
+      @media screen and (max-width: 768px) {
+        .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-wrapper>*{
+            width: 100%;
+            flex-direction: column;
+        }
+
+        .christmas-product-tab-{{ section.id }} .with-stand-button-wrapper {
+          padding-left: 16px;
+        }
+
+        .christmas-product-tab-{{ section.id }} .with-stand-button-wrapper > * {
+          padding: 12px;
+          gap: 8px;
+          border-radius: 8px;
+          font-size: 12px;
+        }
+
+        .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-main-image-content-wrapper {
+          margin-top: 16px;
+        }
       }
 
       .christmas-product-tab-{{ section.id }} .christmas-product-tab-product-button-add-to-cart,
@@ -1150,8 +1264,8 @@
   }
   .christmas-product-tab-{{ section.id }} .christmas-dropdown-mock-option.active,
   .christmas-product-tab-{{ section.id }} .christmas-dropdown-mock-option:hover {
-    background: #f9f9f9;
-    color: #000;
+    background: rgba(204, 42, 31, 0.10);
+    color: #CC2A1F;
   }
   .christmas-product-tab-{{ section.id }} .christmas-dropdown-mock-dropdown-icon {
     position: absolute;
@@ -1167,7 +1281,7 @@
   }
   @media screen and (max-width: 768px) {
     .christmas-product-tab-{{ section.id }} .christmas-dropdown-mock-options {
-      position: relative;
+      position: absolute;
       left: 0;
       top: 100%;
       width: 100%;
@@ -1203,7 +1317,6 @@
       background-color: transparent;
     }
     .christmas-product-tab-{{ section.id }} .christmas-dropdown-mock-selected {
-      padding-left: 66px;
       padding-top: 18px;
       padding-bottom: 18px;
       border: 1px solid #e7e7e7;
@@ -1228,7 +1341,7 @@
 </style>
 <!-- black friday Official Promotion product1  start -->
 
-<div
+<section
   id="{%- if section.settings.nav_id != empty %}custom-nav-{{- section.settings.nav_id -}}{% endif -%}"
   class="christmas-product-tab-{{ section.id }}"
 >
@@ -1442,8 +1555,7 @@
               assign product_diff_price = product_origin_price | minus: product_price
               assign product_tagline = block.settings.tagline
             -%}
-            {%- if current_product != blank -%}
-              <div class="christmas-product-tab-card">
+            <div class="christmas-product-tab-card">
                 {%- if scene_image_pc_1 and scene_image_pc_2 -%}
                   <div class="swiper-container christmas-product-tab-card-mySwiper-{{section.id}}">
                     <div class="swiper-wrapper">
@@ -1649,7 +1761,7 @@
 
                 <div class="christmas-product-tab-product-content">
                   <div class="new-year-content-wrapper">
-                    <div class="christmas-product-tab-product-main-image">
+                    <div class="christmas-product-tab-product-main-image pc">
                       {% if product_image_pc %}
                         <img
                           style="aspect-ratio: {{ product_image_pc.aspect_ratio }}"
@@ -1672,85 +1784,107 @@
                           alt="{{ product_image_pc.alt }}"
                         >
                       {% endif %}
-                      {% if product_image_mb %}
-                        <img
-                          style="aspect-ratio: {{ product_image_mb.aspect_ratio }}"
-                          class="mb lazyload"
-                          data-sizes="100vw"
-                          data-srcset="
-                            {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
-                            {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
-                            {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
-                            {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
-                            {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
-                            {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
-                            {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
-                            {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
-                            {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
-                            {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
-                            {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
-                          "
-                          data-src="{{ product_image_mb | image_url:width:750 }}"
-                          alt="{{ product_image_mb.alt }}"
-                        >
-                      {% endif %}
                     </div>
                     <div class="christmas-product-tab-product-main-content">
-                      {% if product_tagline != empty %}
-                        <div class="christmas-product-tab-product-label">
-                          <div class="christmas-product-tab-product-label-text">
-                            {{- product_tagline -}}
-                          </div>
-                        </div>
-                      {% endif %}
-                      {% if product_diff_price != blank
-                        and product_diff_price > 0
-                        and product_price > 0
-                        and product_origin_price > 0
-                      %}
-                        <div class="christmas-product-tab-product-label-discount">
-                          <div class="christmas-product-tab-product-label-discount-text">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                              <g clip-path="url(#clip0_476_6444)">
-                                <path d="M4.02166 0.0430431C3.31364 0.296673 3.04216 1.47811 3.32233 3.07792C3.34622 3.21449 3.38097 3.38574 3.39834 3.45728L3.42875 3.58735L3.34839 3.66322C3.23328 3.76944 2.88579 4.08593 2.54046 4.39809C2.23423 4.6734 2.11044 4.82731 2.04745 5.01374C2.01053 5.11996 2.00836 5.37359 2.00184 9.24305C1.9975 13.7542 1.98881 13.4962 2.1213 13.7217C2.21034 13.8712 2.3754 14.0338 2.51874 14.1097C2.77502 14.2463 2.60996 14.2419 6.33034 14.2419C8.46527 14.2419 9.77272 14.2333 9.86828 14.2203C10.257 14.1639 10.5589 13.8951 10.6719 13.5027C10.7044 13.3943 10.7066 12.9846 10.7023 9.23438L10.6958 5.08311L10.6154 4.91619C10.5372 4.75144 10.4243 4.6192 10.1854 4.4111C10.079 4.31788 9.72928 4.00356 9.53382 3.82363C9.34269 3.65021 9.22324 3.53965 8.80625 3.16463C8.59123 2.9717 8.32193 2.72891 8.20899 2.62486C8.09605 2.5208 7.89624 2.33871 7.76376 2.22165C7.42712 1.91816 7.37717 1.87264 7.14478 1.6602C6.86027 1.4044 6.69087 1.31986 6.41938 1.30468C6.30428 1.30035 6.18265 1.30468 6.13053 1.31986L6.03931 1.3437L6.10664 1.49111C6.31514 1.95068 6.47151 2.39507 6.61485 2.93701C6.70607 3.29036 6.71476 3.3077 6.79294 3.37057C6.92543 3.47679 7.00361 3.57 7.07094 3.70224C7.12524 3.81063 7.13175 3.84964 7.13392 4.0209C7.13392 4.18782 7.12524 4.23334 7.07528 4.33956C6.99493 4.51081 6.86244 4.64738 6.69087 4.73193C6.56273 4.79479 6.53015 4.8013 6.35206 4.8013C6.187 4.8013 6.13704 4.79262 6.03714 4.74493C5.88945 4.67556 5.71353 4.50865 5.65055 4.37641C5.50938 4.08593 5.56368 3.71741 5.77869 3.49847L5.86556 3.40959L5.80041 3.15162C5.70919 2.78961 5.57236 2.37339 5.45726 2.10459C5.40296 1.97886 5.35518 1.87047 5.35301 1.86614C5.34866 1.8618 5.17492 2.01355 4.96859 2.19997C4.57114 2.56199 4.54942 2.5815 4.19107 2.9045C4.0651 3.01722 3.93262 3.13645 3.8957 3.17113L3.82837 3.23183L3.78276 2.98687C3.74149 2.76576 3.70892 2.48395 3.68285 2.14578C3.67851 2.08075 3.68285 1.87481 3.69371 1.69055C3.72846 1.03371 3.8957 0.613167 4.16718 0.491772C4.2736 0.44408 4.36482 0.452752 4.50599 0.524288C5.0837 0.819104 5.62666 1.77509 5.98284 3.12778C6.04583 3.3684 6.06755 3.4226 6.12401 3.47245C6.23912 3.57867 6.43024 3.53098 6.49323 3.38357C6.51712 3.32288 6.51495 3.29036 6.47151 3.12561C6.22609 2.19564 5.93072 1.4716 5.57888 0.942667C5.38776 0.654354 5.00334 0.257652 4.81656 0.155767C4.53205 -0.000311852 4.25405 -0.0414991 4.02166 0.0430431ZM4.98596 7.32891C5.52458 7.40262 5.87425 7.74513 5.97198 8.29574C5.98936 8.38679 5.99587 8.55587 5.98936 8.7358C5.98067 8.98075 5.96981 9.05663 5.91986 9.20187C5.84819 9.4078 5.70267 9.63325 5.56368 9.75465C5.41382 9.88255 5.15754 10.0061 4.97076 10.0365C4.7362 10.0755 4.36482 10.056 4.20193 9.9931C3.84792 9.8587 3.60684 9.60941 3.48087 9.25172C3.38097 8.96775 3.38748 8.46266 3.49608 8.15483C3.59815 7.86652 3.81534 7.60856 4.07162 7.47415C4.36699 7.32024 4.62761 7.27906 4.98596 7.32891ZM8.05262 7.45464C8.19379 7.55436 8.25025 7.77114 8.17424 7.91855C8.15252 7.95757 7.86584 8.40196 7.53572 8.90922C7.20559 9.41648 6.86679 9.9324 6.78643 10.0581C6.70607 10.1839 6.57793 10.379 6.50409 10.4917C6.2022 10.9534 5.90683 11.4065 5.74394 11.6579C5.07501 12.6833 5.08804 12.6681 4.8752 12.6681C4.69059 12.6681 4.53856 12.5424 4.50381 12.3625C4.47558 12.2064 4.38653 12.356 5.95244 9.94975C6.29125 9.43165 6.63657 8.89838 6.72344 8.76831C7.51617 7.54352 7.55309 7.48933 7.63996 7.4373C7.74856 7.37444 7.95054 7.38094 8.05262 7.45464ZM8.37839 10.0278C8.81711 10.1167 9.11465 10.3898 9.23845 10.819C9.36441 11.2461 9.29274 11.8465 9.08207 12.1739C8.83448 12.5554 8.45658 12.7462 7.95271 12.7462C7.60087 12.7462 7.28161 12.6183 7.06225 12.3907C6.83421 12.1544 6.73647 11.9007 6.71693 11.4997C6.70173 11.1659 6.74299 10.9426 6.86679 10.6911C7.04271 10.3334 7.35762 10.095 7.76376 10.0148C7.91145 9.9866 8.20247 9.99093 8.37839 10.0278Z" fill="url(#paint0_linear_476_6444)"/>
-                                <path d="M4.55155 7.98797C4.42558 8.03349 4.36043 8.08768 4.29527 8.20691C4.17799 8.41935 4.15845 8.8529 4.25618 9.1087C4.31048 9.25177 4.43862 9.3775 4.55372 9.39918C4.70141 9.42736 4.89688 9.39918 4.99027 9.33849C5.1575 9.22793 5.24654 8.94395 5.227 8.59494C5.20745 8.24593 5.08583 8.03132 4.8795 7.97929C4.75136 7.94895 4.6558 7.95111 4.55155 7.98797Z" fill="#FDCF8A"/>
-                                <path d="M7.82898 10.6739C7.72256 10.7129 7.57705 10.869 7.53795 10.9817C7.52275 11.0294 7.50538 11.1811 7.49886 11.3221C7.488 11.5237 7.49452 11.606 7.52275 11.7144C7.59225 11.9637 7.75297 12.0938 7.99839 12.0959C8.28507 12.0959 8.46099 11.9312 8.51312 11.6169C8.57827 11.2072 8.48488 10.856 8.26987 10.7151C8.16345 10.6435 7.96364 10.6262 7.82898 10.6739Z" fill="#FDCF8A"/>
-                                <path d="M7.61375 1.77292C7.62461 1.78376 7.75492 1.90298 7.90478 2.03739C8.05463 2.17179 8.21535 2.31703 8.26313 2.36038C8.31091 2.40374 8.44774 2.5273 8.56719 2.63569C8.78003 2.82645 9.47937 3.46161 9.65312 3.61769C9.7009 3.66105 9.89202 3.8323 10.0766 3.99922C10.6478 4.51298 10.7108 4.58235 10.8107 4.79045C10.8585 4.89234 10.9084 5.02674 10.9215 5.08961C10.9389 5.16981 10.9454 6.42278 10.9454 9.2799C10.9454 12.9629 10.941 13.3705 10.9106 13.5114C10.8194 13.9146 10.5457 14.2311 10.1461 14.3893L10.0006 14.4479L7.35747 14.4544C5.83066 14.4565 4.71216 14.4674 4.71216 14.4782C4.71216 14.5563 4.925 15.2998 4.97712 15.4082C5.15739 15.7745 5.5266 16.0022 5.93925 16C6.11083 15.9978 6.21073 15.9783 6.88401 15.8005C7.02083 15.7637 7.35313 15.6748 7.62244 15.6055C7.89175 15.5361 8.39562 15.4038 8.74094 15.3128C9.08844 15.2218 9.4924 15.1155 9.64226 15.0765C9.79211 15.0375 10.0897 14.9595 10.3047 14.9031C10.5197 14.8467 10.8368 14.7622 11.0105 14.7188C11.1843 14.6733 11.6686 14.5454 12.0856 14.437C12.5048 14.3265 12.9782 14.2029 13.1389 14.1617C13.3127 14.1162 13.4929 14.0533 13.5842 14.0078C13.9403 13.8214 14.1597 13.4594 14.1597 13.054C14.1597 12.8936 14.0967 12.6356 13.5842 10.7085C13.532 10.5112 13.4452 10.1795 13.3909 9.97142C13.3366 9.76331 13.1824 9.18235 13.0521 8.6816C12.7806 7.65407 12.6286 7.07745 12.3896 6.16699C11.8467 4.1011 11.8575 4.13579 11.6773 3.94285C11.5557 3.81062 11.4601 3.74992 10.9997 3.51147C10.7846 3.40091 10.5414 3.27302 10.4567 3.22966C10.3742 3.1863 10.1592 3.07358 9.97889 2.98037C9.8008 2.88715 9.53584 2.75058 9.39249 2.67688C7.61158 1.74907 7.55077 1.71872 7.61375 1.77292Z" fill="#FDCF8A"/>
-                              </g>
-                              <defs>
-                                <linearGradient id="paint0_linear_476_6444" x1="9.02185" y1="14.0839" x2="3.70442" y2="0.158033" gradientUnits="userSpaceOnUse">
-                                  <stop stop-color="#FDCF8A"/>
-                                  <stop offset="0.3" stop-color="#FFDAAE"/>
-                                  <stop offset="0.65" stop-color="#FFDAAE"/>
-                                  <stop offset="1" stop-color="#FDCF8A"/>
-                                </linearGradient>
-                                <clipPath id="clip0_476_6444">
-                                  <rect width="16" height="16" fill="white"/>
-                                </clipPath>
-                              </defs>
-                            </svg>
-                            <span
-                              class="christmas-product-tab-product-label-discount-text-unit"
-                              >SAVE</span
+                      <div class="christmas-product-tab-product-main-image-content-wrapper">
+                        <div class="christmas-product-tab-product-main-image mb">
+                          {% if product_image_mb %}
+                            <img
+                              style="aspect-ratio: {{ product_image_mb.aspect_ratio }}"
+                              class="mb lazyload"
+                              data-sizes="100vw"
+                              data-srcset="
+                                {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                                {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                                {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                                {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                                {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
+                              "
+                              data-src="{{ product_image_mb | image_url:width:750 }}"
+                              alt="{{ product_image_mb.alt }}"
                             >
-                            <span
-                              class="christmas-product-tab-product-label-discount-text-value"
-                            >
-                              {{- product_diff_price | money_without_trailing_zeros -}}
-                            </span>
-                          </div>
+                          {% endif %}
                         </div>
-                      {% endif %}
-                      <div class="christmas-product-tab-product-name">{{- title -}}</div>
+                        <div class="christmas-product-tab-product-main-info">
+                          {% if product_tagline != empty %}
+                            <div class="christmas-product-tab-product-label">
+                              <div class="christmas-product-tab-product-label-text">
+                                {{- product_tagline -}}
+                              </div>
+                            </div>
+                          {% endif %}
+                          {% if product_diff_price != blank
+                            and product_diff_price > 0
+                            and product_price > 0
+                            and product_origin_price > 0
+                          %}
+                            <div class="christmas-product-tab-product-label-discount">
+                              <div class="christmas-product-tab-product-label-discount-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                  <g clip-path="url(#clip0_476_6444)">
+                                    <path d="M4.02166 0.0430431C3.31364 0.296673 3.04216 1.47811 3.32233 3.07792C3.34622 3.21449 3.38097 3.38574 3.39834 3.45728L3.42875 3.58735L3.34839 3.66322C3.23328 3.76944 2.88579 4.08593 2.54046 4.39809C2.23423 4.6734 2.11044 4.82731 2.04745 5.01374C2.01053 5.11996 2.00836 5.37359 2.00184 9.24305C1.9975 13.7542 1.98881 13.4962 2.1213 13.7217C2.21034 13.8712 2.3754 14.0338 2.51874 14.1097C2.77502 14.2463 2.60996 14.2419 6.33034 14.2419C8.46527 14.2419 9.77272 14.2333 9.86828 14.2203C10.257 14.1639 10.5589 13.8951 10.6719 13.5027C10.7044 13.3943 10.7066 12.9846 10.7023 9.23438L10.6958 5.08311L10.6154 4.91619C10.5372 4.75144 10.4243 4.6192 10.1854 4.4111C10.079 4.31788 9.72928 4.00356 9.53382 3.82363C9.34269 3.65021 9.22324 3.53965 8.80625 3.16463C8.59123 2.9717 8.32193 2.72891 8.20899 2.62486C8.09605 2.5208 7.89624 2.33871 7.76376 2.22165C7.42712 1.91816 7.37717 1.87264 7.14478 1.6602C6.86027 1.4044 6.69087 1.31986 6.41938 1.30468C6.30428 1.30035 6.18265 1.30468 6.13053 1.31986L6.03931 1.3437L6.10664 1.49111C6.31514 1.95068 6.47151 2.39507 6.61485 2.93701C6.70607 3.29036 6.71476 3.3077 6.79294 3.37057C6.92543 3.47679 7.00361 3.57 7.07094 3.70224C7.12524 3.81063 7.13175 3.84964 7.13392 4.0209C7.13392 4.18782 7.12524 4.23334 7.07528 4.33956C6.99493 4.51081 6.86244 4.64738 6.69087 4.73193C6.56273 4.79479 6.53015 4.8013 6.35206 4.8013C6.187 4.8013 6.13704 4.79262 6.03714 4.74493C5.88945 4.67556 5.71353 4.50865 5.65055 4.37641C5.50938 4.08593 5.56368 3.71741 5.77869 3.49847L5.86556 3.40959L5.80041 3.15162C5.70919 2.78961 5.57236 2.37339 5.45726 2.10459C5.40296 1.97886 5.35518 1.87047 5.35301 1.86614C5.34866 1.8618 5.17492 2.01355 4.96859 2.19997C4.57114 2.56199 4.54942 2.5815 4.19107 2.9045C4.0651 3.01722 3.93262 3.13645 3.8957 3.17113L3.82837 3.23183L3.78276 2.98687C3.74149 2.76576 3.70892 2.48395 3.68285 2.14578C3.67851 2.08075 3.68285 1.87481 3.69371 1.69055C3.72846 1.03371 3.8957 0.613167 4.16718 0.491772C4.2736 0.44408 4.36482 0.452752 4.50599 0.524288C5.0837 0.819104 5.62666 1.77509 5.98284 3.12778C6.04583 3.3684 6.06755 3.4226 6.12401 3.47245C6.23912 3.57867 6.43024 3.53098 6.49323 3.38357C6.51712 3.32288 6.51495 3.29036 6.47151 3.12561C6.22609 2.19564 5.93072 1.4716 5.57888 0.942667C5.38776 0.654354 5.00334 0.257652 4.81656 0.155767C4.53205 -0.000311852 4.25405 -0.0414991 4.02166 0.0430431ZM4.98596 7.32891C5.52458 7.40262 5.87425 7.74513 5.97198 8.29574C5.98936 8.38679 5.99587 8.55587 5.98936 8.7358C5.98067 8.98075 5.96981 9.05663 5.91986 9.20187C5.84819 9.4078 5.70267 9.63325 5.56368 9.75465C5.41382 9.88255 5.15754 10.0061 4.97076 10.0365C4.7362 10.0755 4.36482 10.056 4.20193 9.9931C3.84792 9.8587 3.60684 9.60941 3.48087 9.25172C3.38097 8.96775 3.38748 8.46266 3.49608 8.15483C3.59815 7.86652 3.81534 7.60856 4.07162 7.47415C4.36699 7.32024 4.62761 7.27906 4.98596 7.32891ZM8.05262 7.45464C8.19379 7.55436 8.25025 7.77114 8.17424 7.91855C8.15252 7.95757 7.86584 8.40196 7.53572 8.90922C7.20559 9.41648 6.86679 9.9324 6.78643 10.0581C6.70607 10.1839 6.57793 10.379 6.50409 10.4917C6.2022 10.9534 5.90683 11.4065 5.74394 11.6579C5.07501 12.6833 5.08804 12.6681 4.8752 12.6681C4.69059 12.6681 4.53856 12.5424 4.50381 12.3625C4.47558 12.2064 4.38653 12.356 5.95244 9.94975C6.29125 9.43165 6.63657 8.89838 6.72344 8.76831C7.51617 7.54352 7.55309 7.48933 7.63996 7.4373C7.74856 7.37444 7.95054 7.38094 8.05262 7.45464ZM8.37839 10.0278C8.81711 10.1167 9.11465 10.3898 9.23845 10.819C9.36441 11.2461 9.29274 11.8465 9.08207 12.1739C8.83448 12.5554 8.45658 12.7462 7.95271 12.7462C7.60087 12.7462 7.28161 12.6183 7.06225 12.3907C6.83421 12.1544 6.73647 11.9007 6.71693 11.4997C6.70173 11.1659 6.74299 10.9426 6.86679 10.6911C7.04271 10.3334 7.35762 10.095 7.76376 10.0148C7.91145 9.9866 8.20247 9.99093 8.37839 10.0278Z" fill="#FDCF8A"/>
+                                    <path d="M4.55155 7.98797C4.42558 8.03349 4.36043 8.08768 4.29527 8.20691C4.17799 8.41935 4.15845 8.8529 4.25618 9.1087C4.31048 9.25177 4.43862 9.3775 4.55372 9.39918C4.70141 9.42736 4.89688 9.39918 4.99027 9.33849C5.1575 9.22793 5.24654 8.94395 5.227 8.59494C5.20745 8.24593 5.08583 8.03132 4.8795 7.97929C4.75136 7.94895 4.6558 7.95111 4.55155 7.98797Z" fill="#FDCF8A"/>
+                                    <path d="M7.82898 10.6739C7.72256 10.7129 7.57705 10.869 7.53795 10.9817C7.52275 11.0294 7.50538 11.1811 7.49886 11.3221C7.488 11.5237 7.49452 11.606 7.52275 11.7144C7.59225 11.9637 7.75297 12.0938 7.99839 12.0959C8.28507 12.0959 8.46099 11.9312 8.51312 11.6169C8.57827 11.2072 8.48488 10.856 8.26987 10.7151C8.16345 10.6435 7.96364 10.6262 7.82898 10.6739Z" fill="#FDCF8A"/>
+                                    <path d="M7.61375 1.77292C7.62461 1.78376 7.75492 1.90298 7.90478 2.03739C8.05463 2.17179 8.21535 2.31703 8.26313 2.36038C8.31091 2.40374 8.44774 2.5273 8.56719 2.63569C8.78003 2.82645 9.47937 3.46161 9.65312 3.61769C9.7009 3.66105 9.89202 3.8323 10.0766 3.99922C10.6478 4.51298 10.7108 4.58235 10.8107 4.79045C10.8585 4.89234 10.9084 5.02674 10.9215 5.08961C10.9389 5.16981 10.9454 6.42278 10.9454 9.2799C10.9454 12.9629 10.941 13.3705 10.9106 13.5114C10.8194 13.9146 10.5457 14.2311 10.1461 14.3893L10.0006 14.4479L7.35747 14.4544C5.83066 14.4565 4.71216 14.4674 4.71216 14.4782C4.71216 14.5563 4.925 15.2998 4.97712 15.4082C5.15739 15.7745 5.5266 16.0022 5.93925 16C6.11083 15.9978 6.21073 15.9783 6.88401 15.8005C7.02083 15.7637 7.35313 15.6748 7.62244 15.6055C7.89175 15.5361 8.39562 15.4038 8.74094 15.3128C9.08844 15.2218 9.4924 15.1155 9.64226 15.0765C9.79211 15.0375 10.0897 14.9595 10.3047 14.9031C10.5197 14.8467 10.8368 14.7622 11.0105 14.7188C11.1843 14.6733 11.6686 14.5454 12.0856 14.437C12.5048 14.3265 12.9782 14.2029 13.1389 14.1617C13.3127 14.1162 13.4929 14.0533 13.5842 14.0078C13.9403 13.8214 14.1597 13.4594 14.1597 13.054C14.1597 12.8936 14.0967 12.6356 13.5842 10.7085C13.532 10.5112 13.4452 10.1795 13.3909 9.97142C13.3366 9.76331 13.1824 9.18235 13.0521 8.6816C12.7806 7.65407 12.6286 7.07745 12.3896 6.16699C11.8467 4.1011 11.8575 4.13579 11.6773 3.94285C11.5557 3.81062 11.4601 3.74992 10.9997 3.51147C10.7846 3.40091 10.5414 3.27302 10.4567 3.22966C10.3742 3.1863 10.1592 3.07358 9.97889 2.98037C9.8008 2.88715 9.53584 2.75058 9.39249 2.67688C7.61158 1.74907 7.55077 1.71872 7.61375 1.77292Z" fill="#FDCF8A"/>
+                                  </g>
+                                  <defs>
+                                    <linearGradient id="paint0_linear_476_6444" x1="9.02185" y1="14.0839" x2="3.70442" y2="0.158033" gradientUnits="userSpaceOnUse">
+                                      <stop stop-color="#FDCF8A"/>
+                                      <stop offset="0.3" stop-color="#FFDAAE"/>
+                                      <stop offset="0.65" stop-color="#FFDAAE"/>
+                                      <stop offset="1" stop-color="#FDCF8A"/>
+                                    </linearGradient>
+                                    <clipPath id="clip0_476_6444">
+                                      <rect width="16" height="16" fill="white"/>
+                                    </clipPath>
+                                  </defs>
+                                </svg>
+                                <span
+                                  class="christmas-product-tab-product-label-discount-text-unit"
+                                  >SAVE</span
+                                >
+                                <span
+                                  class="christmas-product-tab-product-label-discount-text-value"
+                                >
+                                  {{- product_diff_price | money_without_trailing_zeros -}}
+                                </span>
+                              </div>
+                            </div>
+                          {% endif %}
+                          <div class="christmas-product-tab-product-name">{{- title -}}</div>
 
-                      {% if features != empty %}
-                        {% assign feature_list = features | split: '/' %}
-                        <div class="christmas-product-tab-product-features">
-                          {% for feature in feature_list %}
-                            <div class="christmas-product-tab-product-feature-item">{{ feature }}</div>
-                          {% endfor %}
+                          {% if features != empty %}
+                            {% assign feature_list = features | split: '/' %}
+                            <div class="christmas-product-tab-product-features pc">
+                              {% for feature in feature_list %}
+                                <div class="christmas-product-tab-product-feature-item">{{ feature }}</div>
+                              {% endfor %}
+                            </div>
+
+                            <div class="christmas-product-tab-product-features mb">
+                              {{ features }}
+                            </div>
+                          {% endif %}
+                        </div>
+                      </div>
+                      
+                      {% if section.settings.with_stand_product_title != blank %}
+                        <div class="with-stand-button-wrapper">
+                          <div class="with-stand-button active">
+                            {{ section.settings.with_stand_product_title }}
+                          </div>
+                          <div class="without-stand-button">
+                            {{ section.settings.without_stand_product_title }}
+                          </div>
                         </div>
                       {% endif %}
+
                       {% if section.blocks.size > 1 %}
                         <div
                           id="christmas-product-tab-tabs-{{ block.id }}"
@@ -1764,30 +1898,6 @@
                               tabindex="0"
                               data-dropdown
                             >
-                              <div class="christmas-product-tab-product-main-image-mb">
-                                {% if product_image_mb %}
-                                  <img
-                                    style="aspect-ratio: {{ product_image_mb.aspect_ratio }}"
-                                    class="mb lazyload"
-                                    data-sizes="100vw"
-                                    data-srcset="
-                                      {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
-                                      {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
-                                      {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
-                                      {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
-                                      {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
-                                      {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
-                                      {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
-                                      {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
-                                      {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
-                                      {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
-                                      {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
-                                    "
-                                    data-src="{{ product_image_mb | image_url:width:750 }}"
-                                    alt="{{ product_image_mb.alt }}"
-                                  >
-                                {% endif %}
-                              </div>
                               <div class="christmas-dropdown-mock-selected" data-selected>
                                 {% assign first_tab_label = section.blocks[0].settings.title
                                   | default: section.blocks[0].settings.product.title
@@ -1808,14 +1918,16 @@
                               <ul class="christmas-dropdown-mock-options" data-options>
                                 {%- for block in section.blocks -%}
                                   {% assign tab_label = block.settings.title | default: block.settings.product.title %}
-                                  <li
-                                    class="christmas-dropdown-mock-option{% if forloop.first %} active{% endif %}"
-                                    data-value="{{ tab_label | escape }}"
-                                    data-idx="{{ forloop.index0 }}"
-                                    id="christmas-product-tab-tab-option-{{ section.id }}-{{ forloop.index0 }}"
-                                  >
-                                    {{ tab_label }}
-                                  </li>
+                                  {% if block.settings.product.variants[0].available %}
+                                    <li
+                                      class="christmas-dropdown-mock-option{% if forloop.first %} active{% endif %}"
+                                      data-value="{{ tab_label | escape }}"
+                                      data-idx="{{ forloop.index0 }}"
+                                      id="christmas-product-tab-tab-option-{{ section.id }}-{{ forloop.index0 }}"
+                                    >
+                                      {{ tab_label }}
+                                    </li>
+                                  {% endif %}
                                 {%- endfor -%}
                               </ul>
                             </div>
@@ -1828,10 +1940,11 @@
                                   }
                                   return false;
                                 }
+
                                 // 获取当前下拉元素
                                 const dropdown = document.getElementById('christmas-dropdown-mock-{{ block.id }}');
                                 console.log('dropdown==', dropdown);
-                                const sectionRoot = dropdown.closest('section');
+                                const sectionRoot = dropdown.closest('.christmas-product-tab-content');
                                 console.log('sectionRoot==', sectionRoot);
                                 const cardContainer = sectionRoot.querySelectorAll('.christmas-product-tab');
                                 console.log('cardContainer==', cardContainer);
@@ -1851,20 +1964,32 @@
                                 }
                                 selected &&
                                   selected.addEventListener('click', function (e) {
+                                    e.preventDefault();   // ⭐ 新增
                                     e.stopPropagation();
-                                    // 点击当前元素，获取父元素christmas-product-tab-{{ section.id }}
-                                    const parent = dropdown.closest('.christmas-product-tab-{{ section.id }}');
-                                    // 如需使用 parent，可在此处添加逻辑
+
                                     if (dropdown.classList.contains('open')) {
                                       closeDropdown();
                                     } else {
                                       openDropdown();
                                     }
                                   });
+
+                                  function withNoSmoothScroll(fn) {
+                                    const html = document.documentElement;
+                                    const prev = html.style.scrollBehavior;
+
+                                    html.style.scrollBehavior = 'auto';
+                                    fn();
+                                    html.style.scrollBehavior = prev || '';
+                                  }
+
                                 // 选项点击
                                 options.forEach(function (option, idx) {
                                   option.addEventListener('click', function (e) {
+                                    e.preventDefault();    // ⭐ 必须
                                     e.stopPropagation();
+                                    withNoSmoothScroll(() => {
+                                      const scrollY = window.scrollY; // ⭐ 记住当前位置
                                     // 激活当前
                                     options.forEach(function (opt) {
                                       opt.classList.remove('active');
@@ -1900,11 +2025,11 @@
                                     // 联动select
                                     try {
                                       var tabContainers = dropdown
-                                        .closest('section')
+                                        .closest('.christmas-product-tab-content')
                                         .querySelectorAll('.christmas-product-tab');
                                       cardContainer.forEach(function (tabCt, index) {
                                         console.log('tabCt', tabCt);
-
+                                        console.log("index", index, "idx", idx);
                                         if (index === idx) {
                                           tabCt.classList.add('active');
                                           // tabContainers 下的 .christmas-product-tab 是否含有 active
@@ -1965,9 +2090,16 @@
                                           tabCt.classList.remove('active');
                                         }
                                       });
+
+                                      // ⭐ 强制恢复滚动位置（防止浏览器 jump）
+                                      window.scrollTo({
+                                        top: scrollY,
+                                        behavior: 'auto' // 不要 smooth
+                                      });
                                     } catch (e) {}
+                                    });
+                                    });
                                   });
-                                });
                                 // 外部点击收起
                                 document.addEventListener('click', function (e) {
                                   if (!hasParent(e.target, dropdown)) {
@@ -1980,8 +2112,14 @@
                                     closeDropdown();
                                   }
                                 });
+
+                                dropdown.addEventListener('mousedown', function (e) {
+                                  e.preventDefault();
+                                });
+
                               });
                             </script>
+                            
                           </div>
                         </div>
                       {% endif %}
@@ -2043,7 +2181,7 @@
                     </div>
                   </div>
                   <div class="christmas-product-tab-product-button-wrapper">
-                    <product-card>
+                    <new-product-card>
                       <div
                         class="christmas-product-tab-product-button-add-to-cart product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
                         data-product-id="{{ variant.id }}"
@@ -2080,13 +2218,14 @@
                   </div>
                 </div>
               </div>
-            {%- endif -%}
           </div>
         {%- endfor -%}
       </div>
     </div>
   </div>
-</div>
+</section>
+
+<script src="{{ 'new-product-card.js' | asset_url }}" defer="defer"></script>
 
 <!-- black friday Official Promotion product1  end -->
 <script>
@@ -2151,70 +2290,6 @@
 
     // 首次初始化swiper（页面默认active的tab）
     initAllSwipers();
-
-    // 获取所有christmas-product-tab-tabs容器（有多个section时都生效）
-    {% comment %} const tabContainers = document.querySelectorAll('.christmas-product-tab-tabs');
-    if (!tabContainers || tabContainers.length === 0) return;
-
-    tabContainers.forEach(function (tabContainer) {
-      // select直接取tabContainer下的select，因为.tabs外面包裹了wrapper
-      const select = tabContainer.querySelector('select.christmas-product-tab-tab');
-      if (!select) return;
-
-      // 取到对应的card和banner盒子，但必须限制到本section范围，否则多个section会串
-      // section 元素, .christmas-product-tab-tabs总会在某个section的唯一实例下
-      const sectionRoot =
-        tabContainer.closest('section[id^="christmas-product-tab"]') ||
-        tabContainer.closest('section');
-      // 获取本section下所有tab/main tab卡片和banner
-      const cardContainer = sectionRoot
-        ? sectionRoot.querySelectorAll('.christmas-product-tab')
-        : [];
-      const bannerBoxes = sectionRoot
-        ? sectionRoot.querySelectorAll('.christmas-product-tab-banner-box')
-        : [];
-      // 如果有额外自定义tab元素高亮也一并处理
-      const tabs = tabContainer.querySelectorAll('.christmas-product-tab-tab');
-
-      // 移动端 select 切换
-      select.addEventListener('change', function (e) {
-        const idx = select.selectedIndex;
-        // 清除所有tab active
-        cardContainer.forEach((cardbox, i) => {
-          cardbox.classList.toggle('active', i === idx);
-        });
-        // 切换banner高亮
-        if (bannerBoxes && bannerBoxes.length > 0) {
-          bannerBoxes.forEach((bannerBox, i) => {
-            bannerBox.classList.toggle('active', i === idx);
-          });
-        }
-        // 兼容有没有可单独tab高亮元素
-        if (tabs && tabs.length > 0) {
-            console.log('tabs', tabs);
-          tabs.forEach((t, i) => {
-            // 延迟加载 option 操作，提升性能
-
-              // 移除 t 下所有 option 的 selected 属性
-            const options = t.querySelectorAll('option');
-              // 仅将选中的 option 变为 selected 状态
-              options.forEach((option, optIdx) => {
-                if (optIdx === idx) {
-                    console.log('option', option);
-                  option.setAttribute('selected', 'selected');
-                } else {
-                  option.removeAttribute('selected');
-                }
-              });
-              t.classList.toggle('active', i === idx);
-
-          });
-        }
-
-      });
-
-
-    }); {% endcomment %}
   });
 </script>
 
@@ -2337,6 +2412,18 @@
       "type": "html",
       "id": "desc",
       "label": "描述"
+    },
+    {
+      "type": "text",
+      "id": "with_stand_product_title",
+      "label": "有支架产品标题",
+      "info": "默认产品标题"
+    },
+    {
+      "type": "text",
+      "id": "without_stand_product_title",
+      "label": "无支架产品标题",
+      "info": "默认产品标题"
     },
     {
       "type": "checkbox",

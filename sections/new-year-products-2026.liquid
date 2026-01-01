@@ -1,3 +1,10 @@
+
+{% for block in section.blocks %}
+  {% if block.settings.product.available == true %}
+    {% assign product_num = product_num | plus: 1 %}
+  {% endif %}
+{% endfor %}
+
 <style>
         /* christmas-products-wrapper start */
         .christmas-products-{{ section.id }}{
@@ -36,6 +43,7 @@
           left: 0;
           bottom: 0;
           right: 0;
+          background-size: cover;
         }
 
         .christmas-products-{{ section.id }}  .christmas-products-title-wrapper {
@@ -88,8 +96,10 @@
         }
 
         .christmas-products-{{ section.id }}  .christmas-products-products {
+          --product-num: {{- product_num | minus: 0 -}};
+          --gap-num: {{- product_num | minus: 1 -}};
           display: grid;
-          grid-template-columns: repeat({{- section.settings.prduct_num | minus: 0 -}}, 1fr);
+          grid-template-columns: repeat({{- product_num | minus: 0 -}}, calc(calc(100% - var(--gap-num) * 24px) / var(--product-num)));
           grid-gap: {{ section.settings.card_gap }}px;
         }
 
@@ -111,7 +121,7 @@
         .christmas-products-{{ section.id }}  .christmas-products-product-label-discount {
           position: absolute;
           top: 24px;
-          left: 0;
+          left: 24px;
           background-repeat: no-repeat;
           background-position: center;
           background-size: 100% 100%;
@@ -176,11 +186,13 @@
 
         .christmas-products-{{ section.id }}  .christmas-products-product-image {
           width: 100%;
+          display: flex;
+          justify-content: center;
         }
 
         .christmas-products-{{ section.id }}  .christmas-products-product-image img {
-          width: 100%;
-          max-width: 100%;
+          width: 400px;
+          height: fit-content;
           object-fit: cover;
           aspect-ratio: 1;
         }
@@ -198,7 +210,11 @@
           flex-direction: column;
           flex: 1;
           align-items: {{ section.settings.content_alignment }};
-          gap: 24px;
+          justify-content: space-between;
+        }
+
+        .christmas-products-{{ section.id }}  .christmas-products-product-info {
+          width: 100%;
         }
 
         .christmas-products-{{ section.id }} .new-year-product-color-button {
@@ -206,6 +222,7 @@
           align-items: flex-start;
           gap: 24px;
           align-self: stretch;
+          padding-bottom: 24px;
         }
 
         .christmas-products-{{ section.id }}  .new-year-product-color-button-content {
@@ -222,6 +239,7 @@
           background: #FFF;
           box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
           cursor: pointer;
+          color: #CC2A1F;
         }
 
         .christmas-products-{{ section.id }}  .new-year-product-color-button-content.active {
@@ -255,9 +273,10 @@
         .christmas-products-{{ section.id }}  .christmas-products-product-name {
           color: {{ section.settings.product_title_color }};
           text-align: {{ section.settings.content_alignment }};
-          font-size: 20px;
+          font-size: 24px;
           font-weight: 800;
           line-height: 1.3;
+          padding-bottom: 24px;
 
         }
 
@@ -273,21 +292,20 @@
           display: flex;
           flex-direction: column;
           margin-top: auto;
-          padding-top: 16px;
           width: 100%;
         }
 
         .christmas-products-{{ section.id }}  .christmas-products-product-price {
           display: flex;
-          align-items: center;
+          align-items: flex-end;
           gap: 12px;
-          margin-bottom: 20px;
+          margin-bottom: 24px;
           justify-content: {{ section.settings.content_alignment }};
         }
 
         .christmas-products-{{ section.id }}  .christmas-products-product-sale-price {
           color: #CC2A1F;
-          font-size: 24px;
+          font-size: 36px;
           font-weight: 800;
           line-height: 1;
           /* 75% */
@@ -413,6 +431,16 @@
           width: 100px;
         }
 
+        {% if section.settings.button_wrap == true %}
+          .christmas-products-{{ section.id }} .christmas-products-product-button-wrapper {
+            display: flex;
+            flex-direction: column;
+          }
+          .christmas-products-{{ section.id }} .christmas-products-product-button-wrapper > * {
+            width: 100%;
+          }
+        {% endif %}
+
         @media screen and (max-width: 768px) {
           .christmas-products-{{ section.id }}{
             padding-top:{{ section.settings.wrap_padding_top_mobile }}px;
@@ -432,6 +460,10 @@
             margin: 0 auto;
             background-color: {{ section.settings.content_bg_color }};
             padding: {{ section.settings.padding_top_mobile }}px 10px {{ section.settings.padding_bottom_mobile }}px 10px;
+          }
+
+          .christmas-products-{{ section.id }}  .christmas-products-product-image img {
+            width: 100%;
           }
 
 
@@ -458,8 +490,8 @@
           .christmas-products-{{ section.id }} .christmas-products-desc .christmas-products-desc-key {
             display: inline;
           }
-          {% if section.settings.show_swiper %}
-            .christmas-products-{{ section.id }}  .christmas-products-products {
+
+          .christmas-products-{{ section.id }}  .christmas-products-products {
               display: flex;
               flex-direction: row;
               overflow-x: auto;
@@ -483,22 +515,10 @@
               width: 232px;
               flex-shrink: 0;
             }
-          {%- else -%}
-
-            .christmas-products-{{ section.id }}  .christmas-products-products {
-              display: grid;
-              grid-template-columns: repeat({{- section.settings.prduct_num_mobile | minus: 0 -}}, 1fr);
-              grid-gap: {{ section.settings.card_gap_mobile }}px;
-            }
-          {%- endif -%}
-
-
-
 
           .christmas-products-{{ section.id }}  .christmas-products-product-label-discount {
-            height: 36px;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='102' height='36' viewBox='0 0 102 36' fill='none'><path d='M0 10C0 4.47715 4.47715 0 10 0H102V26C102 31.5228 97.5229 36 92 36H0V10Z' fill='%23B90500'/><mask id='mask0_10363_37061' style='mask-type:alpha' maskUnits='userSpaceOnUse' x='0' y='0' width='102' height='36'><path d='M0 10C0 4.47715 4.47715 0 10 0H102V26C102 31.5228 97.5229 36 92 36H0V10Z' fill='%23D9D9D9'/></mask><g mask='url(%23mask0_10363_37061)'><path d='M54.1875 -47.8794L51.5894 -48.9594L-22.4112 43.3238L-19.8131 44.4038L54.1875 -47.8794Z' fill='white'/><path d='M61.9844 -44.6396L59.3863 -45.7196L-14.6143 46.5635L-12.0162 47.6435L61.9844 -44.6396Z' fill='white'/><path d='M69.7734 -41.3994L67.1753 -42.4794L-6.82526 49.8038L-4.22717 50.8838L69.7734 -41.3994Z' fill='white'/><path d='M77.5703 -38.1597L74.9722 -39.2397L0.971613 53.0435L3.5697 54.1235L77.5703 -38.1597Z' fill='white'/><path d='M85.3594 -34.9194L82.7613 -35.9994L8.76068 56.2838L11.3588 57.3637L85.3594 -34.9194Z' fill='white'/><path d='M93.1562 -31.6797L90.5582 -32.7597L16.5576 59.5235L19.1556 60.6035L93.1562 -31.6797Z' fill='white'/><path d='M100.953 -28.4395L98.355 -29.5194L24.3544 62.7637L26.9525 63.8437L100.953 -28.4395Z' fill='white'/><path d='M108.75 -25.1997L106.152 -26.2797L32.1513 66.0035L34.7494 67.0835L108.75 -25.1997Z' fill='white'/><path d='M116.539 -21.9595L113.941 -23.0395L39.9404 69.2437L42.5385 70.3237L116.539 -21.9595Z' fill='white'/><path d='M124.336 -18.7197L121.738 -19.7997L47.7372 72.4835L50.3353 73.5635L124.336 -18.7197Z' fill='white'/><path d='M132.125 -15.48L129.527 -16.56L55.5269 75.7237L58.125 76.8037L132.125 -15.48Z' fill='white'/><path d='M139.922 -12.2397L137.324 -13.3197L63.3238 78.9639L65.9219 80.0439L139.922 -12.2397Z' fill='white'/><path d='M147.719 -9L145.121 -10.08L71.1207 82.2037L73.7188 83.2837L147.719 -9Z' fill='white'/><path d='M155.516 -5.76025L152.918 -6.84026L78.9175 85.4434L81.5156 86.5234L155.516 -5.76025Z' fill='white'/><path d='M162.594 -3.23975L159.996 -4.31975L85.9957 87.9639L88.5938 89.0439L162.594 -3.23975Z' fill='white'/><path d='M171.102 0.719727L168.503 -0.360276L94.5035 91.9234L97.1016 93.0034L171.102 0.719727Z' fill='white'/></g><path d='M2 12C2 6.47715 6.47715 2 12 2H100V24C100 29.5228 95.5229 34 90 34H2V12Z' fill='url(%23paint0_linear_10363_37061)'/><defs><linearGradient id='paint0_linear_10363_37061' x1='51.3684' y1='2.18991' x2='51.3684' y2='33.8105' gradientUnits='userSpaceOnUse'><stop stop-color='%23266843'/><stop offset='1' stop-color='%231C6D52'/></linearGradient></defs></svg>");
-
+            height: fit-content;
+            top: 16px;
           }
           .christmas-products-{{ section.id }}  .christmas-products-product-label-discount-hat-icon{
 
@@ -740,12 +760,25 @@
     .christmas-products-banner-img .mb {
       display: block;
     }
+
+    .christmas-products-{{ section.id }} .new-year-product-color-button {
+      gap: 12px;
+      padding-bottom: 12px;
+    }
+
+    .christmas-products-{{ section.id }} .new-year-product-color-button-content {
+      font-size: 14px;
+    }
+
+    .christmas-products-{{ section.id }} .christmas-products-product-name {
+      padding-bottom: 12px;
+    }
   }
 
   /* star products banner end*/
 </style>
 <!-- Star Products start -->
-<div
+<section
   id="{%- if section.settings.nav_id != empty %}custom-nav-{{- section.settings.nav_id -}}{% endif -%}"
   class="christmas-products-{{ section.id }}"
 >
@@ -755,7 +788,6 @@
 
   <div class="christmas-products-wrapper">
     {% assign bow_image = section.settings.bow_image %}
-    {% assign hat_image = section.settings.hat_image %}
     {% if bow_image %}
       <div class="christmas-products-Bow">
         <img
@@ -777,30 +809,6 @@
           "
           data-src="{{ bow_image | image_url:width:200 }}"
           alt="{{ bow_image.alt }}"
-        >
-      </div>
-    {%- endif -%}
-    {% if hat_image %}
-      <div class="christmas-products-hat">
-        <img
-          style="aspect-ratio: {{ hat_image.aspect_ratio }}"
-          class="lazyload"
-          data-sizes="10vw"
-          data-srcset="
-            {%- if hat_image.width >= 200 -%}{{ hat_image | image_url: width: 200 }} 200w,{%- endif -%}
-            {%- if hat_image.width >= 375 -%}{{ hat_image | image_url: width: 375 }} 375w,{%- endif -%}
-            {%- if hat_image.width >= 550 -%}{{ hat_image | image_url: width: 550 }} 550w,{%- endif -%}
-            {%- if hat_image.width >= 750 -%}{{ hat_image | image_url: width: 750 }} 750w,{%- endif -%}
-            {%- if hat_image.width >= 1100 -%}{{ hat_image | image_url: width: 1100 }} 1100w,{%- endif -%}
-            {%- if hat_image.width >= 1500 -%}{{ hat_image | image_url: width: 1500 }} 1500w,{%- endif -%}
-            {%- if hat_image.width >= 1780 -%}{{ hat_image | image_url: width: 1780 }} 1780w,{%- endif -%}
-            {%- if hat_image.width >= 2000 -%}{{ hat_image | image_url: width: 2000 }} 2000w,{%- endif -%}
-            {%- if hat_image.width >= 3000 -%}{{ hat_image | image_url: width: 3000 }} 3000w,{%- endif -%}
-            {%- if hat_image.width >= 3840 -%}{{ hat_image | image_url: width: 3840 }} 3840w,{%- endif -%}
-            {{ hat_image | image_url }} {{ hat_image.width }}w
-          "
-          data-src="{{ hat_image | image_url:width:200 }}"
-          alt="{{ hat_image.alt }}"
         >
       </div>
     {%- endif -%}
@@ -894,460 +902,469 @@
       <div class="christmas-products-content">
         <div class="christmas-products-products">
           {%- for block in section.blocks -%}
-            <div class="christmas-products-products-items">
-              {%- liquid
-                assign current_product = block.settings.product
-                assign variant_index = block.settings.product_variant_location | default: '0' | plus: 0
-                assign variant = current_product.variants[variant_index]
-                assign product_image_pc = block.settings.product_image_pc | default: current_product.featured_image
-                assign product_image_mb = block.settings.product_image_mb | default: current_product.featured_image
-                assign gifts_icon = block.settings.gifts_icon
-                assign title = block.settings.title | default: current_product.title
-                assign features = block.settings.features
-                assign product_price = variant.metafields.custom.activity_sale_price.value | default: variant.price
-                assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: variant.compare_at_price
-                assign product_diff_price = product_origin_price | minus: product_price
-              -%}
-              {%- if current_product -%}
-                <div class="christmas-products-products-card white-product">
-                  {% if product_diff_price != blank
-                    and product_diff_price > 0
-                    and product_price > 0
-                    and product_origin_price > 0
-                  %}
-                    <div class="christmas-products-product-label-discount">
-                      {% if section.settings.show_starpick %}
-                        <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Star_Pick.png?v=1766715799" alt="starpick"/>
-                      {% endif %}
-                      <div class="christmas-products-product-label-discount-text">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                          <g clip-path="url(#clip0_476_1949)">
-                            <path d="M4.02163 0.0430431C3.31361 0.296673 3.04213 1.47811 3.3223 3.07792C3.34619 3.21449 3.38094 3.38574 3.39831 3.45728L3.42872 3.58735L3.34836 3.66322C3.23325 3.76944 2.88576 4.08593 2.54043 4.39809C2.2342 4.6734 2.11041 4.82731 2.04742 5.01374C2.0105 5.11996 2.00833 5.37359 2.00181 9.24305C1.99747 13.7542 1.98878 13.4962 2.12126 13.7217C2.21031 13.8712 2.37537 14.0338 2.51871 14.1097C2.77499 14.2463 2.60993 14.2419 6.33031 14.2419C8.46524 14.2419 9.77269 14.2333 9.86825 14.2203C10.257 14.1639 10.5589 13.8951 10.6718 13.5027C10.7044 13.3943 10.7066 12.9846 10.7022 9.23438L10.6957 5.08311L10.6154 4.91619C10.5372 4.75144 10.4242 4.6192 10.1853 4.4111C10.0789 4.31788 9.72925 4.00356 9.53379 3.82363C9.34266 3.65021 9.22321 3.53965 8.80622 3.16463C8.5912 2.9717 8.32189 2.72891 8.20896 2.62486C8.09602 2.5208 7.89621 2.33871 7.76373 2.22165C7.42709 1.91816 7.37714 1.87264 7.14475 1.6602C6.86024 1.4044 6.69084 1.31986 6.41935 1.30468C6.30425 1.30035 6.18262 1.30468 6.1305 1.31986L6.03928 1.3437L6.10661 1.49111C6.31511 1.95068 6.47148 2.39507 6.61482 2.93701C6.70604 3.29036 6.71473 3.3077 6.79291 3.37057C6.9254 3.47679 7.00358 3.57 7.07091 3.70224C7.12521 3.81063 7.13172 3.84964 7.13389 4.0209C7.13389 4.18782 7.12521 4.23334 7.07525 4.33956C6.99489 4.51081 6.86241 4.64738 6.69084 4.73193C6.5627 4.79479 6.53012 4.8013 6.35203 4.8013C6.18697 4.8013 6.13701 4.79262 6.03711 4.74493C5.88942 4.67556 5.7135 4.50865 5.65052 4.37641C5.50935 4.08593 5.56365 3.71741 5.77866 3.49847L5.86553 3.40959L5.80038 3.15162C5.70916 2.78961 5.57233 2.37339 5.45723 2.10459C5.40293 1.97886 5.35515 1.87047 5.35298 1.86614C5.34863 1.8618 5.17488 2.01355 4.96856 2.19997C4.57111 2.56199 4.54939 2.5815 4.19104 2.9045C4.06507 3.01722 3.93259 3.13645 3.89567 3.17113L3.82834 3.23183L3.78273 2.98687C3.74146 2.76576 3.70889 2.48395 3.68282 2.14578C3.67848 2.08075 3.68282 1.87481 3.69368 1.69055C3.72843 1.03371 3.89567 0.613167 4.16715 0.491772C4.27357 0.44408 4.36478 0.452752 4.50595 0.524288C5.08367 0.819104 5.62663 1.77509 5.98281 3.12778C6.0458 3.3684 6.06751 3.4226 6.12398 3.47245C6.23909 3.57867 6.43021 3.53098 6.4932 3.38357C6.51709 3.32288 6.51492 3.29036 6.47148 3.12561C6.22606 2.19564 5.93069 1.4716 5.57885 0.942667C5.38773 0.654354 5.00331 0.257652 4.81653 0.155767C4.53202 -0.000311852 4.25402 -0.0414991 4.02163 0.0430431ZM4.98593 7.32891C5.52455 7.40262 5.87422 7.74513 5.97195 8.29574C5.98933 8.38679 5.99584 8.55587 5.98933 8.7358C5.98064 8.98075 5.96978 9.05663 5.91983 9.20187C5.84816 9.4078 5.70264 9.63325 5.56365 9.75465C5.41379 9.88255 5.15751 10.0061 4.97073 10.0365C4.73617 10.0755 4.36478 10.056 4.2019 9.9931C3.84788 9.8587 3.60681 9.60941 3.48084 9.25172C3.38094 8.96775 3.38745 8.46266 3.49605 8.15483C3.59812 7.86652 3.81531 7.60856 4.07159 7.47415C4.36696 7.32024 4.62758 7.27906 4.98593 7.32891ZM8.05259 7.45464C8.19376 7.55436 8.25022 7.77114 8.17421 7.91855C8.15249 7.95757 7.86581 8.40196 7.53569 8.90922C7.20556 9.41648 6.86676 9.9324 6.7864 10.0581C6.70604 10.1839 6.5779 10.379 6.50406 10.4917C6.20217 10.9534 5.9068 11.4065 5.74391 11.6579C5.07498 12.6833 5.08801 12.6681 4.87517 12.6681C4.69056 12.6681 4.53853 12.5424 4.50378 12.3625C4.47555 12.2064 4.3865 12.356 5.95241 9.94975C6.29122 9.43165 6.63654 8.89838 6.72341 8.76831C7.51614 7.54352 7.55306 7.48933 7.63993 7.4373C7.74853 7.37444 7.95051 7.38094 8.05259 7.45464ZM8.37836 10.0278C8.81708 10.1167 9.11462 10.3898 9.23842 10.819C9.36438 11.2461 9.29271 11.8465 9.08204 12.1739C8.83445 12.5554 8.45655 12.7462 7.95268 12.7462C7.60084 12.7462 7.28158 12.6183 7.06222 12.3907C6.83418 12.1544 6.73644 11.9007 6.7169 11.4997C6.70169 11.1659 6.74296 10.9426 6.86676 10.6911C7.04268 10.3334 7.35759 10.095 7.76373 10.0148C7.91142 9.9866 8.20244 9.99093 8.37836 10.0278Z" fill="url(#paint0_linear_476_1949)"/>
-                            <path d="M4.55154 7.98797C4.42557 8.03349 4.36041 8.08768 4.29526 8.20691C4.17798 8.41935 4.15843 8.8529 4.25616 9.1087C4.31046 9.25177 4.4386 9.3775 4.55371 9.39918C4.70139 9.42736 4.89686 9.39918 4.99025 9.33849C5.15748 9.22793 5.24653 8.94395 5.22698 8.59494C5.20743 8.24593 5.08581 8.03132 4.87949 7.97929C4.75135 7.94895 4.65578 7.95111 4.55154 7.98797Z" fill="#FDCF8A"/>
-                            <path d="M7.82898 10.6739C7.72256 10.7129 7.57705 10.869 7.53795 10.9817C7.52275 11.0294 7.50538 11.1811 7.49886 11.3221C7.488 11.5237 7.49452 11.606 7.52275 11.7144C7.59225 11.9637 7.75297 12.0938 7.99839 12.0959C8.28507 12.0959 8.46099 11.9312 8.51312 11.6169C8.57827 11.2072 8.48488 10.856 8.26987 10.7151C8.16345 10.6435 7.96364 10.6262 7.82898 10.6739Z" fill="#FDCF8A"/>
-                            <path d="M7.61378 1.77292C7.62464 1.78376 7.75495 1.90298 7.90481 2.03739C8.05467 2.17179 8.21538 2.31703 8.26316 2.36038C8.31094 2.40374 8.44777 2.5273 8.56722 2.63569C8.78006 2.82645 9.4794 3.46161 9.65315 3.61769C9.70093 3.66105 9.89205 3.8323 10.0767 3.99922C10.6479 4.51298 10.7108 4.58235 10.8107 4.79045C10.8585 4.89234 10.9085 5.02674 10.9215 5.08961C10.9389 5.16981 10.9454 6.42278 10.9454 9.2799C10.9454 12.9629 10.9411 13.3705 10.9106 13.5114C10.8194 13.9146 10.5458 14.2311 10.1462 14.3893L10.0006 14.4479L7.3575 14.4544C5.83069 14.4565 4.71219 14.4674 4.71219 14.4782C4.71219 14.5563 4.92503 15.2998 4.97715 15.4082C5.15742 15.7745 5.52663 16.0022 5.93928 16C6.11086 15.9978 6.21076 15.9783 6.88404 15.8005C7.02086 15.7637 7.35316 15.6748 7.62247 15.6055C7.89178 15.5361 8.39565 15.4038 8.74097 15.3128C9.08847 15.2218 9.49243 15.1155 9.64229 15.0765C9.79214 15.0375 10.0897 14.9595 10.3047 14.9031C10.5197 14.8467 10.8368 14.7622 11.0106 14.7188C11.1843 14.6733 11.6686 14.5454 12.0856 14.437C12.5048 14.3265 12.9782 14.2029 13.139 14.1617C13.3127 14.1162 13.493 14.0533 13.5842 14.0078C13.9404 13.8214 14.1597 13.4594 14.1597 13.054C14.1597 12.8936 14.0968 12.6356 13.5842 10.7085C13.5321 10.5112 13.4452 10.1795 13.3909 9.97142C13.3366 9.76331 13.1824 9.18235 13.0521 8.6816C12.7806 7.65407 12.6286 7.07745 12.3897 6.16699C11.8467 4.1011 11.8576 4.13579 11.6773 3.94285C11.5557 3.81062 11.4601 3.74992 10.9997 3.51147C10.7847 3.40091 10.5414 3.27302 10.4567 3.22966C10.3742 3.1863 10.1592 3.07358 9.97892 2.98037C9.80083 2.88715 9.53587 2.75058 9.39252 2.67688C7.61161 1.74907 7.5508 1.71872 7.61378 1.77292Z" fill="#FDCF8A"/>
-                          </g>
-                          <defs>
-                            <linearGradient id="paint0_linear_476_1949" x1="9.02182" y1="14.0839" x2="3.70439" y2="0.158033" gradientUnits="userSpaceOnUse">
-                              <stop stop-color="#FDCF8A"/>
-                              <stop offset="0.3" stop-color="#FFDAAE"/>
-                              <stop offset="0.65" stop-color="#FFDAAE"/>
-                              <stop offset="1" stop-color="#FDCF8A"/>
-                            </linearGradient>
-                            <clipPath id="clip0_476_1949">
-                              <rect width="16" height="16" fill="white"/>
-                            </clipPath>
-                          </defs>
-                        </svg>
-                        <span class="christmas-products-product-label-discount-text-unit">SAVE</span>
-                        <span class="christmas-products-product-label-discount-text-value">
-                          {{- product_diff_price | money_without_trailing_zeros -}}
-                        </span>
-                      </div>
-                    </div>
-                  {% endif %}
-                  {% if gifts_icon %}
-                    <div class="christmas-products-product-gifts-icon">
-                      <img
-                        style="aspect-ratio: {{ gifts_icon.aspect_ratio }}"
-                        class="pc lazyload"
-                        data-sizes="10vw"
-                        data-srcset="
-                          {%- if gifts_icon.width >= 200 -%}{{ gifts_icon | image_url: width: 200 }} 200w,{%- endif -%}
-                          {%- if gifts_icon.width >= 375 -%}{{ gifts_icon | image_url: width: 375 }} 375w,{%- endif -%}
-                          {%- if gifts_icon.width >= 550 -%}{{ gifts_icon | image_url: width: 550 }} 550w,{%- endif -%}
-                          {%- if gifts_icon.width >= 750 -%}{{ gifts_icon | image_url: width: 750 }} 750w,{%- endif -%}
-                          {%- if gifts_icon.width >= 1100 -%}{{ gifts_icon | image_url: width: 1100 }} 1100w,{%- endif -%}
-                          {%- if gifts_icon.width >= 1500 -%}{{ gifts_icon | image_url: width: 1500 }} 1500w,{%- endif -%}
-                          {%- if gifts_icon.width >= 1780 -%}{{ gifts_icon | image_url: width: 1780 }} 1780w,{%- endif -%}
-                          {%- if gifts_icon.width >= 2000 -%}{{ gifts_icon | image_url: width: 2000 }} 2000w,{%- endif -%}
-                          {%- if gifts_icon.width >= 3000 -%}{{ gifts_icon | image_url: width: 3000 }} 3000w,{%- endif -%}
-                          {%- if gifts_icon.width >= 3840 -%}{{ gifts_icon | image_url: width: 3840 }} 3840w,{%- endif -%}
-                          {{ gifts_icon | image_url }} {{ gifts_icon.width }}w
-                        "
-                        data-src="{{ gifts_icon | image_url:width:200 }}"
-                        alt="{{ gifts_icon.alt }}"
-                      >
-                    </div>
-                  {% endif %}
-                  <a
-                    class="christmas-products-product-image"
-                    href="{{variant.url }}"
-                    target="_blank"
-                  >
-                    {% if product_image_pc %}
-                      <img
-                        style="aspect-ratio: {{ product_image_pc.aspect_ratio }}"
-                        class="pc lazyload white-machine-image"
-                        data-sizes="{{100 | divided_by: section.settings.prduct_num}}vw"
-                        data-srcset="
-                          {%- if product_image_pc.width >= 200 -%}{{ product_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
-                          {%- if product_image_pc.width >= 375 -%}{{ product_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
-                          {%- if product_image_pc.width >= 550 -%}{{ product_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
-                          {%- if product_image_pc.width >= 750 -%}{{ product_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
-                          {%- if product_image_pc.width >= 1100 -%}{{ product_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
-                          {%- if product_image_pc.width >= 1500 -%}{{ product_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
-                          {%- if product_image_pc.width >= 1780 -%}{{ product_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
-                          {%- if product_image_pc.width >= 2000 -%}{{ product_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
-                          {%- if product_image_pc.width >= 3000 -%}{{ product_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
-                          {%- if product_image_pc.width >= 3840 -%}{{ product_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
-                          {{ product_image_pc | image_url }} {{ product_image_pc.width }}w
-                        "
-                        data-src="{{ product_image_pc | image_url:width:750 }}"
-                        alt="{{ product_image_pc.alt }}"
-                      >
-                    {% endif %}
-                    {% if product_image_mb %}
-                      <img
-                        style="aspect-ratio: {{ product_image_mb.aspect_ratio }}"
-                        class="mb lazyload"
-                        data-sizes="{{100 | divided_by: section.settings.prduct_num_mobile}}vw"
-                        data-srcset="
-                          {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
-                          {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
-                          {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
-                          {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
-                          {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
-                          {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
-                          {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
-                          {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
-                          {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
-                          {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
-                          {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
-                        "
-                        data-src="{{ product_image_mb | image_url:width:750 }}"
-                        alt="{{ product_image_mb.alt }}"
-                      >
-                    {% endif %}
-                  </a>
-                  <div class="christmas-products-product-content">
-                    <div class="christmas-products-product-name">{{- title -}}</div>
-                    {% if block.settings.pink_product != blank %}
-                      <div class="new-year-product-color-button">
-                        <div class="new-year-product-color-button-content white-button active">
-                          <div class="white-circle"></div>
-                          White
-                        </div>
+            {%- liquid
+              assign current_product = block.settings.product
+              assign variant_index = block.settings.product_variant_location | default: '0' | plus: 0
+              assign variant = current_product.variants[variant_index]
+              assign product_image_pc = block.settings.product_image_pc | default: current_product.featured_image
+              assign product_image_mb = block.settings.product_image_mb | default: current_product.featured_image
+              assign gifts_icon = block.settings.gifts_icon
+              assign title = block.settings.title | default: current_product.title
+              assign features = block.settings.features
+              assign product_price = variant.metafields.custom.activity_sale_price.value | default: variant.price
+              assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: variant.compare_at_price
+              assign product_diff_price = product_origin_price | minus: product_price
+            -%}
 
-                        <div>
-                          <div class="new-year-product-color-button-content pink-button">
-                            <div class="pink-circle"></div>
-                            Pink
-                          </div>
+            {% if variant.available %}
+              <div class="christmas-products-products-items">
+                
+                {%- if current_product -%}
+                  <div class="christmas-products-products-card white-product">
+                    {% if product_diff_price != blank
+                      and product_diff_price > 0
+                      and product_price > 0
+                      and product_origin_price > 0
+                    %}
+                      <div class="christmas-products-product-label-discount">
+                        {% if section.settings.show_starpick %}
+                          <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Star_Pick.png?v=1766715799" alt="starpick"/>
+                        {% endif %}
+                        <div class="christmas-products-product-label-discount-text">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <g clip-path="url(#clip0_476_1949)">
+                              <path d="M4.02163 0.0430431C3.31361 0.296673 3.04213 1.47811 3.3223 3.07792C3.34619 3.21449 3.38094 3.38574 3.39831 3.45728L3.42872 3.58735L3.34836 3.66322C3.23325 3.76944 2.88576 4.08593 2.54043 4.39809C2.2342 4.6734 2.11041 4.82731 2.04742 5.01374C2.0105 5.11996 2.00833 5.37359 2.00181 9.24305C1.99747 13.7542 1.98878 13.4962 2.12126 13.7217C2.21031 13.8712 2.37537 14.0338 2.51871 14.1097C2.77499 14.2463 2.60993 14.2419 6.33031 14.2419C8.46524 14.2419 9.77269 14.2333 9.86825 14.2203C10.257 14.1639 10.5589 13.8951 10.6718 13.5027C10.7044 13.3943 10.7066 12.9846 10.7022 9.23438L10.6957 5.08311L10.6154 4.91619C10.5372 4.75144 10.4242 4.6192 10.1853 4.4111C10.0789 4.31788 9.72925 4.00356 9.53379 3.82363C9.34266 3.65021 9.22321 3.53965 8.80622 3.16463C8.5912 2.9717 8.32189 2.72891 8.20896 2.62486C8.09602 2.5208 7.89621 2.33871 7.76373 2.22165C7.42709 1.91816 7.37714 1.87264 7.14475 1.6602C6.86024 1.4044 6.69084 1.31986 6.41935 1.30468C6.30425 1.30035 6.18262 1.30468 6.1305 1.31986L6.03928 1.3437L6.10661 1.49111C6.31511 1.95068 6.47148 2.39507 6.61482 2.93701C6.70604 3.29036 6.71473 3.3077 6.79291 3.37057C6.9254 3.47679 7.00358 3.57 7.07091 3.70224C7.12521 3.81063 7.13172 3.84964 7.13389 4.0209C7.13389 4.18782 7.12521 4.23334 7.07525 4.33956C6.99489 4.51081 6.86241 4.64738 6.69084 4.73193C6.5627 4.79479 6.53012 4.8013 6.35203 4.8013C6.18697 4.8013 6.13701 4.79262 6.03711 4.74493C5.88942 4.67556 5.7135 4.50865 5.65052 4.37641C5.50935 4.08593 5.56365 3.71741 5.77866 3.49847L5.86553 3.40959L5.80038 3.15162C5.70916 2.78961 5.57233 2.37339 5.45723 2.10459C5.40293 1.97886 5.35515 1.87047 5.35298 1.86614C5.34863 1.8618 5.17488 2.01355 4.96856 2.19997C4.57111 2.56199 4.54939 2.5815 4.19104 2.9045C4.06507 3.01722 3.93259 3.13645 3.89567 3.17113L3.82834 3.23183L3.78273 2.98687C3.74146 2.76576 3.70889 2.48395 3.68282 2.14578C3.67848 2.08075 3.68282 1.87481 3.69368 1.69055C3.72843 1.03371 3.89567 0.613167 4.16715 0.491772C4.27357 0.44408 4.36478 0.452752 4.50595 0.524288C5.08367 0.819104 5.62663 1.77509 5.98281 3.12778C6.0458 3.3684 6.06751 3.4226 6.12398 3.47245C6.23909 3.57867 6.43021 3.53098 6.4932 3.38357C6.51709 3.32288 6.51492 3.29036 6.47148 3.12561C6.22606 2.19564 5.93069 1.4716 5.57885 0.942667C5.38773 0.654354 5.00331 0.257652 4.81653 0.155767C4.53202 -0.000311852 4.25402 -0.0414991 4.02163 0.0430431ZM4.98593 7.32891C5.52455 7.40262 5.87422 7.74513 5.97195 8.29574C5.98933 8.38679 5.99584 8.55587 5.98933 8.7358C5.98064 8.98075 5.96978 9.05663 5.91983 9.20187C5.84816 9.4078 5.70264 9.63325 5.56365 9.75465C5.41379 9.88255 5.15751 10.0061 4.97073 10.0365C4.73617 10.0755 4.36478 10.056 4.2019 9.9931C3.84788 9.8587 3.60681 9.60941 3.48084 9.25172C3.38094 8.96775 3.38745 8.46266 3.49605 8.15483C3.59812 7.86652 3.81531 7.60856 4.07159 7.47415C4.36696 7.32024 4.62758 7.27906 4.98593 7.32891ZM8.05259 7.45464C8.19376 7.55436 8.25022 7.77114 8.17421 7.91855C8.15249 7.95757 7.86581 8.40196 7.53569 8.90922C7.20556 9.41648 6.86676 9.9324 6.7864 10.0581C6.70604 10.1839 6.5779 10.379 6.50406 10.4917C6.20217 10.9534 5.9068 11.4065 5.74391 11.6579C5.07498 12.6833 5.08801 12.6681 4.87517 12.6681C4.69056 12.6681 4.53853 12.5424 4.50378 12.3625C4.47555 12.2064 4.3865 12.356 5.95241 9.94975C6.29122 9.43165 6.63654 8.89838 6.72341 8.76831C7.51614 7.54352 7.55306 7.48933 7.63993 7.4373C7.74853 7.37444 7.95051 7.38094 8.05259 7.45464ZM8.37836 10.0278C8.81708 10.1167 9.11462 10.3898 9.23842 10.819C9.36438 11.2461 9.29271 11.8465 9.08204 12.1739C8.83445 12.5554 8.45655 12.7462 7.95268 12.7462C7.60084 12.7462 7.28158 12.6183 7.06222 12.3907C6.83418 12.1544 6.73644 11.9007 6.7169 11.4997C6.70169 11.1659 6.74296 10.9426 6.86676 10.6911C7.04268 10.3334 7.35759 10.095 7.76373 10.0148C7.91142 9.9866 8.20244 9.99093 8.37836 10.0278Z" fill="#FDCF8A"/>
+                              <path d="M4.55154 7.98797C4.42557 8.03349 4.36041 8.08768 4.29526 8.20691C4.17798 8.41935 4.15843 8.8529 4.25616 9.1087C4.31046 9.25177 4.4386 9.3775 4.55371 9.39918C4.70139 9.42736 4.89686 9.39918 4.99025 9.33849C5.15748 9.22793 5.24653 8.94395 5.22698 8.59494C5.20743 8.24593 5.08581 8.03132 4.87949 7.97929C4.75135 7.94895 4.65578 7.95111 4.55154 7.98797Z" fill="#FDCF8A"/>
+                              <path d="M7.82898 10.6739C7.72256 10.7129 7.57705 10.869 7.53795 10.9817C7.52275 11.0294 7.50538 11.1811 7.49886 11.3221C7.488 11.5237 7.49452 11.606 7.52275 11.7144C7.59225 11.9637 7.75297 12.0938 7.99839 12.0959C8.28507 12.0959 8.46099 11.9312 8.51312 11.6169C8.57827 11.2072 8.48488 10.856 8.26987 10.7151C8.16345 10.6435 7.96364 10.6262 7.82898 10.6739Z" fill="#FDCF8A"/>
+                              <path d="M7.61378 1.77292C7.62464 1.78376 7.75495 1.90298 7.90481 2.03739C8.05467 2.17179 8.21538 2.31703 8.26316 2.36038C8.31094 2.40374 8.44777 2.5273 8.56722 2.63569C8.78006 2.82645 9.4794 3.46161 9.65315 3.61769C9.70093 3.66105 9.89205 3.8323 10.0767 3.99922C10.6479 4.51298 10.7108 4.58235 10.8107 4.79045C10.8585 4.89234 10.9085 5.02674 10.9215 5.08961C10.9389 5.16981 10.9454 6.42278 10.9454 9.2799C10.9454 12.9629 10.9411 13.3705 10.9106 13.5114C10.8194 13.9146 10.5458 14.2311 10.1462 14.3893L10.0006 14.4479L7.3575 14.4544C5.83069 14.4565 4.71219 14.4674 4.71219 14.4782C4.71219 14.5563 4.92503 15.2998 4.97715 15.4082C5.15742 15.7745 5.52663 16.0022 5.93928 16C6.11086 15.9978 6.21076 15.9783 6.88404 15.8005C7.02086 15.7637 7.35316 15.6748 7.62247 15.6055C7.89178 15.5361 8.39565 15.4038 8.74097 15.3128C9.08847 15.2218 9.49243 15.1155 9.64229 15.0765C9.79214 15.0375 10.0897 14.9595 10.3047 14.9031C10.5197 14.8467 10.8368 14.7622 11.0106 14.7188C11.1843 14.6733 11.6686 14.5454 12.0856 14.437C12.5048 14.3265 12.9782 14.2029 13.139 14.1617C13.3127 14.1162 13.493 14.0533 13.5842 14.0078C13.9404 13.8214 14.1597 13.4594 14.1597 13.054C14.1597 12.8936 14.0968 12.6356 13.5842 10.7085C13.5321 10.5112 13.4452 10.1795 13.3909 9.97142C13.3366 9.76331 13.1824 9.18235 13.0521 8.6816C12.7806 7.65407 12.6286 7.07745 12.3897 6.16699C11.8467 4.1011 11.8576 4.13579 11.6773 3.94285C11.5557 3.81062 11.4601 3.74992 10.9997 3.51147C10.7847 3.40091 10.5414 3.27302 10.4567 3.22966C10.3742 3.1863 10.1592 3.07358 9.97892 2.98037C9.80083 2.88715 9.53587 2.75058 9.39252 2.67688C7.61161 1.74907 7.5508 1.71872 7.61378 1.77292Z" fill="#FDCF8A"/>
+                            </g>
+                            <defs>
+                              <linearGradient id="paint0_linear_476_1949" x1="9.02182" y1="14.0839" x2="3.70439" y2="0.158033" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FDCF8A"/>
+                                <stop offset="0.3" stop-color="#FFDAAE"/>
+                                <stop offset="0.65" stop-color="#FFDAAE"/>
+                                <stop offset="1" stop-color="#FDCF8A"/>
+                              </linearGradient>
+                              <clipPath id="clip0_476_1949">
+                                <rect width="16" height="16" fill="white"/>
+                              </clipPath>
+                            </defs>
+                          </svg>
+                          <span class="christmas-products-product-label-discount-text-unit">SAVE</span>
+                          <span class="christmas-products-product-label-discount-text-value">
+                            {{- product_diff_price | money_without_trailing_zeros -}}
+                          </span>
                         </div>
                       </div>
                     {% endif %}
-                    {%- if section.settings.features != empty -%}
-                      <div class="christmas-products-product-tips">{{- features -}}</div>
-                    {% endif %}
-                    <div class="christmas-products-product-content-bottom">
-                      <div class="christmas-products-product-price">
-                        {% if product_price != blank and product_price > 0 %}
-                          <div class="christmas-products-product-sale-price">
-                            {{ product_price | money_without_trailing_zeros }}
-                          </div>
-                        {% endif %}
-                        {% if product_origin_price != blank
-                          and product_origin_price > 0
-                          and product_origin_price > product_price
-                        %}
-                          <div class="christmas-products-product-original-price">
-                            {{ product_origin_price | money_without_trailing_zeros }}
-                          </div>
-                        {% endif %}
-                      </div>
-                      {%- if section.settings.show_klarna -%}
-                        <div class="mascot-activities-product-info-klarna">
-                          {% assign klarna_id = 'shopify-block-AbFBFd0QvcXlzYkYva__klarna_on_site_messaging_app_block_gcU6LY' %}
-                          <!-- DO NOT DELETE -->
-                          <div class="klarna-osm-wrapper">
-                            <klarna-placement
-                              id="{{ klarna_id }}"
-                              data-key="credit-promotion-auto-size"
-                              data-theme="light"
-                              data-message-prefix=""
-                              data-integration-style="app-blocks"
-                              data-locale="en-US"
-                              {% if variant %}
-                                data-purchase-amount="{{ variant.price }}"
-                              {% endif %}
-                              data-preloaded="true"
-                            >
-                            </klarna-placement>
-                          </div>
-                        </div>
-                      {% endif %}
-                      <div class="christmas-products-product-button-wrapper">
-                        <product-card>
-                          <div
-                            class="christmas-products-product-button-add-to-cart product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
-                            data-product-id="{{ variant.id }}"
-                            tabindex="-1"
-                            {% if variant.available == false %}
-                              disabled
-                            {% endif %}
-                          >
-                            {% render 'svg-icons' with 'thb-loading' %}
-                            <span class="product-card--add-to-cart-text">
-                              {%- if variant.available -%}
-                                {%- if section.settings.buy_now_button_text != empty -%}
-                                  {{ section.settings.buy_now_button_text }}
-                                {%- else -%}
-                                  {%- if product_diff_price > 0 -%}
-                                    Save
-                                    {{ product_diff_price | money_without_trailing_zeros -}}
-                                  {%- else -%}
-                                    Buy Now
-                                  {%- endif -%}
-                                {%- endif -%}
-                              {%- else -%}
-                                {{- 'products.product.sold_out' | t -}}
-                              {%- endif -%}
-                            </span>
-                          </div>
-                        </product-card>
-                        <div
-                          class="christmas-products-product-button-view-more"
-                          onclick="window.open('{{variant.url }}','_blank');"
+                    {% if gifts_icon %}
+                      <div class="christmas-products-product-gifts-icon">
+                        <img
+                          style="aspect-ratio: {{ gifts_icon.aspect_ratio }}"
+                          class="pc lazyload"
+                          data-sizes="10vw"
+                          data-srcset="
+                            {%- if gifts_icon.width >= 200 -%}{{ gifts_icon | image_url: width: 200 }} 200w,{%- endif -%}
+                            {%- if gifts_icon.width >= 375 -%}{{ gifts_icon | image_url: width: 375 }} 375w,{%- endif -%}
+                            {%- if gifts_icon.width >= 550 -%}{{ gifts_icon | image_url: width: 550 }} 550w,{%- endif -%}
+                            {%- if gifts_icon.width >= 750 -%}{{ gifts_icon | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if gifts_icon.width >= 1100 -%}{{ gifts_icon | image_url: width: 1100 }} 1100w,{%- endif -%}
+                            {%- if gifts_icon.width >= 1500 -%}{{ gifts_icon | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {%- if gifts_icon.width >= 1780 -%}{{ gifts_icon | image_url: width: 1780 }} 1780w,{%- endif -%}
+                            {%- if gifts_icon.width >= 2000 -%}{{ gifts_icon | image_url: width: 2000 }} 2000w,{%- endif -%}
+                            {%- if gifts_icon.width >= 3000 -%}{{ gifts_icon | image_url: width: 3000 }} 3000w,{%- endif -%}
+                            {%- if gifts_icon.width >= 3840 -%}{{ gifts_icon | image_url: width: 3840 }} 3840w,{%- endif -%}
+                            {{ gifts_icon | image_url }} {{ gifts_icon.width }}w
+                          "
+                          data-src="{{ gifts_icon | image_url:width:200 }}"
+                          alt="{{ gifts_icon.alt }}"
                         >
-                          {{ section.settings.learn_more_button_text }}
+                      </div>
+                    {% endif %}
+                    <a
+                      class="christmas-products-product-image"
+                      href="{{variant.url }}"
+                      target="_blank"
+                    >
+                      {% if product_image_pc %}
+                        <img
+                          style="aspect-ratio: {{ product_image_pc.aspect_ratio }}"
+                          class="pc lazyload white-machine-image"
+                          data-sizes="{{100 | divided_by: section.settings.prduct_num}}vw"
+                          data-srcset="
+                            {%- if product_image_pc.width >= 200 -%}{{ product_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                            {%- if product_image_pc.width >= 375 -%}{{ product_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                            {%- if product_image_pc.width >= 550 -%}{{ product_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                            {%- if product_image_pc.width >= 750 -%}{{ product_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if product_image_pc.width >= 1100 -%}{{ product_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                            {%- if product_image_pc.width >= 1500 -%}{{ product_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {%- if product_image_pc.width >= 1780 -%}{{ product_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                            {%- if product_image_pc.width >= 2000 -%}{{ product_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                            {%- if product_image_pc.width >= 3000 -%}{{ product_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                            {%- if product_image_pc.width >= 3840 -%}{{ product_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                            {{ product_image_pc | image_url }} {{ product_image_pc.width }}w
+                          "
+                          data-src="{{ product_image_pc | image_url:width:750 }}"
+                          alt="{{ product_image_pc.alt }}"
+                        >
+                      {% endif %}
+                      {% if product_image_mb %}
+                        <img
+                          style="aspect-ratio: {{ product_image_mb.aspect_ratio }}"
+                          class="mb lazyload"
+                          data-sizes="{{100 | divided_by: section.settings.prduct_num_mobile}}vw"
+                          data-srcset="
+                            {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                            {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                            {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                            {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                            {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                            {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                            {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                            {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                            {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
+                          "
+                          data-src="{{ product_image_mb | image_url:width:750 }}"
+                          alt="{{ product_image_mb.alt }}"
+                        >
+                      {% endif %}
+                    </a>
+                    <div class="christmas-products-product-content">
+                      <div class="christmas-products-product-name">{{- title -}}</div>
+                      <div class="christmas-products-product-info">
+                        {% if block.settings.pink_product != blank %}
+                          <div class="new-year-product-color-button">
+                            <div class="new-year-product-color-button-content white-button active">
+                              <div class="white-circle"></div>
+                              White
+                            </div>
+
+                            <div>
+                              <div class="new-year-product-color-button-content pink-button">
+                                <div class="pink-circle"></div>
+                                Pink
+                              </div>
+                            </div>
+                          </div>
+                        {% endif %}
+                        {%- if section.settings.features != empty -%}
+                          <div class="christmas-products-product-tips">{{- features -}}</div>
+                        {% endif %}
+                        <div class="christmas-products-product-content-bottom">
+                          <div class="christmas-products-product-price">
+                            {% if product_price != blank and product_price > 0 %}
+                              <div class="christmas-products-product-sale-price">
+                                {{ product_price | money_without_trailing_zeros }}
+                              </div>
+                            {% endif %}
+                            {% if product_origin_price != blank
+                              and product_origin_price > 0
+                              and product_origin_price > product_price
+                            %}
+                              <div class="christmas-products-product-original-price">
+                                {{ product_origin_price | money_without_trailing_zeros }}
+                              </div>
+                            {% endif %}
+                          </div>
+                          {%- if section.settings.show_klarna -%}
+                            <div class="mascot-activities-product-info-klarna">
+                              {% assign klarna_id = 'shopify-block-AbFBFd0QvcXlzYkYva__klarna_on_site_messaging_app_block_gcU6LY' %}
+                              <!-- DO NOT DELETE -->
+                              <div class="klarna-osm-wrapper">
+                                <klarna-placement
+                                  id="{{ klarna_id }}"
+                                  data-key="credit-promotion-auto-size"
+                                  data-theme="light"
+                                  data-message-prefix=""
+                                  data-integration-style="app-blocks"
+                                  data-locale="en-US"
+                                  {% if variant %}
+                                    data-purchase-amount="{{ variant.price }}"
+                                  {% endif %}
+                                  data-preloaded="true"
+                                >
+                                </klarna-placement>
+                              </div>
+                            </div>
+                          {% endif %}
+                          <div class="christmas-products-product-button-wrapper">
+                            <new-product-card>
+                              <div
+                                class="christmas-products-product-button-add-to-cart product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                                data-product-id="{{ variant.id }}"
+                                tabindex="-1"
+                                {% if variant.available == false %}
+                                  disabled
+                                {% endif %}
+                              >
+                                {% render 'svg-icons' with 'thb-loading' %}
+                                <span class="product-card--add-to-cart-text">
+                                  {%- if variant.available -%}
+                                    {%- if section.settings.buy_now_button_text != empty -%}
+                                      {{ section.settings.buy_now_button_text }}
+                                    {%- else -%}
+                                      {%- if product_diff_price > 0 -%}
+                                        Save
+                                        {{ product_diff_price | money_without_trailing_zeros -}}
+                                      {%- else -%}
+                                        Buy Now
+                                      {%- endif -%}
+                                    {%- endif -%}
+                                  {%- else -%}
+                                    {{- 'products.product.sold_out' | t -}}
+                                  {%- endif -%}
+                                </span>
+                              </div>
+                            </new-product-card>
+                            <div
+                              class="christmas-products-product-button-view-more"
+                              onclick="window.open('{{variant.url }}','_blank');"
+                            >
+                              {{ section.settings.learn_more_button_text }}
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              {%- endif -%}
+                {%- endif -%}
 
-              {%- liquid
-                assign current_product = block.settings.pink_product
-                assign variant_index = block.settings.product_variant_location | default: '0' | plus: 0
-                assign variant = current_product.variants[variant_index]
-                assign product_image_pc = block.settings.product_image_pc | default: current_product.featured_image
-                assign product_image_mb = block.settings.product_image_mb | default: current_product.featured_image
-                assign gifts_icon = block.settings.gifts_icon
-                assign title = block.settings.title | default: current_product.title
-                assign features = block.settings.features
-                assign product_price = variant.metafields.custom.activity_sale_price.value | default: variant.price
-                assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: variant.compare_at_price
-                assign product_diff_price = product_origin_price | minus: product_price
-              -%}
-              {%- if current_product -%}
-                <div class="christmas-products-products-card pink-product" style="display: none;">
-                  {% if product_diff_price != blank
-                    and product_diff_price > 0
-                    and product_price > 0
-                    and product_origin_price > 0
-                  %}
-                    <div class="christmas-products-product-label-discount">
-                      {% if section.settings.show_starpick %}
-                        <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Star_Pick.png?v=1766715799" alt="starpick"/>
-                      {% endif %}
-                      <div class="christmas-products-product-label-discount-text">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                          <g clip-path="url(#clip0_476_1949)">
-                            <path d="M4.02163 0.0430431C3.31361 0.296673 3.04213 1.47811 3.3223 3.07792C3.34619 3.21449 3.38094 3.38574 3.39831 3.45728L3.42872 3.58735L3.34836 3.66322C3.23325 3.76944 2.88576 4.08593 2.54043 4.39809C2.2342 4.6734 2.11041 4.82731 2.04742 5.01374C2.0105 5.11996 2.00833 5.37359 2.00181 9.24305C1.99747 13.7542 1.98878 13.4962 2.12126 13.7217C2.21031 13.8712 2.37537 14.0338 2.51871 14.1097C2.77499 14.2463 2.60993 14.2419 6.33031 14.2419C8.46524 14.2419 9.77269 14.2333 9.86825 14.2203C10.257 14.1639 10.5589 13.8951 10.6718 13.5027C10.7044 13.3943 10.7066 12.9846 10.7022 9.23438L10.6957 5.08311L10.6154 4.91619C10.5372 4.75144 10.4242 4.6192 10.1853 4.4111C10.0789 4.31788 9.72925 4.00356 9.53379 3.82363C9.34266 3.65021 9.22321 3.53965 8.80622 3.16463C8.5912 2.9717 8.32189 2.72891 8.20896 2.62486C8.09602 2.5208 7.89621 2.33871 7.76373 2.22165C7.42709 1.91816 7.37714 1.87264 7.14475 1.6602C6.86024 1.4044 6.69084 1.31986 6.41935 1.30468C6.30425 1.30035 6.18262 1.30468 6.1305 1.31986L6.03928 1.3437L6.10661 1.49111C6.31511 1.95068 6.47148 2.39507 6.61482 2.93701C6.70604 3.29036 6.71473 3.3077 6.79291 3.37057C6.9254 3.47679 7.00358 3.57 7.07091 3.70224C7.12521 3.81063 7.13172 3.84964 7.13389 4.0209C7.13389 4.18782 7.12521 4.23334 7.07525 4.33956C6.99489 4.51081 6.86241 4.64738 6.69084 4.73193C6.5627 4.79479 6.53012 4.8013 6.35203 4.8013C6.18697 4.8013 6.13701 4.79262 6.03711 4.74493C5.88942 4.67556 5.7135 4.50865 5.65052 4.37641C5.50935 4.08593 5.56365 3.71741 5.77866 3.49847L5.86553 3.40959L5.80038 3.15162C5.70916 2.78961 5.57233 2.37339 5.45723 2.10459C5.40293 1.97886 5.35515 1.87047 5.35298 1.86614C5.34863 1.8618 5.17488 2.01355 4.96856 2.19997C4.57111 2.56199 4.54939 2.5815 4.19104 2.9045C4.06507 3.01722 3.93259 3.13645 3.89567 3.17113L3.82834 3.23183L3.78273 2.98687C3.74146 2.76576 3.70889 2.48395 3.68282 2.14578C3.67848 2.08075 3.68282 1.87481 3.69368 1.69055C3.72843 1.03371 3.89567 0.613167 4.16715 0.491772C4.27357 0.44408 4.36478 0.452752 4.50595 0.524288C5.08367 0.819104 5.62663 1.77509 5.98281 3.12778C6.0458 3.3684 6.06751 3.4226 6.12398 3.47245C6.23909 3.57867 6.43021 3.53098 6.4932 3.38357C6.51709 3.32288 6.51492 3.29036 6.47148 3.12561C6.22606 2.19564 5.93069 1.4716 5.57885 0.942667C5.38773 0.654354 5.00331 0.257652 4.81653 0.155767C4.53202 -0.000311852 4.25402 -0.0414991 4.02163 0.0430431ZM4.98593 7.32891C5.52455 7.40262 5.87422 7.74513 5.97195 8.29574C5.98933 8.38679 5.99584 8.55587 5.98933 8.7358C5.98064 8.98075 5.96978 9.05663 5.91983 9.20187C5.84816 9.4078 5.70264 9.63325 5.56365 9.75465C5.41379 9.88255 5.15751 10.0061 4.97073 10.0365C4.73617 10.0755 4.36478 10.056 4.2019 9.9931C3.84788 9.8587 3.60681 9.60941 3.48084 9.25172C3.38094 8.96775 3.38745 8.46266 3.49605 8.15483C3.59812 7.86652 3.81531 7.60856 4.07159 7.47415C4.36696 7.32024 4.62758 7.27906 4.98593 7.32891ZM8.05259 7.45464C8.19376 7.55436 8.25022 7.77114 8.17421 7.91855C8.15249 7.95757 7.86581 8.40196 7.53569 8.90922C7.20556 9.41648 6.86676 9.9324 6.7864 10.0581C6.70604 10.1839 6.5779 10.379 6.50406 10.4917C6.20217 10.9534 5.9068 11.4065 5.74391 11.6579C5.07498 12.6833 5.08801 12.6681 4.87517 12.6681C4.69056 12.6681 4.53853 12.5424 4.50378 12.3625C4.47555 12.2064 4.3865 12.356 5.95241 9.94975C6.29122 9.43165 6.63654 8.89838 6.72341 8.76831C7.51614 7.54352 7.55306 7.48933 7.63993 7.4373C7.74853 7.37444 7.95051 7.38094 8.05259 7.45464ZM8.37836 10.0278C8.81708 10.1167 9.11462 10.3898 9.23842 10.819C9.36438 11.2461 9.29271 11.8465 9.08204 12.1739C8.83445 12.5554 8.45655 12.7462 7.95268 12.7462C7.60084 12.7462 7.28158 12.6183 7.06222 12.3907C6.83418 12.1544 6.73644 11.9007 6.7169 11.4997C6.70169 11.1659 6.74296 10.9426 6.86676 10.6911C7.04268 10.3334 7.35759 10.095 7.76373 10.0148C7.91142 9.9866 8.20244 9.99093 8.37836 10.0278Z" fill="url(#paint0_linear_476_1949)"/>
-                            <path d="M4.55154 7.98797C4.42557 8.03349 4.36041 8.08768 4.29526 8.20691C4.17798 8.41935 4.15843 8.8529 4.25616 9.1087C4.31046 9.25177 4.4386 9.3775 4.55371 9.39918C4.70139 9.42736 4.89686 9.39918 4.99025 9.33849C5.15748 9.22793 5.24653 8.94395 5.22698 8.59494C5.20743 8.24593 5.08581 8.03132 4.87949 7.97929C4.75135 7.94895 4.65578 7.95111 4.55154 7.98797Z" fill="#FDCF8A"/>
-                            <path d="M7.82898 10.6739C7.72256 10.7129 7.57705 10.869 7.53795 10.9817C7.52275 11.0294 7.50538 11.1811 7.49886 11.3221C7.488 11.5237 7.49452 11.606 7.52275 11.7144C7.59225 11.9637 7.75297 12.0938 7.99839 12.0959C8.28507 12.0959 8.46099 11.9312 8.51312 11.6169C8.57827 11.2072 8.48488 10.856 8.26987 10.7151C8.16345 10.6435 7.96364 10.6262 7.82898 10.6739Z" fill="#FDCF8A"/>
-                            <path d="M7.61378 1.77292C7.62464 1.78376 7.75495 1.90298 7.90481 2.03739C8.05467 2.17179 8.21538 2.31703 8.26316 2.36038C8.31094 2.40374 8.44777 2.5273 8.56722 2.63569C8.78006 2.82645 9.4794 3.46161 9.65315 3.61769C9.70093 3.66105 9.89205 3.8323 10.0767 3.99922C10.6479 4.51298 10.7108 4.58235 10.8107 4.79045C10.8585 4.89234 10.9085 5.02674 10.9215 5.08961C10.9389 5.16981 10.9454 6.42278 10.9454 9.2799C10.9454 12.9629 10.9411 13.3705 10.9106 13.5114C10.8194 13.9146 10.5458 14.2311 10.1462 14.3893L10.0006 14.4479L7.3575 14.4544C5.83069 14.4565 4.71219 14.4674 4.71219 14.4782C4.71219 14.5563 4.92503 15.2998 4.97715 15.4082C5.15742 15.7745 5.52663 16.0022 5.93928 16C6.11086 15.9978 6.21076 15.9783 6.88404 15.8005C7.02086 15.7637 7.35316 15.6748 7.62247 15.6055C7.89178 15.5361 8.39565 15.4038 8.74097 15.3128C9.08847 15.2218 9.49243 15.1155 9.64229 15.0765C9.79214 15.0375 10.0897 14.9595 10.3047 14.9031C10.5197 14.8467 10.8368 14.7622 11.0106 14.7188C11.1843 14.6733 11.6686 14.5454 12.0856 14.437C12.5048 14.3265 12.9782 14.2029 13.139 14.1617C13.3127 14.1162 13.493 14.0533 13.5842 14.0078C13.9404 13.8214 14.1597 13.4594 14.1597 13.054C14.1597 12.8936 14.0968 12.6356 13.5842 10.7085C13.5321 10.5112 13.4452 10.1795 13.3909 9.97142C13.3366 9.76331 13.1824 9.18235 13.0521 8.6816C12.7806 7.65407 12.6286 7.07745 12.3897 6.16699C11.8467 4.1011 11.8576 4.13579 11.6773 3.94285C11.5557 3.81062 11.4601 3.74992 10.9997 3.51147C10.7847 3.40091 10.5414 3.27302 10.4567 3.22966C10.3742 3.1863 10.1592 3.07358 9.97892 2.98037C9.80083 2.88715 9.53587 2.75058 9.39252 2.67688C7.61161 1.74907 7.5508 1.71872 7.61378 1.77292Z" fill="#FDCF8A"/>
-                          </g>
-                          <defs>
-                            <linearGradient id="paint0_linear_476_1949" x1="9.02182" y1="14.0839" x2="3.70439" y2="0.158033" gradientUnits="userSpaceOnUse">
-                              <stop stop-color="#FDCF8A"/>
-                              <stop offset="0.3" stop-color="#FFDAAE"/>
-                              <stop offset="0.65" stop-color="#FFDAAE"/>
-                              <stop offset="1" stop-color="#FDCF8A"/>
-                            </linearGradient>
-                            <clipPath id="clip0_476_1949">
-                              <rect width="16" height="16" fill="white"/>
-                            </clipPath>
-                          </defs>
-                        </svg>
-                        <span class="christmas-products-product-label-discount-text-unit">SAVE</span>
-                        <span class="christmas-products-product-label-discount-text-value">
-                          {{- product_diff_price | money_without_trailing_zeros -}}
-                        </span>
-                      </div>
-                    </div>
-                  {% endif %}
-                  {% if gifts_icon %}
-                    <div class="christmas-products-product-gifts-icon">
-                      <img
-                        style="aspect-ratio: {{ gifts_icon.aspect_ratio }}"
-                        class="pc lazyload"
-                        data-sizes="10vw"
-                        data-srcset="
-                          {%- if gifts_icon.width >= 200 -%}{{ gifts_icon | image_url: width: 200 }} 200w,{%- endif -%}
-                          {%- if gifts_icon.width >= 375 -%}{{ gifts_icon | image_url: width: 375 }} 375w,{%- endif -%}
-                          {%- if gifts_icon.width >= 550 -%}{{ gifts_icon | image_url: width: 550 }} 550w,{%- endif -%}
-                          {%- if gifts_icon.width >= 750 -%}{{ gifts_icon | image_url: width: 750 }} 750w,{%- endif -%}
-                          {%- if gifts_icon.width >= 1100 -%}{{ gifts_icon | image_url: width: 1100 }} 1100w,{%- endif -%}
-                          {%- if gifts_icon.width >= 1500 -%}{{ gifts_icon | image_url: width: 1500 }} 1500w,{%- endif -%}
-                          {%- if gifts_icon.width >= 1780 -%}{{ gifts_icon | image_url: width: 1780 }} 1780w,{%- endif -%}
-                          {%- if gifts_icon.width >= 2000 -%}{{ gifts_icon | image_url: width: 2000 }} 2000w,{%- endif -%}
-                          {%- if gifts_icon.width >= 3000 -%}{{ gifts_icon | image_url: width: 3000 }} 3000w,{%- endif -%}
-                          {%- if gifts_icon.width >= 3840 -%}{{ gifts_icon | image_url: width: 3840 }} 3840w,{%- endif -%}
-                          {{ gifts_icon | image_url }} {{ gifts_icon.width }}w
-                        "
-                        data-src="{{ gifts_icon | image_url:width:200 }}"
-                        alt="{{ gifts_icon.alt }}"
-                      >
-                    </div>
-                  {% endif %}
-                  <a
-                    class="christmas-products-product-image"
-                    href="{{variant.url }}"
-                    target="_blank"
-                  >
-                    {% if product_image_pc %}
-                      <img
-                        style="aspect-ratio: {{ product_image_pc.aspect_ratio }}"
-                        class="pc lazyload white-machine-image"
-                        data-sizes="{{100 | divided_by: section.settings.prduct_num}}vw"
-                        data-srcset="
-                          {%- if product_image_pc.width >= 200 -%}{{ product_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
-                          {%- if product_image_pc.width >= 375 -%}{{ product_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
-                          {%- if product_image_pc.width >= 550 -%}{{ product_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
-                          {%- if product_image_pc.width >= 750 -%}{{ product_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
-                          {%- if product_image_pc.width >= 1100 -%}{{ product_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
-                          {%- if product_image_pc.width >= 1500 -%}{{ product_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
-                          {%- if product_image_pc.width >= 1780 -%}{{ product_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
-                          {%- if product_image_pc.width >= 2000 -%}{{ product_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
-                          {%- if product_image_pc.width >= 3000 -%}{{ product_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
-                          {%- if product_image_pc.width >= 3840 -%}{{ product_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
-                          {{ product_image_pc | image_url }} {{ product_image_pc.width }}w
-                        "
-                        data-src="{{ product_image_pc | image_url:width:750 }}"
-                        alt="{{ product_image_pc.alt }}"
-                      >
-                    {% endif %}
-                    {% if product_image_mb %}
-                      <img
-                        style="aspect-ratio: {{ product_image_mb.aspect_ratio }}"
-                        class="mb lazyload"
-                        data-sizes="{{100 | divided_by: section.settings.prduct_num_mobile}}vw"
-                        data-srcset="
-                          {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
-                          {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
-                          {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
-                          {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
-                          {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
-                          {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
-                          {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
-                          {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
-                          {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
-                          {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
-                          {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
-                        "
-                        data-src="{{ product_image_mb | image_url:width:750 }}"
-                        alt="{{ product_image_mb.alt }}"
-                      >
-                    {% endif %}
-                  </a>
-                  <div class="christmas-products-product-content">
-                    <div class="christmas-products-product-name">{{- title -}}</div>
-                    {% if block.settings.pink_product != blank %}
-                      <div class="new-year-product-color-button">
-                        <div class="new-year-product-color-button-content white-button">
-                          <div class="white-circle"></div>
-                          White
-                        </div>
-
-                        <div>
-                          <div class="new-year-product-color-button-content active">
-                            <div class="pink-circle"></div>
-                            Pink
-                          </div>
-                        </div>
-                      </div>
-                    {% endif %}
-                    {%- if section.settings.features != empty -%}
-                      <div class="christmas-products-product-tips">{{- features -}}</div>
-                    {% endif %}
-                    <div class="christmas-products-product-content-bottom">
-                      <div class="christmas-products-product-price">
-                        {% if product_price != blank and product_price > 0 %}
-                          <div class="christmas-products-product-sale-price">
-                            {{ product_price | money_without_trailing_zeros }}
-                          </div>
+                {%- liquid
+                  assign current_product = block.settings.pink_product
+                  assign variant_index = block.settings.product_variant_location | default: '0' | plus: 0
+                  assign variant = current_product.variants[variant_index]
+                  assign product_image_pc = block.settings.product_image_pc | default: current_product.featured_image
+                  assign product_image_mb = block.settings.product_image_mb | default: current_product.featured_image
+                  assign gifts_icon = block.settings.gifts_icon
+                  assign title = block.settings.pink_title | default: current_product.title
+                  assign features = block.settings.features
+                  assign product_price = variant.metafields.custom.activity_sale_price.value | default: variant.price
+                  assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: variant.compare_at_price
+                  assign product_diff_price = product_origin_price | minus: product_price
+                -%}
+                {%- if current_product -%}
+                  <div class="christmas-products-products-card pink-product" style="display: none;">
+                    {% if product_diff_price != blank
+                      and product_diff_price > 0
+                      and product_price > 0
+                      and product_origin_price > 0
+                    %}
+                      <div class="christmas-products-product-label-discount">
+                        {% if section.settings.show_starpick %}
+                          <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Star_Pick.png?v=1766715799" alt="starpick"/>
                         {% endif %}
-                        {% if product_origin_price != blank
-                          and product_origin_price > 0
-                          and product_origin_price > product_price
-                        %}
-                          <div class="christmas-products-product-original-price">
-                            {{ product_origin_price | money_without_trailing_zeros }}
-                          </div>
-                        {% endif %}
-                      </div>
-                      {%- if section.settings.show_klarna -%}
-                        <div class="mascot-activities-product-info-klarna">
-                          {% assign klarna_id = 'shopify-block-AbFBFd0QvcXlzYkYva__klarna_on_site_messaging_app_block_gcU6LY' %}
-                          <!-- DO NOT DELETE -->
-                          <div class="klarna-osm-wrapper">
-                            <klarna-placement
-                              id="{{ klarna_id }}"
-                              data-key="credit-promotion-auto-size"
-                              data-theme="light"
-                              data-message-prefix=""
-                              data-integration-style="app-blocks"
-                              data-locale="en-US"
-                              {% if variant %}
-                                data-purchase-amount="{{ variant.price }}"
-                              {% endif %}
-                              data-preloaded="true"
-                            >
-                            </klarna-placement>
-                          </div>
+                        <div class="christmas-products-product-label-discount-text">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <g clip-path="url(#clip0_476_6444)">
+                              <path d="M4.02166 0.0430431C3.31364 0.296673 3.04216 1.47811 3.32233 3.07792C3.34622 3.21449 3.38097 3.38574 3.39834 3.45728L3.42875 3.58735L3.34839 3.66322C3.23328 3.76944 2.88579 4.08593 2.54046 4.39809C2.23423 4.6734 2.11044 4.82731 2.04745 5.01374C2.01053 5.11996 2.00836 5.37359 2.00184 9.24305C1.9975 13.7542 1.98881 13.4962 2.1213 13.7217C2.21034 13.8712 2.3754 14.0338 2.51874 14.1097C2.77502 14.2463 2.60996 14.2419 6.33034 14.2419C8.46527 14.2419 9.77272 14.2333 9.86828 14.2203C10.257 14.1639 10.5589 13.8951 10.6719 13.5027C10.7044 13.3943 10.7066 12.9846 10.7023 9.23438L10.6958 5.08311L10.6154 4.91619C10.5372 4.75144 10.4243 4.6192 10.1854 4.4111C10.079 4.31788 9.72928 4.00356 9.53382 3.82363C9.34269 3.65021 9.22324 3.53965 8.80625 3.16463C8.59123 2.9717 8.32193 2.72891 8.20899 2.62486C8.09605 2.5208 7.89624 2.33871 7.76376 2.22165C7.42712 1.91816 7.37717 1.87264 7.14478 1.6602C6.86027 1.4044 6.69087 1.31986 6.41938 1.30468C6.30428 1.30035 6.18265 1.30468 6.13053 1.31986L6.03931 1.3437L6.10664 1.49111C6.31514 1.95068 6.47151 2.39507 6.61485 2.93701C6.70607 3.29036 6.71476 3.3077 6.79294 3.37057C6.92543 3.47679 7.00361 3.57 7.07094 3.70224C7.12524 3.81063 7.13175 3.84964 7.13392 4.0209C7.13392 4.18782 7.12524 4.23334 7.07528 4.33956C6.99493 4.51081 6.86244 4.64738 6.69087 4.73193C6.56273 4.79479 6.53015 4.8013 6.35206 4.8013C6.187 4.8013 6.13704 4.79262 6.03714 4.74493C5.88945 4.67556 5.71353 4.50865 5.65055 4.37641C5.50938 4.08593 5.56368 3.71741 5.77869 3.49847L5.86556 3.40959L5.80041 3.15162C5.70919 2.78961 5.57236 2.37339 5.45726 2.10459C5.40296 1.97886 5.35518 1.87047 5.35301 1.86614C5.34866 1.8618 5.17492 2.01355 4.96859 2.19997C4.57114 2.56199 4.54942 2.5815 4.19107 2.9045C4.0651 3.01722 3.93262 3.13645 3.8957 3.17113L3.82837 3.23183L3.78276 2.98687C3.74149 2.76576 3.70892 2.48395 3.68285 2.14578C3.67851 2.08075 3.68285 1.87481 3.69371 1.69055C3.72846 1.03371 3.8957 0.613167 4.16718 0.491772C4.2736 0.44408 4.36482 0.452752 4.50599 0.524288C5.0837 0.819104 5.62666 1.77509 5.98284 3.12778C6.04583 3.3684 6.06755 3.4226 6.12401 3.47245C6.23912 3.57867 6.43024 3.53098 6.49323 3.38357C6.51712 3.32288 6.51495 3.29036 6.47151 3.12561C6.22609 2.19564 5.93072 1.4716 5.57888 0.942667C5.38776 0.654354 5.00334 0.257652 4.81656 0.155767C4.53205 -0.000311852 4.25405 -0.0414991 4.02166 0.0430431ZM4.98596 7.32891C5.52458 7.40262 5.87425 7.74513 5.97198 8.29574C5.98936 8.38679 5.99587 8.55587 5.98936 8.7358C5.98067 8.98075 5.96981 9.05663 5.91986 9.20187C5.84819 9.4078 5.70267 9.63325 5.56368 9.75465C5.41382 9.88255 5.15754 10.0061 4.97076 10.0365C4.7362 10.0755 4.36482 10.056 4.20193 9.9931C3.84792 9.8587 3.60684 9.60941 3.48087 9.25172C3.38097 8.96775 3.38748 8.46266 3.49608 8.15483C3.59815 7.86652 3.81534 7.60856 4.07162 7.47415C4.36699 7.32024 4.62761 7.27906 4.98596 7.32891ZM8.05262 7.45464C8.19379 7.55436 8.25025 7.77114 8.17424 7.91855C8.15252 7.95757 7.86584 8.40196 7.53572 8.90922C7.20559 9.41648 6.86679 9.9324 6.78643 10.0581C6.70607 10.1839 6.57793 10.379 6.50409 10.4917C6.2022 10.9534 5.90683 11.4065 5.74394 11.6579C5.07501 12.6833 5.08804 12.6681 4.8752 12.6681C4.69059 12.6681 4.53856 12.5424 4.50381 12.3625C4.47558 12.2064 4.38653 12.356 5.95244 9.94975C6.29125 9.43165 6.63657 8.89838 6.72344 8.76831C7.51617 7.54352 7.55309 7.48933 7.63996 7.4373C7.74856 7.37444 7.95054 7.38094 8.05262 7.45464ZM8.37839 10.0278C8.81711 10.1167 9.11465 10.3898 9.23845 10.819C9.36441 11.2461 9.29274 11.8465 9.08207 12.1739C8.83448 12.5554 8.45658 12.7462 7.95271 12.7462C7.60087 12.7462 7.28161 12.6183 7.06225 12.3907C6.83421 12.1544 6.73647 11.9007 6.71693 11.4997C6.70173 11.1659 6.74299 10.9426 6.86679 10.6911C7.04271 10.3334 7.35762 10.095 7.76376 10.0148C7.91145 9.9866 8.20247 9.99093 8.37839 10.0278Z" fill="#FDCF8A"></path>
+                              <path d="M4.55155 7.98797C4.42558 8.03349 4.36043 8.08768 4.29527 8.20691C4.17799 8.41935 4.15845 8.8529 4.25618 9.1087C4.31048 9.25177 4.43862 9.3775 4.55372 9.39918C4.70141 9.42736 4.89688 9.39918 4.99027 9.33849C5.1575 9.22793 5.24654 8.94395 5.227 8.59494C5.20745 8.24593 5.08583 8.03132 4.8795 7.97929C4.75136 7.94895 4.6558 7.95111 4.55155 7.98797Z" fill="#FDCF8A"></path>
+                              <path d="M7.82898 10.6739C7.72256 10.7129 7.57705 10.869 7.53795 10.9817C7.52275 11.0294 7.50538 11.1811 7.49886 11.3221C7.488 11.5237 7.49452 11.606 7.52275 11.7144C7.59225 11.9637 7.75297 12.0938 7.99839 12.0959C8.28507 12.0959 8.46099 11.9312 8.51312 11.6169C8.57827 11.2072 8.48488 10.856 8.26987 10.7151C8.16345 10.6435 7.96364 10.6262 7.82898 10.6739Z" fill="#FDCF8A"></path>
+                              <path d="M7.61375 1.77292C7.62461 1.78376 7.75492 1.90298 7.90478 2.03739C8.05463 2.17179 8.21535 2.31703 8.26313 2.36038C8.31091 2.40374 8.44774 2.5273 8.56719 2.63569C8.78003 2.82645 9.47937 3.46161 9.65312 3.61769C9.7009 3.66105 9.89202 3.8323 10.0766 3.99922C10.6478 4.51298 10.7108 4.58235 10.8107 4.79045C10.8585 4.89234 10.9084 5.02674 10.9215 5.08961C10.9389 5.16981 10.9454 6.42278 10.9454 9.2799C10.9454 12.9629 10.941 13.3705 10.9106 13.5114C10.8194 13.9146 10.5457 14.2311 10.1461 14.3893L10.0006 14.4479L7.35747 14.4544C5.83066 14.4565 4.71216 14.4674 4.71216 14.4782C4.71216 14.5563 4.925 15.2998 4.97712 15.4082C5.15739 15.7745 5.5266 16.0022 5.93925 16C6.11083 15.9978 6.21073 15.9783 6.88401 15.8005C7.02083 15.7637 7.35313 15.6748 7.62244 15.6055C7.89175 15.5361 8.39562 15.4038 8.74094 15.3128C9.08844 15.2218 9.4924 15.1155 9.64226 15.0765C9.79211 15.0375 10.0897 14.9595 10.3047 14.9031C10.5197 14.8467 10.8368 14.7622 11.0105 14.7188C11.1843 14.6733 11.6686 14.5454 12.0856 14.437C12.5048 14.3265 12.9782 14.2029 13.1389 14.1617C13.3127 14.1162 13.4929 14.0533 13.5842 14.0078C13.9403 13.8214 14.1597 13.4594 14.1597 13.054C14.1597 12.8936 14.0967 12.6356 13.5842 10.7085C13.532 10.5112 13.4452 10.1795 13.3909 9.97142C13.3366 9.76331 13.1824 9.18235 13.0521 8.6816C12.7806 7.65407 12.6286 7.07745 12.3896 6.16699C11.8467 4.1011 11.8575 4.13579 11.6773 3.94285C11.5557 3.81062 11.4601 3.74992 10.9997 3.51147C10.7846 3.40091 10.5414 3.27302 10.4567 3.22966C10.3742 3.1863 10.1592 3.07358 9.97889 2.98037C9.8008 2.88715 9.53584 2.75058 9.39249 2.67688C7.61158 1.74907 7.55077 1.71872 7.61375 1.77292Z" fill="#FDCF8A"></path>
+                            </g>
+                            <defs>
+                              <linearGradient id="paint0_linear_476_6444" x1="9.02185" y1="14.0839" x2="3.70442" y2="0.158033" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FDCF8A"></stop>
+                                <stop offset="0.3" stop-color="#FFDAAE"></stop>
+                                <stop offset="0.65" stop-color="#FFDAAE"></stop>
+                                <stop offset="1" stop-color="#FDCF8A"></stop>
+                              </linearGradient>
+                              <clipPath id="clip0_476_6444">
+                                <rect width="16" height="16" fill="white"></rect>
+                              </clipPath>
+                            </defs>
+                          </svg>
+                          <span class="christmas-products-product-label-discount-text-unit">SAVE</span>
+                          <span class="christmas-products-product-label-discount-text-value">
+                            {{- product_diff_price | money_without_trailing_zeros -}}
+                          </span>
                         </div>
-                      {% endif %}
-                      <div class="christmas-products-product-button-wrapper">
-                        <product-card>
-                          <div
-                            class="christmas-products-product-button-add-to-cart product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
-                            data-product-id="{{ variant.id }}"
-                            tabindex="-1"
-                            {% if variant.available == false %}
-                              disabled
-                            {% endif %}
-                          >
-                            {% render 'svg-icons' with 'thb-loading' %}
-                            <span class="product-card--add-to-cart-text">
-                              {%- if variant.available -%}
-                                {%- if section.settings.buy_now_button_text != empty -%}
-                                  {{ section.settings.buy_now_button_text }}
-                                {%- else -%}
-                                  {%- if product_diff_price > 0 -%}
-                                    Save
-                                    {{ product_diff_price | money_without_trailing_zeros -}}
-                                  {%- else -%}
-                                    Buy Now
-                                  {%- endif -%}
-                                {%- endif -%}
-                              {%- else -%}
-                                {{- 'products.product.sold_out' | t -}}
-                              {%- endif -%}
-                            </span>
-                          </div>
-                        </product-card>
-                        <div
-                          class="christmas-products-product-button-view-more"
-                          onclick="window.open('{{variant.url }}','_blank');"
+                      </div>
+                    {% endif %}
+                    {% if gifts_icon %}
+                      <div class="christmas-products-product-gifts-icon">
+                        <img
+                          style="aspect-ratio: {{ gifts_icon.aspect_ratio }}"
+                          class="pc lazyload"
+                          data-sizes="10vw"
+                          data-srcset="
+                            {%- if gifts_icon.width >= 200 -%}{{ gifts_icon | image_url: width: 200 }} 200w,{%- endif -%}
+                            {%- if gifts_icon.width >= 375 -%}{{ gifts_icon | image_url: width: 375 }} 375w,{%- endif -%}
+                            {%- if gifts_icon.width >= 550 -%}{{ gifts_icon | image_url: width: 550 }} 550w,{%- endif -%}
+                            {%- if gifts_icon.width >= 750 -%}{{ gifts_icon | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if gifts_icon.width >= 1100 -%}{{ gifts_icon | image_url: width: 1100 }} 1100w,{%- endif -%}
+                            {%- if gifts_icon.width >= 1500 -%}{{ gifts_icon | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {%- if gifts_icon.width >= 1780 -%}{{ gifts_icon | image_url: width: 1780 }} 1780w,{%- endif -%}
+                            {%- if gifts_icon.width >= 2000 -%}{{ gifts_icon | image_url: width: 2000 }} 2000w,{%- endif -%}
+                            {%- if gifts_icon.width >= 3000 -%}{{ gifts_icon | image_url: width: 3000 }} 3000w,{%- endif -%}
+                            {%- if gifts_icon.width >= 3840 -%}{{ gifts_icon | image_url: width: 3840 }} 3840w,{%- endif -%}
+                            {{ gifts_icon | image_url }} {{ gifts_icon.width }}w
+                          "
+                          data-src="{{ gifts_icon | image_url:width:200 }}"
+                          alt="{{ gifts_icon.alt }}"
                         >
-                          {{ section.settings.learn_more_button_text }}
+                      </div>
+                    {% endif %}
+                    <a
+                      class="christmas-products-product-image"
+                      href="{{variant.url }}"
+                      target="_blank"
+                    >
+                      {% if product_image_pc %}
+                        <img
+                          style="aspect-ratio: {{ product_image_pc.aspect_ratio }}"
+                          class="pc lazyload white-machine-image"
+                          data-sizes="{{100 | divided_by: section.settings.prduct_num}}vw"
+                          data-srcset="
+                            {%- if product_image_pc.width >= 200 -%}{{ product_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                            {%- if product_image_pc.width >= 375 -%}{{ product_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                            {%- if product_image_pc.width >= 550 -%}{{ product_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                            {%- if product_image_pc.width >= 750 -%}{{ product_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if product_image_pc.width >= 1100 -%}{{ product_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                            {%- if product_image_pc.width >= 1500 -%}{{ product_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {%- if product_image_pc.width >= 1780 -%}{{ product_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                            {%- if product_image_pc.width >= 2000 -%}{{ product_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                            {%- if product_image_pc.width >= 3000 -%}{{ product_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                            {%- if product_image_pc.width >= 3840 -%}{{ product_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                            {{ product_image_pc | image_url }} {{ product_image_pc.width }}w
+                          "
+                          data-src="{{ product_image_pc | image_url:width:750 }}"
+                          alt="{{ product_image_pc.alt }}"
+                        >
+                      {% endif %}
+                      {% if product_image_mb %}
+                        <img
+                          style="aspect-ratio: {{ product_image_mb.aspect_ratio }}"
+                          class="mb lazyload"
+                          data-sizes="{{100 | divided_by: section.settings.prduct_num_mobile}}vw"
+                          data-srcset="
+                            {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                            {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                            {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                            {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                            {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                            {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                            {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                            {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                            {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
+                          "
+                          data-src="{{ product_image_mb | image_url:width:750 }}"
+                          alt="{{ product_image_mb.alt }}"
+                        >
+                      {% endif %}
+                    </a>
+                    <div class="christmas-products-product-content">
+                      <div class="christmas-products-product-name">{{- title -}}</div>
+                      <div class="christmas-products-product-info">
+                        {% if block.settings.pink_product != blank %}
+                          <div class="new-year-product-color-button">
+                            <div class="new-year-product-color-button-content white-button">
+                              <div class="white-circle"></div>
+                              White
+                            </div>
+
+                            <div>
+                              <div class="new-year-product-color-button-content pink-button active">
+                                <div class="pink-circle"></div>
+                                Pink
+                              </div>
+                            </div>
+                          </div>
+                        {% endif %}
+                        {%- if section.settings.features != empty -%}
+                          <div class="christmas-products-product-tips">{{- features -}}</div>
+                        {% endif %}
+                        <div class="christmas-products-product-content-bottom">
+                          <div class="christmas-products-product-price">
+                            {% if product_price != blank and product_price > 0 %}
+                              <div class="christmas-products-product-sale-price">
+                                {{ product_price | money_without_trailing_zeros }}
+                              </div>
+                            {% endif %}
+                            {% if product_origin_price != blank
+                              and product_origin_price > 0
+                              and product_origin_price > product_price
+                            %}
+                              <div class="christmas-products-product-original-price">
+                                {{ product_origin_price | money_without_trailing_zeros }}
+                              </div>
+                            {% endif %}
+                          </div>
+                          {%- if section.settings.show_klarna -%}
+                            <div class="mascot-activities-product-info-klarna">
+                              {% assign klarna_id = 'shopify-block-AbFBFd0QvcXlzYkYva__klarna_on_site_messaging_app_block_gcU6LY' %}
+                              <!-- DO NOT DELETE -->
+                              <div class="klarna-osm-wrapper">
+                                <klarna-placement
+                                  id="{{ klarna_id }}"
+                                  data-key="credit-promotion-auto-size"
+                                  data-theme="light"
+                                  data-message-prefix=""
+                                  data-integration-style="app-blocks"
+                                  data-locale="en-US"
+                                  {% if variant %}
+                                    data-purchase-amount="{{ variant.price }}"
+                                  {% endif %}
+                                  data-preloaded="true"
+                                >
+                                </klarna-placement>
+                              </div>
+                            </div>
+                          {% endif %}
+                          <div class="christmas-products-product-button-wrapper">
+                            <new-product-card>
+                              <div
+                                class="christmas-products-product-button-add-to-cart product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                                data-product-id="{{ variant.id }}"
+                                tabindex="-1"
+                                {% if variant.available == false %}
+                                  disabled
+                                {% endif %}
+                              >
+                                {% render 'svg-icons' with 'thb-loading' %}
+                                <span class="product-card--add-to-cart-text">
+                                  {%- if variant.available -%}
+                                    {%- if section.settings.buy_now_button_text != empty -%}
+                                      {{ section.settings.buy_now_button_text }}
+                                    {%- else -%}
+                                      {%- if product_diff_price > 0 -%}
+                                        Save
+                                        {{ product_diff_price | money_without_trailing_zeros -}}
+                                      {%- else -%}
+                                        Buy Now
+                                      {%- endif -%}
+                                    {%- endif -%}
+                                  {%- else -%}
+                                    {{- 'products.product.sold_out' | t -}}
+                                  {%- endif -%}
+                                </span>
+                              </div>
+                            </new-product-card>
+                            <div
+                              class="christmas-products-product-button-view-more"
+                              onclick="window.open('{{variant.url }}','_blank');"
+                            >
+                              {{ section.settings.learn_more_button_text }}
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              {%- endif -%}
-            </div>
-            
+                {%- endif -%}
+              </div>
+            {% endif %}
           {%- endfor -%}
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
+
+<script src="{{ 'new-product-card.js' | asset_url }}" defer="defer"></script>
 
 <!-- Star Products end -->
 <script>
@@ -1478,6 +1495,12 @@
       "default": true
     },
     {
+      "type": "checkbox",
+      "id": "button_wrap",
+      "label": "按钮换行",
+      "default": false
+    },
+    {
       "type": "image_picker",
       "id": "background_image",
       "label": "Background image"
@@ -1492,11 +1515,6 @@
       "type": "image_picker",
       "id": "bow_image",
       "label": "蝴蝶结图片"
-    },
-    {
-      "type": "image_picker",
-      "id": "hat_image",
-      "label": "圣诞帽图片"
     },
     {
       "type": "html",
@@ -1967,6 +1985,12 @@
           "type": "text",
           "id": "title",
           "label": "产品标题",
+          "info": "默认产品标题"
+        },
+        {
+          "type": "text",
+          "id": "pink_title",
+          "label": "粉色产品标题",
           "info": "默认产品标题"
         },
         {

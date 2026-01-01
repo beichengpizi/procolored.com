@@ -89,27 +89,40 @@
 
     // 检查当前滚动位置并更新导航链接状态
     function updateNavLinks() {
-      // 🔧 每次都重新获取 sections，确保 DOM 变化后仍能正确匹配
-      const sections = document.querySelectorAll('div[id^="custom-nav-"], section[id^="custom-nav-"]');
-      let currentSection = '';
+        // 1️⃣ 收集导航中真实存在的锚点 ID（白名单）
+        const validSectionIds = Array.from(navLinks).map(link =>
+            link.getAttribute('href').slice(1)
+        );
 
-      sections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        const top = rect.top + window.scrollY;
-        const height = rect.height;
-        if (window.scrollY >= top - height / 3) {
-          currentSection = section.getAttribute('id');
-        }
-      });
+        // 2️⃣ 只保留在白名单中的 section
+        const sections = Array.from(
+            document.querySelectorAll('div[id^="custom-nav-"], section[id^="custom-nav-"]')
+        ).filter(section =>
+            validSectionIds.includes(section.id)
+        );
 
-      navLinks.forEach((link) => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').slice(1) === currentSection) {
-          link.classList.add('active');
-          scrollNavToActiveLink(link);
-        }
-      });
+        let currentSection = '';
+
+        sections.forEach((section) => {
+            const rect = section.getBoundingClientRect();
+            const top = rect.top + window.scrollY;
+            const height = rect.height || 1;
+
+            if (window.scrollY >= top - height / 3) {
+            currentSection = section.id;
+            }
+        });
+
+        navLinks.forEach((link) => {
+            const isActive = link.getAttribute('href').slice(1) === currentSection;
+            link.classList.toggle('active', isActive);
+
+            if (isActive) {
+            scrollNavToActiveLink(link);
+            }
+        });
     }
+
 
     // 滚动导航菜单到当前激活的链接
     function scrollNavToActiveLink(activeLink) {
@@ -164,7 +177,7 @@
 
 {% schema %}
 {
-  "name": "custom nav",
+  "name": "New year custom nav",
   "tag": "section",
   "settings": [
     {
@@ -253,7 +266,7 @@
   ],
   "presets": [
     {
-      "name": "custom nav",
+      "name": "New year custom nav",
       "blocks": [
         {
           "type": "item"

@@ -18,15 +18,68 @@
       "type": "page-banner",
       "name": "Page Banner",
       "settings": {
-        "banner_pc": "shopify://shop_images/christmas-2.jpg",
-        "banner_mb": "shopify://shop_images/christmas_2025_2.jpg",
-        "banner_url": "https://www.procolored.com/pages/christmas-2025"
+        "banner_pc": "shopify://shop_images/New_year_2026_pc_2.png",
+        "banner_mb": "shopify://shop_images/new_year_2026_mb_2.png",
+        "banner_url": ""
+      }
+    },
+    "new_year_custom_nav_33k83P": {
+      "type": "new-year-custom-nav",
+      "blocks": {
+        "item_66rrFH": {
+          "type": "item",
+          "settings": {
+            "title": "DTF Best Sellers",
+            "section_id": "DTF-Best-Sellers"
+          }
+        },
+        "item_Dm4aAH": {
+          "type": "item",
+          "settings": {
+            "title": "UV DTF Hot Deals",
+            "section_id": "UV-DTF-Hot-Deals"
+          }
+        },
+        "item_37p7Qt": {
+          "type": "item",
+          "settings": {
+            "title": "UV Hot Deals",
+            "section_id": "UV-Hot-Deals"
+          }
+        },
+        "item_pWc7kq": {
+          "type": "item",
+          "settings": {
+            "title": "Consumables Savings",
+            "section_id": "Consumables-Savings"
+          }
+        }
+      },
+      "block_order": [
+        "item_66rrFH",
+        "item_Dm4aAH",
+        "item_37p7Qt",
+        "item_pWc7kq"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 768px) {.nav-container {justify-content: center; } .nav-container > a {margin-right: 50px; }}",
+        ".nav-container > a {margin-right: 20px;}",
+        ".nav-container > a:last-child {margin-right: 0;}"
+      ],
+      "name": "New year custom nav",
+      "settings": {
+        "font_size": 16,
+        "font_size_mobile": 14,
+        "font_family": "custom-font-regular",
+        "font_color": "#ffffff",
+        "bg_color": "#c54343",
+        "bg_transparency": 1
       }
     },
     "custom_nav_nQ3yzf": {
       "type": "custom-nav",
       "blocks": {
-        "item_Daqqgj": {
+        "item_Urztxj": {
           "type": "item",
           "settings": {
             "title": "DTF Best Sellers",
@@ -56,14 +109,15 @@
         }
       },
       "block_order": [
-        "item_Daqqgj",
+        "item_Urztxj",
         "item_hqAtJp",
         "item_LefUt8",
         "item_7rXHQ3"
       ],
+      "disabled": true,
       "custom_css": [
-        ".nav-container {justify-content: center;}",
-        ".nav-container > a {margin-right: 50px;}",
+        "@media screen and (min-width: 768px) {.nav-container {justify-content: center; } .nav-container > a {margin-right: 50px; }}",
+        ".nav-container > a {margin-right: 20px;}",
         ".nav-container > a:last-child {margin-right: 0;}"
       ],
       "name": "custom nav",
@@ -78,9 +132,10 @@
     },
     "custom_liquid_LyJt7G": {
       "type": "custom-liquid",
+      "custom_css": [],
       "name": "Custom liquid",
       "settings": {
-        "custom_liquid": "<style>\n#shopify-section-{{ section.id }} {\nbackground-image: url('https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354712.jpg?v=1766736779');\nbackground-size: cover;\n}\n</style>\n\n<script>\ndocument.addEventListener(\"DOMContentLoaded\", function(){\nconst currentSection = document.querySelector(\n  '#shopify-section-{{ section.id }}'\n);\n\nif (!currentSection) return;\n\nconst nextSection = document.querySelector('#custom-nav-DTF-Best-Sellers');\nconst nextNextSection = document.querySelector('#custom-nav-DTF-Best-Sellers-2');\ncurrentSection.appendChild(nextSection);\ncurrentSection.appendChild(nextNextSection);\n})\n</script>"
+        "custom_liquid": "<style>\n#shopify-section-{{ section.id }} {\nbackground-image: url('https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354712.jpg?v=1766736779');\nbackground-size: cover;\n}\n</style>\n<!-- 第一张banner -->\n<style>\n#custom-nav-DTF-Best-Sellers {\n  display: block;\n}\n#custom-nav-DTF-Best-Sellers-Mobile {\n  display: none;\n}\n@media screen and (max-width: 768px) {\n  .christmas-frist-banner-content {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    top: 24px;\n  }\n  .dtf-features {\n    justify-content: center;\n  }\n  #custom-nav-DTF-Best-Sellers {\n    display: none;\n  }\n  #custom-nav-DTF-Best-Sellers-Mobile {\n    display: block;\n  }\n  #custom-nav-DTF-Best-Sellers-Mobile .christmas-products-products-card {\n    width: 100%;\n  }\n}\n@media screen and (min-width: 768px) {\n  .new-year-first-banner {\n    display: none;\n  }\n}\n    .christmas-frist-banner {\n        padding-top: 100px;\n    }\n\n    #shopify-section-{{  }} .christmas-frist-banner-wrapper {\n        max-width: 1400px;\n        margin: 0 auto;\n        position: relative;\n        border-radius: 16px;\n        overflow: hidden;\n        border: 1px solid #FFF;\n        box-shadow: 0 4px 4px 0 rgba(255, 235, 217, 0.25);\n    }   \n\n    .christmas-frist-banner-backgroud-img {\n        width: 100%;\n\n    }\n\n    .christmas-frist-banner-backgroud-img .pc {\n        display: flex;\n        width: 100%;\n        max-width: 100%;\n\n    }\n\n    .christmas-frist-banner-backgroud-img .mb {\n        display: none;\n        width: 100%;\n        max-width: 100%;\n\n    }\n\n    .christmas-frist-banner-content {\n        position: absolute;\n        top: 50%;\n        left: 50px;\n        transform: translate(0, -50%);\n        width: 100%;\n        max-width: 596px;\n\n    }\n\n    .christmas-frist-banner-content-tips {\n        color: #CC2A1F;\n        font-size: 20px;\n        font-weight: 400;\n        line-height: 1.38;\n        font-weight: 700;\n        margin-bottom: 8px;\n        padding: 4px 8px;\n        border-radius: 4px;\n        margin-bottom: 12px;\n        background: linear-gradient(99deg, #FFD7B4 37.18%, #EEAA67 84.13%);\n        text-align: left;\n        width: fit-content;\n    }\n\n    .christmas-frist-banner-content-title {\n        color: #FCF3C4;\n        font-size: 40px;\n        font-weight: 700;\n        line-height: 1.22;\n        margin-bottom: 12px;\n        text-align: left;\n        background: linear-gradient(267deg, #EEAA67 1.27%, #FFD7B4 72.68%, #EEAA67 99.03%);\n        background-clip: text;\n        -webkit-background-clip: text;\n        -webkit-text-fill-color: transparent;\n    }\n\n    .christmas-frist-banner-content-desc {\n        color: #FFD7B4;\n        font-size: 20px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: 440px;\n        text-align: left;\n\n    }\n    .christmas-frist-banner-content-note{\n        position: absolute;\n        bottom: 16px;\n        left: 50%;\n        color: rgba(0, 0, 0, 0.5);\n        font-size: 12px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: 440px;\n        text-align: left;\n        left: 50px;\ntransform: translate(0, -50%);\n    }\n\n    @media screen and (max-width: 768px){\n        #shopify-section-{{ section.id }} .christmas-frist-banner {\n        padding-top: 0;\n        padding-left: 0;\n        padding-right: 0;\n    }\n\n    #shopify-section-{{ section.id }} .christmas-frist-banner-wrapper {\n        max-width: 100%;\n        border-radius: 10px;\n        border-radius: 0;\nbox-shadow: unset;\nborder: unset;\n\n    }\n\n\n\n    .christmas-frist-banner-backgroud-img .pc {\n        display: none;\n        \n\n    }\n\n    .christmas-frist-banner-backgroud-img .mb {\n        display: flex;\n        \n\n    }\n\n    #shopify-section-{{ section.id }} .christmas-frist-banner-content {\n        position: absolute;\n        top: 24px;\n        left: 0;\n        transform: translate(0, 0);\n        width: 100%;\n        max-width: 580px;\n        padding: 0 18px;\n\n    }\n\n    .christmas-frist-banner-content-tips {\n        font-size: 12px;\n        line-height: 1.4;\n        margin-bottom: 4px;\n        text-align: center;\n\n\n    }\n\n    .christmas-frist-banner-content-title {\n        font-size: 24px;\n        line-height: 1.33;\n        margin-bottom: 8px;\n        text-align: center;\n\n    }\n\n    .christmas-frist-banner-content-desc {\n        font-size: 12px;\n        line-height: 1.4;\n        max-width: 240px;\n        text-align: center;\n        margin: 0 auto;\n\n    }\n    .christmas-frist-banner-content-note {\n        position: absolute;\n        bottom: 8px;\n        color: rgba(0, 0, 0, 0.5);\n        font-size: 10px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: max-content;\n        text-align: left;\n        left: 50%;\n        transform: translate(-50%, -50%);\n        width: 100%;\n    }      \n    }\n.feature-items {\ncolor: #FFD7B4;\nfont-size: 10px;\ndisplay: flex;\npadding: 4px 12px;\njustify-content: center;\nalign-items: center;\ngap: 10px;\nborder-radius: 12px;\nborder: 0.5px solid rgba(255, 215, 180, 1.00);\nbackground: #CC2A1F;\nfont-weight: 400;\n} \n.dtf-features {\ndisplay: flex;\ngap: 8px;\nflex-wrap: wrap;\npadding-top: 12px;\n}  \n</style>\n<section class=\"new-year-first-banner christmas-frist-banner\">\n    <div class=\"christmas-frist-banner-wrapper\">\n        <div class=\"christmas-frist-banner-backgroud-img\">\n            <img class=\"pc\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/mask_2.jpg?v=1766990275\" alt=\"\">\n            <img class=\"mb\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354719.jpg?v=1766990883\" alt=\"\">\n        </div>\n        <div class=\"christmas-frist-banner-content\">\n            <div class=\"christmas-frist-banner-content-tips\">K13 Lite</div>\n            <div class=\"christmas-frist-banner-content-title\">Your First DTF Printer is Perfect to Start</div>\n            <div class=\"christmas-frist-banner-content-desc\">Global No.1 Desktop DTF Brand</div>\n            <div class=\"dtf-features\">\n<div class=\"feature-items\">One Click Ink Setup</div>\n<div class=\"feature-items\">Pro-Color Precision</div>\n<div class=\"feature-items\">Beginner-Friendly</div>\n</div>\n            \n\n        </div>\n    </div>\n</section>\n<script>\ndocument.addEventListener(\"DOMContentLoaded\", function(){\nconst currentSection = document.querySelector(\n  '#shopify-section-{{ section.id }}'\n);\n\nif (!currentSection) return;\n\nconst nextSection = document.querySelector('#custom-nav-DTF-Best-Sellers');\nconst nextSectionMobile = document.querySelector('#custom-nav-DTF-Best-Sellers-Mobile');\nconst nextNextSection = document.querySelector('#custom-nav-DTF-Best-Sellers-2');\ncurrentSection.appendChild(nextSection);\ncurrentSection.appendChild(nextSectionMobile);\ncurrentSection.appendChild(nextNextSection);\n})\n</script>"
       }
     },
     "new_year_products_2026_Br3693": {
@@ -89,20 +144,22 @@
         "product_qFWCkm": {
           "type": "product",
           "settings": {
-            "product": "procolored-k13-lite-dtf-printer-13-a3-oven-white",
+            "product": "procolored-k13-lite-dtf-printer-13-a3-oven-premium-white",
             "pink_product": "",
             "product_variant_location": "0",
-            "title": "",
+            "title": "K13 Lite White DTF Printer & Smokeless Oven",
+            "pink_title": "",
             "features": ""
           }
         },
         "product_DgGWMY": {
           "type": "product",
           "settings": {
-            "product": "procolored-k13-lite-dtf-printer-13-a3-oven-pink",
+            "product": "procolored-k13-lite-dtf-printer-13-a3-oven-premium-pink",
             "pink_product": "",
             "product_variant_location": "0",
-            "title": "",
+            "title": "K13 Lite Pink DTF Printer & Smokeless Oven",
+            "pink_title": "",
             "features": ""
           }
         }
@@ -112,12 +169,13 @@
         "product_DgGWMY"
       ],
       "custom_css": [],
-      "name": "New Year Products 1",
+      "name": "K13 Lite 无烟烤箱特价区 1 PC",
       "settings": {
         "nav_id": "DTF-Best-Sellers",
         "show_starpick": true,
+        "button_wrap": false,
         "discount_label_center": false,
-        "title": "<!-- 第一张banner -->\n<style>\n    .christmas-frist-banner {\n        padding-top: 100px;\n    }\n\n    .christmas-frist-banner-wrapper {\n        max-width: 1400px;\n        margin: 0 auto;\n        position: relative;\n        border-radius: 16px;\n        overflow: hidden;\n        border: 1px solid #FFF;\n        box-shadow: 0 4px 4px 0 rgba(255, 235, 217, 0.25);\n    }   \n\n    .christmas-frist-banner-backgroud-img {\n        width: 100%;\n\n    }\n\n    .christmas-frist-banner-backgroud-img .pc {\n        display: flex;\n        aspect-ratio: 3 / 1;\n        width: 100%;\n        max-width: 100%;\n\n    }\n\n    .christmas-frist-banner-backgroud-img .mb {\n        display: none;\n        aspect-ratio: 327 / 440;\n        width: 100%;\n        max-width: 100%;\n\n    }\n\n    .christmas-frist-banner-content {\n        position: absolute;\n        top: 50%;\n        left: 50px;\n        transform: translate(0, -50%);\n        width: 100%;\n        max-width: 596px;\n\n    }\n\n    .christmas-frist-banner-content-tips {\n        color: #CC2A1F;\n        font-size: 20px;\n        font-weight: 400;\n        line-height: 1.38;\n        font-weight: 700;\n        margin-bottom: 8px;\n        padding: 4px 8px;\n        border-radius: 4px;\n        margin-bottom: 12px;\n        background: linear-gradient(99deg, #FFD7B4 37.18%, #EEAA67 84.13%);\n        text-align: left;\n        width: fit-content;\n    }\n\n    .christmas-frist-banner-content-title {\n        color: #FCF3C4;\n        font-size: 40px;\n        font-weight: 700;\n        line-height: 1.22;\n        margin-bottom: 12px;\n        text-align: left;\n        background: linear-gradient(267deg, #EEAA67 1.27%, #FFD7B4 72.68%, #EEAA67 99.03%);\n        background-clip: text;\n        -webkit-background-clip: text;\n        -webkit-text-fill-color: transparent;\n    }\n\n    .christmas-frist-banner-content-desc {\n        color: #FFD7B4;\n        font-size: 20px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: 440px;\n        text-align: left;\n\n    }\n    .christmas-frist-banner-content-note{\n        position: absolute;\n        bottom: 16px;\n        left: 50%;\n        color: rgba(0, 0, 0, 0.5);\n        font-size: 12px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: 440px;\n        text-align: left;\n        left: 50px;\ntransform: translate(0, -50%);\n    }\n\n    .christmas-frist-banner-content-button {}\n    @media screen and (max-width: 768px){\n        .christmas-frist-banner {\n        padding-top: 50px;\n        padding-left: 24px;\n        padding-right: 24px;\n    }\n\n    .christmas-frist-banner-wrapper {\n        max-width: 100%;\n        border-radius: 10px;\n        \n\n\n    }\n\n\n\n    .christmas-frist-banner-backgroud-img .pc {\n        display: none;\n        \n\n    }\n\n    .christmas-frist-banner-backgroud-img .mb {\n        display: flex;\n        \n\n    }\n\n    .christmas-frist-banner-content {\n        position: absolute;\n        top: 50px;\n        left: 0;\n        transform: translate(0, 0);\n        width: 100%;\n        max-width: 580px;\n        padding: 0 18px;\n\n    }\n\n    .christmas-frist-banner-content-tips {\n        font-size: 12px;\n        line-height: 1.4;\n        margin-bottom: 4px;\n        text-align: center;\n\n\n    }\n\n    .christmas-frist-banner-content-title {\n        font-size: 24px;\n        line-height: 1.33;\n        margin-bottom: 8px;\n        text-align: center;\n\n    }\n\n    .christmas-frist-banner-content-desc {\n        font-size: 14px;\n        line-height: 1.4;\n        max-width: 240px;\n        text-align: center;\n        margin: 0 auto;\n\n    }\n    .christmas-frist-banner-content-note {\n        position: absolute;\n        bottom: 8px;\n        color: rgba(0, 0, 0, 0.5);\n        font-size: 10px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: max-content;\n        text-align: left;\n        left: 50%;\n        transform: translate(-50%, -50%);\n        width: 100%;\n    }\n    .christmas-frist-banner-content-button {}            \n    }\n</style>\n<section id=\"custom-nav-Holiday-Mega-Deals\" class=\"christmas-frist-banner\">\n    <div class=\"christmas-frist-banner-wrapper\">\n        <div class=\"christmas-frist-banner-backgroud-img\">\n            <img class=\"pc\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Rectangle-3711.jpg?v=1765424644\" alt=\"\">\n            <img class=\"mb\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/1_5f048e64-f731-4eb4-9f6f-5fb4085a1c4c.jpg?v=1765424655\" alt=\"\">\n        </div>\n        <div class=\"christmas-frist-banner-content\">\n            <div class=\"christmas-frist-banner-content-tips\">K13 Lite</div>\n            <div class=\"christmas-frist-banner-content-title\">Your First DTF Printer is Perfect to Start</div>\n            <div class=\"christmas-frist-banner-content-desc\">Global No.1 Desktop DTF Brand</div>\n            \n            \n\n        </div>\n    </div>\n</section>",
+        "title": "<!-- 第一张banner -->\n<style>\n    .christmas-frist-banner {\n        padding-top: 100px;\n    }\n\n    .christmas-frist-banner-wrapper {\n        max-width: 1400px;\n        margin: 0 auto;\n        position: relative;\n        border-radius: 16px;\n        overflow: hidden;\n        border: 1px solid #FFF;\n        box-shadow: 0 4px 4px 0 rgba(255, 235, 217, 0.25);\n    }   \n\n    .christmas-frist-banner-backgroud-img {\n        width: 100%;\n\n    }\n\n    .christmas-frist-banner-backgroud-img .pc {\n        display: flex;\n        width: 100%;\n        max-width: 100%;\n\n    }\n\n    .christmas-frist-banner-backgroud-img .mb {\n        display: none;\n        width: 100%;\n        max-width: 100%;\n\n    }\n\n    .christmas-frist-banner-content {\n        position: absolute;\n        top: 50%;\n        left: 50px;\n        transform: translate(0, -50%);\n        width: 100%;\n        max-width: 596px;\n\n    }\n\n    .christmas-frist-banner-content-tips {\n        color: #CC2A1F;\n        font-size: 20px;\n        font-weight: 400;\n        line-height: 1.38;\n        font-weight: 700;\n        margin-bottom: 8px;\n        padding: 4px 8px;\n        border-radius: 4px;\n        margin-bottom: 12px;\n        background: linear-gradient(99deg, #FFD7B4 37.18%, #EEAA67 84.13%);\n        text-align: left;\n        width: fit-content;\n    }\n\n    .christmas-frist-banner-content-title {\n        color: #FCF3C4;\n        font-size: 40px;\n        font-weight: 700;\n        line-height: 1.22;\n        margin-bottom: 12px;\n        text-align: left;\n        background: linear-gradient(267deg, #EEAA67 1.27%, #FFD7B4 72.68%, #EEAA67 99.03%);\n        background-clip: text;\n        -webkit-background-clip: text;\n        -webkit-text-fill-color: transparent;\n    }\n\n    .christmas-frist-banner-content-desc {\n        color: #FFD7B4;\n        font-size: 20px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: 440px;\n        text-align: left;\n\n    }\n    .christmas-frist-banner-content-note{\n        position: absolute;\n        bottom: 16px;\n        left: 50%;\n        color: rgba(0, 0, 0, 0.5);\n        font-size: 12px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: 440px;\n        text-align: left;\n        left: 50px;\ntransform: translate(0, -50%);\n    }\n\n    .christmas-frist-banner-content-button {}\n    @media screen and (max-width: 768px){\n        .christmas-frist-banner {\n        padding-top: 50px;\n        padding-left: 24px;\n        padding-right: 24px;\n    }\n\n    .christmas-frist-banner-wrapper {\n        max-width: 100%;\n        border-radius: 10px;\n        \n\n\n    }\n\n\n\n    .christmas-frist-banner-backgroud-img .pc {\n        display: none;\n        \n\n    }\n\n    .christmas-frist-banner-backgroud-img .mb {\n        display: flex;\n        \n\n    }\n\n    .christmas-frist-banner-content {\n        position: absolute;\n        top: 50px;\n        left: 0;\n        transform: translate(0, 0);\n        width: 100%;\n        max-width: 580px;\n        padding: 0 18px;\n\n    }\n\n    .christmas-frist-banner-content-tips {\n        font-size: 12px;\n        line-height: 1.4;\n        margin-bottom: 4px;\n        text-align: center;\n\n\n    }\n\n    .christmas-frist-banner-content-title {\n        font-size: 24px;\n        line-height: 1.33;\n        margin-bottom: 8px;\n        text-align: center;\n\n    }\n\n    .christmas-frist-banner-content-desc {\n        font-size: 12px;\n        line-height: 1.4;\n        max-width: 240px;\n        text-align: center;\n        margin: 0 auto;\n\n    }\n    .christmas-frist-banner-content-note {\n        position: absolute;\n        bottom: 8px;\n        color: rgba(0, 0, 0, 0.5);\n        font-size: 10px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: max-content;\n        text-align: left;\n        left: 50%;\n        transform: translate(-50%, -50%);\n        width: 100%;\n    }      \n    }\n.feature-items {\ncolor: #FFD7B4;\nfont-size: 10px;\ndisplay: flex;\npadding: 4px 12px;\njustify-content: center;\nalign-items: center;\ngap: 10px;\nborder-radius: 12px;\nborder: 0.5px solid rgba(255, 215, 180, 1.00);\nbackground: #CC2A1F;\nfont-weight: 400;\n} \n.dtf-features {\ndisplay: flex;\ngap: 8px;\nflex-wrap: wrap;\npadding-top: 12px;\n}  \n</style>\n<section class=\"christmas-frist-banner\">\n    <div class=\"christmas-frist-banner-wrapper\">\n        <div class=\"christmas-frist-banner-backgroud-img\">\n            <img class=\"pc\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/mask_2.jpg?v=1766990275\" alt=\"\">\n            <img class=\"mb\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354719.jpg?v=1766990883\" alt=\"\">\n        </div>\n        <div class=\"christmas-frist-banner-content\">\n            <div class=\"christmas-frist-banner-content-tips\">K13 Lite</div>\n            <div class=\"christmas-frist-banner-content-title\">Your First DTF Printer is Perfect to Start</div>\n            <div class=\"christmas-frist-banner-content-desc\">Global No.1 Desktop DTF Brand</div>\n            <div class=\"dtf-features\">\n<div class=\"feature-items\">One Click Ink Setup</div>\n<div class=\"feature-items\">Pro-Color Precision</div>\n<div class=\"feature-items\">Beginner-Friendly</div>\n</div>\n            \n\n        </div>\n    </div>\n</section>",
         "subtitle": "",
         "desc": "",
         "content_alignment": "start",
@@ -154,8 +212,77 @@
         "wrap_padding_bottom": 0,
         "padding_top": 24,
         "padding_bottom": 24,
-        "card_padding_lr_mobile": 12,
-        "wrap_padding_top_mobile": 0,
+        "card_padding_lr_mobile": 16,
+        "wrap_padding_top_mobile": 32,
+        "wrap_padding_bottom_mobile": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "new_year_products_2026_TywP7d": {
+      "type": "new-year-products-2026",
+      "blocks": {
+        "product_PmwMkQ": {
+          "type": "product",
+          "settings": {
+            "product": "procolored-k13-lite-dtf-printer-13-a3-oven-premium-white",
+            "pink_product": "procolored-k13-lite-dtf-printer-13-a3-oven-premium-pink",
+            "product_variant_location": "0",
+            "title": "K13 Lite White DTF Printer & Smokeless Oven",
+            "pink_title": "K13 Lite Pink DTF Printer & Smokeless Oven",
+            "features": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_PmwMkQ"
+      ],
+      "custom_css": [],
+      "name": "K13 Lite 无烟烤箱特价区 1 Mobile",
+      "settings": {
+        "nav_id": "DTF-Best-Sellers-Mobile",
+        "show_starpick": true,
+        "button_wrap": false,
+        "discount_label_center": false,
+        "title": "",
+        "subtitle": "",
+        "desc": "",
+        "content_alignment": "start",
+        "content_alignment_mobile": "start",
+        "show_swiper": true,
+        "show_klarna": false,
+        "learn_more_button_text": "Learn More",
+        "buy_now_button_text": "Shop Now",
+        "show_flash_sale_countdown": true,
+        "flash_sale_countdown": "",
+        "flash_sale_countdown_end": "",
+        "show_product_banner": false,
+        "product_banner_tips": "",
+        "product_banner_title": "",
+        "prduct_num": "2",
+        "prduct_num_mobile": "2",
+        "top_left_radius": 24,
+        "top_right_radius": 24,
+        "bottom_left_radius": 0,
+        "bottom_right_radius": 0,
+        "top_left_radius_mobile": 10,
+        "top_right_radius_mobile": 10,
+        "bottom_left_radius_mobile": 0,
+        "bottom_right_radius_mobile": 0,
+        "product_title_color": "#1a1c1d",
+        "bg_color": "",
+        "content_bg_color": "#cc2a1f",
+        "card_bg_color": "#ffffff",
+        "card_background_gradient_color": "",
+        "card_gap": 24,
+        "card_gap_mobile": 10,
+        "card_padding_lr": 24,
+        "wrap_padding_top": 0,
+        "wrap_padding_bottom": 0,
+        "padding_top": 24,
+        "padding_bottom": 24,
+        "card_padding_lr_mobile": 16,
+        "wrap_padding_top_mobile": 32,
         "wrap_padding_bottom_mobile": 0,
         "padding_top_mobile": 0,
         "padding_bottom_mobile": 0
@@ -170,7 +297,8 @@
             "product": "procolored-k13-lite-dtf-printer-13-a3-complete-bundle-premium-white",
             "pink_product": "procolored-k13-lite-dtf-printer-13-a3-complete-bundle-premium-pink",
             "product_variant_location": "0",
-            "title": "",
+            "title": "K13 Lite White DTF Printer & Smokeless Oven & Heat Press",
+            "pink_title": "K13 Lite Pink DTF Printer & Smokeless Oven & Heat Press",
             "features": ""
           }
         },
@@ -180,7 +308,8 @@
             "product": "procolored-k13-lite-dtf-printer-13-a3-oven-white",
             "pink_product": "procolored-k13-lite-dtf-printer-13-a3-oven-pink",
             "product_variant_location": "0",
-            "title": "",
+            "title": "K13 Lite White DTF Printer & Oven",
+            "pink_title": "K13 Lite Pink DTF Printer & Oven",
             "features": ""
           }
         },
@@ -190,17 +319,19 @@
             "product": "procolored-k13-lite-dtf-printer-13-a3-complete-bundle-white",
             "pink_product": "procolored-k13-lite-dtf-printer-13-a3-complete-bundle-pink",
             "product_variant_location": "0",
-            "title": "",
+            "title": "K13 Lite White DTF Printer & Oven & Heat Press",
+            "pink_title": "K13 Lite Pink DTF Printer & Oven & Heat Press",
             "features": ""
           }
         },
         "product_PYVkje": {
           "type": "product",
           "settings": {
-            "product": "k13-lite-white-live",
-            "pink_product": "k13-lite-white-live",
+            "product": "procolored-k13-lite-dtf-printer-13-a3-white",
+            "pink_product": "procolored-k13-lite-dtf-printer-13-a3-pink",
             "product_variant_location": "0",
-            "title": "",
+            "title": "K13 Lite White DTF Printer",
+            "pink_title": "K13 Lite Pink DTF Printer",
             "features": ""
           }
         }
@@ -212,11 +343,12 @@
         "product_PYVkje"
       ],
       "custom_css": [],
-      "name": "New Year Products 1",
+      "name": "K13 Lite 产品特价区",
       "settings": {
         "nav_id": "DTF-Best-Sellers-2",
         "show_starpick": false,
-        "discount_label_center": true,
+        "button_wrap": true,
+        "discount_label_center": false,
         "title": "",
         "subtitle": "",
         "desc": "",
@@ -238,10 +370,10 @@
         "top_right_radius": 0,
         "bottom_left_radius": 24,
         "bottom_right_radius": 24,
-        "top_left_radius_mobile": 10,
-        "top_right_radius_mobile": 10,
-        "bottom_left_radius_mobile": 0,
-        "bottom_right_radius_mobile": 0,
+        "top_left_radius_mobile": 0,
+        "top_right_radius_mobile": 0,
+        "bottom_left_radius_mobile": 10,
+        "bottom_right_radius_mobile": 10,
         "product_title_color": "#1a1c1d",
         "bg_color": "",
         "content_bg_color": "#cc2a1f",
@@ -256,9 +388,17 @@
         "padding_bottom": 24,
         "card_padding_lr_mobile": 12,
         "wrap_padding_top_mobile": 0,
-        "wrap_padding_bottom_mobile": 0,
+        "wrap_padding_bottom_mobile": 32,
         "padding_top_mobile": 0,
-        "padding_bottom_mobile": 0
+        "padding_bottom_mobile": 16
+      }
+    },
+    "custom_liquid_n9MCBc": {
+      "type": "custom-liquid",
+      "custom_css": [],
+      "name": "Custom liquid",
+      "settings": {
+        "custom_liquid": "<style>\n#shopify-section-{{ section.id }} {\nbackground: linear-gradient(119deg, #FFD7B4 50%, #EEAA67 97.7%);\nposition: relative;\n}\n#shopify-section-{{ section.id }} .left-image {\nposition: absolute;\ntop: 24px;\nwidth: 15%;\ntransform: rotate(-13.546deg);\n\n}\n#shopify-section-{{ section.id }} .right-image {\nposition: absolute;\nright: 0;\nwidth: 15%;\n}\n@media screen and (max-width: 768px) {\n.left-image,\n.right-image,\n.Spend-More-Save-More-1-title-left-icon img {\ndisplay: none;\n}\n}\n</style>\n<div>\n<img class=\"left-image\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354708.png?v=1766888660\" alt=\"\"/>\n<img class=\"right-image\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354706.png?v=1766888713\" alt=\"\"/>\n</div>\n\n                            <script>\n                              document.addEventListener(\"DOMContentLoaded\", function(){\n                                const currentSection = document.querySelector(\n                                  '#shopify-section-{{ section.id }}'\n                                );\n\n                                if (!currentSection) return;\n\n                                const nextSection = document.querySelector('#custom-nav-P13-DTF-Printer');\n                                const nextNextSectionWithStand = document.querySelector('#custom-nav-UV-DTF-Hot-Deals-2-With-Stand');\n                                const nextNextSectionWithoutStand = document.querySelector('#custom-nav-UV-DTF-Hot-Deals-2-Without-Stand');\n                                currentSection.appendChild(nextSection);\n                                currentSection.appendChild(nextNextSectionWithStand);\n                                currentSection.appendChild(nextNextSectionWithoutStand);\n                                nextNextSectionWithoutStand.style.display = 'none';\n                                nextNextSectionWithStand.querySelectorAll('.without-stand-button').forEach((item) => {\n                                  item.addEventListener('click', function() {\n                                    nextNextSectionWithoutStand.style.display = 'block';\n                                    nextNextSectionWithStand.style.display = 'none';\n                                    nextNextSectionWithoutStand.querySelectorAll('.without-stand-button').forEach((button) => {\nbutton.classList.add('active');\n});\n                                    nextNextSectionWithoutStand.querySelectorAll('.with-stand-button').forEach((button) => {\nbutton.classList.remove('active');\n});\n                                  });\n                                });\n\n                                nextNextSectionWithoutStand.querySelectorAll('.with-stand-button').forEach((item) => {\n                                  item.addEventListener('click', function(event) {\n                                    nextNextSectionWithStand.style.display = 'block';\n                                    nextNextSectionWithoutStand.style.display = 'none'; \n                                    nextNextSectionWithStand.querySelectorAll('.without-stand-button').forEach((button) => {\nbutton.classList.remove('active');\n});\n                                    nextNextSectionWithStand.querySelectorAll('.with-stand-button').forEach((button) => {\nbutton.classList.add('active');\n})\n                                  });\n                                });\n                              });\n                            </script>"
       }
     },
     "new_year_products_select_2026_8KEgAX": {
@@ -306,6 +446,34 @@
             "product_banner_subtitle": ""
           }
         },
+        "product_4wKTTb": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "procolored-p13-dtf-printer-13-a3-xp600-oven-premium",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "P13 DTF Printer & Smokeless Oven",
+            "features": "Nature-Inspired Design/Large Viewing Window/Advanced Color",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        },
+        "product_3gk4qc": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "procolored-p13-dtf-printer-13-a3-xp600-complete-bundle-premium",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "P13 DTF Printer & Smokeless Oven & Heat Press",
+            "features": "Nature-Inspired Design/Large Viewing Window/Advanced Color",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        },
         "product_kHRmAz": {
           "type": "product",
           "settings": {
@@ -319,20 +487,42 @@
             "product_banner_title": "",
             "product_banner_subtitle": ""
           }
+        },
+        "product_UbeFed": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "procolored-p13-dtf-printer-13-a3-xp600-ultimate-bundle-windows",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "P13 DTF Printer & Shaker & Heat Press",
+            "features": "Nature-Inspired Design/Large Viewing Window/Advanced Color",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
         }
       },
       "block_order": [
         "product_cL97k8",
         "product_kygeVr",
         "product_HhBxTD",
-        "product_kHRmAz"
+        "product_4wKTTb",
+        "product_3gk4qc",
+        "product_kHRmAz",
+        "product_UbeFed"
       ],
-      "name": "NewYear Products select",
+      "custom_css": [
+        "{background: linear-gradient(119deg, #ffd7b4 50%, #eeaa67 97.7%);}"
+      ],
+      "name": "P13 产品销售区",
       "settings": {
-        "nav_id": "UV-DTF-Hot-Deals",
-        "title": "<style>\n            .Spend-More-Save-More-1-title-contaner {\n                display: flex;\n                width: 100%;\n                align-items: start;\n                justify-content: center;\n                gap: 22px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon,\n            .Spend-More-Save-More-1-title-right-icon {\n                display: flex;\n                width: 46px;\n                height: 54px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon img,\n            .Spend-More-Save-More-1-title-right-icon img {\n                width: 100%;\n                max-width: 100%;\n                flex-shrink: 0;\nheight: fit-content;\n            }\n        \n            .Spend-More-Save-More-1-title-text {\n                background: linear-gradient(267deg, #FFA841 1.27%, #F30F46 24.61%, #F94236 72.68%, #FF472E 99.03%);\nbackground-clip: text;\n-webkit-background-clip: text;\n-webkit-text-fill-color: transparent;\n                text-align: center;\n                font-size: 40px;\n                font-weight: 800;\n                line-height: 1.22;\n            }\n            .Spend-More-Save-More-1-title-text span{\n                display: block;\n            }\n        \n            @media screen and (max-width: 768px) {\n                .Spend-More-Save-More-1-title-contaner {\n                    display: flex;\n                    flex-direction: column;\n                    width: 100%;\n                    align-items: center;\n                    justify-content: start;\n                    gap: 12px;\n                }\n        \n                .Spend-More-Save-More-1-title-left-icon,\n                .Spend-More-Save-More-1-title-right-icon {\n                    width: 30px;\n                    height: 35px;\n                }\n        \n                .Spend-More-Save-More-1-title-left-icon img,\n                .Spend-More-Save-More-1-title-right-icon img {\n                    width: 100%;\n                    max-width: 100%;\n                    flex-shrink: 0;\n                }\n        \n                .Spend-More-Save-More-1-title-right-icon {\n                    display: none;\n                }\n        \n                .Spend-More-Save-More-1-title-text {\n                    font-size: 24px;\n                }\n                .Spend-More-Save-More-1-title-text span{\n                display: inline;\n            }\n            }\n        </style>\n        <div class=\"Spend-More-Save-More-1-title-contaner\">\n            <div class=\"Spend-More-Save-More-1-title-left-icon\">\n                <img class=\"lazyload \" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/fireworks.png?v=1766716986\" alt=\"\">\n            </div>\n            <div class=\"Spend-More-Save-More-1-title-text\">P13：Built for Home Apparel Businesses for Beginners\n                </div>\n            <div class=\"Spend-More-Save-More-1-title-right-icon\">\n                <img class=\"lazyload \" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/fireworks_1.png?v=1766717016\" alt=\"\">\n            </div>\n        </div>",
+        "nav_id": "P13-DTF-Printer",
+        "title": "<style>\n            .Spend-More-Save-More-1-title-contaner {\n                display: flex;\n                width: 100%;\n                align-items: start;\n                justify-content: center;\n                gap: 22px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon,\n            .Spend-More-Save-More-1-title-right-icon {\n                display: flex;\n                width: 46px;\n                height: 54px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon img,\n            .Spend-More-Save-More-1-title-right-icon img {\n                width: 100%;\n                max-width: 100%;\n                flex-shrink: 0;\nheight: fit-content;\n            }\n        \n            .Spend-More-Save-More-1-title-text {\n                background: linear-gradient(267deg, #FFA841 1.27%, #F30F46 24.61%, #F94236 72.68%, #FF472E 99.03%);\nbackground-clip: text;\n-webkit-background-clip: text;\n-webkit-text-fill-color: transparent;\n                text-align: center;\n                font-size: 40px;\n                font-weight: 800;\n                line-height: 1.22;\n            }\n            .Spend-More-Save-More-1-title-text span{\n                display: block;\n            }\n        \n            @media screen and (max-width: 768px) {\n                .Spend-More-Save-More-1-title-contaner {\n                    display: flex;\n                    flex-direction: column;\n                    width: 100%;\n                    align-items: center;\n                    justify-content: start;\n                    gap: 12px;\n                }\n        \n                .Spend-More-Save-More-1-title-left-icon,\n                .Spend-More-Save-More-1-title-right-icon {\n                    width: 30px;\n                    height: 35px;\n                }\n        \n                .Spend-More-Save-More-1-title-left-icon img,\n                .Spend-More-Save-More-1-title-right-icon img {\n                    width: 100%;\n                    max-width: 100%;\n                    flex-shrink: 0;\n                }\n        \n                .Spend-More-Save-More-1-title-right-icon {\n                    display: none;\n                }\n        \n                .Spend-More-Save-More-1-title-text {\n                    font-size: 24px;\n                }\n                .Spend-More-Save-More-1-title-text span{\n                display: inline;\n            }\n            }\n        </style>\n        <div class=\"Spend-More-Save-More-1-title-contaner\">\n            <div class=\"Spend-More-Save-More-1-title-left-icon\">\n                <img class=\"lazyload \" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/fireworks.png?v=1766716986\" alt=\"\">\n            </div>\n            <div class=\"Spend-More-Save-More-1-title-text\">P13：Built for Home Apparel Businesses\n                </div>\n            <div class=\"Spend-More-Save-More-1-title-right-icon\">\n                <img class=\"lazyload \" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/fireworks_1.png?v=1766717016\" alt=\"\">\n            </div>\n        </div>",
         "subtitle": "Effortless, quiet, and high-performance printing — Now with up to $500 off",
         "desc": "",
+        "with_stand_product_title": "",
+        "without_stand_product_title": "",
         "show_top_bg": false,
         "show_snow_bg": true,
         "show_swiper": true,
@@ -353,8 +543,8 @@
         "content_space_percent": 64,
         "content_box_text_percent": 85,
         "flex_column_gap": 0,
-        "product_title_color": "#000000",
-        "bg_color": "#ffd7b4",
+        "product_title_color": "#121212",
+        "bg_color": "rgba(0,0,0,0)",
         "card_bg_color": "#ffffff",
         "card_background_gradient_color": "",
         "card_gap": 20,
@@ -363,8 +553,8 @@
         "padding_top": 80,
         "padding_bottom": 0,
         "content_padding_left_and_right_mobile": 16,
-        "padding_top_mobile": 0,
-        "padding_bottom_mobile": 0
+        "padding_top_mobile": 16,
+        "padding_bottom_mobile": 32
       }
     },
     "new_year_products_select_2026_XHYrK7": {
@@ -374,10 +564,10 @@
           "type": "product",
           "settings": {
             "tab_name": "",
-            "product": "procolored-p13-dtf-printer",
+            "product": "products-13-dual-heads-dtf-pro-a3-dtf-printer-direct-to-film-printer-upgrade",
             "product_variant_location": "0",
             "tagline": "",
-            "title": "P13 DTF Printer",
+            "title": "F13 Pro DTF Printer",
             "features": "Industrial-Level/Superior Quality/High Production",
             "desc": "",
             "product_banner_title": "",
@@ -388,10 +578,10 @@
           "type": "product",
           "settings": {
             "tab_name": "",
-            "product": "procolored-p13-dtf-printer-13-a3-xp600-oven-windows",
+            "product": "13-dual-heads-dtf-pro-a3-dtf-transfer-printer-oven",
             "product_variant_location": "0",
             "tagline": "",
-            "title": "P13 DTF Printer & Oven",
+            "title": "F13 Pro & Oven",
             "features": "Industrial-Level/Superior Quality/High Production",
             "desc": "",
             "product_banner_title": "",
@@ -402,10 +592,10 @@
           "type": "product",
           "settings": {
             "tab_name": "",
-            "product": "procolored-p13-dtf-printer-13-a3-xp600-complete-bundle-windows",
+            "product": "13-dual-heads-dtf-pro-a3-dtf-transfer-printer-complete-bundle",
             "product_variant_location": "0",
             "tagline": "",
-            "title": "P13 DTF Printer & Oven & Heat Press",
+            "title": "F13 Pro & Oven & Heat Press",
             "features": "Industrial-Level/Superior Quality/High Production",
             "desc": "",
             "product_banner_title": "",
@@ -416,10 +606,52 @@
           "type": "product",
           "settings": {
             "tab_name": "",
-            "product": "procolored-p13-dtf-printer-13-a3-xp600-dtf-shaker-bundle-windows",
+            "product": "procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-oven-premium",
             "product_variant_location": "0",
             "tagline": "",
-            "title": "P13 DTF Printer & Shaker",
+            "title": "F13 Pro & Smokeless Oven",
+            "features": "Industrial-Level/Superior Quality/High Production",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        },
+        "product_et8pUk": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-complete-bundle-premium",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "F13 Pro & Smokeless Oven & Heat Press",
+            "features": "Industrial-Level/Superior Quality/High Production",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        },
+        "product_qctjEc": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "13-dual-heads-dtf-pro-a3-dtf-transfer-printer-dtf-shaker-bundle",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "F13 Pro & Shaker",
+            "features": "Industrial-Level/Superior Quality/High Production",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        },
+        "product_hUy9Qy": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "13-dual-heads-dtf-pro-a3-dtf-transfer-printer-ultimate-bundle",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "F13 Pro & Shaker & Heat Press",
             "features": "Industrial-Level/Superior Quality/High Production",
             "desc": "",
             "product_banner_title": "",
@@ -431,14 +663,19 @@
         "product_UbM6jD",
         "product_dVjaL6",
         "product_xEtaGG",
-        "product_Ynt9V4"
+        "product_Ynt9V4",
+        "product_et8pUk",
+        "product_qctjEc",
+        "product_hUy9Qy"
       ],
-      "name": "NewYear Products select",
+      "name": "F13 Pro销售区",
       "settings": {
-        "nav_id": "UV-DTF-Hot-Deals-2",
+        "nav_id": "UV-DTF-Hot-Deals-2-With-Stand",
         "title": "<style>\n            .Spend-More-Save-More-1-title-contaner {\n                display: flex;\n                width: 100%;\n                align-items: start;\n                justify-content: center;\n                gap: 22px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon,\n            .Spend-More-Save-More-1-title-right-icon {\n                display: flex;\n                width: 46px;\n                height: 54px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon img,\n            .Spend-More-Save-More-1-title-right-icon img {\n                width: 100%;\n                max-width: 100%;\n                flex-shrink: 0;\nheight: fit-content;\n            }\n        \n            .Spend-More-Save-More-1-title-text {\n                background: linear-gradient(267deg, #FFA841 1.27%, #F30F46 24.61%, #F94236 72.68%, #FF472E 99.03%);\nbackground-clip: text;\n-webkit-background-clip: text;\n-webkit-text-fill-color: transparent;\n                text-align: center;\n                font-size: 40px;\n                font-weight: 800;\n                line-height: 1.22;\n            }\n            .Spend-More-Save-More-1-title-text span{\n                display: block;\n            }\n        \n            @media screen and (max-width: 768px) {\n                .Spend-More-Save-More-1-title-contaner {\n                    display: flex;\n                    flex-direction: column;\n                    width: 100%;\n                    align-items: center;\n                    justify-content: start;\n                    gap: 12px;\n                }\n        \n                .Spend-More-Save-More-1-title-left-icon,\n                .Spend-More-Save-More-1-title-right-icon {\n                    width: 30px;\n                    height: 35px;\n                }\n        \n                .Spend-More-Save-More-1-title-left-icon img,\n                .Spend-More-Save-More-1-title-right-icon img {\n                    width: 100%;\n                    max-width: 100%;\n                    flex-shrink: 0;\n                }\n        \n                .Spend-More-Save-More-1-title-right-icon {\n                    display: none;\n                }\n        \n                .Spend-More-Save-More-1-title-text {\n                    font-size: 24px;\n                }\n                .Spend-More-Save-More-1-title-text span{\n                display: inline;\n            }\n            }\n        </style>\n        <div class=\"Spend-More-Save-More-1-title-contaner\">\n            <div class=\"Spend-More-Save-More-1-title-left-icon\">\n                <img class=\"lazyload \" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/fireworks.png?v=1766716986\" alt=\"\">\n            </div>\n            <div class=\"Spend-More-Save-More-1-title-text\">F13 Pro: The Efficiency King of DTF Printing\n                </div>\n            <div class=\"Spend-More-Save-More-1-title-right-icon\">\n                <img class=\"lazyload \" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/fireworks_1.png?v=1766717016\" alt=\"\">\n            </div>\n        </div>",
-        "subtitle": "Achieve industrial-grade speed, precision, and reliability — Save up to $700 now",
+        "subtitle": "Achieve industrial-grade speed, precision, and reliability — Save up to $700 now.",
         "desc": "",
+        "with_stand_product_title": "Without Stand",
+        "without_stand_product_title": "With Stand",
         "show_top_bg": false,
         "show_snow_bg": true,
         "show_swiper": true,
@@ -459,8 +696,8 @@
         "content_space_percent": 64,
         "content_box_text_percent": 85,
         "flex_column_gap": 0,
-        "product_title_color": "#000000",
-        "bg_color": "#ffd7b4",
+        "product_title_color": "#121212",
+        "bg_color": "rgba(0,0,0,0)",
         "card_bg_color": "#ffffff",
         "card_background_gradient_color": "",
         "card_gap": 20,
@@ -470,7 +707,173 @@
         "padding_bottom": 80,
         "content_padding_left_and_right_mobile": 16,
         "padding_top_mobile": 0,
-        "padding_bottom_mobile": 0
+        "padding_bottom_mobile": 32
+      }
+    },
+    "new_year_products_select_2026_zwt9qc": {
+      "type": "new-year-products-select-2026",
+      "blocks": {
+        "product_XYTXjn": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "products-13-dual-heads-dtf-pro-a3-dtf-printer-with-printer-stand",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "F13 Pro & Stand",
+            "features": "Industrial-Level/Superior Quality/High Production",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        },
+        "product_UcCPjT": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-oven",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "F13 Pro & Stand & Oven",
+            "features": "Industrial-Level/Superior Quality/High Production",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        },
+        "product_L7XVgN": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-with-stand-complete-bundle",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "F13 Pro & Stand & Oven & Heat Press",
+            "features": "Industrial-Level/Superior Quality/High Production",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        },
+        "product_YJGeBx": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-oven-premium",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "F13 Pro & Stand & Smokeless",
+            "features": "Industrial-Level/Superior Quality/High Production",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        },
+        "product_pcMh7c": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-complete-bundle-premium",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "F13 Pro & Stand & Smokeless & Heat Press",
+            "features": "Industrial-Level/Superior Quality/High Production",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        },
+        "product_QLekgT": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-shaker-oven",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "F13 Pro & Stand & Shaker",
+            "features": "Industrial-Level/Superior Quality/High Production",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        },
+        "product_AXRLBE": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-ultimate-bundle",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "F13 Pro & Stand & Shaker & Heat Press",
+            "features": "Industrial-Level/Superior Quality/High Production",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_XYTXjn",
+        "product_UcCPjT",
+        "product_L7XVgN",
+        "product_YJGeBx",
+        "product_pcMh7c",
+        "product_QLekgT",
+        "product_AXRLBE"
+      ],
+      "name": "F13 Pro带支架",
+      "settings": {
+        "nav_id": "UV-DTF-Hot-Deals-2-Without-Stand",
+        "title": "<style>\n            .Spend-More-Save-More-1-title-contaner {\n                display: flex;\n                width: 100%;\n                align-items: start;\n                justify-content: center;\n                gap: 22px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon,\n            .Spend-More-Save-More-1-title-right-icon {\n                display: flex;\n                width: 46px;\n                height: 54px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon img,\n            .Spend-More-Save-More-1-title-right-icon img {\n                width: 100%;\n                max-width: 100%;\n                flex-shrink: 0;\nheight: fit-content;\n            }\n        \n            .Spend-More-Save-More-1-title-text {\n                background: linear-gradient(267deg, #FFA841 1.27%, #F30F46 24.61%, #F94236 72.68%, #FF472E 99.03%);\nbackground-clip: text;\n-webkit-background-clip: text;\n-webkit-text-fill-color: transparent;\n                text-align: center;\n                font-size: 40px;\n                font-weight: 800;\n                line-height: 1.22;\n            }\n            .Spend-More-Save-More-1-title-text span{\n                display: block;\n            }\n        \n            @media screen and (max-width: 768px) {\n                .Spend-More-Save-More-1-title-contaner {\n                    display: flex;\n                    flex-direction: column;\n                    width: 100%;\n                    align-items: center;\n                    justify-content: start;\n                    gap: 12px;\n                }\n        \n                .Spend-More-Save-More-1-title-left-icon,\n                .Spend-More-Save-More-1-title-right-icon {\n                    width: 30px;\n                    height: 35px;\n                }\n        \n                .Spend-More-Save-More-1-title-left-icon img,\n                .Spend-More-Save-More-1-title-right-icon img {\n                    width: 100%;\n                    max-width: 100%;\n                    flex-shrink: 0;\n                }\n        \n                .Spend-More-Save-More-1-title-right-icon {\n                    display: none;\n                }\n        \n                .Spend-More-Save-More-1-title-text {\n                    font-size: 24px;\n                }\n                .Spend-More-Save-More-1-title-text span{\n                display: inline;\n            }\n            }\n        </style>\n        <div class=\"Spend-More-Save-More-1-title-contaner\">\n            <div class=\"Spend-More-Save-More-1-title-left-icon\">\n                <img class=\"lazyload \" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/fireworks.png?v=1766716986\" alt=\"\">\n            </div>\n            <div class=\"Spend-More-Save-More-1-title-text\">F13 Pro: The Efficiency King of DTF Printing\n                </div>\n            <div class=\"Spend-More-Save-More-1-title-right-icon\">\n                <img class=\"lazyload \" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/fireworks_1.png?v=1766717016\" alt=\"\">\n            </div>\n        </div>",
+        "subtitle": "Achieve industrial-grade speed, precision, and reliability — Save up to $700 now",
+        "desc": "",
+        "with_stand_product_title": "Without Stand",
+        "without_stand_product_title": "With Stand",
+        "show_top_bg": false,
+        "show_snow_bg": true,
+        "show_swiper": true,
+        "show_klarna": false,
+        "learn_more_button_text": "Learn More",
+        "buy_now_button_text": "Shop Now",
+        "show_flash_sale_countdown": false,
+        "product_divider_line": false,
+        "position": "row-reverse",
+        "flash_sale_countdown": "",
+        "flash_sale_countdown_end": "",
+        "scene_image_pc_1": "shopify://shop_images/Rectangle_3800_3.jpg",
+        "scene_image_mb_1": "shopify://shop_images/Rectangle_3800_3_cc5af4fc-9c16-4bc1-ba03-4f784b44efb1.jpg",
+        "scene_image_pc_2": "shopify://shop_images/Rectangle_3800_4.jpg",
+        "scene_image_mb_2": "shopify://shop_images/Rectangle_3800_4_3bb086e8-ddae-46d1-b214-743252c114f2.jpg",
+        "scene_image_pc_3": "shopify://shop_images/Rectangle_3800_5.jpg",
+        "scene_image_mb_3": "shopify://shop_images/Rectangle_3800_5_9cb7f2cd-b6c7-4586-83e0-0bfe190137c5.jpg",
+        "content_space_percent": 64,
+        "content_box_text_percent": 85,
+        "flex_column_gap": 0,
+        "product_title_color": "#121212",
+        "bg_color": "rgba(0,0,0,0)",
+        "card_bg_color": "#ffffff",
+        "card_background_gradient_color": "",
+        "card_gap": 20,
+        "card_gap_mobile": 10,
+        "content_padding_left_and_right": 40,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "content_padding_left_and_right_mobile": 16,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 32
+      }
+    },
+    "custom_liquid_6LMhqj": {
+      "type": "custom-liquid",
+      "custom_css": [
+        "{background-image: url(\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354713.jpg?v=1766889990\"); background-size: cover;}",
+        ".Spend-More-Save-More-1-title-text {background: linear-gradient( 267deg, #eeaa67 1.27%, #ffd7b4 72.68%, #eeaa67 99.03% ); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;}",
+        ".christmas-frist-banner {padding-top: 40px;}",
+        "@media screen and (max-width: 768px) {.christmas-frist-banner-content {top: 24px; }}"
+      ],
+      "name": "Custom liquid",
+      "settings": {
+        "custom_liquid": "<script>\n                              document.addEventListener(\"DOMContentLoaded\", function(){\n                                const currentSection = document.querySelector(\n                                  '#shopify-section-{{ section.id }}'\n                                );\n\n                                if (!currentSection) return;\n\n                                const nextSection = document.querySelector('#custom-nav-UV-DTF-Hot-Deals');\n                                const nextNextSectionWithStand = document.querySelector('#custom-nav-UV-DTF-Hot-Deals-With-Stand');\n                                const nextNextSectionWithoutStand = document.querySelector('#custom-nav-UV-DTF-Hot-Deals');\n                                currentSection.appendChild(nextSection);\n                                currentSection.appendChild(nextNextSectionWithStand);\n                                currentSection.appendChild(nextNextSectionWithoutStand);\n                                nextNextSectionWithStand.style.display = 'none';\n                                nextNextSectionWithoutStand.querySelectorAll('.without-stand-button').forEach((item) => {\n                                  item.classList.add('active');\n                                });\n                                nextNextSectionWithoutStand.querySelectorAll('.with-stand-button').forEach((item) => {\n                                  item.classList.remove('active');\n                                });\n                                nextNextSectionWithStand.querySelectorAll('.without-stand-button').forEach((item) => {\n                                  item.addEventListener('click', function() {\n                                    nextNextSectionWithoutStand.style.display = 'block';\n                                    nextNextSectionWithStand.style.display = 'none';\n                                    nextNextSectionWithoutStand.querySelectorAll('.without-stand-button').forEach((button) => {\nbutton.classList.add('active');\n});\n                                    nextNextSectionWithoutStand.querySelectorAll('.with-stand-button').forEach((button) => {\nbutton.classList.remove('active');\n});\n                                  });\n                                });\n\n                                nextNextSectionWithoutStand.querySelectorAll('.with-stand-button').forEach((item) => {\n                                  item.addEventListener('click', function(event) {\n                                    nextNextSectionWithStand.style.display = 'block';\n                                    nextNextSectionWithoutStand.style.display = 'none'; \n                                    nextNextSectionWithStand.querySelectorAll('.without-stand-button').forEach((button) => {\nbutton.classList.remove('active');\n});\n                                    nextNextSectionWithStand.querySelectorAll('.with-stand-button').forEach((button) => {\nbutton.classList.add('active');\n})\n                                  });\n                                });\n                              });\n                            </script>"
       }
     },
     "new_year_products_select_2026_4G7eN4": {
@@ -494,16 +897,15 @@
       "block_order": [
         "product_Xr7VkY"
       ],
-      "custom_css": [
-        "{background-image: url(\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354713.jpg?v=1766889990\"); background-size: cover;}",
-        ".Spend-More-Save-More-1-title-text {background: linear-gradient( 267deg, #eeaa67 1.27%, #ffd7b4 72.68%, #eeaa67 99.03% ); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;}"
-      ],
-      "name": "NewYear Products select",
+      "custom_css": [],
+      "name": "UV DTF 销售区  no stand",
       "settings": {
-        "nav_id": "",
-        "title": "<style>\n            .Spend-More-Save-More-1-title-contaner {\n                display: flex;\n                width: 100%;\n                align-items: start;\n                justify-content: center;\n                gap: 22px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon,\n            .Spend-More-Save-More-1-title-right-icon {\n                display: flex;\n                width: 46px;\n                height: 54px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon img,\n            .Spend-More-Save-More-1-title-right-icon img {\n                width: 100%;\n                max-width: 100%;\n                flex-shrink: 0;\nheight: fit-content;\n            }\n        \n            .Spend-More-Save-More-1-title-text {\n                background: linear-gradient(267deg, #FFA841 1.27%, #F30F46 24.61%, #F94236 72.68%, #FF472E 99.03%);\nbackground-clip: text;\n-webkit-background-clip: text;\n-webkit-text-fill-color: transparent;\n                text-align: center;\n                font-size: 40px;\n                font-weight: 800;\n                line-height: 1.22;\n            }\n            .Spend-More-Save-More-1-title-text span{\n                display: block;\n            }\n        \n            @media screen and (max-width: 768px) {\n                .Spend-More-Save-More-1-title-contaner {\n                    display: flex;\n                    flex-direction: column;\n                    width: 100%;\n                    align-items: center;\n                    justify-content: start;\n                    gap: 12px;\n                }\n        \n                .Spend-More-Save-More-1-title-left-icon,\n                .Spend-More-Save-More-1-title-right-icon {\n                    width: 30px;\n                    height: 35px;\n                }\n        \n                .Spend-More-Save-More-1-title-left-icon img,\n                .Spend-More-Save-More-1-title-right-icon img {\n                    width: 100%;\n                    max-width: 100%;\n                    flex-shrink: 0;\n                }\n        \n                .Spend-More-Save-More-1-title-right-icon {\n                    display: none;\n                }\n        \n                .Spend-More-Save-More-1-title-text {\n                    font-size: 24px;\n                }\n                .Spend-More-Save-More-1-title-text span{\n                display: inline;\n            }\n            }\n        </style>\n\n        <div class=\"Spend-More-Save-More-1-title-contaner\">\n            <div class=\"Spend-More-Save-More-1-title-left-icon\">\n                <img class=\"lazyload \" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Star.png?v=1766889797\" alt=\"\">\n            </div>\n            <div class=\"Spend-More-Save-More-1-title-text\">Unleash UV DTF Printing Potential\n                </div>\n            <div class=\"Spend-More-Save-More-1-title-right-icon\">\n                <img class=\"lazyload \" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Star.png?v=1766889797\" alt=\"\">\n            </div>\n        </div>\n<!-- 第一张banner -->\n<style>\n    .christmas-frist-banner {\n        padding-top: 100px;\n    }\n\n    .christmas-frist-banner-wrapper {\n        max-width: 1400px;\n        margin: 0 auto;\n        position: relative;\n        border-radius: 16px;\n        overflow: hidden;\n        border: 1px solid #FFF;\n        box-shadow: 0 4px 4px 0 rgba(255, 235, 217, 0.25);\n    }   \n\n    .christmas-frist-banner-backgroud-img {\n        width: 100%;\n\n    }\n\n    .christmas-frist-banner-backgroud-img .pc {\n        display: flex;\n        aspect-ratio: 3 / 1;\n        width: 100%;\n        max-width: 100%;\n\n    }\n\n    .christmas-frist-banner-backgroud-img .mb {\n        display: none;\n        aspect-ratio: 327 / 440;\n        width: 100%;\n        max-width: 100%;\n\n    }\n\n    .christmas-frist-banner-content {\n        position: absolute;\n        top: 50%;\n        left: 50px;\n        transform: translate(0, -50%);\n        width: 100%;\n        max-width: 596px;\n\n    }\n\n    .christmas-frist-banner-content-tips {\n        color: #CC2A1F;\n        font-size: 20px;\n        font-weight: 400;\n        line-height: 1.38;\n        font-weight: 700;\n        margin-bottom: 8px;\n        padding: 4px 8px;\n        border-radius: 4px;\n        margin-bottom: 12px;\n        background: linear-gradient(99deg, #FFD7B4 37.18%, #EEAA67 84.13%);\n        text-align: left;\n        width: fit-content;\n    }\n\n    .christmas-frist-banner-content-title {\n        color: #FCF3C4;\n        font-size: 40px;\n        font-weight: 700;\n        line-height: 1.22;\n        margin-bottom: 12px;\n        text-align: left;\n        background: linear-gradient(267deg, #EEAA67 1.27%, #FFD7B4 72.68%, #EEAA67 99.03%);\n        background-clip: text;\n        -webkit-background-clip: text;\n        -webkit-text-fill-color: transparent;\n    }\n\n    .christmas-frist-banner-content-desc {\n        color: #FFD7B4;\n        font-size: 20px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: 440px;\n        text-align: left;\n\n    }\n    .christmas-frist-banner-content-note{\n        position: absolute;\n        bottom: 16px;\n        left: 50%;\n        color: rgba(0, 0, 0, 0.5);\n        font-size: 12px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: 440px;\n        text-align: left;\n        left: 50px;\ntransform: translate(0, -50%);\n    }\n\n    .christmas-frist-banner-content-button {}\n    @media screen and (max-width: 768px){\n        .christmas-frist-banner {\n        padding-top: 50px;\n        padding-left: 24px;\n        padding-right: 24px;\n    }\n\n    .christmas-frist-banner-wrapper {\n        max-width: 100%;\n        border-radius: 10px;\n        \n\n\n    }\n\n\n\n    .christmas-frist-banner-backgroud-img .pc {\n        display: none;\n        \n\n    }\n\n    .christmas-frist-banner-backgroud-img .mb {\n        display: flex;\n        \n\n    }\n\n    .christmas-frist-banner-content {\n        position: absolute;\n        top: 50px;\n        left: 0;\n        transform: translate(0, 0);\n        width: 100%;\n        max-width: 580px;\n        padding: 0 18px;\n\n    }\n\n    .christmas-frist-banner-content-tips {\n        font-size: 12px;\n        line-height: 1.4;\n        margin-bottom: 4px;\n        text-align: center;\n\n\n    }\n\n    .christmas-frist-banner-content-title {\n        font-size: 24px;\n        line-height: 1.33;\n        margin-bottom: 8px;\n        text-align: center;\n\n    }\n\n    .christmas-frist-banner-content-desc {\n        font-size: 14px;\n        line-height: 1.4;\n        max-width: 240px;\n        text-align: center;\n        margin: 0 auto;\n\n    }\n    .christmas-frist-banner-content-note {\n        position: absolute;\n        bottom: 8px;\n        color: rgba(0, 0, 0, 0.5);\n        font-size: 10px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: max-content;\n        text-align: left;\n        left: 50%;\n        transform: translate(-50%, -50%);\n        width: 100%;\n    }\n    .christmas-frist-banner-content-button {}            \n    }\n</style>\n<section id=\"custom-nav-Holiday-Mega-Deals\" class=\"christmas-frist-banner\">\n    <div class=\"christmas-frist-banner-wrapper\">\n        <div class=\"christmas-frist-banner-backgroud-img\">\n            <img class=\"pc\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Rectangle-3711.jpg?v=1765424644\" alt=\"\">\n            <img class=\"mb\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/1_5f048e64-f731-4eb4-9f6f-5fb4085a1c4c.jpg?v=1765424655\" alt=\"\">\n        </div>\n        <div class=\"christmas-frist-banner-content\">\n            <div class=\"christmas-frist-banner-content-tips\">K13 Lite</div>\n            <div class=\"christmas-frist-banner-content-title\">Your First DTF Printer is Perfect to Start</div>\n            <div class=\"christmas-frist-banner-content-desc\">Global No.1 Desktop DTF Brand</div>\n            \n            \n\n        </div>\n    </div>\n</section>",
+        "nav_id": "UV-DTF-Hot-Deals",
+        "title": "<style>\n            .Spend-More-Save-More-1-title-contaner {\n                display: flex;\n                width: 100%;\n                align-items: start;\n                justify-content: center;\n                gap: 22px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon,\n            .Spend-More-Save-More-1-title-right-icon {\n                display: flex;\n                width: 46px;\n                height: 54px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon img,\n            .Spend-More-Save-More-1-title-right-icon img {\n                width: 100%;\n                max-width: 100%;\n                flex-shrink: 0;\nheight: fit-content;\n            }\n        \n            .Spend-More-Save-More-1-title-text {\n                background: linear-gradient(267deg, #FFA841 1.27%, #F30F46 24.61%, #F94236 72.68%, #FF472E 99.03%);\nbackground-clip: text;\n-webkit-background-clip: text;\n-webkit-text-fill-color: transparent;\n                text-align: center;\n                font-size: 40px;\n                font-weight: 800;\n                line-height: 1.22;\n            }\n            .Spend-More-Save-More-1-title-text span{\n                display: block;\n            }\n        \n            @media screen and (max-width: 768px) {\n                .Spend-More-Save-More-1-title-contaner {\n                    display: flex;\n                    flex-direction: column;\n                    width: 100%;\n                    align-items: center;\n                    justify-content: start;\n                    gap: 12px;\n                }\n        \n                .Spend-More-Save-More-1-title-left-icon,\n                .Spend-More-Save-More-1-title-right-icon {\n                    width: 30px;\n                    height: 35px;\n                }\n        \n                .Spend-More-Save-More-1-title-left-icon img,\n                .Spend-More-Save-More-1-title-right-icon img {\n                    width: 100%;\n                    max-width: 100%;\n                    flex-shrink: 0;\n                }\n        \n                .Spend-More-Save-More-1-title-right-icon {\n                    display: none;\n                }\n        \n                .Spend-More-Save-More-1-title-text {\n                    font-size: 24px;\n                }\n                .Spend-More-Save-More-1-title-text span{\n                display: inline;\n            }\n            }\n        </style>\n\n        <div class=\"Spend-More-Save-More-1-title-contaner\">\n            <div class=\"Spend-More-Save-More-1-title-left-icon\">\n                <img class=\"lazyload \" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Star.png?v=1766889797\" alt=\"\">\n            </div>\n            <div class=\"Spend-More-Save-More-1-title-text\">Unleash UV DTF Printing Potential\n                </div>\n            <div class=\"Spend-More-Save-More-1-title-right-icon\">\n                <img class=\"lazyload \" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Star.png?v=1766889797\" alt=\"\">\n            </div>\n        </div>\n<!-- 第一张banner -->\n<style>\n    .christmas-frist-banner {\n        padding-top: 100px;\n    }\n\n    .christmas-frist-banner-wrapper {\n        max-width: 1400px;\n        margin: 0 auto;\n        position: relative;\n        border-radius: 16px;\n        overflow: hidden;\n        border: 1px solid #FFF;\n        box-shadow: 0 4px 4px 0 rgba(255, 235, 217, 0.25);\n    }   \n\n    .christmas-frist-banner-backgroud-img {\n        width: 100%;\n\n    }\n\n    .christmas-frist-banner-backgroud-img .pc {\n        display: flex;\n        width: 100%;\n        max-width: 100%;\n\n    }\n\n    .christmas-frist-banner-backgroud-img .mb {\n        display: none;\n        width: 100%;\n        max-width: 100%;\n\n    }\n\n    .christmas-frist-banner-content {\n        position: absolute;\n        top: 50%;\n        left: 50px;\n        transform: translate(0, -50%);\n        width: 100%;\n        max-width: 596px;\n\n    }\n\n    .christmas-frist-banner-content-tips {\n        color: #CC2A1F;\n        font-size: 20px;\n        font-weight: 400;\n        line-height: 1.38;\n        font-weight: 700;\n        margin-bottom: 8px;\n        padding: 4px 8px;\n        border-radius: 4px;\n        margin-bottom: 12px;\n        background: linear-gradient(99deg, #FFD7B4 37.18%, #EEAA67 84.13%);\n        text-align: left;\n        width: fit-content;\n    }\n\n    .christmas-frist-banner-content-title {\n        color: #FCF3C4;\n        font-size: 40px;\n        font-weight: 700;\n        line-height: 1.22;\n        margin-bottom: 12px;\n        text-align: left;\n        background: linear-gradient(267deg, #EEAA67 1.27%, #FFD7B4 72.68%, #EEAA67 99.03%);\n        background-clip: text;\n        -webkit-background-clip: text;\n        -webkit-text-fill-color: transparent;\n    }\n\n    .christmas-frist-banner-content-desc {\n        color: #FFD7B4;\n        font-size: 20px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: 440px;\n        text-align: left;\n\n    }\n    .christmas-frist-banner-content-note{\n        position: absolute;\n        bottom: 16px;\n        left: 50%;\n        color: rgba(0, 0, 0, 0.5);\n        font-size: 12px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: 440px;\n        text-align: left;\n        left: 50px;\ntransform: translate(0, -50%);\n    }\n\n    .christmas-frist-banner-content-button {}\n    @media screen and (max-width: 768px){\n        .christmas-frist-banner {\n        padding-top: 50px;\n        padding-left: 24px;\n        padding-right: 24px;\nmargin-left: 0;\nmargin-right: 0;\n\n    }\n\n    .christmas-frist-banner-wrapper {\n        max-width: 100%;\n        border-radius: 10px;\n        \n\n\n    }\n\n\n\n    .christmas-frist-banner-backgroud-img .pc {\n        display: none;\n        \n\n    }\n\n    .christmas-frist-banner-backgroud-img .mb {\n        display: flex;\n        \n\n    }\n\n    .christmas-frist-banner-content {\n        position: absolute;\n        top: 50px;\n        left: 0;\n        transform: translate(0, 0);\n        width: 100%;\n        max-width: 580px;\n        padding: 0 18px;\n\n    }\n\n    .christmas-frist-banner-content-tips {\n        font-size: 12px;\n        line-height: 1.4;\n        margin-bottom: 4px;\n        text-align: center;\n\n\n    }\n\n    .christmas-frist-banner-content-title {\n        font-size: 24px;\n        line-height: 1.33;\n        margin-bottom: 8px;\n        text-align: center;\n\n    }\n\n    .christmas-frist-banner-content-desc {\n        font-size: 12px;\n        line-height: 1.4;\n        max-width: 240px;\n        text-align: center;\n        margin: 0 auto;\n\n    }\n    .christmas-frist-banner-content-note {\n        position: absolute;\n        bottom: 8px;\n        color: rgba(0, 0, 0, 0.5);\n        font-size: 10px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: max-content;\n        text-align: left;\n        left: 50%;\n        transform: translate(-50%, -50%);\n        width: 100%;\n    }\n    .christmas-frist-banner-content-button {}            \n    }\n</style>\n<section class=\"christmas-frist-banner\">\n    <div class=\"christmas-frist-banner-wrapper\">\n        <div class=\"christmas-frist-banner-backgroud-img\">\n            <img class=\"pc\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/mask.jpg?v=1766990417\" alt=\"\">\n            <img class=\"mb\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354716_1.jpg?v=1767247830\" alt=\"\">\n        </div>\n        <div class=\"christmas-frist-banner-content\">\n            <div class=\"christmas-frist-banner-content-title\">Revolutionize Your Sticker Business</div>\n            <div class=\"christmas-frist-banner-content-desc\">Print and laminate with our versatile 2-in-1 solution. Create crystal stickers for cups, phone cases, and beyond.</div>\n            \n            \n\n        </div>\n    </div>\n</section>",
         "subtitle": "",
         "desc": "",
+        "with_stand_product_title": "With Stand",
+        "without_stand_product_title": "Without Stand",
         "show_top_bg": false,
         "show_snow_bg": true,
         "show_swiper": true,
@@ -521,12 +923,12 @@
         "scene_image_mb_2": "shopify://shop_images/Rectangle_3800_7_d8fd7621-ff24-4935-810d-e479e2eca136.jpg",
         "scene_image_pc_3": "shopify://shop_images/Rectangle_3800_8.jpg",
         "scene_image_mb_3": "shopify://shop_images/Rectangle_3800_8_d3cdb0ef-38b7-4302-9445-0a5ca86a3c24.jpg",
-        "content_space_percent": 55,
+        "content_space_percent": 64,
         "content_box_text_percent": 85,
         "flex_column_gap": 0,
-        "product_title_color": "#000",
+        "product_title_color": "#121212",
         "bg_color": "rgba(0,0,0,0)",
-        "card_bg_color": "#fff",
+        "card_bg_color": "#ffffff",
         "card_background_gradient_color": "",
         "card_gap": 20,
         "card_gap_mobile": 10,
@@ -534,7 +936,376 @@
         "padding_top": 100,
         "padding_bottom": 100,
         "content_padding_left_and_right_mobile": 16,
-        "padding_top_mobile": 0,
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 32
+      }
+    },
+    "new_year_products_select_2026_iAFwmU": {
+      "type": "new-year-products-select-2026",
+      "blocks": {
+        "product_mXYQFR": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "13-2-in-1-dual-heads-a3-mini-uv-dtf-sticker-printer",
+            "product_variant_location": "1",
+            "tagline": "",
+            "title": "VF13 Pro UV DTF Printer with Stand",
+            "features": "Compact Size/Efficient Printing/Versatile Applications",
+            "desc": "",
+            "product_image_pc": "shopify://shop_images/VF13pro.png",
+            "product_image_mb": "shopify://shop_images/VF13pro.png",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_mXYQFR"
+      ],
+      "custom_css": [
+        "{background-image: url(\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354713.jpg?v=1766889990\"); background-size: cover;}",
+        ".Spend-More-Save-More-1-title-text {background: linear-gradient( 267deg, #eeaa67 1.27%, #ffd7b4 72.68%, #eeaa67 99.03% ); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;}",
+        ".christmas-frist-banner {padding-top: 40px;}",
+        "@media screen and (max-width: 768px) {.christmas-frist-banner-content {top: 24px; }}"
+      ],
+      "name": "UV DTF 销售区  with stand",
+      "settings": {
+        "nav_id": "UV-DTF-Hot-Deals-With-Stand",
+        "title": "<style>\n            .Spend-More-Save-More-1-title-contaner {\n                display: flex;\n                width: 100%;\n                align-items: start;\n                justify-content: center;\n                gap: 22px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon,\n            .Spend-More-Save-More-1-title-right-icon {\n                display: flex;\n                width: 46px;\n                height: 54px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon img,\n            .Spend-More-Save-More-1-title-right-icon img {\n                width: 100%;\n                max-width: 100%;\n                flex-shrink: 0;\nheight: fit-content;\n            }\n        \n            .Spend-More-Save-More-1-title-text {\n                background: linear-gradient(267deg, #FFA841 1.27%, #F30F46 24.61%, #F94236 72.68%, #FF472E 99.03%);\nbackground-clip: text;\n-webkit-background-clip: text;\n-webkit-text-fill-color: transparent;\n                text-align: center;\n                font-size: 40px;\n                font-weight: 800;\n                line-height: 1.22;\n            }\n            .Spend-More-Save-More-1-title-text span{\n                display: block;\n            }\n        \n            @media screen and (max-width: 768px) {\n                .Spend-More-Save-More-1-title-contaner {\n                    display: flex;\n                    flex-direction: column;\n                    width: 100%;\n                    align-items: center;\n                    justify-content: start;\n                    gap: 12px;\n                }\n        \n                .Spend-More-Save-More-1-title-left-icon,\n                .Spend-More-Save-More-1-title-right-icon {\n                    width: 30px;\n                    height: 35px;\n                }\n        \n                .Spend-More-Save-More-1-title-left-icon img,\n                .Spend-More-Save-More-1-title-right-icon img {\n                    width: 100%;\n                    max-width: 100%;\n                    flex-shrink: 0;\n                }\n        \n                .Spend-More-Save-More-1-title-right-icon {\n                    display: none;\n                }\n        \n                .Spend-More-Save-More-1-title-text {\n                    font-size: 24px;\n                }\n                .Spend-More-Save-More-1-title-text span{\n                display: inline;\n            }\n            }\n        </style>\n\n        <div class=\"Spend-More-Save-More-1-title-contaner\">\n            <div class=\"Spend-More-Save-More-1-title-left-icon\">\n                <img class=\"lazyload \" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Star.png?v=1766889797\" alt=\"\">\n            </div>\n            <div class=\"Spend-More-Save-More-1-title-text\">Unleash UV DTF Printing Potential\n                </div>\n            <div class=\"Spend-More-Save-More-1-title-right-icon\">\n                <img class=\"lazyload \" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Star.png?v=1766889797\" alt=\"\">\n            </div>\n        </div>\n<!-- 第一张banner -->\n<style>\n    .christmas-frist-banner {\n        padding-top: 100px;\n    }\n\n    .christmas-frist-banner-wrapper {\n        max-width: 1400px;\n        margin: 0 auto;\n        position: relative;\n        border-radius: 16px;\n        overflow: hidden;\n        border: 1px solid #FFF;\n        box-shadow: 0 4px 4px 0 rgba(255, 235, 217, 0.25);\n    }   \n\n    .christmas-frist-banner-backgroud-img {\n        width: 100%;\n\n    }\n\n    .christmas-frist-banner-backgroud-img .pc {\n        display: flex;\n        width: 100%;\n        max-width: 100%;\n\n    }\n\n    .christmas-frist-banner-backgroud-img .mb {\n        display: none;\n        width: 100%;\n        max-width: 100%;\n\n    }\n\n    .christmas-frist-banner-content {\n        position: absolute;\n        top: 50%;\n        left: 50px;\n        transform: translate(0, -50%);\n        width: 100%;\n        max-width: 596px;\n\n    }\n\n    .christmas-frist-banner-content-tips {\n        color: #CC2A1F;\n        font-size: 20px;\n        font-weight: 400;\n        line-height: 1.38;\n        font-weight: 700;\n        margin-bottom: 8px;\n        padding: 4px 8px;\n        border-radius: 4px;\n        margin-bottom: 12px;\n        background: linear-gradient(99deg, #FFD7B4 37.18%, #EEAA67 84.13%);\n        text-align: left;\n        width: fit-content;\n    }\n\n    .christmas-frist-banner-content-title {\n        color: #FCF3C4;\n        font-size: 40px;\n        font-weight: 700;\n        line-height: 1.22;\n        margin-bottom: 12px;\n        text-align: left;\n        background: linear-gradient(267deg, #EEAA67 1.27%, #FFD7B4 72.68%, #EEAA67 99.03%);\n        background-clip: text;\n        -webkit-background-clip: text;\n        -webkit-text-fill-color: transparent;\n    }\n\n    .christmas-frist-banner-content-desc {\n        color: #FFD7B4;\n        font-size: 20px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: 440px;\n        text-align: left;\n\n    }\n    .christmas-frist-banner-content-note{\n        position: absolute;\n        bottom: 16px;\n        left: 50%;\n        color: rgba(0, 0, 0, 0.5);\n        font-size: 12px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: 440px;\n        text-align: left;\n        left: 50px;\ntransform: translate(0, -50%);\n    }\n\n    .christmas-frist-banner-content-button {}\n    @media screen and (max-width: 768px){\n        .christmas-frist-banner {\n        padding-top: 50px;\n        padding-left: 24px;\n        padding-right: 24px;\nmargin-left: 0;\nmargin-right: 0;\n    }\n\n    .christmas-frist-banner-wrapper {\n        max-width: 100%;\n        border-radius: 10px;\n        \n\n\n    }\n\n\n\n    .christmas-frist-banner-backgroud-img .pc {\n        display: none;\n        \n\n    }\n\n    .christmas-frist-banner-backgroud-img .mb {\n        display: flex;\n        \n\n    }\n\n    .christmas-frist-banner-content {\n        position: absolute;\n        top: 50px;\n        left: 0;\n        transform: translate(0, 0);\n        width: 100%;\n        max-width: 580px;\n        padding: 0 18px;\n\n    }\n\n    .christmas-frist-banner-content-tips {\n        font-size: 12px;\n        line-height: 1.4;\n        margin-bottom: 4px;\n        text-align: center;\n\n\n    }\n\n    .christmas-frist-banner-content-title {\n        font-size: 24px;\n        line-height: 1.33;\n        margin-bottom: 8px;\n        text-align: center;\n\n    }\n\n    .christmas-frist-banner-content-desc {\n        font-size: 12px;\n        line-height: 1.4;\n        max-width: 240px;\n        text-align: center;\n        margin: 0 auto;\n\n    }\n    .christmas-frist-banner-content-note {\n        position: absolute;\n        bottom: 8px;\n        color: rgba(0, 0, 0, 0.5);\n        font-size: 10px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: max-content;\n        text-align: left;\n        left: 50%;\n        transform: translate(-50%, -50%);\n        width: 100%;\n    }\n    .christmas-frist-banner-content-button {}            \n    }\n</style>\n<section class=\"christmas-frist-banner\">\n    <div class=\"christmas-frist-banner-wrapper\">\n        <div class=\"christmas-frist-banner-backgroud-img\">\n            <img class=\"pc\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/mask.jpg?v=1766990417\" alt=\"\">\n            <img class=\"mb\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354716_1.jpg?v=1767247830\" alt=\"\">\n        </div>\n        <div class=\"christmas-frist-banner-content\">\n            <div class=\"christmas-frist-banner-content-title\">Revolutionize Your Sticker Business</div>\n            <div class=\"christmas-frist-banner-content-desc\">Print and laminate with our versatile 2-in-1 solution. Create crystal stickers for cups, phone cases, and beyond.</div>\n            \n            \n\n        </div>\n    </div>\n</section>",
+        "subtitle": "",
+        "desc": "",
+        "with_stand_product_title": "With Stand",
+        "without_stand_product_title": "Without Stand",
+        "show_top_bg": false,
+        "show_snow_bg": true,
+        "show_swiper": true,
+        "show_klarna": false,
+        "learn_more_button_text": "Learn More",
+        "buy_now_button_text": "Shop Now",
+        "show_flash_sale_countdown": false,
+        "product_divider_line": false,
+        "position": "row",
+        "flash_sale_countdown": "",
+        "flash_sale_countdown_end": "",
+        "scene_image_pc_1": "shopify://shop_images/Rectangle_3800_6.jpg",
+        "scene_image_mb_1": "shopify://shop_images/Rectangle_3800_6_9bb3d668-4392-47a8-8b88-32747e557e12.jpg",
+        "scene_image_pc_2": "shopify://shop_images/Rectangle_3800_7.jpg",
+        "scene_image_mb_2": "shopify://shop_images/Rectangle_3800_7_d8fd7621-ff24-4935-810d-e479e2eca136.jpg",
+        "scene_image_pc_3": "shopify://shop_images/Rectangle_3800_8.jpg",
+        "scene_image_mb_3": "shopify://shop_images/Rectangle_3800_8_d3cdb0ef-38b7-4302-9445-0a5ca86a3c24.jpg",
+        "content_space_percent": 64,
+        "content_box_text_percent": 85,
+        "flex_column_gap": 0,
+        "product_title_color": "#121212",
+        "bg_color": "rgba(0,0,0,0)",
+        "card_bg_color": "#ffffff",
+        "card_background_gradient_color": "",
+        "card_gap": 20,
+        "card_gap_mobile": 10,
+        "content_padding_left_and_right": 40,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "content_padding_left_and_right_mobile": 16,
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 32
+      }
+    },
+    "custom_liquid_G6ppdH": {
+      "type": "custom-liquid",
+      "custom_css": [
+        ".christmas-frist-banner {padding-top: 40px;}",
+        "@media screen and (max-width: 768px) {.christmas-frist-banner-content {top: 24px; }}"
+      ],
+      "name": "Custom liquid",
+      "settings": {
+        "custom_liquid": "<style>\n#shopify-section-{{ section.id }} {\nbackground: linear-gradient(119deg, #FFD7B4 50%, #EEAA67 97.7%);\nposition: relative;\n}\n#shopify-section-{{ section.id }} .left-image {\nposition: absolute;\ntop: 24px;\nwidth: 25%;\ntransform: rotate(-13.546deg);\n}\n#shopify-section-{{ section.id }} .right-image {\nposition: absolute;\nright: 0;\nwidth: 15%;\n}\n</style>\n<div>\n<img class=\"left-image\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354708.png?v=1766888660\" alt=\"\"/>\n<img class=\"right-image\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354706.png?v=1766888713\" alt=\"\"/>\n</div>\n<script>\ndocument.addEventListener(\"DOMContentLoaded\", function(){\nconst currentSection = document.querySelector(\n  '#shopify-section-{{ section.id }}'\n);\n\nif (!currentSection) return;\n\nconst nextSection = document.querySelector('#custom-nav-UV-Hot-Deals');\nconst nextNextSection = document.querySelector('#custom-nav-UV-Hot-Deals-2');\ncurrentSection.appendChild(nextSection);\ncurrentSection.appendChild(nextNextSection);\n})\n</script>"
+      }
+    },
+    "new_year_products_select_2026_qAaxWc": {
+      "type": "new-year-products-select-2026",
+      "blocks": {
+        "product_jyrzqY": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "11-8-dual-heads-a3-uv-printer-a3-pro",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "V11 Pro",
+            "features": "Dual Printing Modes/Integrated Air Filter/Pro-Grade Resolution",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        },
+        "product_EHX7aF": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "procolored-v11-pro-uv-printer-11-4-a3-dual-tx800-jigs",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "V11 Pro & Jigs",
+            "features": "Dual Printing Modes/Integrated Air Filter/Pro-Grade Resolution",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        },
+        "product_XPUTAa": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "procolored-v11-pro-uv-printer-11-4-a3-dual-tx800-uv-laminator",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "V11 Pro & Laminator",
+            "features": "Dual Printing Modes/Integrated Air Filter/Pro-Grade Resolution",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        },
+        "product_k7HNqL": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "procolored-v11-pro-uv-printer-11-4-a3-dual-tx800-jigs-uv-laminator",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "V11 Pro & Jigs & Laminator",
+            "features": "Dual Printing Modes/Integrated Air Filter/Pro-Grade Resolution",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_jyrzqY",
+        "product_EHX7aF",
+        "product_XPUTAa",
+        "product_k7HNqL"
+      ],
+      "custom_css": [
+        "{background-image: url(\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354713.jpg?v=1766889990\"); background-size: cover;}",
+        ".Spend-More-Save-More-1-title-text {background: linear-gradient( 267deg, #eeaa67 1.27%, #ffd7b4 72.68%, #eeaa67 99.03% ); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;}",
+        "@media screen and (max-width: 768px) {.christmas-frist-banner-content {top: 24px; }}"
+      ],
+      "name": "V11 Pro 销售区",
+      "settings": {
+        "nav_id": "UV-Hot-Deals",
+        "title": "<style>\n            .Spend-More-Save-More-1-title-contaner {\n                display: flex;\n                width: 100%;\n                align-items: start;\n                justify-content: center;\n                gap: 22px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon,\n            .Spend-More-Save-More-1-title-right-icon {\n                display: flex;\n                width: 46px;\n                height: 54px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon img,\n            .Spend-More-Save-More-1-title-right-icon img {\n                width: 100%;\n                max-width: 100%;\n                flex-shrink: 0;\nheight: fit-content;\n            }\n        \n            .Spend-More-Save-More-1-title-text {\n                background: linear-gradient(267deg, #FFA841 1.27%, #F30F46 24.61%, #F94236 72.68%, #FF472E 99.03%);\nbackground-clip: text;\n-webkit-background-clip: text;\n-webkit-text-fill-color: transparent;\n                text-align: center;\n                font-size: 40px;\n                font-weight: 800;\n                line-height: 1.22;\n            }\n            .Spend-More-Save-More-1-title-text span{\n                display: block;\n            }\n        \n            @media screen and (max-width: 768px) {\n                .Spend-More-Save-More-1-title-contaner {\n                    display: flex;\n                    flex-direction: column;\n                    width: 100%;\n                    align-items: center;\n                    justify-content: start;\n                    gap: 12px;\n                }\n        \n                .Spend-More-Save-More-1-title-left-icon,\n                .Spend-More-Save-More-1-title-right-icon {\n                    width: 30px;\n                    height: 35px;\n                }\n        \n                .Spend-More-Save-More-1-title-left-icon img,\n                .Spend-More-Save-More-1-title-right-icon img {\n                    width: 100%;\n                    max-width: 100%;\n                    flex-shrink: 0;\n                }\n        \n                .Spend-More-Save-More-1-title-right-icon {\n                    display: none;\n                }\n        \n                .Spend-More-Save-More-1-title-text {\n                    font-size: 24px;\n                }\n                .Spend-More-Save-More-1-title-text span{\n                display: inline;\n            }\n            }\n        </style>\n\n        <div class=\"Spend-More-Save-More-1-title-contaner\">\n            <div class=\"Spend-More-Save-More-1-title-left-icon\">\n                <img class=\"lazyload \" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/fireworks.png?v=1766716986\" alt=\"\">\n            </div>\n            <div class=\"Spend-More-Save-More-1-title-text\">Unleash UV Printing Power\n                </div>\n            <div class=\"Spend-More-Save-More-1-title-right-icon\">\n                <img class=\"lazyload \" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/fireworks_1.png?v=1766717016\" alt=\"\">\n            </div>\n        </div>\n<!-- 第一张banner -->\n<style>\n    .christmas-frist-banner {\n        padding-top: 100px;\n    }\n\n    .christmas-frist-banner-wrapper {\n        max-width: 1400px;\n        margin: 0 auto;\n        position: relative;\n        border-radius: 16px;\n        overflow: hidden;\n        border: 1px solid #FFF;\n        box-shadow: 0 4px 4px 0 rgba(255, 235, 217, 0.25);\n    }   \n\n    .christmas-frist-banner-backgroud-img {\n        width: 100%;\n\n    }\n\n    .christmas-frist-banner-backgroud-img .pc {\n        display: flex;\n        width: 100%;\n        max-width: 100%;\n\n    }\n\n    .christmas-frist-banner-backgroud-img .mb {\n        display: none;\n        width: 100%;\n        max-width: 100%;\n\n    }\n\n    .christmas-frist-banner-content {\n        position: absolute;\n        top: 50%;\n        left: 50px;\n        transform: translate(0, -50%);\n        width: 100%;\n        max-width: 596px;\n\n    }\n\n    .christmas-frist-banner-content-tips {\n        color: #CC2A1F;\n        font-size: 20px;\n        font-weight: 400;\n        line-height: 1.38;\n        font-weight: 700;\n        margin-bottom: 8px;\n        padding: 4px 8px;\n        border-radius: 4px;\n        margin-bottom: 12px;\n        background: linear-gradient(99deg, #FFD7B4 37.18%, #EEAA67 84.13%);\n        text-align: left;\n        width: fit-content;\n    }\n\n    .christmas-frist-banner-content-title {\n        color: #FCF3C4;\n        font-size: 40px;\n        font-weight: 700;\n        line-height: 1.22;\n        margin-bottom: 12px;\n        text-align: left;\n        background: linear-gradient(267deg, #EEAA67 1.27%, #FFD7B4 72.68%, #EEAA67 99.03%);\n        background-clip: text;\n        -webkit-background-clip: text;\n        -webkit-text-fill-color: transparent;\n    }\n\n    .christmas-frist-banner-content-desc {\n        color: #FFD7B4;\n        font-size: 20px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: 440px;\n        text-align: left;\n\n    }\n    .christmas-frist-banner-content-note{\n        position: absolute;\n        bottom: 16px;\n        left: 50%;\n        color: rgba(0, 0, 0, 0.5);\n        font-size: 12px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: 440px;\n        text-align: left;\n        left: 50px;\ntransform: translate(0, -50%);\n    }\n\n    .christmas-frist-banner-content-button {}\n    @media screen and (max-width: 768px){\n        .christmas-frist-banner {\n        padding-top: 50px;\n        padding-left: 24px;\n        padding-right: 24px;\nmargin-left: 0;\nmargin-right: 0;\n    }\n\n    .christmas-frist-banner-wrapper {\n        max-width: 100%;\n        border-radius: 10px;\n        \n\n\n    }\n\n\n\n    .christmas-frist-banner-backgroud-img .pc {\n        display: none;\n        \n\n    }\n\n    .christmas-frist-banner-backgroud-img .mb {\n        display: flex;\n        \n\n    }\n\n    .christmas-frist-banner-content {\n        position: absolute;\n        top: 50px;\n        left: 0;\n        transform: translate(0, 0);\n        width: 100%;\n        max-width: 580px;\n        padding: 0 18px;\n\n    }\n\n    .christmas-frist-banner-content-tips {\n        font-size: 12px;\n        line-height: 1.4;\n        margin-bottom: 4px;\n        text-align: center;\n\n\n    }\n\n    .christmas-frist-banner-content-title {\n        font-size: 24px;\n        line-height: 1.33;\n        margin-bottom: 8px;\n        text-align: center;\n\n    }\n\n    .christmas-frist-banner-content-desc {\n        font-size: 12px;\n        line-height: 1.4;\n        max-width: 240px;\n        text-align: center;\n        margin: 0 auto;\n\n    }\n    .christmas-frist-banner-content-note {\n        position: absolute;\n        bottom: 8px;\n        color: rgba(0, 0, 0, 0.5);\n        font-size: 10px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: max-content;\n        text-align: left;\n        left: 50%;\n        transform: translate(-50%, -50%);\n        width: 100%;\n    }\n    .christmas-frist-banner-content-button {}            \n    }\n</style>\n<section class=\"christmas-frist-banner\">\n    <div class=\"christmas-frist-banner-wrapper\">\n        <div class=\"christmas-frist-banner-backgroud-img\">\n            <img class=\"pc\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/mask_1.jpg?v=1766990525\" alt=\"\">\n            <img class=\"mb\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354717_3.jpg?v=1767247530\" alt=\"\">\n        </div>\n        <div class=\"christmas-frist-banner-content\">\n            <div class=\"christmas-frist-banner-content-title\">Unlock Powerful Prints on Every Surface</div>\n            <div class=\"christmas-frist-banner-content-desc\">Print directly on wood, metal, glass &amp; beyond.</div>\n            \n            \n\n        </div>\n    </div>\n</section>",
+        "subtitle": "",
+        "desc": "",
+        "with_stand_product_title": "",
+        "without_stand_product_title": "",
+        "show_top_bg": false,
+        "show_snow_bg": true,
+        "show_swiper": true,
+        "show_klarna": false,
+        "learn_more_button_text": "Learn More",
+        "buy_now_button_text": "Shop Now",
+        "show_flash_sale_countdown": false,
+        "product_divider_line": false,
+        "position": "row-reverse",
+        "flash_sale_countdown": "",
+        "flash_sale_countdown_end": "",
+        "scene_image_pc_1": "shopify://shop_images/Rectangle_3800_9_83156312-4ccc-4297-8f3a-d585134fd81f.jpg",
+        "scene_image_mb_1": "shopify://shop_images/Rectangle_3800_9_83156312-4ccc-4297-8f3a-d585134fd81f.jpg",
+        "scene_image_pc_2": "shopify://shop_images/Rectangle_3800_10_93e23e21-aac4-4c59-b95d-3b9dd7056440.jpg",
+        "scene_image_mb_2": "shopify://shop_images/Rectangle_3800_10_5b020ecf-2b4f-4745-b5be-9b0fa01deb3d.jpg",
+        "scene_image_pc_3": "shopify://shop_images/Rectangle_3800_11.jpg",
+        "scene_image_mb_3": "shopify://shop_images/Rectangle_3800_11_7b9651ec-2a77-4037-8cb3-995458d9e665.jpg",
+        "content_space_percent": 64,
+        "content_box_text_percent": 85,
+        "flex_column_gap": 0,
+        "product_title_color": "#121212",
+        "bg_color": "rgba(0,0,0,0)",
+        "card_bg_color": "#ffffff",
+        "card_background_gradient_color": "",
+        "card_gap": 20,
+        "card_gap_mobile": 10,
+        "content_padding_left_and_right": 40,
+        "padding_top": 100,
+        "padding_bottom": 0,
+        "content_padding_left_and_right_mobile": 16,
+        "padding_top_mobile": 16,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "new_year_products_select_2026_dnXkJa": {
+      "type": "new-year-products-select-2026",
+      "blocks": {
+        "product_QUrFUy": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "6-7-single-head-a4-uv-printer-panda",
+            "product_variant_location": "0",
+            "tagline": "",
+            "title": "V6 UV Printer(Without Jigs)",
+            "features": "Adjustable Printing Height/Versatile Applications/Beginner-Friendly",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        },
+        "product_hqPK6R": {
+          "type": "product",
+          "settings": {
+            "tab_name": "",
+            "product": "6-7-single-head-a4-uv-printer-panda",
+            "product_variant_location": "1",
+            "tagline": "",
+            "title": "V6 UV Printer(With Jigs)",
+            "features": "Adjustable Printing Height/Versatile Applications/Beginner-Friendly",
+            "desc": "",
+            "product_banner_title": "",
+            "product_banner_subtitle": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_QUrFUy",
+        "product_hqPK6R"
+      ],
+      "custom_css": [
+        "{background-image: url(\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354713.jpg?v=1766889990\"); background-size: cover;}",
+        ".Spend-More-Save-More-1-title-text {background: linear-gradient( 267deg, #eeaa67 1.27%, #ffd7b4 72.68%, #eeaa67 99.03% ); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;}",
+        "@media screen and (max-width: 768px) {.christmas-frist-banner-content {top: 24px; }}"
+      ],
+      "name": "V6销售区",
+      "settings": {
+        "nav_id": "UV-Hot-Deals-2",
+        "title": "",
+        "subtitle": "",
+        "desc": "",
+        "with_stand_product_title": "",
+        "without_stand_product_title": "",
+        "show_top_bg": false,
+        "show_snow_bg": true,
+        "show_swiper": true,
+        "show_klarna": false,
+        "learn_more_button_text": "Learn More",
+        "buy_now_button_text": "Shop Now",
+        "show_flash_sale_countdown": false,
+        "product_divider_line": false,
+        "position": "row",
+        "flash_sale_countdown": "",
+        "flash_sale_countdown_end": "",
+        "scene_image_pc_1": "shopify://shop_images/Rectangle_3800_12.jpg",
+        "scene_image_mb_1": "shopify://shop_images/Rectangle_3800_12_a10eadd6-f88a-4007-b195-882598ec4c03.jpg",
+        "scene_image_pc_2": "shopify://shop_images/Rectangle_3800_13.jpg",
+        "scene_image_mb_2": "shopify://shop_images/Rectangle_3800_13_7768f4dd-0919-48c9-8259-a463b4e4a555.jpg",
+        "scene_image_pc_3": "shopify://shop_images/Rectangle_3800_14.jpg",
+        "scene_image_mb_3": "shopify://shop_images/Rectangle_3800_14_9b1b054d-ce53-4ed7-b9f7-20c2b335d662.jpg",
+        "content_space_percent": 64,
+        "content_box_text_percent": 85,
+        "flex_column_gap": 0,
+        "product_title_color": "#121212",
+        "bg_color": "rgba(0,0,0,0)",
+        "card_bg_color": "#ffffff",
+        "card_background_gradient_color": "",
+        "card_gap": 20,
+        "card_gap_mobile": 10,
+        "content_padding_left_and_right": 40,
+        "padding_top": 40,
+        "padding_bottom": 100,
+        "content_padding_left_and_right_mobile": 16,
+        "padding_top_mobile": 24,
+        "padding_bottom_mobile": 16
+      }
+    },
+    "newyear_product_tab_2026_MBnyRa": {
+      "type": "newyear-product-tab-2026",
+      "blocks": {
+        "products_bF6qHJ": {
+          "type": "products",
+          "settings": {
+            "tab_name": "DTF Consumables",
+            "product_banner_title": "",
+            "product_banner_subtitle": "",
+            "product_list": [
+              "procolored-dtf-ink",
+              "procolored-dtf-transfer-film-powder",
+              "procolored-white-ink-for-dtf-printing",
+              "procolored-dtf-pretreat-transfer-roll-film-fit-for-a3-dtf-printer"
+            ],
+            "product_title": ",DTF PreTreat Transfer Roll Film,,,",
+            "product_sku": "1,2,1,1"
+          }
+        },
+        "products_qRmTgq": {
+          "type": "products",
+          "settings": {
+            "tab_name": "UV Consumables",
+            "product_banner_title": "",
+            "product_banner_subtitle": "",
+            "product_list": [
+              "procolored-uv-varnishing-ink",
+              "procolored-uv-ink-cleaner",
+              "cleaning-kits",
+              "procolored-uv-ink"
+            ],
+            "product_title": "",
+            "product_sku": ""
+          }
+        },
+        "products_fk6xBk": {
+          "type": "products",
+          "settings": {
+            "tab_name": "UV DTF Consumables",
+            "product_banner_title": "",
+            "product_banner_subtitle": "",
+            "product_list": [
+              "procolored-ink-for-uv-dtf-printer-500ml",
+              "procolored-white-ink-for-uv-dtf-printing",
+              "uv-dtf-transfer-ab-film-fit-for-a3-uv-dtf-printer",
+              "procolored-nozzle-protection-liquid"
+            ],
+            "product_title": "",
+            "product_sku": ""
+          }
+        }
+      },
+      "block_order": [
+        "products_bF6qHJ",
+        "products_qRmTgq",
+        "products_fk6xBk"
+      ],
+      "custom_css": [
+        "{background: url(\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354713.jpg?v=1766889990\"); background-size: cover;}",
+        ".Spend-More-Save-More-1-title-text {background: linear-gradient( 267deg, #eeaa67 1.27%, #ffd7b4 72.68%, #eeaa67 99.03% ); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;}",
+        ".christmas-frist-banner {padding-top: 40px;}",
+        "@media screen and (max-width: 768px) {.christmas-frist-banner-content {top: 24px; }}"
+      ],
+      "name": "耗材专区",
+      "settings": {
+        "nav_id": "Consumables-Savings",
+        "title": "<style>\n            .Spend-More-Save-More-1-title-contaner {\n                display: flex;\n                width: 100%;\n                align-items: start;\n                justify-content: center;\n                gap: 22px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon,\n            .Spend-More-Save-More-1-title-right-icon {\n                display: flex;\n                width: 46px;\n                height: 54px;\n            }\n        \n            .Spend-More-Save-More-1-title-left-icon img,\n            .Spend-More-Save-More-1-title-right-icon img {\n                width: 100%;\n                max-width: 100%;\n                flex-shrink: 0;\nheight: fit-content;\n            }\n        \n            .Spend-More-Save-More-1-title-text {\n                background: linear-gradient(267deg, #FFA841 1.27%, #F30F46 24.61%, #F94236 72.68%, #FF472E 99.03%);\nbackground-clip: text;\n-webkit-background-clip: text;\n-webkit-text-fill-color: transparent;\n                text-align: center;\n                font-size: 40px;\n                font-weight: 800;\n                line-height: 1.22;\n            }\n            .Spend-More-Save-More-1-title-text span{\n                display: block;\n            }\n        \n            @media screen and (max-width: 768px) {\n                .Spend-More-Save-More-1-title-contaner {\n                    display: flex;\n                    flex-direction: column;\n                    width: 100%;\n                    align-items: center;\n                    justify-content: start;\n                    gap: 12px;\n                }\n        .Spend-More-Save-More-1-title-left-icon {\ndisplay: none;\n}\n                .Spend-More-Save-More-1-title-left-icon,\n                .Spend-More-Save-More-1-title-right-icon {\n                    width: 30px;\n                    height: 35px;\n                }\n        \n                .Spend-More-Save-More-1-title-left-icon img,\n                .Spend-More-Save-More-1-title-right-icon img {\n                    width: 100%;\n                    max-width: 100%;\n                    flex-shrink: 0;\n                }\n        \n                .Spend-More-Save-More-1-title-right-icon {\n                    display: none;\n                }\n        \n                .Spend-More-Save-More-1-title-text {\n                    font-size: 24px;\n                }\n                .Spend-More-Save-More-1-title-text span{\n                display: inline;\n            }\n            }\n.consumbles-button {\ndisplay: flex;\nwidth: 168px;\nheight: 40px;\npadding: 10px 24px;\njustify-content: center;\nalign-items: center;\ngap: 10px;\nborder-radius: 10px;\nbackground: linear-gradient(0deg, #FFD7B4 0%, #FFD7B4 100%), linear-gradient(267deg, #EEAA67 1.27%, #FFD7B4 72.68%, #EEAA67 99.03%);\ncolor: #CC2A1F;\nfont-size: 16px;\nfont-weight: 700;\nmargin-top: 24px;\n}\n        </style>\n\n        <div class=\"Spend-More-Save-More-1-title-contaner\">\n            <div class=\"Spend-More-Save-More-1-title-left-icon\">\n                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewbox=\"0 0 40 40\" fill=\"none\">\n  <path d=\"M10.0541 0.107731C8.28404 0.741802 7.60534 3.69539 8.30576 7.69492C8.36548 8.03634 8.45236 8.46448 8.4958 8.64332L8.57181 8.96848L8.37091 9.15816C8.08314 9.42372 7.2144 10.215 6.35109 10.9953C5.58552 11.6836 5.27603 12.0684 5.11857 12.5345C5.02627 12.8 5.02084 13.4341 5.00455 23.1078C4.99369 34.3856 4.97197 33.7407 5.30318 34.3043C5.52579 34.6782 5.93844 35.0847 6.2968 35.2744C6.93749 35.6158 6.52484 35.6049 15.8258 35.6049C21.1631 35.6049 24.4317 35.5833 24.6706 35.5507C25.6425 35.4098 26.3973 34.7378 26.6796 33.7569C26.761 33.4859 26.7665 32.4617 26.7556 23.0861L26.7393 12.7079L26.5384 12.2906C26.343 11.8787 26.0606 11.5481 25.4634 11.0279C25.1973 10.7948 24.3231 10.009 23.8345 9.5592C23.3567 9.12565 23.058 8.84926 22.0156 7.9117C21.478 7.42937 20.8048 6.82239 20.5224 6.56226C20.2401 6.30213 19.7405 5.8469 19.4093 5.55425C18.5677 4.79553 18.4429 4.68172 17.8619 4.15062C17.1506 3.51113 16.7271 3.29977 16.0484 3.26183C15.7606 3.251 15.4566 3.26183 15.3263 3.29977L15.0982 3.35938L15.2665 3.7279C15.7878 4.87682 16.1787 5.9878 16.5371 7.34266C16.7651 8.22602 16.7868 8.26938 16.9823 8.42654C17.3135 8.69209 17.509 8.92513 17.6773 9.25571C17.813 9.52668 17.8293 9.62424 17.8347 10.0524C17.8347 10.4697 17.813 10.5835 17.6881 10.849C17.4873 11.2772 17.156 11.6186 16.7271 11.8299C16.4068 11.9871 16.3253 12.0034 15.8801 12.0034C15.4674 12.0034 15.3426 11.9817 15.0928 11.8625C14.7236 11.689 14.2838 11.2717 14.1263 10.9412C13.7734 10.215 13.9091 9.29365 14.4467 8.74629L14.6638 8.52409L14.501 7.87918C14.2729 6.97414 13.9308 5.93361 13.6431 5.2616C13.5073 4.94727 13.3879 4.6763 13.3825 4.66546C13.3716 4.65462 12.9372 5.03399 12.4214 5.50006C11.4278 6.4051 11.3735 6.45387 10.4776 7.26137C10.1627 7.54318 9.83148 7.84124 9.73918 7.92796L9.57086 8.0797L9.45684 7.4673C9.35368 6.91452 9.27223 6.21 9.20708 5.36457C9.19622 5.20199 9.20708 4.68714 9.23422 4.22649C9.3211 2.5844 9.73918 1.53304 10.4179 1.22955C10.6839 1.11032 10.912 1.132 11.2649 1.31084C12.7092 2.04788 14.0666 4.43785 14.957 7.81957C15.1145 8.42112 15.1688 8.55661 15.31 8.68126C15.5977 8.94681 16.0756 8.82758 16.233 8.45906C16.2927 8.30731 16.2873 8.22602 16.1787 7.81415C15.5652 5.48922 14.8267 3.67913 13.9471 2.35679C13.4693 1.63601 12.5083 0.644253 12.0413 0.389542C11.3301 -0.000659943 10.6351 -0.103626 10.0541 0.107731ZM12.4648 18.3224C13.8114 18.5067 14.6856 19.3629 14.9299 20.7395C14.9733 20.9671 14.9896 21.3898 14.9733 21.8396C14.9516 22.452 14.9245 22.6417 14.7996 23.0048C14.6204 23.5196 14.2566 24.0833 13.9091 24.3867C13.5345 24.7065 12.8938 25.0154 12.4268 25.0913C11.8404 25.1888 10.912 25.14 10.5048 24.9829C9.61973 24.6469 9.01704 24.0236 8.70212 23.1294C8.45236 22.4195 8.46865 21.1568 8.74013 20.3872C8.99532 19.6664 9.53828 19.0215 10.179 18.6855C10.9174 18.3007 11.569 18.1978 12.4648 18.3224ZM20.1315 18.6367C20.4844 18.886 20.6256 19.428 20.4355 19.7965C20.3812 19.894 19.6645 21.005 18.8392 22.2732C18.0139 23.5413 17.1669 24.8311 16.966 25.1455C16.7651 25.4598 16.4448 25.9475 16.2602 26.2293C15.5054 27.3837 14.767 28.5163 14.3598 29.145C12.6875 31.7084 12.72 31.6704 12.1879 31.6704C11.7264 31.6704 11.3463 31.3561 11.2595 30.9063C11.1889 30.5161 10.9663 30.89 14.881 24.8745C15.7281 23.5792 16.5914 22.2461 16.8085 21.9209C18.7904 18.8589 18.8827 18.7234 19.0999 18.5934C19.3713 18.4362 19.8763 18.4525 20.1315 18.6367ZM20.9459 25.0696C22.0427 25.2918 22.7866 25.9746 23.0961 27.0477C23.411 28.1153 23.2318 29.6165 22.7051 30.4348C22.0861 31.3886 21.1414 31.8655 19.8817 31.8655C19.0021 31.8655 18.204 31.5458 17.6556 30.9768C17.0855 30.386 16.8411 29.752 16.7923 28.7494C16.7543 27.9148 16.8574 27.3566 17.1669 26.7279C17.6067 25.8337 18.394 25.2376 19.4093 25.0371C19.7786 24.9666 20.5061 24.9775 20.9459 25.0696Z\" fill=\"url(#paint0_linear_636_9890)\"></path>\n  <path d=\"M11.3788 19.9699C11.0639 20.0837 10.901 20.2192 10.7382 20.5173C10.445 21.0484 10.3961 22.1323 10.6404 22.7718C10.7762 23.1294 11.0965 23.4438 11.3843 23.498C11.7535 23.5684 12.2422 23.498 12.4756 23.3462C12.8937 23.0698 13.1163 22.3599 13.0675 21.4874C13.0186 20.6148 12.7145 20.0783 12.1987 19.9482C11.8784 19.8724 11.6395 19.8778 11.3788 19.9699Z\" fill=\"#FDCF8A\"></path>\n  <path d=\"M19.5725 26.6846C19.3064 26.7822 18.9426 27.1724 18.8449 27.4542C18.8069 27.5734 18.7634 27.9528 18.7472 28.305C18.72 28.809 18.7363 29.015 18.8069 29.2859C18.9806 29.9092 19.3824 30.2343 19.996 30.2397C20.7127 30.2397 21.1525 29.8279 21.2828 29.0421C21.4457 28.0178 21.2122 27.1398 20.6747 26.7876C20.4086 26.6087 19.9091 26.5654 19.5725 26.6846Z\" fill=\"#FDCF8A\"></path>\n  <path d=\"M19.0344 4.4323C19.0616 4.4594 19.3874 4.75747 19.762 5.09347C20.1366 5.42947 20.5384 5.79258 20.6579 5.90096C20.7773 6.00935 21.1194 6.31826 21.418 6.58923C21.9501 7.06614 23.6985 8.65403 24.1329 9.04423C24.2523 9.15262 24.7301 9.58075 25.1916 9.99804C26.6196 11.2824 26.7771 11.4559 27.0268 11.9761C27.1463 12.2308 27.2712 12.5669 27.3038 12.724C27.3472 12.9245 27.3635 16.057 27.3635 23.1998C27.3635 32.4074 27.3526 33.4262 27.2766 33.7785C27.0486 34.7865 26.3644 35.5777 25.3654 35.9733L25.0016 36.1197L18.3937 36.1359C14.5767 36.1413 11.7805 36.1684 11.7805 36.1955C11.7805 36.3906 12.3126 38.2495 12.4429 38.5205C12.8935 39.4363 13.8166 40.0054 14.8482 40C15.2771 39.9945 15.5269 39.9458 17.2101 39.5014C17.5521 39.4092 18.3829 39.187 19.0562 39.0136C19.7294 38.8402 20.9891 38.5096 21.8524 38.282C22.7211 38.0544 23.7311 37.7888 24.1057 37.6913C24.4803 37.5937 25.2242 37.3986 25.7617 37.2577C26.2993 37.1168 27.092 36.9055 27.5264 36.7971C27.9607 36.6833 29.1715 36.3635 30.214 36.0926C31.2619 35.8162 32.4456 35.5073 32.8474 35.4043C33.2818 35.2905 33.7324 35.1333 33.9605 35.0195C34.8509 34.5534 35.3993 33.6484 35.3993 32.635C35.3993 32.2339 35.2419 31.589 33.9605 26.7712C33.8302 26.278 33.613 25.4488 33.4772 24.9286C33.3415 24.4083 32.956 22.9559 32.6302 21.704C31.9515 19.1352 31.5714 17.6936 30.9742 15.4175C29.6168 10.2528 29.6439 10.3395 29.1933 9.85714C28.8892 9.52656 28.6503 9.37481 27.4992 8.77868C26.9617 8.50229 26.3536 8.18254 26.1418 8.07415C25.9355 7.96576 25.398 7.68395 24.9473 7.45092C24.5021 7.21788 23.8397 6.87646 23.4813 6.6922C19.029 4.37268 18.877 4.29681 19.0344 4.4323Z\" fill=\"#FDCF8A\"></path>\n  <defs>\n    <lineargradient id=\"paint0_linear_636_9890\" x1=\"22.5546\" y1=\"35.2099\" x2=\"9.26099\" y2=\"0.395204\" gradientunits=\"userSpaceOnUse\">\n      <stop stop-color=\"#FDCF8A\"></stop>\n      <stop offset=\"0.3\" stop-color=\"#FFDAAE\"></stop>\n      <stop offset=\"0.65\" stop-color=\"#FFDAAE\"></stop>\n      <stop offset=\"1\" stop-color=\"#FDCF8A\"></stop>\n    </lineargradient>\n  </defs>\n</svg>\n            </div>\n            <div class=\"Spend-More-Save-More-1-title-text\">Stock Up &amp; Save on Consumables\n                </div>\n            <div class=\"Spend-More-Save-More-1-title-right-icon\">\n                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewbox=\"0 0 40 40\" fill=\"none\">\n  <path d=\"M10.0541 0.107731C8.28404 0.741802 7.60534 3.69539 8.30576 7.69492C8.36548 8.03634 8.45236 8.46448 8.4958 8.64332L8.57181 8.96848L8.37091 9.15816C8.08314 9.42372 7.2144 10.215 6.35109 10.9953C5.58552 11.6836 5.27603 12.0684 5.11857 12.5345C5.02627 12.8 5.02084 13.4341 5.00455 23.1078C4.99369 34.3856 4.97197 33.7407 5.30318 34.3043C5.52579 34.6782 5.93844 35.0847 6.2968 35.2744C6.93749 35.6158 6.52484 35.6049 15.8258 35.6049C21.1631 35.6049 24.4317 35.5833 24.6706 35.5507C25.6425 35.4098 26.3973 34.7378 26.6796 33.7569C26.761 33.4859 26.7665 32.4617 26.7556 23.0861L26.7393 12.7079L26.5384 12.2906C26.343 11.8787 26.0606 11.5481 25.4634 11.0279C25.1973 10.7948 24.3231 10.009 23.8345 9.5592C23.3567 9.12565 23.058 8.84926 22.0156 7.9117C21.478 7.42937 20.8048 6.82239 20.5224 6.56226C20.2401 6.30213 19.7405 5.8469 19.4093 5.55425C18.5677 4.79553 18.4429 4.68172 17.8619 4.15062C17.1506 3.51113 16.7271 3.29977 16.0484 3.26183C15.7606 3.251 15.4566 3.26183 15.3263 3.29977L15.0982 3.35938L15.2665 3.7279C15.7878 4.87682 16.1787 5.9878 16.5371 7.34266C16.7651 8.22602 16.7868 8.26938 16.9823 8.42654C17.3135 8.69209 17.509 8.92513 17.6773 9.25571C17.813 9.52668 17.8293 9.62424 17.8347 10.0524C17.8347 10.4697 17.813 10.5835 17.6881 10.849C17.4873 11.2772 17.156 11.6186 16.7271 11.8299C16.4068 11.9871 16.3253 12.0034 15.8801 12.0034C15.4674 12.0034 15.3426 11.9817 15.0928 11.8625C14.7236 11.689 14.2838 11.2717 14.1263 10.9412C13.7734 10.215 13.9091 9.29365 14.4467 8.74629L14.6638 8.52409L14.501 7.87918C14.2729 6.97414 13.9308 5.93361 13.6431 5.2616C13.5073 4.94727 13.3879 4.6763 13.3825 4.66546C13.3716 4.65462 12.9372 5.03399 12.4214 5.50006C11.4278 6.4051 11.3735 6.45387 10.4776 7.26137C10.1627 7.54318 9.83148 7.84124 9.73918 7.92796L9.57086 8.0797L9.45684 7.4673C9.35368 6.91452 9.27223 6.21 9.20708 5.36457C9.19622 5.20199 9.20708 4.68714 9.23422 4.22649C9.3211 2.5844 9.73918 1.53304 10.4179 1.22955C10.6839 1.11032 10.912 1.132 11.2649 1.31084C12.7092 2.04788 14.0666 4.43785 14.957 7.81957C15.1145 8.42112 15.1688 8.55661 15.31 8.68126C15.5977 8.94681 16.0756 8.82758 16.233 8.45906C16.2927 8.30731 16.2873 8.22602 16.1787 7.81415C15.5652 5.48922 14.8267 3.67913 13.9471 2.35679C13.4693 1.63601 12.5083 0.644253 12.0413 0.389542C11.3301 -0.000659943 10.6351 -0.103626 10.0541 0.107731ZM12.4648 18.3224C13.8114 18.5067 14.6856 19.3629 14.9299 20.7395C14.9733 20.9671 14.9896 21.3898 14.9733 21.8396C14.9516 22.452 14.9245 22.6417 14.7996 23.0048C14.6204 23.5196 14.2566 24.0833 13.9091 24.3867C13.5345 24.7065 12.8938 25.0154 12.4268 25.0913C11.8404 25.1888 10.912 25.14 10.5048 24.9829C9.61973 24.6469 9.01704 24.0236 8.70212 23.1294C8.45236 22.4195 8.46865 21.1568 8.74013 20.3872C8.99532 19.6664 9.53828 19.0215 10.179 18.6855C10.9174 18.3007 11.569 18.1978 12.4648 18.3224ZM20.1315 18.6367C20.4844 18.886 20.6256 19.428 20.4355 19.7965C20.3812 19.894 19.6645 21.005 18.8392 22.2732C18.0139 23.5413 17.1669 24.8311 16.966 25.1455C16.7651 25.4598 16.4448 25.9475 16.2602 26.2293C15.5054 27.3837 14.767 28.5163 14.3598 29.145C12.6875 31.7084 12.72 31.6704 12.1879 31.6704C11.7264 31.6704 11.3463 31.3561 11.2595 30.9063C11.1889 30.5161 10.9663 30.89 14.881 24.8745C15.7281 23.5792 16.5914 22.2461 16.8085 21.9209C18.7904 18.8589 18.8827 18.7234 19.0999 18.5934C19.3713 18.4362 19.8763 18.4525 20.1315 18.6367ZM20.9459 25.0696C22.0427 25.2918 22.7866 25.9746 23.0961 27.0477C23.411 28.1153 23.2318 29.6165 22.7051 30.4348C22.0861 31.3886 21.1414 31.8655 19.8817 31.8655C19.0021 31.8655 18.204 31.5458 17.6556 30.9768C17.0855 30.386 16.8411 29.752 16.7923 28.7494C16.7543 27.9148 16.8574 27.3566 17.1669 26.7279C17.6067 25.8337 18.394 25.2376 19.4093 25.0371C19.7786 24.9666 20.5061 24.9775 20.9459 25.0696Z\" fill=\"url(#paint0_linear_636_9890)\"></path>\n  <path d=\"M11.3788 19.9699C11.0639 20.0837 10.901 20.2192 10.7382 20.5173C10.445 21.0484 10.3961 22.1323 10.6404 22.7718C10.7762 23.1294 11.0965 23.4438 11.3843 23.498C11.7535 23.5684 12.2422 23.498 12.4756 23.3462C12.8937 23.0698 13.1163 22.3599 13.0675 21.4874C13.0186 20.6148 12.7145 20.0783 12.1987 19.9482C11.8784 19.8724 11.6395 19.8778 11.3788 19.9699Z\" fill=\"#FDCF8A\"></path>\n  <path d=\"M19.5725 26.6846C19.3064 26.7822 18.9426 27.1724 18.8449 27.4542C18.8069 27.5734 18.7634 27.9528 18.7472 28.305C18.72 28.809 18.7363 29.015 18.8069 29.2859C18.9806 29.9092 19.3824 30.2343 19.996 30.2397C20.7127 30.2397 21.1525 29.8279 21.2828 29.0421C21.4457 28.0178 21.2122 27.1398 20.6747 26.7876C20.4086 26.6087 19.9091 26.5654 19.5725 26.6846Z\" fill=\"#FDCF8A\"></path>\n  <path d=\"M19.0344 4.4323C19.0616 4.4594 19.3874 4.75747 19.762 5.09347C20.1366 5.42947 20.5384 5.79258 20.6579 5.90096C20.7773 6.00935 21.1194 6.31826 21.418 6.58923C21.9501 7.06614 23.6985 8.65403 24.1329 9.04423C24.2523 9.15262 24.7301 9.58075 25.1916 9.99804C26.6196 11.2824 26.7771 11.4559 27.0268 11.9761C27.1463 12.2308 27.2712 12.5669 27.3038 12.724C27.3472 12.9245 27.3635 16.057 27.3635 23.1998C27.3635 32.4074 27.3526 33.4262 27.2766 33.7785C27.0486 34.7865 26.3644 35.5777 25.3654 35.9733L25.0016 36.1197L18.3937 36.1359C14.5767 36.1413 11.7805 36.1684 11.7805 36.1955C11.7805 36.3906 12.3126 38.2495 12.4429 38.5205C12.8935 39.4363 13.8166 40.0054 14.8482 40C15.2771 39.9945 15.5269 39.9458 17.2101 39.5014C17.5521 39.4092 18.3829 39.187 19.0562 39.0136C19.7294 38.8402 20.9891 38.5096 21.8524 38.282C22.7211 38.0544 23.7311 37.7888 24.1057 37.6913C24.4803 37.5937 25.2242 37.3986 25.7617 37.2577C26.2993 37.1168 27.092 36.9055 27.5264 36.7971C27.9607 36.6833 29.1715 36.3635 30.214 36.0926C31.2619 35.8162 32.4456 35.5073 32.8474 35.4043C33.2818 35.2905 33.7324 35.1333 33.9605 35.0195C34.8509 34.5534 35.3993 33.6484 35.3993 32.635C35.3993 32.2339 35.2419 31.589 33.9605 26.7712C33.8302 26.278 33.613 25.4488 33.4772 24.9286C33.3415 24.4083 32.956 22.9559 32.6302 21.704C31.9515 19.1352 31.5714 17.6936 30.9742 15.4175C29.6168 10.2528 29.6439 10.3395 29.1933 9.85714C28.8892 9.52656 28.6503 9.37481 27.4992 8.77868C26.9617 8.50229 26.3536 8.18254 26.1418 8.07415C25.9355 7.96576 25.398 7.68395 24.9473 7.45092C24.5021 7.21788 23.8397 6.87646 23.4813 6.6922C19.029 4.37268 18.877 4.29681 19.0344 4.4323Z\" fill=\"#FDCF8A\"></path>\n  <defs>\n    <lineargradient id=\"paint0_linear_636_9890\" x1=\"22.5546\" y1=\"35.2099\" x2=\"9.26099\" y2=\"0.395204\" gradientunits=\"userSpaceOnUse\">\n      <stop stop-color=\"#FDCF8A\"></stop>\n      <stop offset=\"0.3\" stop-color=\"#FFDAAE\"></stop>\n      <stop offset=\"0.65\" stop-color=\"#FFDAAE\"></stop>\n      <stop offset=\"1\" stop-color=\"#FDCF8A\"></stop>\n    </lineargradient>\n  </defs>\n</svg>\n            </div>\n        </div>\n<!-- 第一张banner -->\n<style>\n    .christmas-frist-banner {\n        padding-top: 100px;\n    }\n\n    .christmas-frist-banner-wrapper {\n        max-width: 1400px;\n        margin: 0 auto;\n        position: relative;\n        border-radius: 16px;\n        overflow: hidden;\n        border: 1px solid #FFF;\n        box-shadow: 0 4px 4px 0 rgba(255, 235, 217, 0.25);\n    }   \n\n    .christmas-frist-banner-backgroud-img {\n        width: 100%;\n\n    }\n\n    .christmas-frist-banner-backgroud-img .pc {\n        display: flex;\n        width: 100%;\n        max-width: 100%;\n\n    }\n\n    .christmas-frist-banner-backgroud-img .mb {\n        display: none;\n        width: 100%;\n        max-width: 100%;\n    }\n\n    .christmas-frist-banner-content {\n        position: absolute;\n        top: 50%;\n        left: 50px;\n        transform: translate(0, -50%);\n        width: 100%;\n        max-width: 596px;\n\n    }\n\n    .christmas-frist-banner-content-tips {\n        color: #CC2A1F;\n        font-size: 20px;\n        font-weight: 400;\n        line-height: 1.38;\n        font-weight: 700;\n        margin-bottom: 8px;\n        padding: 4px 8px;\n        border-radius: 4px;\n        margin-bottom: 12px;\n        background: linear-gradient(99deg, #FFD7B4 37.18%, #EEAA67 84.13%);\n        text-align: left;\n        width: fit-content;\n    }\n\n    .christmas-frist-banner-content-title {\n        color: #FCF3C4;\n        font-size: 40px;\n        font-weight: 700;\n        line-height: 1.22;\n        margin-bottom: 12px;\n        text-align: left;\n        background: linear-gradient(267deg, #EEAA67 1.27%, #FFD7B4 72.68%, #EEAA67 99.03%);\n        background-clip: text;\n        -webkit-background-clip: text;\n        -webkit-text-fill-color: transparent;\n    }\n\n    .christmas-frist-banner-content-desc {\n        color: #FFD7B4;\n        font-size: 20px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: 440px;\n        text-align: left;\n\n    }\n    .christmas-frist-banner-content-note{\n        position: absolute;\n        bottom: 16px;\n        left: 50%;\n        color: rgba(0, 0, 0, 0.5);\n        font-size: 12px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: 440px;\n        text-align: left;\n        left: 50px;\ntransform: translate(0, -50%);\n    }\n\n    .christmas-frist-banner-content-button {}\n    @media screen and (max-width: 768px){\n        .christmas-frist-banner {\n        padding-top: 50px;\n        padding-left: 0;\n        padding-right: 0;\n    }\n\n    .christmas-frist-banner-wrapper {\n        max-width: 100%;\n        border-radius: 10px;\n        \n\n\n    }\n\n\n\n    .christmas-frist-banner-backgroud-img .pc {\n        display: none;\n        \n\n    }\n\n    .christmas-frist-banner-backgroud-img .mb {\n        display: flex;\n        \n\n    }\n\n    .christmas-frist-banner-content {\n        position: absolute;\n        top: 50px;\n        left: 0;\n        transform: translate(0, 0);\n        width: 100%;\n        max-width: 580px;\n        padding: 0 18px;\n\n    }\n\n    .christmas-frist-banner-content-tips {\n        font-size: 12px;\n        line-height: 1.4;\n        margin-bottom: 4px;\n        text-align: center;\n\n\n    }\n\n    .christmas-frist-banner-content-title {\n        font-size: 24px;\n        line-height: 1.33;\n        margin-bottom: 8px;\n        text-align: center;\n\n    }\n\n    .christmas-frist-banner-content-desc {\n        font-size: 12px;\n        line-height: 1.4;\n        max-width: 240px;\n        text-align: center;\n        margin: 0 auto;\n\n    }\n    .christmas-frist-banner-content-note {\n        position: absolute;\n        bottom: 8px;\n        color: rgba(0, 0, 0, 0.5);\n        font-size: 10px;\n        font-weight: 400;\n        line-height: 1.33;\n        max-width: max-content;\n        text-align: left;\n        left: 50%;\n        transform: translate(-50%, -50%);\n        width: 100%;\n    }     \n    }\n    .discount-image.pc {\ndisplay: block;\npadding: 80px 0;\n}   \n.discount-image.mb {\ndisplay: none;\n} \n@media screen and (max-width: 768px) {\n.discount-image.pc {\ndisplay: none;\n\n}\n.discount-image.mb{\ndisplay: block;\npadding: 24px 0;\n}\n.button-wrapper {\ndisplay: flex;\njustify-content: center;\n}\n}\n</style>\n<section class=\"christmas-frist-banner\">\n    <div class=\"christmas-frist-banner-wrapper\">\n        <div class=\"christmas-frist-banner-backgroud-img\">\n            <img class=\"pc\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354721.jpg?v=1766992135\" alt=\"\">\n            <img class=\"mb\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_1202354718_1.jpg?v=1767247595\" alt=\"\">\n        </div>\n        <div class=\"christmas-frist-banner-content\">\n            <div class=\"christmas-frist-banner-content-title\">Premium Consumables\nBuy More, Save More!</div>\n            <div class=\"christmas-frist-banner-content-desc\">Add more to your cart and unlock up to 15% off your order</div>\n<div class=\"button-wrapper\">\n<a href=\"https://www.procolored.com/collections/consumables\" class=\"consumbles-button\">\n            Learn More\n\n        </a>\n</div>\n            \n</div>\n    </div>\n</section>\n<img src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Frame_2056264059_1.png?v=1766902518\" class=\"discount-image pc\">\n<img class=\"discount-image mb\" src=\"https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Frame_2056264059_2.png?v=1766993859%20mb\">",
+        "subtitle": "",
+        "desc": "",
+        "show_swiper": true,
+        "show_snow_bg": true,
+        "show_klarna": false,
+        "learn_more_button_text": "View More",
+        "buy_now_button_text": "Buy Now",
+        "show_flash_sale_countdown": true,
+        "flash_sale_countdown": "2025-11-24T15:00:00+08:00",
+        "flash_sale_countdown_end": "2025-12-01T15:00:00+08:00",
+        "product_num": "4",
+        "product_num_mobile": "2",
+        "product_title_color": "#1a1c1d",
+        "bg_color": "rgba(0,0,0,0)",
+        "card_bg_color": "#ffffff",
+        "card_background_gradient_color": "",
+        "card_gap": 20,
+        "card_gap_mobile": 10,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "padding_top_mobile": 32,
         "padding_bottom_mobile": 0
       }
     },
@@ -776,13 +1547,23 @@
   "order": [
     "main",
     "page_banner_UmynNh",
+    "new_year_custom_nav_33k83P",
     "custom_nav_nQ3yzf",
     "custom_liquid_LyJt7G",
     "new_year_products_2026_Br3693",
+    "new_year_products_2026_TywP7d",
     "new_year_products_2026_tLRT6N",
+    "custom_liquid_n9MCBc",
     "new_year_products_select_2026_8KEgAX",
     "new_year_products_select_2026_XHYrK7",
+    "new_year_products_select_2026_zwt9qc",
+    "custom_liquid_6LMhqj",
     "new_year_products_select_2026_4G7eN4",
+    "new_year_products_select_2026_iAFwmU",
+    "custom_liquid_G6ppdH",
+    "new_year_products_select_2026_qAaxWc",
+    "new_year_products_select_2026_dnXkJa",
+    "newyear_product_tab_2026_MBnyRa",
     "christmas_products_select_2025_12_LfWbaq",
     "custom_product_faqs_8UpJWz"
   ]
