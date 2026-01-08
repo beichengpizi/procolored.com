@@ -627,6 +627,7 @@
                         </svg>
                       </i>
                     </div>
+
                     <video
                       class="lazy"
                       preload="none"
@@ -646,8 +647,12 @@
                       data-poster-pc="{{ video_poster_pc | image_url: width: 700 }}"
                       data-poster-mb="{{ video_poster_mb | image_url: width: 700 }}"
                     >
-                      <source data-src="{{ video_pc.sources[0].url }}" type="video/mp4" media="(min-width: 768px)">
-                      <source data-src="{{ video_mb.sources[0].url }}" type="video/mp4" media="(max-width: 769px)">
+                      {% for source in video_pc.sources %}
+                        <source data-src="{{ source.url }}" type="{{source.mime_type }}" media="(min-width: 768px)">
+                      {% endfor %}
+                      {% for source in video_mb.sources %}
+                        <source data-src="{{ source.url }}" type="{{source.mime_type }}" media="(max-width: 769px)">
+                      {% endfor %}
                       Your browser does not support the video tag.
                     </video>
 

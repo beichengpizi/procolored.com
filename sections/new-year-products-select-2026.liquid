@@ -31,6 +31,7 @@
     gap: 24px;
     width: 100%;
     max-width: 720px;
+    align-items: center;
   }
 
     .christmas-product-tab-{{ section.id }} .christmas-product-tab-container {
@@ -1279,6 +1280,14 @@
     width: 16px;
     height: 16px;
   }
+  
+  .christmas-product-tab-{{ section.id }} .scene-image-placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;   /* 用你场景图的真实比例 */
+    position: relative;
+    overflow: hidden;
+  }
+
   @media screen and (max-width: 768px) {
     .christmas-product-tab-{{ section.id }} .christmas-dropdown-mock-options {
       position: absolute;
@@ -1294,6 +1303,11 @@
       margin-top: 10px;
       margin-bottom: 0;
     }
+    
+    .christmas-product-tab-{{ section.id }} .scene-image-placeholder {
+      height: 200px;
+    }
+
     .christmas-product-tab-{{ section.id }} .christmas-dropdown-mock-option {
       padding: 10px;
       font-size: 10px;
@@ -1537,7 +1551,7 @@
         {%- for block in section.blocks -%}
           <div
             class="christmas-product-tab {% if forloop.first %} active{% endif %}"
-            data-tab="{{ forloop.index0  }}"
+            data-tab="{{ forloop.index0  }}" data-idx="{{ forloop.index0 }}"
           >
             {%- liquid
               assign current_product = block.settings.product
@@ -1557,154 +1571,156 @@
             -%}
             <div class="christmas-product-tab-card">
                 {%- if scene_image_pc_1 and scene_image_pc_2 -%}
-                  <div class="swiper-container christmas-product-tab-card-mySwiper-{{section.id}}">
-                    <div class="swiper-wrapper">
-                      {% if scene_image_pc_1 and scene_image_mb_1 %}
-                        <div class="swiper-slide">
-                          {% if scene_image_pc_1 %}
-                            <img
-                              style="aspect-ratio: {{ scene_image_pc_1.aspect_ratio }}"
-                              class="pc lazyload"
-                              data-sizes="{{100 | minus: section.settings.content_space_percent}}vw"
-                              data-srcset="
-                                {%- if scene_image_pc_1.width >= 200 -%}{{ scene_image_pc_1 | image_url: width: 200 }} 200w,{%- endif -%}
-                                {%- if scene_image_pc_1.width >= 375 -%}{{ scene_image_pc_1 | image_url: width: 375 }} 375w,{%- endif -%}
-                                {%- if scene_image_pc_1.width >= 550 -%}{{ scene_image_pc_1 | image_url: width: 550 }} 550w,{%- endif -%}
-                                {%- if scene_image_pc_1.width >= 750 -%}{{ scene_image_pc_1 | image_url: width: 750 }} 750w,{%- endif -%}
-                                {%- if scene_image_pc_1.width >= 1100 -%}{{ scene_image_pc_1 | image_url: width: 1100 }} 1100w,{%- endif -%}
-                                {%- if scene_image_pc_1.width >= 1500 -%}{{ scene_image_pc_1 | image_url: width: 1500 }} 1500w,{%- endif -%}
-                                {%- if scene_image_pc_1.width >= 1780 -%}{{ scene_image_pc_1 | image_url: width: 1780 }} 1780w,{%- endif -%}
-                                {%- if scene_image_pc_1.width >= 2000 -%}{{ scene_image_pc_1 | image_url: width: 2000 }} 2000w,{%- endif -%}
-                                {%- if scene_image_pc_1.width >= 3000 -%}{{ scene_image_pc_1 | image_url: width: 3000 }} 3000w,{%- endif -%}
-                                {%- if scene_image_pc_1.width >= 3840 -%}{{ scene_image_pc_1 | image_url: width: 3840 }} 3840w,{%- endif -%}
-                                {{ scene_image_pc_1 | image_url }} {{ scene_image_pc_1.width }}w
-                              "
-                              data-src="{{ scene_image_pc_1 | image_url:width:750 }}"
-                              alt="{{ scene_image_pc_1.alt }}"
-                            >
-                          {% endif %}
-                          {% if scene_image_mb_1 %}
-                            <img
-                              style="aspect-ratio: {{ scene_image_mb_1.aspect_ratio }}"
-                              class="mb lazyload"
-                              data-sizes="100vw"
-                              data-srcset="
-                                {%- if scene_image_mb_1.width >= 200 -%}{{ scene_image_mb_1 | image_url: width: 200 }} 200w,{%- endif -%}
-                                {%- if scene_image_mb_1.width >= 375 -%}{{ scene_image_mb_1 | image_url: width: 375 }} 375w,{%- endif -%}
-                                {%- if scene_image_mb_1.width >= 550 -%}{{ scene_image_mb_1 | image_url: width: 550 }} 550w,{%- endif -%}
-                                {%- if scene_image_mb_1.width >= 750 -%}{{ scene_image_mb_1 | image_url: width: 750 }} 750w,{%- endif -%}
-                                {%- if scene_image_mb_1.width >= 1100 -%}{{ scene_image_mb_1 | image_url: width: 1100 }} 1100w,{%- endif -%}
-                                {%- if scene_image_mb_1.width >= 1500 -%}{{ scene_image_mb_1 | image_url: width: 1500 }} 1500w,{%- endif -%}
-                                {%- if scene_image_mb_1.width >= 1780 -%}{{ scene_image_mb_1 | image_url: width: 1780 }} 1780w,{%- endif -%}
-                                {%- if scene_image_mb_1.width >= 2000 -%}{{ scene_image_mb_1 | image_url: width: 2000 }} 2000w,{%- endif -%}
-                                {%- if scene_image_mb_1.width >= 3000 -%}{{ scene_image_mb_1 | image_url: width: 3000 }} 3000w,{%- endif -%}
-                                {%- if scene_image_mb_1.width >= 3840 -%}{{ scene_image_mb_1 | image_url: width: 3840 }} 3840w,{%- endif -%}
-                                {{ scene_image_mb_1 | image_url }} {{ scene_image_mb_1.width }}w
-                              "
-                              data-src="{{ scene_image_mb_1 | image_url:width:750 }}"
-                              alt="{{ scene_image_mb_1.alt }}"
-                            >
-                          {% endif %}
-                        </div>
-                      {% endif %}
-                      {% if scene_image_pc_2 and scene_image_mb_2 %}
-                        <div class="swiper-slide">
-                          {% if scene_image_pc_2 %}
-                            <img
-                              style="aspect-ratio: {{ scene_image_pc_2.aspect_ratio }}"
-                              class="pc lazyload"
-                              data-sizes="{{100 | minus: section.settings.content_space_percent}}vw"
-                              data-srcset="
-                                {%- if scene_image_pc_2.width >= 200 -%}{{ scene_image_pc_2 | image_url: width: 200 }} 200w,{%- endif -%}
-                                {%- if scene_image_pc_2.width >= 375 -%}{{ scene_image_pc_2 | image_url: width: 375 }} 375w,{%- endif -%}
-                                {%- if scene_image_pc_2.width >= 550 -%}{{ scene_image_pc_2 | image_url: width: 550 }} 550w,{%- endif -%}
-                                {%- if scene_image_pc_2.width >= 750 -%}{{ scene_image_pc_2 | image_url: width: 750 }} 750w,{%- endif -%}
-                                {%- if scene_image_pc_2.width >= 1100 -%}{{ scene_image_pc_2 | image_url: width: 1100 }} 1100w,{%- endif -%}
-                                {%- if scene_image_pc_2.width >= 1500 -%}{{ scene_image_pc_2 | image_url: width: 1500 }} 1500w,{%- endif -%}
-                                {%- if scene_image_pc_2.width >= 1780 -%}{{ scene_image_pc_2 | image_url: width: 1780 }} 1780w,{%- endif -%}
-                                {%- if scene_image_pc_2.width >= 2000 -%}{{ scene_image_pc_2 | image_url: width: 2000 }} 2000w,{%- endif -%}
-                                {%- if scene_image_pc_2.width >= 3000 -%}{{ scene_image_pc_2 | image_url: width: 3000 }} 3000w,{%- endif -%}
-                                {%- if scene_image_pc_2.width >= 3840 -%}{{ scene_image_pc_2 | image_url: width: 3840 }} 3840w,{%- endif -%}
-                                {{ scene_image_pc_2 | image_url }} {{ scene_image_pc_2.width }}w
-                              "
-                              data-src="{{ scene_image_pc_2 | image_url:width:750 }}"
-                              alt="{{ scene_image_pc_2.alt }}"
-                            >
-                          {% endif %}
-                          {% if scene_image_mb_2 %}
-                            <img
-                              style="aspect-ratio: {{ scene_image_mb_2.aspect_ratio }}"
-                              class="mb lazyload"
-                              data-sizes="100vw"
-                              data-srcset="
-                                {%- if scene_image_mb_2.width >= 200 -%}{{ scene_image_mb_2 | image_url: width: 200 }} 200w,{%- endif -%}
-                                {%- if scene_image_mb_2.width >= 375 -%}{{ scene_image_mb_2 | image_url: width: 375 }} 375w,{%- endif -%}
-                                {%- if scene_image_mb_2.width >= 550 -%}{{ scene_image_mb_2 | image_url: width: 550 }} 550w,{%- endif -%}
-                                {%- if scene_image_mb_2.width >= 750 -%}{{ scene_image_mb_2 | image_url: width: 750 }} 750w,{%- endif -%}
-                                {%- if scene_image_mb_2.width >= 1100 -%}{{ scene_image_mb_2 | image_url: width: 1100 }} 1100w,{%- endif -%}
-                                {%- if scene_image_mb_2.width >= 1500 -%}{{ scene_image_mb_2 | image_url: width: 1500 }} 1500w,{%- endif -%}
-                                {%- if scene_image_mb_2.width >= 1780 -%}{{ scene_image_mb_2 | image_url: width: 1780 }} 1780w,{%- endif -%}
-                                {%- if scene_image_mb_2.width >= 2000 -%}{{ scene_image_mb_2 | image_url: width: 2000 }} 2000w,{%- endif -%}
-                                {%- if scene_image_mb_2.width >= 3000 -%}{{ scene_image_mb_2 | image_url: width: 3000 }} 3000w,{%- endif -%}
-                                {%- if scene_image_mb_2.width >= 3840 -%}{{ scene_image_mb_2 | image_url: width: 3840 }} 3840w,{%- endif -%}
-                                {{ scene_image_mb_2 | image_url }} {{ scene_image_mb_2.width }}w
-                              "
-                              data-src="{{ scene_image_mb_2 | image_url:width:750 }}"
-                              alt="{{ scene_image_mb_2.alt }}"
-                            >
-                          {% endif %}
-                        </div>
-                      {% endif %}
-                      {% if scene_image_pc_3 and scene_image_mb_3 %}
-                        <div class="swiper-slide">
-                          {% if scene_image_pc_3 %}
-                            <img
-                              style="aspect-ratio: {{ scene_image_pc_3.aspect_ratio }}"
-                              class="pc lazyload"
-                              data-sizes="{{100 | minus: section.settings.content_space_percent}}vw"
-                              data-srcset="
-                                {%- if scene_image_pc_3.width >= 200 -%}{{ scene_image_pc_3 | image_url: width: 200 }} 200w,{%- endif -%}
-                                {%- if scene_image_pc_3.width >= 375 -%}{{ scene_image_pc_3 | image_url: width: 375 }} 375w,{%- endif -%}
-                                {%- if scene_image_pc_3.width >= 550 -%}{{ scene_image_pc_3 | image_url: width: 550 }} 550w,{%- endif -%}
-                                {%- if scene_image_pc_3.width >= 750 -%}{{ scene_image_pc_3 | image_url: width: 750 }} 750w,{%- endif -%}
-                                {%- if scene_image_pc_3.width >= 1100 -%}{{ scene_image_pc_3 | image_url: width: 1100 }} 1100w,{%- endif -%}
-                                {%- if scene_image_pc_3.width >= 1500 -%}{{ scene_image_pc_3 | image_url: width: 1500 }} 1500w,{%- endif -%}
-                                {%- if scene_image_pc_3.width >= 1780 -%}{{ scene_image_pc_3 | image_url: width: 1780 }} 1780w,{%- endif -%}
-                                {%- if scene_image_pc_3.width >= 2000 -%}{{ scene_image_pc_3 | image_url: width: 2000 }} 2000w,{%- endif -%}
-                                {%- if scene_image_pc_3.width >= 3000 -%}{{ scene_image_pc_3 | image_url: width: 3000 }} 3000w,{%- endif -%}
-                                {%- if scene_image_pc_3.width >= 3840 -%}{{ scene_image_pc_3 | image_url: width: 3840 }} 3840w,{%- endif -%}
-                                {{ scene_image_pc_3 | image_url }} {{ scene_image_pc_3.width }}w
-                              "
-                              data-src="{{ scene_image_pc_3 | image_url:width:750 }}"
-                              alt="{{ scene_image_pc_3.alt }}"
-                            >
-                          {% endif %}
-                          {% if scene_image_mb_3 %}
-                            <img
-                              style="aspect-ratio: {{ scene_image_mb_3.aspect_ratio }}"
-                              class="mb lazyload"
-                              data-sizes="100vw"
-                              data-srcset="
-                                {%- if scene_image_mb_3.width >= 200 -%}{{ scene_image_mb_3 | image_url: width: 200 }} 200w,{%- endif -%}
-                                {%- if scene_image_mb_3.width >= 375 -%}{{ scene_image_mb_3 | image_url: width: 375 }} 375w,{%- endif -%}
-                                {%- if scene_image_mb_3.width >= 550 -%}{{ scene_image_mb_3 | image_url: width: 550 }} 550w,{%- endif -%}
-                                {%- if scene_image_mb_3.width >= 750 -%}{{ scene_image_mb_3 | image_url: width: 750 }} 750w,{%- endif -%}
-                                {%- if scene_image_mb_3.width >= 1100 -%}{{ scene_image_mb_3 | image_url: width: 1100 }} 1100w,{%- endif -%}
-                                {%- if scene_image_mb_3.width >= 1500 -%}{{ scene_image_mb_3 | image_url: width: 1500 }} 1500w,{%- endif -%}
-                                {%- if scene_image_mb_3.width >= 1780 -%}{{ scene_image_mb_3 | image_url: width: 1780 }} 1780w,{%- endif -%}
-                                {%- if scene_image_mb_3.width >= 2000 -%}{{ scene_image_mb_3 | image_url: width: 2000 }} 2000w,{%- endif -%}
-                                {%- if scene_image_mb_3.width >= 3000 -%}{{ scene_image_mb_3 | image_url: width: 3000 }} 3000w,{%- endif -%}
-                                {%- if scene_image_mb_3.width >= 3840 -%}{{ scene_image_mb_3 | image_url: width: 3840 }} 3840w,{%- endif -%}
-                                {{ scene_image_mb_3 | image_url }} {{ scene_image_mb_3.width }}w
-                              "
-                              data-src="{{ scene_image_mb_3 | image_url:width:750 }}"
-                              alt="{{ scene_image_mb_3.alt }}"
-                            >
-                          {% endif %}
-                        </div>
-                      {% endif %}
+                  <div class="scene-image-placeholder">
+                    <div class="swiper-container christmas-product-tab-card-mySwiper-{{section.id}}">
+                      <div class="swiper-wrapper">
+                        {% if scene_image_pc_1 and scene_image_mb_1 %}
+                          <div class="swiper-slide">
+                            {% if scene_image_pc_1 %}
+                              <img
+                                style="aspect-ratio: {{ scene_image_pc_1.aspect_ratio }}"
+                                class="pc lazyload"
+                                data-sizes="{{100 | minus: section.settings.content_space_percent}}vw"
+                                data-srcset="
+                                  {%- if scene_image_pc_1.width >= 200 -%}{{ scene_image_pc_1 | image_url: width: 200 }} 200w,{%- endif -%}
+                                  {%- if scene_image_pc_1.width >= 375 -%}{{ scene_image_pc_1 | image_url: width: 375 }} 375w,{%- endif -%}
+                                  {%- if scene_image_pc_1.width >= 550 -%}{{ scene_image_pc_1 | image_url: width: 550 }} 550w,{%- endif -%}
+                                  {%- if scene_image_pc_1.width >= 750 -%}{{ scene_image_pc_1 | image_url: width: 750 }} 750w,{%- endif -%}
+                                  {%- if scene_image_pc_1.width >= 1100 -%}{{ scene_image_pc_1 | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                  {%- if scene_image_pc_1.width >= 1500 -%}{{ scene_image_pc_1 | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                  {%- if scene_image_pc_1.width >= 1780 -%}{{ scene_image_pc_1 | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                  {%- if scene_image_pc_1.width >= 2000 -%}{{ scene_image_pc_1 | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                  {%- if scene_image_pc_1.width >= 3000 -%}{{ scene_image_pc_1 | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                  {%- if scene_image_pc_1.width >= 3840 -%}{{ scene_image_pc_1 | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                  {{ scene_image_pc_1 | image_url }} {{ scene_image_pc_1.width }}w
+                                "
+                                data-src="{{ scene_image_pc_1 | image_url:width:750 }}"
+                                alt="{{ scene_image_pc_1.alt }}"
+                              >
+                            {% endif %}
+                            {% if scene_image_mb_1 %}
+                              <img
+                                style="aspect-ratio: {{ scene_image_mb_1.aspect_ratio }}"
+                                class="mb lazyload"
+                                data-sizes="100vw"
+                                data-srcset="
+                                  {%- if scene_image_mb_1.width >= 200 -%}{{ scene_image_mb_1 | image_url: width: 200 }} 200w,{%- endif -%}
+                                  {%- if scene_image_mb_1.width >= 375 -%}{{ scene_image_mb_1 | image_url: width: 375 }} 375w,{%- endif -%}
+                                  {%- if scene_image_mb_1.width >= 550 -%}{{ scene_image_mb_1 | image_url: width: 550 }} 550w,{%- endif -%}
+                                  {%- if scene_image_mb_1.width >= 750 -%}{{ scene_image_mb_1 | image_url: width: 750 }} 750w,{%- endif -%}
+                                  {%- if scene_image_mb_1.width >= 1100 -%}{{ scene_image_mb_1 | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                  {%- if scene_image_mb_1.width >= 1500 -%}{{ scene_image_mb_1 | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                  {%- if scene_image_mb_1.width >= 1780 -%}{{ scene_image_mb_1 | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                  {%- if scene_image_mb_1.width >= 2000 -%}{{ scene_image_mb_1 | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                  {%- if scene_image_mb_1.width >= 3000 -%}{{ scene_image_mb_1 | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                  {%- if scene_image_mb_1.width >= 3840 -%}{{ scene_image_mb_1 | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                  {{ scene_image_mb_1 | image_url }} {{ scene_image_mb_1.width }}w
+                                "
+                                data-src="{{ scene_image_mb_1 | image_url:width:750 }}"
+                                alt="{{ scene_image_mb_1.alt }}"
+                              >
+                            {% endif %}
+                          </div>
+                        {% endif %}
+                        {% if scene_image_pc_2 and scene_image_mb_2 %}
+                          <div class="swiper-slide">
+                            {% if scene_image_pc_2 %}
+                              <img
+                                style="aspect-ratio: {{ scene_image_pc_2.aspect_ratio }}"
+                                class="pc lazyload"
+                                data-sizes="{{100 | minus: section.settings.content_space_percent}}vw"
+                                data-srcset="
+                                  {%- if scene_image_pc_2.width >= 200 -%}{{ scene_image_pc_2 | image_url: width: 200 }} 200w,{%- endif -%}
+                                  {%- if scene_image_pc_2.width >= 375 -%}{{ scene_image_pc_2 | image_url: width: 375 }} 375w,{%- endif -%}
+                                  {%- if scene_image_pc_2.width >= 550 -%}{{ scene_image_pc_2 | image_url: width: 550 }} 550w,{%- endif -%}
+                                  {%- if scene_image_pc_2.width >= 750 -%}{{ scene_image_pc_2 | image_url: width: 750 }} 750w,{%- endif -%}
+                                  {%- if scene_image_pc_2.width >= 1100 -%}{{ scene_image_pc_2 | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                  {%- if scene_image_pc_2.width >= 1500 -%}{{ scene_image_pc_2 | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                  {%- if scene_image_pc_2.width >= 1780 -%}{{ scene_image_pc_2 | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                  {%- if scene_image_pc_2.width >= 2000 -%}{{ scene_image_pc_2 | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                  {%- if scene_image_pc_2.width >= 3000 -%}{{ scene_image_pc_2 | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                  {%- if scene_image_pc_2.width >= 3840 -%}{{ scene_image_pc_2 | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                  {{ scene_image_pc_2 | image_url }} {{ scene_image_pc_2.width }}w
+                                "
+                                data-src="{{ scene_image_pc_2 | image_url:width:750 }}"
+                                alt="{{ scene_image_pc_2.alt }}"
+                              >
+                            {% endif %}
+                            {% if scene_image_mb_2 %}
+                              <img
+                                style="aspect-ratio: {{ scene_image_mb_2.aspect_ratio }}"
+                                class="mb lazyload"
+                                data-sizes="100vw"
+                                data-srcset="
+                                  {%- if scene_image_mb_2.width >= 200 -%}{{ scene_image_mb_2 | image_url: width: 200 }} 200w,{%- endif -%}
+                                  {%- if scene_image_mb_2.width >= 375 -%}{{ scene_image_mb_2 | image_url: width: 375 }} 375w,{%- endif -%}
+                                  {%- if scene_image_mb_2.width >= 550 -%}{{ scene_image_mb_2 | image_url: width: 550 }} 550w,{%- endif -%}
+                                  {%- if scene_image_mb_2.width >= 750 -%}{{ scene_image_mb_2 | image_url: width: 750 }} 750w,{%- endif -%}
+                                  {%- if scene_image_mb_2.width >= 1100 -%}{{ scene_image_mb_2 | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                  {%- if scene_image_mb_2.width >= 1500 -%}{{ scene_image_mb_2 | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                  {%- if scene_image_mb_2.width >= 1780 -%}{{ scene_image_mb_2 | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                  {%- if scene_image_mb_2.width >= 2000 -%}{{ scene_image_mb_2 | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                  {%- if scene_image_mb_2.width >= 3000 -%}{{ scene_image_mb_2 | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                  {%- if scene_image_mb_2.width >= 3840 -%}{{ scene_image_mb_2 | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                  {{ scene_image_mb_2 | image_url }} {{ scene_image_mb_2.width }}w
+                                "
+                                data-src="{{ scene_image_mb_2 | image_url:width:750 }}"
+                                alt="{{ scene_image_mb_2.alt }}"
+                              >
+                            {% endif %}
+                          </div>
+                        {% endif %}
+                        {% if scene_image_pc_3 and scene_image_mb_3 %}
+                          <div class="swiper-slide">
+                            {% if scene_image_pc_3 %}
+                              <img
+                                style="aspect-ratio: {{ scene_image_pc_3.aspect_ratio }}"
+                                class="pc lazyload"
+                                data-sizes="{{100 | minus: section.settings.content_space_percent}}vw"
+                                data-srcset="
+                                  {%- if scene_image_pc_3.width >= 200 -%}{{ scene_image_pc_3 | image_url: width: 200 }} 200w,{%- endif -%}
+                                  {%- if scene_image_pc_3.width >= 375 -%}{{ scene_image_pc_3 | image_url: width: 375 }} 375w,{%- endif -%}
+                                  {%- if scene_image_pc_3.width >= 550 -%}{{ scene_image_pc_3 | image_url: width: 550 }} 550w,{%- endif -%}
+                                  {%- if scene_image_pc_3.width >= 750 -%}{{ scene_image_pc_3 | image_url: width: 750 }} 750w,{%- endif -%}
+                                  {%- if scene_image_pc_3.width >= 1100 -%}{{ scene_image_pc_3 | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                  {%- if scene_image_pc_3.width >= 1500 -%}{{ scene_image_pc_3 | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                  {%- if scene_image_pc_3.width >= 1780 -%}{{ scene_image_pc_3 | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                  {%- if scene_image_pc_3.width >= 2000 -%}{{ scene_image_pc_3 | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                  {%- if scene_image_pc_3.width >= 3000 -%}{{ scene_image_pc_3 | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                  {%- if scene_image_pc_3.width >= 3840 -%}{{ scene_image_pc_3 | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                  {{ scene_image_pc_3 | image_url }} {{ scene_image_pc_3.width }}w
+                                "
+                                data-src="{{ scene_image_pc_3 | image_url:width:750 }}"
+                                alt="{{ scene_image_pc_3.alt }}"
+                              >
+                            {% endif %}
+                            {% if scene_image_mb_3 %}
+                              <img
+                                style="aspect-ratio: {{ scene_image_mb_3.aspect_ratio }}"
+                                class="mb lazyload"
+                                data-sizes="100vw"
+                                data-srcset="
+                                  {%- if scene_image_mb_3.width >= 200 -%}{{ scene_image_mb_3 | image_url: width: 200 }} 200w,{%- endif -%}
+                                  {%- if scene_image_mb_3.width >= 375 -%}{{ scene_image_mb_3 | image_url: width: 375 }} 375w,{%- endif -%}
+                                  {%- if scene_image_mb_3.width >= 550 -%}{{ scene_image_mb_3 | image_url: width: 550 }} 550w,{%- endif -%}
+                                  {%- if scene_image_mb_3.width >= 750 -%}{{ scene_image_mb_3 | image_url: width: 750 }} 750w,{%- endif -%}
+                                  {%- if scene_image_mb_3.width >= 1100 -%}{{ scene_image_mb_3 | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                  {%- if scene_image_mb_3.width >= 1500 -%}{{ scene_image_mb_3 | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                  {%- if scene_image_mb_3.width >= 1780 -%}{{ scene_image_mb_3 | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                  {%- if scene_image_mb_3.width >= 2000 -%}{{ scene_image_mb_3 | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                  {%- if scene_image_mb_3.width >= 3000 -%}{{ scene_image_mb_3 | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                  {%- if scene_image_mb_3.width >= 3840 -%}{{ scene_image_mb_3 | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                  {{ scene_image_mb_3 | image_url }} {{ scene_image_mb_3.width }}w
+                                "
+                                data-src="{{ scene_image_mb_3 | image_url:width:750 }}"
+                                alt="{{ scene_image_mb_3.alt }}"
+                              >
+                            {% endif %}
+                          </div>
+                        {% endif %}
+                      </div>
+                      <div class="swiper-pagination swiper-pagination-{{ section.id }}"></div>
                     </div>
-                    <div class="swiper-pagination swiper-pagination-{{ section.id }}"></div>
                   </div>
                 {% elsif scene_image_pc_1 and scene_image_pc_2 == null and scene_image_pc_3 == null %}
                   <a
@@ -1932,193 +1948,128 @@
                               </ul>
                             </div>
                             <script>
-                              $(function () {
-                                function hasParent(ele, p) {
-                                  while (ele && ele !== document.body) {
-                                    if (ele === p) return true;
-                                    ele = ele.parentNode;
-                                  }
-                                  return false;
-                                }
+  $(function () {
+    function hasParent(ele, p) {
+      while (ele && ele !== document.body) {
+        if (ele === p) return true;
+        ele = ele.parentNode;
+      }
+      return false;
+    }
 
-                                // 获取当前下拉元素
-                                const dropdown = document.getElementById('christmas-dropdown-mock-{{ block.id }}');
-                                console.log('dropdown==', dropdown);
-                                const sectionRoot = dropdown.closest('.christmas-product-tab-content');
-                                console.log('sectionRoot==', sectionRoot);
-                                const cardContainer = sectionRoot.querySelectorAll('.christmas-product-tab');
-                                console.log('cardContainer==', cardContainer);
-                                if (!dropdown || dropdown.getAttribute('data-bind')) return;
-                                dropdown.setAttribute('data-bind', '1');
-                                const selected = dropdown.querySelector('[data-selected]');
-                                const optionsUl = dropdown.querySelector('[data-options]');
-                                const options = optionsUl
-                                  ? optionsUl.querySelectorAll('.christmas-dropdown-mock-option')
-                                  : [];
-                                // 点击展开收起
-                                function closeDropdown() {
-                                  dropdown.classList.remove('open');
-                                }
-                                function openDropdown() {
-                                  dropdown.classList.add('open');
-                                }
-                                selected &&
-                                  selected.addEventListener('click', function (e) {
-                                    e.preventDefault();   // ⭐ 新增
-                                    e.stopPropagation();
+    const dropdown = document.getElementById('christmas-dropdown-mock-{{ block.id }}');
+    if (!dropdown || dropdown.getAttribute('data-bind')) return;
+    dropdown.setAttribute('data-bind', '1');
 
-                                    if (dropdown.classList.contains('open')) {
-                                      closeDropdown();
-                                    } else {
-                                      openDropdown();
-                                    }
-                                  });
+    // ⭐ 当前 tab
+    const currentTab = dropdown.closest('.christmas-product-tab');
 
-                                  function withNoSmoothScroll(fn) {
-                                    const html = document.documentElement;
-                                    const prev = html.style.scrollBehavior;
+    // ⭐ 同一组里的所有 tab
+    const allTabs = currentTab
+      ? currentTab.parentElement.querySelectorAll('.christmas-product-tab')
+      : [];
 
-                                    html.style.scrollBehavior = 'auto';
-                                    fn();
-                                    html.style.scrollBehavior = prev || '';
-                                  }
+    const selected = dropdown.querySelector('[data-selected]');
+    const options = dropdown.querySelectorAll('.christmas-dropdown-mock-option');
 
-                                // 选项点击
-                                options.forEach(function (option, idx) {
-                                  option.addEventListener('click', function (e) {
-                                    e.preventDefault();    // ⭐ 必须
-                                    e.stopPropagation();
-                                    withNoSmoothScroll(() => {
-                                      const scrollY = window.scrollY; // ⭐ 记住当前位置
-                                    // 激活当前
-                                    options.forEach(function (opt) {
-                                      opt.classList.remove('active');
-                                    });
-                                    option.classList.add('active');
-                                    if (selected) selected.innerText = option.innerText;
-                                    closeDropdown();
-                                    // 分发事件
-                                    // 如何触发该事件：直接通过下拉选项点击（option click）时会执行如下代码，从而触发事件
-                                    // 如果你想在其他地方手动触发，可以调用 dropdown.dispatchEvent(new CustomEvent('christmasTabCustomDropdownChange', {...}))，传递需要的 detail
-                                    var event = new CustomEvent('christmasTabCustomDropdownChange', {
-                                      detail: {
-                                        idx: idx,
-                                        value: option.getAttribute('data-value'),
-                                        text: option.innerText,
-                                      },
-                                      bubbles: true,
-                                    });
-                                    dropdown.dispatchEvent(event);
+    function closeDropdown(dd) {
+      dd.classList.remove('open');
+    }
 
-                                    // 触发例子（在别处代码调用下拉变更）：
-                                    /*
-                                    dropdown.dispatchEvent(new CustomEvent('christmasTabCustomDropdownChange', {
-                                      detail: {
-                                        idx: 想要激活的下标,
-                                        value: '某个对应的data-value',
-                                        text: '某个选项文本',
-                                      },
-                                      bubbles: true,
-                                    }));
-                                    */
+    selected &&
+      selected.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropdown.classList.toggle('open');
+      });
 
-                                    // 联动select
-                                    try {
-                                      var tabContainers = dropdown
-                                        .closest('.christmas-product-tab-content')
-                                        .querySelectorAll('.christmas-product-tab');
-                                      cardContainer.forEach(function (tabCt, index) {
-                                        console.log('tabCt', tabCt);
-                                        console.log("index", index, "idx", idx);
-                                        if (index === idx) {
-                                          tabCt.classList.add('active');
-                                          // tabContainers 下的 .christmas-product-tab 是否含有 active
-                                          const activeTabs = Array.from(tabContainers).filter(function (ct) {
-                                            return ct.classList.contains('active');
-                                          });
-                                          console.log('tabContainers 内包含 active 的元素:', activeTabs);
-                                          // 遍历activeTabs 下的christmas-dropdown-mock-option，当idx相等则激活
-                                          activeTabs.forEach(function (activeTab) {
-                                            const dropdownOptions = activeTab.querySelectorAll(
-                                              '.christmas-dropdown-mock-option'
-                                            );
-                                            var dropdownMockParent = null;
-                                            if (dropdownOptions.length > 0) {
-                                              dropdownMockParent = dropdownOptions[0].closest('.christmas-dropdown-mock');
-                                            }
-                                            console.log('christmas-dropdown-mock-{{ block.id }} 元素:', dropdownMockParent);
-                                            dropdownOptions.forEach(function (opt, optIdx) {
-                                              if(optIdx === idx){
-                                              opt.classList.add('active');
-                                              console.log('data-value',opt.getAttribute('data-value'))
-                                              console.log('innerText',opt.innerText)
-                                              const selected = dropdownMockParent.querySelector('[data-selected]');
-                                              if (selected) selected.innerText = opt.getAttribute('data-value');
-                                              // 初始化activeTabs下的swiper-container
-                                              {% comment %} activeTabs.forEach(function(activeTab) {
-                                                var swiperContainers = activeTab.querySelectorAll('.swiper-container');
-                                                swiperContainers.forEach(function(container) {
-                                                  if (!container.classList.contains('swiper-initialized')) {
-                                                    new Swiper(container, {
-                                                      // 可以根据需要配置swiper参数
-                                                      slidesPerView: 1,
-                                                      spaceBetween: 10,
-                                                      pagination: {
-                                                        el: container.querySelector('.swiper-pagination'),
-                                                        clickable: true,
-                                                      },
-                                                      navigation: {
-                                                        nextEl: container.querySelector('.swiper-button-next'),
-                                                        prevEl: container.querySelector('.swiper-button-prev'),
-                                                      },
-                                                    });
-                                                    container.classList.add('swiper-initialized');
-                                                  }
-                                                });
-                                              }); {% endcomment %}
+    function withNoSmoothScroll(fn) {
+      const html = document.documentElement;
+      const prev = html.style.scrollBehavior;
+      html.style.scrollBehavior = 'auto';
+      fn();
+      html.style.scrollBehavior = prev || '';
+    }
 
-                                              return;
-                                          }else{
-                                              opt.classList.remove('active');
-                                          }
+    options.forEach(function (option) {
+      option.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
 
-                                              {% comment %} opt.classList.toggle('active', optIdx === idx); {% endcomment %}
-                                            });
-                                          });
-                                          return; // 跳出forEach循环
-                                        } else {
-                                          tabCt.classList.remove('active');
-                                        }
-                                      });
+        const idx = option.getAttribute('data-idx');
+        const value = option.getAttribute('data-value');
 
-                                      // ⭐ 强制恢复滚动位置（防止浏览器 jump）
-                                      window.scrollTo({
-                                        top: scrollY,
-                                        behavior: 'auto' // 不要 smooth
-                                      });
-                                    } catch (e) {}
-                                    });
-                                    });
-                                  });
-                                // 外部点击收起
-                                document.addEventListener('click', function (e) {
-                                  if (!hasParent(e.target, dropdown)) {
-                                    closeDropdown();
-                                  }
-                                });
-                                // 键盘ESC收起
-                                dropdown.addEventListener('keydown', function (e) {
-                                  if (e.key === 'Escape') {
-                                    closeDropdown();
-                                  }
-                                });
+        withNoSmoothScroll(() => {
+          const scrollY = window.scrollY;
 
-                                dropdown.addEventListener('mousedown', function (e) {
-                                  e.preventDefault();
-                                });
+          /* ===============================
+           * 方案 B 核心逻辑
+           * =============================== */
 
-                              });
-                            </script>
+          // 1️⃣ 切换 tab
+          allTabs.forEach(function (tab) {
+            tab.classList.toggle(
+              'active',
+              tab.getAttribute('data-idx') === idx
+            );
+          });
+
+          // 2️⃣ 同步所有 dropdown（关键）
+          allTabs.forEach(function (tab) {
+            const dd = tab.querySelector('.christmas-dropdown-mock');
+            if (!dd) return;
+
+            const ddSelected = dd.querySelector('[data-selected]');
+            const ddOptions = dd.querySelectorAll('.christmas-dropdown-mock-option');
+
+            if (ddSelected) {
+              ddSelected.textContent = value;
+            }
+
+            ddOptions.forEach(function (opt) {
+              opt.classList.toggle(
+                'active',
+                opt.getAttribute('data-idx') === idx
+              );
+            });
+
+            closeDropdown(dd);
+          });
+
+          // 3️⃣ 自定义事件（保留你的逻辑）
+          dropdown.dispatchEvent(
+            new CustomEvent('christmasTabCustomDropdownChange', {
+              detail: {
+                idx: idx,
+                value: value,
+                text: option.innerText,
+              },
+              bubbles: true,
+            })
+          );
+
+          window.scrollTo({ top: scrollY, behavior: 'auto' });
+        });
+      });
+    });
+
+    // 点击外部关闭
+    document.addEventListener('click', function (e) {
+      if (!hasParent(e.target, dropdown)) {
+        closeDropdown(dropdown);
+      }
+    });
+
+    dropdown.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeDropdown(dropdown);
+    });
+
+    dropdown.addEventListener('mousedown', function (e) {
+      e.preventDefault();
+    });
+  });
+</script>
+
                             
                           </div>
                         </div>

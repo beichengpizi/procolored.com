@@ -42,11 +42,23 @@
 {{ 'template-header.css' | asset_url | stylesheet_tag }}
 
 <style>
-  .product_description-{{ section.id }}{
-    padding: 20px 20px 0 20px;
+  .template-header-{{ section.id }}{
+    padding: 35px 0 0 0 !important;
+    background-color: {{ section.settings.background_color }};
+  }
+  .template-header-{{ section.id }} .template-header--title {
+    color: #000;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.26;
+    margin-bottom: 13px;
+
+  }
+  {% comment %} .product_description-{{ section.id }}{
+    padding: 20px 20px 0 20px ;
     background: #fff;
     border-radius: 20px
-  }
+  } {% endcomment %}
   .product_description-{{ section.id }}    .product_description {
       background-color: white;
       border: 1px solid #e0e0e0;
@@ -87,15 +99,16 @@
       align-items: center;
       justify-content: start;
       width: 100%;
-      padding: 10px 0 20px 0;
+      padding: 0;
       border: none;
-      border-radius: 4px;
+      {% comment %} border-radius: 4px; {% endcomment %}
       cursor: pointer;
-      font-size: 16px;
-      color: #333;
-      margin-top: 10px;
+      font-size: 14px;
+      color: #000;
+      margin-top: 13px;
+      line-height: 1.4;
       transition: background-color 0.3s ease;
-      font-family: ItalianPlateNo2Expanded-Regular !important;
+
     }
 
 
@@ -111,9 +124,32 @@
     .product_description-{{ section.id }}    .chevron.rotated svg {
       transform: rotate(180deg);
     }
+    @media screen and (max-width: 768px){
+      .template-header-{{ section.id }}{
+        padding: 5px 0 0 0 !important;
+      }
+      .template-header-{{ section.id }} .template-header--title {
+        font-size: 24px;
+        line-height: 1.3;
+        margin-bottom: 10px;
+
+      }
+      .product_description-{{ section.id }} .description p {
+        font-family: Mulish;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 22.4px; /* 140% */
+        margin-bottom: 10px;
+      }
+      .product_description-{{ section.id }}    .toggle-button {
+        margin-top: 10px;
+
+      }
+    }
 </style>
 
-<div class="template-header">
+<div class="template-header template-header-{{ section.id }}">
   <div class="row">
     <div class="small-12 columns">
       <div class="template-header--content">
@@ -124,7 +160,7 @@
           </div>
         {%- endif -%}
         <div>
-          <h1 class="template-header--title h2">{{ heading }}</h1>
+          <div class="template-header--title ">{{ heading }}</div>
           {%- if template == 'search' -%}
             <form role="search" method="get" class="searchform" action="{{ routes.search_url }}">
               <fieldset>
@@ -163,7 +199,7 @@
                 class="toggle-button"
                 onclick="toggleContent('{{ section.id }}')"
               >
-                <span class="text">View More</span>
+                <span class="text">Learn more</span>
                 <span class="chevron">
                   <svg
                     width="14"
@@ -248,12 +284,12 @@
     if (description.hasClass('expanded')) {
       // 如果已经展开，则收起
       description.removeClass('expanded').stop().animate({ maxHeight: '50px' }, 300);
-      text.text('View More');
+      text.text('Learn More');
       chevron.removeClass('rotated');
     } else {
       // 如果未展开，则展开
       description.addClass('expanded').stop().animate({ maxHeight: '1000px' }, 300);
-      text.text('View Less');
+      text.text('Learn Less');
       chevron.addClass('rotated');
     }
   }
@@ -303,6 +339,12 @@
       "id": "color_subcollection_text",
       "label": "Text",
       "default": "#2C2D2E"
+    },
+    {
+      "type": "color_background",
+      "id": "background_color",
+      "label": "背景色",
+      "default": "#ffffff"
     },
     {
       "type": "header",

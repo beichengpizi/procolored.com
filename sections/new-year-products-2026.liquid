@@ -103,6 +103,29 @@
           grid-gap: {{ section.settings.card_gap }}px;
         }
 
+        @media screen and (min-width: 768px) {
+          .christmas-products-{{ section.id }}  .christmas-products-products {
+            width: unset !important;
+            transform: unset !important;
+          }
+
+          .christmas-products-{{ section.id }}  .christmas-products-products-items {
+            width: 100% !important;
+          }
+
+          .christmas-products-{{ section.id }}  .swiper-pagination {
+            display: none !important;
+          }
+
+          .christmas-products-{{ section.id }}  .swiper-slide {
+            width: 100% !important;
+          }
+        }
+
+        .christmas-products-{{ section.id }}  .christmas-products-products-card {
+          width: 100% !important;
+        }
+
         .christmas-products-{{ section.id }}  .christmas-products-products-card {
           position: relative;
           display: flex;
@@ -114,6 +137,7 @@
           background: {{ section.settings.card_background_gradient_color }};
           border: 1px solid #FFD7B4;
           height: 100%;
+          flex-shrink: 1;
         }
 
 
@@ -448,6 +472,13 @@
             padding-left: 24px;
             padding-right: 24px;
           }
+
+          {% if section.settings.show_swiper == false %}
+            .christmas-products-{{ section.id }}  .swiper-slide {
+              width: 100% !important;
+            }
+          {% endif %}
+
           .christmas-products-{{ section.id }}  .christmas-products-wrapper {
             position: relative;
             border-top-left-radius: {{ section.settings.top_left_radius_mobile }}px;
@@ -494,8 +525,8 @@
           .christmas-products-{{ section.id }}  .christmas-products-products {
               display: flex;
               flex-direction: row;
-              overflow-x: auto;
-              overflow-y: auto;
+              overflow-x: visible;
+              overflow-y: visible;
               gap: {{ section.settings.card_gap_mobile }}px;
               -webkit-overflow-scrolling: touch;
               scrollbar-width: none;
@@ -512,7 +543,6 @@
             .christmas-products-{{ section.id }}  .christmas-products-products-card {
               border-radius: 10px;
               padding: 8px {{ section.settings.card_padding_lr_mobile }}px 16px {{ section.settings.card_padding_lr_mobile }}px;
-              width: 232px;
               flex-shrink: 0;
             }
 
@@ -656,6 +686,70 @@
               display: none;
             }
         }
+
+            
+        .christmas-products-{{ section.id }} .christmas-products-content {
+          overflow: hidden;
+        }
+
+        .christmas-products-{{ section.id }} .swiper-pagination {
+          position: static;
+          height: fit-content;
+          text-align: center;
+          height: fit-content;
+          display: flex;
+          justify-content: center;
+          padding-top: 12px;
+          gap: 8px;
+        }
+
+        .christmas-products-{{ section.id }} .swiper-slide {
+          display: flex;
+          height: auto;
+        }
+
+        .christmas-products-{{ section.id }} .swiper-pagination-bullet {
+          background: transparent;
+          border: 1px solid #FFFFFF;
+          opacity: 1;
+        }
+
+        .christmas-products-{{ section.id }} .swiper-pagination-bullet-active {
+          background: #FFD7B4;
+          position: relative;
+        }
+
+        .christmas-products-{{ section.id }} .swiper-pagination-bullet-active::after {
+          content: "";
+          background: transparent;
+          border-radius: 99px;
+          border: 1px solid #FFD7B4;
+          width: 12px;
+          height: 12px;
+          transform: translate(-6px, -3px);
+          position: absolute;
+        }
+      }
+
+      {% if section.settings.show_swiper == false %}
+        @media screen and (max-width: 768px) {
+          .christmas-products-{{ section.id }}  .christmas-products-products {
+            width: unset !important;
+            transform: unset !important;
+          }
+
+          .christmas-products-{{ section.id }}  .christmas-products-products-items {
+            width: 100% !important;
+          }
+        }
+      {% else %}
+        
+      {% endif %}
+
+      .christmas-products-{{ section.id }}  .christmas-products-products {
+        overflow-x: visible !important;
+        overflow-y: visible !important;
+      }
 
         /* christmas-products-wrapper end */
 </style>
@@ -899,8 +993,8 @@
       <!-- star products banner  end -->
     {% endif %}
     <div class="christmas-products-container">
-      <div class="christmas-products-content">
-        <div class="christmas-products-products">
+      <div class="christmas-products-content swiper mySwiper">
+        <div class="christmas-products-products swiper-wrapper">
           {%- for block in section.blocks -%}
             {%- liquid
               assign current_product = block.settings.product
@@ -917,7 +1011,7 @@
             -%}
 
             {% if variant.available %}
-              <div class="christmas-products-products-items">
+              <div class="christmas-products-products-items swiper-slide">
                 
                 {%- if current_product -%}
                   <div class="christmas-products-products-card white-product">
@@ -1361,6 +1455,9 @@
         </div>
       </div>
     </div>
+    {% if section.settings.show_swiper %}
+      <div class="swiper-pagination"></div>
+    {% endif %}
   </div>
 </section>
 
@@ -1368,6 +1465,14 @@
 
 <!-- Star Products end -->
 <script>
+  var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 1.2,
+    spaceBetween: 10,
+    pagination: {
+      el: ".swiper-pagination",
+    }
+  });
+
   function formatUtcTime(v) {
     let date = new Date(v);
     return (

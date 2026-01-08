@@ -485,6 +485,7 @@
                     {%- if block.settings.video -%}
                       <div class="show_desktop">
                         <video
+                          style="aspect-ratio: {{block.settings.video.aspect_ratio}}"
                           data-poster="{{ block.settings.video.preview_image | image_url:width:1000 }}"
                           class="lazy"
                           preload="none"
@@ -498,22 +499,23 @@
                           x5-playsinline
                           x5-video-player-type="h5"
                           x-webkit-airplay="allow"
-                          controlslist="nodownload noremoteplayback"
-                          data-src="{{ block.settings.video.sources[0].url  }}"
-                          type="video/mp4"
-                        ></video>
+                        >
+                          {% for source in block.settings.video.sources %}
+                            <source data-src="{{ source.url }}" type="{{source.mime_type }}">
+                          {% endfor %}
+                        </video>
                       </div>
                     {% endif %}
 
                     {%- if block.settings.video_mobile -%}
                       <div class="show_mobile">
                         <video
-                          data-poster="{{ block.settings.video_mobile.preview_image | image_url:width:1000 }}"
+                          style="aspect-ratio: {{block.settings.video_mobile.aspect_ratio}}"
+                          data-poster="{{ block.settings.video_mobile.preview_image | image_url:width:800 }}"
                           class="lazy"
                           preload="none"
                           autoplay
                           width="100%"
-
                           height="auto"
                           muted
                           loop
@@ -522,9 +524,11 @@
                           x5-playsinline
                           x5-video-player-type="h5"
                           x-webkit-airplay="allow"
-                          data-src="{{ block.settings.video_mobile.sources[0].url   }}"
-                          type="video/mp4"
-                        ></video>
+                        >
+                          {% for source in block.settings.video_mobile.sources %}
+                            <source data-src="{{ source.url }}" type="{{source.mime_type }}">
+                          {% endfor %}
+                        </video>
                       </div>
                     {% endif %}
                 {%- endcase -%}
@@ -728,8 +732,16 @@
           "label": "1400px"
         },
         {
+          "value": "1280",
+          "label": "1280px"
+        },
+        {
           "value": "1200",
           "label": "1200px"
+        },
+        {
+          "value": "1020",
+          "label": "1020px"
         },
         {
           "value": "980",
@@ -1447,7 +1459,7 @@
     },
     {
       "type": "color",
-      "id": "subheading_color", 
+      "id": "subheading_color",
       "label": "副标题字体颜色",
       "default": "#000"
     },

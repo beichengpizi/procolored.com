@@ -113,7 +113,7 @@
         max-width: 620px;
         display: flex;
         flex-direction: column;
-        gap: 50px;
+        gap: {{ section.settings.card_gap }}px; 
     }
 
     .sticky-two-column-section-{{section.id}}   .sticky-two-column-video-module {
@@ -185,7 +185,7 @@
 
         .sticky-two-column-section-{{section.id}}   .sticky-two-column-sticky-right {
             max-width: 100%;
-            gap: 32px;
+            gap: {{ section.settings.card_gap_mb }}px; 
         }
 
         .sticky-two-column-section-{{section.id}} .sticky-two-column-video-module video,
@@ -373,7 +373,16 @@
       "type": "header",
       "content": "分区填充"
     },
-
+    {
+        "type": "range",
+        "id": "card_gap",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "卡片间距",
+        "default": 100
+      },
     {
       "type": "range",
       "id": "padding_top",
@@ -394,7 +403,16 @@
       "label": "底部填充",
       "default": 100
     },
-
+    {
+        "type": "range",
+        "id": "card_gap_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "卡片间距(移动端)",
+        "default": 32
+      },
     {
       "type": "range",
       "id": "padding_top_mobile",

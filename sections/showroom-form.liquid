@@ -1087,30 +1087,48 @@
 
       // 刷新时间段并禁用已过的时间段
       function refreshTimeSlots() {
+        if (!selectedDateObj) return;
+
         const now = new Date();
-        let available = availableDates.find((item) => item.date === formatDate2(selectedDateObj));
+        const dateKey = formatDate2(selectedDateObj);
+
+        const available = availableDates.find(item => item.date === dateKey);
+
+        // ⭐ 防御：该日期无可用数据
+        if (!available || !Array.isArray(available.timeSlots)) {
+          timeSlots.querySelectorAll(".slot").forEach(slot => {
+            slot.classList.add("disabled");
+          });
+          return;
+        }
 
         timeSlots.querySelectorAll(".slot").forEach(slot => {
-          if (!selectedDateObj) return;
+          // ✅ 第一步：全部重置为 disabled
+          slot.classList.add("disabled");
 
-          const [h, m] = slot.dataset.timeSlot.split(":").map(Number);
-          const slotDate = new Date(
-            selectedDateObj.getFullYear(),
-            selectedDateObj.getMonth(),
-            selectedDateObj.getDate(),
-            h, m, 0
-          );
+          const slotTime = slot.dataset.timeSlot; // e.g. "10:00~12:00"
 
-          // 禁用已过的时间段
-          if (selectedDateObj.getTime() === today.getTime() && slotDate <= now) {
-            slot.classList.add("disabled");
+          // ✅ 第二步：仅解禁当前日期允许的 slot
+          if (available.timeSlots.includes(slotTime)) {
+            slot.classList.remove("disabled");
           }
 
-          available.timeSlots.forEach((item) => {
-            if(slot.innerHTML == item) {
-              slot.classList.remove("disabled");
+          // ✅ 第三步：如果是今天，禁用已过时间
+          if (dateKey === formatDate2(today)) {
+            const [h, m] = slot.dataset.start.split(":").map(Number);
+            const slotDate = new Date(
+              selectedDateObj.getFullYear(),
+              selectedDateObj.getMonth(),
+              selectedDateObj.getDate(),
+              h,
+              m,
+              0
+            );
+
+            if (slotDate <= now) {
+              slot.classList.add("disabled");
             }
-          })
+          }
         });
       }
 

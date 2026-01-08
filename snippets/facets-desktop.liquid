@@ -21,9 +21,12 @@
     align-items: center;
   }
   .facets .col-list .col-item input {
+    position: relative;
     margin-right: 7px;
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
+    border-radius: 2px;
+    border: 1px solid red;
   }
   .facets .col-list .col-item .col-link {
     margin-top: 3px;
@@ -35,6 +38,43 @@
   .facets .col-list-title.open span {
     transform: rotateX(180deg);
   }
+
+  input[type='checkbox']::after {
+    position: absolute;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    visibility: visible;
+    padding-left: 0px;
+    text-align: center;
+    content: ' ';
+  }
+  .facets input[type='checkbox']:checked::after {
+    content: '✓';
+    color: #fff;
+    font-size: 14px;
+    line-height: 18px;
+    background-color: #ff8f1c;
+    border-radius: 2px;
+  }
+  .facets .custom-checkbox[type='checkbox']:checked::after {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 10px #00000026;
+  }
+  .facets .no-show {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
 </style>
 
 {%- if enable_filtering -%}
@@ -45,7 +85,7 @@
           Collection
           <span>
             <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M13 6.81818L7 0.818176L1 6.81818" stroke="var(--color-heading)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M13 6.81818L7 0.818176L1 6.81818" stroke="black" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
           </span>
         </div>
@@ -53,6 +93,10 @@
           {% for link in linklists['collection-list'].links -%}
             <div class="col-item">
               <input
+                {% if link.url == results.url %}
+                  checked="checked"
+                {% endif %}
+
                 type="checkbox"
                 class="url-checkbox"
                 name="{{ link.title }}"
@@ -65,7 +109,11 @@
           {%- endfor %}
         </div>
       </div>
-      <form id="FacetFiltersForm" class="facets__form">
+      <form
+        id="FacetFiltersForm"
+        class="facets__form"
+        data-search-type="{{search_type}}"
+      >
         {%- if results.terms -%}
           <input type="hidden" name="q" value="{{ results.terms | escape }}">
           <input name="options[prefix]" type="hidden" value="last">
@@ -75,161 +123,185 @@
         {% endif %}
         <div class="facets__wrapper">
           {%- for filter in results.filters -%}
+            {% comment %}
+              filter.type== {{ filter.type }}/ filter.param_name=={{ filter.param_name }}/filter.presentation==
+              {{- filter.presentation }}
+            {% endcomment %}
             {% case filter.type %}
               {% when 'boolean', 'list' %}
                 {%- liquid
                   assign label = filter.label | downcase | replace: ' ', '-' | escape
                   assign slug = filter.label | downcase | escape
                 -%}
-                <collapsible-row data-index="{{ forloop.index }}">
-                  <details class="thb-filter js-filter" open>
-                    <summary class="thb-filter-title">
-                      {{ filter.label | escape -}}
-                      <span>{%- render 'svg-icons' with 'thb-collapsible-arrow' -%}</span>
-                    </summary>
-                    <div class="thb-filter-content collapsible__content">
-                      {%- if filter.param_name == 'filter.v.availability' -%}
-                        <div class="thb-filter-availability">
-                          {%- assign value = filter.values[0] -%}
-                          <input
-                            type="checkbox"
-                            name="{{ value.param_name }}"
-                            value="{{ value.value }}"
-                            class="thb-filter-switch custom-checkbox"
-                            id="Filter-{{ label }}-{{ forloop.index }}"
-                            {% if value.active %}
-                              checked
-                            {% endif %}
-                            {% if value.count == 0 and value.active == false %}
-                              disabled
-                            {% endif %}
-                          >
-                          <label for="Filter-{{ label }}-{{ forloop.index }}">{{ value.label }}</label>
-                        </div>
-                      {%- else -%}
-                        <scroll-shadow>
-                          {%- liquid
-                            if slug contains 'color' or slug contains 'colour' or slug contains 'couleur' or slug contains 'farbe'
-                              if filter_color_swatches
-                                assign slug = 'color'
-                              else
-                                assign slug = ''
-                              endif
-                            endif
 
-                            if filter.presentation == 'swatch'
-                              assign slug = 'color'
-                            endif
-                          -%}
-                          <ul class="{{ filter.type | escape }}-{{ slug }}">
+                {%- assign hide_options = collection.metafields.custom.collection_page_hide_filter_options.value
+                  | join: ','
+                  | strip
+                -%}
+
+                {%- unless hide_options contains label -%}
+                  <collapsible-row
+                    data-index="{{ forloop.index }}"
+                    {% comment %}
+                      {%- if filter.param_name == 'filter.p.m.custom.machine_category' -%}
+                        class="no-show"
+                      {%- endif -%}
+                    {% endcomment %}
+                  >
+                    <details class="thb-filter js-filter" open>
+                      <summary class="thb-filter-title">
+                        {{ filter.label | escape -}}
+                        <span>
+                          <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 6.81818L7 0.818176L1 6.81818" stroke="black" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                          </svg>
+                        </span>
+                        {% comment %} <span>{%- render 'svg-icons' with 'thb-collapsible-arrow' -%}</span> {% endcomment %}
+                      </summary>
+                      <div class="thb-filter-content collapsible__content">
+                        {%- if filter.param_name == 'filter.v.availability' -%}
+                          <div class="thb-filter-availability">
+                            {%- assign value = filter.values[0] -%}
+                            <input
+                              type="checkbox"
+                              name="{{ value.param_name }}"
+                              value="{{ value.value }}"
+                              class="thb-filter-switch custom-checkbox"
+                              id="Filter-{{ label }}-{{ forloop.index }}"
+                              {% if value.active %}
+                                checked
+                              {% endif %}
+                              {% if value.count == 0 and value.active == false %}
+                                disabled
+                              {% endif %}
+                            >
+                            <label for="Filter-{{ label }}-{{ forloop.index }}">{{ value.label }}</label>
+                          </div>
+                        {%- else -%}
+                          <scroll-shadow>
                             {%- liquid
-                              assign custom_colors = settings.color_swatches | newline_to_br | split: '<br />'
-                              assign key_array = ''
-                              assign val_array = ''
+                              if slug contains 'color' or slug contains 'colour' or slug contains 'couleur' or slug contains 'farbe'
+                                if filter_color_swatches
+                                  assign slug = 'color'
+                                else
+                                  assign slug = ''
+                                endif
+                              endif
 
-                              for color in custom_colors
-                                assign key = color | split: ':' | first | rstrip
-                                assign value = color | split: ':' | last | lstrip
-                                assign key_array = key_array | append: ',' | append: key
-                                assign val_array = val_array | append: ',' | append: value
-                              endfor
-
-                              assign key_array = key_array | remove_first: ',' | strip_newlines | downcase | split: ','
-                              assign val_array = val_array | remove_first: ',' | split: ','
-
-                              assign sorted_values = filter.values
-                              # Keep the selected values grouped together when operator is AND
-                              if filter.operator == 'AND'
-                                assign active_filter_values = filter.values | where: 'active', true
-                                assign inactive_filter_values = filter.values | where: 'active', false
-                                assign sorted_values = active_filter_values | concat: inactive_filter_values
+                              if filter.presentation == 'swatch'
+                                assign slug = 'color'
                               endif
                             -%}
-                            {%- for value in sorted_values -%}
-                              <li>
-                                <input
-                                  type="checkbox"
-                                  name="{{ value.param_name }}"
-                                  value="{{ value.value }}"
-                                  id="Filter-{{ label }}-{{ forloop.index }}"
-                                  {% if value.active %}
-                                    checked
-                                  {% endif %}
-                                  {% if value.count == 0 and value.active == false %}
-                                    disabled
-                                  {% endif %}
-                                >
-                                {%- if filter.presentation == 'swatch' -%}
-                                  {%- liquid
-                                    if value.display.type == 'colors'
-                                      assign bg_value = empty
-                                      assign size_limit = value.display.value.size | at_most: 4
-                                      assign rotation = '0deg'
-                                      if size_limit == 2
-                                        assign rotation = '45deg'
-                                      endif
+                            <ul class="{{ filter.type | escape }}-{{ slug }}">
+                              {%- liquid
+                                assign custom_colors = settings.color_swatches | newline_to_br | split: '<br />'
+                                assign key_array = ''
+                                assign val_array = ''
 
-                                      assign angle_increment = 360 | divided_by: size_limit
-                                      assign angle = 0
-                                    endif
-                                    if value.display.type == 'image'
-                                      assign bg_value = value.display.value | image_url: width: 40, height: 40
-                                    endif
-                                  -%}
-                                  {%- capture conic_gradient -%}
+                                for color in custom_colors
+                                  assign key = color | split: ':' | first | rstrip
+                                  assign value = color | split: ':' | last | lstrip
+                                  assign key_array = key_array | append: ',' | append: key
+                                  assign val_array = val_array | append: ',' | append: value
+                                endfor
+
+                                assign key_array = key_array | remove_first: ',' | strip_newlines | downcase | split: ','
+                                assign val_array = val_array | remove_first: ',' | split: ','
+
+                                assign sorted_values = filter.values
+                                # Keep the selected values grouped together when operator is AND
+                                if filter.operator == 'AND'
+                                  assign active_filter_values = filter.values | where: 'active', true
+                                  assign inactive_filter_values = filter.values | where: 'active', false
+                                  assign sorted_values = active_filter_values | concat: inactive_filter_values
+                                endif
+                              -%}
+                              {%- for value in sorted_values -%}
+                                <li>
+                                  <input
+                                    type="checkbox"
+                                    name="{{ value.param_name }}"
+                                    value="{{ value.value }}"
+                                    id="Filter-{{ label }}-{{ forloop.index }}"
+                                    {% if value.active %}
+                                      checked
+                                    {% endif %}
+                                    {% if value.count == 0 and value.active == false %}
+                                      disabled
+                                    {% endif %}
+                                  >
+                                  {%- if filter.presentation == 'swatch' -%}
+                                    {%- liquid
+                                      if value.display.type == 'colors'
+                                        assign bg_value = empty
+                                        assign size_limit = value.display.value.size | at_most: 4
+                                        assign rotation = '0deg'
+                                        if size_limit == 2
+                                          assign rotation = '45deg'
+                                        endif
+
+                                        assign angle_increment = 360 | divided_by: size_limit
+                                        assign angle = 0
+                                      endif
+                                      if value.display.type == 'image'
+                                        assign bg_value = value.display.value | image_url: width: 40, height: 40
+                                      endif
+                                    -%}
+                                    {%- capture conic_gradient -%}
 																	{%- for color in value.display.value limit: size_limit -%}
 																		{{ color }} {{ angle }}deg{%- assign angle = angle | plus: angle_increment %} {{ angle }}deg{%- unless forloop.last %}, {%- endunless -%}
 																	{%- endfor -%}
 																{%- endcapture -%}
-                                  <label
-                                    for="Filter-{{ label }}-{{ forloop.index }}"
-                                    class="facet-checkbox facet-checkbox--presentation{% if value.count == 0 and value.active == false %} facet-checkbox--disabled{% endif %}"
-                                    style="--option-color-image:{%- if bg_value == empty -%}conic-gradient({{ conic_gradient }}){%- else -%}url('{{ bg_value }}'){%- endif -%};"
-                                    data-tooltip="{{ value.label | escape }} ({{ value.count }})"
-                                  >
-                                    <span class="filter-color"></span>
-                                    <span class="filter-name">{{ value.label | escape }}</span>
-                                    {% if show_counts -%}
-                                      <sup class="count">{{ value.count }}</sup>
-                                    {%- endif -%}
-                                  </label>
-                                {%- else -%}
-                                  {%- liquid
-                                    assign color_value = value.value | downcase | escape
+                                    <label
+                                      for="Filter-{{ label }}-{{ forloop.index }}"
+                                      class="facet-checkbox facet-checkbox--presentation{% if value.count == 0 and value.active == false %} facet-checkbox--disabled{% endif %}"
+                                      style="--option-color-image:{%- if bg_value == empty -%}conic-gradient({{ conic_gradient }}){%- else -%}url('{{ bg_value }}'){%- endif -%};"
+                                      data-tooltip="{{ value.label | escape }} ({{ value.count }})"
+                                    >
+                                      <span class="filter-color"></span>
+                                      <span class="filter-name">{{ value.label | escape }}</span>
+                                      {% if show_counts -%}
+                                        <sup class="count">{{ value.count }}</sup>
+                                      {%- endif -%}
+                                    </label>
+                                  {%- else -%}
+                                    {%- liquid
+                                      assign color_value = value.value | downcase | escape
 
-                                    for custom_color in key_array
-                                      if custom_color == color_value
-                                        assign color_value = val_array[forloop.index0]
+                                      for custom_color in key_array
+                                        if custom_color == color_value
+                                          assign color_value = val_array[forloop.index0]
+                                        endif
+                                      endfor
+
+                                      assign bg_value = false
+                                      if color_value contains '.'
+                                        assign bg_value = color_value | file_url
+                                        assign color_value = 'var(--bg-body)'
                                       endif
-                                    endfor
-
-                                    assign bg_value = false
-                                    if color_value contains '.'
-                                      assign bg_value = color_value | file_url
-                                      assign color_value = 'var(--bg-body)'
-                                    endif
-                                  -%}
-                                  <label
-                                    for="Filter-{{ label }}-{{ forloop.index }}"
-                                    class="facet-checkbox{% if value.count == 0 and value.active == false %} facet-checkbox--disabled{% endif %}"
-                                    style="--bg-color: {{ color_value | downcase | escape }};{%- if bg_value -%} --option-color-image: url('{{ bg_value | escape }}');{%- endif -%}"
-                                    data-tooltip="{{ value.label | escape }} ({{ value.count }})"
-                                  >
-                                    <span class="filter-color"></span>
-                                    <span class="filter-name">{{- value.label | escape }}</span>
-                                    {% if show_counts -%}
-                                      <span class="count">({{ value.count }})</span>
-                                    {%- endif %}
-                                  </label>
-                                {%- endif -%}
-                              </li>
-                            {%- endfor -%}
-                          </ul>
-                        </scroll-shadow>
-                      {%- endif -%}
-                    </div>
-                  </details>
-                </collapsible-row>
+                                    -%}
+                                    <label
+                                      for="Filter-{{ label }}-{{ forloop.index }}"
+                                      class="facet-checkbox{% if value.count == 0 and value.active == false %} facet-checkbox--disabled{% endif %}"
+                                      style="--bg-color: {{ color_value | downcase | escape }};{%- if bg_value -%} --option-color-image: url('{{ bg_value | escape }}');{%- endif -%}"
+                                      data-tooltip="{{ value.label | escape }} ({{ value.count }})"
+                                    >
+                                      <span class="filter-color"></span>
+                                      <span class="filter-name">{{- value.label | escape }}</span>
+                                      {% if show_counts -%}
+                                        <span class="count">({{ value.count }})</span>
+                                      {%- endif %}
+                                    </label>
+                                  {%- endif -%}
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          </scroll-shadow>
+                        {%- endif -%}
+                      </div>
+                    </details>
+                  </collapsible-row>
+                {%- endunless -%}
               {% when 'price_range' %}
                 <collapsible-row data-index="{{ forloop.index }}">
                   <details class="thb-filter js-filter" data-index="{{ forloop.index }}" open>
