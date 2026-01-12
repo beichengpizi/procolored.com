@@ -1,288 +1,277 @@
 <style>
-        .support-resources-faqs{
-          background: #fff;
-        }
-        .faq-container-{{ section.id }} {
-          max-width: 1248px;
-          margin: 0 auto;
-          padding:0 24px;
-        }
-        .faq-container-{{ section.id }} .faqs-title {
-          text-align: center;
-          margin-bottom: 16px;
+    .support-resources-faqs{
+      background: {{ section.settings.background_color }};
+    }
+    .faq-container-{{ section.id }} {
+      {% if section.settings.section_max_width != 'none' %}
+        max-width: {{ section.settings.section_max_width | plus:48 }}px;
+        margin: 0 auto;
+      {% endif %}
+      padding:{{ section.settings.padding_top }}px 24px {{ section.settings.padding_bottom }}px 24px;
+    }
+    .faq-container-{{ section.id }} .faqs-title {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .faq-container-{{ section.id }} .faqs-title h3.title {
+      color: #000;
+      margin: 0 0 14px;
+      text-align: center;
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.2; /* 122% */
+    }
+    .faq-container-{{ section.id }} .faqs-title .spec {
+      font-size: 18px;
+      line-height: 1.38;
+    }
+    .faq-container-{{ section.id }} .faqs-title div.spec p {
+      color: #000;
+      margin: 0;
+      line-height: 1.38;
+    }
+    .faq-container-{{ section.id }} .faq-section {
+      background: #fff;
+      overflow: hidden;
+      border-top: 1px solid rgba(204, 204, 204, 0.40);
+    }
+    .faq-container-{{ section.id }} .faq-section.first  {
+      border-top: none;
+    }
+    .faq-container-{{ section.id }} .faq-section:last-of-type  {
+      border-bottom: 1px solid rgba(204, 204, 204, 0.40);;
+    }
+
+    .faq-container-{{ section.id }} .faq-header {
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 1.3;
+      position: relative;
+      transition: background-color 0.3s ease;
+    }
+
+    .faq-container-{{ section.id }} .faq-content {
+      max-height: 0;
+      overflow: hidden;
+    }
+
+    .faq-container-{{ section.id }} .faq-section.active .faq-content {
+      max-height: 3000px;
+    }
+
+    .faq-container-{{ section.id }} .faq-item {
+      padding: 24px 0 0;
+      display: flex;
+      gap: 13px;
+      opacity: 0;
+      transform: translateY(0);
+      transition: all 0.3s ease;
+    }
+
+    .faq-container-{{ section.id }} .faq-section.active .faq-item {
+      opacity: 1;
+      transform: translateY(0);
+      padding: 20px 0 0;
+    }
+
+    .faq-container-{{ section.id }} .faq-section.active .faq-item:nth-child(1) {
+      transition-delay: 0.1s;
+      padding-top: 0;
+    }
+
+    .faq-container-{{ section.id }} .faq-section.active .faq-item:nth-child(2) {
+      transition-delay: 0.2s;
+    }
+    .faq-container-{{ section.id }} .faq-section.active .faq-item:nth-child(3) {
+      transition-delay: 0.3s;
+    }
+
+    .faq-container-{{ section.id }} .faq-section.active .faq-item:last-child .faq-item-content {
+      border-bottom: none;
+      padding-bottom: 24px;
+    }
+    .faq-container-{{ section.id }} .faq-item-icon {
+      color: #B0B0B0;
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      border: 2px solid #B0B0B0;
+      color: #B0B0B0;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.2; /* 120% */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .faq-container-{{ section.id }} .faq-item-content {
+      color: rgba(102, 102, 102, 0.80);
+      flex: 1;
+      font-size: 16px;
+      line-height: 1.4;
+      opacity: 0.8;
+      font-weight: 400;
+    }
+
+    .faq-container-{{ section.id }} .faq-item-content > div:first-child {
+      margin-bottom: 10px;
+      color: #000;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.38;
+      opacity: 1;
+    }
+
+    .faq-container-{{ section.id }} .toggle-icon {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+    }
+
+    .faq-container-{{ section.id }} .icon-plus,
+    .faq-container-{{ section.id }} .icon-minus {
+      width: 18px;
+      height: 18px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: block;
+    }
+
+    .faq-container-{{ section.id }} .icon-minus {
+      display: none;
+    }
+
+    .faq-container-{{ section.id }} .faq-section.active .icon-plus {
+      display: none;
+    }
+
+    .faq-container-{{ section.id }} .faq-section.active .icon-minus {
+      display: block;
+    }
+
+    .faq-container-{{ section.id }} .icon-question {
+      width: 28px;
+      height: 28px;
+      transition: transform 0.3s ease;
+      margin-top: 0;
+    }
+
+    .faq-container-{{ section.id }} .faq-item:hover .icon-question {
+      transform: scale(1.1);
+    }
+
+    @media only screen and (max-width: 768px) {
+      .faq-container-{{ section.id }} {
+        padding: 0 24px;
+        padding:{{ section.settings.padding_top_mobile }}px 24px {{ section.settings.padding_bottom_mobile }}px 24px;
+      }
+      .faq-container-{{ section.id }} .faqs-title {
+          text-align: left;
+          margin-bottom: 0px;
         }
         .faq-container-{{ section.id }} .faqs-title h3.title {
-          color: #000;
-          margin: 0 0 14px;
-          text-align: center;
-          font-size: 40px;
-          font-weight: 800;
-          line-height: 1.2; /* 122% */
+          font-size: 24px;
+          line-height: 1.3;
+          margin-bottom: 10px;
+          font-weight: 700;
+          text-align: left;
         }
         .faq-container-{{ section.id }} .faqs-title .spec {
-          font-size: 18px;
-          line-height: 1.38;
+          font-size: 14px;
+          line-height: 1.4;
         }
         .faq-container-{{ section.id }} .faqs-title div.spec p {
           color: #000;
           margin: 0;
-          line-height: 1.38;
-        }
-        .faq-container-{{ section.id }} .faq-section {
-          background: #fff;
-
-
-          overflow: hidden;
-          border-top: 1px solid rgba(204, 204, 204, 0.40);
-
-
-
-
-        }
-        .faq-container-{{ section.id }} .faq-section.first  {
-          border-top: none;
-
-        }
-        .faq-container-{{ section.id }} .faq-section:last-of-type  {
-          border-bottom: 1px solid rgba(204, 204, 204, 0.40);;
-
-        }
-
-        .faq-container-{{ section.id }} .faq-header {
-          padding: 24px 0;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          cursor: pointer;
-          font-weight: 700;
-          font-size: 20px;
-          line-height: 1.3;
-          position: relative;
-          transition: background-color 0.3s ease;
-        }
-
-        .faq-container-{{ section.id }} .faq-content {
-          max-height: 0;
-          overflow: hidden;
-
-
-        }
-
-        .faq-container-{{ section.id }} .faq-section.active .faq-content {
-          max-height: 3000px;
-        }
-
-        .faq-container-{{ section.id }} .faq-item {
-          padding: 24px 0 0;
-          display: flex;
-          gap: 13px;
-          opacity: 0;
-          transform: translateY(0);
-          transition: all 0.3s ease;
-        }
-
-        .faq-container-{{ section.id }} .faq-section.active .faq-item {
-          opacity: 1;
-          transform: translateY(0);
-          padding: 20px 0 0;
-        }
-
-        .faq-container-{{ section.id }} .faq-section.active .faq-item:nth-child(1) {
-          transition-delay: 0.1s;
-          padding-top: 0;
-        }
-
-        .faq-container-{{ section.id }} .faq-section.active .faq-item:nth-child(2) {
-          transition-delay: 0.2s;
-        }
-        .faq-container-{{ section.id }} .faq-section.active .faq-item:nth-child(3) {
-          transition-delay: 0.3s;
-        }
-
-        .faq-container-{{ section.id }} .faq-section.active .faq-item:last-child .faq-item-content {
-          border-bottom: none;
-          padding-bottom: 24px;
-        }
-        .faq-container-{{ section.id }} .faq-item-icon {
-          color: #B0B0B0;
-          width: 22px;
-    height: 22px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    border: 2px solid #B0B0B0;
-    color: #B0B0B0;
-  font-family: Mulish;
-  font-size: 14px;
-
-  font-weight: 700;
-  line-height: 1.2; /* 120% */
-  display: flex;
-    align-items: center;
-    justify-content: center;
-        }
-
-        .faq-container-{{ section.id }} .faq-item-content {
-          color: rgba(102, 102, 102, 0.80);
-
-          ;
-          flex: 1;
-          font-size: 16px;
           line-height: 1.4;
-          opacity: 0.8;
-          font-weight: 400;
         }
+      .faq-container-{{ section.id }} .faq-section {
 
-        .faq-container-{{ section.id }} .faq-item-content > div:first-child {
-          margin-bottom: 10px;
-          color: #000;
-          font-size: 18px;
-          font-weight: 700;
-          line-height: 1.38;
-          opacity: 1;
-        }
-
-        .faq-container-{{ section.id }} .toggle-icon {
-          position: absolute;
-          right: 0;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 18px;
-          height: 18px;
-        }
-
-        .faq-container-{{ section.id }} .icon-plus,
-        .faq-container-{{ section.id }} .icon-minus {
-          width: 18px;
-          height: 18px;
-          position: absolute;
-          left: 0;
-          top: 0;
-          display: block;
-        }
-
-        .faq-container-{{ section.id }} .icon-minus {
-          display: none;
-        }
-
-        .faq-container-{{ section.id }} .faq-section.active .icon-plus {
-          display: none;
-        }
-
-        .faq-container-{{ section.id }} .faq-section.active .icon-minus {
-          display: block;
-        }
-
-        .faq-container-{{ section.id }} .icon-question {
-          width: 28px;
-          height: 28px;
-          transition: transform 0.3s ease;
-          margin-top: 0;
-        }
-
-        .faq-container-{{ section.id }} .faq-item:hover .icon-question {
-          transform: scale(1.1);
-        }
-
-        @media only screen and (max-width: 768px) {
-          .faq-container-{{ section.id }} {
-            padding: 0 24px;
-          }
-          .faq-container-{{ section.id }} .faqs-title {
-              text-align: left;
-              margin-bottom: 0px;
-            }
-            .faq-container-{{ section.id }} .faqs-title h3.title {
-              font-size: 24px;
-              line-height: 1.3;
-              margin-bottom: 10px;
-              font-weight: 700;
-              text-align: left;
-            }
-            .faq-container-{{ section.id }} .faqs-title .spec {
-              font-size: 14px;
-              line-height: 1.4;
-            }
-            .faq-container-{{ section.id }} .faqs-title div.spec p {
-              color: #000;
-              margin: 0;
-              line-height: 1.4;
-            }
-          .faq-container-{{ section.id }} .faq-section {
-
-          }
-          .faq-container-{{ section.id }} .faq-header {
-            padding: 20px 0;
-            font-size: 18px;
-            line-height: 1.38;
-          }
-          .faq-container-{{ section.id }} .toggle-icon {
-
-            width: 14px;
-            height: 14px;
-          }
-          .faq-container-{{ section.id }} .icon-plus,
-          .faq-container-{{ section.id }} .icon-minus {
-            width: 14px;
-            height: 14px;
-            position: absolute;
-            left: 0;
-            top: 0;
-            display: block;
-          }
-          .faq-container-{{ section.id }} .faq-content {
-            {% comment %} padding: 0 20px; {% endcomment %}
-          }
-          .faq-container-{{ section.id }} .faq-item-icon {
-            display: none;
-          }
-          .faq-container-{{ section.id }} .faq-item-content {
-
-            font-size: 14px;
-            line-height: 1.4;
-              opacity: 1;
-              color: #666;
-
-          }
-          .faq-container-{{ section.id }} .faq-item-content > div:first-child {
-            margin-bottom: 10px;
-
-            font-size: 16px;
-              line-height: 1.4;
-
-          }
-          .faq-container-{{ section.id }} .faq-section.active .faq-item {
-            opacity: 1;
-            transform: translateY(0);
-            padding: 14px 0;
-            border-bottom: 1px solid rgba(204, 204, 204, 0.22);
-
-
-        }
-        .faq-container-{{ section.id }} .faq-section.active .faq-header {
-          padding-bottom: 14px;
-
-        }
-        .faq-container-{{ section.id }} .faq-section.active .faq-item:last-child .faq-item-content {
-
-          padding-bottom: 0;
       }
+      .faq-container-{{ section.id }} .faq-header {
+        padding: 20px 0;
+        font-size: 18px;
+        line-height: 1.38;
+      }
+      .faq-container-{{ section.id }} .toggle-icon {
+
+        width: 14px;
+        height: 14px;
+      }
+      .faq-container-{{ section.id }} .icon-plus,
+      .faq-container-{{ section.id }} .icon-minus {
+        width: 14px;
+        height: 14px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: block;
+      }
+      .faq-container-{{ section.id }} .faq-content {
+        {% comment %} padding: 0 20px; {% endcomment %}
+      }
+      .faq-container-{{ section.id }} .faq-item-icon {
+        display: none;
+      }
+      .faq-container-{{ section.id }} .faq-item-content {
+
+        font-size: 14px;
+        line-height: 1.4;
+          opacity: 1;
+          color: #666;
+
+      }
+      .faq-container-{{ section.id }} .faq-item-content > div:first-child {
+        margin-bottom: 10px;
+
+        font-size: 16px;
+          line-height: 1.4;
+
+      }
+      .faq-container-{{ section.id }} .faq-section.active .faq-item {
+        opacity: 1;
+        transform: translateY(0);
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(204, 204, 204, 0.22);
+
+
+    }
+    .faq-container-{{ section.id }} .faq-section.active .faq-header {
+      padding-bottom: 14px;
+
+    }
+    .faq-container-{{ section.id }} .faq-section.active .faq-item:last-child .faq-item-content {
+
+      padding-bottom: 0;
+  }
 
 
 
 
-        }
+    }
 </style>
 
 <div class="faq-container-{{ section.id }}">
   <div class="faqs-title">
-    <h3 class="title">Frequently Asked Questions</h3>
-    <div class="spec">
-      <p>Please take a look at the sections below to find the answers you’re looking for.</p>
-      <p>
-        If you can’t find what you’re looking for or have additional questions, please don’t hesitate to contact us.
-      </p>
-      <p>We’re always here to help!</p>
-    </div>
+    {% if section.settings.title != empty %}
+      <h3 class="title">{{ section.settings.title }}</h3>
+    {% endif %}
+    {% if section.settings.subtitle != empty %}
+      <div class="spec">
+        {{ section.settings.subtitle }}
+      </div>
+    {% endif %}
   </div>
   {% for block in section.blocks %}
     <div class="faq-section {% if forloop.first %} first active{% endif %}">
@@ -402,7 +391,7 @@
     // 检查是否为移动端
     if (window.innerWidth <= 768) {
       // 获取所有FAQ部分
-      const faqSections = document.querySelectorAll('.faq-section');
+      const faqSections = document.querySelectorAll('.faq-container-{{ section.id }} .faq-section');
       // 移除所有active类
       faqSections.forEach((section) => {
         section.classList.remove('active');
@@ -410,7 +399,7 @@
     }
   });
   // 为所有FAQ标题添加点击事件监听器
-  document.querySelectorAll('.faq-header').forEach((header) => {
+  document.querySelectorAll('.faq-container-{{ section.id }} .faq-header').forEach((header) => {
     header.addEventListener('click', () => {
       // 获取当前点击的FAQ部分
       const currentSection = header.parentElement;
@@ -418,7 +407,7 @@
       const isActive = currentSection.classList.contains('active');
 
       // 关闭所有已展开的section
-      document.querySelectorAll('.faq-section.active').forEach((section) => {
+      document.querySelectorAll('.faq-container-{{ section.id }} .faq-section.active').forEach((section) => {
         // 如果不是当前点击的section则关闭它
         if (section !== currentSection) {
           toggleSection(section, false);
@@ -461,6 +450,119 @@
 {
   "name": "Support Resources FAQs",
   "class": "support-resources-faqs",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "select",
+      "id": "section_max_width",
+      "label": "模块最大宽度",
+      "options": [
+        {
+          "value": "none",
+          "label": "全屏"
+        },
+        {
+          "value": "1600",
+          "label": "1600px"
+        },
+        {
+          "value": "1400",
+          "label": "1400px"
+        },
+        {
+          "value": "1280",
+          "label": "1280px"
+        },
+        {
+          "value": "1200",
+          "label": "1200px"
+        },
+        {
+          "value": "1020",
+          "label": "1020px"
+        },
+        {
+          "value": "980",
+          "label": "980px"
+        }
+      ],
+      "default": "1200"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题",
+      "default": "<p>Please take a look at the sections below to find the answers you’re looking for.</p><p>If you can’t find what you’re looking for or have additional questions, please don’t hesitate to contact us.</p><p>We’re always here to help!</p>"
+    },
+    {
+      "type": "header",
+      "content": "颜色"
+    },
+    {
+      "type": "color_background",
+      "id": "background_color",
+      "label": "背景色",
+      "default": "#fff"
+    },
+
+    {
+      "type": "header",
+      "content": "分区填充"
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
   "blocks": [
     {
       "name": "FAQ",

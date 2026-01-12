@@ -1,0 +1,559 @@
+{{- 'multicolumn.css' | asset_url | stylesheet_tag -}}
+<style>
+	#shopify-section-{{ section.id }} {
+		background: #FFFAF4;
+	}
+
+	#shopify-section-{{ section.id }} .what-you-get-section {
+		max-width: 1200px;
+		padding: 0;
+	}
+
+	#shopify-section-{{ section.id }} .multicolumn__column {
+		padding: 0 24px;
+		margin: 0;
+	}
+
+  #shopify-section-{{ section.id }} .multicolumn__column .rte {
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      padding: 24px 24px 12px 24px;
+  }
+
+  #shopify-section-{{ section.id }} .multicolumn__column p {
+      margin-bottom: 0;
+      color: #FFF;
+      font-size: 20px;
+      font-weight: 700;
+      text-align: left;
+      line-height: 30px;
+  }
+
+	#shopify-section-{{ section.id }} .multicolumn__image {
+		margin-bottom: 0;
+		width: 100% !important;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+	}
+
+  #shopify-section-{{ section.id }} .section-header--description p {
+      color: #121212;
+      text-align: center;
+      font-size: 18px;
+      line-height: 27px;
+  }
+
+  #shopify-section-{{ section.id }} .multicolumn.text-alignment--center .section-header {
+      padding: 0 0 48px;
+  }
+
+	#shopify-section-{{ section.id }} .block-title {
+		color: #121212;
+		font-size: 20px;
+		font-weight: 700;
+		line-height: 30px; /* 150% */
+		padding: 12px 24px;
+		background: rgba(255, 255, 255);
+		border-radius: 0 0 16px 16px;
+		position: relative;
+		transform: translateY(-12px);
+	}
+
+	#shopify-section-{{ section.id }} .multicolumn__inner {
+		padding: 24px 48px;
+	}
+
+	#shopify-section-{{ section.id }} .row .columns {
+		padding: 0;
+		flex: 1;
+        position: relative;
+	}
+
+	#shopify-section-{{ section.id }} .row.no-padding {
+		gap: 48px;
+	}
+
+	#shopify-section-{{ section.id }} .row .row {
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+  #shopify-section-{{ section.id }} .multicolumn__image--inner img {
+      border-radius: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .mobile-image {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .desktop-image {
+    display: block;
+  }
+
+  @media screen and (min-width: 768px) {
+    .swiper-pagination {
+      display: none !important;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-slide {
+      width: 100% !important;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }} .section-header--title {
+      font-size: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .section-header--content {
+      padding: 0 32px;
+    }
+
+    #shopify-section-{{ section.id }} .multicolumn.text-alignment--center .section-header {
+      padding-bottom: 24px;
+    }
+    
+    #shopify-section-{{ section.id }} .multicolumn__inner {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #shopify-section-{{ section.id }} .multicolumn__inner .row .columns {
+      flex: none;
+    }
+
+    #shopify-section-{{ section.id }} .row .row {
+      flex-wrap: nowrap;
+    }
+
+    #shopify-section-{{ section.id }} .row.no-padding {
+      padding: 0;
+      gap: 0;
+    }
+
+    #shopify-section-{{ section.id }} .multicolumn__column p {
+      font-size: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .multicolumn__image--inner img {
+      border-radius: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .mobile-image {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .desktop-image {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .eligible-content {
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-pagination {
+      position: static;
+      height: fit-content;
+      text-align: center;
+      height: fit-content;
+      display: flex;
+      justify-content: center;
+      margin-top: 24px;
+      gap: 8px;
+      height: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-pagination-bullet {
+      background: transparent;
+      border: 1px solid #121212;
+      opacity: 1;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-pagination-bullet-active {
+      background: #E60012;
+      position: relative;
+      border: none;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-pagination-bullet-active::after {
+      content: "";
+      background: transparent;
+      border-radius: 99px;
+      border: 1px solid #E60012;
+      width: 12px;
+      height: 12px;
+      transform: translate(-6px, -2px);
+      position: absolute;
+    }
+  }
+</style>
+{%- liquid
+  assign section_heading = section.settings.heading
+  assign marker_style = section.settings.marker_style
+  assign section_description = section.settings.description
+  assign columns_desktop = section.settings.columns_desktop
+  assign heading_size = section.settings.heading_size
+  assign mobile_swipe = section.settings.mobile_swipe
+  assign image_ratio = section.settings.image_ratio
+  assign text_alignment = section.settings.text_alignment
+
+  assign color_heading = section.settings.color_heading
+  assign marker_color = section.settings.marker_color
+  assign color_text = section.settings.color_text
+  assign color_links = section.settings.color_links
+
+  assign disable_top_spacing = section.settings.disable_top_spacing
+  assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+
+  case columns_desktop
+    when 2
+      assign columns_desktop_class = 'medium-6'
+    when 3
+      assign columns_desktop_class = 'medium-4'
+    when 4
+      assign columns_desktop_class = 'medium-3'
+    when 5
+      assign columns_desktop_class = 'medium-1/5 large-1/5'
+  endcase
+-%}
+<div
+  class="multicolumn {% if mobile_swipe %} swipe-on-mobile{% endif %} section-spacing{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %} text-alignment--{{ text_alignment }}"
+  style="--color-heading: {{ color_heading }}; --color-text: {{ color_text }}; --color-accent: {{ color_links }}; --color-accent-rgb: {{ color_links.rgb | replace: ' ' , ',' }};"
+>
+  <div class="row what-you-get-section">
+    <div class="small-12 columns">
+      {% render 'section-header',
+        section_heading: section_heading,
+        section_description: section_description,
+        marker_color: marker_color,
+        marker_style: marker_style
+      %}
+      <div class="multicolumn__inner swiper mySwiper text-{{ text_alignment }}">
+        <div class="row align-stretch no-padding swiper-wrapper">
+          {%- for block in section.blocks -%}
+            <div class="multicolumn__column small-12 swiper-slide {{ columns_desktop_class }} columns">
+              {% if block.settings.image != blank %}
+                {%- liquid
+                  assign ratio = 1
+                  assign max_width = block.settings.image.width | divided_by: 2 | append: 'px'
+                  assign image_link = block.settings.image_link
+                  if image_ratio == 'adapt'
+                    assign ratio = block.settings.image.aspect_ratio
+                    assign mobile_ratio = block.settings.mobile_image.aspect_ratio
+                  endif
+
+                  if block.settings.image_full_width
+                    assign max_width = '100%'
+                  endif
+                -%}
+                <figure class="multicolumn__image" style="width: {{ max_width }};">
+                  <div
+                    class="multicolumn__image--inner aspect-ratio desktop-image aspect-ratio--{{ image_ratio }}"
+                    style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+                  >
+                    {% if image_link != blank %}
+                      <a href="{{ image_link }}">
+                    {% endif %}
+                    {%- render 'responsive-image', image: block.settings.image, sizes: '407x0,814x0', retina: true -%}
+
+                    {% if image_link != blank %}
+                      </a>
+                    {% endif %}
+                  </div>
+
+                  <div
+                    class="multicolumn__image--inner aspect-ratio mobile-image aspect-ratio--{{ image_ratio }}"
+                    style="--ratio-percent: {{ 1 | divided_by: mobile_ratio | times: 100 }}%;"
+                  >
+                    {% if image_link != blank %}
+                      <a href="{{ image_link }}">
+                    {% endif %}
+                    {%- render 'responsive-image', image: block.settings.mobile_image, sizes: '407x0,814x0', retina: true -%}
+
+                    {% if image_link != blank %}
+                      </a>
+                    {% endif %}
+                  </div>
+                </figure>
+              {% endif %}
+              {% if block.settings.title != blank %}
+                <h4 class="{{ heading_size }} block-title">{{ block.settings.title | newline_to_br }}</h4>
+              {% endif %}
+              {% if block.settings.text != blank %}
+                <div class="rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+              {% endif %}
+              {% if block.settings.link_label != blank %}
+                {% render 'text-button', url: block.settings.link, title: block.settings.link_label %}
+              {% endif %}
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var swiper = new Swiper("#shopify-section-{{ section.id }} .mySwiper", {
+    slidesPerView: 1.3,
+    spaceBetween: 12,
+    slidesOffsetAfter: 32,
+    slidesOffsetBefore: 32,
+    pagination: {
+      el: "#shopify-section-{{ section.id }} .swiper-pagination",
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Education Grid",
+  "class": "section-multicolumn",
+  "settings": [
+    {
+      "type": "liquid",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Multicolumn",
+      "info": "Wrap your text between | to add animated markers. For example: Animated |marker| will underline marker text."
+    },
+    {
+      "type": "select",
+      "id": "marker_style",
+      "options": [
+        {
+          "value": "style1",
+          "label": "Basic"
+        },
+        {
+          "value": "style2",
+          "label": "Double"
+        },
+        {
+          "value": "style3",
+          "label": "Squiggle"
+        },
+        {
+          "value": "style4",
+          "label": "Zigzag"
+        }
+      ],
+      "default": "style1",
+      "label": "Marker"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Add a short description for this section</p>"
+    },
+
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "Number of columns on desktop"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_swipe",
+      "default": false,
+      "label": "Enable swipe on mobile"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Adapt to image"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "circle",
+          "label": "Circle"
+        }
+      ],
+      "default": "adapt",
+      "label": "Image ratio"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "label": "Content alignment"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Content heading size",
+      "options": [
+        {
+          "value": "h3",
+          "label": "Extra Large"
+        },
+        {
+          "value": "h4",
+          "label": "Large"
+        },
+        {
+          "value": "h5",
+          "label": "Medium"
+        },
+        {
+          "value": "h6",
+          "label": "Small"
+        }
+      ],
+      "default": "h5"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading",
+      "default": "#1a1c1d"
+    },
+    {
+      "type": "color",
+      "id": "marker_color",
+      "label": "Marker",
+      "default": "#FD6262"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text",
+      "default": "#2c2d2e"
+    },
+    {
+      "type": "color",
+      "id": "color_links",
+      "label": "Links",
+      "default": "#2c2d2e"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_top_spacing",
+      "default": false,
+      "label": "Remove top spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_bottom_spacing",
+      "default": false,
+      "label": "Remove bottom spacing"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "770 x 770 .jpg recommended."
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile image",
+          "info": "770 x 770 .jpg recommended."
+        },
+        {
+          "type": "checkbox",
+          "id": "image_full_width",
+          "label": "Fit image to column",
+          "default": false
+        },
+        {
+          "type": "url",
+          "id": "image_link",
+          "label": "Image link"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Column",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Education Grid",
+      "blocks": [
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

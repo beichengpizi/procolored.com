@@ -1,0 +1,279 @@
+<style>
+    #shopify-section-{{ section.id }} {
+        background: #FFF5EA;
+    }
+
+    #shopify-section-{{ section.id }} .eligible-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 60px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .eligible-container {
+        display: flex;
+        max-width: 1200px;
+        width: 100%;
+        background-color: white;
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    #shopify-section-{{ section.id }} .eligible-tabs {
+        flex: 1;
+        padding: 40px 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #shopify-section-{{ section.id }} .eligible-tab {
+        border-left: 2px solid #ddd;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 16px 0 16px 10px;
+    }
+
+    #shopify-section-{{ section.id }} .eligible-tab.active {
+        border-left-color: #ff4d4d;
+    }
+
+    #shopify-section-{{ section.id }} .eligible-tab h3 {
+        margin: 0;
+        font-weight: 600;
+        color: #333;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 30px; /* 150% */
+    }
+
+    #shopify-section-{{ section.id }} .eligible-tab p {
+        display: none;
+    }
+
+    #shopify-section-{{ section.id }} .eligible-tab.active h3 {
+        color: #ff4d4d;
+    }
+
+    #shopify-section-{{ section.id }} .eligible-tab.active p {
+        color: #E60012;
+        font-size: 16px;
+        line-height: 24px; /* 150% */
+        opacity: 0.6;
+        display: block;
+        margin-bottom: 0;
+    }
+
+    #shopify-section-{{ section.id }} .eligible-image {
+        flex: 1;
+        position: relative;
+    }
+
+    #shopify-section-{{ section.id }} .eligible-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+        transition: opacity 0.4s ease;
+    }
+
+    #shopify-section-{{ section.id }} .eligible-image img.active {
+        display: block;
+        opacity: 1;
+    }
+
+    #shopify-section-{{ section.id }} h2.section-title {
+        color: #121212;
+        text-align: center;
+        font-size: 40px;
+        padding-bottom: 48px;
+        font-weight: 800;
+        line-height: 60px; /* 150% */
+    }
+
+    #shopify-section-{{ section.id }} .mobile-image {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .desktop-image {
+      display: block;
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+        #shopify-section-{{ section.id }} .eligible-container {
+            flex-direction: column;
+        }
+        #shopify-section-{{ section.id }} .eligible-image {
+            height: 206px;
+            padding: 12px;
+        }
+
+        #shopify-section-{{ section.id }} .eligible-content {
+          width: 100%;
+        }
+
+        #shopify-section-{{ section.id }} .mobile-image {
+          display: block;
+        }
+
+        #shopify-section-{{ section.id }} .desktop-image {
+          display: none;
+        }
+
+        #shopify-section-{{ section.id }} h2.section-title {
+          font-size: 24px;
+          padding-bottom: 24px;
+          margin-bottom: 0;
+          line-height: 1.2;
+        }
+
+        #shopify-section-{{ section.id }} .eligible-section {
+          padding: 32px 20px;
+        }
+
+        #shopify-section-{{ section.id }} .eligible-image img {
+          border-radius: 12px;
+        }
+
+        #shopify-section-{{ section.id }} .eligible-tabs {
+          padding: 12px;
+        }
+
+        #shopify-section-{{ section.id }} .eligible-tab h3 {
+          font-size: 18px;
+        }
+    }
+</style>
+
+<section class="eligible-section">
+  <div class="eligible-content">
+    <h2 class="section-title">{{ section.settings.title }}</h2>
+    <div class="eligible-container">
+      <!-- 左侧 Tabs -->
+      <div class="eligible-tabs">
+        {%- for block in section.blocks -%}
+            <div class="eligible-tab {% if forloop.index == 1 %}active{% endif %}" data-index="{{ forloop.index0 }}">
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.description }}</p>
+            </div>
+        {%- endfor -%}
+      </div>
+
+      <!-- 右侧 图片 -->
+      <div class="eligible-image">
+        {%- for block in section.blocks -%}
+          <img 
+            src="{{ block.settings.image | image_url }}" 
+            alt="" 
+            width="auto" 
+            height="auto"
+            class="{% if forloop.index == 1 %}active{% endif %} desktop-image"
+          >
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const tabs = document.querySelectorAll(".eligible-tab");
+  const images = document.querySelectorAll(".eligible-image img");
+
+  let currentIndex = 0;
+  let timer = null;
+  const interval = 3000; // 3秒
+
+  function switchTo(index) {
+    // 清除所有 active
+    tabs.forEach(t => t.classList.remove("active"));
+    images.forEach(img => img.classList.remove("active"));
+
+    // 激活当前项
+    tabs[index].classList.add("active");
+    images[index].classList.add("active");
+
+    currentIndex = index;
+  }
+
+  function startAutoPlay() {
+    timer = setInterval(() => {
+      let nextIndex = currentIndex + 1;
+      if (nextIndex >= tabs.length) {
+        nextIndex = 0;
+      }
+      switchTo(nextIndex);
+    }, interval);
+  }
+
+  function resetAutoPlay() {
+    clearInterval(timer);
+    startAutoPlay();
+  }
+
+  // 点击切换
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      const index = Number(tab.getAttribute("data-index"));
+      switchTo(index);
+      resetAutoPlay();
+    });
+  });
+
+  // 初始化
+  switchTo(0);
+  startAutoPlay();
+</script>
+
+
+{% schema %}
+  {
+    "name": "Education tab",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "description",
+        "label": "Description"
+      }
+    ],
+    "blocks": [
+        {
+            "type": "item",
+            "name": "Item",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                },
+                {
+                    "type": "text",
+                    "id": "description",
+                    "label": "Description"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "mobile_image",
+                    "label": "Mobile image"
+                }
+            ],
+        }
+    ],
+    "presets": [
+      {
+        "name": "Education tab"
+      }
+    ]
+  }
+{% endschema %}

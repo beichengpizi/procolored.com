@@ -194,9 +194,15 @@
       display: flex;
       width: calc(100% - 32px);
       align-items: center;
-      gap: 12px;
+      justify-content: space-between;
       z-index: 2;
+      gap: 10px;
 
+    }
+    .product-details-left{
+        display: flex;
+        align-items: center;
+        gap: 12px;
     }
 
     .produst-with-video-swiper-{{ section.id }}    .product-img {
@@ -465,6 +471,9 @@
         z-index: 2;
 
       }
+      .product-details-left{
+        gap: 8px;
+    }
 
       .produst-with-video-swiper-{{ section.id }}    .product-img {
         width: 50px;
@@ -656,47 +665,49 @@
                       Your browser does not support the video tag.
                     </video>
 
-                    {% if prod != blank %}
+                    {% if prod != blank and prod.available %}
                       <div class="product-details">
-                        <a class="product-img" href="{{ prod.url }}" target="_blank">
-                          <img
-                            data-sizes="auto"
-                            data-srcset="
-                              {% if product_image.width >= 375 %}{{ product_image | image_url: width: 375 }} 375w,{% endif %}
-                              {% if product_image.width >= 750 %}{{ product_image | image_url: width: 750 }} 750w,{% endif %}
-                              {% if product_image.width >= 1100 %}{{ product_image | image_url: width: 1100 }} 1100w,{% endif %}
-                              {% if product_image.width >= 1500 %}{{ product_image | image_url: width: 1500 }} 1500w,{% endif %}
-                              {% if product_image.width >= 1780 %}{{ product_image | image_url: width: 1780 }} 1780w,{% endif %}
-                              {% if product_image.width >= 2000 %}{{ product_image | image_url: width: 2000 }} 2000w,{% endif %}
-                              {% if product_image.width >= 3000 %}{{ product_image | image_url: width: 3000 }} 3000w,{% endif %}
-                              {% if product_image.width >= 3840 %}{{ product_image | image_url: width: 3840 }} 3840w,{% endif %}
+                        <div class="product-details-left">
+                          <a class="product-img" href="{{ prod.url }}" target="_blank">
+                            <img
+                              data-sizes="auto"
+                              data-srcset="
+                                {% if product_image.width >= 375 %}{{ product_image | image_url: width: 375 }} 375w,{% endif %}
+                                {% if product_image.width >= 750 %}{{ product_image | image_url: width: 750 }} 750w,{% endif %}
+                                {% if product_image.width >= 1100 %}{{ product_image | image_url: width: 1100 }} 1100w,{% endif %}
+                                {% if product_image.width >= 1500 %}{{ product_image | image_url: width: 1500 }} 1500w,{% endif %}
+                                {% if product_image.width >= 1780 %}{{ product_image | image_url: width: 1780 }} 1780w,{% endif %}
+                                {% if product_image.width >= 2000 %}{{ product_image | image_url: width: 2000 }} 2000w,{% endif %}
+                                {% if product_image.width >= 3000 %}{{ product_image | image_url: width: 3000 }} 3000w,{% endif %}
+                                {% if product_image.width >= 3840 %}{{ product_image | image_url: width: 3840 }} 3840w,{% endif %}
 
-                              {{ product_image | image_url }} {{ product_image.width }}w
-                            "
-                            data-src="{{ product_image | image_url: width: 400 }}"
-                            style="max-width:100%;width:100%;aspect-ratio:{{ product_image.aspect_ratio }};"
-                            class="lazyload"
-                            alt="{{ product_name }}"
-                          >
-                        </a>
-                        <div class="product-details-info">
-                          <a class="product-name" href="{{ prod.url }}" target="_blank">
-                            {{- product_name -}}
+                                {{ product_image | image_url }} {{ product_image.width }}w
+                              "
+                              data-src="{{ product_image | image_url: width: 400 }}"
+                              style="max-width:100%;width:100%;aspect-ratio:{{ product_image.aspect_ratio }};"
+                              class="lazyload"
+                              alt="{{ product_name }}"
+                            >
                           </a>
-                          <div class="product-price">
-                            {% if product_price != blank and product_price > 0 %}
-                              <div class="product-sale-price">
-                                {{- product_price | money_without_trailing_zeros -}}
-                              </div>
-                            {% endif %}
-                            {% if product_origin_price != blank
-                              and product_origin_price > 0
-                              and product_origin_price > product_price
-                            %}
-                              <div class="product-original-price">
-                                {{- product_origin_price | money_without_trailing_zeros -}}
-                              </div>
-                            {% endif %}
+                          <div class="product-details-info">
+                            <a class="product-name" href="{{ prod.url }}" target="_blank">
+                              {{- product_name -}}
+                            </a>
+                            <div class="product-price">
+                              {% if product_price != blank and product_price > 0 %}
+                                <div class="product-sale-price">
+                                  {{- product_price | money_without_trailing_zeros -}}
+                                </div>
+                              {% endif %}
+                              {% if product_origin_price != blank
+                                and product_origin_price > 0
+                                and product_origin_price > product_price
+                              %}
+                                <div class="product-original-price">
+                                  {{- product_origin_price | money_without_trailing_zeros -}}
+                                </div>
+                              {% endif %}
+                            </div>
                           </div>
                         </div>
                         <div class="product-button-wrapper">
@@ -911,6 +922,12 @@
       prevEl: '.swiper-button-prev-{{section.id}}',
     },
     breakpoints: {
+        1500: {
+            loop: false,
+            slidesPerView: {{ section.settings.slides_per_view_mobile | plus: 2.2 }},
+            spaceBetween: 10,
+            allowTouchMove: true,
+          },
       1024: {
         loop: false,
         slidesPerView: {{ section.settings.slides_per_view_mobile | plus: 1.2 }},

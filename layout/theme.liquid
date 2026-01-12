@@ -812,6 +812,19 @@
         });
       });
     </script>
+        <!-- 为所有图片添加错误处理 START -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // 获取页面上所有img标签
+        const images = document.getElementsByTagName('img');
+        // 遍历所有图片元素
+        Array.from(images).forEach((img) => {
+          // 为每个图片添加onerror事件处理,加载失败时添加error类
+          img.setAttribute('onerror', "this.classList.add('error');");
+        });
+      });
+    </script>
+    <!-- 为所有图片添加错误处理 END -->
     <script>
       // 产品卡片 活动提示
       $(document).ready(function () {
