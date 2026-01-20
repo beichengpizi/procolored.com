@@ -232,7 +232,7 @@
       flex-flow: row wrap;
       gap: {{ section.settings.card_container_gap }}px; /* 上下间距 */
       margin-bottom: -{{ section.settings.card_container_gap }}px; /* 负边距以抵消底部间距 */
-      margin-right: -{{ section.settings.card_container_gap }}px;
+      {% comment %} margin-right: -{{ section.settings.card_container_gap }}px; {% endcomment %}
     }
 
     #detail-section2-{{section.id}} .reverse {
@@ -240,7 +240,7 @@
     }
 
     #detail-section2-{{section.id}} .custom1-column {
-      flex-basis: calc((100% - {{ section.settings.display_number_per_line | plus: 0 }} * {{ section.settings.card_container_gap }}px) / {{ section.settings.display_number_per_line | plus: 0 }});
+      flex-basis: calc((100% - {{ section.settings.display_number_per_line | minus: 1 }} * {{ section.settings.card_container_gap }}px) / {{ section.settings.display_number_per_line | plus: 0 }});
       box-sizing: border-box;
     }
 
@@ -703,6 +703,8 @@
       <div class="swiper-template-detail-section2-{{section.id}}">
         <div class="swiper-wrapper">
           {%- for block in section.blocks -%}
+            {% case block.type %}
+            {%- when 'materialTextUD' -%}
             {%- if block.settings.image_mobile -%}
               {% assign image = block.settings.image_mobile %}
               {% assign size = 100 | divided_by: section.settings.display_number_per_line_mobile | round %}
@@ -757,6 +759,272 @@
                 </div>
               </div>
             {% endif %}
+          {%- when 'videoItem' -%}
+            {%- if block.settings.video_url -%}
+              {% assign video = block.settings.video_url %}
+              <div class="swiper-slide">
+              <div class="custom1-column custom1-media">
+                <div
+                  class="custom1-img-wrap "
+                  style="aspect-ratio:{{ block.settings.video_image.aspect_ratio }};width: 100%;"
+                >
+                  <a
+                    class="video-link"
+                    href="{{block.settings.video_url}}"
+                    data-fancybox
+                    data-caption="{{ block.settings.caption_heading }}"
+                  >
+                    {% assign video_image = block.settings.video_image %}
+                    {% assign size = 100 | divided_by: section.settings.display_number_per_line | round %}
+                    <img
+                      data-sizes="{{ size }}vw"
+                      width="{{ size }}vw"
+                      data-sizes="auto"
+                      data-srcset="
+                        {%- if video_image.width >= 375 -%}{{ video_image | image_url: width: 375 }} 375w,{%- endif -%}
+                        {%- if video_image.width >= 750 -%}{{ video_image | image_url: width: 750 }} 750w,{%- endif -%}
+                        {%- if video_image.width >= 1100 -%}{{ video_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                        {%- if video_image.width >= 1500 -%}{{ video_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                        {%- if video_image.width >= 1780 -%}{{ video_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                        {%- if video_image.width >= 2000 -%}{{ video_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                        {%- if video_image.width >= 3000 -%}{{ video_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                        {%- if video_image.width >= 3840 -%}{{ video_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+
+                        {{ video_image | image_url }} {{ video_image.width }}w
+                      "
+                      data-src="{{ video_image | image_url: width: 1200 }}"
+                      style="max-width:100%;width:100%;aspect-ratio: {{ video_image.aspect_ratio }};"
+                      class="lazyload"
+                      alt="{{ block.settings.caption_heading}}"
+                    >
+
+                    <i class="czvdo-play-icon-svg ">
+                     {%- if section.settings.paly_button_svg != empty -%} 
+                      {{ section.settings.paly_button_svg }} 
+                    {% else %}         
+                      <svg
+                      width="100%"
+                      height="100%"
+                      viewBox="0 0 64 64"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                      <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <g id="Customer-Stories" transform="translate(-929, -1524)" fill="#FFFFFF">
+                              <g id="没照片时" transform="translate(766, 1447)">
+                                  <g id="编组-5" transform="translate(163, 77)">
+                                      <circle id="椭圆形" fill-opacity="0.5" cx="32" cy="32" r="32"></circle>
+                                      <path d="M44.1126113,33.9083531 L27.730408,43.4646099 C26.5472719,44.1926861 25,43.2826153 25,41.9174846 L25,22.8046778 C25,21.4395471 26.5472719,20.5294763 27.730408,21.2575525 L44.1126113,30.8138093 C45.2957962,31.4510104 45.2957962,33.271152 44.1126113,33.9083531" id="Fill-1"></path>
+                                  </g>
+                              </g>
+                          </g>
+                      </g>
+                    </svg> {%- endif -%}
+             
+                    </i>
+                  </a>
+                </div>
+                <div class="content-bottom-text-wrap">
+                  <div
+                    class="custom-heading-3  {{ section.settings.content_heading_size }} {{ section.settings.content_heading_font_family }}"
+                    
+                  >
+                    {{ block.settings.content_heading }}
+                  </div>
+                  {% if block.settings.content_subheading != empty %}
+                    <div
+                      class="custom-heading-4   {{ section.settings.content_subheading_size }} {{ section.settings.content_subheading_font_family }}"
+                      
+                    >
+                      {{ block.settings.content_subheading }}
+                    </div>
+                  {% endif %}
+                  {% if block.settings.content_desc != empty %}
+                    <div
+                      class="custom-decs  {{ section.settings.content_content_size }} {{ section.settings.content_content_font_family }} "
+                      
+                    >
+                      {{ block.settings.content_desc }}
+                    </div>
+                  {% endif %}
+                  {% if block.settings.author_avatar %}
+                    {% assign author_avatar_image = block.settings.author_avatar %}
+                    <div class="author-info  text-xs" >
+                      <div
+                        class="author-img"
+                        style="aspect-ratio:{{ author_avatar_image.aspect_ratio }};"
+                      >
+                        <img
+                          data-sizes="100vw"
+                          width="100vw"
+                          data-sizes="auto"
+                          data-srcset="
+                            {%- if author_avatar_image.width >= 375 -%}{{ author_avatar_image | image_url: width: 375 }} 375w,{%- endif -%}
+                            {%- if author_avatar_image.width >= 750 -%}{{ author_avatar_image | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if author_avatar_image.width >= 1100 -%}{{ author_avatar_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                            {%- if author_avatar_image.width >= 1500 -%}{{ author_avatar_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {%- if author_avatar_image.width >= 1780 -%}{{ author_avatar_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                            {%- if author_avatar_image.width >= 2000 -%}{{ author_avatar_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                            {%- if author_avatar_image.width >= 3000 -%}{{ author_avatar_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                            {%- if author_avatar_image.width >= 3840 -%}{{ author_avatar_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+
+                            {{ author_avatar_image | image_url }} {{ author_avatar_image.width }}w
+                          "
+                          data-src="{{ author_avatar_image | image_url: width: 1200 }}"
+                          style="max-width:100%;width:100%;aspect-ratio: {{ author_avatar_image.aspect_ratio }};"
+                          class="lazyload"
+                          alt="{{ author_avatar_image.alt }}"
+                        >
+                      </div>
+                      <div class="author-details">
+                        <div class="author-name">
+                          {{ block.settings.author_name }}
+                        </div>
+                        <a class="product-name" href="{{ block.settings.product_link }}" target="_blank">
+                          {{ block.settings.product_name }}
+                        </a>
+                      </div>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          {%- when 'videoItem1' -%}
+            {%- if block.settings.video_url -%}
+              {% assign video = block.settings.video_url %}
+              <div class="swiper-slide">
+              <div class="custom1-column custom1-media">
+                <div
+                  class="custom1-img-wrap "
+                  style="aspect-ratio:{{ block.settings.video_image.aspect_ratio }};width: 100%;"
+                >
+                  <a
+                    class="video-link"
+                    href="{{block.settings.video_url.sources[1].url}}"
+                    data-fancybox
+                    data-caption="{{ block.settings.caption_heading }}"
+                  >
+                    {% assign video_image = block.settings.video_image %}
+                    {% assign size = 100 | divided_by: section.settings.display_number_per_line | round %}
+                    <img
+                      data-sizes="{{ size }}vw"
+                      width="{{ size }}vw"
+                      data-sizes="auto"
+                      data-srcset="
+                        {%- if video_image.width >= 375 -%}{{ video_image | image_url: width: 375 }} 375w,{%- endif -%}
+                        {%- if video_image.width >= 750 -%}{{ video_image | image_url: width: 750 }} 750w,{%- endif -%}
+                        {%- if video_image.width >= 1100 -%}{{ video_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                        {%- if video_image.width >= 1500 -%}{{ video_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                        {%- if video_image.width >= 1780 -%}{{ video_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                        {%- if video_image.width >= 2000 -%}{{ video_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                        {%- if video_image.width >= 3000 -%}{{ video_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                        {%- if video_image.width >= 3840 -%}{{ video_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+
+                        {{ video_image | image_url }} {{ video_image.width }}w
+                      "
+                      data-src="{{ video_image | image_url: width: 1200 }}"
+                      style="max-width:100%;width:100%"
+                      class="lazyload"
+                      alt="{{ block.settings.caption_heading}}"
+                    >
+
+                    <i class="czvdo-play-icon-svg ">
+                      {%- if section.settings.paly_button_svg != empty -%} 
+                        {{ section.settings.paly_button_svg }} 
+                      {% else %}         
+                        <svg
+                          width="100%"
+                          height="100%"
+                          viewBox="0 0 64 64"
+                          version="1.1"
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                        >
+                          <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <g id="Customer-Stories" transform="translate(-929, -1524)" fill="#FFFFFF">
+                                  <g id="没照片时" transform="translate(766, 1447)">
+                                      <g id="编组-5" transform="translate(163, 77)">
+                                          <circle id="椭圆形" fill-opacity="0.5" cx="32" cy="32" r="32"></circle>
+                                          <path d="M44.1126113,33.9083531 L27.730408,43.4646099 C26.5472719,44.1926861 25,43.2826153 25,41.9174846 L25,22.8046778 C25,21.4395471 26.5472719,20.5294763 27.730408,21.2575525 L44.1126113,30.8138093 C45.2957962,31.4510104 45.2957962,33.271152 44.1126113,33.9083531" id="Fill-1"></path>
+                                      </g>
+                                  </g>
+                              </g>
+                          </g>
+                        </svg>
+                    {%- endif -%}
+                  
+                    </i>
+                  </a>
+                </div>
+                <div class="content-bottom-text-wrap">
+                  <div
+                    class="custom-heading-3  {{ section.settings.content_heading_size }} {{ section.settings.content_heading_font_family }}"
+                    
+                  >
+                    {{ block.settings.content_heading }}
+                  </div>
+                  {% if block.settings.content_subheading != empty %}
+                    <div
+                      class="custom-heading-4   {{ section.settings.content_subheading_size }} {{ section.settings.content_subheading_font_family }}"
+                      
+                    >
+                      {{ block.settings.content_subheading }}
+                    </div>
+                  {% endif %}
+                  {% if block.settings.content_desc != empty %}
+                    <div
+                      class="custom-decs  {{ section.settings.content_content_size }} {{ section.settings.content_content_font_family }} "
+                      
+                    >
+                      {{ block.settings.content_desc }}
+                    </div>
+                  {% endif %}
+                  {% if block.settings.author_avatar %}
+                    {% assign author_avatar_image = block.settings.author_avatar %}
+                    <div class="author-info  text-xs" >
+                      <div
+                        class="author-img"
+                        style="aspect-ratio:{{ author_avatar_image.aspect_ratio }};"
+                      >
+                        <img
+                          data-sizes="100vw"
+                          width="100vw"
+                          data-sizes="auto"
+                          data-srcset="
+                            {%- if author_avatar_image.width >= 375 -%}{{ author_avatar_image | image_url: width: 375 }} 375w,{%- endif -%}
+                            {%- if author_avatar_image.width >= 750 -%}{{ author_avatar_image | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if author_avatar_image.width >= 1100 -%}{{ author_avatar_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                            {%- if author_avatar_image.width >= 1500 -%}{{ author_avatar_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {%- if author_avatar_image.width >= 1780 -%}{{ author_avatar_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                            {%- if author_avatar_image.width >= 2000 -%}{{ author_avatar_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                            {%- if author_avatar_image.width >= 3000 -%}{{ author_avatar_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                            {%- if author_avatar_image.width >= 3840 -%}{{ author_avatar_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+
+                            {{ author_avatar_image | image_url }} {{ author_avatar_image.width }}w
+                          "
+                          data-src="{{ author_avatar_image | image_url: width: 1200 }}"
+                          style="max-width:100%;width:100%"
+                          class="lazyload"
+                          alt="{{ author_avatar_image.alt }}"
+                        >
+                      </div>
+                      <div class="author-details">
+                        <div class="author-name">
+                          {{ block.settings.author_name }}
+                        </div>
+                        <a class="product-name" href="{{ block.settings.product_link }}" target="_blank">
+                          {{ block.settings.product_name }}
+                        </a>
+                      </div>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          {%- endcase -%}
           {% endfor %}
         </div>
         {% if section.settings.is_swiper_pagination_mobile %}
@@ -861,7 +1129,7 @@
                     "
                     data-src="{{image | image_url:width:1100}}"
                     class="lazyload"
-
+                    style="aspect-ratio: {{ image.aspect_ratio }};"
                     width="100%"
                     loading="lazy"
                   >
@@ -936,7 +1204,7 @@
                         {{ video_image | image_url }} {{ video_image.width }}w
                       "
                       data-src="{{ video_image | image_url: width: 1200 }}"
-                      style="max-width:100%;width:100%"
+                      style="max-width:100%;width:100%;aspect-ratio: {{ video_image.aspect_ratio }};"
                       class="lazyload"
                       alt="{{ block.settings.caption_heading}}"
                     >
@@ -1015,7 +1283,7 @@
                             {{ author_avatar_image | image_url }} {{ author_avatar_image.width }}w
                           "
                           data-src="{{ author_avatar_image | image_url: width: 1200 }}"
-                          style="max-width:100%;width:100%"
+                          style="max-width:100%;width:100%;aspect-ratio: {{ author_avatar_image.aspect_ratio }};"
                           class="lazyload"
                           alt="{{ author_avatar_image.alt }}"
                         >
@@ -1050,6 +1318,7 @@
                     {% assign video_image = block.settings.video_image %}
                     {% assign size = 100 | divided_by: section.settings.display_number_per_line | round %}
                     <img
+                     
                       data-sizes="{{ size }}vw"
                       width="{{ size }}vw"
                       data-sizes="auto"
@@ -1066,7 +1335,7 @@
                         {{ video_image | image_url }} {{ video_image.width }}w
                       "
                       data-src="{{ video_image | image_url: width: 1200 }}"
-                      style="max-width:100%;width:100%"
+                      style="max-width:100%;width:100%;aspect-ratio: {{ video_image.aspect_ratio }};"
                       class="lazyload"
                       alt="{{ block.settings.caption_heading}}"
                     >

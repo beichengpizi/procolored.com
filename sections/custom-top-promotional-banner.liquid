@@ -6,7 +6,7 @@
       background: {{ section.settings.background_gradient_color }};
       cursor: pointer;
       {% if section.settings.banner_bg_image_pc %}
-        background-image: url({{ section.settings.banner_bg_image_pc | image_url :width:1920 }});
+        background-image: url({{ section.settings.banner_bg_image_pc | image_url :width:3840 }});
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
@@ -39,14 +39,30 @@
     }
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-title {
-      color: #fff;
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 1.25;
-    }
+    {% if section.settings.title_gradient_color != blank %}
+      background: {{ section.settings.title_gradient_color }};
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    {% else %}
+      color: {{ section.settings.title_color }};
+    {% endif %}
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25;
+  }
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-subtitle {
-      color: #fff;
+    {% if section.settings.title_gradient_color != blank %}
+      background: {{ section.settings.title_gradient_color }};
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    {% else %}
+      color: {{ section.settings.title_color }};
+    {% endif %}
       font-size: 20px;
       font-weight: 800;
       line-height: 1.2;
@@ -78,13 +94,19 @@
 
       position: relative;
       border-radius: 6px;
-      border: 1px dashed #fff;
+      border: 1px dashed {{ section.settings.countdown_color }};;
     }
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-value {
-      /* background-color: #000; */
-      color: #fff;
-
+    {% if section.settings.countdown_gradient_color != blank %}
+      background: {{ section.settings.countdown_gradient_color }};
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    {% else %}
+      color: {{ section.settings.countdown_color }};
+    {% endif %}
       border-radius: 0;
       font-size: 24px;
       line-height: 1;
@@ -93,7 +115,15 @@
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-label {
       font-size: 12px;
-      color: #fff;
+      {% if section.settings.countdown_gradient_color != blank %}
+        background: {{ section.settings.countdown_gradient_color }};
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+      {% else %}
+        color: {{ section.settings.countdown_color }};
+      {% endif %}
       line-height: 1;
     }
 
@@ -194,7 +224,7 @@
 
     .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .time-label {
         font-size: 6px;
-        color: #fff;
+
         line-height: 1;
       }
 
@@ -415,9 +445,25 @@
     },
     {
       "type": "color",
-      "id": "product_title_color",
-      "label": "产品标题字体颜色",
+      "id": "title_color",
+      "label": "标题字体颜色",
       "default": "#fff"
+    },
+    {
+      "type": "color_background",
+      "id": "title_gradient_color",
+      "label": "标题渐变色"
+    },
+    {
+      "type": "color",
+      "id": "countdown_color",
+      "label": "倒计时字体颜色",
+      "default": "#fff"
+    },
+    {
+      "type": "color_background",
+      "id": "countdown_gradient_color",
+      "label": "倒计时渐变色"
     },
     {
       "type": "color",

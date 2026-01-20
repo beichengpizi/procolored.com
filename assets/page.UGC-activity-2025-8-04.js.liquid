@@ -1,7 +1,7 @@
 
 
 
-const api = "https://booster.procolored.com"; //正式环境
+// const api = "https://booster.procolored.com"; //正式环境
 // const api = 'https://test.procolored.com'; //测试环境
 // 查询客户是否上传作品
 const inspirationWorkApi = "/procolored/ugc/getInspirationWork";
@@ -419,18 +419,23 @@ function getInspirationWork(customerId) {
     console.error("customerId 必须为数字");
     return;
   }
-  fetch(`${api}${inspirationWorkApi}?customerId=${customerId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("网络请求失败");
-      }
-      return response.json();
-    })
+  // fetch(`${api}${inspirationWorkApi}?customerId=${customerId}`, {
+  //   method: "GET",
+  //   headers: window.ShopifyData.headers,
+  // })
+  //   .then((response) => {
+  //     if (!response.ok) {
+  //       throw new Error("网络请求失败");
+  //     }
+  //     return response.json();
+  //   })
+    boosterFetch(
+      inspirationWorkApi,
+      {
+        customerId: customerId
+      },
+      { method: "GET" }
+    )
     .then((data) => {
       // 这里可以根据实际需求处理返回的数据
       console.log("查询结果:", data);
@@ -489,18 +494,21 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 // 查询上周中奖作品的函数
 function getLastWeekCuratedSelect() {
-  fetch(`${api}${lastWeekCuratedSelectApi}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("网络请求失败");
-      }
-      return response.json();
-    })
+  // fetch(`${api}${lastWeekCuratedSelectApi}`, {
+  //   method: "GET",
+  //   headers: window.ShopifyData.headers,
+  // })
+  //   .then((response) => {
+  //     if (!response.ok) {
+  //       throw new Error("网络请求失败");
+  //     }
+  //     return response.json();
+  //   })
+    boosterFetch(
+      lastWeekCuratedSelectApi,
+      {},
+      { method: "GET" }
+    )
     .then((data) => {
       // 这里可以根据实际需求处理返回的数据
 
@@ -626,18 +634,21 @@ ${inspirationDescribe}
 
 // 查询上上周中奖作品的函数
 function getTwoWeekAgoCuratedSelect() {
-  fetch(`${api}${twoWeekAgoCuratedSelectApi}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("网络请求失败");
-      }
-      return response.json();
-    })
+  // fetch(`${api}${twoWeekAgoCuratedSelectApi}`, {
+  //   method: "GET",
+  //   headers: window.ShopifyData.headers,
+  // })
+  //   .then((response) => {
+  //     if (!response.ok) {
+  //       throw new Error("网络请求失败");
+  //     }
+  //     return response.json();
+  //   })
+    boosterFetch(
+      twoWeekAgoCuratedSelectApi,
+      {},
+      { method: "GET" }
+    )
     .then((data) => {
       // 这里可以根据实际需求处理返回的数据
       console.log("上上周中奖作品:", data);
@@ -727,18 +738,21 @@ function getTwoWeekAgoCuratedSelect() {
 
 // 查询模型列表的函数
 function getModeList() {
-  fetch(`${api}${modeListApi}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("网络请求失败");
-      }
-      return response.json();
-    })
+  // fetch(`${api}${modeListApi}`, {
+  //   method: "GET",
+  //   headers: window.ShopifyData.headers,
+  // })
+  //   .then((response) => {
+  //     if (!response.ok) {
+  //       throw new Error("网络请求失败");
+  //     }
+  //     return response.json();
+  //   })
+    boosterFetch(
+      modeListApi,
+      {},
+      { method: "GET" }
+    )
     .then((data) => {
       // 这里可以根据实际需求处理返回的数据
       console.log("模型列表:", data);
@@ -831,19 +845,22 @@ function postUploadInspiration(data, url, text) {
   const uploadButton = document.querySelector(
     ".ugc-upload-your-inspiration-content-not-uploaded-popup-button-upload"
   );
-  fetch(`${api}${uploadInspirationApi}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("网络请求失败");
-      }
-      return response.json();
-    })
+  // fetch(`${api}${uploadInspirationApi}`, {
+  //   method: "POST",
+  //   headers: window.ShopifyData.headers,
+  //   body: JSON.stringify(data),
+  // })
+  //   .then((response) => {
+  //     if (!response.ok) {
+  //       throw new Error("网络请求失败");
+  //     }
+  //     return response.json();
+  //   })
+    boosterFetch(
+      uploadInspirationApi,
+      data,
+      { method: "POST" }
+    )
     .then((data) => {
       // 这里可以根据实际需求处理返回的数据
       console.log("上传灵感作品成功:", data);
@@ -1048,16 +1065,21 @@ function postUploadImg(file) {
   const formData = new FormData();
   formData.append("file", file);
 
-  fetch(`${api}${uploadImgApi}`, {
-    method: "POST",
-    body: formData,
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("网络请求失败");
-      }
-      return response.json();
-    })
+  // fetch(`${api}${uploadImgApi}`, {
+  //   method: "POST",
+  //   body: formData,
+  // })
+  //   .then((response) => {
+  //     if (!response.ok) {
+  //       throw new Error("网络请求失败");
+  //     }
+  //     return response.json();
+  //   })
+    boosterFetch(
+      uploadImgApi,
+      formData,
+      { method: "POST" }
+    )
     .then((data) => {
       // 上传结束，恢复按钮状态
       if (notUploaded) {
@@ -1336,16 +1358,21 @@ document.addEventListener("DOMContentLoaded", function () {
         // 上传图片
         const formData = new FormData();
         formData.append("file", file);
-        fetch(`${api}${uploadImgApi}`, {
-          method: "POST",
-          body: formData,
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("网络请求失败");
-            }
-            return response.json();
-          })
+        // fetch(`${api}${uploadImgApi}`, {
+        //   method: "POST",
+        //   body: formData,
+        // })
+        //   .then((response) => {
+        //     if (!response.ok) {
+        //       throw new Error("网络请求失败");
+        //     }
+        //     return response.json();
+        //   })
+          boosterFetch(
+            uploadImgApi,
+            formData,
+            { method: "POST" }
+          )
           .then(function (data) {
             if (data.code === 200) {
               if (uploadButton) {

@@ -63,9 +63,7 @@ function getUserLotteryRecords(id,activityId) {
   console.log('用户ID:', id);
   fetch(`${api}${lotteryRecordsApi}?customerId=${id}&activityId=${activityId}`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
+    headers: window.ShopifyData.headers,
   })
     .then(response => {
       if (!response.ok) {
@@ -235,9 +233,7 @@ function getAllPrize(origin,activityId) {
 
   fetch(`${api}${allPrizeApi}?origin=${origin}&activityId=${activityId}`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
+    headers: window.ShopifyData.headers,
   })
     .then(response => {
       if (!response.ok) {
@@ -325,9 +321,7 @@ function getLotteryRecords(activityId) {
 
   fetch(`${api}${lotteryRecordsApi}?activityId=${activityId}`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
+    headers: window.ShopifyData.headers,
   })
     .then(response => {
       if (!response.ok) {
@@ -409,9 +403,7 @@ function getLotteryChance(id, email,activityId) {
 
   fetch(`${api}${lotteryChanceApi}?customerId=${id}&customerEmail=${email}&activityId=${activityId}`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
+    headers: window.ShopifyData.headers,
   })
     .then(response => {
       if (!response.ok) {
@@ -488,9 +480,7 @@ function postShareToAddLotteryChance(id, email, platform) {
   // 发送POST请求
   fetch(`${api}${shareToAddLotteryChanceApi}`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: window.ShopifyData.headers,
     body: JSON.stringify(postData)
   })
     .then(response => {
@@ -530,9 +520,7 @@ function postDoLottery(id, email,activityId) {
   // 发送POST请求
   fetch(`${api}${doLotteryApi}`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: window.ShopifyData.headers,
     body: JSON.stringify(postData)
   })
     .then(response => {

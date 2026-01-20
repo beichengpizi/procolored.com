@@ -1,0 +1,985 @@
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/intl-tel-input@18/build/css/intlTelInput.css"
+>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18/build/js/intlTelInput.min.js"></script>
+
+<style>
+  #shopify-section-{{ section.id }} .input-container {
+    position: relative;
+    width: calc(calc(100% - 16px) / 2);
+    height: fit-content;
+  }
+
+  #shopify-section-{{ section.id }} .input-container label {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #000;
+    pointer-events: none;
+    background: white;
+    padding: 0 4px;
+    transition: 0.2s ease all;
+  }
+
+  #shopify-section-{{ section.id }} .input-container:has(#phone) label {
+    left: 47px;
+  }
+
+  #shopify-section-{{ section.id }} .input-container input,
+  #shopify-section-{{ section.id }} .input-container select,
+  #shopify-section-{{ section.id }} .input-container textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(0,0,0,0.3);
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+    margin-bottom: 0;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .input-container:has(#phone) input {
+    padding-left: 50px;
+  }
+
+  /* 聚焦时效果 */
+  #shopify-section-{{ section.id }} .input-container input:focus {
+    border-color: #000;
+    border-width: medium;
+  }
+
+  /* label上浮的条件 */
+  #shopify-section-{{ section.id }} .input-container:focus-within label,
+  #shopify-section-{{ section.id }} .input-container:has(#message):focus-within label,
+  #shopify-section-{{ section.id }} .input-container:has(#phone):focus-within label,
+  #shopify-section-{{ section.id }} .input-container input:not(:placeholder-shown) + label,
+  #shopify-section-{{ section.id }} .input-container select:not(:placeholder-shown) + label,
+  #shopify-section-{{ section.id }} .input-container textarea:not(:placeholder-shown) + label,
+  #shopify-section-{{ section.id }} .input-container:has(#phone):focus-within label,
+  #shopify-section-{{ section.id }} .input-container:has(#phone.filled) label,
+  #shopify-section-{{ section.id }} .input-container.has-value label {
+    top: 0;
+    left: 10px;
+    font-size: 12px;
+    color: #000;
+  }
+
+  #shopify-section-{{ section.id }} .input-container:has(#message) label {
+    position: static;
+    transform: none;
+  }
+
+  #shopify-section-{{ section.id }} .input-container:has(#message) {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .iti__dropdown-content {
+    width: fit-content;
+    height: 200px;
+    scrollbar-width: none;
+  }
+
+  #shopify-section-{{ section.id }} .iti--flexible-dropdown-width .iti__country-list {
+    scrollbar-width: none;
+    position: static;
+  }
+
+  #shopify-section-{{ section.id }} #maintenance-worker-form-page {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .input-container:has(textarea),
+  #shopify-section-{{ section.id }} .input-container textarea,
+  #shopify-section-{{ section.id }} .input-container:has(#businessPlanFile),
+  #shopify-section-{{ section.id }} .input-container:has(#submitButton),
+  #shopify-section-{{ section.id }} .input-container:has(#agreeTerms),
+  #shopify-section-{{ section.id }} .iti,
+  #shopify-section-{{ section.id }} .input-container select {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .input-container #submitButton {
+    width: fit-content;
+    font-size: 14px;
+    border-radius: 0;
+    padding: 11px 22px;
+  }
+
+  #shopify-section-{{ section.id }} .input-container #agreeTerms {
+    width: fit-content;
+  }
+
+  #shopify-section-{{ section.id }} .input-container:has(#agreeTerms) {
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .input-container:has(#agreeTerms) label {
+    position: static;
+    transform: none;
+  } 
+
+  #shopify-section-{{ section.id }} .input-container:has(#businessPlanFile),
+  #shopify-section-{{ section.id }} .input-container:has(#businessPlanFile) input {
+    min-height: 150px;
+  }
+
+  #shopify-section-{{ section.id }} .input-container:has(#agreeTerms) span {
+    font-size: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .input-container:has(#agreeTerms) a {
+    color: #da281c;
+    font-size: 14px;
+  }
+
+  #shopify-section-{{ section.id }} input.error,
+  #shopify-section-{{ section.id }} textarea.error,
+  #shopify-section-{{ section.id }} select.error {
+    border-color: #da281c;
+  }
+
+  #shopify-section-{{ section.id }} .error-message {
+    color: #da281c;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .file-upload {
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .file-upload-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #000;
+  }
+
+  #shopify-section-{{ section.id }} .file-upload-box {
+    border: 1px dashed #000;
+    border-radius: 10px;
+    padding: 32px 16px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .file-title {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  #shopify-section-{{ section.id }} .file-hint {
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .browse-btn {
+    border: 1px solid #f6931e;
+    color: #f6931e;
+    background: transparent;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  #shopify-section-{{ section.id }} .browse-btn:hover {
+    background: #f6931e;
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .file-preview.hidden {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .file-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border: 1px solid #f6931e;
+    border-radius: 8px;
+    background: #fff;
+    position: relative;
+    flex-direction: column;
+  }
+
+  #shopify-section-{{ section.id }} .file-name {
+    font-size: 14px;
+    max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  #shopify-section-{{ section.id }} .file-remove {
+    border: none;
+    color: #000;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .file-name-button {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  /* 灰色遮罩层 */
+    #shopify-section-{{ section.id }} .success-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    /* 白色弹窗框 */
+    #shopify-section-{{ section.id }} .success-popup-box {
+      background: #fff;
+      width: 800px;
+      padding: 32px;
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    #shopify-section-{{ section.id }} .success-title {
+      color: #121212;
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      padding-bottom: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .success-desc {
+      color: #5D5D5D;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 500;
+      padding-bottom: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .success-btn {
+      width: 536px;
+      padding: 12px 20px;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }} .input-container {
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} #maintenance-worker-form-page {
+      padding: 12px;
+    }
+
+    /* 灰色遮罩层 */
+    #shopify-section-{{ section.id }} .success-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    /* 白色弹窗框 */
+    #shopify-section-{{ section.id }} .success-popup-box {
+      background: #fff;
+      width: calc(100% - 24px);
+      padding: 28px;
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    #shopify-section-{{ section.id }} .success-title {
+      color: #121212;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 700;
+      padding-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    #shopify-section-{{ section.id }} .success-desc {
+      color: #5D5D5D;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 500;
+      padding-bottom: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .success-btn {
+      width: 100%;
+      padding: 12px 20px;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  }
+</style>
+
+{% liquid
+  if section.settings.top == '17.5'
+    assign top = 'pt-8 md:pt-17.5'
+  elsif section.settings.top == '20'
+    assign top = 'pt-8 md:pt-20'
+  elsif section.settings.top == '24'
+    assign top = 'pt-8 md:pt-24'
+  elsif section.settings.top == '28'
+    assign top = 'pt-8 md:pt-28'
+  else
+    assign top = ''
+  endif
+
+  if section.settings.bottom == '17.5'
+    assign bottom = 'pb-8 md:pb-17.5'
+  elsif section.settings.bottom == '20'
+    assign bottom = 'pb-8 md:pb-20'
+  elsif section.settings.bottom == '24'
+    assign bottom = 'pb-8 md:pb-24'
+  elsif section.settings.bottom == '28'
+    assign bottom = 'pb-8 md:pb-28'
+  else
+    assign bottom = ''
+  endif
+%}
+
+<div class="{{ top }} {{ bottom }}" data-section-type="maintenance-worker-form">
+  <div class="container">
+    <div
+      class="relative md:rounded-2xl rounded-xl bg-white shadow"
+    >
+      {%- if section.settings.headding != blank -%}
+        <div class="flex flex-col gap-y-2 md:gap-x-8 md:flex-row items-center justify-between px-4 pb-0 py-3 md:px-8 md:py-4 md:border-b-2 md:border-x-0 md:border-t-0 md:border-solid md:border-gray-100">
+          {%- liquid
+            assign image = section.settings.img
+          -%}
+          {%- if image != blank -%}
+            <div class="-mt-8 md:mt-0">
+              <img
+                data-src="{{ image | image_url }}"
+                class="lazyload w-40 md:w-64 h-auto {% unless settings.lazy_loading %} no-blur{% endunless %}"
+                width="{{ image.src.width }}"
+                height="{{ image.src.height }}"
+                alt="{{ image.alt }}"
+              >
+            </div>
+          {%- endif -%}
+          <h2 class="text-base font-normal md:font-semibold md:text-2xl m-0">{{ section.settings.headding }}</h2>
+        </div>
+      {%- endif -%}
+      <div id="maintenance-worker-form-page" class="p-2 sm:p-4 pt-0 min-h-56 md:p-8">
+        <div class="input-container">
+          <input
+            id="first-name"
+            placeholder=" "
+            required="true"
+          >
+          <label for="first-name">First Name<span>*</span></label>
+        </div>
+
+        <div class="input-container">
+          <input
+            id="last-name"
+            type="tel"
+            placeholder=" "
+            required="true"
+          >
+          <label for="last-name">Last Name<span>*</span></label>
+        </div>
+
+        <div class="input-container">
+          <input
+            id="phone"
+            type="text"
+            placeholder=" "
+            required="true"
+          >
+          <label for="phone">Phone<span>*</span></label>
+        </div>
+
+        <div class="input-container">
+          <input
+            id="email"
+            type="email"
+            placeholder=" "
+            required="true"
+          >
+          <label for="email">Email<span>*</span></label>
+        </div>
+
+        <div class="input-container">
+          <input
+            id="website-link"
+            type="url"
+            placeholder=" "
+            required="true"
+          >
+          <label for="website-link">Your Website Link<span>*</span></label>
+        </div>
+
+        <div class="input-container">
+          <input
+            id="social-media"
+            type="url"
+            placeholder=" "
+            required="true"
+          >
+          <label for="social-media">Your Social Media<span>*</span></label>
+        </div>
+
+        <div class="input-container country">
+          <select name="country" id="country">
+            <option value="United States">United States</option>
+          </select>
+          <label for="country">Country<span>*</span></label>
+        </div>
+
+        <div class="input-container">
+          <input
+            id="city"
+            type="text"
+            placeholder=" "
+            required="true"
+          >
+          <label for="city">City<span>*</span></label>
+        </div>
+
+        <div class="input-container">
+          <label for="message">Message<span>*</span></label>
+          <textarea
+            id="message"
+            placeholder="Message"
+            required="true"
+          ></textarea>
+        </div>
+
+        <div class="file-upload">
+          <label class="file-upload-label">Upload your resume or qualification certification here</label>
+
+          <div class="file-upload-box" id="fileUploadBox">
+            <!-- 上传前状态 -->
+            <div class="file-empty" id="fileEmpty">
+              <p class="file-title">Choose file</p>
+              <p class="file-hint">Supported format: pdf, doc, docx, ppt, pptx</p>
+              <button type="button" class="browse-btn">Browse file</button>
+            </div>
+
+            <!-- 上传后状态 -->
+            <div class="file-preview hidden" id="filePreview">
+              <div class="file-card">
+                <div class="file-icon">
+                  <svg width="82px" height="82px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M9 3h-2.75a1.75 1.75 0 0 0-1.75 1.75v10.5c0 .966.784 1.75 1.75 1.75h7.5a1.75 1.75 0 0 0 1.75-1.75v-5.795h-4.87a1.625 1.625 0 0 1-1.626-1.624l-.003-4.831Zm-1.975 11c0-.483.392-.875.875-.875h4.2a.875.875 0 0 1 0 1.75h-4.2a.875.875 0 0 1-.875-.875Z" fill="#5C5F62"></path><path d="M15.35 8.205h-4.72a.375.375 0 0 1-.376-.375l-.003-4.699c.212.087.407.216.572.382l4.164 4.164c.154.154.276.333.363.528Z" fill="#5C5F62"></path>
+                  </svg>
+                </div>
+                <div class="file-name-button">
+                  <div class="file-name" id="fileName"></div>
+                  <button type="button" class="file-remove" id="removeFile">×</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <input
+            id="businessPlanFile"
+            type="file"
+            accept=".pdf,.doc,.docx,.ppt,.pptx"
+            hidden
+          >
+        </div>
+
+        <div class="input-container">
+          <input
+            id="agreeTerms"
+            type="checkbox"
+            placeholder=" "
+            required
+          >
+          <span>
+            I agree to the procolored's <a onclick="event.stopPropagation()" href="https://www.procolored.com/policies/terms-of-service">Term of service</a><span>*</span>
+          </span>
+        </div>
+
+        <div class="input-container">
+          <input
+            id="submitButton"
+            type="submit"
+            placeholder=" "
+            value="Submit"
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 成功弹窗 ===== -->
+<div id="successPopup" class="success-popup-overlay" style="display:none;">
+  <div class="success-popup-box">
+      <div class="success-title">Thanks for Your Submission.</div>
+      <div class="success-desc">Your application has been received. F13 discount codes ($600–$1,000) will be sent weekly via EDM email, and the free F13 Pro winners will be announced within two months via EDM email.</div>
+      <button id="successOk" class="success-btn">OK</button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const api = "https://booster.procolored.com"; //正式环境
+    {% comment %} const api = 'https://test.procolored.com'; //测试环境 {% endcomment %}
+    const startUpApi = '/procolored/activity/startup/submit';
+    const countryApi = '/procolored/region/getAllCountry';
+    const uploadImgApi = '/procolored/api/oss/upload';
+    const section = document.querySelector("#shopify-section-{{ section.id }}");
+    
+    // 初始化国际电话输入框
+    const input = document.querySelector("#phone");
+    const iti = window.intlTelInput(input, {
+      initialCountry: "us", // 默认国家
+      showFlags: true,
+      showSelectedDialCode: true,
+      preferredCountries: ["us", "gb", "ca", "au"], // 常用国家排前
+      utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18/build/js/utils.js" // 解析格式所需
+    });
+
+    const fileInput = document.getElementById("businessPlanFile");
+    const fileBox = document.getElementById("fileUploadBox");
+    const browseBtn = fileBox.querySelector(".browse-btn");
+
+    const fileEmpty = document.getElementById("fileEmpty");
+    const filePreview = document.getElementById("filePreview");
+    const fileNameEl = document.getElementById("fileName");
+    const removeBtn = document.getElementById("removeFile");
+
+    // 点击整个区域 or Browse
+    fileBox.addEventListener("click", () => {
+      fileInput.click();
+    });
+
+    // 选中文件后
+    fileInput.addEventListener("change", () => {
+      if (!fileInput.files.length) return;
+
+      const file = fileInput.files[0];
+      fileNameEl.innerText = file.name;
+
+      // 切换 UI
+      fileEmpty.style.display = "none";
+      filePreview.classList.remove("hidden");
+    });
+
+    // 删除文件
+    removeBtn.addEventListener("click", (e) => {
+      e.stopPropagation(); // 防止再次触发 fileInput.click
+      fileInput.value = "";
+
+      filePreview.classList.add("hidden");
+      fileEmpty.style.display = "block";
+    });
+
+    const phoneInput = document.getElementById("phone");
+
+    phoneInput.addEventListener("input", function () {
+      this.value = this.value.replace(/\D/g, '');
+      if (this.value.trim() !== "") {
+        this.classList.add("filled");
+      } else {
+        this.classList.remove("filled");
+      }
+    });
+
+    const countryPhoneCode = "+" + iti.getSelectedCountryData().dialCode;
+
+    function validateForm() {
+      const requiredFields = document.querySelectorAll(
+        '#maintenance-worker-form-page input[required], #maintenance-worker-form-page textarea[required], #maintenance-worker-form-page select[required]'
+      );
+
+      for (let field of requiredFields) {
+        clearError(field);
+
+        // checkbox
+        if (field.type === 'checkbox' && !field.checked) {
+          showError(field, 'This field is required');
+          field.focus();
+          return false;
+        }
+
+        // 普通输入
+        if (field.type !== 'checkbox' && !field.value.trim()) {
+          showError(field, 'This field is required');
+          field.focus();
+          return false;
+        }
+
+        // email
+        if (field.type === 'email' && !isValidEmail(field.value.trim())) {
+          showError(field, 'Please enter a valid email address');
+          field.focus();
+          return false;
+        }
+
+        // phone
+        if (field.id === 'phone' && !isValidPhone()) {
+          showError(field, 'Please enter a valid phone number');
+          field.focus();
+          return false;
+        }
+      }
+
+      // 文件校验
+      if (!document.getElementById('businessPlanFile').files.length) {
+        alert('Please upload your resume or qualification certification here');
+        return false;
+      }
+
+      return true;
+    }
+
+    const formFields = document.querySelectorAll(
+      '#maintenance-worker-form-page input, #maintenance-worker-form-page textarea, #maintenance-worker-form-page select'
+    );
+
+    formFields.forEach(field => {
+      const eventType = field.type === 'checkbox' ? 'change' : 'input';
+
+      field.addEventListener(eventType, () => {
+        clearError(field);
+      });
+    });
+
+    formFields.forEach(field => {
+      const eventType = field.type === 'checkbox' ? 'change' : 'input';
+
+      field.addEventListener(eventType, () => {
+        if (
+          (field.type === 'checkbox' && field.checked) ||
+          (field.type !== 'checkbox' && field.value.trim())
+        ) {
+          field.classList.remove('error');
+        }
+      });
+    });
+
+    function showError(field, message) {
+      field.classList.add('error');
+
+      const container = field.closest('.input-container') || field.parentElement;
+      let error = container.querySelector('.error-message');
+
+      if (!error) {
+        error = document.createElement('div');
+        error.className = 'error-message';
+        container.appendChild(error);
+      }
+
+      error.textContent = message;
+    }
+
+    function clearError(field) {
+      field.classList.remove('error');
+
+      const container = field.closest('.input-container') || field.parentElement;
+      const error = container.querySelector('.error-message');
+      if (error) error.remove();
+    }
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function isValidPhone() {
+      return iti.isValidNumber();
+    }
+
+    async function uploadFile() {
+      const fileInput = document.getElementById("businessPlanFile");
+      const file = fileInput.files[0];
+
+      if (!file) {
+        alert("Please select a file first");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file); // ⚠️ key 必须是 "file"
+
+      try {
+        const res = await fetch(`${api}${uploadImgApi}`, {
+          method: "POST",
+          headers: {
+            'timestamp': window.ShopifyData.headers.timestamp,
+            'sign': window.ShopifyData.headers.sign
+          },
+          body: formData
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.msg || "Upload failed");
+        }
+
+        // ✅ 只有接口明确返回成功才继续
+        if (data.code === 200) {
+          const uploadUrl = data.result; // OSS 返回的文件地址
+
+          // ✅ 上传成功后再提交表单
+          submitForm(uploadUrl);
+        } else {
+          alert(data.msg || "Upload failed");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("File upload error, please try again.");
+      }
+    }
+
+    async function getCountry() {
+      try {
+        const res = await fetch(`${api}${countryApi}`, {
+          method: "GET",
+          headers: window.ShopifyData.headers
+        });
+
+        const data = await res.json();
+
+        if(!res.ok) {
+          const text = await res.text();
+          throw new Error(`Server error: ${res.status} ${text}`);
+        }
+
+        if(data.code == 200) {
+          const countryList = data.result;
+          data.result.forEach((countryItem) => {
+            const countryOption = document.createElement('option');
+            countryOption.value = countryItem.name;
+            countryOption.innerHTML = countryItem.name;
+            section.querySelector('#country').appendChild(countryOption);
+          });
+        } else {
+          alert(data.msg || 'Error: Unknown error');
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    let submitting = false;
+
+    section.querySelector("#submitButton").addEventListener('click', (e) => {
+      e.preventDefault();
+
+      if(JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer === null) {
+        const modalLogin = document.querySelector("modal-login");
+        if (modalLogin) {
+          console.log("modalLogin", modalLogin);
+          const loginForm = modalLogin.showModal(
+            modalLogin.fetchForm.login.innerHTML
+          );
+          modalLogin.loginBindEvent(loginForm.el);
+        } else {
+          console.warn("modalLogin 元素不存在");
+        }
+        return;
+      }
+      
+      if (submitting) return;
+
+      if (!validateForm()) return;
+
+      submitting = true;
+      section.querySelector("#submitButton").disabled = true;
+      section.querySelector("#submitButton").value = 'Submitting...';
+
+      uploadFile();
+    });
+
+    async function submitForm(uploadUrl) {
+      const firstName = document.getElementById("first-name").value.trim();
+      const lastName = document.getElementById("last-name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const websiteLink = document.getElementById("website-link").value.trim();
+      const socialMedia = document.getElementById("social-media").value.trim();
+      const country = document.getElementById("country").value.trim();
+      const city = document.getElementById("city").value.trim();
+      const message = document.getElementById("message").value.trim();
+      const businessPlanFile = document.getElementById("businessPlanFile").value.trim();
+      const agreeTerms = document.getElementById("agreeTerms").checked;
+      const postData = {
+        origin: 'Shopify_US',
+        customerId: JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer.id || {},
+        firstName,
+        lastName,
+        email,
+        countryPhoneCode,
+        phone,
+        websiteLink,
+        socialMedia,
+        country,
+        city,
+        message,
+        businessPlanFile: uploadUrl,
+        agreeTerms: agreeTerms ? 1 : 0
+      }
+
+      try {
+        const res = await fetch(`${api}${startUpApi}`, {
+          method: "POST",
+          headers: window.ShopifyData.headers,
+          body: JSON.stringify(postData)
+        });
+
+        const data = await res.json();
+
+        if(!res.ok) {
+          const text = await res.text();
+          throw new Error(`Server error: ${res.status} ${text}`);
+        }
+
+        if(data.result == true) {
+          // success
+          document.getElementById("successPopup").style.display = "flex";
+          submitting = false;
+          section.querySelector("#submitButton").disabled = false;
+          section.querySelector("#submitButton").value = 'Submit';
+        } else {
+          alert(data.msg || 'Error: Unknown error');
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    document.getElementById("successOk").addEventListener("click", () => {
+      document.getElementById("successPopup").style.display = "none";
+    });
+
+    getCountry();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Startup discount",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "配置项"
+    },
+    {
+      "type": "select",
+      "id": "top",
+      "default": "17.5",
+      "label": "板块上边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bottom",
+      "default": "17.5",
+      "label": "板块下边距",
+      "options": [
+        {
+          "value": "none",
+          "label": "无"
+        },
+        {
+          "value": "17.5",
+          "label": "小"
+        },
+        {
+          "value": "20",
+          "label": "默认"
+        },
+        {
+          "value": "24",
+          "label": "中"
+        },
+        {
+          "value": "28",
+          "label": "大"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "内容配置"
+    },
+    {
+      "type": "image_picker",
+      "id": "img",
+      "label": "图标"
+    },
+    {
+      "type": "text",
+      "id": "headding",
+      "label": "标题",
+      "default": "Please review and complete the following items in order to submit an application to become a repair engineer for Procolored."
+    },
+    {
+      "type": "liquid",
+      "id": "form",
+      "label": "表单代码，去后台 APP 内获取"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Startup discount"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,1876 @@
+<style>
+          /* black friday Official Promotion product1  start  */
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-wrapper {
+            background-color: {{ section.settings.bg_color }};
+            padding: {{ section.settings.padding_top }}px 0px {{ section.settings.padding_bottom }}px 0px;
+            overflow: initial;
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-container {
+              position: relative;
+          }
+
+
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-title-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+
+            {% if section.settings.section_max_width != 'none' %}
+              max-width: {{ section.settings.section_max_width }}px;
+              margin: 0 auto;
+            {% else %}
+              width: 100%;
+              max-width: 100%;
+            {% endif %}
+
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-title {
+            color: #fff;
+            text-align: center;
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 12px;
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-subtitle {
+            color: rgba(255, 255, 255, 0.80);
+            text-align: center;
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 1.5;
+            margin-bottom: 24px;
+
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-desc {
+            color: #fff;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-bottom: 48px;
+            width: 100%;
+          }
+
+
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-main-banner-box {
+            {% if section.settings.section_max_width != 'none' %}
+              max-width: {{ section.settings.section_max_width }}px;
+            {% else %}
+              width: 100%;
+              max-width: 100%;
+            {% endif %}
+            margin-bottom: 48px;
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-main-banner-box img {
+            display: flex;
+            width: 100%;
+            max-width: 100%;
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-main-banner-box .pc {
+            display: flex;
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-main-banner-box .mb {
+            display: none;
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-tabs {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            z-index: 2;
+            border-radius: 8px;
+            border: 1px solid #E7E7E7;
+            {% comment %} border-radius: 99px; {% endcomment %}
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-tab-dropdown-wrapper{
+              width: 100%;
+
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-tab {
+            cursor: pointer;
+            text-align: center;
+            color: #000;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1;
+            padding: 16px 20px;
+            {% comment %} -webkit-tap-highlight-color: transparent;
+            /* 消除移动端点击背景 */
+            -webkit-touch-callout: none;
+            outline: none; {% endcomment %}
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-tab.active {
+            color: #000;
+            font-weight: 700;
+            {% comment %} background: #A31C22; {% endcomment %}
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-content {
+            {% if section.settings.section_max_width != 'none' %}
+              max-width: {{ section.settings.section_max_width }}px;
+              margin: 0 auto;
+            {% else %}
+              width: 100%;
+              max-width: 100%;
+            {% endif %}
+            display: grid;
+            /* 计算好每一列的宽度，减去 (列数-1) * gap 后平均分配 */
+            grid-template-columns: repeat({{ section.settings.product_nums }}, minmax(0, calc((100% - ({{ section.settings.product_nums | minus: 1 }} * {{ section.settings.card_gap }}px)) / {{ section.settings.product_nums }})));
+            grid-gap: {{ section.settings.card_gap }}px;
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-product-tab  {
+              opacity: 0;
+              height: 0;
+
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-content-item{
+            border-radius: 16px;
+            background-color: {{ section.settings.card_bg_color }};
+            background: {{ section.settings.card_background_gradient_color }};
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 24px;
+        background-clip: padding-box;
+
+          }
+
+
+          .exhibition-products-select-{{ section.id }} .exhibition-product-tab.active {
+            display: flex;
+            opacity: 1;
+            height: 100%;
+            width: 100%;
+
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-card {
+            position: relative;
+            display: flex;
+            width: 100%;
+
+
+
+          }
+
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-label-container{
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1;
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-label-discount ,.exhibition-products-select-{{ section.id }} .exhibition-products-select-product-label-features{
+            border-radius: 9999px;
+            background: linear-gradient(90deg, #FEE8D0 0%, #FFC78F 100%);
+
+            display: flex;
+            padding: 6px 16px;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            align-self: stretch;
+
+          }
+
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-label-discount-icon{
+            display: flex;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-label-features-icon{
+            display: flex;
+            width: 27px;
+            height: 20px;
+            flex-shrink: 0;
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-label-discount-text,.exhibition-products-select-{{ section.id }} .exhibition-products-select-product-label-features-text {
+            color: #121212;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.5;
+          }
+
+
+
+
+
+
+
+
+          @keyframes exhibition-tab-bar-fill-{{section.id}} {
+              from {
+                  width: 0%;
+              }
+              to {
+                  width: 100%;
+              }
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            width: 100%;
+
+
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-main-image{
+              width: 80%;
+              max-width: 100%;
+              flex-shrink: 1;
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-main-image .pc{
+               display: flex;
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-main-image .mb{
+              display: none;
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-main-content{
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              width: 100%;
+              display: flex;
+    padding: 12px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+
+    border-radius: 16px;
+  border: 1px solid rgba(240, 247, 255, 0.04);
+  background: radial-gradient(104.49% 102.66% at 26.76% 0%, #262A38 0%, #1B1C22 100%);
+
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-name {
+            background: linear-gradient(270deg, #FFF 0%, #FFF 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: left;
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.5;
+            min-height: 72px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+
+
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-tips {
+            color: #3D3D3D;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.4;
+            padding-top: 4px;
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-content-bottom {
+            display: flex;
+            align-items: start;
+            width: 100%;
+            justify-content: space-between;
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-price {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-sale-price {
+
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.5;
+            background: linear-gradient(90deg, #FEE8D0 0%, #FFC78F 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-original-price {
+            color: rgba(255, 255, 255, 0.40);
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+            letter-spacing: 0.16px;
+            text-decoration-line: line-through;
+          }
+
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-trend-table{
+            position:relative;
+
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-trend-table-icon{
+            display: flex;
+            width: 240px;
+            height: 80px;
+            flex-shrink: 0;
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-trend-table-content{
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-trend-table-content-icon{
+            display: flex;
+            width: 22px;
+            height: 32px;
+            flex-shrink: 0;
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-trend-table-content-detail{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-trend-table-content-detail-text{
+            text-align: center;
+            font-family: Mulish;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 110%; /* 15.4px */
+            background: linear-gradient(90deg, #FEE8D0 0%, #FFC78F 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-trend-table-content-detail-price{
+            text-align: center;
+            font-family: Mulish;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 110%; /* 22px */
+            background: linear-gradient(90deg, #FEE8D0 0%, #FFC78F 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-button-wrapper {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+            justify-content: space-between;
+            {% if section.settings.button_layout == '1' %}
+              flex-direction: column;
+            {% endif %}
+          }
+          .exhibition-products-select-{{ section.id }} product-card,.exhibition-products-select-{{ section.id }} .exhibition-products-select-product-button-view-more{
+            {% if section.settings.button_layout == '2' %}
+              width: calc(50% - 6px);
+            {% else %}
+              width:100%;
+            {% endif %}
+
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-button-add-to-cart,
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-button-view-more {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #FECE67;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1;
+            padding: 19px 5px;
+            border-radius: 8px;
+
+            height: 100%;
+
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-button-add-to-cart {
+            background: linear-gradient(180deg, #FECE67 0%, #FECE67 100%);
+            color: #121212;
+
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-button-add-to-cart.button.accent:hover
+          @media screen and (hover: hover) {
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-button-add-to-cart.button.accent:hover,
+            .exhibition-products-select-{{ section.id }} input[type=submit].accent:hover {
+              background: linear-gradient(90deg, #FEE8D0 0%, #FFC78F 100%);
+            }
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-button-view-more {
+            border: 1px solid #FECE67;
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-button-add-to-cart:hover {
+            color: #121212;
+            background: linear-gradient(90deg, #FEE8D0 0%, #FFC78F 100%);
+          }
+
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-button-view-more:hover {
+            color: #121212;
+            background: linear-gradient(90deg, #FEE8D0 0%, #FFC78F 100%);
+          }
+
+          .exhibition-products-select-{{ section.id }} .product-flash-sale-countdown {
+            max-width: max-content;
+            background: #DA291C;
+            margin-bottom: 10px;
+            color: #fff;
+            padding: 0px 12px;
+            border-radius: 17px;
+          }
+
+          .exhibition-products-select-{{ section.id }} .product-flash-sale-countdown .countdown-box > div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            font-size: 14px;
+          }
+
+          .exhibition-products-select-{{ section.id }} .product-flash-sale-countdown .time-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 52px;
+            min-height: 56px;
+            position: relative;
+            {% comment %} border-radius: 6px;
+            border: 1px dashed #FFF; {% endcomment %}
+          }
+
+          .exhibition-products-select-{{ section.id }} .product-flash-sale-countdown .time-block:not(:last-child)::after {
+            content: ":";
+            position: absolute;
+            right: -2px;
+            top: 0px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            line-height: 1;
+          }
+
+          .exhibition-products-select-{{ section.id }} .product-flash-sale-countdown .time-value {
+            /* background-color: #000; */
+            color: #fff;
+            border-radius: 0;
+            font-size: 24px;
+            line-height: 1;
+            margin-bottom: 8px;
+          }
+
+          .exhibition-products-select-{{ section.id }} .product-flash-sale-countdown .time-label {
+            font-size: 12px;
+            color: #fff;
+            line-height: 1;
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-select{
+            width:100%;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: transparent;
+            padding-right: 42px;
+            height: auto;
+            margin-bottom: 0;
+            margin-top: 16px;
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-select option{
+            margin:12px;
+            padding:10px;
+            text-align: left;
+
+
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-select option[selected]{
+            border-radius: 4px;
+            background:  #F9F9F9;
+
+
+          }
+          .exhibition-products-select-tab-dropdown-icon{
+            pointer-events:none;
+            position:absolute;
+            right:16px;
+            top:50%;
+            transform:translateY(-50%);
+            width:16px;
+            height:16px;
+          }
+          @media screen and (max-width: 1400px) {
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-title-wrapper {
+              {% if section.settings.section_max_width != 'none' %}
+                max-width: {{ section.settings.section_max_width | plus:48 }}px;
+                margin: 0 auto;
+                padding: 0 24px;
+              {% else %}
+                width: 100%;
+                max-width: 100%;
+              {% endif %}
+
+            }
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-content {
+              {% if section.settings.section_max_width != 'none' %}
+                max-width: {{ section.settings.section_max_width | plus:48}}px;
+                margin: 0 auto;
+                padding: 0 24px;
+              {% else %}
+                width: 100%;
+                max-width: 100%;
+              {% endif %}
+
+
+            }
+          }
+          @media screen and (max-width: 768px) {
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-wrapper {
+              padding: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px 0;
+            }
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-container {
+              max-width: 100%;
+            }
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-title-wrapper {
+
+              padding: 0 16px;
+            }
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-title {
+              font-size: 18px;
+              font-weight: 700;
+              margin-bottom: 12px;
+              padding: 0;
+            }
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-subtitle {
+              font-size: 12px;
+              font-weight: 400;
+              line-height: 1.5; /* 150% */
+              padding: 0;
+              margin-bottom: 24px;
+            }
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-desc {
+              font-size: 16px;
+              line-height: 1.4;
+              margin-bottom: 24px;
+              padding: 0 38px;
+            }
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-main-banner-box {
+              margin-bottom: 24px;
+              padding: 0;
+            }
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-main-banner-box .pc {
+              display: none;
+            }
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-main-banner-box .mb {
+              display: flex;
+            }
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-tabs {
+              gap: 8px;
+              width: max-content;
+              max-width: 100%;
+              background: transparent;
+
+            }
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-content {
+                max-width:100%;
+                padding:0 16px;
+                grid-template-columns: 100%;
+                grid-gap: {{section.settings.card_gap_mobile}}px
+              }
+              .exhibition-products-select-{{ section.id }} .exhibition-products-select-content-item {
+                border-radius: 12px;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                background: radial-gradient(272.65% 141.42% at 100% 0%, rgba(100, 147, 235, 0.80) 0%, rgba(100, 147, 235, 0.00) 46.06%), linear-gradient(180deg, #121212 0%, #121212 100%);
+                padding: 24px 12px;
+                background-clip: padding-box;
+            }
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-label-discount, .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-label-features {
+              padding: 4px 12px;
+              gap: 3px;
+
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-label-features-icon {
+            width: 18px;
+            height: 14px;
+        }
+        .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-label-discount-icon {
+          width: 14px;
+          height: 14px;
+
+      }
+        .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-label-discount-text, .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-label-features-text {
+
+          font-size: 12px;
+
+      }
+      .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-main-image {
+        width: 100%;
+
+    }
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-tab {
+              font-size: 12px;
+              font-weight: 400;
+              line-height: 1;
+              padding: 10px 16px;
+              background: #fff;
+            }
+
+
+
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-tab.active {
+              color: #000;
+              font-weight: 700;
+
+            }
+
+
+
+
+            {% if section.settings.show_swiper %}
+              .exhibition-products-select-{{ section.id }} .exhibition-products-select-content {
+                display: flex;
+                flex-direction: row;
+                overflow: hidden;
+                overflow-x: auto;
+                gap: {{ section.settings.card_gap_mobile }}px;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                /* 允许左右上下滑动 */
+                touch-action: pan-x pan-y;
+                overscroll-behavior-x: contain;
+
+              }
+              .exhibition-products-select-{{ section.id }} .exhibition-products-products::-webkit-scrollbar {
+                display: none;
+              }
+              .exhibition-products-select-{{ section.id }} .exhibition-products-select-content-item {
+                width: 320px;
+                flex-shrink: 0;
+            }
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-content-scrollbar{
+              margin-top: 8px;
+              height: 3px;
+              border-radius: 99px;
+              background: #D9D9D9;
+              position: relative;
+              margin-left: 16px;
+              margin-right: 16px;
+              overflow-x: hidden;
+            }
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-content-scrollbar-bar {
+              height: 100%;
+              background: #FECE67;
+              {% comment %} width: 33.33%; /* 100% / 页面数 */ {% endcomment %}
+              transform: translateX(0);
+              transition: transform 0.1s linear;
+            }
+            {%- else -%}
+              .exhibition-products-select-{{ section.id }} .exhibition-products-select-content {
+
+                overflow: visible;
+
+                gap: {{ section.settings.card_gap_mobile }}px;
+
+
+              }
+              .exhibition-products-select-{{ section.id }} .exhibition-products-select-content-scrollbar{
+                display: none;
+              }
+            {%- endif -%}
+
+
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-content {
+              gap: 24px;
+              width: 100%;
+
+            }
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-main-content{
+              width: 100%;
+              gap: 8px;
+              padding: 12px;
+          }
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-main-image .pc{
+              display: none;
+            }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-main-image .mb{
+              display: flex;
+            }
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-name {
+              font-size: 16px;
+              max-width: 100%;
+              min-height: 48px;
+
+            }
+
+
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-tips {
+              font-size: 12px;
+              line-height: 1.4;
+              padding-top: 4px;
+            }
+
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-price {
+
+            }
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-sale-price {
+              font-size: 24px;
+
+            }
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-original-price {
+              font-size: 12px;
+            }
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-trend-table-icon {
+              width: 120px;
+              height: 40px;
+          }
+          .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-trend-table-content {
+            top: 10px;
+            gap: 4px;
+        }
+        .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-trend-table-content-icon {
+          width: 11px;
+          height: 16px;
+      }
+      .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-trend-table-content-detail-text {
+        text-align: center;
+        font-family: Mulish;
+        font-size: 7px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 110%;
+        background: linear-gradient(90deg, #FEE8D0 0%, #FFC78F 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-trend-table-content-detail-price {
+      text-align: center;
+      font-family: Mulish;
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 110%;
+      background: linear-gradient(90deg, #FEE8D0 0%, #FFC78F 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+  }
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-button-wrapper {
+              display: flex;
+              gap: 12px;
+              width: 100%;
+              flex-direction: column;
+            }
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-button-wrapper>*{
+                width: 100%;
+            }
+
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-button-add-to-cart,
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-button-view-more {
+              cursor: pointer;
+              font-size: 16px;
+              border-radius: 8px;
+              margin: 0;
+              padding: 10px 5px;
+              line-height: 1;
+              min-height: 40px;
+            }
+
+            .exhibition-products-select-{{ section.id }} .product-flash-sale-countdown {
+              max-width: max-content;
+              background: #DA291C;
+              margin-bottom: 10px;
+              color: #fff;
+              padding: 0px 12px;
+              border-radius: 17px;
+            }
+
+            .exhibition-products-select-{{ section.id }} .product-flash-sale-countdown .countdown-box > div {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 4px;
+              font-size: 12px;
+            }
+
+            .exhibition-products-select-{{ section.id }} .product-flash-sale-countdown .time-block {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              min-width: 52px;
+              min-height: 56px;
+              position: relative;
+              {% comment %} border-radius: 6px;
+              border: 1px dashed #FFF; {% endcomment %}
+            }
+
+            .exhibition-products-select-{{ section.id }} .product-flash-sale-countdown .time-block:not(:last-child)::after {
+              content: ":";
+              position: absolute;
+              right: -2px;
+              top: 4px;
+              font-size: 12px;
+              font-weight: bold;
+              color: #fff;
+              line-height: 1;
+            }
+
+            .exhibition-products-select-{{ section.id }} .product-flash-sale-countdown .time-value {
+              /* background-color: #000; */
+              color: #fff;
+              border-radius: 0;
+              font-size: 12px;
+              line-height: 1;
+              margin-bottom: 8px;
+            }
+
+            .exhibition-products-select-{{ section.id }} .product-flash-sale-countdown .time-label {
+              font-size: 12px;
+              color: #fff;
+              line-height: 1;
+            }
+            .exhibition-products-select-{{ section.id }} .exhibition-products-select-select{
+              width:100%;
+              appearance: none;
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              background: transparent;
+              padding-right: 30px;
+              height: auto;
+              margin-bottom: 0;
+              margin-top: 9px;
+              padding-left: 60px;
+              height:48px;
+            }
+
+            .exhibition-products-select-tab-dropdown-icon{
+              pointer-events:none;
+              position:absolute;
+              right:8px;
+              top:50%;
+              transform:translateY(-50%);
+              width:16px;
+              height:16px;
+            }
+          }
+          /* black friday Official Promotion product1  end  */
+</style>
+<style>
+  .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock {
+    display: flex;
+    position: relative;
+    width: 100%;
+    min-width: 160px;
+    max-width: 100%;
+    font-size: 16px;
+    line-height: 1.5;
+
+
+    cursor: pointer;
+    transition: border-color 0.18s;
+    z-index: 1;
+  }
+  .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock.open {
+    border-color: #e7e7e7;
+    {% comment %} box-shadow: 0 2px 12px rgba(29, 100, 60, 0.08); {% endcomment %}
+  }
+  .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock-selected {
+    display: block;
+    width: 90%;
+    padding: 12px 16px;
+    background: none;
+    color: #fff;
+    font-weight: 400;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* 一行显示，溢出省略号 */
+  }
+  .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock.open .exhibition-dropdown-mock-selected {
+    color: #fff;
+  }
+  .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock-options {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    padding: 16px 12px;
+    margin-top: 20px;
+    margin-bottom: 0;
+    margin-left: 0;
+    display: none;
+    z-index: 20;
+    animation: fadeIn 0.13s;
+    list-style:none;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.12) 100%), #121212;
+  }
+  .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock.open .exhibition-dropdown-mock-options {
+    display: block;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock-option {
+    padding: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: background 0.1s, color 0.13s;
+    border-radius: 4px;
+    margin: 0;
+    background: none;
+    list-style:none;
+  }
+  .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock-option.active
+  {
+    background: rgba(255, 199, 143, 0.10);
+    color: #fff;
+  }
+  .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock-option:hover {
+    color: #fff;
+  }
+  .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock-dropdown-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+  }
+  .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock.open .exhibition-dropdown-mock-dropdown-icon{
+    transform: translateY(-50%) rotate(180deg);
+  }
+  @media screen and (max-width: 768px) {
+    .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock-options {
+      max-height: 172px;
+      overflow-y: scroll;
+      margin-top: 0;
+      padding: 16px 12px;
+      margin-top: 2px;
+      /* 滚动条样式 */
+      scrollbar-width: thin;
+      scrollbar-color: #FFC78F transparent;
+    }
+    .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock-options::-webkit-scrollbar {
+      width: 2px;
+      border-radius: 10px;
+      background: transparent;
+      display: block;
+    }
+    .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock-options::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: #FFC78F;
+    }
+    .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock-option {
+      padding: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+      border-radius: 4px;
+      margin: 0;
+      background: none;
+    }
+    .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock {
+      width: 100%;
+    }
+    .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock-selected {
+      color: #fff;
+      padding: 8px;
+      -webkit-tap-highlight-color: transparent;
+      /* Remove default tap highlight color on mobile */
+      background-color: transparent;
+    }
+    .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock-dropdown-icon {
+        position: absolute;
+        right: 8px;
+        top:50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+      }
+  }
+</style>
+<!-- black friday Official Promotion product1  start -->
+
+<section
+  id="{%- if section.settings.nav_id != empty %}custom-nav-{{- section.settings.nav_id -}}{% endif -%}"
+  class="exhibition-products-select-{{ section.id }}"
+>
+  <div class="exhibition-products-select-wrapper">
+    <div class="exhibition-products-select-container">
+      {%- if section.settings.title != empty -%}
+        <div class="exhibition-products-select-title-wrapper">
+          {%- if section.settings.title != empty -%}
+            <div class="exhibition-products-select-title">
+              {{ section.settings.title }}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.subtitle != empty -%}
+            <div class="exhibition-products-select-subtitle">
+              {{ section.settings.subtitle }}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.desc != empty -%}
+            <div class="exhibition-products-select-desc">
+              {{ section.settings.desc }}
+            </div>
+          {%- endif -%}
+          {% assign main_banner_image_pc = section.settings.main_banner_image_pc %}
+          {% assign main_banner_image_mb = section.settings.main_banner_image_mb %}
+          {% if main_banner_image_pc and main_banner_image_mb %}
+            <div
+              class="exhibition-products-main-banner-box"
+            >
+              {% if main_banner_image_pc %}
+                <img
+                  style="aspect-ratio: {{ main_banner_image_pc.aspect_ratio }}"
+                  class="pc lazyload"
+                  data-sizes="100vw"
+                  data-srcset="
+                    {%- if main_banner_image_pc.width >= 200 -%}{{ main_banner_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 375 -%}{{ main_banner_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 550 -%}{{ main_banner_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 750 -%}{{ main_banner_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 1100 -%}{{ main_banner_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 1500 -%}{{ main_banner_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 1780 -%}{{ main_banner_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 2000 -%}{{ main_banner_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 3000 -%}{{ main_banner_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 3840 -%}{{ main_banner_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ main_banner_image_pc | image_url }} {{ main_banner_image_pc.width }}w
+                  "
+                  data-src="{{ main_banner_image_pc | image_url:width:750 }}"
+                  alt="{{ main_banner_image_pc.alt }}"
+                >
+              {% endif %}
+              {% if main_banner_image_mb %}
+                <img
+                  style="aspect-ratio: {{ main_banner_image_mb.aspect_ratio }}"
+                  class="mb lazyload"
+                  data-sizes="100vw"
+                  data-srcset="
+                    {%- if main_banner_image_mb.width >= 200 -%}{{ main_banner_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 375 -%}{{ main_banner_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 550 -%}{{ main_banner_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 750 -%}{{ main_banner_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 1100 -%}{{ main_banner_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 1500 -%}{{ main_banner_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 1780 -%}{{ main_banner_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 2000 -%}{{ main_banner_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 3000 -%}{{ main_banner_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 3840 -%}{{ main_banner_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ main_banner_image_mb | image_url }} {{ main_banner_image_mb.width }}w
+                  "
+                  data-src="{{ main_banner_image_mb | image_url:width:750 }}"
+                  alt="{{ main_banner_image_mb.alt }}"
+                >
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+      <div class="exhibition-products-select-content" id="exhibition-products-select-content-{{ section.id }}">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign product_list = block.settings.product_list
+          -%}
+          <div class="exhibition-products-select-content-item">
+            {%- for current_product in product_list -%}
+              {%- if current_product != blank and current_product.available -%}
+                <div
+                  class="exhibition-product-tab {% if forloop.first %} active{% endif %}"
+                  data-tab="{{ forloop.index0  }}"
+                >
+                  {%- liquid
+                    assign current_product_id = current_product.id
+                    assign variant_activity_index = block.settings.variant_activity_index
+                    assign variant = current_product.variants[variant_activity_index] | default: current_product.metafields.custom.activity_page_product_variant_select | default: current_product.variants[0]
+                    assign product_image_pc = variant.metafields.custom.activity_product_image_pc | default: current_product.metafields.custom.product_card_image_pc | default: current_product.featured_image
+                    assign product_image_mb = variant.metafields.custom.activity_product_image_mb | default: current_product.metafields.custom.product_card_image_mb | default: current_product.featured_image
+                    assign title = variant.metafields.custom.activity_product_short_name | default: current_product.metafields.custom.activity_page_product_short_name | default: current_product.title
+                    assign product_price = variant.metafields.custom.activity_sale_price.value | default: variant.price
+                    assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: variant.compare_at_price
+                    assign product_diff_price = product_origin_price | minus: product_price
+                  -%}
+
+                  <div class="exhibition-products-select-card">
+                    <div class="exhibition-products-select-product-label-container">
+                      <div class="exhibition-products-select-product-label-features">
+                        <div class="exhibition-products-select-product-label-features-icon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="100%"
+                            height="100%"
+                            viewBox="0 0 27 20"
+                            fill="none"
+                          >
+                            <path d="M2.37493 20L0 8.48553L7.37495 11.7942L13.25 2L15.5 11.7942L26 8.48553L21.625 20H2.37493Z" fill="url(#paint0_linear_7851_8000)"/>
+                            <circle cx="13" cy="2" r="2" fill="#CC2A1F"/>
+                            <defs>
+                              <linearGradient id="paint0_linear_7851_8000" x1="4" y1="2" x2="22" y2="20" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#CC2A1F"/>
+                                <stop offset="0.5" stop-color="#CC2A1F"/>
+                                <stop offset="1" stop-color="#CC2A1F"/>
+                              </linearGradient>
+                            </defs>
+                          </svg>
+                        </div>
+                        <div class="exhibition-products-select-product-label-features-text">Star Pick</div>
+                      </div>
+                      {% if product_diff_price != blank
+                        and product_diff_price > 0
+                        and product_price > 0
+                        and product_origin_price > 0
+                      %}
+                        <div class="exhibition-products-select-product-label-discount">
+                          <div class="exhibition-products-select-product-label-discount-icon">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="100%"
+                              height="100%"
+                              viewBox="0 0 16 16"
+                              fill="none"
+                            >
+                              <g clip-path="url(#clip0_7851_7787)">
+                                <path d="M4.02179 0.0430431C3.31376 0.296673 3.04228 1.47811 3.32245 3.07792C3.34634 3.21449 3.38109 3.38574 3.39846 3.45728L3.42887 3.58735L3.34851 3.66322C3.2334 3.76944 2.88591 4.08593 2.54058 4.39809C2.23435 4.6734 2.11056 4.82731 2.04757 5.01374C2.01065 5.11996 2.00848 5.37359 2.00197 9.24305C1.99762 13.7542 1.98893 13.4962 2.12142 13.7217C2.21046 13.8712 2.37552 14.0338 2.51887 14.1097C2.77514 14.2463 2.61008 14.2419 6.33046 14.2419C8.46539 14.2419 9.77284 14.2333 9.8684 14.2203C10.2572 14.1639 10.5591 13.8951 10.672 13.5027C10.7046 13.3943 10.7067 12.9846 10.7024 9.23438L10.6959 5.08311L10.6155 4.91619C10.5373 4.75144 10.4244 4.6192 10.1855 4.4111C10.0791 4.31788 9.72941 4.00356 9.53394 3.82363C9.34282 3.65021 9.22336 3.53965 8.80637 3.16463C8.59136 2.9717 8.32205 2.72891 8.20911 2.62486C8.09617 2.5208 7.89636 2.33871 7.76388 2.22165C7.42725 1.91816 7.37729 1.87264 7.14491 1.6602C6.86039 1.4044 6.69099 1.31986 6.41951 1.30468C6.3044 1.30035 6.18278 1.30468 6.13065 1.31986L6.03943 1.3437L6.10676 1.49111C6.31526 1.95068 6.47163 2.39507 6.61497 2.93701C6.70619 3.29036 6.71488 3.3077 6.79307 3.37057C6.92555 3.47679 7.00373 3.57 7.07106 3.70224C7.12536 3.81063 7.13187 3.84964 7.13405 4.0209C7.13405 4.18782 7.12536 4.23334 7.07541 4.33956C6.99505 4.51081 6.86256 4.64738 6.69099 4.73193C6.56285 4.79479 6.53027 4.8013 6.35218 4.8013C6.18712 4.8013 6.13717 4.79262 6.03726 4.74493C5.88958 4.67556 5.71366 4.50865 5.65067 4.37641C5.5095 4.08593 5.5638 3.71741 5.77881 3.49847L5.86569 3.40959L5.80053 3.15162C5.70931 2.78961 5.57249 2.37339 5.45738 2.10459C5.40308 1.97886 5.3553 1.87047 5.35313 1.86614C5.34879 1.8618 5.17504 2.01355 4.96871 2.19997C4.57126 2.56199 4.54954 2.5815 4.19119 2.9045C4.06522 3.01722 3.93274 3.13645 3.89582 3.17113L3.82849 3.23183L3.78288 2.98687C3.74162 2.76576 3.70904 2.48395 3.68298 2.14578C3.67863 2.08075 3.68298 1.87481 3.69384 1.69055C3.72859 1.03371 3.89582 0.613167 4.1673 0.491772C4.27372 0.44408 4.36494 0.452752 4.50611 0.524288C5.08382 0.819104 5.62678 1.77509 5.98297 3.12778C6.04595 3.3684 6.06767 3.4226 6.12414 3.47245C6.23924 3.57867 6.43037 3.53098 6.49335 3.38357C6.51724 3.32288 6.51507 3.29036 6.47163 3.12561C6.22621 2.19564 5.93084 1.4716 5.579 0.942667C5.38788 0.654354 5.00346 0.257652 4.81668 0.155767C4.53217 -0.000311852 4.25417 -0.0414991 4.02179 0.0430431ZM4.98609 7.32891C5.5247 7.40262 5.87437 7.74513 5.97211 8.29574C5.98948 8.38679 5.996 8.55587 5.98948 8.7358C5.98079 8.98075 5.96993 9.05663 5.91998 9.20187C5.84831 9.4078 5.7028 9.63325 5.5638 9.75465C5.41394 9.88255 5.15766 10.0061 4.97088 10.0365C4.73632 10.0755 4.36494 10.056 4.20205 9.9931C3.84804 9.8587 3.60696 9.60941 3.48099 9.25172C3.38109 8.96775 3.38761 8.46266 3.4962 8.15483C3.59827 7.86652 3.81546 7.60856 4.07174 7.47415C4.36711 7.32024 4.62773 7.27906 4.98609 7.32891ZM8.05274 7.45464C8.19391 7.55436 8.25038 7.77114 8.17436 7.91855C8.15264 7.95757 7.86596 8.40196 7.53584 8.90922C7.20572 9.41648 6.86691 9.9324 6.78655 10.0581C6.70619 10.1839 6.57805 10.379 6.50421 10.4917C6.20232 10.9534 5.90695 11.4065 5.74406 11.6579C5.07513 12.6833 5.08816 12.6681 4.87532 12.6681C4.69071 12.6681 4.53869 12.5424 4.50394 12.3625C4.4757 12.2064 4.38666 12.356 5.95256 9.94975C6.29137 9.43165 6.63669 8.89838 6.72357 8.76831C7.51629 7.54352 7.55321 7.48933 7.64009 7.4373C7.74868 7.37444 7.95066 7.38094 8.05274 7.45464ZM8.37852 10.0278C8.81723 10.1167 9.11477 10.3898 9.23857 10.819C9.36453 11.2461 9.29286 11.8465 9.08219 12.1739C8.8346 12.5554 8.4567 12.7462 7.95283 12.7462C7.60099 12.7462 7.28173 12.6183 7.06237 12.3907C6.83433 12.1544 6.7366 11.9007 6.71705 11.4997C6.70185 11.1659 6.74311 10.9426 6.86691 10.6911C7.04283 10.3334 7.35775 10.095 7.76388 10.0148C7.91157 9.9866 8.2026 9.99093 8.37852 10.0278Z" fill="#CC2A1F"/>
+                                <path d="M4.55131 7.98797C4.42534 8.03349 4.36018 8.08768 4.29503 8.20691C4.17775 8.41935 4.1582 8.8529 4.25594 9.1087C4.31023 9.25177 4.43837 9.3775 4.55348 9.39918C4.70116 9.42736 4.89663 9.39918 4.99002 9.33849C5.15725 9.22793 5.2463 8.94395 5.22675 8.59494C5.20721 8.24593 5.08558 8.03132 4.87926 7.97929C4.75112 7.94895 4.65556 7.95111 4.55131 7.98797Z" fill="#CC2A1F"/>
+                                <path d="M7.82923 10.6739C7.72281 10.7129 7.57729 10.869 7.5382 10.9817C7.523 11.0294 7.50562 11.1811 7.49911 11.3221C7.48825 11.5237 7.49476 11.606 7.523 11.7144C7.5925 11.9637 7.75321 12.0938 7.99863 12.0959C8.28532 12.0959 8.46123 11.9312 8.51336 11.6169C8.57851 11.2072 8.48513 10.856 8.27011 10.7151C8.16369 10.6435 7.96388 10.6262 7.82923 10.6739Z" fill="#CC2A1F"/>
+                                <path d="M7.61399 1.77292C7.62485 1.78376 7.75516 1.90298 7.90502 2.03739C8.05488 2.17179 8.2156 2.31703 8.26338 2.36038C8.31116 2.40374 8.44798 2.5273 8.56744 2.63569C8.78028 2.82645 9.47961 3.46161 9.65336 3.61769C9.70114 3.66105 9.89226 3.8323 10.0769 3.99922C10.6481 4.51298 10.7111 4.58235 10.811 4.79045C10.8587 4.89234 10.9087 5.02674 10.9217 5.08961C10.9391 5.16981 10.9456 6.42278 10.9456 9.2799C10.9456 12.9629 10.9413 13.3705 10.9109 13.5114C10.8196 13.9146 10.546 14.2311 10.1464 14.3893L10.0009 14.4479L7.35772 14.4544C5.8309 14.4565 4.7124 14.4674 4.7124 14.4782C4.7124 14.5563 4.92524 15.2998 4.97737 15.4082C5.15763 15.7745 5.52685 16.0022 5.9395 16C6.11107 15.9978 6.21098 15.9783 6.88425 15.8005C7.02108 15.7637 7.35337 15.6748 7.62268 15.6055C7.89199 15.5361 8.39586 15.4038 8.74118 15.3128C9.08868 15.2218 9.49264 15.1155 9.6425 15.0765C9.79236 15.0375 10.0899 14.9595 10.3049 14.9031C10.5199 14.8467 10.837 14.7622 11.0108 14.7188C11.1845 14.6733 11.6688 14.5454 12.0858 14.437C12.505 14.3265 12.9785 14.2029 13.1392 14.1617C13.3129 14.1162 13.4932 14.0533 13.5844 14.0078C13.9406 13.8214 14.1599 13.4594 14.1599 13.054C14.1599 12.8936 14.097 12.6356 13.5844 10.7085C13.5323 10.5112 13.4454 10.1795 13.3911 9.97142C13.3368 9.76331 13.1826 9.18235 13.0523 8.6816C12.7808 7.65407 12.6288 7.07745 12.3899 6.16699C11.8469 4.1011 11.8578 4.13579 11.6775 3.94285C11.5559 3.81062 11.4603 3.74992 10.9999 3.51147C10.7849 3.40091 10.5416 3.27302 10.4569 3.22966C10.3744 3.1863 10.1594 3.07358 9.97914 2.98037C9.80105 2.88715 9.53608 2.75058 9.39274 2.67688C7.61182 1.74907 7.55101 1.71872 7.61399 1.77292Z" fill="#CC2A1F"/>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_7851_7787">
+                                  <rect width="16" height="16" fill="white"/>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </div>
+                          <div class="exhibition-products-select-product-label-discount-text">
+                            {{ 'general.cart_drawer.save' | t }}
+                            {{ product_diff_price | money_without_trailing_zeros -}}
+                          </div>
+                        </div>
+                      {% endif %}
+                    </div>
+                    <div class="exhibition-products-select-product-content">
+                      <div class="exhibition-products-select-product-main-image">
+                        {% if product_image_pc %}
+                          <img
+                            style="aspect-ratio: {{ product_image_pc.aspect_ratio }}"
+                            class="pc lazyload"
+                            data-sizes="100vw"
+                            data-srcset="
+                              {%- if product_image_pc.width >= 200 -%}{{ product_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                              {%- if product_image_pc.width >= 375 -%}{{ product_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                              {%- if product_image_pc.width >= 550 -%}{{ product_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                              {%- if product_image_pc.width >= 750 -%}{{ product_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                              {%- if product_image_pc.width >= 1100 -%}{{ product_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                              {%- if product_image_pc.width >= 1500 -%}{{ product_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                              {%- if product_image_pc.width >= 1780 -%}{{ product_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                              {%- if product_image_pc.width >= 2000 -%}{{ product_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                              {%- if product_image_pc.width >= 3000 -%}{{ product_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                              {%- if product_image_pc.width >= 3840 -%}{{ product_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                              {{ product_image_pc | image_url }} {{ product_image_pc.width }}w
+                            "
+                            data-src="{{ product_image_pc | image_url:width:750 }}"
+                            alt="{{ product_image_pc.alt }}"
+                          >
+                        {% endif %}
+                        {% if product_image_mb %}
+                          <img
+                            style="aspect-ratio: {{ product_image_mb.aspect_ratio }}"
+                            class="mb lazyload"
+                            data-sizes="100vw"
+                            data-srcset="
+                              {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                              {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                              {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                              {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                              {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                              {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                              {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                              {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                              {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                              {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                              {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
+                            "
+                            data-src="{{ product_image_mb | image_url:width:750 }}"
+                            alt="{{ product_image_mb.alt }}"
+                          >
+                        {% endif %}
+                      </div>
+                      <div class="exhibition-products-select-product-main-content">
+                        <div class="exhibition-products-select-product-name">{{- title -}}</div>
+
+                        {% if product_list.count > 1 and product_list != blank %}
+                          <div
+                            id="exhibition-products-select-tabs-{{ current_product_id }}"
+                            class="exhibition-products-select-tabs"
+                          >
+                            <div class="exhibition-products-select-tab-dropdown-wrapper" style="position:relative;">
+                              <div
+                                id="exhibition-dropdown-mock-{{ current_product_id }}"
+                                class="exhibition-dropdown-mock"
+                                tabindex="0"
+                                data-dropdown
+                              >
+                                <div class="exhibition-dropdown-mock-selected" data-selected>
+                                  {% assign first_tab_label = section.blocks[0].settings.title
+                                    | default: section.blocks[0].settings.product.title
+                                  %}
+                                  {{ title }}
+                                </div>
+                                <span class="exhibition-dropdown-mock-dropdown-icon">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 16 16"
+                                    fill="none"
+                                  >
+                                    <g clip-path="url(#clip0_7928_1122)">
+                                      <path d="M14.7967 5.81812L8.72001 12.4631C8.63026 12.5652 8.51977 12.647 8.3959 12.703C8.27204 12.7591 8.13765 12.7881 8.00169 12.7881C7.86573 12.7881 7.73132 12.7591 7.60745 12.7031C7.48357 12.647 7.37307 12.5652 7.28332 12.4631L1.20668 5.81812C0.910028 5.50479 0.81836 5.04813 0.97167 4.64478C1.12498 4.24144 1.495 3.95979 1.92502 3.92147L14.0734 3.92147C14.505 3.95814 14.8767 4.23812 15.03 4.64314C15.185 5.04813 15.0934 5.50312 14.7967 5.81812Z" fill="white"/>
+                                    </g>
+                                    <defs>
+                                      <clipPath id="clip0_7928_1122">
+                                        <rect width="16" height="16" fill="white" transform="translate(6.99382e-07 16) rotate(-90)"/>
+                                      </clipPath>
+                                    </defs>
+                                  </svg>
+                                </span>
+                                <ul class="exhibition-dropdown-mock-options" data-options>
+                                  {%- for prod in product_list -%}
+                                    {% assign tab_label = prod.metafields.custom.activity_page_product_short_name
+                                      | default: prod.title
+                                    %}
+                                    <li
+                                      class="exhibition-dropdown-mock-option{% if forloop.first %} active{% endif %}"
+                                      data-value="{{ tab_label | escape }}"
+                                      data-idx="{{ forloop.index0 }}"
+                                      id="exhibition-products-select-tab-option-{{ section.id }}-{{ forloop.index0 }}"
+                                    >
+                                      {{ tab_label }}
+                                    </li>
+                                  {%- endfor -%}
+                                </ul>
+                              </div>
+                              <script>
+                                $(function () {
+                                  function hasParent(ele, p) {
+                                    while (ele && ele !== document.body) {
+                                      if (ele === p) return true;
+                                      ele = ele.parentNode;
+                                    }
+                                    return false;
+                                  }
+                                  // 获取当前下拉元素
+                                  const dropdown = document.getElementById(
+                                    'exhibition-dropdown-mock-{{ current_product_id }}'
+                                  );
+                                  console.log('dropdown==', dropdown);
+                                  const sectionRoot = dropdown.closest('.exhibition-products-select-content-item');
+                                  console.log('sectionRoot==', sectionRoot);
+                                  const cardContainer = sectionRoot.querySelectorAll('.exhibition-product-tab');
+                                  console.log('cardContainer==', cardContainer);
+                                  if (!dropdown || dropdown.getAttribute('data-bind')) return;
+                                  dropdown.setAttribute('data-bind', '1');
+                                  const selected = dropdown.querySelector('[data-selected]');
+                                  const optionsUl = dropdown.querySelector('[data-options]');
+                                  const options = optionsUl
+                                    ? optionsUl.querySelectorAll('.exhibition-dropdown-mock-option')
+                                    : [];
+                                  // 点击展开收起
+                                  function closeDropdown() {
+                                    dropdown.classList.remove('open');
+                                  }
+                                  function openDropdown() {
+                                    dropdown.classList.add('open');
+                                  }
+                                  selected &&
+                                    selected.addEventListener('click', function (e) {
+                                      e.preventDefault();
+                                      e.stopPropagation();
+                                      // 点击当前元素，获取父元素exhibition-products-select-{{ section.id }}
+                                      const parent = dropdown.closest('.exhibition-products-select-{{ section.id }}');
+                                      // 如需使用 parent，可在此处添加逻辑
+                                      if (dropdown.classList.contains('open')) {
+                                        closeDropdown();
+                                      } else {
+                                        openDropdown();
+                                      }
+                                    });
+                                  // 选项点击
+                                  options.forEach(function (option, idx) {
+                                    option.addEventListener('click', function (e) {
+                                      e.stopPropagation();
+                                      // 激活当前
+                                      options.forEach(function (opt) {
+                                        opt.classList.remove('active');
+                                      });
+                                      option.classList.add('active');
+                                      if (selected) selected.innerText = option.innerText;
+                                      closeDropdown();
+                                      // 分发事件
+                                      // 如何触发该事件：直接通过下拉选项点击（option click）时会执行如下代码，从而触发事件
+                                      // 如果你想在其他地方手动触发，可以调用 dropdown.dispatchEvent(new CustomEvent('christmasTabCustomDropdownChange', {...}))，传递需要的 detail
+                                      const event = new CustomEvent('christmasTabCustomDropdownChange', {
+                                        detail: {
+                                          idx: idx,
+                                          value: option.getAttribute('data-value'),
+                                          text: option.innerText,
+                                        },
+                                        bubbles: true,
+                                      });
+                                      dropdown.dispatchEvent(event);
+
+                                      // 联动select
+                                      try {
+                                        const tabContainers = dropdown
+                                          .closest('section')
+                                          .querySelectorAll('.exhibition-product-tab');
+                                        cardContainer.forEach(function (tabCt, index) {
+                                          console.log('tabCt', tabCt);
+
+                                          if (index === idx) {
+                                            tabCt.classList.add('active');
+                                            // tabContainers 下的 .exhibition-product-tab 是否含有 active
+                                            const activeTabs = Array.from(tabContainers).filter(function (ct) {
+                                              return ct.classList.contains('active');
+                                            });
+                                            console.log('tabContainers 内包含 active 的元素:', activeTabs);
+                                            // 遍历activeTabs 下的exhibition-dropdown-mock-option，当idx相等则激活
+                                            activeTabs.forEach(function (activeTab) {
+                                              const dropdownOptions = activeTab.querySelectorAll(
+                                                '.exhibition-dropdown-mock-option'
+                                              );
+                                              var dropdownMockParent = null;
+                                              if (dropdownOptions.length > 0) {
+                                                dropdownMockParent =
+                                                  dropdownOptions[0].closest('.exhibition-dropdown-mock');
+                                              }
+                                              console.log(
+                                                'exhibition-dropdown-mock-{{ current_product_id }} 元素:',
+                                                dropdownMockParent
+                                              );
+                                              dropdownOptions.forEach(function (opt, optIdx) {
+                                                if (optIdx === idx) {
+                                                  opt.classList.add('active');
+                                                  console.log('data-value', opt.getAttribute('data-value'));
+                                                  console.log('innerText', opt.innerText);
+                                                  const selected = dropdownMockParent.querySelector('[data-selected]');
+                                                  if (selected) selected.innerText = opt.getAttribute('data-value');
+                                                  return;
+                                                } else {
+                                                  opt.classList.remove('active');
+                                                }
+                                              });
+                                            });
+                                            return; // 跳出forEach循环
+                                          } else {
+                                            tabCt.classList.remove('active');
+                                          }
+                                        });
+                                      } catch (e) {}
+                                    });
+                                  });
+                                  // 外部点击收起
+                                  document.addEventListener('click', function (e) {
+                                    if (!hasParent(e.target, dropdown)) {
+                                      closeDropdown();
+                                    }
+                                  });
+                                  // 键盘ESC收起
+                                  dropdown.addEventListener('keydown', function (e) {
+                                    if (e.key === 'Escape') {
+                                      closeDropdown();
+                                    }
+                                  });
+                                });
+                              </script>
+                            </div>
+                          </div>
+                        {% endif %}
+
+                        <div class="exhibition-products-select-product-content-bottom">
+                          <div class="exhibition-products-select-product-price">
+                            {% if product_price != blank and product_price > 0 %}
+                              <div class="exhibition-products-select-product-sale-price">
+                                {{ product_price | money_without_trailing_zeros }}
+                              </div>
+                            {% endif %}
+                            {% if product_origin_price != blank
+                              and product_origin_price > 0
+                              and product_origin_price > product_price
+                            %}
+                              <div class="exhibition-products-select-product-original-price">
+                                {{ product_origin_price | money_without_trailing_zeros }}
+                              </div>
+                            {% endif %}
+                          </div>
+                          {% if section.settings.show_trend_line %}
+                            <div class="exhibition-products-select-product-trend-table">
+                              {% if product_diff_price != blank
+                                and product_diff_price > 0
+                                and product_price > 0
+                                and product_origin_price > 0
+                              %}
+                                <div class="exhibition-products-select-product-trend-table-icon">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="100%"
+                                    height="100%"
+                                    viewBox="0 0 240 80"
+                                    fill="none"
+                                  >
+                                    <path d="M5 5C22.0479 5 34.0996 17.5897 54.5311 41.2417C82.4068 73.5113 114.78 75 120 75" stroke="url(#paint0_linear_7851_9198)" stroke-width="1.66327"/>
+                                    <path d="M235 5C217.952 5 205.9 17.5897 185.469 41.2417C157.593 73.5113 125.22 75 120 75" stroke="url(#paint1_linear_7851_9198)" stroke-width="1.66327"/>
+                                    <circle cx="120" cy="75" r="5" fill="url(#paint2_linear_7851_9198)"/>
+                                    <circle cx="120" cy="75" r="4.37349" stroke="white" stroke-opacity="0.6" stroke-width="1.25302"/>
+                                    <circle cx="5" cy="5" r="5" fill="url(#paint3_linear_7851_9198)"/>
+                                    <circle cx="5" cy="5" r="4.37349" stroke="white" stroke-opacity="0.6" stroke-width="1.25302"/>
+                                    <circle cx="235" cy="5" r="5" fill="url(#paint4_linear_7851_9198)"/>
+                                    <circle cx="235" cy="5" r="4.37349" stroke="white" stroke-opacity="0.6" stroke-width="1.25302"/>
+                                    <defs>
+                                      <linearGradient id="paint0_linear_7851_9198" x1="9.80176" y1="8.28021" x2="218.854" y2="15.3326" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#E9BE7F"/>
+                                        <stop offset="1" stop-color="#F9E7BF"/>
+                                      </linearGradient>
+                                      <linearGradient id="paint1_linear_7851_9198" x1="230.198" y1="8.28021" x2="21.1461" y2="15.3326" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#E9BE7F"/>
+                                        <stop offset="1" stop-color="#F9E7BF"/>
+                                      </linearGradient>
+                                      <linearGradient id="paint2_linear_7851_9198" x1="115" y1="73.9844" x2="125" y2="73.9919" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#E9BE7F"/>
+                                        <stop offset="1" stop-color="#F9E7BF"/>
+                                      </linearGradient>
+                                      <linearGradient id="paint3_linear_7851_9198" x1="-3.52139e-10" y1="3.98437" x2="9.99999" y2="3.99189" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#FFB242"/>
+                                        <stop offset="1" stop-color="#F9E7BF"/>
+                                      </linearGradient>
+                                      <linearGradient id="paint4_linear_7851_9198" x1="230" y1="3.98437" x2="240" y2="3.99189" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#F9E7BF"/>
+                                        <stop offset="1" stop-color="#FEE7C4"/>
+                                      </linearGradient>
+                                    </defs>
+                                  </svg>
+                                </div>
+                                <div class="exhibition-products-select-product-trend-table-content">
+                                  <div class="exhibition-products-select-product-trend-table-content-icon">
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="100%"
+                                      height="100%"
+                                      viewBox="0 0 22 32"
+                                      fill="none"
+                                    >
+                                      <path d="M16.283 0C16.4021 0 16.4988 0.109276 16.4988 0.243164V17.7783H21.7468C21.9589 17.7786 22.076 18.0298 21.9431 18.1992L11.197 31.9033C11.0958 32.0324 10.9037 32.0324 10.8025 31.9033L0.0563965 18.1992C-0.0764799 18.0298 0.0406458 17.7785 0.252686 17.7783H5.49878V0.243164C5.49878 0.109328 5.59554 8.38501e-05 5.7146 0H16.283Z" fill="url(#paint0_linear_7851_9220)"/>
+                                      <defs>
+                                        <linearGradient id="paint0_linear_7851_9220" x1="6.81517" y1="-1.20514" x2="6.81518" y2="34.7273" gradientUnits="userSpaceOnUse">
+                                          <stop offset="0.0972044" stop-color="white" stop-opacity="0"/>
+                                          <stop offset="0.4" stop-color="#FFE3C8"/>
+                                          <stop offset="0.9" stop-color="#FFC78F"/>
+                                        </linearGradient>
+                                      </defs>
+                                    </svg>
+                                  </div>
+                                  <div class="exhibition-products-select-product-trend-table-content-detail">
+                                    <div class="exhibition-products-select-product-trend-table-content-detail-text">
+                                      {{ 'general.cart_drawer.save' | t }}
+                                    </div>
+                                    <div class="exhibition-products-select-product-trend-table-content-detail-price">
+                                      {{ product_diff_price | money_without_trailing_zeros -}}
+                                    </div>
+                                  </div>
+                                </div>
+                              {% endif %}
+                            </div>
+                          {% endif %}
+                        </div>
+                      </div>
+                      <div class="exhibition-products-select-product-button-wrapper">
+                        <product-card>
+                          <div
+                            class="exhibition-products-select-product-button-add-to-cart product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                            data-product-id="{{ variant.id }}"
+                            tabindex="-1"
+                            {% if variant.available == false %}
+                              disabled
+                            {% endif %}
+                          >
+                            {% render 'svg-icons' with 'thb-loading' %}
+                            <span class="product-card--add-to-cart-text">
+                              {%- if variant.available -%}
+                                {%- if section.settings.buy_now_button_text != empty -%}
+                                  {{ section.settings.buy_now_button_text }}
+                                {%- else -%}
+                                  {%- if product_diff_price > 0 -%}
+                                    Save
+                                    {{ product_diff_price | money_without_trailing_zeros -}}
+                                  {%- else -%}
+                                    Buy Now
+                                  {%- endif -%}
+                                {%- endif -%}
+                              {%- else -%}
+                                {{- 'products.product.sold_out' | t -}}
+                              {%- endif -%}
+                            </span>
+                          </div>
+                        </product-card>
+                        <div
+                          class="exhibition-products-select-product-button-view-more"
+                          onclick="window.open('{{variant.url }}','_blank');"
+                        >
+                          {{ section.settings.learn_more_button_text }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="exhibition-products-select-content-scrollbar">
+        <div
+          class="exhibition-products-select-content-scrollbar-bar"
+          id="exhibition-products-select-content-scrollbar-bar-{{ section.id }}"
+        ></div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const content = document.getElementById('exhibition-products-select-content-{{ section.id }}');
+    const bar = document.getElementById('exhibition-products-select-content-scrollbar-bar-{{ section.id }}');
+    if (!content || !bar) return;
+    // 获取 page 数量
+    const itemCount = content.querySelectorAll(
+      '#exhibition-products-select-content-{{ section.id }} .exhibition-products-select-content-item'
+    ).length;
+
+    // 设置 bar 宽度
+    bar.style.width = `${100 / itemCount}%`;
+
+    content.addEventListener('scroll', () => {
+      const scrollLeft = content.scrollLeft;
+      const maxScroll = content.scrollWidth - content.clientWidth;
+      const progress = scrollLeft / maxScroll || 0;
+
+      const barMaxTranslate = content.clientWidth * (1 - bar.offsetWidth / content.clientWidth);
+
+      bar.style.transform = `translateX(${progress * barMaxTranslate}px)`;
+    });
+  });
+</script>
+{% schema %}
+{
+  "name": "exhibition product select",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "select",
+      "id": "section_max_width",
+      "label": "模块最大宽度",
+      "options": [
+        {
+          "value": "none",
+          "label": "全屏"
+        },
+        {
+          "value": "1400",
+          "label": "1400px"
+        },
+        {
+          "value": "1280",
+          "label": "1280px"
+        },
+        {
+          "value": "1200",
+          "label": "1200px"
+        },
+        {
+          "value": "1020",
+          "label": "1020px"
+        },
+        {
+          "value": "980",
+          "label": "980px"
+        }
+      ],
+      "default": "1400"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题",
+      "default": "F13: Built for T-Shirt Customization"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题",
+      "default": "Achieve high-speed, smooth, and reliable printing on all fabrics — Save up to $600!"
+    },
+    {
+      "type": "html",
+      "id": "desc",
+      "label": "描述"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_swiper",
+      "label": "移动端开启滑动切换",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trend_line",
+      "label": "显示趋势线",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "learn_more_button_text",
+      "label": "查看更多按钮文案配置",
+      "default": "Learn More"
+    },
+    {
+      "type": "text",
+      "id": "buy_now_button_text",
+      "label": "购买按钮文案配置",
+      "default": "Shop Now"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "main_banner_image_pc",
+      "label": "横幅主图（PC端）"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_banner_image_mb",
+      "label": "横幅主图(移动端)"
+    },
+
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#121212"
+    },
+    {
+      "type": "color_background",
+      "id": "card_bg_color",
+      "label": "卡片容器背景色",
+      "default": "#fff"
+    },
+    {
+      "type": "color_background",
+      "id": "card_background_gradient_color",
+      "label": "卡片容器渐变背景色",
+      "default": "radial-gradient(259.32% 100% at 50% 0%, rgba(100, 147, 235, 0.80) 0%, rgba(100, 147, 235, 0.00) 35%), linear-gradient(180deg, #121212 0%, #121212 100%)"
+    },
+    {
+      "type": "radio",
+      "id": "button_layout",
+      "label": "按钮布局",
+      "options": [
+        {
+          "value": "2",
+          "label": "两列"
+        },
+        {
+          "value": "1",
+          "label": "单列"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "radio",
+      "id": "product_nums",
+      "label": "每行展示产品个数(PC端默认2个)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1个"
+        },
+        {
+          "value": "2",
+          "label": "2个"
+        },
+        {
+          "value": "3",
+          "label": "3个"
+        },
+        {
+          "value": "4",
+          "label": "4个"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片间隔",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_gap_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片间隔（移动端）",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "name": "product",
+      "type": "product",
+      "settings": [
+        {
+          "type": "product_list",
+          "id": "product_list",
+          "label": "产品列表",
+          "info": "备注：产品原价字段配置：当前产品对应的变体元字段activity original price；产品售价字段配置：当前产品对应的变体元字段activity sale price；"
+        },
+        {
+          "type": "number",
+          "id": "variant_activity_index",
+          "label": "变体配置",
+          "info": "注意：当存在同个产品不同变体时配置，配置变体下标，如：0,1,2,3..."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [
+    {
+      "name": "exhibition product select",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

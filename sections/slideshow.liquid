@@ -570,6 +570,9 @@
           {%- endif -%}
           {% if block.settings.slide_link != blank %}
             <a
+              {% if block.settings.event_tracking != empty %}
+                onclick="TriplePixel('custom', '{{ block.settings.event_tracking }}', { value: 1 });"
+              {% endif %}
               href="{{ block.settings.slide_link }}"
               class="slideshow__slide-content-link"
               target="_blank"
@@ -645,6 +648,9 @@
               {% endif %}
               {% if block.settings.slide_link != blank %}
                 <a
+                  {% if block.settings.event_tracking != empty %}
+                    onclick="TriplePixel('custom', '{{ block.settings.event_tracking }}', { value: 1 });"
+                  {% endif %}
                   href="{{ block.settings.slide_link }}"
                   class="slideshow__slide-content-link"
                   target="_blank"
@@ -1042,6 +1048,12 @@
       "type": "slide",
       "name": "Slide",
       "settings": [
+        {
+          "id": "event_tracking",
+          "type": "text",
+          "label": "埋点触发事件（触发时机：点击）",
+          "info": "例如：Click_ShopNow_SF_oven"
+        },
         {
           "type": "image_picker",
           "id": "image",

@@ -305,23 +305,26 @@
 </style>
 
 <div class="layout" id="showroom-map">
-    {% render 'section-header', section_heading: section.settings.section_heading, section_description: section.settings.description %}
-    <div class="map-wrapper">
-        <!-- Left Map -->
-        <div class="map-box">
-            <div id="map"></div>
-        </div>
-
-        <!-- Right Showroom List -->
-        <div class="list-box">
-            <div class="title-wrapper">
-                <div class="list-title">Showroom List</div>
-                <div class="result-num"></div>
-            </div>
-
-            <div id="showroomList"></div>
-        </div>
+  {% render 'section-header',
+    section_heading: section.settings.section_heading,
+    section_description: section.settings.description
+  %}
+  <div class="map-wrapper">
+    <!-- Left Map -->
+    <div class="map-box">
+      <div id="map"></div>
     </div>
+
+    <!-- Right Showroom List -->
+    <div class="list-box">
+      <div class="title-wrapper">
+        <div class="list-title">Showroom List</div>
+        <div class="result-num"></div>
+      </div>
+
+      <div id="showroomList"></div>
+    </div>
+  </div>
 </div>
 
 <!-- Google Maps API -->
@@ -343,17 +346,17 @@
 
   async function loadShowrooms() {
     try {
-      await fetch(`${api}${showRoomMapApi}?pageNum=1&pageSize=10`, {
+      {% comment %} await fetch(`${api}${showRoomMapApi}?pageNum=1&pageSize=10`, {
         method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        headers: window.ShopifyData.headers,
       }).then(response => {
         if(!response.ok) {
             throw new Error('网络请求失败');
         }
         return response.json();
-      }).then(data => {
+      }) {% endcomment %}
+      boosterFetch(showRoomMapApi, {pageNum:1,pageSize:10}, { method: 'GET' })
+      .then(data => {
         if(data.code === 200) {
           const result = data.result;
           // 渲染右侧列表
@@ -623,14 +626,14 @@
   "tag": "section",
   "settings": [
     {
-        "type": "text",
-        "id": "section_heading",
-        "label": "Section heading"
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section heading"
     },
     {
-        "type": "text",
-        "id": "description",
-        "label": "Description"
+      "type": "text",
+      "id": "description",
+      "label": "Description"
     }
   ],
   "presets": [

@@ -1,182 +1,185 @@
 <style>
-    #shopify-section-{{ section.id }} {
-        display: none;
-        justify-content: center;
-    }
+  #shopify-section-{{ section.id }} {
+      display: none;
+      justify-content: center;
+  }
 
-    #shopify-section-{{ section.id }} .showroom-appointment {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 98px 0 48px 0;
-    }
+  #shopify-section-{{ section.id }} .showroom-appointment {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 98px 0 48px 0;
+  }
 
-    #shopify-section-{{ section.id }} .section-header--title {
-      font-weight: 700;
-      text-align: center;
-    }
+  #shopify-section-{{ section.id }} .section-header--title {
+    font-weight: 700;
+    text-align: center;
+  }
 
-    #shopify-section-{{ section.id }} .section-header--description {
-      color: #5D5D5D;
-      text-align: center;
+  #shopify-section-{{ section.id }} .section-header--description {
+    color: #5D5D5D;
+    text-align: center;
+    font-size: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .appointment-wrapper {
+      display: flex;
+      gap: 10px;
+      padding: 10px 0;
+      max-width: 1400px;
+      width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .swiper-slide {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      /* 设置每个 slide 的最小宽度 */
+      width: 100%;
+      flex-direction: column;
+  }
+
+  #shopify-section-{{ section.id }} .swiper {
+      width: 1400px;
+  }
+
+  #shopify-section-{{ section.id }} .appointment-item {
+      display: flex;
+      width: 736px;  /* 每个 item 的宽度 */
+      height: fit-content;
+      padding: 16px 36px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      border-radius: 12px;
+      border: 1px solid #E0E0E0;
+      background: #FFF;
+  }
+
+  #shopify-section-{{ section.id }} .appointment-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .appointment-info-text {
       font-size: 24px;
-    }
+      color: #0F0C00;
+  }
 
-    #shopify-section-{{ section.id }} .appointment-wrapper {
-        display: flex;
-        gap: 10px;
-        padding: 10px 0;
-        max-width: 1400px;
-        width: 100%;
-    }
+  #shopify-section-{{ section.id }} .appointment-button-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      align-self: stretch;
+  }
 
-    #shopify-section-{{ section.id }} .swiper-slide {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        /* 设置每个 slide 的最小宽度 */
-        width: 100%;
-        flex-direction: column;
-    }
+  #shopify-section-{{ section.id }} .appointment-button {
+      display: flex;
+      padding: 12px 0;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex: 1 0 0;
+      border-radius: 4px;
+      color: #FFF;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+  }
 
-    #shopify-section-{{ section.id }} .swiper {
-        width: 1400px;
-    }
+  #shopify-section-{{ section.id }} .cancel-button {
+      background: #DA291C;
+  }
 
-    #shopify-section-{{ section.id }} .appointment-item {
-        display: flex;
-        width: 736px;  /* 每个 item 的宽度 */
-        height: fit-content;
-        padding: 16px 36px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-        border-radius: 12px;
-        border: 1px solid #E0E0E0;
-        background: #FFF;
-    }
+  #shopify-section-{{ section.id }} .cancelled-button,
+  #shopify-section-{{ section.id }} .expired-button,
+  #shopify-section-{{ section.id }} .disabled-button {
+      opacity: 0.3;
+      background: #121212;
+  }
 
-    #shopify-section-{{ section.id }} .appointment-info {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
+  #shopify-section-{{ section.id }} .check-in-button {
+      background: #165DFF;
+  }
 
-    #shopify-section-{{ section.id }} .appointment-info-text {
-        font-size: 24px;
-        color: #0F0C00;
-    }
+  #shopify-section-{{ section.id }} .checked-in-button {
+      background: #36D399;
+  }
 
-    #shopify-section-{{ section.id }} .appointment-button-group {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-        align-self: stretch;
-    }
+  #shopify-section-{{ section.id }} .reminding-message {
+      color: #DA291C;
+      font-size: 18px;
+  }
 
-    #shopify-section-{{ section.id }} .appointment-button {
-        display: flex;
-        padding: 12px 0;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        flex: 1 0 0;
-        border-radius: 4px;
-        color: #FFF;
-        text-align: center;
-        font-size: 20px;
-        font-weight: 700;
-    }
+  @media screen and (max-width: 768px) {
+      #shopify-section-{{ section.id }} .section-header--title {
+          font-size: 20px;
+      }
 
-    #shopify-section-{{ section.id }} .cancel-button {
-        background: #DA291C;
-    }
+      #shopify-section-{{ section.id }} .section-header--description {
+          font-size: 16px;
+      }
 
-    #shopify-section-{{ section.id }} .cancelled-button,
-    #shopify-section-{{ section.id }} .expired-button,
-    #shopify-section-{{ section.id }} .disabled-button {
-        opacity: 0.3;
-        background: #121212;
-    }
+      #shopify-section-{{ section.id }} .showroom-appointment {
+          padding: 80px 0 0 0;
+          width: 100%;
+      }
 
-    #shopify-section-{{ section.id }} .check-in-button {
-        background: #165DFF;
-    }
+      #shopify-section-{{ section.id }} .swiper-slide {
+          width: calc(100vw - 54px) !important;
+      }
 
-    #shopify-section-{{ section.id }} .checked-in-button {
-        background: #36D399;
-    }
+      #shopify-section-{{ section.id }} .swiper {
+          width: calc(100% + 10px) !important;
+          transform: translate(-10px);
+      }
 
-    #shopify-section-{{ section.id }} .reminding-message {
-        color: #DA291C;
-        font-size: 18px;
-    }
+      #shopify-section-{{ section.id }} .appointment-info svg {
+          width: 14px;
+          height: 14px;
+      }
 
-    @media screen and (max-width: 768px) {
-        #shopify-section-{{ section.id }} .section-header--title {
-            font-size: 20px;
-        }
+      #shopify-section-{{ section.id }} .appointment-wrapper {
+          gap: 0;
+      }
 
-        #shopify-section-{{ section.id }} .section-header--description {
-            font-size: 16px;
-        }
+      #shopify-section-{{ section.id }} .appointment-item {
+          width: 100%;  /* 每个 item 的宽度 */
+          padding: 24px;
+      }
 
-        #shopify-section-{{ section.id }} .showroom-appointment {
-            padding: 80px 0 0 0;
-            width: 100%;
-        }
+      #shopify-section-{{ section.id }} .appointment-info-text {
+          font-size: 14px;
+          flex: 1;
+      }
 
-        #shopify-section-{{ section.id }} .swiper-slide {
-            width: calc(100vw - 54px) !important;
-        }
+      #shopify-section-{{ section.id }} .appointment-button-group {
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+          align-self: stretch;
+      }
 
-        #shopify-section-{{ section.id }} .swiper {
-            width: calc(100% + 10px) !important;
-            transform: translate(-10px);
-        }
+      #shopify-section-{{ section.id }} .appointment-button {
+          font-size: 12px;
+      }
 
-        #shopify-section-{{ section.id }} .appointment-info svg {
-            width: 14px;
-            height: 14px;
-        }
-
-        #shopify-section-{{ section.id }} .appointment-wrapper {
-            gap: 0;
-        }
-
-        #shopify-section-{{ section.id }} .appointment-item {
-            width: 100%;  /* 每个 item 的宽度 */
-            padding: 24px;
-        }
-
-        #shopify-section-{{ section.id }} .appointment-info-text {
-            font-size: 14px;
-            flex: 1;
-        }
-
-        #shopify-section-{{ section.id }} .appointment-button-group {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            align-self: stretch;
-        }
-
-        #shopify-section-{{ section.id }} .appointment-button {
-            font-size: 12px;
-        }
-
-        #shopify-section-{{ section.id }} .reminding-message {
-            font-size: 14px;
-        }
-    }
+      #shopify-section-{{ section.id }} .reminding-message {
+          font-size: 14px;
+      }
+  }
 </style>
 
 <div class="showroom-appointment">
-    {% render 'section-header', section_heading: section.settings.section_heading, section_description: section.settings.description %}
+  {% render 'section-header',
+    section_heading: section.settings.section_heading,
+    section_description: section.settings.description
+  %}
 
-    <div class="swiper mySwiper">
-        <div class="appointment-wrapper swiper-wrapper"></div>
-    </div>
+  <div class="swiper mySwiper">
+    <div class="appointment-wrapper swiper-wrapper"></div>
+  </div>
 </div>
 
 {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
@@ -184,7 +187,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const api = 'https://booster.procolored.com';
+        {% comment %} const api = 'https://booster.procolored.com'; {% endcomment %}
         const showroomAppointmentApi = "/procolored/activity/showroom/getReservationRecord";
         const showroomCheckInApi = "/procolored/activity/showroom/checkin";
         const showroomCancelApi = "/procolored/activity/showroom/cancelReservation";
@@ -236,17 +239,24 @@
 
 
         function loadShowroomAppointment() {
-            fetch(`${api}${showroomAppointmentApi}?customerId=${customerId}&origin=Shopify_US`, {
+            {% comment %} fetch(`${api}${showroomAppointmentApi}?customerId=${customerId}&origin=Shopify_US`, {
                 method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                headers: window.ShopifyData.headers,
             }).then(response => {
                 if(!response.ok) {
                     throw new Error('网络请求失败');
                 }
                 return response.json();
-            }).then(data => {
+            }) {% endcomment %}
+            boosterFetch(
+                showroomAppointmentApi,
+                {
+                    customerId: customerId,
+                    origin: 'Shopify_US'
+                },
+                { method: 'GET' }
+              )
+            .then(data => {
                 if(data.code === 200) {
                     if(data.result.length > 0) document.querySelector("#shopify-section-{{ section.id }}").style.display = 'flex';
                     let result = data.result;
@@ -379,16 +389,13 @@
                     };
 
                     try {
-                        const res = await fetch(`${api}${showroomCheckInApi}`, {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify(postData),
-                        }).then(response => {
-                            if(!response.ok) {
-                                throw new Error('网络请求失败');
-                            }
-                            return response.json();
-                        }).then(data => {
+                        
+                        const res = await boosterFetch(
+                            showroomCheckInApi,
+                            postData,
+                            { method: 'POST' }
+                          )
+                        .then(data => {
                             if(data.code !== 200) {
                                 const text = data.msg;
                                 event.target.closest('.appointment-record').querySelector('.reminding-message').innerHTML = `${text}`;
@@ -417,10 +424,25 @@
             const postData = {
                 id: event.target.closest(".appointment-record").dataset.appointmentId
             };
-            try {
+            boosterFetch(showroomCancelApi, postData, { method: 'POST' })
+            .then((data) => {
+                if (data.code === 200) {
+                    event.target.className = "appointment-button cancelled-button";
+                    event.target.innerHTML = "Cancelled";
+                    event.target.disabled = true;
+                    event.target.closest('.appointment-button-group').querySelector('.check-in-button').style.display = 'none';
+                } else {
+                alert(data.msg || 'Error: Unknown error');
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+        
+            });
+            {% comment %} try {
                 const res = await fetch(`${api}${showroomCancelApi}`, {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: window.ShopifyData.headers,
                     body: JSON.stringify(postData),
                 });
 
@@ -442,7 +464,7 @@
                 }
             } catch (err) {
                 console.error(err);
-            }
+            } {% endcomment %}
         }
 
         function isHalfHourToStart(startDateStr, endDateStr, limitTime, event) { 
@@ -508,14 +530,14 @@
   "tag": "section",
   "settings": [
     {
-        "type": "text",
-        "id": "section_heading",
-        "label": "Section heading"
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section heading"
     },
     {
-        "type": "text",
-        "id": "description",
-        "label": "Description"
+      "type": "text",
+      "id": "description",
+      "label": "Description"
     }
   ],
   "presets": [
