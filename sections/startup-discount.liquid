@@ -562,7 +562,23 @@
     const countryApi = '/procolored/region/getAllCountry';
     const uploadImgApi = '/procolored/api/oss/upload';
     const section = document.querySelector("#shopify-section-{{ section.id }}");
-    
+    const inputElement = section.querySelectorAll("input");
+    inputElement.forEach((inputItem) => {
+      inputItem.addEventListener('click', () => {
+        if(JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer == undefined) {
+          const modalLogin = document.querySelector("modal-login");
+          if (modalLogin) {
+            console.log("modalLogin", modalLogin);
+            const loginForm = modalLogin.showModal(
+              modalLogin.fetchForm.login.innerHTML
+            );
+            modalLogin.loginBindEvent(loginForm.el);
+          } else {
+            console.warn("modalLogin 元素不存在");
+          }
+        } 
+      }); 
+    });
     // 初始化国际电话输入框
     const input = document.querySelector("#phone");
     const iti = window.intlTelInput(input, {
@@ -800,7 +816,7 @@
     section.querySelector("#submitButton").addEventListener('click', (e) => {
       e.preventDefault();
 
-      if(JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer === null) {
+      if(JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer == undefined) {
         const modalLogin = document.querySelector("modal-login");
         if (modalLogin) {
           console.log("modalLogin", modalLogin);
@@ -811,18 +827,18 @@
         } else {
           console.warn("modalLogin 元素不存在");
         }
-        return;
+      } else {
+          
+        if (submitting) return;
+
+        if (!validateForm()) return;
+
+        submitting = true;
+        section.querySelector("#submitButton").disabled = true;
+        section.querySelector("#submitButton").value = 'Submitting...';
+
+        uploadFile();
       }
-      
-      if (submitting) return;
-
-      if (!validateForm()) return;
-
-      submitting = true;
-      section.querySelector("#submitButton").disabled = true;
-      section.querySelector("#submitButton").value = 'Submitting...';
-
-      uploadFile();
     });
 
     async function submitForm(uploadUrl) {

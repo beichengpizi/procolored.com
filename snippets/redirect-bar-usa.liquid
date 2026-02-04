@@ -1,0 +1,382 @@
+<style>
+  .plugin-redirect-bar {
+    display: none;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1001;
+    background-color: rgb(66, 66, 69);
+    padding: 10px 30px 10px 20px;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.92);
+    box-sizing: border-box;
+  }
+  @keyframes slip_in {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0px);
+    }
+  }
+  .plugin-redirect-bar__second-step {
+    min-height: 36px;
+    animation: 0.3s ease 0s 1 normal none running slip_in;
+  }
+  .plugin-redirect-bar__first-step {
+    min-height: 36px;
+  }
+  .plugin-redirect-bar__text {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .plugin-redirect-bar__country-name {
+    height: 36px;
+    line-height: 36px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.56);
+    display: inline-block;
+    text-align: center;
+    margin-right: 10px;
+  }
+  .plugin-redirect-bar__jump-btn {
+    height: 36px;
+    min-width: 66px;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-radius: 8px;
+    background-color: rgb(0, 113, 227);
+    color: rgb(255, 255, 255);
+    display: inline-block;
+    cursor: pointer;
+    line-height: 36px;
+    font-size: 17px;
+    text-align: center;
+    margin-top: 4px;
+  }
+  .plugin-redirect-bar__first-step .plugin-redirect-bar__country-name,
+  .plugin-redirect-bar__second-step .plugin-redirect-bar__country-name {
+    min-width: 200px;
+  }
+  .plugin-redirect-bar__second-step .plugin-redirect-bar__country-name {
+    padding: 0 24px;
+  }
+  .plugin-redirect-bar__btn-wrapper-icon {
+    display: inline-block;
+  }
+  .plugin-redirect-bar__close-wrapper {
+    display: inline-block;
+    position: relative;
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  .plugin-redirect-bar__close-icon::before {
+    transform: rotate(45deg);
+  }
+  .plugin-redirect-bar__close-icon::after {
+    transform: rotate(-45deg);
+  }
+  .plugin-redirect-bar__close-icon::after,
+  .plugin-redirect-bar__close-icon::before {
+    position: absolute;
+    content: ' ';
+    background-color: rgba(255, 255, 255, 0.56);
+    top: 1px;
+    left: 7px;
+    width: 1px;
+    height: 16px;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  @media screen and (max-width: 1380px) {
+    .plugin-redirect-bar__btn-wrapper-icon {
+      display: block;
+    }
+    .plugin-redirect-bar__close-wrapper {
+      display: block;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+    }
+  }
+</style>
+<!-- 重定向提示栏 -->
+<div class="plugin-redirect-bar"></div>
+{% comment %}
+  以下代码用于根据用户地理位置，在站点顶部弹出建议跳转到适合其地区的 Procolored 网站提示栏，并支持国际化与二次确认操作。
+{% endcomment %}
+
+{% comment %}
+  更改逻辑如下：
+
+  procolored.com - 美国和其他地区直接访问。 - 法国IP跳转到法语站，欧洲其他地区跳转到欧洲站。 -
+  加拿大地区直接访问，但提示可以访问法语站。
+
+  procolored.eu - 美国和其他地区跳转到美国站。 - 法国IP跳转到法语站。 - 欧洲其他地区直接访问。 -
+  加拿大地区跳转到美国站，但提示可以访问法语站。
+
+  fr.procolored.com - 美国和其他地区跳转到美国站。 - 法国IP直接访问。 - 欧洲其他地区跳转到欧洲站。 -
+  加拿大地区直接访问，但提示可以访问美国站。
+{% endcomment %}
+
+{% comment %}
+  HARD 为直接重定向，不提示任何信息。
+  重写如下：命中 jumpType==='HARD' 时直接 window.location.href，无任何弹窗或交互。
+{% endcomment %}
+<script>
+  $(function () {
+    // 初始化变量和内容
+    let countryInfo = {
+        jumpText: '',
+        countryName: '',
+        jumpBtnText: '',
+        secondConfirmJumpText: '',
+        secondConfirmStayBtnText: '',
+        secondConfirmJumpBtnText: '',
+      },
+      siteUrl = '',
+      currentStep = 0;
+
+    const siteUrls = {
+        US: 'https://www.procolored.com/',
+        EU: 'https://procolored.eu/',
+        FR: 'https://fr.procolored.com/',
+      },
+      textContent = {
+        JUMP_TEXT: {
+          US: 'You are on the right site. Enjoy shopping!',
+          EU: 'Click here to be redirected to the European site for your region.',
+          FR: 'Cliquez ici pour accéder au site français adapté à votre région.',
+          CA2FR: 'Vous pouvez visiter le site français pour plus de contenu en français.',
+          CA2US: 'You can visit our US site for more options.',
+          CA: 'Click here to be redirected to the French website.',
+        },
+        JUMP_BUTTON: {
+          US: 'Go',
+          EU: 'Go',
+          FR: 'Go',
+          CA: 'Go',
+        },
+        SECOND_CONFIRM_TEXT: {
+          US: "Are you sure? You won't be able to place an order on this website.",
+          EU: "Are you sure? You won't be able to place an order on this website.",
+          FR: "Are you sure? You won't be able to place an order on this website.",
+          CA: "Are you sure? You won't be able to place an order on this website.",
+        },
+        SECOND_CONFIRM_JUMP_BUTTON_TEXT: {
+          US: 'No, go to the right website',
+          EU: 'No, go to the right website',
+          FR: 'Non, allez sur le bon site',
+          CA: 'No, go to the right website',
+        },
+        SECOND_CONFIRM_STAY_BUTTON_TEXT: {
+          US: "Yes, I'm just taking a look",
+          EU: "Yes, I'm just taking a look",
+          FR: 'Oui, je regarde juste',
+          CA: "Yes, I'm just taking a look",
+        },
+        COUNTRY: {
+          US: 'United States',
+          EU: 'Europe',
+          FR: 'France',
+          CA: 'Canada',
+        },
+      };
+
+    function getCurrentSite() {
+      const hostname = window.location.hostname.toLowerCase();
+      if (hostname === 'www.procolored.com' || hostname === 'procolored.com') return 'US';
+      if (hostname === 'procolored.eu' || hostname === 'www.procolored.eu') return 'EU';
+      if (hostname === 'fr.procolored.com' || hostname === 'www.fr.procolored.com') return 'FR';
+      if (hostname.endsWith('.eu')) return 'EU';
+      if (hostname.startsWith('fr.')) return 'FR';
+      if (hostname.endsWith('.com')) return 'US';
+      return 'US';
+    }
+
+    function countryToSite(geoInfo) {
+      if (!geoInfo) return null;
+      const current = getCurrentSite();
+      const isCA = geoInfo.countryISO === 'CA';
+      const isFR = geoInfo.countryISO === 'FR';
+      const isEU = geoInfo.continentCode === 'EU';
+
+      if (current === 'US') {
+        if (isFR) {
+          return { code: 'FR', url: siteUrls.FR, jumpType: 'HARD' };
+        }
+        if (isEU && !isFR) {
+          return { code: 'EU', url: siteUrls.EU, jumpType: 'HARD' };
+        }
+        if (isCA) {
+          return { code: 'FR', url: siteUrls.FR, jumpType: 'SOFT', message: textContent.JUMP_TEXT.CA2FR };
+        }
+        return null;
+      }
+      if (current === 'EU') {
+        if (isFR) {
+          return { code: 'FR', url: siteUrls.FR, jumpType: 'HARD' };
+        }
+        if (isEU && !isFR) {
+          return null;
+        }
+        if (isCA) {
+          return { code: 'US', url: siteUrls.US, jumpType: 'HARD', message: textContent.JUMP_TEXT.CA2FR };
+        }
+        // 其他地区跳转到美国
+        return { code: 'US', url: siteUrls.US, jumpType: 'HARD' };
+      }
+      if (current === 'FR') {
+        if (isFR) {
+          return null;
+        }
+        if (isEU && !isFR) {
+          return { code: 'EU', url: siteUrls.EU, jumpType: 'HARD' };
+        }
+        if (isCA) {
+          return { code: 'US', url: siteUrls.US, jumpType: 'SOFT', message: textContent.JUMP_TEXT.CA2US };
+        }
+        return { code: 'US', url: siteUrls.US, jumpType: 'HARD' };
+      }
+      return null;
+    }
+
+    function isSessionIgnore() {
+      return 'yes' === sessionStorage.getItem('ip-ignore');
+    }
+
+    function sessionIgnore() {
+      sessionStorage.setItem('ip-ignore', 'yes');
+    }
+
+    function getIp() {
+      let geoInfo = {
+        ip: '',
+        countryName: '',
+        countryISO: '',
+        continentCode: '',
+      };
+      fetch('https://dtc.mblock.cc/shopify/ip', {
+        method: 'GET',
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (0 !== data.code) return;
+          let { data: geoData } = data;
+          geoInfo.countryName = geoData.country_name;
+          geoInfo.countryISO = geoData.country_iso_code;
+          geoInfo.continentCode = geoData.continent_code;
+          let redirectPlan = countryToSite(geoInfo);
+          if (!redirectPlan) return;
+
+          if (redirectPlan.jumpType === 'HARD') {
+            // 直接重定向，无任何提示栏与交互
+            window.location.href = redirectPlan.url;
+            return;
+          } else if (redirectPlan.jumpType === 'SOFT') {
+            siteUrl = redirectPlan.url;
+            updateCountryInfo(geoInfo, redirectPlan.code, redirectPlan.jumpType, redirectPlan.message);
+
+            $('.plugin-redirect-bar').show();
+            renderModal();
+          }
+        })
+        .catch((error) => {
+          console.error('err', error);
+        });
+    }
+
+    function updateCountryInfo(geoInfo, code, jumpType, msg) {
+      let tcode = code;
+      let jumpTxt = msg || textContent.JUMP_TEXT[code] || textContent.JUMP_TEXT.US;
+      let jumpBtn = textContent.JUMP_BUTTON[code] || 'Go';
+      let countryName =
+        tcode === 'FR' && geoInfo.countryISO === 'CA'
+          ? textContent.COUNTRY.FR
+          : tcode === 'US' && geoInfo.countryISO === 'CA'
+          ? textContent.COUNTRY.US
+          : textContent.COUNTRY[code] || geoInfo.countryName;
+      countryInfo = {
+        countryName: countryName,
+        jumpText: jumpTxt,
+        jumpBtnText: jumpBtn,
+        secondConfirmJumpText: textContent.SECOND_CONFIRM_TEXT[code] || textContent.SECOND_CONFIRM_TEXT.US,
+        secondConfirmStayBtnText:
+          textContent.SECOND_CONFIRM_STAY_BUTTON_TEXT[code] || textContent.SECOND_CONFIRM_STAY_BUTTON_TEXT.US,
+        secondConfirmJumpBtnText:
+          textContent.SECOND_CONFIRM_JUMP_BUTTON_TEXT[code] || textContent.SECOND_CONFIRM_JUMP_BUTTON_TEXT.US,
+        jumpType: jumpType || 'HARD',
+      };
+      currentStep = 1;
+    }
+
+    function handleJumpBtnClick() {
+      window.location.href = siteUrl;
+    }
+
+    function handleCloseIconClick() {
+      currentStep = 2;
+    }
+
+    function handleSecondConfirmSubmitClick() {
+      window.location.href = siteUrl;
+    }
+
+    function handleSecondConfirmCloseClick() {
+      currentStep = 0;
+      sessionIgnore();
+      $('.plugin-redirect-bar').hide();
+    }
+
+    if (!isSessionIgnore()) getIp();
+
+    function renderModal() {
+      let jumpBtnDisplay = 'block';
+      if (currentStep === 1) {
+        $('.plugin-redirect-bar').empty();
+        $('.plugin-redirect-bar').append(`<div class="plugin-redirect-bar__first-step">
+              <div class="plugin-redirect-bar__text">${countryInfo.jumpText || ''}</div>
+              <div class="plugin-redirect-bar__btn-wrapper-icon">
+                  <div class="plugin-redirect-bar__country-name">${countryInfo.countryName || ''}</div>
+                  <div class="plugin-redirect-bar__jump-btn" style="display: ${jumpBtnDisplay}; cursor:pointer;">${
+          countryInfo.jumpBtnText || ''
+        }</div>
+              </div>
+              <div class="plugin-redirect-bar__close-wrapper">
+                  <div class="plugin-redirect-bar__close-icon"></div>
+              </div>
+          </div>`);
+      }
+      $('.plugin-redirect-bar__first-step .plugin-redirect-bar__jump-btn').on('click', handleJumpBtnClick);
+      $('.plugin-redirect-bar__first-step .plugin-redirect-bar__close-wrapper').on('click', function () {
+        handleCloseIconClick();
+        renderSecondModal();
+      });
+    }
+
+    function renderSecondModal() {
+      if (currentStep === 2) {
+        $('.plugin-redirect-bar').empty();
+        $('.plugin-redirect-bar').append(`<div class="plugin-redirect-bar__second-step">
+              <div class="plugin-redirect-bar__second-step_text">${countryInfo.secondConfirmJumpText || ''}</div>
+              <div class="plugin-redirect-bar__btn-wrapper-icon">
+                  <div class="plugin-redirect-bar__country-name" style='cursor: pointer;'>${
+                    countryInfo.secondConfirmStayBtnText || ''
+                  }</div>
+                  <div class="plugin-redirect-bar__jump-btn">${countryInfo.secondConfirmJumpBtnText || ''}</div>
+              </div>
+          </div>`);
+        $('.plugin-redirect-bar__second-step .plugin-redirect-bar__country-name').on(
+          'click',
+          handleSecondConfirmCloseClick
+        );
+        $('.plugin-redirect-bar__second-step .plugin-redirect-bar__jump-btn').on(
+          'click',
+          handleSecondConfirmSubmitClick
+        );
+      }
+    }
+  });
+</script>

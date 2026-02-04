@@ -1,0 +1,334 @@
+{% comment %}
+  改为@redirect-bar.liquid (267-299) 这样通过API获取IP和地区信息
+{% endcomment %}
+<style>
+  #geo-banner-alert {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background: #232323cc;
+    color: #fff;
+    z-index: 9999;
+    padding: 12px 48px 12px 16px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 1.5;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    transition: all 0.2s cubic-bezier(0.47, 0, 0.745, 0.715);
+  }
+  #geo-banner-alert .geo-banner-close {
+    position: absolute;
+    right: 18px;
+    top: 9px;
+    width: 31px;
+    height: 31px;
+    color: #fff;
+    background: transparent;
+    border: none;
+    font-size: 19px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 28px;
+    z-index: 1;
+    transition: background 0.15s;
+  }
+  #geo-banner-alert .geo-banner-close:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  #geo-banner-alert a {
+    color: #00b7ff;
+    text-decoration: none;
+    word-break: break-all;
+  }
+  @media (max-width: 600px) {
+    #geo-banner-alert {
+      font-size: 14px;
+      padding: 11px 40px 11px 10px;
+    }
+    #geo-banner-alert .geo-banner-close {
+      top: 10px;
+      right: 9px;
+    }
+  }
+  {% comment %} body.geo-banner-active {
+    margin-top: 44px !important;
+  } {% endcomment %}
+</style>
+<div id="geo-banner-alert" style="display:none;">
+  <span id="geo-banner-message"></span>
+  <button class="geo-banner-close" aria-label="Close">&times;</button>
+</div>
+
+{% comment %}
+  自动按用户地理位置进行站点提示或重定向的脚本
+  - 根据用户的 IP 判断用户所在国家；
+  - 判断当前站点类型（US/FR/EU）；
+  - 根据地理信息和当前站点类型决定是否跳转或展示提示 banner；
+  - 使用同步 XHR 保证跳转或提示在页面渲染前起效；
+  - 访客点击关闭后 24h 内不会再显示提示 banner。
+{% endcomment %}
+<script>
+  // geoBannerClosed 设置24小时有效 & 在最顶部同步执行，尽量在首屏前执行重定向，以提升 UX
+  (() => {
+    const GEO_BANNER_CLOSED_KEY = 'geoBannerClosed';
+    const GEO_BANNER_EXPIRE_KEY = 'geoBannerClosedExpire';
+    const EXPIRE_MS = 24 * 60 * 60 * 1000; // 24小时
+
+    // 检查 geoBannerClosed 是否在有效期内
+    function isGeoBannerClosedValid() {
+      const closed = window.localStorage.getItem(GEO_BANNER_CLOSED_KEY);
+      const expire = window.localStorage.getItem(GEO_BANNER_EXPIRE_KEY);
+      if (closed !== '1') return false;
+      if (!expire) return false;
+      if (Date.now() > parseInt(expire, 10)) {
+        // 已过期，自动清理
+        window.localStorage.removeItem(GEO_BANNER_CLOSED_KEY);
+        window.localStorage.removeItem(GEO_BANNER_EXPIRE_KEY);
+        return false;
+      }
+      return true;
+    }
+
+    // 设置 geoBannerClosed，有效期24小时
+    function setGeoBannerClosed24h() {
+      window.localStorage.setItem(GEO_BANNER_CLOSED_KEY, '1');
+      window.localStorage.setItem(GEO_BANNER_EXPIRE_KEY, String(Date.now() + EXPIRE_MS));
+    }
+
+    /**
+     * 判断当前所在的 procolored 站点
+     * 返回值: "US" | "FR" | "EU"
+     */
+    const getCurrentSite = () => {
+      const hostname = window.location.hostname;
+      if (hostname.endsWith('procolored.com')) {
+        if (hostname.startsWith('fr.')) return 'FR'; // 法国分站点
+        // 主站点、带 www 的主站都归为 US 主站
+        if (hostname === 'procolored.com' || hostname === 'www.procolored.com' || hostname === 'www.procolored.com.')
+          return 'US';
+      } else if (hostname.endsWith('procolored.eu')) {
+        return 'EU'; // 欧洲分站
+      }
+      return 'US'; // 兜底：都视为主站 "US"
+    };
+
+    // 欧洲国家二字码（包含部分欧盟和欧洲以外地区，适配跨欧分站需求）
+    const europeanCountries = [
+      'AT',
+      'BE',
+      'BG',
+      'CY',
+      'CZ',
+      'DK',
+      'EE',
+      'FI',
+      'FR',
+      'DE',
+      'GR',
+      'HU',
+      'IE',
+      'IT',
+      'LV',
+      'LT',
+      'LU',
+      'MT',
+      'NL',
+      'PL',
+      'PT',
+      'RO',
+      'SK',
+      'SI',
+      'ES',
+      'SE',
+      'GB',
+      'CH',
+      'HR',
+      'AL',
+      'AD',
+      'AM',
+      'BY',
+      'BA',
+      'FO',
+      'GI',
+      'IS',
+      'IM',
+      'XK',
+      'LI',
+      'MK',
+      'MD',
+      'MC',
+      'ME',
+      'NO',
+      'RU',
+      'SM',
+      'RS',
+      'TR',
+      'UA',
+      'VA',
+    ];
+
+    /**
+     * 判断国家码是否属于欧洲（支持大小写）
+     */
+    const isEuropeCountry = (countryCode) => europeanCountries.includes(String(countryCode || '').toUpperCase());
+
+    /**
+     * 判断是否法国
+     */
+    const isFrance = (countryCode) => String(countryCode || '').toUpperCase() === 'FR';
+
+    /**
+     * 判断是否加拿大
+     */
+    const isCanada = (countryCode) => String(countryCode || '').toUpperCase() === 'CA';
+
+    /**
+     * 判断是否美国
+     */
+    const isUnitedStates = (countryCode) => String(countryCode || '').toUpperCase() === 'US';
+
+    /**
+     * 根据国家码选择 go to site 的语言
+     */
+    function getGoToSiteText(customText) {
+      // 新实现：直接使用传递的字符串
+      return customText || 'Go to site';
+    }
+
+    /**
+     * 在页面顶部显示 banner 提示
+     * @param {string} message - 支持 http(s) 链接, 自动转为可点击超链接
+     * @param {string} [btnText] - 新的: 传递"Go to site" 或 "Consulter"
+     */
+    const showTip = (message, btnText) => {
+      if (isGeoBannerClosedValid()) return; // 用户已经点击“关闭”且在24小时有效期内不再显示
+      const banner = document.getElementById('geo-banner-alert');
+      const msg = document.getElementById('geo-banner-message');
+      const body = document.body;
+      if (!banner || !msg) return;
+
+      // 将内容中的 URL 自动变为安全的超链接，文本按 btnText 替换
+      const urlRegex = /(https?:\/\/[^\s]+)/g;
+      const safeMessage = message.replace(urlRegex, (url) => {
+        const div = document.createElement('div');
+        div.textContent = url;
+        const encodedUrl = div.innerHTML;
+        // 决定 go to site 文案文字
+        const aText = getGoToSiteText(btnText);
+        return `<a href="${encodedUrl}" target="_blank" rel="noopener noreferrer">${aText}</a>`;
+      });
+
+      msg.innerHTML = safeMessage;
+      banner.style.display = 'block';
+      body.classList.add('geo-banner-active');
+      // 关闭按钮逻辑写入
+      const btn = banner.querySelector('.geo-banner-close');
+      if (btn) {
+        btn.onclick = () => {
+          banner.style.display = 'none';
+          body.classList.remove('geo-banner-active');
+          setGeoBannerClosed24h(); // 关闭标记并设置过期时间
+        };
+      }
+    };
+
+    // 主重定向/提示逻辑，使用同步 XHR 保证首屏有效
+    if (!isGeoBannerClosedValid()) {
+      try {
+        // 同步请求后端接口，获取用户 IP 定位国家信息
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://dtc.mblock.cc/shopify/ip', false); // false = 同步
+        xhr.send();
+        if (xhr.status === 200) {
+          const resp = JSON.parse(xhr.responseText);
+          if (resp && resp.code === 0 && resp.data) {
+            const geoData = resp.data;
+            const country = geoData.country_iso_code || ''; // 用户所在国家二字码
+            const currentSite = getCurrentSite(); // 当前站点类型
+            // 各站点根据身份做不同提示/跳转
+            if (currentSite === 'US') {
+              // 当前站点为 US 主站
+              if (isUnitedStates(country)) return; // 在美国地区, 不处理
+              if (isEuropeCountry(country)) {
+                if (isFrance(country)) {
+                  // 法国 IP 跳转法国站
+                  window.location.href = 'https://fr.procolored.com/';
+                  return;
+                }
+                // 欧洲其他国家跳转欧洲站
+                window.location.href = 'https://procolored.eu/';
+                return;
+              }
+              if (isCanada(country)) {
+                // 加拿大访问主站, 顶栏提示可访问法国站
+                document.addEventListener('DOMContentLoaded', () => {
+                  showTip('Vous pouvez aussi consulter notre site en français: https://fr.procolored.com', 'Consulter');
+                });
+                return;
+              }
+            } else if (currentSite === 'EU') {
+              // 当前站点为欧洲分站
+              if (isEuropeCountry(country)) {
+                // 如果是法国, 提示可访问法国站
+                if (isFrance(country)) {
+                    document.addEventListener('DOMContentLoaded', () => {
+                        showTip('Vous pouvez aussi consulter notre site en français: https://fr.procolored.com', 'Consulter');
+                      });
+                  return;
+                }
+                // 如果是欧盟其他国家，停留欧洲分站
+                return;
+              }
+              if (isCanada(country)) {
+                // 加拿大访问欧洲分站, 跳回主站+顶栏提示可访问法国站
+                window.location.href = 'https://www.procolored.com/';
+                // 此处如需提示可解注释 showTip
+                // document.addEventListener('DOMContentLoaded', () => {
+                //   showTip('Vous pouvez également accéder à notre site français: https://fr.procolored.com', 'Consulter');
+                // });
+                return;
+              }
+              if (isUnitedStates(country) || (!isEuropeCountry(country) && !isCanada(country))) {
+                // 美国 & 其它非欧/非加国家, 全部跳回主站
+                window.location.href = 'https://www.procolored.com/';
+                return;
+              }
+            } else if (currentSite === 'FR') {
+              // 当前站点为法国分站
+              if (isFrance(country)) {
+                // 法国访问本站, 提示可访问欧洲站
+                document.addEventListener('DOMContentLoaded', () => {
+                  showTip('You can also access our English site: https://procolored.eu', 'Go to site');
+                });
+                return;
+              }
+
+              if (isEuropeCountry(country)) {
+                // 欧洲非法国国家, 跳转欧洲分站
+                window.location.href = 'https://procolored.eu/';
+                return;
+              }
+              if (isCanada(country)) {
+                // 加拿大访问法国分站, 提示可访问主站
+                document.addEventListener('DOMContentLoaded', () => {
+                  showTip('You can also access our English site: https://www.procolored.com', 'Go to site');
+                });
+                return;
+              }
+              if (isUnitedStates(country) || (!isEuropeCountry(country) && !isCanada(country))) {
+                // 美国 & 其它非欧/非加, 跳主站
+                window.location.href = 'https://www.procolored.com/';
+                return;
+              }
+            }
+          }
+        }
+      } catch (e) {
+        // 若接口异常, 则不阻塞页面正常显示
+        console.error(e);
+      }
+    }
+  })();
+</script>

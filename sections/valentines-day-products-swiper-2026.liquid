@@ -1,0 +1,1988 @@
+<style>
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-wrapper {
+    background-color: {{ section.settings.bg_color }};
+    padding: {{ section.settings.padding_top }}px 0px {{ section.settings.padding_bottom }}px 0px;
+    overflow: hidden;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-container {
+    position: relative;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-title-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    {% if section.settings.section_max_width != 'none' %}
+      max-width: {{ section.settings.section_max_width }}px;
+      margin: 0 auto;
+    {% else %}
+      width: 100%;
+      margin-right: 0;
+    {% endif %}
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-title {
+    color: #000;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.22;
+    margin-bottom: 16px;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-subtitle {
+    color: rgba(0, 0, 0, 0.90);
+    text-align: center;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.33;
+    margin-bottom: 48px;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-desc {
+    color: #fff;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 48px;
+    width: 100%;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .exhibition-products-main-banner-box {
+    {% if section.settings.section_max_width != 'none' %}
+      max-width: {{ section.settings.section_max_width }}px;
+    {% else %}
+      width: 100%;
+      max-width: 100%;
+    {% endif %}
+    margin-top: 24px;
+    margin-bottom: 48px;
+    padding: 0px 45px;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .exhibition-products-main-banner-box img {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .exhibition-products-main-banner-box .pc {
+    display: flex;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .exhibition-products-main-banner-box .mb {
+    display: none;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    overflow-x: auto;
+    touch-action: pan-x;
+    border-radius: 100px;
+    background: #fff;
+    margin-bottom: 32px;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-tab {
+    cursor: pointer;
+    text-align: center;
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 12px 32px;
+    border-radius: 100px;
+    min-width: 182px;
+    -webkit-tap-highlight-color: transparent;
+    /* 消除移动端点击背景 */
+    -webkit-touch-callout: none;
+    outline: none;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-tab.active {
+    color: #fff;
+    font-weight: 700;
+    border-radius: 100px;
+    background: #B84160;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner {
+    width: 100%;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner-box {
+    display: none;
+    position: relative;
+    margin-bottom: 48px;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner-box.active {
+    display: flex;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner img {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 16px;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner .pc {
+    display: flex;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner .mb {
+    display: none;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-content {
+    {% if section.settings.section_max_width != 'none' %}
+      max-width: {{ section.settings.section_max_width }}px;
+      margin: 0 auto;
+    {% else %}
+    {% endif %}
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner-box-content {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner-box-content-title {
+    color: #fff;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.27;
+    margin-bottom: 5px;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner-box-content-desc {
+    color: #fff;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 48px;
+    width: 100%;
+  }
+
+  {% comment %}
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-products {
+    display: grid;
+    grid-template-columns: repeat({{- section.settings.product_num | minus: 0 -}}, 1fr);
+    grid-gap: {{ section.settings.card_gap }}px;
+    padding: 0 20px;
+  }
+  {% endcomment %}
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-products-card {
+    border-radius: 16px;
+    background-color: {{ section.settings.card_bg_color }};
+    position: relative;
+    padding: 20px;
+    background-clip: padding-box;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-product-label-container {
+    position: absolute;
+    top: 15px;
+    left: -9px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-product-label-discount {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 96px;
+    height: 37px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='96' height='37' viewBox='0 0 96 37' fill='none'><g clip-path='url(%23clip0_10245_3955)'><path d='M9 7.99951H94.5L86.5 22.9995L94.5 36.9995H8C3.58172 36.9995 8.56345e-07 33.4178 0 28.9995V3.99951L9 0.114746V7.99951Z' fill='%23E96D7C'/><path d='M8.99974 0.0853002V8.00006C-2.49992 10.0001 -3.5 -1 8.99974 0.0853002Z' fill='%23CD5160'/><mask id='mask0_10245_3955' style='mask-type:alpha' maskUnits='userSpaceOnUse' x='0' y='0' width='95' height='37'><path d='M9 8H94.5L86.5 23L94.5 37H8C3.58172 37 1.25939e-06 33.4183 0 29V3.89648L9 0V8Z' fill='url(%23paint0_linear_10245_3955)'/></mask><g mask='url(%23mask0_10245_3955)'><g filter='url(%23filter0_f_10245_3955)'><rect x='5' y='8' width='11' height='32' fill='url(%23paint1_linear_10245_3955)' fill-opacity='0.33'/></g></g></g><defs><filter id='filter0_f_10245_3955' x='1.7' y='4.7' width='17.6' height='38.6' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'><feFlood flood-opacity='0' result='BackgroundImageFix'/><feBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape'/><feGaussianBlur stdDeviation='1.65' result='effect1_foregroundBlur_10245_3955'/></filter><linearGradient id='paint0_linear_10245_3955' x1='3.01596' y1='21.4516' x2='76.4041' y2='22.9629' gradientUnits='userSpaceOnUse'><stop stop-color='%23FF99A5'/><stop offset='1' stop-color='%23FB8E98'/></linearGradient><linearGradient id='paint1_linear_10245_3955' x1='7.5' y1='22' x2='17.5' y2='22' gradientUnits='userSpaceOnUse'><stop stop-color='white'/><stop offset='1' stop-color='white' stop-opacity='0'/></linearGradient><clipPath id='clip0_10245_3955'><rect width='96' height='37' fill='white'/></clipPath></defs></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-product-label-discount-text {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-product-label-discount-text-value {
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-image {
+    width: 100%;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-image img {
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    aspect-ratio: 1;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-image .pc {
+    display: block;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-image .mb {
+    display: none;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-name {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.4;
+    min-height: 45px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-tips {
+    color: #3D3D3D;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    padding-top: 4px;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-content-bottom {
+    display: flex;
+    align-items: start;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-price {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-sale-price {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.3;
+    color: #E8638C;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-original-price {
+    color: #848484;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    text-decoration-line: line-through;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-button-wrapper {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    padding-top: 12px;
+    margin-top: auto;
+    justify-content: space-between;
+    {% if section.settings.button_layout == '1' %}
+      flex-direction: column;
+    {% endif %}
+  }
+
+  .valentines-day-swiper-{{ section.id }} product-card,
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-button-view-more {
+    {% if section.settings.button_layout == '2' %}
+      width: calc(50% - 6px);
+    {% else %}
+      width: 100%;
+    {% endif %}
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-button-add-to-cart,
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-button-view-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 11px 5px;
+    border-radius: 8px;
+    min-height: 40px;
+    height: 100%;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-button-add-to-cart {
+    background: linear-gradient(90deg, #FF718E 0%, #DD5BDD 149.39%);
+    color: #fff;
+  }
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-button-stop-sale{
+        background: #999;
+        color: #fff;
+        cursor: not-allowed;
+    }
+
+  @media screen and (hover: hover) {
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-button-add-to-cart.button.accent:hover,
+    .valentines-day-swiper-{{ section.id }} input[type=submit].accent:hover {
+      background: linear-gradient(90deg, #FF718E 0%, #DD5BDD 149.39%);
+      color: #fff;
+    }
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-button-view-more {
+    border: 1px solid #000;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-button-add-to-cart:hover {
+    background: linear-gradient(90deg, #FF718E 0%, #DD5BDD 149.39%);
+    color: #fff;
+  }
+
+  {% comment %}
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-button-view-more:hover {
+    color: #121212;
+    background: linear-gradient(90deg, #FEE8D0 0%, #FFC78F 100%);
+  }
+  {% endcomment %}
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-products-swiper-container {
+    padding-bottom: 60px;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-navigation-buttons {
+    display: flex;
+    width: 100%;
+    position: absolute;
+    top: auto;
+    left: 50%;
+    width: 18%;
+    transform: translate(-50%, 0);
+    bottom: 0;
+    {% comment %} transform: translateY(calc(-50% )); {% endcomment %}
+    z-index: 1;
+    justify-content: space-between;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-nav-button {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-nav-button.swiper-button-disabled svg circle {
+    fill: #fff;
+  }
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-nav-button.swiper-button-disabled svg path {
+    stroke: #EA64BF;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .swiper-scrollbar-drag {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    background: #F96D9C;
+    border-radius: 99px;
+    top: 0;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .swiper-scrollbar {
+    height: 4px;
+    width: 8%;
+    border-radius: 99px;
+    background: #fff;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-products-swiper-container {
+    display: none;
+    position: static;
+    overflow: hidden;
+    {% if section.settings.section_max_width != 'none' %}
+
+      {% else %}
+        margin-left: calc(18.75% - 20px);
+        margin-right: 0;
+        padding-left: 20px;
+      {% endif %}
+
+
+  }
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-grid-container{
+      display: none;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-products-swiper-container.active {
+    display: flex;
+  }
+
+
+
+  .valentines-day-swiper-{{ section.id }} .product-flash-sale-countdown {
+    max-width: max-content;
+    background: #DA291C;
+    margin-bottom: 10px;
+    color: #fff;
+    padding: 0px 12px;
+    border-radius: 17px;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .product-flash-sale-countdown .countdown-box > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 14px;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .product-flash-sale-countdown .time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 52px;
+    min-height: 56px;
+    position: relative;
+    {% comment %} border-radius: 6px;
+    border: 1px dashed #FFF; {% endcomment %}
+  }
+
+  .valentines-day-swiper-{{ section.id }} .product-flash-sale-countdown .time-block:not(:last-child)::after {
+    content: ":";
+    position: absolute;
+    right: -2px;
+    top: 0px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .product-flash-sale-countdown .time-value {
+    /* background-color: #000; */
+    color: #fff;
+    border-radius: 0;
+    font-size: 24px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .valentines-day-swiper-{{ section.id }} .product-flash-sale-countdown .time-label {
+    font-size: 12px;
+    color: #fff;
+    line-height: 1;
+  }
+
+  @media screen and (max-width: 1400px) {
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-title-wrapper {
+      {% if section.settings.section_max_width != 'none' %}
+        max-width: {{ section.settings.section_max_width | plus: 32 }}px;
+        margin: 0 auto;
+        padding: 0 16px;
+      {% else %}
+        width: 100%;
+        max-width: 100%;
+      {% endif %}
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-content {
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-wrapper {
+      padding: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px 0;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-content {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-container {
+      max-width: 100%;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-title {
+      font-size: 24px;
+      margin-bottom: 10px;
+
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-subtitle {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.80);
+      margin-bottom: 20px;
+        max-width: 280px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-desc {
+      font-size: 16px;
+      line-height: 1.4;
+      margin-bottom: 24px;
+      padding: 0 38px;
+    }
+    .valentines-day-swiper-{{ section.id }} .exhibition-products-main-banner-box {
+      {% if section.settings.section_max_width != 'none' %}
+        max-width: {{ section.settings.section_max_width }}px;
+      {% else %}
+        width: 100%;
+        max-width: 100%;
+      {% endif %}
+      margin-top: 12px;
+      margin-bottom: 24px;
+      padding: 0;
+    }
+    .valentines-day-swiper-{{ section.id }} .exhibition-products-main-banner-box .pc {
+      display: none;
+    }
+    .valentines-day-swiper-{{ section.id }} .exhibition-products-main-banner-box .mb {
+      display: flex;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-tabs {
+      margin-bottom: 20px;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-tab {
+      font-size: 14px;
+      min-width: 163px;
+      padding: 9px 16px;
+      border-radius: 50px;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner {
+      margin-bottom: 16px;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner img {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 4px;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner .pc {
+      display: none;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner .mb {
+      display: flex;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner-box-content {
+      bottom: 8px;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner-box-content-title {
+      font-size: 10px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner-box-content-desc {
+      font-size: 16px;
+      line-height: 1.4;
+      margin-bottom: 24px;
+      padding: 0 38px;
+    }
+    {% comment %}
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-products {
+      display: grid;
+      grid-template-columns: repeat({{- section.settings.product_num_mobile | minus: 0 -}}, 1fr);
+      grid-gap: {{ section.settings.card_gap_mobile }}px;
+      padding: 0;
+    }
+    {% endcomment %}
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-products-card {
+      padding: 12px 16px 16px 16px;
+      border-radius: 10px;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-product-label-discount {}
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-product-label-discount-text {
+      font-size: 12px;
+      gap: 2px;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-product-label-discount-text-value {
+      font-size: 12px;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-label-text span {
+      display: block;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-image .pc {
+      display: none;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-image .mb {
+      display: block;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-content {
+      width: 100%;
+      gap: 8px;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-name {
+      font-size: 16px;
+      max-width: 100%;
+      min-height: 45px;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-tips {
+      font-size: 12px;
+      line-height: 1.4;
+      padding-top: 4px;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-price {
+      gap: 10px;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-sale-price {
+      font-size: 20px;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-original-price {
+      font-size: 14px;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-button-wrapper {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+      padding-top: 16px;
+      flex-direction: column;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-product-button-wrapper > * {
+      width: 100%;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-button-add-to-cart,
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-button-view-more {
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 8px;
+      margin: 0;
+      padding: 10px 5px;
+      line-height: 1;
+      min-height: 40px;
+    }
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-button-view-more {}
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-products-swiper-container {
+      padding-bottom: 28px;
+      margin-left: 0;
+      padding-left: 0;
+    }
+    {%- if section.settings.show_swiper_mb -%}
+      .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-products-swiper-container.active {
+          display: flex;
+      }
+      {% else %}
+        .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-products-swiper-container.active {
+            display: none;
+        }
+        .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-grid-container.active{
+            display: flex;
+            padding: 0 16px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .valentines-day-swiper-{{ section.id }}  .valentines-day-swiper-grid-item{
+            width: calc(100% / 2 - 5px);
+        }
+        .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-products-card {
+            padding: 20px 8px 16px 8px !important;
+            border-radius: 10px;
+        }
+        .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-name {
+            font-size: 12px !important;
+            min-height: 34px !important;
+        }
+        .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-sale-price {
+            font-size: 18px !important;
+        }
+        .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-original-price {
+            font-size: 10px !important;
+        }
+        .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-button-add-to-cart, .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-product-button-view-more {
+            font-size: 14px !important;
+        }
+        .valentines-day-swiper-template--26830726791349__valentines_day_products_swiper_2026_V4EqE7 .valentines-day-swiper-promotion-product-button-wrapper {
+            padding-top: 12px !important;
+        }
+      {%- endif -%}
+    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-navigation-buttons {
+      display: none;
+    }
+    .valentines-day-swiper-{{ section.id }} .swiper-scrollbar-drag {}
+    .valentines-day-swiper-{{ section.id }} .swiper-scrollbar {
+      width: calc(100% - 32px);
+      bottom: 0;
+    }
+    .valentines-day-swiper-{{ section.id }} .product-flash-sale-countdown {
+      max-width: max-content;
+      background: #DA291C;
+      margin-bottom: 10px;
+      color: #fff;
+      padding: 0px 12px;
+      border-radius: 17px;
+    }
+    .valentines-day-swiper-{{ section.id }} .product-flash-sale-countdown .countdown-box > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 12px;
+    }
+    .valentines-day-swiper-{{ section.id }} .product-flash-sale-countdown .time-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 52px;
+      min-height: 56px;
+      position: relative;
+      {% comment %} border-radius: 6px;
+      border: 1px dashed #FFF; {% endcomment %}
+    }
+    .valentines-day-swiper-{{ section.id }} .product-flash-sale-countdown .time-block:not(:last-child)::after {
+      content: ":";
+      position: absolute;
+      right: -2px;
+      top: 4px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      line-height: 1;
+    }
+    .valentines-day-swiper-{{ section.id }} .product-flash-sale-countdown .time-value {
+      /* background-color: #000; */
+      color: #fff;
+      border-radius: 0;
+      font-size: 12px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .valentines-day-swiper-{{ section.id }} .product-flash-sale-countdown .time-label {
+      font-size: 12px;
+      color: #fff;
+      line-height: 1;
+    }
+  }
+</style>
+
+{% assign blocks_count = section.blocks.size %}
+<section
+  id="{%- if section.settings.nav_id != empty %}custom-nav-{{- section.settings.nav_id -}}{% endif -%}"
+  class="valentines-day-swiper-{{ section.id }}"
+>
+  <div class="valentines-day-swiper-wrapper">
+    <div class="valentines-day-swiper-container">
+      {%- if section.settings.title != empty
+        or section.settings.subtitle != empty
+        or section.settings.desc != empty
+        or blocks_count > 1
+      -%}
+        <div class="valentines-day-swiper-title-wrapper">
+          {%- if section.settings.title != empty -%}
+            <div class="valentines-day-swiper-title">
+              {{ section.settings.title }}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.subtitle != empty -%}
+            <div class="valentines-day-swiper-subtitle">
+              {{ section.settings.subtitle }}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.desc != empty -%}
+            <div class="valentines-day-swiper-desc">
+              {{ section.settings.desc }}
+            </div>
+          {%- endif -%}
+          {% assign main_banner_image_pc = section.settings.main_banner_image_pc %}
+          {% assign main_banner_image_mb = section.settings.main_banner_image_mb %}
+          {% if main_banner_image_pc and main_banner_image_mb %}
+            <div
+              class="exhibition-products-main-banner-box"
+            >
+              {% if main_banner_image_pc %}
+                <img
+                  style="aspect-ratio: {{ main_banner_image_pc.aspect_ratio }}"
+                  class="pc lazyload"
+                  data-sizes="100vw"
+                  data-srcset="
+                    {%- if main_banner_image_pc.width >= 200 -%}{{ main_banner_image_pc | image_url: width: 400 }} 400w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 375 -%}{{ main_banner_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 550 -%}{{ main_banner_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 750 -%}{{ main_banner_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 1100 -%}{{ main_banner_image_pc | image_url: width: 2200 }} 2200w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 1500 -%}{{ main_banner_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 1780 -%}{{ main_banner_image_pc | image_url: width: 3560 }} 3560w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 2000 -%}{{ main_banner_image_pc | image_url: width: 4000 }} 4000w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 3000 -%}{{ main_banner_image_pc | image_url: width: 6000 }} 6000w,{%- endif -%}
+                    {%- if main_banner_image_pc.width >= 3840 -%}{{ main_banner_image_pc | image_url: width: 7680 }} 7680w,{%- endif -%}
+                    {{ main_banner_image_pc | image_url }} {{ main_banner_image_pc.width }}w
+                  "
+                  data-src="{{ main_banner_image_pc | image_url:width:750 }}"
+                  alt="{{ main_banner_image_pc.alt }}"
+                >
+              {% endif %}
+              {% if main_banner_image_mb %}
+                <img
+                  style="aspect-ratio: {{ main_banner_image_mb.aspect_ratio }}"
+                  class="mb lazyload"
+                  data-sizes="100vw"
+                  data-srcset="
+                    {%- if main_banner_image_mb.width >= 200 -%}{{ main_banner_image_mb | image_url: width: 400 }} 400w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 375 -%}{{ main_banner_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 550 -%}{{ main_banner_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 750 -%}{{ main_banner_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 1100 -%}{{ main_banner_image_mb | image_url: width: 2200 }} 2200w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 1500 -%}{{ main_banner_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 1780 -%}{{ main_banner_image_mb | image_url: width: 3560 }} 3560w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 2000 -%}{{ main_banner_image_mb | image_url: width: 4000 }} 4000w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 3000 -%}{{ main_banner_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if main_banner_image_mb.width >= 3840 -%}{{ main_banner_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                    {{ main_banner_image_mb | image_url }} {{ main_banner_image_mb.width }}w
+                  "
+                  data-src="{{ main_banner_image_mb | image_url:width:750 }}"
+                  alt="{{ main_banner_image_mb.alt }}"
+                >
+              {% endif %}
+            </div>
+          {% endif %}
+          {%- if blocks_count > 1 -%}
+            <div
+              id="valentines-day-swiper-tabs-{{ section.id }}"
+              class="valentines-day-swiper-tabs"
+            >
+              {% comment %} 获取section.blocks的数量 {% endcomment %}
+
+              {%- for block in section.blocks -%}
+                {% assign tab_label = block.settings.tab_name | default: 'Tab' %}
+
+                <div
+                  class="valentines-day-swiper-tab {% if forloop.first %} active{% endif %}"
+                >
+                  {{ tab_label }}
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {% endif %}
+
+      {%- if section.settings.show_banner -%}
+        <div class="valentines-day-swiper-banner">
+          {%- for block in section.blocks -%}
+            {% assign product_banner_image_pc = block.settings.product_banner_image_pc %}
+            {% assign product_banner_image_mb = block.settings.product_banner_image_mb %}
+            {% assign product_banner_title = block.settings.product_banner_title %}
+            {% assign product_banner_subtitle = block.settings.product_banner_subtitle %}
+            {% if product_banner_image_pc %}
+              <div
+                class="valentines-day-swiper-banner-box {% if forloop.first %} active{% endif %}"
+              >
+                {% if product_banner_image_pc %}
+                  <img
+                    style="aspect-ratio: {{ product_banner_image_pc.aspect_ratio }}"
+                    class="pc lazyload"
+                    data-sizes="100vw"
+                    data-srcset="
+                      {%- if product_banner_image_pc.width >= 200 -%}{{ product_banner_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                      {%- if product_banner_image_pc.width >= 375 -%}{{ product_banner_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                      {%- if product_banner_image_pc.width >= 550 -%}{{ product_banner_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                      {%- if product_banner_image_pc.width >= 750 -%}{{ product_banner_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                      {%- if product_banner_image_pc.width >= 1100 -%}{{ product_banner_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                      {%- if product_banner_image_pc.width >= 1500 -%}{{ product_banner_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                      {%- if product_banner_image_pc.width >= 1780 -%}{{ product_banner_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                      {%- if product_banner_image_pc.width >= 2000 -%}{{ product_banner_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                      {%- if product_banner_image_pc.width >= 3000 -%}{{ product_banner_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                      {%- if product_banner_image_pc.width >= 3840 -%}{{ product_banner_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                      {{ product_banner_image_pc | image_url }} {{ product_banner_image_pc.width }}w
+                    "
+                    data-src="{{ product_banner_image_pc | image_url:width:750 }}"
+                    alt="{{ product_banner_image_pc.alt }}"
+                  >
+                {% endif %}
+                {% if product_banner_image_mb %}
+                  <img
+                    style="aspect-ratio: {{ product_banner_image_mb.aspect_ratio }}"
+                    class="mb lazyload"
+                    data-sizes="100vw"
+                    data-srcset="
+                      {%- if product_banner_image_mb.width >= 200 -%}{{ product_banner_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                      {%- if product_banner_image_mb.width >= 375 -%}{{ product_banner_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                      {%- if product_banner_image_mb.width >= 550 -%}{{ product_banner_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                      {%- if product_banner_image_mb.width >= 750 -%}{{ product_banner_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                      {%- if product_banner_image_mb.width >= 1100 -%}{{ product_banner_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                      {%- if product_banner_image_mb.width >= 1500 -%}{{ product_banner_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                      {%- if product_banner_image_mb.width >= 1780 -%}{{ product_banner_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                      {%- if product_banner_image_mb.width >= 2000 -%}{{ product_banner_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                      {%- if product_banner_image_mb.width >= 3000 -%}{{ product_banner_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                      {%- if product_banner_image_mb.width >= 3840 -%}{{ product_banner_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                      {{ product_banner_image_mb | image_url }} {{ product_banner_image_mb.width }}w
+                    "
+                    data-src="{{ product_banner_image_mb | image_url:width:750 }}"
+                    alt="{{ product_banner_image_mb.alt }}"
+                  >
+                {% endif %}
+                <div class="valentines-day-swiper-banner-box-content">
+                  {%- if product_banner_title != empty -%}
+                    <div class="valentines-day-swiper-banner-box-content-title">
+                      {{ product_banner_title }}
+                    </div>
+                  {%- endif -%}
+                  {%- if product_banner_subtitle != empty -%}
+                    <div class="valentines-day-swiper-banner-box-content-desc">
+                      {{ product_banner_subtitle }}
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+            {% endif %}
+          {%- endfor -%}
+        </div>
+      {% endif %}
+      <div class="valentines-day-swiper-content">
+        {%- for block in section.blocks -%}
+          {%- assign product_list = block.settings.product_list -%}
+
+          <div
+            class="swiper-container valentines-day-swiper-promotion-products-swiper-container valentines-day-swiper-promotion-products-swiper-container-{{ section.id }}-{{- forloop.index0 -}}  {% if forloop.first %} active{% endif %}"
+            data-tab="{{ forloop.index0  }}"
+            data-product-count="{{ product_list.count }}"
+          >
+            <div class="swiper-wrapper">
+              {%- for item in product_list -%}
+                {%- liquid
+                  assign current_product = item
+                  assign variant = current_product.metafields.custom.activity_page_product_variant_select.value | default: current_product.variants[0]
+                  assign product_image_pc = variant.metafields.custom.activity_product_image_pc | default: variant.featured_image | default: current_product.metafields.custom.product_card_image_pc | default: current_product.featured_image
+                  assign product_image_mb = variant.metafields.custom.activity_product_image_mb | default: variant.featured_image | default: current_product.metafields.custom.product_card_image_mb | default: current_product.featured_image
+                  assign title = variant.metafields.custom.activity_product_short_name | default: current_product.metafields.custom.activity_page_product_short_name | default: current_product.title
+                  assign product_price = variant.metafields.custom.activity_sale_price.value | default: current_product.metafields.custom.activity_sale_price.value | default: variant.price
+                  assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: current_product.metafields.custom.activity_original_price.value | default: variant.compare_at_price
+                  assign product_diff_price = product_origin_price | minus: product_price
+                -%}
+
+                {%- if current_product != blank and current_product.available -%}
+                  <div
+                    class="swiper-slide valentines-day-swiper-promotion-products-slide"
+                  >
+                    <div class="valentines-day-swiper-promotion-products">
+                      <div class="valentines-day-swiper-promotion-products-card">
+                        <div class="valentines-day-swiper-product-label-container">
+                          {% if product_diff_price != blank
+                            and product_diff_price > 0
+                            and product_price > 0
+                            and product_origin_price > 0
+                          %}
+                            <div class="valentines-day-swiper-product-label-discount">
+                              <div class="valentines-day-swiper-product-label-discount-text">
+                                <span class="valentines-day-swiper-product-label-discount-text-unit">
+                                  {{- 'general.cart_drawer.save' | t -}}
+                                </span>
+                                <span class="valentines-day-swiper-product-label-discount-text-value">
+                                  {{- product_diff_price | money_without_trailing_zeros -}}
+                                </span>
+                              </div>
+                            </div>
+                          {% endif %}
+                        </div>
+
+                        <a
+                          style="aspect-ratio: 1/1"
+                          class="valentines-day-swiper-promotion-product-image"
+                          href="{{variant.url }}"
+                          target="_blank"
+                        >
+                          {% if product_image_pc %}
+                            <img
+                              style="aspect-ratio: 1/1"
+                              class="pc lazyload"
+                              data-sizes="{{100 | divided_by: section.settings.prduct_num}}vw"
+                              data-srcset="
+                                {%- if product_image_pc.width >= 200 -%}{{ product_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                                {%- if product_image_pc.width >= 375 -%}{{ product_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                                {%- if product_image_pc.width >= 550 -%}{{ product_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                                {%- if product_image_pc.width >= 750 -%}{{ product_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                                {%- if product_image_pc.width >= 1100 -%}{{ product_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                {%- if product_image_pc.width >= 1500 -%}{{ product_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                {%- if product_image_pc.width >= 1780 -%}{{ product_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                {%- if product_image_pc.width >= 2000 -%}{{ product_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                {%- if product_image_pc.width >= 3000 -%}{{ product_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                {%- if product_image_pc.width >= 3840 -%}{{ product_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                {{ product_image_pc | image_url }} {{ product_image_pc.width }}w
+                              "
+                              data-src="{{ product_image_pc | image_url:width:750 }}"
+                              alt="{{ product_image_pc.alt }}"
+                            >
+                          {% endif %}
+                          {% if product_image_mb %}
+                            <img
+                              style="aspect-ratio: 1/1"
+                              class="mb lazyload"
+                              data-sizes="{{100 | divided_by: section.settings.prduct_num_mobile}}vw"
+                              data-srcset="
+                                {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                                {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                                {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                                {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                                {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
+                              "
+                              data-src="{{ product_image_mb | image_url:width:750 }}"
+                              alt="{{ product_image_mb.alt }}"
+                            >
+                          {% endif %}
+                        </a>
+                        <div class="valentines-day-swiper-promotion-product-content">
+                          <div class="valentines-day-swiper-promotion-product-name" title="{{- title | escape -}}">
+                            {{- title | escape -}}
+                          </div>
+                          <div class="valentines-day-swiper-promotion-product-content-bottom">
+                            <div class="valentines-day-swiper-promotion-product-price">
+                              {% if product_price != blank and product_price > 0 %}
+                                <div class="valentines-day-swiper-promotion-product-sale-price">
+                                  {{ product_price | money_without_trailing_zeros }}
+                                </div>
+                              {% endif %}
+                              {% if product_origin_price != blank
+                                and product_origin_price > 0
+                                and product_origin_price > product_price
+                              %}
+                                <div class="valentines-day-swiper-promotion-product-original-price">
+                                  {{ product_origin_price | money_without_trailing_zeros }}
+                                </div>
+                              {% endif %}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="valentines-day-swiper-promotion-product-button-wrapper">
+                          <product-card>
+                            <div
+                              class="
+                                valentines-day-swiper-promotion-product-button-add-to-cart product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent  {% unless block.settings.show_sale_now -%}
+                                    valentines-day-swiper-promotion-product-button-stop-sale
+                                {%- endunless -%}
+                              "
+                              data-product-id="{{ variant.id }}"
+                              tabindex="-1"
+                              {% if variant.available == false or block.settings.show_sale_now == false %}
+                                disabled
+                              {% endif %}
+                            >
+                              {% render 'svg-icons' with 'thb-loading' %}
+                              <span class="product-card--add-to-cart-text">
+                                {%- if variant.available -%}
+                                  {%- if section.settings.buy_now_button_text != empty -%}
+                                    {%- if block.settings.show_sale_now -%}
+                                      {{ section.settings.buy_now_button_text }}
+                                    {%- else -%}
+                                      {{- 'products.product.sold_out' | t -}}
+                                    {%- endif -%}
+                                  {%- else -%}
+                                    {%- if product_diff_price > 0 -%}
+                                      {{ 'general.cart_drawer.save' | t }}
+                                      {{ product_diff_price | money_without_trailing_zeros -}}
+                                    {%- else -%}
+                                      {{ 'products.product.buy_now' | t }}
+                                    {%- endif -%}
+                                  {%- endif -%}
+                                {%- else -%}
+                                  {{- 'products.product.sold_out' | t -}}
+                                {%- endif -%}
+                              </span>
+                            </div>
+                          </product-card>
+                          <div
+                            class="valentines-day-swiper-promotion-product-button-view-more"
+                            onclick="window.open('{{variant.url }}','_blank');"
+                          >
+                            {{ section.settings.learn_more_button_text }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+
+            <div class="valentines-day-swiper-promotion-navigation-buttons">
+              <div
+                class="valentines-day-swiper-promotion-nav-button"
+                id="valentines-day-swiper-promotion-prevButton-{{ section.id }}-{{ forloop.index0 }}"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 40 40" fill="none">
+                  <g clip-path="url(#clip0_9975_6019)">
+                    <circle cx="20" cy="20" r="20" transform="matrix(-1 0 0 1 40 0)" fill="#F66BA3"/>
+                    <path d="M23.2008 26.4L16.8008 19.6L23.2008 12.8" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_9975_6019">
+                      <rect width="40" height="40" fill="white" transform="matrix(-1 0 0 1 40 0)"/>
+                    </clipPath>
+                  </defs>
+                </svg>
+              </div>
+              <div
+                class="valentines-day-swiper-promotion-nav-button"
+                id="valentines-day-swiper-promotion-nextButton-{{ section.id }}-{{ forloop.index0 }}"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 40 40" fill="none">
+                  <g clip-path="url(#clip0_9975_6026)">
+                    <circle cx="20" cy="20" r="20" transform="matrix(-1 0 0 1 40 0)" fill="url(#paint0_linear_9975_60261)"/>
+                    <path d="M16.8012 26.4L23.2012 19.6L16.8012 12.8" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </g>
+                  <defs>
+                    <linearGradient id="paint0_linear_9975_60261" x1="11" y1="3" x2="20" y2="40" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#FA6E98"/>
+                      <stop offset="0.340541" stop-color="#F66BA3"/>
+                      <stop offset="1" stop-color="#EE66B7"/>
+                    </linearGradient>
+                    <clipPath id="clip0_9975_6026">
+                      <rect width="40" height="40" fill="white" transform="matrix(-1 0 0 1 40 0)"/>
+                    </clipPath>
+                  </defs>
+                </svg>
+              </div>
+            </div>
+            <div class="swiper-scrollbar swiper-scrollbar-{{ section.id }}-{{ forloop.index0 }}"></div>
+          </div>
+
+          <div
+            class="valentines-day-swiper-grid-container valentines-day-swiper-grid-{{ section.id }}-{{ forloop.index0 }}  {% if forloop.first %} active{% endif %}"
+            data-tab="{{ forloop.index0  }}"
+          >
+            {%- for item in product_list -%}
+              {%- liquid
+                assign current_product = item
+                assign variant = current_product.metafields.custom.activity_page_product_variant_select.value | default: current_product.variants[0]
+                assign product_image_pc = variant.metafields.custom.activity_product_image_pc | default: variant.featured_image | default: current_product.metafields.custom.product_card_image_pc | default: current_product.featured_image
+                assign product_image_mb = variant.metafields.custom.activity_product_image_mb | default: variant.featured_image | default: current_product.metafields.custom.product_card_image_mb | default: current_product.featured_image
+                assign title = variant.metafields.custom.activity_product_short_name | default: current_product.metafields.custom.activity_page_product_short_name | default: current_product.title
+                assign product_price = variant.metafields.custom.activity_sale_price.value | default: current_product.metafields.custom.activity_sale_price.value | default: variant.price
+                assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: current_product.metafields.custom.activity_original_price.value | default: variant.compare_at_price
+                assign product_diff_price = product_origin_price | minus: product_price
+              -%}
+
+              {%- if current_product != blank and current_product.available -%}
+                <div
+                  class="valentines-day-swiper-grid-item"
+                >
+                  <div class="valentines-day-swiper-promotion-products">
+                    <div class="valentines-day-swiper-promotion-products-card">
+                      <div class="valentines-day-swiper-product-label-container">
+                        {% if product_diff_price != blank
+                          and product_diff_price > 0
+                          and product_price > 0
+                          and product_origin_price > 0
+                        %}
+                          <div class="valentines-day-swiper-product-label-discount">
+                            <div class="valentines-day-swiper-product-label-discount-text">
+                              <span class="valentines-day-swiper-product-label-discount-text-unit">
+                                {{- 'general.cart_drawer.save' | t -}}
+                              </span>
+                              <span class="valentines-day-swiper-product-label-discount-text-value">
+                                {{- product_diff_price | money_without_trailing_zeros -}}
+                              </span>
+                            </div>
+                          </div>
+                        {% endif %}
+                      </div>
+
+                      <a
+                        style="aspect-ratio: 1/1"
+                        class="valentines-day-swiper-promotion-product-image"
+                        href="{{variant.url }}"
+                        target="_blank"
+                      >
+                        {% if product_image_pc %}
+                          <img
+                            style="aspect-ratio: 1/1"
+                            class="pc lazyload"
+                            data-sizes="{{100 | divided_by: section.settings.prduct_num}}vw"
+                            data-srcset="
+                              {%- if product_image_pc.width >= 200 -%}{{ product_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                              {%- if product_image_pc.width >= 375 -%}{{ product_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                              {%- if product_image_pc.width >= 550 -%}{{ product_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                              {%- if product_image_pc.width >= 750 -%}{{ product_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                              {%- if product_image_pc.width >= 1100 -%}{{ product_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                              {%- if product_image_pc.width >= 1500 -%}{{ product_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                              {%- if product_image_pc.width >= 1780 -%}{{ product_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                              {%- if product_image_pc.width >= 2000 -%}{{ product_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                              {%- if product_image_pc.width >= 3000 -%}{{ product_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                              {%- if product_image_pc.width >= 3840 -%}{{ product_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                              {{ product_image_pc | image_url }} {{ product_image_pc.width }}w
+                            "
+                            data-src="{{ product_image_pc | image_url:width:750 }}"
+                            alt="{{ product_image_pc.alt }}"
+                          >
+                        {% endif %}
+                        {% if product_image_mb %}
+                          <img
+                            style="aspect-ratio: 1/1"
+                            class="mb lazyload"
+                            data-sizes="{{100 | divided_by: section.settings.prduct_num_mobile}}vw"
+                            data-srcset="
+                              {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                              {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                              {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                              {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                              {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                              {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                              {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                              {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                              {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                              {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                              {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
+                            "
+                            data-src="{{ product_image_mb | image_url:width:750 }}"
+                            alt="{{ product_image_mb.alt }}"
+                          >
+                        {% endif %}
+                      </a>
+                      <div class="valentines-day-swiper-promotion-product-content">
+                        <div class="valentines-day-swiper-promotion-product-name" title="{{- title | escape -}}">
+                          {{- title | escape -}}
+                        </div>
+                        <div class="valentines-day-swiper-promotion-product-content-bottom">
+                          <div class="valentines-day-swiper-promotion-product-price">
+                            {% if product_price != blank and product_price > 0 %}
+                              <div class="valentines-day-swiper-promotion-product-sale-price">
+                                {{ product_price | money_without_trailing_zeros }}
+                              </div>
+                            {% endif %}
+                            {% if product_origin_price != blank
+                              and product_origin_price > 0
+                              and product_origin_price > product_price
+                            %}
+                              <div class="valentines-day-swiper-promotion-product-original-price">
+                                {{ product_origin_price | money_without_trailing_zeros }}
+                              </div>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="valentines-day-swiper-promotion-product-button-wrapper">
+                        <product-card>
+                          <div
+                            class="
+                               valentines-day-swiper-promotion-product-button-add-to-cart product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent
+                               {% unless block.settings.show_sale_now -%}
+                                  valentines-day-swiper-promotion-product-button-stop-sale
+                              {%- endunless -%}
+                            "
+                            data-product-id="{{ variant.id }}"
+                            tabindex="-1"
+                            {% if variant.available == false or block.settings.show_sale_now == false %}
+                              disabled
+                            {% endif %}
+                          >
+                            {% render 'svg-icons' with 'thb-loading' %}
+                            <span class="product-card--add-to-cart-text">
+                              {%- if variant.available -%}
+                                {%- if section.settings.buy_now_button_text != empty -%}
+                                  {%- if block.settings.show_sale_now -%}
+                                    {{ section.settings.buy_now_button_text }}
+                                  {%- else -%}
+                                    {{- 'products.product.sold_out' | t -}}
+                                  {%- endif -%}
+                                {%- else -%}
+                                  {%- if product_diff_price > 0 -%}
+                                    {{ 'general.cart_drawer.save' | t }}
+                                    {{ product_diff_price | money_without_trailing_zeros -}}
+                                  {%- else -%}
+                                    {{ 'products.product.buy_now' | t }}
+                                  {%- endif -%}
+                                {%- endif -%}
+                              {%- else -%}
+                                {{- 'products.product.sold_out' | t -}}
+                              {%- endif -%}
+                            </span>
+                          </div>
+                        </product-card>
+                        <div
+                          class="valentines-day-swiper-promotion-product-button-view-more"
+                          onclick="window.open('{{variant.url }}','_blank');"
+                        >
+                          {{ section.settings.learn_more_button_text }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// 监听页面DOM加载，初始化swiper与tab交互
+document.addEventListener('DOMContentLoaded', function () {
+// swiper实例变量定义，改为动态数量以便后续扩展（此处写3以兼容原结构）
+const SWIPER_COUNT = {{ blocks_count | default: 0 }};
+let productCount = 0;
+if (SWIPER_COUNT == 0) { 
+  return;
+}
+let swipers = Array(SWIPER_COUNT).fill(null);
+
+/**
+* 更新当前激活Swiper对应的左右导航按钮状态
+*/
+function updateNavigationButtons(activeIdx = null) {
+swipers.forEach((swiper, i) => {
+  const prevBtn = document.getElementById(`valentines-day-swiper-promotion-prevButton-{{ section.id }}-${i}`);
+  const nextBtn = document.getElementById(`valentines-day-swiper-promotion-nextButton-{{ section.id }}-${i}`);
+  if (swiper && prevBtn && nextBtn) {
+    prevBtn.disabled = swiper.isBeginning;
+    nextBtn.disabled = swiper.isEnd;
+    // 只高亮当前激活swiper的按钮，其它不变
+    if (activeIdx !== null) {
+      prevBtn.classList.toggle('active', i === activeIdx);
+      nextBtn.classList.toggle('active', i === activeIdx);
+    }
+  }
+});
+}
+  let slidesPerView = 'auto';
+  let slidesPerView1600 = 'auto';
+  let slidesPerView1400 = 'auto';
+  let slidesPerView1200 = 'auto';
+  let slidesPerView768 = 'auto';
+  let simulateTouch = true;
+  let allowTouchMove = true;
+  
+  const section_max_width = '{{ section.settings.section_max_width }}';
+  const product_num = {{ section.settings.product_num | minus: 0  | default:0 }};
+
+/**
+* 初始化所有swiper容器
+* 每次切换tab会重新销毁并新建对应swiper，确保同步
+*/
+function initAllSwipers() {
+// 先销毁已存在的swiper实例，避免内存泄漏与事件绑定重复
+swipers.forEach((swiper) => {
+  if (swiper) swiper.destroy(true, true);
+});
+
+// 通用Swiper参数
+{% comment %} 禁止鼠标左右滑动，移动端允许 {% endcomment %}
+const baseConfig = (idx,slidesPerView,slidesPerView1600,slidesPerView1400,slidesPerView1200,simulateTouch,allowTouchMove) => ({
+  slidesPerView: slidesPerView,
+
+  spaceBetween: {{ section.settings.card_gap | minus: 0}},
+  navigation: {
+    nextEl: `#valentines-day-swiper-promotion-nextButton-{{ section.id }}-${idx}`,
+    prevEl: `#valentines-day-swiper-promotion-prevButton-{{ section.id }}-${idx}`,
+  },
+  scrollbar: {
+    el: `.swiper-scrollbar-{{ section.id }}-${idx}`,
+    hide: false,
+  },
+ 
+  loopedSlides: 10, // 解决循环时边界滑动问题
+  observer: true,
+  observeParents: true,
+  // 禁止PC端鼠标拖动和滑动，仅允许移动端触摸滑动
+  
+   simulateTouch: simulateTouch,
+  allowTouchMove:  allowTouchMove,  
+  // 事件绑定延迟到下方
+  breakpoints: {
+    1600: {
+        slidesPerView: slidesPerView1600,
+        spaceBetween: {{ section.settings.card_gap_mobile | minus: 0 }},
+      
+     
+      },
+      1400: {
+          slidesPerView: slidesPerView1400,
+          spaceBetween: {{ section.settings.card_gap_mobile | minus: 0 }},
+        
+
+        },
+    1200: {
+      slidesPerView: slidesPerView1200,
+      spaceBetween: {{ section.settings.card_gap_mobile | minus: 0 }},
+      slidesOffsetBefore: 0, 
+    
+    },
+    
+    768: {
+      slidesPerView: 1.4,
+      spaceBetween: {{ section.settings.card_gap_mobile | minus: 0 }},
+      simulateTouch: true,
+      allowTouchMove:  true,
+      slidesOffsetBefore: 16,  // 增加左侧偏移量
+      slidesOffsetAfter: 16    // 增加右侧偏移量
+    },
+  },
+});
+let navButtons =null;
+// 创建swiper实例，减少冗余
+for (let i = 0; i < SWIPER_COUNT; i++) {
+  const swiperContainer = document.querySelector(`.valentines-day-swiper-promotion-products-swiper-container-{{ section.id }}-${i}`);
+  if (swiperContainer) {
+     navButtons = swiperContainer.querySelector('.valentines-day-swiper-promotion-navigation-buttons');
+
+  }
+    productCount = swiperContainer ? swiperContainer.getAttribute('data-product-count') : null;
+    if(product_num>=productCount && productCount>0 && section_max_width !== 'none' ){
+        slidesPerView = product_num;
+        slidesPerView1600 = product_num;
+        slidesPerView1400 = product_num;
+        slidesPerView1200 = product_num;
+        simulateTouch = false;
+        allowTouchMove = false;
+        // PC端设置为0，移动端设置为1
+        if (navButtons) {
+          if (window.innerWidth <= 768) {
+            navButtons.style.opacity = '1'; // 移动端
+          } else {
+            navButtons.style.opacity = '0'; // PC端
+          }
+        }
+    }
+    else if(productCount >product_num && productCount>0 && section_max_width !== 'none'){ 
+        slidesPerView = product_num;
+        slidesPerView1600 = product_num;
+        slidesPerView1400 = product_num;
+        slidesPerView1200 = product_num;
+        simulateTouch = true;
+        allowTouchMove = true;
+    }
+    else if(productCount >product_num && productCount>0){ 
+        slidesPerView = product_num + 0.6;
+        slidesPerView1600 = product_num - 1.6;
+        slidesPerView1400 = product_num - 1.6;
+        slidesPerView1200 = product_num - 1.6;
+    }
+  swipers[i] = new Swiper(swiperContainer, baseConfig(i,slidesPerView,slidesPerView1600,slidesPerView1400,slidesPerView1200,simulateTouch,allowTouchMove));
+ 
+
+}
+
+// 为每个swiper绑定slideChange与init事件
+swipers.forEach((swiper, idx) => {
+  if (swiper) {
+    swiper.on('slideChange', () => updateNavigationButtons(idx));
+    swiper.on('init', () => updateNavigationButtons(idx));
+  }
+});
+}
+
+// swiper初始化
+initAllSwipers();
+
+// ------- Tab切换逻辑 -------
+// 获取tab容器
+const tabContainer = document.getElementById('valentines-day-swiper-tabs-{{ section.id }}');
+if (!tabContainer) return;
+
+// 获取所有tab元素
+const tabs = tabContainer.querySelectorAll('.valentines-day-swiper-tab');
+
+// 按序获取swiper容器
+const swiperContainers = Array.from({ length: SWIPER_COUNT }, (_, i) =>
+document.querySelector(`.valentines-day-swiper-promotion-products-swiper-container-{{ section.id }}-${i}`)
+
+
+);
+
+const gridContainers = Array.from({ length: SWIPER_COUNT }, (_, i) =>
+document.querySelector(`.valentines-day-swiper-grid-{{ section.id }}-${i}`)
+);
+
+const bannerBoxes = document.querySelectorAll('.valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner-box');
+
+/**
+* 横向滑动指定tab至容器中间
+*/
+function scrollTabIntoView(activeTab) {
+const tabCenter = activeTab.offsetLeft + activeTab.offsetWidth / 2;
+const scrollTo = tabCenter - tabContainer.clientWidth / 2;
+tabContainer.scrollTo({
+  left: scrollTo,
+  behavior: 'smooth',
+});
+}
+
+// 绑定tab点击事件
+tabs.forEach((tab, idx) => {
+tab.addEventListener('click', function () {
+  // 1. 高亮当前tab并取消其它tab高亮
+  tabs.forEach((t) => t.classList.remove('active'));
+  tab.classList.add('active');
+
+  // 2. 激活/隐藏对应swiper容器
+  if(swiperContainers){
+    swiperContainers.forEach((slide, sidx) => {
+        if (slide) slide.classList.toggle('active', sidx === idx);
+      });
+    }
+    if(gridContainers){
+        gridContainers.forEach((grid, sidx) => {
+            if (grid) grid.classList.toggle('active', sidx === idx);
+          });
+        }
+
+  // 3. banner同步高亮
+  bannerBoxes.forEach((bannerBox, i) => {
+    bannerBox.classList.toggle('active', i === idx);
+  });
+
+  // 4. 重新初始化swiper，保证每次只保留当前激活的swiper
+  initAllSwipers();
+
+  // 5. 滚动tab到中间
+  scrollTabIntoView(tab);
+});
+});
+
+// 初始化时，设置第一个tab高亮并同步更新按钮状态
+if (tabs.length > 0) {
+tabs[0].classList.add('active');
+updateNavigationButtons(0);
+}
+});
+</script>
+
+{% schema %}
+{
+  "name": "valentines day swiper",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "食用指南：",
+      "info": "以下配置仅对活动页的产品生效，其余地方不生效"
+    },
+    {
+      "type": "header",
+      "content": "产品元字段配置",
+      "info": "位置：产品元字段"
+    },
+    {
+      "type": "header",
+      "content": "产品指定变体:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：activity page product variant select"
+    },
+    {
+      "type": "header",
+      "content": "产品图片:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：PC端：product card image pc；移动端：product card image mb"
+    },
+    {
+      "type": "header",
+      "content": "产品简短名称:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：activity page product short name"
+    },
+    {
+      "type": "header",
+      "content": "产品销售价格:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：activity sale price"
+    },
+    {
+      "type": "header",
+      "content": "产品原价:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：activity original price"
+    },
+    {
+      "type": "header",
+      "content": "产品变体元字段配置",
+      "info": "位置：变体元字段"
+    },
+    {
+      "type": "header",
+      "content": "产品变体图片:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：PC端：product card image pc；移动端：product card image mb"
+    },
+    {
+      "type": "header",
+      "content": "产品变体简短名称:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：activity product short name"
+    },
+    {
+      "type": "header",
+      "content": "产品变体销售价格:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：activity sale price"
+    },
+    {
+      "type": "header",
+      "content": "产品变体原价:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：activity original price"
+    },
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "default": "star-products",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "select",
+      "id": "section_max_width",
+      "label": "模块最大宽度",
+      "options": [
+        {
+          "value": "none",
+          "label": "全屏"
+        },
+        {
+          "value": "1400",
+          "label": "1400px"
+        },
+        {
+          "value": "1280",
+          "label": "1280px"
+        },
+        {
+          "value": "1200",
+          "label": "1200px"
+        },
+        {
+          "value": "1020",
+          "label": "1020px"
+        },
+        {
+          "value": "980",
+          "label": "980px"
+        }
+      ],
+      "default": "1400"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题",
+      "default": "Stock Up & Save Big on Consumables"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题",
+      "default": "Premium DTF & UV DTF films and inks, engineered for consistent quality and reliable performance."
+    },
+    {
+      "type": "html",
+      "id": "desc",
+      "label": "描述",
+      "default": "<div>Our Biggest Offer EVER — <span>Up to $1399 OFF!</span><br>Limited Time, Limited Stock!</div>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_swiper_mb",
+      "label": "移动端开启轮播切换",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_star_pick",
+      "label": "显示星星精选",
+      "default": false
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "label": "显示横幅",
+      "default": false
+    },
+
+    {
+      "type": "text",
+      "id": "learn_more_button_text",
+      "label": "查看更多按钮文案配置",
+      "default": "Learn More"
+    },
+    {
+      "type": "text",
+      "id": "buy_now_button_text",
+      "label": "购买按钮文案配置",
+      "default": "Shop Now"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "main_banner_image_pc",
+      "label": "主横幅主图（PC端）"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_banner_image_mb",
+      "label": "主横幅主图(移动端)"
+    },
+    {
+      "type": "radio",
+      "id": "product_num",
+      "label": "每行展示产品个数(PC端默认4个)",
+      "options": [
+        {
+          "value": "2",
+          "label": "2个"
+        },
+        {
+          "value": "3",
+          "label": "3个"
+        },
+        {
+          "value": "4",
+          "label": "4个"
+        },
+        {
+          "value": "5",
+          "label": "5个"
+        },
+        {
+          "value": "6",
+          "label": "6个"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "radio",
+      "id": "product_num_mobile",
+      "label": "每行展示产品个数(移动端默认2个)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1个"
+        },
+        {
+          "value": "2",
+          "label": "2个"
+        },
+        {
+          "value": "3",
+          "label": "3个"
+        },
+        {
+          "value": "4",
+          "label": "4个"
+        }
+      ],
+      "default": "2"
+    },
+
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "卡片容器背景色",
+      "default": "#171717"
+    },
+    {
+      "type": "color_background",
+      "id": "card_background_gradient_color",
+      "label": "卡片容器渐变背景色"
+    },
+    {
+      "type": "radio",
+      "id": "button_layout",
+      "label": "按钮布局",
+      "options": [
+        {
+          "value": "2",
+          "label": "两列"
+        },
+        {
+          "value": "1",
+          "label": "单列"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片间隔",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_gap_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片间隔（移动端）",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "name": "products",
+      "type": "products",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_name",
+          "label": "系列名称"
+        },
+
+        {
+          "type": "html",
+          "id": "product_banner_title",
+          "label": "横幅主标题"
+        },
+        {
+          "type": "html",
+          "id": "product_banner_subtitle",
+          "label": "横幅副标题"
+        },
+
+        {
+          "type": "image_picker",
+          "id": "product_banner_image_pc",
+          "label": "横幅主图（PC端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_banner_image_mb",
+          "label": "横幅主图(移动端)"
+        },
+        {
+          "type": "product_list",
+          "id": "product_list",
+          "label": "产品列表",
+          "info": "备注：产品标签元字段：product activity label； 产品原价字段配置：当前产品对应的变体元字段activity original price；产品售价字段配置：当前产品对应的变体元字段activity sale price；"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_sale_now",
+          "label": "是否开始销售",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [
+    {
+      "name": "valentines day swiper",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,2062 @@
+<style>
+        /* valentines-day-radio-wrapper start */
+        .valentines-day-radio-{{ section.id }}{
+          padding-top:{{ section.settings.wrap_padding_top }}px;
+          padding-bottom:{{ section.settings.wrap_padding_bottom }}px;
+          background: {{ section.settings.bg_color }};
+          overflow: hidden;
+
+          background-color: {{ section.settings.content_bg_color }};
+
+        }
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-wrapper {
+          position: relative;
+          max-width: 1232px;
+          margin: 0 auto;
+          padding: {{ section.settings.padding_top }}px 16px {{ section.settings.padding_bottom }}px 16px;
+        }
+
+
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-title-wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 100%;
+        }
+
+    .valentines-day-radio-{{ section.id }}  .valentines-day-radio-title {
+
+          text-align: center;
+          font-size: 40px;
+          font-weight: 800;
+          line-height: 1.5;
+          /* 150% */
+          margin-bottom: 50px;
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-subtitle {
+          color: #fff;
+          text-align: center;
+
+          font-size: 22px;
+
+          font-weight: 400;
+          line-height: 1;
+          /* 272.727% */
+          margin-bottom: 24px;
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-desc {
+          color: #fff;
+          text-align: center;
+          max-width: 650px;
+          font-size: 24px;
+          font-weight: 800;
+          line-height: 1.16;
+          margin-bottom: 24px;
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-desc .valentines-day-radio-desc-key {
+          display: block;
+          color: #fece67;
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-content {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-products {
+          display: grid;
+          grid-template-columns: repeat({{- section.settings.prduct_num | minus: 0 -}}, 1fr);
+          grid-gap: {{ section.settings.card_gap }}px;
+        }
+        .valentines-day-radio-{{ section.id }} .valentines-day-radio-select-content-item{
+            position: relative;
+        }
+        .valentines-day-radio-{{ section.id }} .valentines-day-radio-tab{
+            display: flex;
+            opacity: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            position: absolute;
+            z-index: -1;
+  }
+  .valentines-day-radio-{{ section.id }} .valentines-day-radio-tab.active{
+
+            opacity: 1;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+  }
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-products-card {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          border-radius: 16px;
+          padding: 20px {{ section.settings.card_padding_lr }}px;
+          background-color: {{ section.settings.card_bg_color }};
+          background: {{ section.settings.card_background_gradient_color }};
+        }
+
+
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-label-discount {
+          position: absolute;
+          top: 15px;
+          left: -9px;
+          width: 96px;
+          height: 37px;
+          background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='96' height='37' viewBox='0 0 96 37' fill='none'><g clip-path='url(%23clip0_10245_3955)'><path d='M9 7.99951H94.5L86.5 22.9995L94.5 36.9995H8C3.58172 36.9995 8.56345e-07 33.4178 0 28.9995V3.99951L9 0.114746V7.99951Z' fill='%23E96D7C'/><path d='M8.99974 0.0853002V8.00006C-2.49992 10.0001 -3.5 -1 8.99974 0.0853002Z' fill='%23CD5160'/><mask id='mask0_10245_3955' style='mask-type:alpha' maskUnits='userSpaceOnUse' x='0' y='0' width='95' height='37'><path d='M9 8H94.5L86.5 23L94.5 37H8C3.58172 37 1.25939e-06 33.4183 0 29V3.89648L9 0V8Z' fill='url(%23paint0_linear_10245_3955)'/></mask><g mask='url(%23mask0_10245_3955)'><g filter='url(%23filter0_f_10245_3955)'><rect x='5' y='8' width='11' height='32' fill='url(%23paint1_linear_10245_3955)' fill-opacity='0.33'/></g></g></g><defs><filter id='filter0_f_10245_3955' x='1.7' y='4.7' width='17.6' height='38.6' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'><feFlood flood-opacity='0' result='BackgroundImageFix'/><feBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape'/><feGaussianBlur stdDeviation='1.65' result='effect1_foregroundBlur_10245_3955'/></filter><linearGradient id='paint0_linear_10245_3955' x1='3.01596' y1='21.4516' x2='76.4041' y2='22.9629' gradientUnits='userSpaceOnUse'><stop stop-color='%23FF99A5'/><stop offset='1' stop-color='%23FB8E98'/></linearGradient><linearGradient id='paint1_linear_10245_3955' x1='7.5' y1='22' x2='17.5' y2='22' gradientUnits='userSpaceOnUse'><stop stop-color='white'/><stop offset='1' stop-color='white' stop-opacity='0'/></linearGradient><clipPath id='clip0_10245_3955'><rect width='96' height='37' fill='white'/></clipPath></defs></svg>");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 100% 100%;
+          display: flex;
+          justify-content: center;
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-label-discount-text {
+          color: #fff;
+          font-size: 12px;
+          font-weight: 600;
+          line-height: 1;
+          display: flex;
+          justify-content: center;
+          gap: 4px;
+          align-items: center;
+          margin-top: 8px;
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-label-discount-text-value {
+          font-size: 12px;
+          font-weight: 700;
+        }
+
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-image {
+          width: 100%;
+          aspect-ratio: 1;
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-image img {
+          width: 100%;
+          max-width: 100%;
+          object-fit: cover;
+          aspect-ratio: 1;
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-image .pc {
+          display: block;
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-image .mb {
+          display: none;
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-content {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          align-items: {{ section.settings.content_alignment }};
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-name {
+          color: {{ section.settings.product_title_color }};
+          text-align: {{ section.settings.content_alignment }};
+          font-size: 16px;
+          font-weight: 800;
+          line-height: 1.3;
+          min-height: 45px;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          white-space: normal;
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-tips {
+          color: #3D3D3D;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 1.4;
+          padding-top: 4px;
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-content-bottom {
+          display: flex;
+          flex-direction: column;
+          margin-top: auto;
+          padding-top: 8px;
+          width: 100%;
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-price {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 12px;
+          justify-content: {{ section.settings.content_alignment }};
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-sale-price {
+          color: #E8638C;
+          font-size: 24px;
+          font-weight: 800;
+          line-height: 1;
+          /* 75% */
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-original-price {
+          color: #848484;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 1;
+          text-decoration-line: line-through;
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-button-wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 12px;
+          width: 100%;
+        }
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-button-wrapper > * {
+          width: 100%;
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-button-add-to-cart,
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-button-view-more {
+          display: flex;
+
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          color: #fff;
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 1;
+          /* 0% */
+          padding: 12px 10px;
+          border-radius: 8px;
+          margin:0;
+          height: auto;
+          min-height: 40px;
+
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-button-add-to-cart {
+
+        background: linear-gradient(90deg, #FF718E 0%, #DD5BDD 149.39%);
+        }
+
+        .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-button-view-more {
+
+          color: #000;
+          border: 1px solid #000;
+        }
+
+      .valentines-day-radio-{{ section.id }} .valentines-day-radio-product-button-add-to-cart:hover {
+          color: #fff;
+          background: linear-gradient(90deg, #FF718E 0%, #DD5BDD 149.39%);
+        }
+        .valentines-day-radio-{{ section.id }} .valentines-day-radio-product-button-view-more:hover {
+          color: #000;
+          background: transparent;
+        }
+        .valentines-day-radio-{{ section.id }} .product-flash-sale-countdown {
+          max-width: max-content;
+          background: #000;
+          border-radius: 90px;
+          margin-bottom: 40px;
+          color: #fff;
+        }
+        .valentines-day-radio-{{ section.id }} .product-flash-sale-countdown .countdown-box>div{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .valentines-day-radio-{{ section.id }} .product-flash-sale-countdown .time-block {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-width: 52px;
+          min-height: 56px;
+
+          position: relative;
+          border-radius: 6px;
+          border: 1px dashed #FFF;
+        }
+        {% comment %} .valentines-day-radio-{{ section.id }} .product-flash-sale-countdown .time-block:not(:last-child)::after {
+          content: ":";
+          position: absolute;
+          right: -2px;
+          top: 5px;
+          font-size: 20px;
+          font-weight: bold;
+          color: #fff;
+          line-height: 1;
+        } {% endcomment %}
+        .valentines-day-radio-{{ section.id }} .product-flash-sale-countdown .time-value {
+          color: #fff;
+          border-radius: 0;
+          font-size: 24px;
+          line-height: 1;
+          margin-bottom: 8px;
+
+        }
+        .valentines-day-radio-{{ section.id }} .product-flash-sale-countdown .time-label {
+          font-size: 12px;
+          color: #fff;
+          line-height: 1;
+        }
+
+        .valentines-day-radio-{{ section.id }} .valentines-day-radio-Bow{
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 222px;
+
+        }
+        .valentines-day-radio-{{ section.id }} .valentines-day-radio-Bow img{
+          width: 100%;
+        }
+        .valentines-day-radio-hat{
+          position: absolute;
+          top: -50px;
+          right: -50px;
+          width: 100px;
+        }
+        .valentines-day-radio-products-swiper-{{ section.id }}{
+          display: none;
+        }
+        @media screen and (max-width: 768px) {
+          .valentines-day-radio-{{ section.id }}{
+            padding-top:{{ section.settings.wrap_padding_top_mobile }}px;
+            padding-bottom:{{ section.settings.wrap_padding_bottom_mobile }}px;
+
+          }
+          .valentines-day-radio-{{ section.id }}  .valentines-day-radio-wrapper {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px 0;
+          }
+
+
+          .valentines-day-radio-{{ section.id }}  .valentines-day-radio-title {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom:23px;
+          }
+
+          .valentines-day-radio-{{ section.id }}  .valentines-day-radio-subtitle {
+            font-size: 14px;
+            margin-bottom: 12px;
+          }
+
+          .valentines-day-radio-{{ section.id }}  .valentines-day-radio-desc {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            max-width: 100%;
+            line-height: 1.3;
+          }
+
+          .valentines-day-radio-{{ section.id }} .valentines-day-radio-desc .valentines-day-radio-desc-key {
+            display: inline;
+          }
+
+          {% if section.settings.show_swiper %}
+            .valentines-day-radio-{{ section.id }} .valentines-day-radio-content {
+            display: none;
+          }
+          .valentines-day-radio-products-swiper-{{ section.id }}{
+            display: block;
+          }
+          {%- else -%}
+
+            {% comment %} .valentines-day-radio-{{ section.id }}  .valentines-day-radio-products {
+              display: grid;
+              grid-template-columns: repeat({{- section.settings.prduct_num_mobile | minus: 0 -}}, 1fr);
+              grid-gap: {{ section.settings.card_gap_mobile }}px;
+            } {% endcomment %}
+            .valentines-day-radio-{{ section.id }}  .valentines-day-radio-products {
+              display: flex;
+              flex-direction: row;
+              overflow-x: auto;
+              overflow-y: auto;
+              gap: {{ section.settings.card_gap_mobile }}px;
+              -webkit-overflow-scrolling: touch;
+              scrollbar-width: none;
+              /* 允许左右上下滑动 */
+          touch-action: pan-x pan-y;
+          overscroll-behavior-x: contain;
+
+
+              padding-left: 16px;
+              padding-right: 16px;
+              padding-bottom: 24px;
+            }
+            .valentines-day-radio-{{ section.id }}  .valentines-day-radio-products::-webkit-scrollbar {
+              display: none;
+            }
+
+            .valentines-day-radio-{{ section.id }}  .valentines-day-radio-products-card {
+              border-radius: 10px;
+              padding: 12px {{ section.settings.card_padding_lr_mobile }}px 12px {{ section.settings.card_padding_lr_mobile }}px;
+              width: 254px;
+              flex-shrink: 0;
+            }
+          {%- endif -%}
+
+
+          .valentines-day-radio-{{ section.id }}   .product-radio-conatiner {
+            margin-bottom: 8px;
+        }
+
+          .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-label-discount {
+            left: -9px;
+            width: 96px;
+            height: 37px;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='96' height='37' viewBox='0 0 96 37' fill='none'><g clip-path='url(%23clip0_10245_3955)'><path d='M9 7.99951H94.5L86.5 22.9995L94.5 36.9995H8C3.58172 36.9995 8.56345e-07 33.4178 0 28.9995V3.99951L9 0.114746V7.99951Z' fill='%23E96D7C'/><path d='M8.99974 0.0853002V8.00006C-2.49992 10.0001 -3.5 -1 8.99974 0.0853002Z' fill='%23CD5160'/><mask id='mask0_10245_3955' style='mask-type:alpha' maskUnits='userSpaceOnUse' x='0' y='0' width='95' height='37'><path d='M9 8H94.5L86.5 23L94.5 37H8C3.58172 37 1.25939e-06 33.4183 0 29V3.89648L9 0V8Z' fill='url(%23paint0_linear_10245_3955)'/></mask><g mask='url(%23mask0_10245_3955)'><g filter='url(%23filter0_f_10245_3955)'><rect x='5' y='8' width='11' height='32' fill='url(%23paint1_linear_10245_3955)' fill-opacity='0.33'/></g></g></g><defs><filter id='filter0_f_10245_3955' x='1.7' y='4.7' width='17.6' height='38.6' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'><feFlood flood-opacity='0' result='BackgroundImageFix'/><feBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape'/><feGaussianBlur stdDeviation='1.65' result='effect1_foregroundBlur_10245_3955'/></filter><linearGradient id='paint0_linear_10245_3955' x1='3.01596' y1='21.4516' x2='76.4041' y2='22.9629' gradientUnits='userSpaceOnUse'><stop stop-color='%23FF99A5'/><stop offset='1' stop-color='%23FB8E98'/></linearGradient><linearGradient id='paint1_linear_10245_3955' x1='7.5' y1='22' x2='17.5' y2='22' gradientUnits='userSpaceOnUse'><stop stop-color='white'/><stop offset='1' stop-color='white' stop-opacity='0'/></linearGradient><clipPath id='clip0_10245_3955'><rect width='96' height='37' fill='white'/></clipPath></defs></svg>");
+
+          }
+
+          .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-label-discount-text {
+            font-size: 12px;
+            gap: 2px;
+
+          }
+
+          .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-label-discount-text-value {
+            font-size: 12px;
+          }
+
+
+          .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-image .pc {
+            display: none;
+          }
+
+          .valentines-day-radio-{{ section.id }}   .valentines-day-radio-product-image .mb {
+            display: block;
+          }
+
+
+          .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-name {
+            font-size: 16px;
+            line-height: 1.4;
+            text-align: {{ section.settings.content_alignment_mobile }};
+          }
+
+          .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-tips {
+            font-size: 12px;
+            line-height: 1.4;
+            padding-top: 4px;
+          }
+
+          .valentines-day-radio-{{ section.id }} .valentines-day-radio-product-content-bottom {
+            padding-top: 8px;
+          }
+
+          .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-price {
+            gap: 10px;
+            margin-bottom: 8px;
+            justify-content: {{ section.settings.content_alignment_mobile }};
+          }
+
+          .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-sale-price {
+            font-size: 20px;
+            font-weight: 800;
+          }
+
+          .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-original-price {
+            font-size: 14px;
+          }
+
+          .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-button-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+          }
+          .valentines-day-radio-{{ section.id }}  .valentines-day-radio-product-button-wrapper > * {
+            width: 100%;
+          }
+          .valentines-day-radio-{{ section.id }} .valentines-day-radio-product-button-add-to-cart,
+          .valentines-day-radio-{{ section.id }} .valentines-day-radio-product-button-view-more {
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 8px;
+            margin:0;
+          }
+
+          .valentines-day-radio-{{ section.id }} .product-flash-sale-countdown {
+              max-width: max-content;
+              background: #000;
+              border-radius: 90px;
+              margin-bottom: 22px;
+              color: #fff;
+            }
+            .valentines-day-radio-{{ section.id }} .product-flash-sale-countdown .countdown-box>div{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+            }
+            .valentines-day-radio-{{ section.id }} .product-flash-sale-countdown .time-block {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              min-width: 40px;
+              min-height: 42px;
+
+              position: relative;
+              border-radius: 5px;
+              border: 1px dashed #FFF;
+            }
+            {% comment %} .valentines-day-radio-{{ section.id }} .product-flash-sale-countdown .time-block:not(:last-child)::after {
+              content: ":";
+              position: absolute;
+              right: -2px;
+              top: 5px;
+              font-size: 20px;
+              font-weight: bold;
+              color: #fff;
+              line-height: 1;
+            } {% endcomment %}
+            .valentines-day-radio-{{ section.id }} .product-flash-sale-countdown .time-value {
+              /* background-color: #000; */
+              color: #fff;
+
+              border-radius: 0;
+              font-size: 18px;
+              line-height: 1;
+              margin-bottom: 6px;
+
+            }
+            .valentines-day-radio-{{ section.id }} .product-flash-sale-countdown .time-label {
+              font-size: 8px;
+              color: #fff;
+              line-height: 1;
+            }
+
+            .valentines-day-radio-{{ section.id }} .valentines-day-radio-Bow{
+              width: 65px;
+
+            }
+            .valentines-day-radio-{{ section.id }} .valentines-day-radio-hat{
+              display: none;
+            }
+            .valentines-day-radio-products-swiper-{{ section.id }}{
+              padding-bottom:28px;
+            }
+            .valentines-day-radio-products-swiper-{{ section.id }} .swiper-scrollbar-{{ section.id }}{
+              position: absolute;
+              left: 50%;
+              bottom: 0;
+              z-index: 50;
+              height: 4px;
+              width: 91%;
+              margin: 0;
+              text-align: center;
+              margin: 0 auto;
+              transform: translateX(-50%);
+              background: #fff;
+          }
+          .swiper-scrollbar-{{ section.id }} .swiper-scrollbar-drag {
+            height: 100%;
+            width: 100%;
+            position: relative;
+            background: #F96D9C;
+            border-radius: 10px;
+            left: 0;
+            top: 0;
+        }
+        }
+
+        /* valentines-day-radio-wrapper end */
+</style>
+<style>
+  /* star products banner start */
+  .valentines-day-radio-banner-wrapper {
+    background: #171717;
+    margin-bottom: 60px;
+    padding: 20px 24px;
+  }
+
+  .valentines-day-radio-banner-containner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .valentines-day-radio-banner-content {
+    width: 43.3%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .valentines-day-radio-banner-content-tips {
+    color: #fff;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.28;
+    margin-bottom: 10px;
+  }
+
+  .valentines-day-radio-banner-content-title {
+    color: #fff;
+    width: 100%;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1.12;
+  }
+
+  .valentines-day-radio-banner-img {
+    width: 38.75%;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .valentines-day-radio-banner-img .pc {
+    display: block;
+  }
+  .valentines-day-radio-banner-img .mb {
+    display: none;
+  }
+  .valentines-day-radio-banner-img img {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  @media screen and (max-width: 768px) {
+    .valentines-day-radio-banner-wrapper {
+      background: #171717;
+      margin-bottom: 16px;
+      padding: 40px 16px 16px 16px;
+    }
+
+    .valentines-day-radio-banner-containner {
+      max-width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      gap: 20px;
+    }
+
+    .valentines-day-radio-banner-content {
+      width: 100%;
+      align-items: center;
+    }
+
+    .valentines-day-radio-banner-content-tips {
+      font-size: 14px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .valentines-day-radio-banner-content-title {
+      text-align: center;
+      font-size: 20px;
+      line-height: 1.4;
+    }
+
+    .valentines-day-radio-banner-img {
+      width: 100%;
+      border-radius: 5px;
+    }
+    .valentines-day-radio-banner-img .pc {
+      display: none;
+    }
+    .valentines-day-radio-banner-img .mb {
+      display: block;
+    }
+  }
+
+  /* star products banner end*/
+</style>
+<style>
+  .valentines-day-radio-{{ section.id }}  .product-radio-conatiner {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  .valentines-day-radio-{{ section.id }}  .product-radio-conatiner-item {
+    display: flex;
+    width: 28px;
+    height: 28px;
+    padding: 4px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent; /* 移动端消除高亮背景 */
+    outline: none; /* 部分设备消除点击时的外框 */
+    background: transparent; /* 保证无默认背景 */
+  }
+
+  .valentines-day-radio-{{ section.id }}  .product-radio-conatiner-item.active {
+    border: 1px solid rgba(97, 74, 77, 0.7);
+  }
+
+  .valentines-day-radio-{{ section.id }}  .product-radio-conatiner-inner {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+  }
+
+  .valentines-day-radio-{{ section.id }}  .product-radio-conatiner-inner.white {
+    background-color: #f1f1f1;
+  }
+
+  .valentines-day-radio-{{ section.id }}  .product-radio-conatiner-inner.pink {
+    background-color: #f6ced3;
+  }
+  @media screen and (max-width: 768px) {
+  }
+</style>
+<!-- Star Products start -->
+<section
+  id="{%- if section.settings.nav_id != empty %}custom-nav-{{- section.settings.nav_id -}}{% endif -%}"
+  class="valentines-day-radio-{{ section.id }}"
+>
+  <div class="valentines-day-radio-wrapper">
+    {% assign bow_image = section.settings.bow_image %}
+    {% assign hat_image = section.settings.hat_image %}
+    {% if bow_image %}
+      <div class="valentines-day-radio-Bow">
+        <img
+          style="aspect-ratio: {{ bow_image.aspect_ratio }}"
+          class="lazyload"
+          data-sizes="10vw"
+          data-srcset="
+            {%- if bow_image.width >= 200 -%}{{ bow_image | image_url: width: 200 }} 200w,{%- endif -%}
+            {%- if bow_image.width >= 375 -%}{{ bow_image | image_url: width: 375 }} 375w,{%- endif -%}
+            {%- if bow_image.width >= 550 -%}{{ bow_image | image_url: width: 550 }} 550w,{%- endif -%}
+            {%- if bow_image.width >= 750 -%}{{ bow_image | image_url: width: 750 }} 750w,{%- endif -%}
+            {%- if bow_image.width >= 1100 -%}{{ bow_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+            {%- if bow_image.width >= 1500 -%}{{ bow_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+            {%- if bow_image.width >= 1780 -%}{{ bow_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+            {%- if bow_image.width >= 2000 -%}{{ bow_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+            {%- if bow_image.width >= 3000 -%}{{ bow_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+            {%- if bow_image.width >= 3840 -%}{{ bow_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+            {{ bow_image | image_url }} {{ bow_image.width }}w
+          "
+          data-src="{{ bow_image | image_url:width:200 }}"
+          alt="{{ bow_image.alt }}"
+        >
+      </div>
+    {%- endif -%}
+    {% if hat_image %}
+      <div class="valentines-day-radio-hat">
+        <img
+          style="aspect-ratio: {{ hat_image.aspect_ratio }}"
+          class="lazyload"
+          data-sizes="10vw"
+          data-srcset="
+            {%- if hat_image.width >= 200 -%}{{ hat_image | image_url: width: 200 }} 200w,{%- endif -%}
+            {%- if hat_image.width >= 375 -%}{{ hat_image | image_url: width: 375 }} 375w,{%- endif -%}
+            {%- if hat_image.width >= 550 -%}{{ hat_image | image_url: width: 550 }} 550w,{%- endif -%}
+            {%- if hat_image.width >= 750 -%}{{ hat_image | image_url: width: 750 }} 750w,{%- endif -%}
+            {%- if hat_image.width >= 1100 -%}{{ hat_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+            {%- if hat_image.width >= 1500 -%}{{ hat_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+            {%- if hat_image.width >= 1780 -%}{{ hat_image | image_url: width: 1780 }} 1780w,{%- endif -%}
+            {%- if hat_image.width >= 2000 -%}{{ hat_image | image_url: width: 2000 }} 2000w,{%- endif -%}
+            {%- if hat_image.width >= 3000 -%}{{ hat_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+            {%- if hat_image.width >= 3840 -%}{{ hat_image | image_url: width: 3840 }} 3840w,{%- endif -%}
+            {{ hat_image | image_url }} {{ hat_image.width }}w
+          "
+          data-src="{{ hat_image | image_url:width:200 }}"
+          alt="{{ hat_image.alt }}"
+        >
+      </div>
+    {%- endif -%}
+    <div class="valentines-day-radio-title-wrapper">
+      {%- if section.settings.title != empty -%}
+        <div class="valentines-day-radio-title">{{ section.settings.title }}</div>
+      {%- endif -%}
+      {%- if section.settings.subtitle != empty -%}
+        <div class="valentines-day-radio-subtitle">{{ section.settings.subtitle }}</div>
+      {%- endif -%}
+      {%- if section.settings.desc != empty -%}
+        <div class="valentines-day-radio-desc">{{ section.settings.desc }}</div>
+      {%- endif -%}
+      <!-- 秒杀倒计时 模块 -->
+      {%- if section.settings.flash_sale_countdown != empty or section.settings.flash_sale_countdown_end != empty -%}
+        <div
+          class="product-flash-sale-countdown"
+        >
+          {%- render 'flash-sale-countdown',
+            countdown_style: 2,
+            flash_sale_countdown_date: section.settings.flash_sale_countdown,
+            flash_sale_countdown_end_date: section.settings.flash_sale_countdown_end
+          -%}
+        </div>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.show_product_banner -%}
+      <!-- star products banner  start -->
+      <div class="valentines-day-radio-banner-wrapper">
+        <div class="valentines-day-radio-banner-containner">
+          <div class="valentines-day-radio-banner-content">
+            {%- if section.settings.product_banner_tips != empty -%}
+              <div class="valentines-day-radio-banner-content-tips">{{ section.settings.product_banner_tips }}</div>
+            {%- endif -%}
+            {%- if section.settings.product_banner_title != empty -%}
+              <div class="valentines-day-radio-banner-content-title">
+                {{ section.settings.product_banner_title }}
+              </div>
+            {%- endif -%}
+          </div>
+          <div class="valentines-day-radio-banner-img">
+            {% assign product_banner_image_pc = section.settings.product_banner_image_pc %}
+            {% assign product_banner_image_mb = section.settings.product_banner_image_mb %}
+            {% if product_banner_image_pc %}
+              <img
+                style="aspect-ratio: {{ product_banner_image_pc.aspect_ratio }}"
+                class="pc lazyload"
+                data-sizes="50vw"
+                data-srcset="
+                  {%- if product_banner_image_pc.width >= 200 -%}{{ product_banner_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 375 -%}{{ product_banner_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 550 -%}{{ product_banner_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 750 -%}{{ product_banner_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 1100 -%}{{ product_banner_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 1500 -%}{{ product_banner_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 1780 -%}{{ product_banner_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 2000 -%}{{ product_banner_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 3000 -%}{{ product_banner_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if product_banner_image_pc.width >= 3840 -%}{{ product_banner_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                  {{ product_banner_image_pc | image_url }} {{ product_banner_image_pc.width }}w
+                "
+                data-src="{{ product_banner_image_pc | image_url:width:750 }}"
+                alt="{{ product_banner_image_pc.alt }}"
+              >
+            {% endif %}
+            {% if product_banner_image_mb %}
+              <img
+                style="aspect-ratio: {{ product_banner_image_mb.aspect_ratio }}"
+                class="mb lazyload"
+                data-sizes="100vw"
+                data-srcset="
+                  {%- if product_banner_image_mb.width >= 200 -%}{{ product_banner_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 375 -%}{{ product_banner_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 550 -%}{{ product_banner_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 750 -%}{{ product_banner_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 1100 -%}{{ product_banner_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 1500 -%}{{ product_banner_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 1780 -%}{{ product_banner_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 2000 -%}{{ product_banner_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 3000 -%}{{ product_banner_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if product_banner_image_mb.width >= 3840 -%}{{ product_banner_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                  {{ product_banner_image_mb | image_url }} {{ product_banner_image_mb.width }}w
+                "
+                data-src="{{ product_banner_image_mb | image_url:width:750 }}"
+                alt="{{ product_banner_image_mb.alt }}"
+              >
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <!-- star products banner  end -->
+    {% endif %}
+    <div class="valentines-day-radio-container">
+      <div class="valentines-day-radio-content ">
+        <div class="valentines-day-radio-products ">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign product_list = block.settings.product_list
+            -%}
+            <div class="valentines-day-radio-select-content-item">
+              {%- for current_product in product_list -%}
+                {%- if current_product != blank and current_product.available -%}
+                  <div
+                    class="valentines-day-radio-tab {% if forloop.first %} active{% endif %}"
+                    data-tab="{{ forloop.index0  }}"
+                  >
+                    {%- liquid
+                      assign current_product_id = current_product.id
+                      assign variant_activity_index = block.settings.variant_activity_index
+                      assign variant = current_product.variants[variant_activity_index] | default: current_product.metafields.custom.activity_page_product_variant_select.value | default: current_product.variants[0]
+                      assign product_image_pc = variant.metafields.custom.activity_product_image_pc | default: variant.featured_image | default: current_product.metafields.custom.product_card_image_pc | default: current_product.featured_image
+                      assign product_image_mb = variant.metafields.custom.activity_product_image_mb | default: variant.featured_image | default: current_product.metafields.custom.product_card_image_mb | default: current_product.featured_image
+                      assign title = variant.metafields.custom.activity_product_short_name | default: current_product.metafields.custom.activity_page_product_short_name | default: current_product.title
+                      assign product_price = variant.metafields.custom.activity_sale_price.value | default: current_product.metafields.custom.activity_sale_price.value | default: variant.price
+                      assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: current_product.metafields.custom.activity_original_price.value | default: variant.compare_at_price
+                      assign product_diff_price = product_origin_price | minus: product_price
+                    -%}
+
+                    <div class="valentines-day-radio-products-card">
+                      {% if product_diff_price != blank
+                        and product_diff_price > 0
+                        and product_price > 0
+                        and product_origin_price > 0
+                      %}
+                        <div class="valentines-day-radio-product-label-discount">
+                          <div class="valentines-day-radio-product-label-discount-text">
+                            <span class="valentines-day-radio-product-label-discount-text-unit">
+                              {{- 'general.cart_drawer.save' | t -}}
+                            </span>
+                            <span class="valentines-day-radio-product-label-discount-text-value">
+                              {{- product_diff_price | money_without_trailing_zeros -}}
+                            </span>
+                          </div>
+                        </div>
+                      {% endif %}
+
+                      <a
+                        class="valentines-day-radio-product-image"
+                        href="{{variant.url }}"
+                        target="_blank"
+                      >
+                        {% if product_image_pc %}
+                          <img
+                            style="aspect-ratio: {{ product_image_pc.aspect_ratio }}"
+                            class="pc lazyload"
+                            data-sizes="{{100 | divided_by: section.settings.prduct_num}}vw"
+                            data-srcset="
+                              {%- if product_image_pc.width >= 200 -%}{{ product_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                              {%- if product_image_pc.width >= 375 -%}{{ product_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                              {%- if product_image_pc.width >= 550 -%}{{ product_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                              {%- if product_image_pc.width >= 750 -%}{{ product_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                              {%- if product_image_pc.width >= 1100 -%}{{ product_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                              {%- if product_image_pc.width >= 1500 -%}{{ product_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                              {%- if product_image_pc.width >= 1780 -%}{{ product_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                              {%- if product_image_pc.width >= 2000 -%}{{ product_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                              {%- if product_image_pc.width >= 3000 -%}{{ product_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                              {%- if product_image_pc.width >= 3840 -%}{{ product_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                              {{ product_image_pc | image_url }} {{ product_image_pc.width }}w
+                            "
+                            data-src="{{ product_image_pc | image_url:width:750 }}"
+                            alt="{{ product_image_pc.alt }}"
+                          >
+                        {% endif %}
+                        {% if product_image_mb %}
+                          <img
+                            style="aspect-ratio: {{ product_image_mb.aspect_ratio }}"
+                            class="mb lazyload"
+                            data-sizes="{{100 | divided_by: section.settings.prduct_num_mobile}}vw"
+                            data-srcset="
+                              {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                              {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                              {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                              {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                              {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                              {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                              {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                              {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                              {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                              {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                              {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
+                            "
+                            data-src="{{ product_image_mb | image_url:width:750 }}"
+                            alt="{{ product_image_mb.alt }}"
+                          >
+                        {% endif %}
+                      </a>
+                      <div class="valentines-day-radio-product-content">
+                        {% if product_list.count > 1 and product_list != blank %}
+                          <div class="product-radio-conatiner">
+                            {%- for current_product in product_list -%}
+                              {%- if current_product != blank and current_product.available -%}
+                                <div
+                                  class="product-radio-conatiner-item {% if forloop.first %}active{% endif %}"
+                                  data-tab-index="{{ forloop.index0 }}"
+                                  role="button"
+                                  tabindex="0"
+                                  aria-label="Switch to product {{ forloop.index }}"
+                                >
+                                  {% assign color_class = 'white' %}
+                                  {% if forloop.index0 == 0 %}
+                                    {% assign color_class = 'pink' %}
+                                  {% elsif forloop.index0 == 1 %}
+                                    {% assign color_class = 'white' %}
+                                  {% else %}
+                                    {% assign color_class = 'white' %}
+                                  {% endif %}
+                                  <div class="product-radio-conatiner-inner {{ color_class }}"></div>
+                                </div>
+                              {%- endif -%}
+                            {%- endfor -%}
+                          </div>
+                          {% comment %}
+                            <div class="product-radio-conatiner">
+                              <div
+                                class="product-radio-conatiner-item active"
+                              >
+                                <div class="product-radio-conatiner-inner pink"></div>
+                              </div>
+                              <div class="product-radio-conatiner-item">
+                                <div class="product-radio-conatiner-inner white"></div>
+                              </div>
+                            </div>
+                          {% endcomment %}
+                        {% endif %}
+                        <div class="valentines-day-radio-product-name" title="{{- title | escape -}}">
+                          {{- title | escape -}}
+                        </div>
+
+                        <div class="valentines-day-radio-product-content-bottom">
+                          <div class="valentines-day-radio-product-price">
+                            {% if product_price != blank and product_price > 0 %}
+                              <div class="valentines-day-radio-product-sale-price">
+                                {{ product_price | money_without_trailing_zeros }}
+                              </div>
+                            {% endif %}
+                            {% if product_origin_price != blank
+                              and product_origin_price > 0
+                              and product_origin_price > product_price
+                            %}
+                              <div class="valentines-day-radio-product-original-price">
+                                {{ product_origin_price | money_without_trailing_zeros }}
+                              </div>
+                            {% endif %}
+                          </div>
+                          {%- if section.settings.product_gift_desc != empty -%}
+                            <div class="valentines-day-radio-product-tips">
+                              {{- section.settings.product_gift_desc -}}
+                            </div>
+                          {% endif %}
+                          {%- if section.settings.show_klarna -%}
+                            <div class="mascot-activities-product-info-klarna">
+                              {% assign klarna_id = 'shopify-block-AbFBFd0QvcXlzYkYva__klarna_on_site_messaging_app_block_gcU6LY' %}
+                              <!-- DO NOT DELETE -->
+                              <div class="klarna-osm-wrapper">
+                                <klarna-placement
+                                  id="{{ klarna_id }}"
+                                  data-key="credit-promotion-auto-size"
+                                  data-theme="light"
+                                  data-message-prefix=""
+                                  data-integration-style="app-blocks"
+                                  data-locale="en-US"
+                                  {% if variant %}
+                                    data-purchase-amount="{{ variant.price }}"
+                                  {% endif %}
+                                  data-preloaded="true"
+                                >
+                                </klarna-placement>
+                              </div>
+                            </div>
+                          {% endif %}
+                          <div class="valentines-day-radio-product-button-wrapper">
+                            <product-card>
+                              <div
+                                class="valentines-day-radio-product-button-add-to-cart product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                                data-product-id="{{ variant.id }}"
+                                tabindex="-1"
+                                {% if variant.available == false %}
+                                  disabled
+                                {% endif %}
+                              >
+                                {% render 'svg-icons' with 'thb-loading' %}
+                                <span class="product-card--add-to-cart-text">
+                                  {%- if variant.available -%}
+                                    {%- if section.settings.buy_now_button_text != empty -%}
+                                      {{ section.settings.buy_now_button_text }}
+                                    {%- else -%}
+                                      {%- if product_diff_price > 0 -%}
+                                        {{ 'general.cart_drawer.save' | t }}
+                                        {{ product_diff_price | money_without_trailing_zeros -}}
+                                      {%- else -%}
+                                        {{ 'products.product.buy_now' | t }}
+                                      {%- endif -%}
+                                    {%- endif -%}
+                                  {%- else -%}
+                                    {{- 'products.product.sold_out' | t -}}
+                                  {%- endif -%}
+                                </span>
+                              </div>
+                            </product-card>
+                            <div
+                              class="valentines-day-radio-product-button-view-more"
+                              onclick="window.open('{{variant.url }}','_blank');"
+                            >
+                              {{ section.settings.learn_more_button_text }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+      {% if section.settings.show_swiper %}
+        <div
+          class="swiper-container valentines-day-radio-products-swiper-{{ section.id }}"
+        >
+          <div class="swiper-wrapper">
+            {%- for block in section.blocks -%}
+              {%- liquid
+                assign product_list = block.settings.product_list
+              -%}
+              <div class="swiper-slide">
+                <div class="valentines-day-radio-select-content-item">
+                  {%- for current_product in product_list -%}
+                    {%- if current_product != blank and current_product.available -%}
+                      <div
+                        class="valentines-day-radio-tab {% if forloop.first %} active{% endif %}"
+                        data-tab="{{ forloop.index0  }}"
+                      >
+                        {%- liquid
+                          assign current_product_id = current_product.id
+                          assign variant_activity_index = block.settings.variant_activity_index
+                          assign variant = current_product.variants[variant_activity_index] | default: current_product.metafields.custom.activity_page_product_variant_select.value | default: current_product.variants[0]
+                          assign product_image_pc = variant.metafields.custom.activity_product_image_pc | default: variant.featured_image | default: current_product.metafields.custom.product_card_image_pc | default: current_product.featured_image
+                          assign product_image_mb = variant.metafields.custom.activity_product_image_mb | default: variant.featured_image | default: current_product.metafields.custom.product_card_image_mb | default: current_product.featured_image
+                          assign title = variant.metafields.custom.activity_product_short_name | default: current_product.metafields.custom.activity_page_product_short_name | default: current_product.title
+                          assign product_price = variant.metafields.custom.activity_sale_price.value | default: current_product.metafields.custom.activity_sale_price.value | default: variant.price
+                          assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: current_product.metafields.custom.activity_original_price.value | default: variant.compare_at_price
+                          assign product_diff_price = product_origin_price | minus: product_price
+                        -%}
+
+                        <div class="valentines-day-radio-products-card">
+                          {% if product_diff_price != blank
+                            and product_diff_price > 0
+                            and product_price > 0
+                            and product_origin_price > 0
+                          %}
+                            <div class="valentines-day-radio-product-label-discount">
+                              <div class="valentines-day-radio-product-label-discount-text">
+                                <span class="valentines-day-radio-product-label-discount-text-unit">
+                                  {{- 'general.cart_drawer.save' | t -}}
+                                </span>
+                                <span class="valentines-day-radio-product-label-discount-text-value">
+                                  {{- product_diff_price | money_without_trailing_zeros -}}
+                                </span>
+                              </div>
+                            </div>
+                          {% endif %}
+
+                          <a
+                            class="valentines-day-radio-product-image"
+                            href="{{variant.url }}"
+                            target="_blank"
+                          >
+                            {% if product_image_pc %}
+                              <img
+                                style="aspect-ratio: {{ product_image_pc.aspect_ratio }}"
+                                class="pc lazyload"
+                                data-sizes="{{100 | divided_by: section.settings.prduct_num}}vw"
+                                data-srcset="
+                                  {%- if product_image_pc.width >= 200 -%}{{ product_image_pc | image_url: width: 200 }} 200w,{%- endif -%}
+                                  {%- if product_image_pc.width >= 375 -%}{{ product_image_pc | image_url: width: 375 }} 375w,{%- endif -%}
+                                  {%- if product_image_pc.width >= 550 -%}{{ product_image_pc | image_url: width: 550 }} 550w,{%- endif -%}
+                                  {%- if product_image_pc.width >= 750 -%}{{ product_image_pc | image_url: width: 750 }} 750w,{%- endif -%}
+                                  {%- if product_image_pc.width >= 1100 -%}{{ product_image_pc | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                  {%- if product_image_pc.width >= 1500 -%}{{ product_image_pc | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                  {%- if product_image_pc.width >= 1780 -%}{{ product_image_pc | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                  {%- if product_image_pc.width >= 2000 -%}{{ product_image_pc | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                  {%- if product_image_pc.width >= 3000 -%}{{ product_image_pc | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                  {%- if product_image_pc.width >= 3840 -%}{{ product_image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                  {{ product_image_pc | image_url }} {{ product_image_pc.width }}w
+                                "
+                                data-src="{{ product_image_pc | image_url:width:750 }}"
+                                alt="{{ product_image_pc.alt }}"
+                              >
+                            {% endif %}
+                            {% if product_image_mb %}
+                              <img
+                                style="aspect-ratio: {{ product_image_mb.aspect_ratio }}"
+                                class="mb lazyload"
+                                data-sizes="{{100 | divided_by: section.settings.prduct_num_mobile}}vw"
+                                data-srcset="
+                                  {%- if product_image_mb.width >= 200 -%}{{ product_image_mb | image_url: width: 200 }} 200w,{%- endif -%}
+                                  {%- if product_image_mb.width >= 375 -%}{{ product_image_mb | image_url: width: 375 }} 375w,{%- endif -%}
+                                  {%- if product_image_mb.width >= 550 -%}{{ product_image_mb | image_url: width: 550 }} 550w,{%- endif -%}
+                                  {%- if product_image_mb.width >= 750 -%}{{ product_image_mb | image_url: width: 750 }} 750w,{%- endif -%}
+                                  {%- if product_image_mb.width >= 1100 -%}{{ product_image_mb | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                  {%- if product_image_mb.width >= 1500 -%}{{ product_image_mb | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                  {%- if product_image_mb.width >= 1780 -%}{{ product_image_mb | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                  {%- if product_image_mb.width >= 2000 -%}{{ product_image_mb | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                  {%- if product_image_mb.width >= 3000 -%}{{ product_image_mb | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                  {%- if product_image_mb.width >= 3840 -%}{{ product_image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                  {{ product_image_mb | image_url }} {{ product_image_mb.width }}w
+                                "
+                                data-src="{{ product_image_mb | image_url:width:750 }}"
+                                alt="{{ product_image_mb.alt }}"
+                              >
+                            {% endif %}
+                          </a>
+                          <div class="valentines-day-radio-product-content">
+                            {% if product_list.count > 1 and product_list != blank %}
+                              <style>
+                                .valentines-day-radio-{{ section.id }}  .product-radio-conatiner {
+                                  display: flex;
+                                  width: 100%;
+                                  align-items: center;
+                                  gap: 16px;
+                                  justify-content: center;
+                                  margin-bottom: 12px;
+                                }
+
+                                .valentines-day-radio-{{ section.id }}  .product-radio-conatiner-item {
+                                  display: flex;
+                                  width: 28px;
+                                  height: 28px;
+                                  padding: 4px;
+                                  align-items: center;
+                                  justify-content: center;
+                                  border-radius: 50%;
+                                  cursor: pointer;
+                                }
+
+                                .valentines-day-radio-{{ section.id }}  .product-radio-conatiner-item.active {
+                                  border: 1px solid rgba(97, 74, 77, 0.7);
+                                }
+
+                                .valentines-day-radio-{{ section.id }}  .product-radio-conatiner-inner {
+                                  width: 20px;
+                                  height: 20px;
+                                  flex-shrink: 0;
+                                  aspect-ratio: 1/1;
+                                  border-radius: 50%;
+                                }
+
+                                .valentines-day-radio-{{ section.id }}  .product-radio-conatiner-inner.white {
+                                  background-color: #f1f1f1;
+                                }
+
+                                .valentines-day-radio-{{ section.id }}  .product-radio-conatiner-inner.pink {
+                                  background-color: #f6ced3;
+                                }
+                                @media screen and (max-width: 768px) {
+                                }
+                              </style>
+                              <div class="product-radio-conatiner">
+                                {%- for current_product in product_list -%}
+                                  {%- if current_product != blank and current_product.available -%}
+                                    <div
+                                      class="product-radio-conatiner-item {% if forloop.first %}active{% endif %}"
+                                      data-tab-index="{{ forloop.index0 }}"
+                                      role="button"
+                                      tabindex="0"
+                                      aria-label="Switch to product {{ forloop.index }}"
+                                    >
+                                      {% assign color_class = 'white' %}
+                                      {% if forloop.index0 == 0 %}
+                                        {% assign color_class = 'pink' %}
+                                      {% elsif forloop.index0 == 1 %}
+                                        {% assign color_class = 'white' %}
+                                      {% else %}
+                                        {% assign color_class = 'white' %}
+                                      {% endif %}
+                                      <div class="product-radio-conatiner-inner {{ color_class }}"></div>
+                                    </div>
+                                  {%- endif -%}
+                                {%- endfor -%}
+                              </div>
+                              {% comment %}
+                                <div class="product-radio-conatiner">
+                                  <div
+                                    class="product-radio-conatiner-item active"
+                                  >
+                                    <div class="product-radio-conatiner-inner pink"></div>
+                                  </div>
+                                  <div class="product-radio-conatiner-item">
+                                    <div class="product-radio-conatiner-inner white"></div>
+                                  </div>
+                                </div>
+                              {% endcomment %}
+                            {% endif %}
+                            <div class="valentines-day-radio-product-name">{{- title -}}</div>
+
+                            <div class="valentines-day-radio-product-content-bottom">
+                              <div class="valentines-day-radio-product-price">
+                                {% if product_price != blank and product_price > 0 %}
+                                  <div class="valentines-day-radio-product-sale-price">
+                                    {{ product_price | money_without_trailing_zeros }}
+                                  </div>
+                                {% endif %}
+                                {% if product_origin_price != blank
+                                  and product_origin_price > 0
+                                  and product_origin_price > product_price
+                                %}
+                                  <div class="valentines-day-radio-product-original-price">
+                                    {{ product_origin_price | money_without_trailing_zeros }}
+                                  </div>
+                                {% endif %}
+                              </div>
+                              {%- if section.settings.product_gift_desc != empty -%}
+                                <div class="valentines-day-radio-product-tips">
+                                  {{- section.settings.product_gift_desc -}}
+                                </div>
+                              {% endif %}
+                              {%- if section.settings.show_klarna -%}
+                                <div class="mascot-activities-product-info-klarna">
+                                  {% assign klarna_id = 'shopify-block-AbFBFd0QvcXlzYkYva__klarna_on_site_messaging_app_block_gcU6LY' %}
+                                  <!-- DO NOT DELETE -->
+                                  <div class="klarna-osm-wrapper">
+                                    <klarna-placement
+                                      id="{{ klarna_id }}"
+                                      data-key="credit-promotion-auto-size"
+                                      data-theme="light"
+                                      data-message-prefix=""
+                                      data-integration-style="app-blocks"
+                                      data-locale="en-US"
+                                      {% if variant %}
+                                        data-purchase-amount="{{ variant.price }}"
+                                      {% endif %}
+                                      data-preloaded="true"
+                                    >
+                                    </klarna-placement>
+                                  </div>
+                                </div>
+                              {% endif %}
+                              <div class="valentines-day-radio-product-button-wrapper">
+                                <product-card>
+                                  <div
+                                    class="valentines-day-radio-product-button-add-to-cart product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                                    data-product-id="{{ variant.id }}"
+                                    tabindex="-1"
+                                    {% if variant.available == false %}
+                                      disabled
+                                    {% endif %}
+                                  >
+                                    {% render 'svg-icons' with 'thb-loading' %}
+                                    <span class="product-card--add-to-cart-text">
+                                      {%- if variant.available -%}
+                                        {%- if section.settings.buy_now_button_text != empty -%}
+                                          {{ section.settings.buy_now_button_text }}
+                                        {%- else -%}
+                                          {%- if product_diff_price > 0 -%}
+                                            {{ 'general.cart_drawer.save' | t }}
+                                            {{ product_diff_price | money_without_trailing_zeros -}}
+                                          {%- else -%}
+                                            {{ 'products.product.buy_now' | t }}
+                                          {%- endif -%}
+                                        {%- endif -%}
+                                      {%- else -%}
+                                        {{- 'products.product.sold_out' | t -}}
+                                      {%- endif -%}
+                                    </span>
+                                  </div>
+                                </product-card>
+                                <div
+                                  class="valentines-day-radio-product-button-view-more"
+                                  onclick="window.open('{{variant.url }}','_blank');"
+                                >
+                                  {{ section.settings.learn_more_button_text }}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+          <div class="swiper-scrollbar swiper-scrollbar-{{ section.id }}"></div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<!-- Star Products end -->
+<script>
+    function formatUtcTime(v) {
+    let date = new Date(v);
+    return (
+      date.getFullYear() +
+      '/' +
+      (date.getMonth() + 1) +
+      '/' +
+      (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+      ' ' +
+      (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+      ':' +
+      (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+      ':' +
+      (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+    );
+    }
+    // product-radio-conatiner-item 点击切换 tab
+  $(document).on('click', '.valentines-day-radio-{{ section.id }} .product-radio-conatiner-item', function (e) {
+      e.preventDefault();
+      var $clickedItem = $(this);
+      var tabIndex = $clickedItem.data('tab-index');
+      var $contentItem = $clickedItem.closest('.valentines-day-radio-select-content-item');
+
+      if ($contentItem.length === 0) return;
+
+      // 1. 设置 product-radio-conatiner-item 激活状态
+     $contentItem.find('.product-radio-conatiner-item').removeClass('active');
+      $contentItem.find('.product-radio-conatiner-item[data-tab-index="' + tabIndex + '"]').addClass('active');
+
+      // 2. 切换对应的 valentines-day-radio-tab
+      $contentItem.find('.valentines-day-radio-tab').removeClass('active');
+      $contentItem.find('.valentines-day-radio-tab[data-tab="' + tabIndex + '"]').addClass('active');
+    });
+    $(document).on('keydown', '.valentines-day-radio-{{ section.id }} .product-radio-conatiner-item', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          $(this).click();
+        }
+      });
+    $(function () {
+    if ($('.valentines-day-radio-{{ section.id }} [data-countdown]')) {
+      $('.valentines-day-radio-{{ section.id }} [data-countdown]').each(function () {
+        const UTCDate = $(this).data('countdown'); // 活动开始倒计时
+        const UTCDate_end = $(this).data('countdown-end'); // 活动截止倒计时
+        console.log('UTCDate-活动开始倒计时：', UTCDate);
+        console.log('UTCDate_end-活动截止倒计时：', UTCDate_end);
+        const finalDate = formatUtcTime(UTCDate);
+        const finalDate_end = formatUtcTime(UTCDate_end);
+        const finalDate1 = finalDate;
+        const finalDate2 = finalDate_end ? finalDate_end : null;
+        const timestamp = new Date(finalDate1).getTime();
+        const timestamp_end = finalDate2 ? new Date(finalDate2).getTime() : null;
+        const currentTimestamp = new Date().getTime();
+        console.log('活动开始本地时间==', finalDate);
+          console.log('活动截止本地时间==', finalDate_end);
+        let format;
+        const style = $(this).data('countdown-style');
+        console.log('活动截止本地时间==', finalDate_end);
+        if (timestamp > currentTimestamp){
+            $(this)
+            .parents('.product-flash-sale-countdown')
+            .siblings('.mascot-activities-product-info-button')
+            .children('product-card')
+            .find('.product-card--add-to-cart-text')
+            .text('Coming Soon');
+            $(this)
+            .parents('.product-flash-sale-countdown')
+            .siblings('.mascot-activities-product-info-button')
+            .children('product-card')
+            .find('.mascot-activities-product-info-button-buy-now')
+            .css({'visibility':'visible','background':'#FECF67','cursor':'not-allowed','pointer-events':'none','color':'#000'});
+            return;
+        }
+        $(this)
+            .parents('.product-flash-sale-countdown')
+            .siblings('.mascot-activities-product-info-button')
+            .children('product-card')
+            .find('.mascot-activities-product-info-button-buy-now')
+            .css({'visibility':'visible'});
+        $(this)
+          .countdown(finalDate2)
+          .on('update.countdown', function (event) {
+            if (style == 1) {
+              format = '<span>%D</span>:<span>%H</span>:<span>%M</span>:<span>%S</span>';
+            } else if (style == 2) {
+              {% comment %} format = '<span>%D<span>Days</span></span>:<span>%H<span>Hrs</span></span>:<span>%M<span>Mins</span></span>:<span>%S<span>Secs</span></span>'; {% endcomment %}
+              format = '<div class="time-block">' +
+                        '<div class="time-value">%D</div>' +
+                        '<div class="time-label">Days</div>' +
+                      '</div>' +
+                      '<div class="time-block">' +
+                        '<div class="time-value">%H</div>' +
+                        '<div class="time-label">Hrs</div>' +
+                      '</div>' +
+                      '<div class="time-block">' +
+                        '<div class="time-value">%M</div>' +
+                        '<div class="time-label">Mins</div>' +
+                      '</div>' +
+                      '<div class="time-block">' +
+                        '<div class="time-value">%S</div>' +
+                        '<div class="time-label">Secs</div>' +
+                      '</div>';
+            }
+            $(this).html(event.strftime(format));
+          })
+          .on('finish.countdown', function (event) {
+            {% comment %} $(this)
+            .parents('.super-early-bird-countdown-date').css('display', 'none') {% endcomment %}
+          });
+      });
+    }
+    });
+</script>
+<script>
+  {% assign blocks_count = section.blocks.size %}
+  // 监听页面DOM加载，初始化swiper与tab交互
+  document.addEventListener('DOMContentLoaded', function () {
+    // swiper实例变量定义，改为动态数量以便后续扩展（此处写3以兼容原结构）
+    const SWIPER_COUNT = {{ blocks_count | default: 0 }};
+    if (SWIPER_COUNT == 0) { 
+        return;
+    }
+    let swipers = Array(SWIPER_COUNT).fill(null);
+
+
+
+    /**
+     * 初始化所有swiper容器
+     * 每次切换tab会重新销毁并新建对应swiper，确保同步
+     */
+    function initAllSwipers() {
+      // 先销毁已存在的swiper实例，避免内存泄漏与事件绑定重复
+      swipers.forEach((swiper) => {
+        if (swiper) swiper.destroy(true, true);
+      });
+
+      // 通用Swiper参数
+      {% comment %} 禁止鼠标左右滑动，移动端允许 {% endcomment %}
+      const baseConfig = (idx) => ({
+        slidesPerView: 4,
+        spaceBetween: 20,
+        scrollbar: {
+          el: `.swiper-scrollbar-{{ section.id }}`,
+          hide: false,
+        },
+        loopedSlides: 10, // 解决循环时边界滑动问题
+        observer: true,
+        observeParents: true,
+        // 禁止PC端鼠标拖动和滑动，仅允许移动端触摸滑动
+        
+         simulateTouch: true,
+        allowTouchMove:  true,  
+        // 事件绑定延迟到下方
+        breakpoints: {
+            1400: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+                simulateTouch: false,
+                allowTouchMove: false,
+              },
+          1200: {
+            slidesPerView: 2,
+            spaceBetween: 16,
+            simulateTouch: false,
+            allowTouchMove: false,
+          },
+          
+          768: {
+            slidesPerView: 1.4,
+            spaceBetween: 16,
+            simulateTouch: true,
+            allowTouchMove: true,
+            slidesOffsetBefore: 16,  // 增加左侧偏移量
+            slidesOffsetAfter: 16    // 增加右侧偏移量
+          },
+        },
+      });
+
+      // 创建swiper实例，减少冗余
+      for (let i = 0; i < SWIPER_COUNT; i++) {
+        swipers[i] = new Swiper(`.valentines-day-radio-products-swiper-{{ section.id }}`, baseConfig(i));
+      }
+
+      // 为每个swiper绑定slideChange与init事件
+      swipers.forEach((swiper, idx) => {
+        if (swiper) {
+         
+          
+        }
+      });
+    }
+
+    // swiper初始化
+    initAllSwipers();
+
+
+  });
+</script>
+{% schema %}
+{
+  "name": "valentines day radio",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "default": "valentines-day-radio",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "image_picker",
+      "id": "bow_image",
+      "label": "蝴蝶结图片"
+    },
+    {
+      "type": "image_picker",
+      "id": "hat_image",
+      "label": "圣诞帽图片"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题",
+      "default": "<div>Unlock Early Offers</div>"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题",
+      "default": "<div>November 1st - November 23rd</div>"
+    },
+    {
+      "type": "html",
+      "id": "desc",
+      "label": "描述",
+      "default": "<div>Be the first to grab the doorbuster! Secure your Printer &amp; Oven bundle now at an exclusive early-bird price. <span class=\"valentines-day-radio-desc-key\">Save up to $900 and get random gifts</span></div>"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "内容对齐方式",
+      "options": [
+        {
+          "value": "start",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中对齐"
+        },
+        {
+          "value": "end",
+          "label": "右对齐"
+        }
+      ],
+      "default": "start"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment_mobile",
+      "label": "内容对齐方式（移动端）",
+      "options": [
+        {
+          "value": "start",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中对齐"
+        },
+        {
+          "value": "end",
+          "label": "右对齐"
+        }
+      ],
+      "default": "start"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_swiper",
+      "label": "移动端开启滑动切换",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_klarna",
+      "label": "显示klarna横幅",
+      "default": false
+    },
+
+    {
+      "type": "text",
+      "id": "learn_more_button_text",
+      "label": "查看更多按钮文案配置",
+      "default": "Learn More"
+    },
+    {
+      "type": "text",
+      "id": "buy_now_button_text",
+      "label": "购买按钮文案配置",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_flash_sale_countdown",
+      "label": "显示秒杀倒计时",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "flash_sale_countdown",
+      "label": "活动开始时间",
+      "info": "活动开始时间，格式为：2024-10-10T15:00:00+08:00"
+    },
+    {
+      "type": "text",
+      "id": "flash_sale_countdown_end",
+      "label": "活动截止时间",
+      "info": "活动截止时间，格式为：2024-10-24T15:00:00+08:00"
+    },
+    {
+      "type": "header",
+      "content": "产品横幅设置"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_banner",
+      "label": "显示产品横幅",
+      "default": false
+    },
+    {
+      "type": "html",
+      "id": "product_banner_tips",
+      "label": "产品横幅小标题"
+    },
+    {
+      "type": "html",
+      "id": "product_banner_title",
+      "label": "产品横幅主标题"
+    },
+    {
+      "type": "html",
+      "id": "product_gift_desc",
+      "label": "产品赠品描述"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_banner_image_pc",
+      "label": "产品横幅主图（PC端）"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_banner_image_mb",
+      "label": "产品横幅主图(移动端)"
+    },
+    {
+      "type": "radio",
+      "id": "prduct_num",
+      "label": "每行展示产品个数(PC端默认4个)",
+      "options": [
+        {
+          "value": "2",
+          "label": "2个"
+        },
+        {
+          "value": "3",
+          "label": "3个"
+        },
+        {
+          "value": "4",
+          "label": "4个"
+        },
+        {
+          "value": "5",
+          "label": "5个"
+        },
+        {
+          "value": "6",
+          "label": "6个"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "radio",
+      "id": "prduct_num_mobile",
+      "label": "每行展示产品个数(移动端默认2个)",
+      "info": "移动端关闭滑动切换时生效",
+      "options": [
+        {
+          "value": "1",
+          "label": "1个"
+        },
+        {
+          "value": "2",
+          "label": "2个"
+        },
+        {
+          "value": "3",
+          "label": "3个"
+        },
+        {
+          "value": "4",
+          "label": "4个"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "top_left_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "左上圆角",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "top_right_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "右上圆角",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "bottom_left_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "左下圆角",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "bottom_right_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "右下圆角",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "top_left_radius_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "左上圆角（移动端）",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "top_right_radius_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "右上圆角（移动端）",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "bottom_left_radius_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "左下圆角（移动端）",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "bottom_right_radius_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "右下圆角（移动端）",
+      "default": 0
+    },
+
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "产品标题字体颜色",
+      "default": "#000"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "content_bg_color",
+      "label": "内容区域背景色",
+      "default": "#A31C22"
+    },
+    {
+      "type": "color_background",
+      "id": "card_bg_color",
+      "label": "卡片容器背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color_background",
+      "id": "card_background_gradient_color",
+      "label": "卡片容器渐变背景色"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片间隔",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_gap_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片间隔（移动端）",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_padding_lr",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片容器左右填充",
+      "default": 20
+    },
+
+    {
+      "type": "range",
+      "id": "wrap_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "外边框顶部填充",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "wrap_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "外边框底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "card_padding_lr_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "卡片容器左右填充(移动端)",
+      "default": 12
+    },
+
+    {
+      "type": "range",
+      "id": "wrap_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "外边框顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "wrap_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "外边框底部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "name": "product",
+      "type": "product",
+      "settings": [
+        {
+          "type": "product_list",
+          "id": "product_list",
+          "label": "产品列表",
+          "info": "备注：产品原价字段配置：当前产品对应的变体元字段activity original price；产品售价字段配置：当前产品对应的变体元字段activity sale price；"
+        },
+        {
+          "type": "number",
+          "id": "variant_activity_index",
+          "label": "变体配置",
+          "info": "注意：仅当产品列表为只有一个产品时生效"
+        },
+        {
+          "type": "html",
+          "id": "product_gifts",
+          "label": "产品赠品"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [
+    {
+      "name": "valentines day radio",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

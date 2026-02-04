@@ -39,7 +39,7 @@
       <meta name="robots" content="index,follow">
     {% endif %}
 
-    <script>
+    {% comment %} <script>
       async function getVisitorIP() {
         try {
           const response = await fetch('https://api.ipify.org/');
@@ -134,7 +134,7 @@
       //     window.location.href = 'https://procolored.eu'
       //   }
       // })
-    </script>
+    </script> {% endcomment %}
     <script>
       (function (w, d, t, r, u) {
         var f, n, i;
@@ -206,7 +206,8 @@
     {% if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- endif %}
-
+    <!-- 根据用户IP地址，自动跳转到对应的站点 -->
+    {% render 'redirect-site' %}
     <title>
       {{ page_title }}
       {% if current_tags -%}
@@ -544,7 +545,7 @@
       <div class="header--sticky"></div>
       {% sections 'header-group' %}
       <!-- 获取用户IP 指引用户重定向到本地商店购买 -->
-      {% render 'redirect-bar' %}
+      {% comment %} {% render 'redirect-bar' %} {% endcomment %}
       <!-- 国家切换弹窗 -->
       {% comment %}
         {% if template contains 'index' %}
@@ -750,7 +751,7 @@
       </style>
       <div class="f13-promotional-activities">
         <a class="f13-promotional-activities-img" href="/products/13-single-head-dtf-printer-roll">
-          <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20260113-144718.png?v=1768286972" alt="">
+          <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/PC_40834be3-8a2f-4a0b-b519-a314a3fbe4fa.png?v=1768903599" alt="">
         </a>
         <div class="f13-promotional-activities-close-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 21 21" fill="none">

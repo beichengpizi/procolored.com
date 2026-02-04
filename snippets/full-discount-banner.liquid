@@ -46,9 +46,15 @@
 {% assign full_discount_progress_info_tips_color = section.settings.full_discount_progress_info_tips_color
   | default: settings.full_discount_progress_info_tips_color
 %}
-{% assign full_discount_progress_value = section.settings.full_discount_progress_value
-  | default: settings.full_discount_progress_value
-%}
+{% assign full_discount_progress_value_section = section.settings.full_discount_progress_value %}
+{% assign full_discount_progress_value_settings = settings.full_discount_progress_value %}
+{% if full_discount_progress_value_section != 0 %}
+  {% assign full_discount_progress_value = full_discount_progress_value_section %}
+{% elsif full_discount_progress_value_settings != 0 %}
+  {% assign full_discount_progress_value = full_discount_progress_value_settings %}
+{% else %}
+  {% assign full_discount_progress_value = 1 %}
+{% endif %}
 {% assign full_discount_price_title = section.settings.full_discount_price_title
   | default: settings.full_discount_price_title
 %}
@@ -400,7 +406,7 @@
               <span class="full-discount-banner-progress-info-text"
                 >Only
                 <span class="full-discount-banner-progress-info-text-value">
-                  {{ full_discount_progress_value }} 
+                  {{ full_discount_progress_value }}
                 </span>
                 pcs left!</span
               >
@@ -415,7 +421,7 @@
           <div class="full-discount-banner-progress-thumb"></div>
         </div>
       </div>
-    </div>
+      </div>
     {%- endif -%}
     {%- if show_full_discount_banner_price -%}
       <div class="full-discount-banner-discount-wrap">
@@ -526,26 +532,32 @@
   let maximum_random_value = {{ full_discount_progress_value | default: 100 }};
 
   /**
-   * 关键：生成1~60之间的随机整数
+   * 获取随机进度数值：返回介于 1 和 maximum_random_value 之间的随机整数
    * @returns {number}
    */
-  function getRandomInt1To60() {
-    return Math.floor(Math.random() * 60) + 1;
+  function getRandomProgressValue() {
+    return Math.floor(Math.random() * maximum_random_value) + 1;
   }
 
   /**
    * 关键：更新进度条动画样式和进度信息
-   * @param {number} v - 当前进度0~100
+   * @param {number} v - 当前进度，不限制最大值
    */
   function updateProgressElements(v) {
-    const p = Math.max(0, Math.min(100, v)); // 限制为 0~100
-    bar.style.setProperty('--p', p + '%');
-    progressInfoTextValue.textContent = Math.round(p); // 显示整数百分比  
+    // 进度条总量，默认为100。full_discount_progress_value在Liquid中注入，并将其同步给maximum_random_value
+    const maxValue = maximum_random_value || 100;
+
+    // 按比例得出百分比，最大为100
+    const percent = Math.max(0, Math.min(100, (v / maxValue) * 100));
+    bar.style.setProperty('--p', percent + '%');
+
+    // progressInfoTextValue 显示为当前已达总量的百分比，例如总量200时，100表示50%
+    progressInfoTextValue.textContent = v;
 
     // 设置渐变宽度动画
-    progressTrack.style.background = `linear-gradient(90deg,#ff00b8 0%, #7a5cff 35%, #00b8ff 100%) 0 0 / ${p}% 100% no-repeat, #ffffff`;
-    // 设置滑块动画位置
-    progressThumb.style.left = `calc(${p}% - 14px)`;
+    progressTrack.style.background = `linear-gradient(90deg,#ff00b8 0%, #7a5cff 35%, #00b8ff 100%) 0 0 / ${percent}% 100% no-repeat, #ffffff`;
+    // 设置滑块动画位置，超出100%时依旧显示在最右侧
+    progressThumb.style.left = `calc(${percent}% - 14px)`;
   }
 
   (function() {
@@ -570,7 +582,7 @@
 
     // 关键：首次进入/本地无缓存 或 缓存损坏 时生成随机进度，写入本地
     if (!valueInfo || typeof valueInfo.value !== "number" || typeof valueInfo.ts !== "number") {
-      theValue = getRandomInt1To60();
+      theValue = getRandomProgressValue();
       localStorage.setItem(PROGRESS_TIME_KEY, JSON.stringify({
         value: theValue,
         ts: now
@@ -579,7 +591,7 @@
       // 关键：本地有缓存，判断是否过期
       if (now - valueInfo.ts > EXPIRE_TIME) {
         // 缓存超时，重新生成并写入
-        theValue = getRandomInt1To60();
+        theValue = getRandomProgressValue();
         localStorage.setItem(PROGRESS_TIME_KEY, JSON.stringify({
           value: theValue,
           ts: now

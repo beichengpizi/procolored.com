@@ -710,7 +710,10 @@
                             </div>
                           </div>
                         </div>
-                        <div class="product-button-wrapper">
+                        <div
+                          class="product-button-wrapper"
+                          onclick="TriplePixel('custom', 'ProductPg_V_K13lite_W_BuyNow', {'value': 1});"
+                        >
                           <product-card>
                             <div
                               class="videos-products-product-button-add-to-cart product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
@@ -757,9 +760,11 @@
     </div>
   </div>
 </div>
+
 <script>
   (function () {
     // Set correct poster for device
+    const container = document.querySelector('.swiper-container-{{ section.id }}');
     const videos = document.querySelectorAll('.swiper-container-{{ section.id }} .video-info video');
     videos.forEach(function (video) {
       const posterPC = video.getAttribute('data-poster-pc');
@@ -774,277 +779,347 @@
       }
     });
 
-    // 音量和播放控制交互
-    document.querySelectorAll('.swiper-container-{{ section.id }} .video-info').forEach(function (videoInfo) {
-      const video = videoInfo.querySelector('video');
+    // 工具函数：更新音量图标
+    function updateMuteIcon(videoInfo, video) {
       const volumeIcon = videoInfo.querySelector('.czvdo-volume-icon-svg');
       const muteIcon = videoInfo.querySelector('.czvdo-mute-icon-svg');
+      if (video.muted) {
+        if (volumeIcon) volumeIcon.style.display = 'none';
+        if (muteIcon) muteIcon.style.display = 'flex';
+      } else {
+        if (volumeIcon) volumeIcon.style.display = 'flex';
+        if (muteIcon) muteIcon.style.display = 'none';
+      }
+    }
+    // 工具函数：更新播放/暂停图标
+    function updatePlayIcon(videoInfo, video) {
       const playIcon = videoInfo.querySelector('.czvdo-play-icon-svg');
       const pauseIcon = videoInfo.querySelector('.czvdo-pause-icon-svg');
+      if (video.paused) {
+        if (playIcon) playIcon.style.display = 'flex';
+        if (pauseIcon) pauseIcon.style.display = 'none';
+      } else {
+        if (playIcon) playIcon.style.display = 'none';
+        if (pauseIcon) pauseIcon.style.display = 'flex';
+      }
+    }
 
-      // --- 音量按钮交互 ---
-      function updateMuteIcon() {
-        if (video.muted) {
-          if (volumeIcon) volumeIcon.style.display = 'none';
-          if (muteIcon) muteIcon.style.display = 'flex';
-        } else {
-          if (volumeIcon) volumeIcon.style.display = 'flex';
-          if (muteIcon) muteIcon.style.display = 'none';
+    // 事件委托初始化和事件处理
+    if (container) {
+      // 初始化所有视频icon显示
+      container.querySelectorAll('.video-info').forEach(function (videoInfo) {
+        const video = videoInfo.querySelector('video');
+        if (!video) return;
+        updateMuteIcon(videoInfo, video);
+        updatePlayIcon(videoInfo, video);
+      });
+
+      // 默认自动播放第一个视频
+      var firstVideoInfo = container.querySelector('.video-info');
+      var firstVideo = firstVideoInfo ? firstVideoInfo.querySelector('video') : null;
+      if (firstVideo) {
+        // 尝试自动播放
+        setTimeout(function () {
+          // Pause all videos first just in case
+          container.querySelectorAll('.video-info video').forEach(function (v) {
+            if (v !== firstVideo) v.pause();
+          });
+          firstVideo.play().catch(function () {
+            // 兼容浏览器自动播放策略：如果有声音，无法自动播放，自动静音再尝试播放
+            firstVideo.muted = true;
+            firstVideo.play();
+          });
+        }, 100); // 微小延迟以确保页面元素加载完毕
+      }
+
+      // 事件委托(针对: 自身播放/暂停/静音的Icon交互)
+      container.addEventListener('click', function (e) {
+        const videoInfo = e.target.closest('.video-info');
+        if (!videoInfo || !container.contains(videoInfo)) return;
+        const video = videoInfo.querySelector('video');
+        if (!video) return;
+
+        // 点击 video 本体 = toggle
+        if (e.target.tagName === 'VIDEO') {
+          video.paused ? video.play() : video.pause();
         }
-      }
-      updateMuteIcon();
 
-      if (volumeIcon) {
-        volumeIcon.addEventListener('click', function (e) {
-          video.muted = true;
-          video.volume = 0;
-          updateMuteIcon();
-        });
-      }
-      if (muteIcon) {
-        muteIcon.addEventListener('click', function (e) {
-          video.muted = false;
-          video.volume = 1;
-          updateMuteIcon();
-        });
-      }
-      video.addEventListener('volumechange', updateMuteIcon);
-
-      // --- 播放/暂停按钮交互，和音量按钮逻辑一样 ---
-      function updatePlayIcon() {
-        if (video.paused) {
-          if (playIcon) playIcon.style.display = 'flex';
-          if (pauseIcon) pauseIcon.style.display = 'none';
-        } else {
-          if (playIcon) playIcon.style.display = 'none';
-          if (pauseIcon) pauseIcon.style.display = 'flex';
-        }
-      }
-      updatePlayIcon();
-
-      if (playIcon) {
-        playIcon.addEventListener('click', function (e) {
-          // Pause all other videos
-          document
-            .querySelectorAll('.swiper-container-{{ section.id }} .video-info video')
-            .forEach(function (otherVideo) {
-              if (otherVideo !== video) {
-                otherVideo.pause();
-              }
-            });
-          video.play();
-          updatePlayIcon();
-        });
-      }
-      if (pauseIcon) {
-        pauseIcon.addEventListener('click', function (e) {
-          video.pause();
-          updatePlayIcon();
-        });
-      }
-      video.addEventListener('play', function () {
-        // Pause all other videos when this one starts playing
-        document
-          .querySelectorAll('.swiper-container-{{ section.id }} .video-info video')
-          .forEach(function (otherVideo) {
+        // 播放按钮
+        if (e.target.closest('.czvdo-play-icon-svg')) {
+          // Pause all others
+          container.querySelectorAll('.video-info video').forEach(function (otherVideo) {
             if (otherVideo !== video) {
               otherVideo.pause();
             }
           });
-        updatePlayIcon();
-      });
-      video.addEventListener('pause', updatePlayIcon);
+          video.play();
+        }
 
-      // 初始化显示状态（在进入页面自动播放情况下，按钮状态正确）
-      if (!video.paused) {
-        if (playIcon) playIcon.style.display = 'none';
-        if (pauseIcon) pauseIcon.style.display = 'flex';
-      } else {
-        if (playIcon) playIcon.style.display = 'flex';
-        if (pauseIcon) pauseIcon.style.display = 'none';
-      }
-    });
+        // 暂停按钮
+        if (e.target.closest('.czvdo-pause-icon-svg')) {
+          video.pause();
+        }
+
+        // 静音按钮
+        if (e.target.closest('.czvdo-volume-icon-svg')) {
+          video.muted = true;
+          video.volume = 0;
+        }
+        // 解除静音
+        if (e.target.closest('.czvdo-mute-icon-svg')) {
+          video.muted = false;
+          video.volume = 1;
+        }
+
+        // 更新图标
+        updateMuteIcon(videoInfo, video);
+        updatePlayIcon(videoInfo, video);
+      });
+
+      // 事件委托(针对: 视频状态切换更新icon)
+      container.addEventListener(
+        'volumechange',
+        function (e) {
+          const video = e.target;
+          const videoInfo = video.closest('.video-info');
+          if (videoInfo && video) {
+            updateMuteIcon(videoInfo, video);
+          }
+        },
+        true
+      );
+
+      container.addEventListener(
+        'play',
+        function (e) {
+          const video = e.target;
+          const videoInfo = video.closest('.video-info');
+          if (videoInfo && video) {
+            // Pause all other videos
+            container.querySelectorAll('.video-info video').forEach(function (otherVideo) {
+              if (otherVideo !== video) {
+                otherVideo.pause();
+              }
+            });
+            updatePlayIcon(videoInfo, video);
+          }
+        },
+        true
+      );
+
+      container.addEventListener(
+        'pause',
+        function (e) {
+          const video = e.target;
+          const videoInfo = video.closest('.video-info');
+          if (videoInfo && video) {
+            updatePlayIcon(videoInfo, video);
+          }
+        },
+        true
+      );
+    }
   })();
 </script>
+
 <script>
-  // 轮播延迟时间，进度环每1份的时间
-  const delayTime = 15000;
-  const progressCircle_delayTime = delayTime / 100;
-  const progressCircle = document.getElementById('progressCircle-{{section.id}}');
-  let progress = 0;
-  let autoProgressInterval = null;
-  let autoProgressStopped = false;
+    (function () {
+    // 轮播延迟时间，进度环每1份的时间
+    const delayTime = 26000;
+    const progressCircle_delayTime = delayTime / 100;
+    const progressCircle = document.getElementById('progressCircle-{{section.id}}');
+    let progress = 0;
+    let autoProgressInterval = null;
+    let autoProgressStopped = false;
 
-  // 更新进度环
-  function updateProgress() {
-    if (autoProgressStopped) return;
-    progress = (progress + 1) % 101; // 0 到 100
-    progressCircle.style.background = `conic-gradient(
-      #000 0%,
-      #000 ${progress}%,
-      #cccccc ${progress}%,
-      #cccccc 100%
-    )`;
-    if (progress === 0) {
-      swiper4.slideNext(); // 切换到下一张幻灯片
-    }
-    // progressCircle.textContent = `${progress}%`;
-  }
-
-  // 启动进度环动画（注意这里每一份的时间是 delayTime/100 毫秒）
-  function startAutoProgress() {
-    if (autoProgressInterval) clearInterval(autoProgressInterval);
-    autoProgressStopped = false;
-    autoProgressInterval = setInterval(updateProgress, progressCircle_delayTime);
-  }
-  // 停止自动进度
-  function stopAutoProgress() {
-    autoProgressStopped = true;
-    if (autoProgressInterval) {
-      clearInterval(autoProgressInterval);
-      autoProgressInterval = null;
-    }
-  }
-  startAutoProgress();
-
-  // Swiper 初始化并使当前激活slide下的video自动播放，切换slide时自动暂停其他video，仅当前激活播放
-  const swiper4 = new Swiper('.swiper-container-{{ section.id }}', {
-    loop: true,
-    slidesPerView: {{ section.settings.slides_per_view | plus: 0.2 }} ,
-    loopedSlides: {{ section.settings.slides_per_view | plus: 2 }},
-    spaceBetween: 20,
-    scrollbar: {
-      el: '.swiper-scrollbar-{{section.id}}',
-      dragSize: 30,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next-{{section.id}}',
-      prevEl: '.swiper-button-prev-{{section.id}}',
-    },
-    breakpoints: {
-        1500: {
-            loop: false,
-            slidesPerView: {{ section.settings.slides_per_view_mobile | plus: 2.2 }},
-            spaceBetween: 10,
-            allowTouchMove: true,
-          },
-      1024: {
-        loop: false,
-        slidesPerView: {{ section.settings.slides_per_view_mobile | plus: 1.2 }},
-        spaceBetween: 10,
-        allowTouchMove: true,
-      },
-      768: {
-        loop: false,
-        loopedSlides: 1,
-        slidesPerView: {{ section.settings.slides_per_view_mobile | plus: 0.2 }} ,
-        spaceBetween: 10,
-        allowTouchMove: true,
-      },
-    },
-    allowTouchMove: false,
-    on: {
-      init: function () {
-        handleVideoForActiveSlide(this);
-      },
-      slideChangeTransitionEnd: function () {
-        handleVideoForActiveSlide(this);
-      },
-    },
-  });
-
-  // --- 新增：按钮被点击时，停止自动轮播 ---
-  const prevBtn = document.querySelector('.swiper-button-prev-{{section.id}}');
-  const nextBtn = document.querySelector('.swiper-button-next-{{section.id}}');
-  if (prevBtn) prevBtn.addEventListener('click', stopAutoProgress, { once: true });
-  if (nextBtn) nextBtn.addEventListener('click', stopAutoProgress, { once: true });
-
-  // --- 新增：移动端手动滑动时，停止自动轮播 ---
-  // 监听Swiper的touchStart事件
-  swiper4.on('touchStart', function () {
-    stopAutoProgress();
-  });
-
-  // 辅助函数：暂停所有视频，仅激活slide下的video播放
-  function handleVideoForActiveSlide(swiperInstance) {
-    // 1. 暂停且重置所有video，并切换icon显示
-    const allVideos = swiperInstance.el.querySelectorAll('video');
-    allVideos.forEach((video) => {
-      video.pause();
-      video.currentTime = 0;
-      // 切换icon: 暂停icon隐藏，播放icon显示
-      const pauseIcon = video.closest('.swiper-slide')?.querySelector('.czvdo-pause-icon-svg');
-      const playIcon = video.closest('.swiper-slide')?.querySelector('.czvdo-play-icon-svg');
-      if (pauseIcon) {
-        pauseIcon.style.display = 'none';
+    // 更新进度环
+    function updateProgress() {
+      if (autoProgressStopped) return;
+      progress = (progress + 1) % 101; // 0 到 100
+      progressCircle.style.background = `conic-gradient(
+        #000 0%,
+        #000 ${progress}%,
+        #cccccc ${progress}%,
+        #cccccc 100%
+      )`;
+      if (progress === 0) {
+        swiper4.slideNext(); // 切换到下一张幻灯片
       }
-      if (playIcon) {
-        playIcon.style.display = 'flex';
+      // progressCircle.textContent = `${progress}%`;
+    }
+
+    // 启动进度环动画（注意这里每一份的时间是 delayTime/100 毫秒）
+    function startAutoProgress() {
+      if (autoProgressInterval) clearInterval(autoProgressInterval);
+      autoProgressStopped = false;
+      autoProgressInterval = setInterval(updateProgress, progressCircle_delayTime);
+    }
+    // 停止自动进度
+    function stopAutoProgress() {
+      autoProgressStopped = true;
+      if (autoProgressInterval) {
+        clearInterval(autoProgressInterval);
+        autoProgressInterval = null;
       }
+    }
+    startAutoProgress();
+
+    // Swiper 初始化并使当前激活slide下的video自动播放，切换slide时自动暂停其他video，仅当前激活播放
+    const swiper4 = new Swiper('.swiper-container-{{ section.id }}', {
+      loop: true,
+      slidesPerView: {{ section.settings.slides_per_view | plus: 0.2 }} ,
+      loopedSlides: {{ section.settings.slides_per_view | times: 2 }},
+      spaceBetween: 20,
+      scrollbar: {
+        el: '.swiper-scrollbar-{{section.id}}',
+        dragSize: 30,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next-{{section.id}}',
+        prevEl: '.swiper-button-prev-{{section.id}}',
+      },
+      breakpoints: {
+          1440: {
+              loop: true,
+              slidesPerView: {{ section.settings.slides_per_view_mobile | plus: 2.2 }},
+              loopedSlides: {{ section.settings.slides_per_view | times: 2 }},
+              spaceBetween: 10,
+              allowTouchMove: true,
+            },
+        1200: {
+          loop: true,
+          slidesPerView: {{ section.settings.slides_per_view_mobile | plus: 1.8 }},
+          loopedSlides: {{ section.settings.slides_per_view | times: 2 }},
+          spaceBetween: 10,
+          allowTouchMove: true,
+        },
+        768: {
+          loop: true,
+          loopedSlides: {{ section.settings.slides_per_view_mobile | times: 2 }},
+          slidesPerView: {{ section.settings.slides_per_view_mobile | plus: 0.2 }} ,
+          spaceBetween: 10,
+          allowTouchMove: true,
+        },
+      },
+      allowTouchMove: false,
+      on: {
+        init: function () {
+          handleVideoForActiveSlide(this);
+        },
+        slideChangeTransitionEnd: function () {
+          handleVideoForActiveSlide(this);
+        },
+      },
     });
 
-    // 2. 找出当前激活slide节点，查找其video并播放
-    // Swiper6/7/8+ 结构: .swiper-slide-active
-    const activeSlides = swiperInstance.slides.filter
-      ? swiperInstance.slides.filter((slide) => slide.classList.contains('swiper-slide-active'))
-      : Array.from(swiperInstance.slides).filter((slide) => slide.classList.contains('swiper-slide-active'));
-    activeSlides.forEach((slide) => {
-      const video = slide.querySelector('video');
-      if (video) {
-        // 修复Safari/微信等下play不生效，需尝试muted, playsinline
-        video.muted = true;
-        video.setAttribute('muted', '');
-        video.setAttribute('playsinline', '');
-        video.setAttribute('webkit-playsinline', '');
-        video.setAttribute('x5-playsinline', '');
-        video.setAttribute('loop', ''); // 设置为循环播放
-        // 设置当前激活slide下的icon显示(暂停=显示，播放=隐藏)
-        const pauseIcon = slide.querySelector('.czvdo-pause-icon-svg');
-        const playIcon = slide.querySelector('.czvdo-play-icon-svg');
+    // 修复：保证点击下一张按钮/进度条在最后一个slide时也能循环
+    const prevBtn = document.querySelector('.swiper-button-prev-{{section.id}}');
+    const nextBtn = document.querySelector('.swiper-button-next-{{section.id}}');
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function() {
+        stopAutoProgress();
+        swiper4.slidePrev();
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function() {
+        stopAutoProgress();
+        // 检查Swiper是否为最后一个slide，若是则循环到第一个
+        if (swiper4.isEnd) {
+          swiper4.slideToLoop(0, 0); // loop模式下跳转到第一个并无动画
+        } else {
+          swiper4.slideNext();
+        }
+      });
+    }
+
+    // --- 新增：移动端手动滑动时，停止自动轮播 ---
+    // 监听Swiper的touchStart事件
+    swiper4.on('touchStart', function () {
+      stopAutoProgress();
+    });
+
+    // 辅助函数：暂停所有视频，仅激活slide下的video播放
+    function handleVideoForActiveSlide(swiperInstance) {
+      // 1. 暂停且重置所有video，并切换icon显示
+      const allVideos = swiperInstance.el.querySelectorAll('video');
+      allVideos.forEach((video) => {
+        video.pause();
+        video.currentTime = 0;
+        // 切换icon: 暂停icon隐藏，播放icon显示
+        const pauseIcon = video.closest('.swiper-slide')?.querySelector('.czvdo-pause-icon-svg');
+        const playIcon = video.closest('.swiper-slide')?.querySelector('.czvdo-play-icon-svg');
         if (pauseIcon) {
-          pauseIcon.style.display = 'flex';
+          pauseIcon.style.display = 'none';
         }
         if (playIcon) {
-          playIcon.style.display = 'none';
+          playIcon.style.display = 'flex';
         }
+      });
 
-        // 针对带有<source>的video，需要重置source的src
-        const sources = video.querySelectorAll('source');
-        if (sources.length > 0) {
-          sources.forEach((source) => {
-            if (source.dataset && source.dataset.src) {
-              source.src = source.dataset.src;
-            }
-          });
-          video.load();
-        }
+      // 2. 找出当前激活slide节点，查找其video并播放
+      // Swiper6/7/8+ 结构: .swiper-slide-active
+      const activeSlides = swiperInstance.slides.filter
+        ? swiperInstance.slides.filter((slide) => slide.classList.contains('swiper-slide-active'))
+        : Array.from(swiperInstance.slides).filter((slide) => slide.classList.contains('swiper-slide-active'));
+      activeSlides.forEach((slide) => {
+        const video = slide.querySelector('video');
+        if (video) {
+          // 修复Safari/微信等下play不生效，需尝试muted, playsinline
+          video.muted = true;
+          video.setAttribute('muted', '');
+          video.setAttribute('playsinline', '');
+          video.setAttribute('webkit-playsinline', '');
+          video.setAttribute('x5-playsinline', '');
+          video.setAttribute('loop', ''); // 设置为循环播放
+          // 设置当前激活slide下的icon显示(暂停=显示，播放=隐藏)
+          const pauseIcon = slide.querySelector('.czvdo-pause-icon-svg');
+          const playIcon = slide.querySelector('.czvdo-play-icon-svg');
+          if (pauseIcon) {
+            pauseIcon.style.display = 'flex';
+          }
+          if (playIcon) {
+            playIcon.style.display = 'none';
+          }
 
-        // 有些视频自带暂停，先尝试播放
-        const playPromise = video.play();
-        if (playPromise && typeof playPromise.then === 'function') {
-          playPromise.catch((e) => {
-            // 若第一次播放失败（自动静音也不行），尝试解除src再重新设置并播放
-            // 针对带<source>的，重新设置source
-            if (sources.length > 0) {
-              sources.forEach((source) => {
-                if (source.dataset && source.dataset.src) {
-                  source.src = source.dataset.src;
-                }
-              });
-              video.load();
-            } else {
-              const src = video.currentSrc || video.src;
-              video.load();
-              if (src) video.src = src;
-            }
-            setTimeout(() => {
-              video.play().catch(() => {});
-            }, 100);
-          });
+          // 针对带有<source>的video，需要重置source的src
+          const sources = video.querySelectorAll('source');
+          if (sources.length > 0) {
+            sources.forEach((source) => {
+              if (source.dataset && source.dataset.src) {
+                source.src = source.dataset.src;
+              }
+            });
+            video.load();
+          }
+
+          // 有些视频自带暂停，先尝试播放
+          const playPromise = video.play();
+          if (playPromise && typeof playPromise.then === 'function') {
+            playPromise.catch((e) => {
+              // 若第一次播放失败（自动静音也不行），尝试解除src再重新设置并播放
+              // 针对带<source>的，重新设置source
+              if (sources.length > 0) {
+                sources.forEach((source) => {
+                  if (source.dataset && source.dataset.src) {
+                    source.src = source.dataset.src;
+                  }
+                });
+                video.load();
+              } else {
+                const src = video.currentSrc || video.src;
+                video.load();
+                if (src) video.src = src;
+              }
+              setTimeout(() => {
+                video.play().catch(() => {});
+              }, 100);
+            });
+          }
         }
-      }
-    });
-  }
+      });
+    }
+  })();
 </script>
 
 {% schema %}

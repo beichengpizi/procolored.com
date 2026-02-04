@@ -1,0 +1,557 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    width: 100%;
+    overflow: hidden;
+  }
+  
+    /* Top promotional banner 顶部促销活动横幅 start */
+  {% for block in section.blocks %}
+    .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }}.top-promotional-banner-wrapper {
+        background: linear-gradient(269deg, #000 11.94%, #fece67 120.47%);
+        background-color: {{ block.settings.bg_color }};
+        background: {{ block.settings.background_gradient_color }};
+        cursor: pointer;
+        {% if block.settings.banner_bg_image_pc %}
+          background-image: url({{ block.settings.banner_bg_image_pc | image_url :width:3840 }});
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+          aspect-ratio: {{ block.settings.banner_bg_image_pc.aspect_ratio }};
+          min-height: 98px;
+          display: flex;
+          width: 100%;
+        {%- endif -%}
+      }
+
+      .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }}  .top-promotional-banner-countdown-box {
+        margin-top: auto;
+        {% if block.settings.banner_bg_image_pc %}
+          margin-top: 5px;
+        {%- endif -%}
+      }
+
+      .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }}  .top-promotional-banner-title {
+        {% if block.settings.title_gradient_color != blank %}
+          background: {{ block.settings.title_gradient_color }};
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          color: transparent;
+        {% else %}
+          color: {{ block.settings.title_color }};
+        {% endif %}
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.25;
+      }
+
+      .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }}  .top-promotional-banner-subtitle {
+        {% if block.settings.title_gradient_color != blank %}
+          background: {{ block.settings.title_gradient_color }};
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          color: transparent;
+        {% else %}
+          color: {{ block.settings.title_color }};
+        {% endif %}
+          font-size: 20px;
+          font-weight: 800;
+          line-height: 1.2;
+        }
+
+        .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }}  .top-promotional-banner-countdown-box .time-block {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-width: 52px;
+          min-height: 56px;
+
+          position: relative;
+          border-radius: 6px;
+          border: 1px dashed {{ block.settings.countdown_color }};;
+        }
+
+        .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }}  .top-promotional-banner-countdown-box .time-value {
+          {% if block.settings.countdown_gradient_color != blank %}
+            background: {{ block.settings.countdown_gradient_color }};
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+          {% else %}
+            color: {{ block.settings.countdown_color }};
+          {% endif %}
+            border-radius: 0;
+            font-size: 24px;
+            line-height: 1;
+            margin-bottom: 4px;
+          }
+
+        .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }}  .top-promotional-banner-countdown-box .time-label {
+          font-size: 12px;
+          {% if block.settings.countdown_gradient_color != blank %}
+            background: {{ block.settings.countdown_gradient_color }};
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+          {% else %}
+            color: {{ block.settings.countdown_color }};
+          {% endif %}
+          line-height: 1;
+        }
+
+        @media screen and (max-width: 768px) {
+          .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }}.top-promotional-banner-wrapper {
+            background: {{ block.settings.background_gradient_color_mb }};
+            {% if block.settings.banner_mb_image_pc %}
+              aspect-ratio: {{ block.settings.banner_mb_image_pc.aspect_ratio }};
+              background-image: url({{ block.settings.banner_mb_image_pc | image_url :width:750 }});
+              background-position: center;
+              background-size: cover;
+              background-repeat: no-repeat;
+            {%- endif -%}
+          }
+
+        .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }}  .top-promotional-banner-containner {
+            display: flex;
+            padding-right: 0;
+            gap: 0;
+            justify-content: end;
+            position: relative;
+            {% if block.settings.banner_bg_image_pc %}
+              margin: 0;
+            {%- endif -%}
+          }
+
+        .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }}  .top-promotional-banner-containner-content {
+            display: flex;
+            align-items: start;
+            flex-direction: column;
+            position: absolute;
+            left: 14px;
+            top: 20px;
+            width: 48%;
+
+            height: calc(100% - 20px);
+            padding-bottom: 13px;
+            {% if block.settings.banner_bg_image_pc %}
+              gap: 0 !important;
+              width: 100%;
+              top: 5px;
+              left: 10px;
+            {%- endif -%}
+          }
+        }
+  {% endfor %}
+
+  .top-promotional-banner-{{ section.id }} .swiper-pagination {
+      display: none;
+    }
+
+  .top-promotional-banner-{{ section.id }} .swiper-button-next,
+  .top-promotional-banner-{{ section.id }} .swiper-button-prev {
+    background: rgba(0, 0, 0, 0.3);
+    width: 32px;
+    height: 32px;
+    border-radius: 9999px;
+  }
+
+  .top-promotional-banner-{{ section.id }} .swiper-button-prev {
+    left: 3.75vw;
+  }
+
+  .top-promotional-banner-{{ section.id }} .swiper-button-next {
+    right: 3.75vw;
+  }
+
+  .top-promotional-banner-{{ section.id }} .swiper-button-next:after,
+  .top-promotional-banner-{{ section.id }} .swiper-button-prev:after {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+  }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-containner {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-right: calc((136 / 1920) * 100vw);
+      {% comment %} padding-left: calc((360 / 1920) * 100vw); {% endcomment %}
+      gap: 120px;
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-containner-content {
+      display: flex;
+      align-items: center;
+      gap: 120px;
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-title-wrapper {
+      display: flex;
+      flex-direction: column;
+  }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-subtitle span {
+      display: block;
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box {
+      max-width: max-content;
+
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-countdown-box .countdown-box > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+  }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-img {
+      width: 228px;
+    }
+
+  .top-promotional-banner-{{ section.id }}  .top-promotional-banner-img img {
+      display: flex;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    {% for block in section.blocks %}
+      @media screen and (max-width: 768px) {
+      .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }} .top-promotional-banner-title-wrapper {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+      .top-promotional-banner-{{ section.id }} .swiper-pagination-bullet {
+        background: #fff;
+      }
+
+      .top-promotional-banner-{{ section.id }} .swiper-pagination {
+        display: block;
+      }
+
+      .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }} .top-promotional-banner-title {
+          font-size: 12px;
+        }
+
+      .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }} .top-promotional-banner-subtitle {
+          font-size: 14px;
+
+          line-height: 1.14;
+        }
+
+      .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }} .top-promotional-banner-subtitle span {
+          display: inline;
+        }
+
+      .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }} .top-promotional-banner-countdown-box .countdown-box > div {
+          gap: 6px;
+        }
+
+      .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }} .top-promotional-banner-countdown-box .time-block {
+          min-width: 29px;
+          min-height: 30px;
+          border-radius: 5px;
+        }
+
+      .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }} .top-promotional-banner-countdown-box .time-value {
+          font-size: 13px;
+
+          margin-bottom: 4px;
+        }
+
+      .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }} .top-promotional-banner-countdown-box .time-label {
+          font-size: 6px;
+
+          line-height: 1;
+        }
+
+      .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }} .top-promotional-banner-img {
+          width: 196px;
+          flex-shrink: 0;
+        }
+
+      .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }} .top-promotional-banner-img img {
+          display: flex;
+          width: 100%;
+          max-width: 100%;
+          object-fit: cover;
+        }
+
+        .top-promotional-banner-{{ section.id }} .swiper-button-next,
+        .top-promotional-banner-{{ section.id }} .swiper-button-prev {
+          display: none;
+        }
+      }
+    {% endfor %}
+
+    /* Top promotional banner 顶部促销活动横幅 end */
+</style>
+<!-- Top promotional banner 顶部促销活动横幅 start -->
+<section id="top-promotional-banner" class="top-promotional-banner-{{ section.id }} swiper mySwiper">
+  <div class="swiper-wrapper">
+    {% for block in section.blocks %}
+      <div id="swiper-block-{{ block.id }}"
+        class="top-promotional-banner-wrapper swiper-slide"
+        onclick="window.location.href='{{ block.settings.banner_link | default: '/' }}'"
+      >
+        <div class="top-promotional-banner-containner">
+          <div class="top-promotional-banner-containner-content">
+            <div class="top-promotional-banner-title-wrapper">
+              {%- if block.settings.title != empty -%}
+                <div class="top-promotional-banner-title">{{ block.settings.title }}</div>
+              {%- endif -%}
+              {%- if block.settings.subtitle != empty -%}
+                <div class="top-promotional-banner-subtitle">
+                  {{ block.settings.subtitle }}
+                </div>
+              {%- endif -%}
+            </div>
+            {%- if block.settings.show_flash_sale_countdown
+              and block.settings.flash_sale_countdown != empty
+              and block.settings.flash_sale_countdown_end != empty
+            -%}
+              <div class="top-promotional-banner-countdown-box">
+                {%- render 'flash-sale-countdown',
+                  countdown_style: 2,
+                  flash_sale_countdown_date: block.settings.flash_sale_countdown,
+                  flash_sale_countdown_end_date: block.settings.flash_sale_countdown_end
+                -%}
+              </div>
+            {%- endif -%}
+          </div>
+
+          <div class="top-promotional-banner-img">
+            {% assign banner_image_pc = block.settings.banner_image_pc %}
+            {% assign banner_image_mb = block.settings.banner_image_mb %}
+            {% if banner_image_pc and banner_image_mb %}
+              <picture>
+                <!-- 移动端图片：屏幕宽度小于等于768px时显示 -->
+                <source
+                  srcset="{{ block.settings.banner_image_mb | image_url:width:750 }}"
+                  media="(max-width: 768px)"
+                >
+                <img
+                  src="{{ block.settings.banner_image_pc | image_url:width:750 }}"
+                  alt="Black Friday Promotion Banner"
+                >
+              </picture>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% if section.blocks.size > 1 %}
+    <div class="swiper-pagination"></div>
+  {% endif %}
+</section>
+<!-- Top promotional banner 顶部促销活动横幅 end -->
+<script>
+  waitForCountdown(function () {
+    var swiper = new Swiper("#shopify-section-{{ section.id }} .mySwiper", {
+      slidesPerView: 1,
+      observer: true,
+      loop: true,
+      autoplay: {
+        delay: 5000,
+      },
+      observeParents: true,
+      pagination: {
+        el: "#shopify-section-{{ section.id }} .swiper-pagination",
+      },
+      on: {
+        init() {
+          setTimeout(initCountdowns, 50);
+        },
+        slideChangeTransitionEnd() {
+          setTimeout(initCountdowns, 50);
+        }
+      }
+    });
+  });
+
+
+  function waitForCountdown(cb) {
+    if (window.jQuery && $.fn.countdown) {
+      cb();
+    } else {
+      setTimeout(function () {
+        waitForCountdown(cb);
+      }, 50);
+    }
+  }
+
+
+  function formatUtcTime(v) {
+      let date = new Date(v);
+      return (
+          date.getFullYear() +
+          '/' +
+          (date.getMonth() + 1) +
+          '/' +
+          (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+          ' ' +
+          (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+          ':' +
+          (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+          ':' +
+          (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+      );
+  }
+  function initCountdowns() {
+    $('.mySwiper [data-countdown]').each(function () {
+      try {
+        $(this).countdown('destroy');
+      } catch(e){}
+
+      const end = $(this).data('countdown-end');
+      const style = $(this).data('countdown-style');
+      const finalDate = formatUtcTime(end);
+
+      $(this).countdown(finalDate).on('update.countdown', function (event) {
+        let format =
+          '<div class="time-block"><div class="time-value">%D</div><div class="time-label">Days</div></div>' +
+          '<div class="time-block"><div class="time-value">%H</div><div class="time-label">Hrs</div></div>' +
+          '<div class="time-block"><div class="time-value">%M</div><div class="time-label">Mins</div></div>' +
+          '<div class="time-block"><div class="time-value">%S</div><div class="time-label">Secs</div></div>';
+
+        $(this).html(event.strftime(format));
+      });
+    });
+  }
+
+
+</script>
+
+{{ 'swiper.min.css' | asset_url | stylesheet_tag }}
+{{ 'swiper.min.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "Announcement bar swiper",
+  "tag": "section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "html",
+          "id": "title",
+          "label": "标题",
+          "default": "<span>Black Friday Presale</span>"
+        },
+        {
+          "type": "html",
+          "id": "subtitle",
+          "label": "副标题",
+          "default": "<div>Lock in Huge Discounts & Win Prizes!<span> Up to $1249 OFF & Exciting Gifts</span></div>"
+        },
+        {
+          "type": "url",
+          "id": "banner_link",
+          "label": "活动链接"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_flash_sale_countdown",
+          "label": "显示秒杀倒计时",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "flash_sale_countdown",
+          "label": "活动开始时间",
+          "info": "活动开始时间，格式为：2024-10-10T15:00:00+08:00",
+          "default": "2025-11-01T15:00:00+08:00"
+        },
+        {
+          "type": "text",
+          "id": "flash_sale_countdown_end",
+          "label": "活动截止时间",
+          "info": "活动截止时间，格式为：2024-10-24T15:00:00+08:00",
+          "default": "2025-11-24T15:00:00+08:00"
+        },
+
+        {
+          "type": "image_picker",
+          "id": "banner_image_pc",
+          "label": "活动图标（PC端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_image_mb",
+          "label": "活动图标(移动端)"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_bg_image_pc",
+          "label": "背景图（PC端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_mb_image_pc",
+          "label": "背景图（移动端）"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "标题字体颜色",
+          "default": "#fff"
+        },
+        {
+          "type": "color_background",
+          "id": "title_gradient_color",
+          "label": "标题渐变色"
+        },
+        {
+          "type": "color",
+          "id": "countdown_color",
+          "label": "倒计时字体颜色",
+          "default": "#fff"
+        },
+        {
+          "type": "color_background",
+          "id": "countdown_gradient_color",
+          "label": "倒计时渐变色"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "背景色"
+        },
+        {
+          "type": "color_background",
+          "id": "background_gradient_color",
+          "label": "渐变背景色(PC端)",
+          "default": "linear-gradient(269deg, #000 11.94%, #fece67 120.47%)"
+        },
+        {
+          "type": "color_background",
+          "id": "background_gradient_color_mb",
+          "label": "渐变背景色(移动端)",
+          "default": "linear-gradient(260deg, #000 15.48%, #fece67 127.47%)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar swiper"
+    }
+  ]
+}
+{% endschema %}

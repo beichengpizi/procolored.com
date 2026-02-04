@@ -134,25 +134,35 @@
 
           .exhibition-products-select-{{ section.id }} .exhibition-product-tab  {
               opacity: 0;
-              height: 0;
+              position: absolute;
+              left: 0;
+              top: 0;
+              right: 0;
+              bottom: 0;
 
           }
           .exhibition-products-select-{{ section.id }} .exhibition-products-select-content-item{
             border-radius: 16px;
             background-color: {{ section.settings.card_bg_color }};
             background: {{ section.settings.card_background_gradient_color }};
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        padding: 24px;
-        background-clip: padding-box;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 24px;
+            background-clip: padding-box;
+            position: relative;
 
           }
 
 
           .exhibition-products-select-{{ section.id }} .exhibition-product-tab.active {
+            {% comment %} display: flex;
+            opacity: 1;
+            height: auto;
+            width: 100%; {% endcomment %}
             display: flex;
             opacity: 1;
-            height: 100%;
             width: 100%;
+            position: relative;
+            z-index: 9;
 
           }
 
@@ -251,14 +261,13 @@
               justify-content: center;
               width: 100%;
               display: flex;
-    padding: 12px 16px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-
-    border-radius: 16px;
-  border: 1px solid rgba(240, 247, 255, 0.04);
-  background: radial-gradient(104.49% 102.66% at 26.76% 0%, #262A38 0%, #1B1C22 100%);
+              padding: 12px 16px;
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 16px;
+              border-radius: 16px;
+              border: 1px solid rgba(240, 247, 255, 0.04);
+              background: radial-gradient(104.49% 102.66% at 26.76% 0%, #262A38 0%, #1B1C22 100%);
 
           }
           .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-name {
@@ -309,9 +318,9 @@
             font-weight: 800;
             line-height: 1.5;
             background: linear-gradient(90deg, #FEE8D0 0%, #FFC78F 100%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
           }
 
           .exhibition-products-select-{{ section.id }} .exhibition-products-select-product-original-price {
@@ -923,8 +932,8 @@
   }
   .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock-selected {
     display: block;
-    width: 90%;
-    padding: 12px 16px;
+    width: 100%;
+    padding: 12px 50px 12px 16px;
     background: none;
     color: #fff;
     font-weight: 400;
@@ -1036,7 +1045,7 @@
     }
     .exhibition-products-select-{{ section.id }} .exhibition-dropdown-mock-selected {
       color: #fff;
-      padding: 8px;
+      padding: 8px 40px 8px 8px;
       -webkit-tap-highlight-color: transparent;
       /* Remove default tap highlight color on mobile */
       background-color: transparent;
@@ -1063,7 +1072,7 @@
 >
   <div class="exhibition-products-select-wrapper">
     <div class="exhibition-products-select-container">
-      {%- if section.settings.title != empty -%}
+      {%- if section.settings.title != empty or section.settings.main_banner_image_pc -%}
         <div class="exhibition-products-select-title-wrapper">
           {%- if section.settings.title != empty -%}
             <div class="exhibition-products-select-title">
@@ -1149,12 +1158,12 @@
                   {%- liquid
                     assign current_product_id = current_product.id
                     assign variant_activity_index = block.settings.variant_activity_index
-                    assign variant = current_product.variants[variant_activity_index] | default: current_product.metafields.custom.activity_page_product_variant_select | default: current_product.variants[0]
-                    assign product_image_pc = variant.metafields.custom.activity_product_image_pc | default: current_product.metafields.custom.product_card_image_pc | default: current_product.featured_image
-                    assign product_image_mb = variant.metafields.custom.activity_product_image_mb | default: current_product.metafields.custom.product_card_image_mb | default: current_product.featured_image
+                    assign variant = current_product.variants[variant_activity_index] | default: current_product.metafields.custom.activity_page_product_variant_select.value | default: current_product.variants[0]
+                    assign product_image_pc = variant.metafields.custom.activity_product_image_pc | default: variant.featured_image | default: current_product.metafields.custom.product_card_image_pc | default: current_product.featured_image
+                    assign product_image_mb = variant.metafields.custom.activity_product_image_mb | default: variant.featured_image | default: current_product.metafields.custom.product_card_image_mb | default: current_product.featured_image
                     assign title = variant.metafields.custom.activity_product_short_name | default: current_product.metafields.custom.activity_page_product_short_name | default: current_product.title
-                    assign product_price = variant.metafields.custom.activity_sale_price.value | default: variant.price
-                    assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: variant.compare_at_price
+                    assign product_price = variant.metafields.custom.activity_sale_price.value | default: current_product.metafields.custom.activity_sale_price.value | default: variant.price
+                    assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: current_product.metafields.custom.activity_original_price.value | default: variant.compare_at_price
                     assign product_diff_price = product_origin_price | minus: product_price
                   -%}
 
@@ -1318,6 +1327,7 @@
                                   {%- endfor -%}
                                 </ul>
                               </div>
+
                               <script>
                                 $(function () {
                                   function hasParent(ele, p) {
@@ -1338,6 +1348,10 @@
                                   console.log('cardContainer==', cardContainer);
                                   if (!dropdown || dropdown.getAttribute('data-bind')) return;
                                   dropdown.setAttribute('data-bind', '1');
+                                   {% comment %} const currentTab = dropdown.closest('.exhibition-product-tab');
+                                  const allTabs = currentTab
+                                  ? currentTab.parentElement.querySelectorAll('.exhibition-product-tab')
+                                  : []; {% endcomment %}
                                   const selected = dropdown.querySelector('[data-selected]');
                                   const optionsUl = dropdown.querySelector('[data-options]');
                                   const options = optionsUl
@@ -1366,7 +1380,8 @@
                                   // 选项点击
                                   options.forEach(function (option, idx) {
                                     option.addEventListener('click', function (e) {
-                                      e.stopPropagation();
+                                      e.preventDefault();
+                                        e.stopPropagation();
                                       // 激活当前
                                       options.forEach(function (opt) {
                                         opt.classList.remove('active');
@@ -1390,9 +1405,9 @@
                                       // 联动select
                                       try {
                                         const tabContainers = dropdown
-                                          .closest('section')
+                                          .closest('.exhibition-products-select-content-item')
                                           .querySelectorAll('.exhibition-product-tab');
-                                        cardContainer.forEach(function (tabCt, index) {
+                                          cardContainer.forEach(function (tabCt, index) {
                                           console.log('tabCt', tabCt);
 
                                           if (index === idx) {
@@ -1634,6 +1649,93 @@
   "tag": "section",
   "settings": [
     {
+      "type": "header",
+      "content": "食用指南：",
+      "info": "以下配置仅对活动页的产品生效，其余地方不生效"
+    },
+    {
+      "type": "header",
+      "content": "产品元字段配置",
+      "info": "位置：产品元字段"
+    },
+    {
+      "type": "header",
+      "content": "产品指定变体:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：activity page product variant select"
+    },
+    {
+      "type": "header",
+      "content": "产品图片:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：PC端：product card image pc；移动端：product card image mb"
+    },
+    {
+      "type": "header",
+      "content": "产品简短名称:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：activity page product short name"
+    },
+    {
+      "type": "header",
+      "content": "产品销售价格:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：activity sale price"
+    },
+    {
+      "type": "header",
+      "content": "产品原价:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：activity original price"
+    },
+    {
+      "type": "header",
+      "content": "产品变体元字段配置",
+      "info": "位置：变体元字段"
+    },
+    {
+      "type": "header",
+      "content": "产品变体图片:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：PC端：product card image pc；移动端：product card image mb"
+    },
+    {
+      "type": "header",
+      "content": "产品变体简短名称:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：activity product short name"
+    },
+    {
+      "type": "header",
+      "content": "产品变体销售价格:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：activity sale price"
+    },
+    {
+      "type": "header",
+      "content": "产品变体原价:"
+    },
+    {
+      "type": "paragraph",
+      "content": "字段名称：activity original price"
+    },
+    {
       "type": "text",
       "id": "nav_id",
       "label": "模块锚点ID",
@@ -1860,7 +1962,7 @@
           "type": "number",
           "id": "variant_activity_index",
           "label": "变体配置",
-          "info": "注意：当存在同个产品不同变体时配置，配置变体下标，如：0,1,2,3..."
+          "info": "注意：仅当产品列表为只有一个产品时生效"
         }
       ]
     }
