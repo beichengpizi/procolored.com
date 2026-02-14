@@ -1433,60 +1433,48 @@
       }
 
       if (hasError) return;
-      if (JSON.parse(window.localStorage.getItem('smile_shopify_data')).customer === undefined) {
-        const modalLogin = document.querySelector('modal-login');
-        if (modalLogin) {
-          console.log('modalLogin', modalLogin);
-          const loginForm = modalLogin.showModal(modalLogin.fetchForm.login.innerHTML);
-          modalLogin.loginBindEvent(loginForm.el);
-        } else {
-          console.warn('modalLogin 元素不存在');
-        }
-      } else {
-        // build payload
-        let showroomId = 1;
-        if (document.querySelector('.showroom-item.active')) {
-          showroomId = document.querySelector('.showroom-item.active').dataset.id;
-        }
-        const postData = {
-          showroomId: document.querySelector('.showroom-item.active').dataset.id,
-          name,
-          phoneNumber: phone,
-          email,
-          visitDateStart: selectedSlot.startISO,
-          visitDateEnd: selectedSlot.endISO,
-          modelOfInterest: models.join(', '),
-          businessType: businessTypes.join(', '),
-          primaryPurpose: purposes.join(', '),
-          primaryMaterials: materials.join(', '),
-          expectedDailyOutput: output,
-          agreePolicy: agree ? 1 : 0,
-          customerId: JSON.parse(window.localStorage.getItem('smile_shopify_data')).customer.id || {},
-          origin: 'Shopify_US',
-        };
-
-        // send request
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Submitting...';
-        // const customId = JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer.id || {};
-
-        boosterFetch(showRoomBookingApi, postData, { method: 'POST' })
-          .then((data) => {
-            if (data.code === 200) {
-              document.getElementById('successPopup').style.display = 'flex';
-              submitBtn.textContent = 'Submit Your Reserve Application';
-            } else {
-              alert(data.msg || 'Error: Unknown error');
-            }
-          })
-          .catch((error) => {
-            console.error(error);
-            submitMsg.style.color = 'red';
-            submitMsg.textContent = 'Submit failed. Please try again later.';
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Submit Your Reserve Application';
-          });
+      // build payload
+      let showroomId = 1;
+      if (document.querySelector('.showroom-item.active')) {
+        showroomId = document.querySelector('.showroom-item.active').dataset.id;
       }
+      const postData = {
+        showroomId: document.querySelector('.showroom-item.active').dataset.id,
+        name,
+        phoneNumber: phone,
+        email,
+        visitDateStart: selectedSlot.startISO,
+        visitDateEnd: selectedSlot.endISO,
+        modelOfInterest: models.join(', '),
+        businessType: businessTypes.join(', '),
+        primaryPurpose: purposes.join(', '),
+        primaryMaterials: materials.join(', '),
+        expectedDailyOutput: output,
+        agreePolicy: agree ? 1 : 0,
+        origin: 'Shopify_US',
+      };
+
+      // send request
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+      // const customId = JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer.id || {};
+
+      boosterFetch(showRoomBookingApi, postData, { method: 'POST' })
+      .then((data) => {
+        if (data.code === 200) {
+          document.getElementById('successPopup').style.display = 'flex';
+          submitBtn.textContent = 'Submit Your Reserve Application';
+        } else {
+          alert(data.msg || 'Error: Unknown error');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        submitMsg.style.color = 'red';
+        submitMsg.textContent = 'Submit failed. Please try again later.';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Your Reserve Application';
+      });
     });
 
     document.getElementById('successOk').addEventListener('click', () => {

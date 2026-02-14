@@ -1,0 +1,780 @@
+{% comment %} 统一所有slide高度，以第一个slide为最高，采用JS动态设定高度。 {% endcomment %}
+<style>
+  .x-one-production-system-{{ section.id }}{
+    background: #000;
+    padding-top:{{ section.settings.padding_top }}px;
+    padding-bottom:{{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+  /* 外部容器：最大 1200px */
+  .x-one-production-system-{{ section.id }} .main-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .swiper-container-{{ section.id }} {
+    overflow: visible;
+    width: 100%;
+  }
+
+  /* --- 核心布局修改 --- */
+  .x-one-production-system-{{ section.id }} .swiper-slide {
+    width: 1200px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    /* 高度由JS统一动态设置 */
+    /* min-height: var(--xone-slide-max-height, auto); */
+    box-sizing: border-box;
+  }
+  @media screen and (max-width: 1600px){
+    .x-one-production-system-{{ section.id }} .swiper-slide {
+      width: 1000px !important;
+    }
+  }
+  @media screen and (max-width: 1400px){
+    .x-one-production-system-{{ section.id }} .swiper-slide {
+      width: 960px !important;
+    }
+  }
+  .x-one-production-system-{{ section.id }} .swiper-slide-active {
+    z-index: 10;
+  }
+
+  .x-one-production-system-{{ section.id }} .text-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    margin-bottom: 60px;
+    box-sizing: border-box;
+    opacity: 0;
+  }
+
+  .x-one-production-system-{{ section.id }} .slide-title {
+    color: #FF8F1C;
+    text-align: center;
+    font-size: 58px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 120%; /* 69.6px */
+    max-width: 855px;
+    margin: 0 auto;
+  }
+
+  .x-one-production-system-{{ section.id }} .slide-desc {
+    color: #898A8E;
+    text-align: center;
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 150%;
+  }
+
+  .x-one-production-system-{{ section.id }} .media-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #1a1a1a;
+    position: relative;
+  }
+  .x-one-production-system-{{ section.id }} .media-content.pc{
+    display: block;
+  }
+  .x-one-production-system-{{ section.id }} .media-content.mb{
+    display: none;
+  }
+  .x-one-production-system-{{ section.id }} .media-content {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .x-one-production-system-{{ section.id }} .custom-controls {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+    align-items: center;
+  }
+
+  .x-one-production-system-{{ section.id }} .nav-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.30);;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .x-one-production-system-{{ section.id }} .nav-btn:hover {
+    background: #555;
+  }
+
+  .x-one-production-system-{{ section.id }} .arrow {
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+  }
+
+  .x-one-production-system-{{ section.id }} .arrow-left {
+    transform: rotate(135deg);
+    margin-left: 2px;
+  }
+
+  .x-one-production-system-{{ section.id }} .arrow-right {
+    transform: rotate(-45deg);
+    margin-right: 2px;
+  }
+
+  .x-one-production-system-{{ section.id }} .nav-btn.next {
+    background: #fff;
+  }
+
+  .x-one-production-system-{{ section.id }} .nav-btn.next .arrow {
+    border-color: #000;
+  }
+
+  .x-one-production-system-{{ section.id }} .nav-btn.next:hover {
+    background: #e0e0e0;
+  }
+
+  .x-one-production-system-{{ section.id }} .progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    transform: rotate(-90deg);
+    pointer-events: none;
+  }
+
+  .x-one-production-system-{{ section.id }} .progress-ring__circle {
+    stroke: #FF8F1C;
+    stroke-width: 2;
+    fill: transparent;
+    r: 19;
+    cx: 20;
+    cy: 20;
+    stroke-dasharray: 144.5;
+    stroke-dashoffset: 144.5;
+    transition: stroke-dashoffset linear;
+  }
+  @media screen and (max-width: 768px) {
+    .x-one-production-system-{{ section.id }}{
+      padding-top:{{ section.settings.padding_top_mobile }}px;
+      padding-bottom:{{ section.settings.padding_bottom_mobile }}px;
+      overflow: hidden;
+    }
+    .swiper-container-{{ section.id }} {
+      overflow: hidden;
+      padding: 0 24px;
+    }
+    .x-one-production-system-{{ section.id }} .text-area {
+      align-items: start;
+      gap: 14px;
+      text-align: left;
+      padding: 0;
+      margin-bottom: 20px;
+    }
+    .x-one-production-system-{{ section.id }} .swiper-slide {
+      width: 100% !important;
+      opacity: 1;
+    }
+    .x-one-production-system-{{ section.id }} .slide-title {
+      font-size: 26px;
+      text-align: left;
+      max-width:100%;
+      margin: 0;
+    }
+    .x-one-production-system-{{ section.id }} .slide-desc {
+      font-size: 14px;
+      text-align: left;
+      max-width:100%;
+      min-height: 126px;
+    }
+    .x-one-production-system-{{ section.id }} .custom-controls {
+      gap: 15px;
+      margin-top: 24px;
+    }
+    .x-one-production-system-{{ section.id }} .media-container {
+      border-radius: 10px;
+    }
+    .x-one-production-system-{{ section.id }} .media-content.pc{
+      display: none;
+    }
+    .x-one-production-system-{{ section.id }} .media-content.mb{
+      display: block;
+    }
+  }
+</style>
+
+<div
+  id="{% if section.settings.nav_id != empty %}custom-nav-{{ section.settings.nav_id }}{% endif %}"
+  class="x-one-production-system-{{ section.id }}"
+>
+  <div class="main-wrapper">
+    <div class="swiper-container swiper-container-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'image' %}
+              {%- assign heading = block.settings.heading -%}
+              {%- assign subheading = block.settings.subheading -%}
+              {%- assign desktop_img = block.settings.image -%}
+              {%- assign mobile_img = block.settings.mobile_image | default: desktop_img -%}
+              <div class="swiper-slide" data-type="image" data-duration="3000">
+                <div class="text-area">
+                  <div class="slide-title">{{- heading -}}</div>
+                  <div class="slide-desc">
+                    {{- subheading -}}
+                  </div>
+                </div>
+                <!-- 媒体部分在下 (圆角) -->
+                <div class="media-container">
+                  <img
+                    data-sizes="80vw"
+                    data-srcset="
+                      {% if desktop_img.width >= 375 %}{{ desktop_img | image_url: width: 750 }} 375w,{% endif %}
+                      {% if desktop_img.width >= 750 %}{{ desktop_img | image_url: width: 1500 }} 750w,{% endif %}
+                      {% if desktop_img.width >= 1100 %}{{ desktop_img | image_url: width:2200 }} 1100w,{% endif %}
+                      {% if desktop_img.width >= 1500 %}{{ desktop_img | image_url: width: 3000 }} 1500w,{% endif %}
+                      {% if desktop_img.width >= 1780 %}{{ desktop_img | image_url: width: 3500 }} 1780w,{% endif %}
+                      {% if desktop_img.width >= 2000 %}{{ desktop_img | image_url: width: 4000 }} 2000w,{% endif %}
+                      {% if desktop_img.width >= 3000 %}{{ desktop_img | image_url: width: 3000 }} 3000w,{% endif %}
+                      {% if desktop_img.width >= 3840 %}{{ desktop_img | image_url: width: 3840 }} 3840w,{% endif %}
+                      {{ desktop_img | image_url }} {{ desktop_img.width }}w
+                    "
+                    data-src="{{ desktop_img | image_url: width: 1500 }}"
+                    style="max-width:100%;width:100%;aspect-ratio:{{ desktop_img.aspect_ratio }};"
+                    class="lazyload pc media-content"
+                    alt="{{ block.settings.heading | strip_html | truncate: 30 | default: 'Feature Image' }}"
+                  >
+                  <img
+                    data-sizes="100vw"
+                    data-srcset="
+                      {% if mobile_img.width >= 100 %}{{ mobile_img | image_url: width: 200 }} 375w,{% endif %}
+                      {% if mobile_img.width >= 200 %}{{ mobile_img | image_url: width: 400 }} 375w,{% endif %}
+                        {% if mobile_img.width >= 375 %}{{ mobile_img | image_url: width: 750 }} 375w,{% endif %}
+                        {% if mobile_img.width >= 750 %}{{ mobile_img | image_url: width: 1500 }} 750w,{% endif %}
+                        {% if mobile_img.width >= 1100 %}{{ mobile_img | image_url: width:2200 }} 1100w,{% endif %}
+                        {% if mobile_img.width >= 1500 %}{{ mobile_img | image_url: width: 3000 }} 1500w,{% endif %}
+                        {{ mobile_img | image_url }} {{ mobile_img.width }}w
+                    "
+                    data-src="{{ mobile_img | image_url: width: 400 }}"
+                    style="max-width:100%;width:100%;aspect-ratio:{{ mobile_img.aspect_ratio }};"
+                    class="lazyload mb media-content"
+                    alt="{{ block.settings.heading | strip_html | truncate: 30 | default: 'Feature Image' }}"
+                  >
+                </div>
+              </div>
+
+            {% when 'shopifyVideo' %}
+              {%- assign heading = block.settings.heading -%}
+              {%- assign subheading = block.settings.subheading -%}
+              {% assign video_pc = block.settings.video_pc %}
+              {% assign video_mb = block.settings.video_mb %}
+              {% assign video_poster_pc = block.settings.video_poster_pc | default: video_pc.preview_image %}
+              <div class="swiper-slide" data-type="video">
+                <div class="text-area">
+                  <div class="slide-title">{{- heading -}}</div>
+                  <div class="slide-desc">
+                    {{- subheading -}}
+                  </div>
+                </div>
+                <div class="media-container">
+                  {% comment %}
+                    <video class="media-content" muted playsinline style="background: #000;">
+                      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    </video>
+                  {% endcomment %}
+                  <video
+                    class="media-content"
+                    muted
+                    playsinline
+                    webkit-playsinline
+                    x5-playsinline
+                    x5-video-player-type="h5"
+                    x-webkit-airplay="allow"
+                    style="background: #000;aspect-ratio:{{ video_poster_pc.aspect_ratio }};"
+                    poster-pc="{{ video_poster_pc | image_url: width: 700 }}"
+                  >
+                    {% for source in video_pc.sources %}
+                      <source src="{{ source.url }}" type="{{source.mime_type }}" media="(min-width: 769px)">
+                    {% endfor %}
+                    {% for source in video_mb.sources %}
+                      <source src="{{ source.url }}" type="{{source.mime_type }}" media="(max-width: 769px)">
+                    {% endfor %}
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+          {% endcase %}
+        {% endfor %}
+        <!-- 省略注释示例slide，非实际渲染内容 -->
+      </div>
+    </div>
+
+    <!-- 底部导航 -->
+    <div class="custom-controls">
+      <div class="nav-btn prev" id="btnPrev">
+        <i class="arrow arrow-left"></i>
+      </div>
+      <div class="nav-btn next" id="btnNext">
+        <!-- SVG 进度条 -->
+        <svg class="progress-ring">
+          <circle class="progress-ring__circle" id="progressCircle" />
+        </svg>
+        <i class="arrow arrow-right"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% comment %}
+  增加功能: 当点击到最后一个时可以继续点击，并回到第一个。保留注释。
+  如下修改：
+  - next按钮始终可点击（去除尾部禁用逻辑）
+  - 点击next且到最后一张时，自动切回第一张（slideTo(0)）
+  - 更新进度和导航逻辑以适配循环行为
+  - 保持prev按钮在第一个时禁用
+{% endcomment %}
+<script>
+  // 页面加载后执行
+  window.addEventListener('DOMContentLoaded', () => {
+    // --- 1. 初始化变量 ---
+    const progressCircle = document.querySelector('.x-one-production-system-{{ section.id }} #progressCircle');
+    const btnPrev = document.querySelector('.x-one-production-system-{{ section.id }} #btnPrev');
+    const btnNext = document.querySelector('.x-one-production-system-{{ section.id }} #btnNext');
+    const circumference = 2 * Math.PI * 23;
+    let timer = null;
+    let currentVideo = null;
+
+    // 新增：统一所有slide高度，以第一个slide为最高
+    function setUnifiedSlideHeight() {
+      // 收集所有slide
+      const slides = document.querySelectorAll('.x-one-production-system-{{ section.id }} .swiper-slide');
+      // 遍历找到最大高度
+      let maxHeight = 0;
+      slides.forEach((slide) => {
+        slide.style.minHeight = 'unset'; // reset
+        slide.style.height = 'auto'; // reset for max-height calc
+        const rect = slide.getBoundingClientRect();
+        const actualHeight = slide.offsetHeight || rect.bottom - rect.top;
+        if (actualHeight > maxHeight) maxHeight = actualHeight;
+      });
+      // 设置所有slide高度相同
+      slides.forEach((slide) => {
+        slide.style.minHeight = maxHeight + 'px';
+      });
+    }
+
+    if (typeof window.requestAnimationFrame === 'function') {
+      requestAnimationFrame(setUnifiedSlideHeight);
+    } else {
+      setTimeout(setUnifiedSlideHeight, 100);
+    }
+    // 监听窗口尺寸，变更或字体加载后重新匹配高度
+    window.addEventListener('resize', setUnifiedSlideHeight);
+    setTimeout(setUnifiedSlideHeight, 500); // 避免字体/图片加载滞后
+
+    if (progressCircle) {
+      progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+      progressCircle.style.strokeDashoffset = circumference;
+    }
+
+    let lastDirection = 'right';
+
+    const setSlideTitleAnimated = (swiper, direction) => {
+      const activeSlide = swiper.slides[swiper.activeIndex];
+      if (activeSlide) {
+        const title = activeSlide.querySelector('.x-one-production-system-{{ section.id }} .text-area');
+        if (title) {
+          title.classList.remove('fadeInRight', 'fadeInLeft', 'animated');
+          const anim = direction === 'left' ? 'fadeInLeft' : 'fadeInRight';
+          title.classList.add('animated', anim);
+          title.style.opacity = '1';
+        }
+      }
+    };
+
+    const mySwiper = new Swiper('.x-one-production-system-{{ section.id }} .swiper-container', {
+      speed: 500,
+      slidesPerView: 'auto',
+      centeredSlides: true,
+      spaceBetween: 20,
+      allowTouchMove: false,
+      breakpoints: {
+        768: {
+          slidesPerView: 1,
+          centeredSlides: false,
+          spaceBetween: 10,
+          allowTouchMove: true,
+        },
+      },
+
+      on: {
+        init() {
+          setTimeout(() => {
+            runSlideLogic(this.slides[this.activeIndex]);
+            setSlideTitleAnimated(this, 'right');
+            updateNavBtnStatus();
+            setUnifiedSlideHeight();
+          }, 100);
+        },
+        slideChangeTransitionStart() {
+          resetState();
+        },
+        slideChangeTransitionEnd() {
+          setSlideTitleAnimated(this, lastDirection);
+          runSlideLogic(this.slides[this.activeIndex]);
+          updateNavBtnStatus();
+          setUnifiedSlideHeight();
+        },
+        touchStart(swiper, event) {
+          swiper._touchStartIndex = swiper.activeIndex;
+          swiper._touchStartX = event.touches?.[0]?.clientX;
+        },
+        touchEnd(swiper, event) {
+          if (window.innerWidth > 768) return;
+          const prevIndex = swiper._touchStartIndex;
+          const nowIndex = swiper.activeIndex;
+          let direction = 'right';
+          if (nowIndex < prevIndex) direction = 'left';
+          if (nowIndex > prevIndex) direction = 'right';
+          if (nowIndex !== prevIndex) {
+            lastDirection = direction;
+            setTimeout(() => setSlideTitleAnimated(swiper, direction), 50);
+          }
+        },
+      },
+    });
+    window.mySwiper = mySwiper;
+
+    function updateNavBtnStatus() {
+      if (!btnPrev || !btnNext) return;
+      if (mySwiper.isBeginning || mySwiper.activeIndex === 0) {
+        btnPrev.classList.add('disabled');
+        btnPrev.style.pointerEvents = 'none';
+        btnPrev.style.opacity = '0.5';
+      } else {
+        btnPrev.classList.remove('disabled');
+        btnPrev.style.pointerEvents = '';
+        btnPrev.style.opacity = '';
+      }
+      btnNext.classList.remove('disabled');
+      btnNext.style.pointerEvents = '';
+      btnNext.style.opacity = '';
+    }
+
+    const applyTitleAnimOnBtn = (direction) => setSlideTitleAnimated(mySwiper, direction);
+
+    const updateMobileSlideWidth = () => {
+      const isMobile = window.innerWidth <= 768;
+      const slides = document.querySelectorAll('.x-one-production-system-{{ section.id }} .swiper-slide');
+      slides.forEach((slide) => {
+        slide.style.width = isMobile ? `${window.innerWidth}px` : '1200px';
+      });
+      if (window.mySwiper && typeof window.mySwiper.update === 'function') {
+        window.mySwiper.update();
+      }
+      setTimeout(updateNavBtnStatus, 100);
+      setTimeout(setUnifiedSlideHeight, 110);
+    };
+
+    window.addEventListener('resize', updateMobileSlideWidth);
+    updateMobileSlideWidth();
+
+    const runSlideLogic = (slide) => {
+      if (!slide) return;
+      const type = slide.getAttribute('data-type');
+
+      if (type === 'video') {
+        const video = slide.querySelector('video');
+        const sources = video.querySelectorAll('source');
+        if (sources.length > 0) {
+          sources.forEach((source) => {
+            if (source.dataset && source.dataset.src) {
+              source.src = source.dataset.src;
+            }
+          });
+        }
+        if (video) {
+          currentVideo = video;
+          video.currentTime = 0;
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise
+              .then((_) => {
+                let duration = video.duration;
+                if (!duration || isNaN(duration) || duration === Infinity) {
+                  duration = 10;
+                }
+                startProgress(duration * 1000);
+              })
+              .catch((error) => {
+                console.log('Autoplay blocked:', error);
+                startProgress(6000);
+              });
+          }
+          video.onended = () => {
+            if (mySwiper.isEnd || mySwiper.activeIndex === mySwiper.slides.length - 1) {
+              lastDirection = 'right';
+              mySwiper.slideTo(0);
+            } else {
+              mySwiper.slideNext();
+            }
+          };
+        }
+      } else {
+        const duration = parseInt(slide.getAttribute('data-duration')) || 3000;
+        startProgress(duration);
+        timer = setTimeout(() => {
+          if (mySwiper.isEnd || mySwiper.activeIndex === mySwiper.slides.length - 1) {
+            lastDirection = 'right';
+            mySwiper.slideTo(0);
+          } else if (typeof mySwiper.slideNext === 'function') {
+            lastDirection = 'right';
+            mySwiper.slideNext();
+          }
+        }, duration);
+      }
+    };
+
+    const startProgress = (durationMs) => {
+      if (!progressCircle) return;
+      progressCircle.style.transition = 'none';
+      progressCircle.style.strokeDashoffset = circumference;
+      progressCircle.getBoundingClientRect();
+      progressCircle.style.transition = `stroke-dashoffset ${durationMs}ms linear`;
+      progressCircle.style.strokeDashoffset = '0';
+    };
+
+    const resetState = () => {
+      if (timer) clearTimeout(timer);
+      if (currentVideo) {
+        currentVideo.pause();
+        currentVideo.onended = null;
+        currentVideo = null;
+      }
+      if (progressCircle) {
+        progressCircle.style.transition = 'none';
+        progressCircle.style.strokeDashoffset = circumference;
+      }
+      const titles = document.querySelectorAll('.x-one-production-system-{{ section.id }} .text-area');
+      titles.forEach((t) => {
+        t.classList.remove('animated', 'fadeInRight', 'fadeInLeft');
+        t.style.opacity = '0';
+      });
+    };
+
+    if (btnPrev) {
+      btnPrev.addEventListener('click', () => {
+        if (mySwiper.isBeginning || mySwiper.activeIndex === 0) return;
+        resetState();
+        lastDirection = 'left';
+        mySwiper.slidePrev();
+        setTimeout(() => {
+          applyTitleAnimOnBtn('left');
+        }, 50);
+        setTimeout(setUnifiedSlideHeight, 120);
+      });
+    }
+    if (btnNext) {
+      btnNext.addEventListener('click', () => {
+        resetState();
+        lastDirection = 'right';
+        if (mySwiper.isEnd || mySwiper.activeIndex === mySwiper.slides.length - 1) {
+          mySwiper.slideTo(0);
+        } else {
+          mySwiper.slideNext();
+        }
+        setTimeout(() => {
+          applyTitleAnimOnBtn('right');
+        }, 50);
+        setTimeout(setUnifiedSlideHeight, 120);
+      });
+    }
+
+    mySwiper.on('transitionEnd', () => {
+      setSlideTitleAnimated(mySwiper, lastDirection);
+      updateNavBtnStatus();
+      setUnifiedSlideHeight();
+    });
+
+    setTimeout(() => {
+      setSlideTitleAnimated(mySwiper, 'right');
+      updateNavBtnStatus();
+      setUnifiedSlideHeight();
+    }, 100);
+
+    // 图片/字体动态变动后, 重新同步高度
+    const imgs = document.querySelectorAll('.x-one-production-system-{{ section.id }} img');
+    imgs.forEach((img) => {
+      img.addEventListener('load', setUnifiedSlideHeight);
+    });
+    if ('fonts' in document) {
+      document.fonts.ready.finally(setUnifiedSlideHeight);
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "X one production system",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "default": "production-system",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 80
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "图片",
+      "settings": [
+        {
+          "id": "event_tracking",
+          "type": "text",
+          "label": "埋点触发事件（触发时机：点击）",
+          "info": "例如：Click_ShopNow_SF_oven"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "图片（PC端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "图片（移动端）"
+        },
+        {
+          "type": "html",
+          "id": "heading",
+          "label": "主标题"
+        },
+        {
+          "type": "html",
+          "id": "subheading",
+          "label": "内容"
+        },
+
+        {
+          "id": "link",
+          "type": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "shopifyVideo",
+      "name": "视频(shopify)",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "video_poster_pc",
+          "label": "自定义视频封面(pc端)"
+        },
+        {
+          "type": "image_picker",
+          "id": "video_poster_mb",
+          "label": "自定义视频封面(移动端)"
+        },
+        {
+          "type": "video",
+          "id": "video_pc",
+          "label": "选择视频(pc端)"
+        },
+        {
+          "type": "video",
+          "id": "video_mb",
+          "label": "选择视频(移动端)"
+        },
+        {
+          "type": "html",
+          "id": "heading",
+          "label": "主标题"
+        },
+        {
+          "type": "html",
+          "id": "subheading",
+          "label": "内容"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "X one production system"
+    }
+  ]
+}
+{% endschema %}

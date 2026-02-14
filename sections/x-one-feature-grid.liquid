@@ -1,0 +1,611 @@
+<style>
+  .x-one-feature-grid-{{ section.id }}{
+      padding-top:{{ section.settings.padding_top }}px;
+      padding-bottom:{{ section.settings.padding_bottom }}px;
+      background: #111;
+  }
+  /* --- 核心容器 --- */
+  .x-one-feature-grid-{{ section.id }} .grid-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    /* padding: 20px; */
+    /* PC端 Grid 布局核心: 10列网格 */
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    /* 定义行高: 第一行高些，下面两行稍矮 */
+    grid-template-rows: 532px 258px 258px;
+    gap: 16px;
+    opacity: 0;
+    /* 初始隐藏，交给GSAP控制 */
+  }
+
+  /* --- 卡片通用样式 --- */
+  .x-one-feature-grid-{{ section.id }} .card {
+    background: linear-gradient(241deg, #1F2127 20%, #212121 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+
+  /* 背景图模拟 (实际使用时替换为你的 <img>) */
+  .x-one-feature-grid-{{ section.id }} .card-bg.pc{
+    display:block;
+  }
+  .x-one-feature-grid-{{ section.id }} .card-bg.mb{
+    display:none;
+  }
+  .x-one-feature-grid-{{ section.id }} .card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 1;
+    transition: transform 0.5s ease;
+  }
+
+  .x-one-feature-grid-{{ section.id }} .card:hover .card-bg {
+    transform: scale(1.05);
+    /* opacity: 0.8; */
+  }
+
+  /* 内容层 */
+  .x-one-feature-grid-{{ section.id }} .card-content {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6)); */
+  }
+
+  .x-one-feature-grid-{{ section.id }} .card-title {
+    color: #FFF;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 120%; /* 24px */
+    margin-bottom:10px;
+  }
+
+  .x-one-feature-grid-{{ section.id }} .card-desc {
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 120%; /* 19.2px */
+  }
+
+  .x-one-feature-grid-{{ section.id }} .icon-arrow {
+    align-self: flex-start;
+    width: 24px;
+    height: 23px;
+    margin-top: auto;
+    /* 推到底部 */
+  }
+  .x-one-feature-grid-{{ section.id }} .card:hover .icon-arrow svg path {
+    stroke: #ff8f1c;
+    /* opacity: 0.8; */
+  }
+  /* --- PC端 Grid 区域分配 (关键) --- */
+
+  /* 第一行：两个大图，各占5列 */
+  .x-one-feature-grid-{{ section.id }} .item-1 {
+    grid-column: span 5;
+  }
+
+  /* UV and Laser */
+  .x-one-feature-grid-{{ section.id }} .item-2 {
+    grid-column: span 5;
+  }
+
+  /* Print head */
+
+  /* 第二行左侧：长条图，占4列，跨2行 */
+  .x-one-feature-grid-{{ section.id }} .item-3 {
+    grid-column: span 4;
+    grid-row: span 2;
+  }
+
+  /* Stickers (Skateboard) */
+
+  /* 第二行右侧：两个中图，各占3列 */
+  .x-one-feature-grid-{{ section.id }} .item-4 {
+    grid-column: span 3;
+  }
+
+  /* Materials */
+  .x-one-feature-grid-{{ section.id }} .item-5 {
+    grid-column: span 3;
+  }
+
+  /* Vision */
+
+  /* 第三行右侧：三个小图，各占2列 */
+  .x-one-feature-grid-{{ section.id }} .item-6 {
+    grid-column: span 2;
+  }
+
+  /* Predictable Time */
+  .x-one-feature-grid-{{ section.id }} .item-7 {
+    grid-column: span 2;
+  }
+
+  /* Auto maintenance */
+  .x-one-feature-grid-{{ section.id }} .item-8 {
+    grid-column: span 2;
+  }
+  @media screen and (max-width: 768px) {
+    .x-one-feature-grid-{{ section.id }}{
+      padding-top:{{ section.settings.padding_top_mobile }}px;
+      padding-bottom:{{ section.settings.padding_bottom_mobile }}px;
+      background: #111;
+  }
+  .x-one-feature-grid-{{ section.id }} .grid-container {
+      display: flex;
+      /* 改为 Flex */
+      overflow-x: auto;
+      /* 允许横向滚动 */
+      scroll-snap-type: x mandatory;
+      /* 滚动捕捉 */
+      gap: 10px;
+      padding: 0 24px;
+
+      /* 重置高度，由内容撑开 */
+      grid-template-rows: unset;
+      height: auto;
+
+      /* 隐藏滚动条 */
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+    }
+
+    .x-one-feature-grid-{{ section.id }} .grid-container::-webkit-scrollbar {
+      display: none;
+      /* Chrome, Safari, Opera */
+    }
+    .x-one-feature-grid-{{ section.id }} .card-bg.pc{
+      display:none;
+    }
+    .x-one-feature-grid-{{ section.id }} .card-bg.mb{
+      display:block;
+    }
+    .x-one-feature-grid-{{ section.id }} .card {
+      /* 移动端卡片大小设置 */
+      flex: 0 0 85vw;
+      /* 宽度占屏幕85%，露出一点下一张 */
+      height: 380px;
+      /* 固定高度 */
+      scroll-snap-align: center;
+      /* 居中捕捉 */
+      border-radius: 10px;
+    }
+    /* 内容层 */
+    .x-one-feature-grid-{{ section.id }} .card-content {
+      position: relative;
+      z-index: 1;
+      padding: 20px 20px 0 24px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      /* background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6)); */
+    }
+
+    .x-one-feature-grid-{{ section.id }} .card-title {
+      color: #FFF;
+      font-size: 21px;
+      font-weight: 700;
+      line-height: 130%; /* 24px */
+      margin-bottom:10px;
+      max-width:218px;
+    }
+
+    .x-one-feature-grid-{{ section.id }} .card-desc {
+      color: #FFF;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 130%; /* 19.2px */
+      max-width:218px;
+    }
+
+    .x-one-feature-grid-{{ section.id }} .icon-arrow {
+      align-self: flex-start;
+      width: 24px;
+      height: 23px;
+      position: absolute;
+      top: 24px;
+      right: 20px;
+
+      margin-top: auto;
+      /* 推到底部 */
+    }
+
+    /* 重置Grid特有的属性，防止干扰 */
+    .x-one-feature-grid-{{ section.id }} .item-1,
+    .x-one-feature-grid-{{ section.id }} .item-2,
+    .x-one-feature-grid-{{ section.id }} .item-3,
+    .x-one-feature-grid-{{ section.id }} .item-4,
+    .x-one-feature-grid-{{ section.id }} .item-5,
+    .x-one-feature-grid-{{ section.id }} .item-6,
+    .x-one-feature-grid-{{ section.id }} .item-7,
+    .x-one-feature-grid-{{ section.id }} .item-8 {
+      grid-column: auto;
+      grid-row: auto;
+    }
+  }
+</style>
+
+<div
+  id="{% if section.settings.nav_id != empty %}custom-nav-{{ section.settings.nav_id }}{% endif %}"
+  class="x-one-feature-grid-{{ section.id }}"
+>
+  <!-- 核心布局区域 -->
+  <div class="grid-container">
+    {% for block in section.blocks %}
+      {%- assign block_index = forloop.index %}
+      {%- assign grid_class = 'item-' | append: block_index %}
+      {% case block.type %}
+        {% when 'image' %}
+          {%- assign desktop_img = block.settings.image -%}
+          {%- assign section_id = block.settings.section_id -%}
+          {%- assign mobile_img = block.settings.mobile_image | default: desktop_img -%}
+          <a
+            class="card {{ grid_class }}"
+            {% if block.settings.event_tracking != blank %}
+              data-event-tracking="{{ block.settings.event_tracking }}"
+            {% endif %}
+            {% if section_id != empty %}
+              href="#custom-nav-{{ section_id  }}"
+            {% else %}
+              {% comment %} a 标签禁止被点击 {% endcomment %}
+              href="javascript:void(0);" style="cursor: default;"
+            {% endif %}
+          >
+            <img
+              data-sizes="50vw"
+              data-srcset="
+                {% if desktop_img.width >= 375 %}{{ desktop_img | image_url: width: 750 }} 375w,{% endif %}
+                    {% if desktop_img.width >= 750 %}{{ desktop_img | image_url: width: 1500 }} 750w,{% endif %}
+                    {% if desktop_img.width >= 1100 %}{{ desktop_img | image_url: width:2200 }} 1100w,{% endif %}
+                    {% if desktop_img.width >= 1500 %}{{ desktop_img | image_url: width: 3000 }} 1500w,{% endif %}
+                    {% if desktop_img.width >= 1780 %}{{ desktop_img | image_url: width: 3500 }} 1780w,{% endif %}
+                    {% if desktop_img.width >= 2000 %}{{ desktop_img | image_url: width: 4000 }} 2000w,{% endif %}
+                    {% if desktop_img.width >= 3000 %}{{ desktop_img | image_url: width: 3000 }} 3000w,{% endif %}
+                    {% if desktop_img.width >= 3840 %}{{ desktop_img | image_url: width: 3840 }} 3840w,{% endif %}
+
+                {{ desktop_img | image_url }} {{ desktop_img.width }}w
+              "
+              data-src="{{ desktop_img | image_url: width: 1500 }}"
+              style="max-width:100%;width:100%;aspect-ratio:{{ desktop_img.aspect_ratio }};"
+              class="lazyload pc card-bg"
+              alt="{{ block.settings.heading | strip_html | truncate: 30 | default: 'Feature Image' }}"
+            >
+            <img
+              data-sizes="50vw"
+              data-srcset="
+                {% if mobile_img.width >= 100 %}{{ mobile_img | image_url: width: 200 }} 375w,{% endif %}
+                {% if mobile_img.width >= 200 %}{{ mobile_img | image_url: width: 400 }} 375w,{% endif %}
+                  {% if mobile_img.width >= 375 %}{{ mobile_img | image_url: width: 750 }} 375w,{% endif %}
+                  {% if mobile_img.width >= 750 %}{{ mobile_img | image_url: width: 1500 }} 750w,{% endif %}
+                  {% if mobile_img.width >= 1100 %}{{ mobile_img | image_url: width:2200 }} 1100w,{% endif %}
+                  {% if mobile_img.width >= 1500 %}{{ mobile_img | image_url: width: 3000 }} 1500w,{% endif %}
+
+
+                  {{ mobile_img | image_url }} {{ mobile_img.width }}w
+              "
+              data-src="{{ mobile_img | image_url: width: 400 }}"
+              style="max-width:100%;width:100%;aspect-ratio:{{ mobile_img.aspect_ratio }};"
+              class="lazyload mb card-bg"
+              alt="{{ block.settings.heading | strip_html | truncate: 30 | default: 'Feature Image' }}"
+            >
+
+            <div class="card-content">
+              <div>
+                {% if block.settings.heading != empty %}
+                  <div class="card-title">{{ block.settings.heading }}</div>
+                {% endif %}
+                {% if block.settings.content != empty %}
+                  <div class="card-desc">{{ block.settings.content }}</div>
+                {% endif %}
+              </div>
+              {% if section_id != empty %}
+                <div class="icon-arrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 23" fill="none">
+                    <path d="M22.8835 11.5C22.8835 17.5721 17.9283 22.5 11.8089 22.5C5.68957 22.5 0.734375 17.5721 0.734375 11.5C0.734375 5.42791 5.68957 0.5 11.8089 0.5C17.9283 0.5 22.8835 5.42791 22.8835 11.5Z" stroke="white"/>
+                    <path d="M8.28516 9H14.3241V15" stroke="white"/>
+                    <path d="M8.28516 15L14.3241 9" stroke="white"/>
+                  </svg>
+                </div>
+              {% endif %}
+            </div>
+          </a>
+        {% when 'shopifyVideo' %}
+          {% assign video_pc = block.settings.video_pc %}
+          {% assign video_mb = block.settings.video_mb %}
+          <div class="card {{ grid_class }}">
+            <div style="position:relative; width:100%; height:100%;">
+              <video
+                class="lazy"
+                muted
+                autoplay
+                loop
+                playsinline
+                webkit-playsinline
+                x5-playsinline
+                x5-video-player-type="h5"
+                x-webkit-airplay="allow"
+                preload="auto"
+                style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;"
+              >
+                {% for source in video_pc.sources %}
+                  <source data-src="{{ source.url }}" type="{{source.mime_type }}" media="(min-width: 768px)">
+                {% endfor %}
+                {% for source in video_mb.sources %}
+                  <source data-src="{{ source.url }}" type="{{source.mime_type }}" media="(max-width: 769px)">
+                {% endfor %}
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="card-content" style="position:relative;z-index:2;">
+              <div>
+                {% if block.settings.product_image %}
+                  <img
+                    src="{{ block.settings.product_image | image_url: width: 80 }}"
+                    alt=""
+                    style="width:80px; margin-bottom:8px;"
+                    loading="lazy"
+                  >
+                {% endif %}
+                {% if block.settings.heading != blank %}
+                  <h3 class="card-title">{{ block.settings.heading }}</h3>
+                {% endif %}
+                {% if block.settings.content != blank %}
+                  <p class="card-desc">{{ block.settings.content }}</p>
+                {% endif %}
+              </div>
+              <div class="icon-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 23" fill="none">
+                  <path d="M22.8835 11.5C22.8835 17.5721 17.9283 22.5 11.8089 22.5C5.68957 22.5 0.734375 17.5721 0.734375 11.5C0.734375 5.42791 5.68957 0.5 11.8089 0.5C17.9283 0.5 22.8835 5.42791 22.8835 11.5Z" stroke="white"/>
+                  <path d="M8.28516 9H14.3241V15" stroke="white"/>
+                  <path d="M8.28516 15L14.3241 9" stroke="white"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        {% else %}
+          <div class="card {{ grid_class }}">
+            <div class="card-content">
+              <div>
+                <h3 class="card-title">{{ block.settings.heading }}</h3>
+                <p class="card-desc">{{ block.settings.content }}</p>
+              </div>
+              <div class="icon-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 23" fill="none">
+                  <path d="M22.8835 11.5C22.8835 17.5721 17.9283 22.5 11.8089 22.5C5.68957 22.5 0.734375 17.5721 0.734375 11.5C0.734375 5.42791 5.68957 0.5 11.8089 0.5C17.9283 0.5 22.8835 5.42791 22.8835 11.5Z" stroke="white"/>
+                  <path d="M8.28516 9H14.3241V15" stroke="white"/>
+                  <path d="M8.28516 15L14.3241 9" stroke="white"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+      {% endcase %}
+    {% endfor %}
+  </div>
+</div>
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    // 等待 GSAP 插件注册
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 获取元素
+    const container = document.querySelector('.x-one-feature-grid-{{ section.id }} .grid-container');
+    const cards = document.querySelectorAll('.x-one-feature-grid-{{ section.id }} .card');
+
+    // 优化1：将 will-change 设置在卡片动画开始之前，提升渲染性能，减少结尾卡顿
+    cards.forEach((card) => {
+      card.style.willChange = 'opacity, transform';
+    });
+
+    // 让容器先变为可见（防止闪烁）
+    gsap.set(container, { autoAlpha: 1 });
+
+    // batch 处理动画，优化 ease，设置更平滑的缓动曲线，缩短动画 duration
+    ScrollTrigger.batch(cards, {
+      onEnter: (batch) => {
+        gsap.fromTo(
+          batch,
+          {
+            opacity: 0,
+            scale: 1,
+            rotate: 0,
+            transformOrigin: '50% 50%',
+            x: 0,
+            y: 40,
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            rotate: 0,
+            transformOrigin: '50% 50%',
+            x: 0,
+            y: 0,
+            stagger: 0.07, // 更短的 间隔
+            duration: 0.55, // 更短的时长，减少卡顿
+            ease: 'power1.out', // 更线性柔和的缓动，收尾不卡顿
+            overwrite: 'auto',
+            onComplete: () => {
+              // 动画后移除 will-change，避免GPU占用过高
+              batch.forEach((card) => {
+                card.style.willChange = '';
+              });
+            },
+          }
+        );
+      },
+      onLeaveBack: (batch) => {
+        gsap.to(batch, {
+          opacity: 0,
+          y: 40,
+          overwrite: 'auto',
+          duration: 0.4,
+          ease: 'power1.in',
+        });
+      },
+      start: 'top 85%',
+      markers: false,
+    });
+  });
+</script>
+{% schema %}
+{
+  "name": "X one feature grid",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "default": "feature-grid",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 150
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 150
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "图片",
+      "settings": [
+        {
+          "id": "event_tracking",
+          "type": "text",
+          "label": "埋点触发事件（触发时机：点击）",
+          "info": "例如：Click_ShopNow_SF_oven"
+        },
+        {
+          "id": "section_id",
+          "type": "text",
+          "label": "锚点ID"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "图片（PC端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "图片（移动端）"
+        },
+        {
+          "type": "html",
+          "id": "heading",
+          "label": "主标题"
+        },
+        {
+          "type": "html",
+          "id": "content",
+          "label": "内容"
+        }
+      ]
+    },
+    {
+      "type": "shopifyVideo",
+      "name": "视频(shopify)",
+      "settings": [
+        {
+          "id": "section_id",
+          "type": "text",
+          "label": "锚点ID"
+        },
+        {
+          "type": "image_picker",
+          "id": "video_poster_pc",
+          "label": "自定义视频封面(pc端)"
+        },
+        {
+          "type": "image_picker",
+          "id": "video_poster_mb",
+          "label": "自定义视频封面(移动端)"
+        },
+        {
+          "type": "video",
+          "id": "video_pc",
+          "label": "选择视频(pc端)"
+        },
+        {
+          "type": "video",
+          "id": "video_mb",
+          "label": "选择视频(移动端)"
+        }
+      ]
+    }
+  ],
+
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "X one feature grid"
+    }
+  ]
+}
+{% endschema %}

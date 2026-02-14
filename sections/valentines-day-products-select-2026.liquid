@@ -462,6 +462,9 @@
     gap: 12px;
     margin-bottom: 20px;
   }
+  .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-price.mb{
+    display:none;
+  }
   .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-sale-price {
     color: #E8638C;
     font-size: 26px;
@@ -819,7 +822,11 @@
     }
     .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-main-top {
       display: flex;
-      align-items: center;
+      {% if section.blocks.size > 1 %}
+      align-items: start;
+      {% else %}
+        align-items: center;
+      {% endif %}
       gap: 8px;
       padding-left: {{ section.settings.content_padding_left_and_right_mobile }}px;
       padding-right: {{ section.settings.content_padding_left_and_right_mobile }}px;
@@ -834,6 +841,9 @@
       background-color: rgba(249, 249, 249);
     }
     .valentines-day-product-tab-product-main-top-content {
+      flex: 1 1 auto;
+        min-width: 0;
+        max-width: 100%;
     }
     .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-name {
       font-size: 16px;
@@ -876,6 +886,14 @@
     .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-price {
       gap: 10px;
       margin-bottom: 12px;
+    }
+    .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-price.noshow{
+      display: none;
+    }
+    .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-price.mb {
+      display: flex;
+      margin-top: 8px;
+      margin-bottom: 0;
     }
     .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-sale-price {
       font-size: 20px;
@@ -1215,7 +1233,7 @@
         {% assign main_banner_image_mb = section.settings.main_banner_image_mb %}
         {% if main_banner_image_pc and main_banner_image_mb %}
           <div
-            style="aspect-ratio: {{ main_banner_image_pc.aspect_ratio }}"
+           
             class="valentines-day-products-main-banner-box"
           >
             {% if main_banner_image_pc %}
@@ -1359,8 +1377,8 @@
               assign features = block.settings.features
               assign desc = block.settings.desc
 
-              assign product_price = variant.metafields.custom.activity_sale_price.value | default: variant.price
-              assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: variant.compare_at_price
+              assign product_price = variant.metafields.custom.activity_sale_price.value | default: current_product.metafields.custom.activity_sale_price.value | default: variant.price
+              assign product_origin_price = variant.metafields.custom.activity_original_price.value | default: current_product.metafields.custom.activity_original_price.value | default: variant.compare_at_price
               assign product_diff_price = product_origin_price | minus: product_price
               assign product_tagline = block.settings.tagline
               assign product_feature_tag = section.settings.product_feature_tag
@@ -1696,7 +1714,7 @@
                       <div class="valentines-day-product-tab-product-label-discount-text">
                         <span
                           class="valentines-day-product-tab-product-label-discount-text-unit"
-                          >Save</span
+                          >{{- 'general.cart_drawer.save' | t -}}</span
                         >
                         <span
                           class="valentines-day-product-tab-product-label-discount-text-value"
@@ -1863,6 +1881,23 @@
                         {% if features != empty %}
                           <div class="valentines-day-product-tab-product-features">{{- features -}}</div>
                         {% endif %}
+                        {% if section.blocks.size == 1 %}
+                        <div class="valentines-day-product-tab-product-price mb">
+                          {% if product_price != blank and product_price > 0 %}
+                            <div class="valentines-day-product-tab-product-sale-price">
+                              {{ product_price | money_without_trailing_zeros }}
+                            </div>
+                          {% endif %}
+                          {% if product_origin_price != blank
+                            and product_origin_price > 0
+                            and product_origin_price > product_price
+                          %}
+                            <div class="valentines-day-product-tab-product-original-price">
+                              {{ product_origin_price | money_without_trailing_zeros }}
+                            </div>
+                          {% endif %}
+                        </div>
+                      {% endif %}
                       </div>
                     </div>
                     {% if section.blocks.size > 1 %}
@@ -2107,7 +2142,7 @@
                           </div>
                         {%- endif -%}
                       {%- endif -%}
-                      <div class="valentines-day-product-tab-product-price">
+                      <div class="valentines-day-product-tab-product-price {% if section.blocks.size == 1 %} noshow {% endif %}">
                         {% if product_price != blank and product_price > 0 %}
                           <div class="valentines-day-product-tab-product-sale-price">
                             {{ product_price | money_without_trailing_zeros }}
@@ -2160,10 +2195,10 @@
                                   {{ section.settings.buy_now_button_text }}
                                 {%- else -%}
                                   {%- if product_diff_price > 0 -%}
-                                    Save
+                                    {{- 'general.cart_drawer.save' | t -}}
                                     {{ product_diff_price | money_without_trailing_zeros -}}
                                   {%- else -%}
-                                    Buy Now
+                                    {{ 'products.product.buy_now' | t }}
                                   {%- endif -%}
                                 {%- endif -%}
                               {%- else -%}

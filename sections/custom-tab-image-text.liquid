@@ -1,0 +1,1944 @@
+{{ 'k13-lite-index.css' | asset_url | stylesheet_tag }}
+
+<style>
+  :root {
+    /* Font sizes */
+    --text-h0-n: 56px;
+    --text-h1-n: 40px;
+    --text-h2-n: 30px;
+    --text-h3-n: 26px;
+    --text-h4-n: 24px;
+    --text-h5-n: 20px;
+    --text-h6-n: 16px;
+    --text-xs-n: 12px;
+    --text-sm-n: 14px;
+    --text-base-n: 18px;
+    --text-lg-n: 19px;
+  }
+
+  .text-xxs { font-size: 10px; line-height: 1.3; }
+  .text-xs { font-size: var(--text-xs-n); line-height: 1.3; }
+  .text-sm { font-size: var(--text-sm-n); line-height: 1.3; }
+  .text-base { font-size: var(--text-base-n); line-height: 1.3; }
+  .text-md { font-size: var(--text-md-n); line-height: 1.2; }
+  .text-lg { font-size: var(--text-lg-n); line-height: 1.2; }
+
+  /* 重置样式 start */
+  .product-detailed-specifications-{{ section.id }} .h0 { font-size: var(--text-h0-n); line-height: 1; }
+  .product-detailed-specifications-{{ section.id }} h1,
+  .product-detailed-specifications-{{ section.id }} .h1,
+  .product-detailed-specifications-{{ section.id }} .prose h1:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h1-n); line-height: 1.1;
+  }
+  .product-detailed-specifications-{{ section.id }} h2,
+  .product-detailed-specifications-{{ section.id }} .h2,
+  .product-detailed-specifications-{{ section.id }} .prose h2:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h2-n); line-height: 1.1;
+  }
+  .product-detailed-specifications-{{ section.id }} h3,
+  .product-detailed-specifications-{{ section.id }} .h3,
+  .product-detailed-specifications-{{ section.id }} .prose h3:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h3-n); line-height: 1.2;
+  }
+  .product-detailed-specifications-{{ section.id }} h4,
+  .product-detailed-specifications-{{ section.id }} .h4,
+  .product-detailed-specifications-{{ section.id }} .prose h4:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h4-n); line-height: 1.3;
+  }
+  .product-detailed-specifications-{{ section.id }} h5,
+  .product-detailed-specifications-{{ section.id }} .h5,
+  .product-detailed-specifications-{{ section.id }} .prose h5:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h5-n); line-height: 1.4;
+  }
+  .product-detailed-specifications-{{ section.id }} h6,
+  .product-detailed-specifications-{{ section.id }} .h6,
+  .product-detailed-specifications-{{ section.id }} .prose h6:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h6-n); line-height: 1.4;
+  }
+  /* 重置样式 end */
+  /* product-detailed-specifications  start  */
+  .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-wrapper {
+    background-color: {{ section.settings.bg_color }};
+    padding: {{ section.settings.padding_top }}px 0px {{ section.settings.padding_bottom }}px 0px;
+    overflow: hidden;
+  }
+
+  .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-title-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+
+  .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-title {
+    color: {{ section.settings.title_color }};
+    text-align: center;
+    line-height: 1.22;
+    margin-bottom: {{ section.settings.title_padding_bottom }}px;
+  }
+
+  .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-subtitle {
+    color: {{ section.settings.subtitle_color }};
+    text-align: center;
+    line-height: 1.38;
+    margin-bottom: {{ section.settings.subtitle_padding_bottom }}px;
+  }
+
+  .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-desc {
+    color: {{ section.settings.desc_color }};
+    text-align: center;
+    line-height: 1.38;
+    margin-bottom: {{ section.settings.desc_padding_bottom }}px;
+  }
+
+
+
+  .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    max-width: 100%;
+    width: max-content;
+    margin-left: 0;
+    margin-right: auto;
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    touch-action: pan-x;
+    border-radius: {{ section.settings.tab_border_radius }}px;
+    background: {{ section.settings.tab_bg_color }};
+    margin-bottom: {{ section.settings.tab_padding_bottom }}px;
+  }
+
+  .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-tab {
+    cursor: pointer;
+    text-align: center;
+    color: {{ section.settings.tab_font_color }};
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    padding: 10px 20px;
+
+    -webkit-tap-highlight-color: transparent;
+    /* 消除移动端点击背景 */
+    -webkit-touch-callout: none;
+    outline: none;
+  }
+
+  .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-tab.active {
+    color: {{ section.settings.tab_active_font_color }};
+    background: {{ section.settings.tab_active_bg_color }};
+    border-radius: {{ section.settings.tab_border_radius }}px;
+    font-weight: 700;
+  }
+
+  .product-detailed-specifications-{{ section.id }} .swiper-slide img,
+  .product-detailed-specifications-{{ section.id }} .swiper-slide video {
+    border-radius: 16px;
+    max-width: 1200px;
+    margin: 20px auto 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .desktopShow {
+    position: relative;
+    display: block;
+  }
+  #shopify-section-{{ section.id }} .mobileShow {
+    position: relative;
+    display: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }} .desktopShow {
+      position: relative;
+      display: none;
+    }
+    #shopify-section-{{ section.id }} .mobileShow {
+      position: relative;
+      display: block;
+    }
+
+    .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-wrapper {
+      padding: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px 0;
+    }
+
+    .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-container {
+      max-width: 100%;
+    }
+
+    .product-detailed-specifications-{{ section.id }} .swiper-slide {
+      padding: 0 24px 24px 24px;
+    }
+
+    .product-detailed-specifications-{{ section.id }} #printer-parameter-table-new .container66 {
+      padding: 0;
+    }
+
+    .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-title {
+      font-size: {{ section.settings.title_size_mobile }}px;
+      line-height: 1.26;
+      margin-bottom: {{ section.settings.title_padding_bottom_mobile }}px;
+      padding: 0 24px;
+    }
+
+    .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-subtitle {
+      font-size: {{ section.settings.subtitle_size_mobile }}px;
+      margin-bottom: {{ section.settings.subtitle_padding_bottom_mobile }}px;
+      padding: 0 24px;
+    }
+
+    .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-desc {
+      font-size: {{ section.settings.desc_size_mobile }}px;
+      margin-bottom: {{ section.settings.desc_padding_bottom_mobile }}px;
+      padding: 0 24px;
+    }
+
+    .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-tabs {
+      border-radius: {{ section.settings.tab_border_radius }}px;
+      margin-bottom: {{ section.settings.tab_padding_bottom_mobile }}px;
+      width: 100%;
+      background: transparent;
+      gap: 10px;
+      border-radius: 0;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-tab {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1;
+      padding: 12px 24px;
+      border-radius: {{ section.settings.tab_border_radius_mb }}px;
+      background: {{ section.settings.tab_bg_color }};
+    }
+
+    .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-tab.active {
+      background: {{ section.settings.tab_active_bg_color }};
+    }
+  }
+  /* product-detailed-specifications  end  */
+</style>
+<!-- product-detailed-specifications  start -->
+
+{% comment %} 修复了语法和结构错误（tab循环div，block.type拼写错误，冗余attributes，修正标签闭合格式等） {% endcomment %}
+<section
+  id="{% if section.settings.nav_id != empty %}custom-nav-{{ section.settings.nav_id }}{% endif %}"
+  class="product-detailed-specifications-{{ section.id }}"
+>
+  <div class="product-detailed-specifications-wrapper">
+    <div class="product-detailed-specifications-container">
+      <div class="product-detailed-specifications-title-wrapper">
+        {%- if section.settings.title != empty -%}
+          <div class="product-detailed-specifications-title {{ section.settings.title_size }}  {{ section.settings.title_font_family }}">
+            {{ section.settings.title }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.subtitle != empty -%}
+          <div class="product-detailed-specifications-subtitle {{ section.settings.subtitle_size }}  {{ section.settings.subtitle_font_family }}">
+            {{ section.settings.subtitle }}
+          </div>
+        {%- endif -%}
+        {%- if section.blocks.size > 1 -%}
+          <div
+            id="product-detailed-specifications-tabs"
+            class="product-detailed-specifications-tabs"
+          >
+            {%- for block in section.blocks -%}
+              {% assign tab_label = block.settings.tab_name | default: 'Tab' %}
+              <div class="product-detailed-specifications-tab{% if forloop.first %} active{% endif %}">
+                {{ tab_label }}
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.desc != empty -%}
+          <div class="product-detailed-specifications-desc {{ section.settings.desc_size }}  {{ section.settings.deac_font_family }}">
+            {{ section.settings.desc }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="product-detailed-specifications-content">
+        <div
+          class="swiper-container product-detailed-specifications-swiper-container-{{section.id}}"
+        >
+          <div class="swiper-wrapper">
+            {%- for block in section.blocks -%}
+              <div class="swiper-slide">
+                {% case block.type %}
+                  {%- when 'comparison_table' -%}
+                    {% assign product_count = 0 %}
+                    {% for product in block.settings.product_list %}
+                      {% assign product_count = product_count | plus: 1 %}
+                    {% endfor %}
+                    <style>
+                      /* 参数表格模块 */
+                      .comparison-table-wrapper-{{ block.id }} {
+                         background: {{ block.settings.bgColor }};
+                         overflow:auto;
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .comparison-table-container {
+                        display: grid;
+                        grid-template-columns: 1fr;
+                        grid-template-rows: repeat(9, auto);
+                        {% if block.settings.section_max_width != 'none' %}
+                          max-width: {{ block.settings.section_max_width }}px;
+                          margin: 0 auto;
+                        {% endif %}
+                        background: {{ block.settings.content_bgColor }};
+                        border-radius: 20px;
+                        overflow: hidden;
+                        padding: 40px 42px;
+
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .custom-title-wrap {
+                        {% if block.settings.section_max_width != 'none' %}
+                          max-width: {{ block.settings.section_max_width }}px;
+                          margin: 0 auto;
+                        {% endif %}
+                        text-align: {{ block.settings.title_text_alignment }};
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .custom-title {
+                        color: {{ block.settings.title_color }};
+                        margin-bottom: {{ block.settings.title_to_content_padding }}px;
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .custom-subtitle {
+                        color: {{ block.settings.subtitle_color }};
+                        margin-bottom: {{ block.settings.subtitle_to_content_padding }}px;
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .comparison-table-item {
+                        background-color: #ffffff;
+                        border-bottom: 1px solid #f5f5f5;
+                        display: grid;
+                        grid-template-columns: repeat({{ product_count | plus: 1 }}, 1fr);
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .comparison-table-item:last-child {
+                        border-bottom: none;
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .cost-breakdown {
+                        text-align: {{ block.settings.content_text_alignment }};
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .printer-image {
+                        margin-bottom: 15px;
+                        max-width: 300px;
+                        width: 100%;
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .printer-model,
+                      .comparison-table-wrapper-{{ block.id }} .printer-size {
+                        font-size: {{ block.settings.spec_value_size }}px;
+                        color: #ea3f2e;
+                        text-align: {{ block.settings.content_text_alignment }};
+                        width: 100%;
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .printer-title {
+                        font-size: {{ block.settings.spec_label_size }}px;
+                        margin-bottom: {{ block.settings.table_cell_gap }}px;
+                        text-align: {{ block.settings.content_text_alignment }};
+                        min-height: {{ block.settings.product_name_min_height }}px;
+                        width: 100%;
+                        font-weight: bold;
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .profit-amount {
+                        font-size: {{ block.settings.spec_label_size | plus: 2 }}px;
+                        font-weight: bold;
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .profit-section {
+                        padding: {{ block.settings.table_cell_gap }}px;
+                        text-align: {{ block.settings.content_text_alignment }};
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .spec-column-product {
+                        align-items: {{ block.settings.content_text_alignment }};
+                        display: flex;
+                        flex-direction: column;
+                        padding: {{ block.settings.table_cell_gap }}px;
+                        width: 100%;
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .spec-label {
+                        font-weight: bold;
+                        padding: {{ block.settings.table_cell_gap }}px;
+                        text-align: {{ block.settings.content_text_alignment }};
+                        font-size: {{ block.settings.spec_label_size }}px;
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .spec-label-column-product,
+                      .comparison-table-wrapper-{{ block.id }} .spec-column {
+                        padding: {{ block.settings.table_cell_gap }}px;
+                        text-align: {{ block.settings.content_text_alignment }};
+                        display: flex;
+                        align-items: center;
+                        font-size: {{ block.settings.spec_value_size }}px;
+                        justify-content: {{ block.settings.content_text_alignment }};
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .spec-row {
+                        display: flex;
+                        padding: 10px;
+                        flex-direction: column;
+                        align-items: start;
+                        font-size: {{ block.settings.spec_value_size }}px;
+                        justify-content: center;
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .work-day {
+                        font-size: {{ block.settings.spec_value_size }}px;
+                      }
+                      .comparison-table-wrapper-{{ block.id }} .spec-label-mobile {
+                        display: none;
+                      }
+                      
+                      @media screen and (max-width: 768px) {
+                        .comparison-table-wrapper-{{ block.id }} .custom-title-wrap {
+                          text-align: {{ block.settings.content_text_alignment_mobile }};
+                          padding: 0 24px;
+                        }
+                        .comparison-table-wrapper-{{ block.id }} .comparison-table-container {
+                          overflow-x: auto;
+                          overflow-y: auto;
+                          -webkit-overflow-scrolling: touch;
+                          padding: 20px 10px;
+                          border-radius: 10px;
+                          margin-left: 24px;
+                          margin-right: 24px;
+                          /* hide scrollbar but allow scroll */
+                          scrollbar-width: none;
+                          touch-action: pan-x pan-y;
+                          width: max-content;
+                        }
+                        .comparison-table-wrapper-{{ block.id }} .comparison-table-container::-webkit-scrollbar {
+                          display: none;
+                        }
+                        .comparison-table-wrapper-{{ block.id }} .custom-title {
+                          font-size: {{ block.settings.title_size_mobile }}px;
+                          margin-bottom: {{ block.settings.title_to_content_padding_mobile }}px;
+                        }
+                        .comparison-table-wrapper-{{ block.id }} .custom-subtitle {
+                          font-size: {{ block.settings.subtitle_size_mobile }}px;
+                          margin-bottom: {{ block.settings.subtitle_to_content_padding_mobile }}px;
+                        }
+                        .comparison-table-wrapper-{{ block.id }} .spec-label-column-product,
+                        .comparison-table-wrapper-{{ block.id }} .spec-label {
+                          display: none;
+                        }
+                        .comparison-table-wrapper-{{ block.id }} .spec-column-product {
+                          padding: 10px;
+                        }
+                        .comparison-table-wrapper-{{ block.id }} .spec-label-mobile {
+                          display: block;
+                          font-size: 14px;
+                          font-weight: bold;
+                          margin-bottom: 2px;
+                          opacity: 0;
+                        }
+                        .comparison-table-wrapper-{{ block.id }} .spec-label-mobile.first {
+                          opacity: 1;
+                        }
+                        .comparison-table-wrapper-{{ block.id }} .printer-title {
+                          font-size: 14px;
+                          margin-bottom: 10px;
+                          min-height: {{ block.settings.product_name_min_height_mobile }}px;
+                        }
+                        .comparison-table-wrapper-{{ block.id }} .printer-model,
+                        .comparison-table-wrapper-{{ block.id }} .printer-size {
+                          font-size: 12px;
+                        }
+                        .comparison-table-wrapper-{{ block.id }} .printer-model {
+                          margin-bottom: 0;
+                        }
+                        .comparison-table-wrapper-{{ block.id }} .spec-label-column-product,
+                        .comparison-table-wrapper-{{ block.id }} .spec-column {
+                          font-size: 12px;
+                          padding: 10px;
+                          flex-direction: column;
+                          align-items: {{ block.settings.content_text_alignment }};
+                        }
+                        .comparison-table-wrapper-{{ block.id }} .comparison-table-item {
+                          grid-template-columns: repeat({{ product_count }}, 150px);
+                        }
+                        .comparison-table-wrapper-{{ block.id }} .profit-section {
+                          padding: 10px;
+                        }
+                        .comparison-table-wrapper-{{ block.id }} .profit-amount {
+                          font-size: 16px;
+                        }
+                        .comparison-table-wrapper-{{ block.id }} .work-day {
+                          font-size: 12px;
+                        }
+                      }
+                    </style>
+                    {% if block.settings.product_list != blank %}
+                      <div class="comparison-table-wrapper-{{ block.id }} swiper-no-swiping">
+                        <div class="custom-title-wrap">
+                          {% if block.settings.title != empty %}
+                            <div class="custom-title desktopShow {{ block.settings.title_size }}">
+                              {{ block.settings.title }}
+                            </div>
+                            {% if block.settings.title_mobile != empty %}
+                              <div class="custom-title mobileShow {{ block.settings.title_size }}">
+                                {{ block.settings.title_mobile }}
+                              </div>
+                            {% else %}
+                              <div class="custom-title mobileShow {{ block.settings.title_size }}">
+                                {{ block.settings.title }}
+                              </div>
+                            {% endif %}
+                          {% endif %}
+                          {% if block.settings.subtitle != empty %}
+                            <div class="custom-subtitle desktopShow {{ block.settings.subtitle_size }} custom-font-regular">
+                              {{ block.settings.subtitle }}
+                            </div>
+                            {% if block.settings.subtitle_mobile != empty %}
+                              <div class="custom-subtitle mobileShow {{ block.settings.subtitle_size }} custom-font-regular">
+                                {{ block.settings.subtitle_mobile }}
+                              </div>
+                            {% else %}
+                              <div class="custom-subtitle mobileShow {{ block.settings.subtitle_size }} custom-font-regular">
+                                {{ block.settings.subtitle }}
+                              </div>
+                            {% endif %}
+                          {% endif %}
+                        </div>
+                        <div class="comparison-table-container">
+                          <!-- 表格参数名称 -->
+                          <div class="comparison-table-item">
+                            <div class="spec-label-column-product"></div>
+                            {% for product_item in block.settings.product_list %}
+                              {% assign profitable_product_name = product_item.metafields.custom.profitable_product_name
+                                | default: product_item.title
+                              %}
+                              {% assign profitable_product_image = product_item.metafields.custom.profitable_product_image
+                                | default: product_item.featured_image
+                              %}
+                              {% assign profitable_product_model_array = product_item.metafields.custom.profitable_product_model
+                                | split: '-'
+                              %}
+                              {% if profitable_product_model_array.size > 1 %}
+                                {% assign profitable_product_model = profitable_product_model_array[0] %}
+                                {% assign profitable_product_size = profitable_product_model_array[1] %}
+                              {% else %}
+                                {% assign profitable_product_model = profitable_product_model_array[0] %}
+                                {% assign profitable_product_size = '' %}
+                              {% endif %}
+                              <div class="spec-column-product">
+                                <div class="printer-title">{{ profitable_product_name }}</div>
+                                {% assign image = profitable_product_image %}
+                                {% assign size = 100 | divided_by: product_count | round %}
+                                <img
+                                  data-sizes="{{ size }}vw"
+                                  width="{{ size }}vw"
+                                  data-srcset="
+                                    {%- if image.width >= 375 -%}{{ image | image_url: width: 375 }} 375w,{%- endif -%}
+                                    {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+                                    {%- if image.width >= 1100 -%}{{ image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                                    {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                    {%- if image.width >= 1780 -%}{{ image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                                    {%- if image.width >= 2000 -%}{{ image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                                    {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                                    {%- if image.width >= 3840 -%}{{ image | image_url: width: 3840 }} 3840w,{%- endif -%}
+                                    {{ image | image_url }} {{ image.width }}w
+                                  "
+                                  data-src="{{ image | image_url: width: 1200 }}"
+                                  style="max-width:80%;width:100%;aspect-ratio:{{ image.aspect_ratio }}"
+                                  class="printer-image lazyload"
+                                  alt="{{ profitable_product_name }}"
+                                >
+                                {% comment %}
+                                  <div class="printer-model">{{ profitable_product_model }}</div>
+                                  <div class="printer-size">{{ profitable_product_size }}</div>
+                                {% endcomment %}
+                              </div>
+                            {% endfor %}
+                          </div>
+                          <div class="comparison-table-item">
+                            <div class="spec-label">T-shirts</div>
+                            {% for product_item in block.settings.product_list %}
+                              {% assign t_shirts = product_item.metafields.custom.t_shirts.value %}
+                              <div class="spec-column">
+                                <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">T-shirts</div>
+                                <div>{{ t_shirts }}</div>
+                              </div>
+                            {% endfor %}
+                          </div>
+                          <div class="comparison-table-item">
+                            <div class="spec-label">Suitable Business Size</div>
+                            {% for product_item in block.settings.product_list %}
+                              {% assign printer_suitable_business_size = product_item.metafields.custom.printer_suitable_business_size.value %}
+                              <div class="spec-column">
+                                <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
+                                  Suitable Business Size
+                                </div>
+                                <div>{{ printer_suitable_business_size }}</div>
+                              </div>
+                            {% endfor %}
+                          </div>
+                          <div class="comparison-table-item">
+                            <div class="spec-label">Retail Sell Price</div>
+                            {% for product_item in block.settings.product_list %}
+                              {% assign retail_sell_price = product_item.metafields.custom.retail_sell_price.value %}
+                              <div class="spec-column">
+                                <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
+                                  Retail Sell Price
+                                </div>
+                                <div>{{ retail_sell_price }}</div>
+                              </div>
+                            {% endfor %}
+                          </div>
+                          <div class="comparison-table-item">
+                            <div class="spec-label">Total Cost per Unit</div>
+                            {% for product_item in block.settings.product_list %}
+                              {% assign total_cost_per_unit_array = product_item.metafields.custom.total_cost_per_unit.value %}
+                              <div class="spec-column">
+                                <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
+                                  Total Cost per Unit
+                                </div>
+                                <div class="cost-breakdown">
+                                  {% for total_cost_per_unit in total_cost_per_unit_array %}
+                                    {% if forloop.last %}
+                                      {{ total_cost_per_unit }}
+                                    {% else %}
+                                      {{ total_cost_per_unit -}}
+                                      <br>
+                                    {% endif %}
+                                  {% endfor %}
+                                </div>
+                              </div>
+                            {% endfor %}
+                          </div>
+                          <div class="comparison-table-item">
+                            <div class="spec-label">
+                              Equipment Cost <br>
+                              (Profit in 6 months)
+                            </div>
+                            {% for product_item in block.settings.product_list %}
+                              {% assign equipment_cost_array = product_item.metafields.custom.equipment_cost.value %}
+                              <div class="spec-row">
+                                <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
+                                  Equipment Cost (Profit in 6 months)
+                                </div>
+                                <div>{{ equipment_cost_array[0] }}</div>
+                                <div>{{ equipment_cost_array[1] }}</div>
+                              </div>
+                            {% endfor %}
+                          </div>
+                          <div class="comparison-table-item">
+                            <div class="spec-label">Average Waste</div>
+                            {% for product_item in block.settings.product_list %}
+                              {% assign average_waste = product_item.metafields.custom.average_waste.value %}
+                              <div class="spec-column">
+                                <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
+                                  Average Waste
+                                </div>
+                                <div>{{ average_waste }}</div>
+                              </div>
+                            {% endfor %}
+                          </div>
+                          <div class="comparison-table-item">
+                            <div class="spec-label">Unit per Hour</div>
+                            {% for product_item in block.settings.product_list %}
+                              {% assign unit_per_hour = product_item.metafields.custom.unit_per_hour.value %}
+                              <div class="spec-column">
+                                <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
+                                  Unit per Hour
+                                </div>
+                                <div>{{ unit_per_hour }}</div>
+                              </div>
+                            {% endfor %}
+                          </div>
+                          <div class="comparison-table-item">
+                            <div class="spec-label">Profit per Day</div>
+                            {% for product_item in block.settings.product_list %}
+                              {% assign profit_per_day_array = product_item.metafields.custom.profit_per_day.value %}
+                              <div class="profit-section">
+                                <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
+                                  Profit per Day
+                                </div>
+                                <div class="profit-amount">{{ profit_per_day_array[0] }}</div>
+                                <div class="work-day">{{ profit_per_day_array[1] }}</div>
+                              </div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}
+                  {%- when 'print_speed' -%}
+                    {% if block.settings.content_html != empty %}{{ block.settings.content_html }}{% endif %}
+                    {% if block.settings.image != blank %}
+                      <img
+                        class="lazyload image desktopShow"
+                        data-src="{{ block.settings.image | image_url: width: 1200 }}"
+                        alt="Procolored P13" width="100%" height="auto"
+                      />
+                    {% endif %}
+
+                    {% if block.settings.mobile_image != blank %}
+                      <img
+                        class="lazyload image mobileShow"
+                        data-src="{{ block.settings.mobile_image | image_url: width: 800 }}"
+                        alt="Procolored P13" width="100%" height="auto"
+                      />
+                    {% elsif block.settings.image != blank %}
+                      <img
+                        class="lazyload image mobileShow"
+                        data-src="{{ block.settings.image | image_url: width: 800 }}"
+                        alt="Procolored P13" width="100%" height="auto"
+                      />
+                    {% endif %}
+
+                    {% if block.settings.video != empty %}
+                     <video
+                        style="aspect-ratio: {{ block.settings.video.aspect_ratio }};"
+                        class="lazy desktopShow"
+                        preload="none"
+                        width="100%"
+                        height="auto"
+                        data-poster="{{ block.settings.video.preview_image | image_url: width: 700 }}"
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        webkit-playsinline
+                        x-webkit-airplay="allow"
+                        x5-playsinline
+                        x5-video-player-type="h5"
+                        x5-video-orientation="portrait"
+                        x5-video-player-fullscreen="false"
+                    >
+                        {% for source in block.settings.video.sources %}
+                          <source
+                            data-src="{{ source.url }}"
+                            type="{{source.mime_type }}"
+                            media="(min-width: 768px)"
+                          >
+                        {% endfor %}
+                        Your browser does not support the video tag.
+                      </video>
+                    {% endif %}
+
+                    {% if block.settings.mobile_video != blank %}
+                      <video
+                        style="aspect-ratio: {{ block.settings.mobile_video.aspect_ratio }};"
+                        class="lazy mobileShow"
+                        preload="none"
+                        width="100%"
+                        height="auto"
+                        data-poster="{{ block.settings.mobile_video.preview_image | image_url: width: 700 }}"
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        webkit-playsinline
+                        x-webkit-airplay="allow"
+                        x5-playsinline
+                        x5-video-player-type="h5"
+                        x5-video-orientation="portrait"
+                        x5-video-player-fullscreen="false"
+                      >
+                        {% for source in block.settings.mobile_video.sources %}
+                          <source
+                            data-src="{{ source.url }}"
+                            type="{{source.mime_type }}"
+                            media="(max-width: 769px)"
+                          >
+                        {% endfor %}
+                        Your browser does not support the video tag.
+                      </video>
+                    {% elsif block.settings.video != blank %}
+                      <video
+                        style="aspect-ratio: {{ block.settings.video.aspect_ratio }};"
+                        class="lazy mobileShow"
+                        preload="none"
+                        width="100%"
+                        height="auto"
+                        data-poster="{{ block.settings.video.preview_image | image_url: width: 700 }}"
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        webkit-playsinline
+                        x-webkit-airplay="allow"
+                        x5-playsinline
+                        x5-video-player-type="h5"
+                        x5-video-orientation="portrait"
+                        x5-video-player-fullscreen="false"
+                      >
+                        {% for source in block.settings.video.sources %}
+                          <source
+                            data-src="{{ source.url }}"
+                            type="{{source.mime_type }}"
+                            media="(max-width: 769px)"
+                          >
+                        {% endfor %}
+                        Your browser does not support the video tag.
+                      </video>
+                    {% endif %}
+
+                  {%- when 'printer_specifications' -%}
+                    {% if block.settings.content_html != empty %}{{ block.settings.content_html }}{% endif %}
+                    {% if block.settings.image != blank %}
+                      <img
+                        class="lazyload image desktopShow"
+                        data-src="{{ block.settings.image | image_url: width: 1200 }}"
+                        alt="Procolored P13" width="100%" height="auto"
+                      />
+                    {% endif %}
+
+                    {% if block.settings.mobile_image != blank %}
+                      <img
+                        class="lazyload image mobileShow"
+                        data-src="{{ block.settings.mobile_image | image_url: width: 800 }}"
+                        alt="Procolored P13" width="100%" height="auto"
+                      />
+                    {% elsif block.settings.image != blank %}
+                      <img
+                        class="lazyload image mobileShow"
+                        data-src="{{ block.settings.image | image_url: width: 800 }}"
+                        alt="Procolored P13" width="100%" height="auto"
+                      />
+                    {% endif %}
+
+                    {% if block.settings.video != blank %}
+                     <video
+                        style="aspect-ratio: {{ block.settings.video.aspect_ratio }};"
+                        class="lazy desktopShow"
+                        preload="none"
+                        width="100%"
+                        height="auto"
+                        data-poster="{{ block.settings.video.preview_image | image_url: width: 700 }}"
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        webkit-playsinline
+                        x-webkit-airplay="allow"
+                        x5-playsinline
+                        x5-video-player-type="h5"
+                        x5-video-orientation="portrait"
+                        x5-video-player-fullscreen="false"
+                    >
+                        {% for source in block.settings.video.sources %}
+                          <source
+                            data-src="{{ source.url }}"
+                            type="{{source.mime_type }}"
+                            media="(min-width: 768px)"
+                          >
+                        {% endfor %}
+                        Your browser does not support the video tag.
+                      </video>
+                    {% endif %}
+
+                    {% if block.settings.mobile_video != blank %}
+                      <video
+                        style="aspect-ratio: {{ block.settings.mobile_video.aspect_ratio }};"
+                        class="lazy mobileShow"
+                        preload="none"
+                        width="100%"
+                        height="auto"
+                        data-poster="{{ block.settings.mobile_video.preview_image | image_url: width: 700 }}"
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        webkit-playsinline
+                        x-webkit-airplay="allow"
+                        x5-playsinline
+                        x5-video-player-type="h5"
+                        x5-video-orientation="portrait"
+                        x5-video-player-fullscreen="false"
+                      >
+                        {% for source in block.settings.mobile_video.sources %}
+                          <source
+                            data-src="{{ source.url }}"
+                            type="{{source.mime_type }}"
+                            media="(max-width: 769px)"
+                          >
+                        {% endfor %}
+                        Your browser does not support the video tag.
+                      </video>
+                    {% endif %}
+                {%- endcase -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- product-detailed-specifications  end -->
+<script>
+  // 监听页面DOM加载，初始化swiper与tab交互
+  document.addEventListener('DOMContentLoaded', function () {
+    const totalNums = {{ section.blocks.size }};
+    const section = document.querySelector('#shopify-section-{{ section.id }}');
+    // 获取tab容器
+    const tabContainer = section.querySelector('#product-detailed-specifications-tabs');
+    if (!tabContainer) return;
+
+    // 获取所有tab元素
+    const tabs = tabContainer.querySelectorAll('.product-detailed-specifications-tab');
+    // 获取所有banner元素
+    const bannerBoxes = section.querySelectorAll('.product-detailed-specifications-banner-box');
+
+    let swiper = null;
+    if (totalNums > 1) {
+      // 初始化 Swiper
+      swiper = new Swiper('.product-detailed-specifications-swiper-container-{{section.id}}', {
+        lazy: {
+          loadPrevNext: true,
+        },
+        noSwiping: true,
+        effect: 'fade',
+        fadeEffect: {
+          crossFade: true,
+        },
+        autoHeight: true,
+        observer: true,
+        observeParents: true,
+        slidesPerView: 1,
+        spaceBetween: 10,
+        // 禁止左右切换
+        simulateTouch: false,
+        allowTouchMove: false,
+        on: {
+          slideChangeTransitionEnd: function () {
+            updateTabAndBanner(this.activeIndex);
+          },
+        },
+      });
+    }
+
+    /**
+     * 切换tab和banner的高亮状态
+     */
+    function updateTabAndBanner(activeIdx) {
+      console.log(activeIdx);
+      tabs.forEach((t, i) => {
+        console.log(i);
+        t.classList.toggle('active', i === activeIdx);
+      });
+      bannerBoxes.forEach((bannerBox, i) => bannerBox.classList.toggle('active', i === activeIdx));
+      // 将当前tab滚动到可视区域中
+      if (tabs[activeIdx]) scrollTabIntoView(tabs[activeIdx]);
+    }
+
+    /**
+     * 横向滑动指定tab至容器中央
+     */
+    function scrollTabIntoView(activeTab) {
+      console.log('scrollTabIntoView',activeTab);
+      const tabCenter = activeTab.offsetLeft + activeTab.offsetWidth / 2;
+      const scrollTo = tabCenter - tabContainer.clientWidth / 2;
+      tabContainer.scrollTo({
+        left: scrollTo,
+        behavior: 'smooth',
+      });
+    }
+
+    // 绑定tab点击事件
+    tabs.forEach((tab, idx) => {
+      tab.addEventListener('click', function () {
+        // 跳转swiper到对应slide
+        if (swiper) {
+          swiper.slideTo(idx);
+          // Swiper的slideChangeTransitionEnd会处理tab和banner的高亮
+        } else {
+          updateTabAndBanner(idx);
+        }
+      });
+    });
+
+    // 初始化时，设置第一个tab高亮
+    if (tabs.length > 0) {
+      updateTabAndBanner(0);
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Custom tab image text",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "default": "star-products",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "select",
+      "id": "section_max_width",
+      "label": "模块最大宽度",
+      "options": [
+        {
+          "value": "none",
+          "label": "全屏"
+        },
+        {
+          "value": "1200",
+          "label": "1200px"
+        },
+        {
+          "value": "980",
+          "label": "980px"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题",
+      "default": "Explore detailed specifications and see how F13 outperforms the rest"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题",
+      "default": "<div>November 24th - November 30th</div>"
+    },
+    {
+      "type": "html",
+      "id": "desc",
+      "label": "描述",
+      "default": "With three models to choose from, we have the perfect printer for every scale of operation. Choose the right model for your needs and start creating stunning custom designs today!"
+    },
+    {
+      "type": "range",
+      "id": "tab_border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "tab圆角大小",
+      "default": 99
+    },
+    {
+      "type": "range",
+      "id": "tab_border_radius_mb",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "tab圆角大小(移动端)",
+      "default": 99
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "标题字体颜色",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "小标题字体颜色",
+      "default": "#3D3D3D"
+    },
+    {
+      "type": "color",
+      "id": "desc_color",
+      "label": "描述字体颜色",
+      "default": "#3D3D3D"
+    },
+    {
+      "type": "color",
+      "id": "tab_font_color",
+      "label": "tab字体颜色",
+      "default": "#3D3D3D"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_font_color",
+      "label": "tab字体激活颜色",
+      "default": "#fff"
+    },
+    {
+      "type": "color_background",
+      "id": "tab_bg_color",
+      "label": "tab背景颜色",
+      "default": "#fff"
+    },
+    {
+      "type": "color_background",
+      "id": "tab_active_bg_color",
+      "label": "tab背景激活颜色",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#F9F9F9"
+    },
+
+    {
+      "type": "color_background",
+      "id": "background_gradient_color",
+      "label": "容器渐变背景色"
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": "大标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题字体大小（移动端）",
+      "default": 26
+    },
+    {
+      "type": "select",
+      "id": "subtitle_size",
+      "label": "小标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "text-base"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题字体大小（移动端）",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "desc_size",
+      "label": "描述字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "text-base"
+    },
+    {
+      "type": "range",
+      "id": "desc_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "描述字体大小（移动端）",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "字体系列"
+    },
+    {
+      "type": "select",
+      "id": "title_font_family",
+      "label": "大标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-extraBold"
+    },
+    {
+      "type": "select",
+      "id": "subtitle_font_family",
+      "label": "小标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-regular"
+    },
+    {
+      "type": "select",
+      "id": "heading_font_family",
+      "label": "描述字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-regular"
+    },
+    {
+      "type": "range",
+      "id": "title_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题底部填充",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "subtitle_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "小标题底部填充",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "描述底部填充",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "tab_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "tab内容框底部填充",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "title_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题底部填充(移动端)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "subtitle_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题底部填充(移动端)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "描述底部填充(移动端)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "tab_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "tab内容框底部填充(移动端)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "name": "comparison table",
+      "type": "comparison_table",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_name",
+          "label": "tab名称",
+          "default": "Printer Comparison"
+        },
+        {
+          "type": "select",
+          "id": "section_max_width",
+          "label": "模块最大宽度",
+          "options": [
+            {
+              "value": "none",
+              "label": "全屏"
+            },
+            {
+              "value": "1200",
+              "label": "1200px"
+            },
+            {
+              "value": "980",
+              "label": "980px"
+            }
+          ],
+          "default": "1200"
+        },
+        {
+          "type": "product_list",
+          "id": "product_list",
+          "label": "产品列表",
+          "limit": 5
+        },
+        {
+          "type": "html",
+          "id": "title",
+          "label": "大标题",
+          "default": "Profitable Printing Solutions"
+        },
+        {
+          "type": "html",
+          "id": "title_mobile",
+          "label": "大标题（移动端）"
+        },
+
+        {
+          "type": "html",
+          "id": "subtitle",
+          "label": "小标题",
+          "default": "With three models to choose from, we have the perfect printer for every scale of operation. Choose the right model for your needs and start creating stunning custom designs today!"
+        },
+        {
+          "type": "html",
+          "id": "subtitle_mobile",
+          "label": "小标题（移动端）"
+        },
+        {
+          "type": "select",
+          "id": "title_text_alignment",
+          "label": "大标题及小标题文本对齐方式",
+          "options": [
+            {
+              "value": "start",
+              "label": "左对齐"
+            },
+            {
+              "value": "center",
+              "label": "居中对齐"
+            },
+            {
+              "value": "end",
+              "label": "右对齐"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "content_text_alignment_mobile",
+          "label": "大标题及小标题文本对齐方式(移动端)",
+          "options": [
+            {
+              "value": "start",
+              "label": "左对齐"
+            },
+            {
+              "value": "center",
+              "label": "居中对齐"
+            },
+            {
+              "value": "end",
+              "label": "右对齐"
+            }
+          ],
+          "default": "start"
+        },
+        {
+          "type": "select",
+          "id": "content_text_alignment",
+          "label": "文本内容对齐方式",
+          "options": [
+            {
+              "value": "start",
+              "label": "左对齐"
+            },
+            {
+              "value": "center",
+              "label": "居中对齐"
+            },
+            {
+              "value": "end",
+              "label": "右对齐"
+            }
+          ],
+          "default": "start"
+        },
+
+        {
+          "type": "header",
+          "content": "字体大小"
+        },
+        {
+          "type": "select",
+          "id": "title_size",
+          "label": "大标题字体大小",
+          "options": [
+            {
+              "value": "h0",
+              "label": "H0"
+            },
+            {
+              "value": "h0-sm",
+              "label": "H0-sm"
+            },
+            {
+              "value": "h1",
+              "label": "H1"
+            },
+            {
+              "value": "h2",
+              "label": "H2"
+            },
+            {
+              "value": "h3",
+              "label": "H3"
+            },
+            {
+              "value": "h4",
+              "label": "H4"
+            },
+            {
+              "value": "h5",
+              "label": "H5"
+            },
+            {
+              "value": "h6",
+              "label": "H6"
+            }
+          ],
+          "default": "h0-sm"
+        },
+        {
+          "type": "range",
+          "id": "title_size_mobile",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "大标题字体大小（移动端）",
+          "default": 22
+        },
+        {
+          "type": "select",
+          "id": "subtitle_size",
+          "label": "小标题字体大小",
+          "options": [
+            {
+              "value": "h0",
+              "label": "H0"
+            },
+            {
+              "value": "h1",
+              "label": "H1"
+            },
+            {
+              "value": "h2",
+              "label": "H2"
+            },
+            {
+              "value": "h3",
+              "label": "H3"
+            },
+            {
+              "value": "h4",
+              "label": "H4"
+            },
+            {
+              "value": "h5",
+              "label": "H5"
+            },
+            {
+              "value": "h6",
+              "label": "H6"
+            },
+            {
+              "value": "text-lg",
+              "label": "大文本"
+            },
+            {
+              "value": "text-base",
+              "label": "标准文本"
+            },
+            {
+              "value": "text-sm",
+              "label": "小文本"
+            },
+            {
+              "value": "text-xs",
+              "label": "超小文本"
+            }
+          ],
+          "default": "h4"
+        },
+        {
+          "type": "range",
+          "id": "subtitle_size_mobile",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "小标题字体大小（移动端）",
+          "default": 14
+        },
+
+        {
+          "type": "range",
+          "id": "spec_label_size",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "参数名称字体大小",
+          "default": 18
+        },
+
+        {
+          "type": "range",
+          "id": "spec_value_size",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "参数值字体大小",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "table_cell_gap",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "表格单元间距",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "product_name_min_height",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "产品名称最小高度",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "product_name_min_height_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "产品名称最小高度（移动端）",
+          "default": 14
+        },
+
+        {
+          "type": "header",
+          "content": "颜色填充"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "大标题字体颜色",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "subtitle_color",
+          "label": "小标题字体颜色",
+          "default": "#000"
+        },
+        {
+          "type": "color_background",
+          "id": "content_bgColor",
+          "label": "内容区域背景色",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color_background",
+          "id": "bgColor",
+          "label": "背景色",
+          "default": "#f9f9f9"
+        },
+        {
+          "type": "header",
+          "content": "分区填充（PC端）"
+        },
+        {
+          "type": "range",
+          "id": "title_to_content_padding",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "大标题底部填充",
+          "default": 40
+        },
+        {
+          "type": "range",
+          "id": "subtitle_to_content_padding",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "小标题底部填充",
+          "default": 60
+        },
+
+        {
+          "type": "header",
+          "content": "分区填充（移动端）"
+        },
+        {
+          "type": "range",
+          "id": "title_to_content_padding_mobile",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "大标题底部填充(移动端)",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "subtitle_to_content_padding_mobile",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "小标题底部填充(移动端)",
+          "default": 40
+        }
+      ]
+    },
+    {
+      "name": "Print speed",
+      "type": "print_speed",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_name",
+          "label": "tab名称",
+          "default": "Print Speed"
+        },
+        {
+          "type": "liquid",
+          "id": "content_html",
+          "label": "自定义代码"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile image",
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+        },
+        {
+          "type": "video",
+          "id": "mobile_video",
+          "label": "Mobile video",
+        }
+      ]
+    },
+    {
+      "name": "Printer Specifications",
+      "type": "printer_specifications",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_name",
+          "label": "tab名称",
+          "default": "Printer Specifications"
+        },
+        {
+          "type": "liquid",
+          "id": "content_html",
+          "label": "自定义代码"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile image",
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+        },
+        {
+          "type": "video",
+          "id": "mobile_video",
+          "label": "Mobile video",
+        }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [
+    {
+      "name": "Custom tab image text",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

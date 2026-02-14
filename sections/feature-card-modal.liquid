@@ -1,0 +1,521 @@
+<style>
+    #shopify-section-{{ section.id }} {
+        background: {{ section.settings.background_color }};
+        padding: 80px 0;
+    }
+
+  #shopify-section-{{ section.id }} .feature-grid-inner {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .feature-card-header {
+    max-width: 1200px;
+    margin: 0 auto;
+    color: {{ section.settings.title_color }};
+    padding-bottom: 48px;
+  }
+
+  #shopify-section-{{ section.id }} .feature-card-header-title {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 60px; /* 150% */
+    padding-bottom: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .feature-card-header-content {
+    font-size: 18px;
+    line-height: 27px; /* 150% */
+  }
+
+  #shopify-section-{{ section.id }} .feature-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .feature-card.feature-row-2 {
+    grid-row: span 2;
+  }
+
+  #shopify-section-{{ section.id }} .feature-card {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .feature-card img {
+    width: 100%;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .feature-card-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 12px;
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0.20) 0%, rgba(18, 18, 18, 0.00) 25%);
+    color: white;
+  }
+
+  {% for block in section.blocks %}
+    #feature-card-{{ block.id }} .feature-title {
+        position: absolute;
+        color: {{ block.settings.title_color }};
+        font-size: 32px;
+        font-weight: 800;
+        line-height: 48px; /* 150% */
+    }
+  {% endfor %}
+
+  #shopify-section-{{ section.id }} .feature-title.top {
+    left: 32px;
+    top: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .feature-title.bottom {
+    left: 32px;
+    bottom: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .feature-plus {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .feature-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .feature-modal.active {
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .swiper {
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .feature-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  #shopify-section-{{ section.id }} .feature-modal-content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    max-width: 700px;
+    border-radius: 16px;
+    padding: 24px 20px;
+    animation: pop 0.3s ease;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .feature-modal-content img {
+    width: 100%;
+    border-radius: 12px;
+  }
+
+  #feature-grid-{{ section.id }} .swiper-slide {
+    width: 100% !important;
+    flex-shrink: 0;
+  }
+
+  #shopify-section-{{ section.id }} .feature-modal-close {
+    position: absolute;
+    top: 24px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    height: fit-content;
+    line-height: 24px;
+    z-index: 2;
+  }
+
+  #shopify-section-{{ section.id }} .swiper-pagination-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .swiper-buttons {
+    display: flex;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .swiper-pagination-progressbar {
+    background: rgba(18, 18, 18, 0.08);
+    height: 4px;
+    border-radius: 2px;
+    width: 100%;
+    max-width: 130px;
+    position: static;
+  }
+
+  #shopify-section-{{ section.id }} .feature-modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #D9D9D9;
+    margin-bottom: 12px;
+    line-height: 30px;
+  }
+
+  #shopify-section-{{ section.id }} .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+    background: #121212;
+  }
+
+  #shopify-section-{{ section.id }} .swiper-button-next,
+  #shopify-section-{{ section.id }} .swiper-button-prev {
+    position: static;
+    left: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 32px;
+    border: 1.92px solid rgba(18, 18, 18, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .feature-modal-desc {
+    font-size: 18px;
+    line-height: 27px;
+    margin-top: 12px;
+    color: #121212;
+  }
+
+  @keyframes pop {
+    from {
+      transform: translate(-50%, -40%) scale(0.9);
+      opacity: 0;
+    }
+    to {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }} .feature-card-header {
+      display: none;
+    }
+    #shopify-section-{{ section.id }} {
+      padding: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .feature-grid-inner {
+        gap: 4px;
+    }
+
+    #shopify-section-{{ section.id }} .feature-modal-close {
+        top: 12px;
+        right: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .feature-title {
+        font-size: 10px;
+        line-height: 15px;
+    }
+
+    #shopify-section-{{ section.id }} .feature-plus {
+        width: 12px;
+        height: 12px;
+        bottom: 4px;
+        right: 4px;
+    }
+
+    #shopify-section-{{ section.id }} .feature-title.top {
+        left: 4px;
+        top: 4px;
+    }
+
+    #shopify-section-{{ section.id }} .feature-title.bottom {
+        left: 4px;
+        bottom: 4px;
+    }
+
+    #shopify-section-{{ section.id }} .feature-card {
+        border-radius: 4px;
+    }
+    #shopify-section-{{ section.id }} .feature-modal-content {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: auto;
+
+        transform: translateY(100%);
+        width: 100%;
+        max-width: 100%;
+        border-radius: 16px 16px 0 0;
+
+        animation: none;
+        transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+    }
+
+    #shopify-section-{{ section.id }} .feature-modal.active .feature-modal-content {
+        transform: translateY(0);
+        padding: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .feature-modal-backdrop {
+        opacity: 0;
+        transition: opacity .35s ease;
+    }
+
+    #shopify-section-{{ section.id }} .feature-modal.active .feature-modal-backdrop {
+        opacity: 1;
+    }
+
+    #shopify-section-{{ section.id }} .feature-modal-title {
+        font-size: 14px;
+        margin-bottom: 8px;
+        line-height: 30px; /* 214.286% */
+    }
+  }
+</style>
+
+<div class="feature-card-header">
+    <div class="feature-card-header-title">
+        {{ section.settings.title }}
+    </div>
+
+    <div class="feature-card-header-content">
+        {{ section.settings.content }}
+    </div>
+</div>
+
+<div class="feature-grid" id="feature-grid-{{ section.id }}">
+  <div class="feature-grid-inner">
+    {% for block in section.blocks %}
+      <div id="feature-card-{{ block.id }}" class="feature-card feature-row-{{ block.settings.row_span }}" data-index="{{ forloop.index0 }}">
+        <img src="{{ block.settings.cover_image | image_url }}" alt="">
+        <div class="feature-card-overlay"></div>
+        <span class="feature-title {{ block.settings.cover_text_position }}">{{ block.settings.cover_title }}</span>
+        <span class="feature-plus">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+                <circle cx="25" cy="25" r="25" fill="#121212" fill-opacity="0.3"/>
+                <path d="M50 25C50 38.8071 38.8071 50 25 50C11.1929 50 0 38.8071 0 25C0 11.1929 11.1929 0 25 0C38.8071 0 50 11.1929 50 25ZM3 25C3 37.1503 12.8497 47 25 47C37.1503 47 47 37.1503 47 25C47 12.8497 37.1503 3 25 3C12.8497 3 3 12.8497 3 25Z" fill="white"/>
+                <path d="M25.4762 35L25.4762 15M15 25L35 25" stroke="white" stroke-width="3.75" stroke-linecap="round"/>
+            </svg>
+        </span>
+      </div>
+    {% endfor %}
+  </div>
+  <!-- 弹窗 -->
+  <div class="feature-modal">
+    <div class="feature-modal-backdrop"></div>
+    <div class="feature-modal-content">
+      <span class="feature-modal-close">×</span>
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          {%- for block in section.blocks -%}
+            <div class="swiper-slide">
+                <div class="feature-modal-header">
+                    <h3 class="feature-modal-title ">{{ block.settings.modal_title }}</h3>
+                </div>
+              <img
+                class="feature-modal-image"
+                src="{{ block.settings.modal_image | image_url }}"
+                alt="{{ block.settings.modal_title }}"
+                width="auto"
+                height="auto"
+              >
+              <p class="feature-modal-desc">{{ block.settings.modal_description }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <div class="swiper-pagination-wrapper">
+          <div class="swiper-pagination"></div>
+          <div class="swiper-buttons">
+            <div class="swiper-button-prev feature-card-prev">
+              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="13" viewBox="0 0 8 13" fill="none">
+                <path d="M6.07996 11.84L0.959961 6.39996L6.07996 0.959961" stroke="#121212" stroke-width="1.92" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <div class="swiper-button-next feature-card-next">
+              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="13" viewBox="0 0 8 13" fill="none">
+                <path d="M0.960078 11.84L6.08008 6.39996L0.960078 0.959961" stroke="#121212" stroke-width="1.92" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var featureCardSwiper = new Swiper('#shopify-section-{{ section.id }} .swiper', {
+    observer: true,
+    observeParents: true,
+    watchOverflow: true,
+    slidesPerView: 1,
+    spaceBetween: 0,
+    loop: true,
+    navigation: {
+        nextEl: '#shopify-section-{{ section.id }} .feature-card-next',
+        prevEl: '#shopify-section-{{ section.id }} .feature-card-prev',
+    }
+  });
+
+
+  (() => {
+    const root = document.querySelector('#feature-grid-{{ section.id }}');
+    const cards = root.querySelectorAll('.feature-card');
+    const modal = root.querySelector('.feature-modal');
+    const modalImg = root.querySelector('.feature-modal-image');
+    const modalTitle = root.querySelector('.feature-modal-title');
+    const modalDesc = root.querySelector('.feature-modal-desc');
+    const closeBtn = root.querySelector('.feature-modal-close');
+    const backdrop = root.querySelector('.feature-modal-backdrop');
+
+    cards.forEach((card, index) => {
+      card.addEventListener('click', () => {
+        {% comment %} const i = card.dataset.index;
+        modalImg.src = data[i].image;
+        modalTitle.textContent = data[i].title;
+        modalDesc.textContent = data[i].desc; {% endcomment %}
+        modal.classList.add('active');
+
+        featureCardSwiper.slideToLoop(index, 0);
+
+        // 🔥 关键：弹窗显示后，强制刷新尺寸
+        requestAnimationFrame(() => {
+            featureCardSwiper.update();
+        });
+      });
+    });
+
+    function closeModal() {
+      modal.classList.remove('active');
+    }
+
+    closeBtn.onclick = closeModal;
+    backdrop.onclick = closeModal;
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Feature card modal",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "content",
+      "label": "Content"
+    },
+    {
+        "type": "color",
+        "id": "title_color",
+        "label": "Title color",
+    },
+    {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+    },
+  ],
+  "blocks": [
+    {
+      "name": "Feature card",
+      "type": "feature_card",
+      "settings": [
+        {
+          "type": "range",
+          "id": "row_span",
+          "label": "Row",
+          "min": 1,
+          "max": 10,
+          "default": 2
+        },
+        {
+            "type": "color",
+            "id": "title_color",
+            "label": "Title color",
+        },
+        {
+          "type": "image_picker",
+          "id": "cover_image",
+          "label": "Cover image"
+        },
+        {
+          "type": "liquid",
+          "id": "cover_title",
+          "label": "Cover title"
+        },
+        {
+          "type": "select",
+          "id": "cover_text_position",
+          "label": "Cover text position",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Modal Content"
+        },
+        {
+          "type": "image_picker",
+          "id": "modal_image",
+          "label": "Modal image"
+        },
+        {
+          "type": "text",
+          "id": "modal_title",
+          "label": "Modal title"
+        },
+        {
+          "type": "liquid",
+          "id": "modal_description",
+          "label": "Modal description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature card modal",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

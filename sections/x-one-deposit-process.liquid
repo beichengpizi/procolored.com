@@ -1,0 +1,1080 @@
+<style>
+    .x-one-deposit-process-{{ section.id }}{
+      background-color:#fff;
+      padding-top:{{ section.settings.padding_top }}px;
+        padding-bottom:{{ section.settings.padding_bottom }}px;
+    }
+   /* 主容器 */
+   .x-one-deposit-process-{{ section.id }} .selling-points-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* =========================================
+  Hero Section (顶部产品与价格)
+  ========================================= */
+  .x-one-deposit-process-{{ section.id }} .hero-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 120px;
+    gap: 16px;
+    padding: 0 100px;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .product-col {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 37px 20px 23px 20px;
+    border-radius: 20px;
+    background: #F5F5F5;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .product-box {
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .product-img-placeholder {
+    display: flex;
+    width: 380px;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .product-img-placeholder img {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .product-label {
+    display: flex;
+    min-width: 360px;
+    min-height: 40px;
+    padding: 7px 20px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background: #202020;
+    color: #F5F5F5;
+    text-align: center;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 120%;
+    /* 25.2px */
+  }
+
+  .x-one-deposit-process-{{ section.id }} .price-col {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .price-card {
+    border-radius: 20px;
+
+    text-align: center;
+    color: #fff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .gray-card {
+    padding: 12px 10px;
+    background-color: #AAA;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .orange-card {
+    padding: 24px 10px;
+    background: linear-gradient(90deg, #FF8F1C 0%, #FF6A04 100%), #FF8F1C;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .card-title {
+    color: #FFF;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+    /* 43.2px */
+    margin-bottom: 6px;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .orange-card .card-title {
+    font-size: 32px;
+    margin-bottom: 12px;
+
+  }
+
+  .x-one-deposit-process-{{ section.id }} .card-subtitle {
+    color: #FFF;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    /* 21.6px */
+    margin-bottom: 8px;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .price-val {
+    color: #FFF;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 58px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 120%;
+    /* 69.6px */
+    margin-bottom: 6px;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .price-msrp {
+    color: #202020;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+    /* 25.2px */
+  }
+
+  .x-one-deposit-process-{{ section.id }} .price-msrp span {
+    text-decoration: line-through;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .save-pill {
+    border-radius: 64px;
+    background: #FFF;
+    min-width: 260px;
+    min-height: 40px;
+    padding: 4px 20px;
+
+    /* 28.8px */
+    margin-top: 18px;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .save-pill-text {
+    background: linear-gradient(90deg, #FF8F1C 0%, #FF6A04 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+
+  }
+
+  /* =========================================
+  Process Section (底部流程)
+  ========================================= */
+  .x-one-deposit-process-{{ section.id }} .process-section {
+    text-align: center;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .section-title {
+    color: #000;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 58px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 130%;
+    /* 75.4px */
+    margin-bottom: 100px;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .timeline-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    padding-top: 0;
+    /* Space for labels and line */
+  }
+
+  /* PC端时间轴横线 */
+  .x-one-deposit-process-{{ section.id }} .timeline-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    /* Adjust based on label height */
+    left: 4%;
+    right: 30.5%;
+    height: 3px;
+    background-color: #FF8F1C;
+    z-index: 0;
+    display: block;
+    /* PC only */
+  }
+
+  .x-one-deposit-process-{{ section.id }} .step-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+
+    margin-top: -50px;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .step-label {
+    color: #000;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 120%;
+    /* 24px */
+    margin-bottom: 14px;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .step-label span {
+    color: #11CB82;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .step-dot {
+    width: 26px;
+    height: 26px;
+
+    margin-bottom: 29px;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .step-box {
+
+    padding: 10px;
+    width: 100%;
+    min-height: 140px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 240px;
+    border-radius: 20px;
+    border: 2px solid #AAA;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .box-head {
+    color: #000;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 120%;
+    /* 28.8px */
+
+  }
+
+  .x-one-deposit-process-{{ section.id }} .box-price {
+    text-align: center;
+    font-family: Mulish;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 120%;
+    /* 57.6px */
+    background: linear-gradient(90deg, #FF8F1C 0%, #FF6A04 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* .orange-text {
+    color: #ff7f0e;
+  } */
+
+  .x-one-deposit-process-{{ section.id }}  .box-desc {
+    font-size: 16px;
+    color: #000;
+    font-weight: 400;
+    line-height: 150%;
+    /* 24px */
+  }
+
+  .x-one-deposit-process-{{ section.id }} .box-desc span {}
+
+  .x-one-deposit-process-{{ section.id }} .box-desc.pc {
+    color: #000;
+    font-size: 16px;
+    max-width: 240px;
+    text-align: left;
+    padding: 12px 19px 0 19px;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .box-desc.mb {
+    display: none;
+
+  }
+
+  .x-one-deposit-process-{{ section.id }} .box-desc.left-align {
+    text-align: left;
+    width: 90%;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .box-desc .orange-text {
+    color: #FF8F1C;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 150%;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .mobile-arrow {
+    display: none;
+    /* Hidden on PC */
+  }
+
+  /* 等号与最终结果 */
+  .x-one-deposit-process-{{ section.id }} .equal-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+
+  }
+
+  .x-one-deposit-process-{{ section.id }} .equal-symbol {
+    position: absolute;
+    left: 4%;
+    top: 35%;
+    box-sizing: content-box;
+    width: 52px;
+    height: 16px;
+    border-top: 9px solid #ff7f0e;
+    border-bottom: 9px solid #ff7f0e;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .final-box {
+    text-align: center;
+    padding-top: 35px;
+    padding-left: 100px;
+    padding-right: 30px;
+  }
+
+  .x-one-deposit-process-{{ section.id }} .final-title.pc {
+    display: block;
+    color: #000;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 150%;
+    /* 36px */
+  }
+  .x-one-deposit-process-{{ section.id }}  .final-title.mb{
+    display: none;
+  }
+
+  .x-one-deposit-process-{{ section.id }}  .final-price {
+    background: linear-gradient(90deg, #FF8F1C 0%, #FF6A04 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 58px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 120%;
+    /* 69.6px */
+  }
+
+  .x-one-deposit-process-{{ section.id }} .final-calc {
+    color: #000;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    /* 24px */
+    margin-bottom: 16px;
+  }
+
+  .x-one-deposit-process-{{ section.id }}  .pledge-btn {
+    border-radius: 5px;
+    background: #08CE77;
+    min-width: 173px;
+    min-height: 42px;
+    color: #fff;
+    padding: 4px 20px;
+    color: #000;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 150%;
+    cursor: pointer;
+    /* 30px */
+  }
+      @media screen and (max-width: 768px) {
+        .x-one-deposit-process-{{ section.id }}{
+          padding-top:{{ section.settings.padding_top_mobile }}px;
+          padding-bottom:{{ section.settings.padding_bottom_mobile }}px;
+        }
+         /* 容器边距 */
+         .x-one-deposit-process-{{ section.id }}  .selling-points-container {
+          padding: 0 24px;
+      }
+
+      /* --- Hero Section Mobile --- */
+      .x-one-deposit-process-{{ section.id }} .hero-section {
+          flex-direction: column;
+          gap: 6px;
+          padding: 0;
+          margin-bottom: 40px;
+      }
+
+      .x-one-deposit-process-{{ section.id }} .product-col {
+          width: 100%;
+          padding: 0;
+          border-radius: 0;
+          background-color: transparent;
+      }
+
+      .x-one-deposit-process-{{ section.id }}  .product-box {
+          text-align: center;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 6px;
+      }
+
+      .x-one-deposit-process-{{ section.id }} .product-label {
+          display: flex;
+          min-width: 100%;
+          min-height: 24px;
+          padding: 5px 20px;
+          justify-content: center;
+          align-items: center;
+          border-radius: 20px;
+          background: #202020;
+          color: #fff;
+          text-align: center;
+          font-size: 12px;
+          font-weight: 700;
+          line-height: 120%;
+      }
+
+      .x-one-deposit-process-{{ section.id }}  .product-img-placeholder {
+          display: flex;
+          width: 100%;
+          padding: 20px;
+          border-radius: 10px;
+          background: #F5F5F5;
+          align-items: center;
+          justify-content: center;
+      }
+
+      .x-one-deposit-process-{{ section.id }}  .product-img-placeholder img {
+          width: 80%;
+      }
+
+      .x-one-deposit-process-{{ section.id }}  .price-col {
+          width: 100%;
+          flex-direction: row;
+          /* 移动端两个价格并排 */
+          gap: 6px;
+      }
+
+      .x-one-deposit-process-{{ section.id }} .price-card {
+          width: calc(100% - 3px);
+          padding: 12px 5px;
+          display: flex;
+          flex-direction: column;
+
+          justify-content: start;
+      }
+
+      .x-one-deposit-process-{{ section.id }}  .card-title,
+      .x-one-deposit-process-{{ section.id }} .orange-card .card-title {
+          color: #FFF;
+          text-align: center;
+          font-family: Mulish;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 120%;
+          /* 16.8px */
+          margin-bottom: 4px;
+      }
+
+      .x-one-deposit-process-{{ section.id }} .card-subtitle {
+          color: #FFF;
+          text-align: center;
+          font-family: Mulish;
+          font-size: 10px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 120%;
+          /* 12px */
+          margin-bottom: 4px;
+      }
+
+      .x-one-deposit-process-{{ section.id }}  .price-val {
+          color: #FFF;
+          text-align: center;
+          font-family: Mulish;
+          font-size: 32px;
+          font-style: normal;
+          font-weight: 800;
+          line-height: 120%;
+          /* 38.4px */
+          margin-bottom: 4px;
+      }
+
+      .x-one-deposit-process-{{ section.id }} .price-msrp {
+          color: #202020;
+          text-align: center;
+          font-family: Mulish;
+          font-size: 10px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 120%;
+          /* 12px */
+      }
+
+      .x-one-deposit-process-{{ section.id }} .save-pill {
+          min-height: 16px;
+          min-width: auto;
+          margin-top: 4px;
+      }
+
+      .x-one-deposit-process-{{ section.id }} .save-pill-text {
+          font-size: 10px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 120%;
+          /* 12px */
+      }
+
+      /* --- Process Section Mobile --- */
+      .x-one-deposit-process-{{ section.id }} .section-title {
+          color: #000;
+          text-align: center;
+          font-family: Mulish;
+          font-size: 26px;
+          font-style: normal;
+          font-weight: 800;
+          line-height: 130%;
+          /* 33.8px */
+          max-width: 194px;
+          margin-left: auto;
+          margin-right: auto;
+          margin-bottom: 30px;
+      }
+
+      .x-one-deposit-process-{{ section.id }} .timeline-wrapper {
+          flex-direction: column;
+          align-items: center;
+          padding-top: 0;
+      }
+
+      /* 隐藏PC的横线 */
+      .x-one-deposit-process-{{ section.id }} .timeline-wrapper::before {
+          display: none;
+      }
+
+      .x-one-deposit-process-{{ section.id }} .step-item {
+          width: 100%;
+          margin-top: 0;
+          margin-bottom: 10px;
+      }
+
+      .x-one-deposit-process-{{ section.id }} .step-dot {
+          display: none;
+          /* 移动端不需要圆点 */
+      }
+
+      .x-one-deposit-process-{{ section.id }} .step-label {
+          color: #000;
+          text-align: center;
+          font-family: Mulish;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 120%;
+          /* 21.6px */
+          margin-bottom: 10px;
+
+      }
+
+      .x-one-deposit-process-{{ section.id }} .box-desc.pc {
+
+          display: none;
+      }
+
+      .x-one-deposit-process-{{ section.id }} .box-desc.mb {
+          display: flex;
+          color: #898A8E;
+          font-family: Mulish;
+          font-size: 12px;
+          text-align: left;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 150%;
+          /* 18px */
+      }
+
+      .x-one-deposit-process-{{ section.id }} .step-item:nth-child(2) .box-desc.mb {
+          max-width: 126px;
+
+      }
+
+      .x-one-deposit-process-{{ section.id }} .step-box {
+          flex-direction: row;
+          min-height: auto;
+          padding: 12px 18px 0 0;
+          margin-bottom: 12px;
+          max-width: 100%;
+          gap: 8px;
+          min-height: 120px;
+          border-radius: 10px;
+          border: 1px solid #AAA;
+      }
+
+      .x-one-deposit-process-{{ section.id }}  .step-box-container {
+          display: flex;
+          flex-direction: column;
+          min-width: 140px;
+      }
+
+      .x-one-deposit-process-{{ section.id }} .box-head {
+          color: #000;
+          text-align: center;
+          font-family: Mulish;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 800;
+          line-height: 120%;
+          /* 19.2px */
+      }
+
+      .x-one-deposit-process-{{ section.id }} .box-price {
+
+          font-size: 32px;
+
+      }
+
+      .x-one-deposit-process-{{ section.id }} .step-item:nth-child(3) .box-head {
+          display: flex;
+          flex-direction: column;
+          min-width: 140px;
+      }
+
+      .x-one-deposit-process-{{ section.id }} .step-item:nth-child(3),
+      .x-one-deposit-process-{{ section.id }} .step-item:nth-child(3) .step-box {
+          margin-bottom: 0;
+
+      }
+
+      .x-one-deposit-process-{{ section.id }} .box-desc .orange-text {
+          color: #FF8F1C;
+          font-family: Mulish;
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 800;
+          line-height: 150%;
+      }
+
+      .x-one-deposit-process-{{ section.id }} .box-desc.left-align {
+          text-align: left;
+          width: 100%;
+          padding-left: 20px;
+      }
+
+      /* 移动端箭头 */
+      .x-one-deposit-process-{{ section.id }} .mobile-arrow {
+          display: flex;
+          width: 15px;
+          height: 10px;
+
+          flex-shrink: 0;
+      }
+
+      .x-one-deposit-process-{{ section.id }} .equal-item {
+          flex-direction: column;
+          padding-top: 24px;
+          width: 100%;
+          gap: 24px;
+      }
+
+      .x-one-deposit-process-{{ section.id }} .equal-symbol {
+          position: relative;
+          width: 34px;
+          margin: 0;
+          left: 0;
+          top: 0;
+          height: 10px;
+          border-top: 6px solid #ff7f0e;
+          border-bottom: 6px solid #ff7f0e;
+      }
+
+      .x-one-deposit-process-{{ section.id }} .final-box {
+          margin-top: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+      }
+
+      .x-one-deposit-process-{{ section.id }}  .final-title.pc{
+          display: none;
+      }
+      .x-one-deposit-process-{{ section.id }}  .final-title.mb {
+          display: block;
+          order: 2;
+          color: #000;
+          text-align: center;
+          font-family: Mulish;
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 150%;
+          /* 18px */
+      }
+
+      .x-one-deposit-process-{{ section.id }}  .final-price {
+
+          font-size: 48px;
+          order: 1;
+
+      }
+
+      .x-one-deposit-process-{{ section.id }}  .final-calc {
+          color: #898A8E;
+          text-align: center;
+          font-family: Mulish;
+          font-size: 10.678px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 150%;
+          /* 16.016px */
+          margin-bottom: 24px;
+          order: 3;
+      }
+
+      .x-one-deposit-process-{{ section.id }}  .pledge-btn {
+          border-radius: 3px;
+          background: #08CE77;
+          width: 100%;
+          min-width: auto;
+          min-height: 35px;
+          color: #000;
+          padding: 4px 20px;
+          color: #000;
+          text-align: center;
+          font-family: Mulish;
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 150%;
+          order: 4;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+      }
+</style>
+
+<div
+  id="{% if section.settings.nav_id != empty %}custom-nav-{{ section.settings.nav_id }}{% endif %}"
+  class="x-one-deposit-process-{{ section.id }}"
+>
+  <div class="selling-points-container">
+    <!-- 顶部部分：产品与价格 -->
+    <div class="hero-section">
+      <!-- 左侧/顶部：产品图 -->
+      <div class="product-col">
+        <div class="product-box">
+          <div class="product-img-placeholder">
+            <!-- 这里使用背景图或img，为演示结构暂用占位 -->
+            <img
+              class="lazyload"
+              src="https://cdn.shopify.com/s/files/1/0601/7820/2737/files/1_21b1630d-192b-40fe-b7ec-314003f5609f.png?v=1771003231"
+              alt="Procolored X One"
+            >
+          </div>
+          <div class="product-label">Procolored X One</div>
+        </div>
+      </div>
+
+      <!-- 右侧/底部：价格卡片 -->
+      <div class="price-col">
+        <!-- 灰色卡片 -->
+        <div class="price-card gray-card">
+          <div class="card-title">Launch Special</div>
+          <div class="card-subtitle">Without $5 Deposit</div>
+          <div class="price-val">$3799</div>
+          <div class="price-msrp">MSRP <span>$7999</span></div>
+        </div>
+
+        <!-- 橙色卡片 -->
+        <div class="price-card orange-card">
+          <div class="card-title">VIP Only Special</div>
+          <div class="price-val">$3599</div>
+          <div class="price-msrp">MSRP <span>$7999</span></div>
+          <div class="save-pill">
+            <div class="save-pill-text">Save up to $4400</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部部分：定金流程 -->
+    <div class="process-section">
+      <div class="section-title">How Does the Deposit Work?</div>
+
+      <!-- 流程容器 -->
+      <div class="timeline-wrapper">
+        <!-- 步骤 1 -->
+        <div class="step-item">
+          <div class="step-label">Pre Launch</div>
+          <div class="step-dot">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="100%"
+              height="100%"
+              viewBox="0 0 26 26"
+              fill="none"
+            >
+              <circle cx="13" cy="13" r="13" fill="#F5F5F5" />
+              <circle cx="13" cy="13" r="10" fill="#FF8F1C" />
+            </svg>
+          </div>
+          <div class="step-box">
+            <div class="step-box-container">
+              <div class="box-head">VIP Deposit</div>
+              <div class="box-price orange-text">$5</div>
+            </div>
+
+            <div class="box-desc mb">
+              Lock in your exclusive VIP package—Refundable<br>
+              $5 discount + 500ml white ink(Value $59)
+            </div>
+          </div>
+          <div class="box-desc pc">
+            Lock in your exclusive VIP package—Refundable $5 discount + 500ml white ink(Value $59)
+          </div>
+          <!-- 移动端箭头 -->
+          <div class="mobile-arrow">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="100%"
+              height="100%"
+              viewBox="0 0 13 8"
+              fill="none"
+            >
+              <path d="M6.49512 7.5L-7.40588e-05 -9.53674e-07L12.9903 -9.53674e-07L6.49512 7.5Z"
+                  fill="#FF8F1C" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- 步骤 2 -->
+        <div class="step-item">
+          <div class="step-label"><span>Kickstarter</span> Launch</div>
+          <div class="step-dot">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="100%"
+              height="100%"
+              viewBox="0 0 26 26"
+              fill="none"
+            >
+              <circle cx="13" cy="13" r="13" fill="#F5F5F5" />
+              <circle cx="13" cy="13" r="10" fill="#FF8F1C" />
+            </svg>
+          </div>
+          <div class="step-box">
+            <div class="step-box-container">
+              <div class="box-head">Order at</div>
+              <div class="box-price orange-text">$3799</div>
+            </div>
+
+            <div class="box-desc mb">We'll email you once we launch</div>
+          </div>
+          <div class="box-desc pc">
+            We'll email you <br>
+            once we launch
+          </div>
+          <!-- 移动端箭头 -->
+          <div class="mobile-arrow">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="100%"
+              height="100%"
+              viewBox="0 0 13 8"
+              fill="none"
+            >
+              <path d="M6.49512 7.5L-7.40588e-05 -9.53674e-07L12.9903 -9.53674e-07L6.49512 7.5Z"
+                  fill="#FF8F1C" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- 步骤 3 -->
+        <div class="step-item">
+          <div class="step-label">After Campaign Ends</div>
+          <div class="step-dot">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="100%"
+              height="100%"
+              viewBox="0 0 26 26"
+              fill="none"
+            >
+              <circle cx="13" cy="13" r="13" fill="#F5F5F5" />
+              <circle cx="13" cy="13" r="10" fill="#FF8F1C" />
+            </svg>
+          </div>
+          <div class="step-box">
+            <div class="box-head">
+              Get Your <br>
+              VIP Rewards
+            </div>
+            <div class="box-desc left-align mb">
+              <ul>
+                <li>Receive <span class="orange-text">$200 Refund</span> within 14 days.</li>
+                <li><span class="orange-text">500ml White Ink</span> will be shipped together with your X one.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="box-desc left-align pc">
+            <ul>
+              <li>Receive <span class="orange-text">$200 Refund</span> within 14 days.</li>
+              <li><span class="orange-text">500ml White Ink</span> will be shipped together with your X one.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 等号与结果 -->
+        <div class="equal-item">
+          <div class="equal-symbol"></div>
+          <div class="final-box">
+            <div class="final-title pc">
+              Final VIP <br>
+              Early Bird Price
+            </div>
+            <div class="final-title mb">Final VIP Early Bird Price</div>
+            <div class="final-price">$3599</div>
+            <div class="final-calc">$3799 -$200</div>
+            <div class="pledge-btn" id="pledge-btn-deposit-now">Deposit Now</div>
+            <script>
+              document.addEventListener('DOMContentLoaded', function () {
+                const pledgeBtn = document.getElementById('pledge-btn-deposit-now');
+                if (pledgeBtn) {
+                  pledgeBtn.addEventListener('click', function () {
+                    const btn = document.querySelector('.thb-product-detail product-form #AddToCart');
+                    if (!btn) {
+                      // For some themes, 'product-form' may also be '.product-form'
+                      btn = document.querySelector('.thb-product-detail .product-form #AddToCart');
+                    }
+                    if (btn) {
+                      btn.click();
+                    }
+                  });
+                }
+              });
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "X one deposit process",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "default": "deposit-process",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 40
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 40
+    }
+  ],
+  "blocks": [],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "X one deposit process"
+    }
+  ]
+}
+{% endschema %}

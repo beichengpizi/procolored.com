@@ -1,0 +1,190 @@
+<style>
+  @media screen and (max-width: 768px) {
+  }
+</style>
+
+<div
+  id="{% if section.settings.nav_id != empty %}custom-nav-{{ section.settings.nav_id }}{% endif %}"
+  class="x-one--{{ section.id }}"
+></div>
+{% schema %}
+{
+  "name": "X one5",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "图片",
+      "settings": [
+        {
+          "id": "event_tracking",
+          "type": "text",
+          "label": "埋点触发事件（触发时机：点击）",
+          "info": "例如：Click_ShopNow_SF_oven"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "图片（PC端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "图片（移动端）"
+        },
+        {
+          "type": "html",
+          "id": "heading",
+          "label": "主标题"
+        },
+        {
+          "type": "html",
+          "id": "content",
+          "label": "内容"
+        },
+
+        {
+          "id": "link",
+          "type": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "shopifyVideo",
+      "name": "视频(shopify)",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "video_poster_pc",
+          "label": "自定义视频封面(pc端)"
+        },
+        {
+          "type": "image_picker",
+          "id": "video_poster_mb",
+          "label": "自定义视频封面(移动端)"
+        },
+        {
+          "type": "video",
+          "id": "video_pc",
+          "label": "选择视频(pc端)"
+        },
+        {
+          "type": "video",
+          "id": "video_mb",
+          "label": "选择视频(移动端)"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "自定义产品图"
+        },
+
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "自定义产品名称"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "选择产品"
+        },
+        {
+          "type": "radio",
+          "id": "product_variant_location",
+          "label": "产品变体",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体"
+            }
+          ],
+          "default": "0",
+          "info": "查看对应产品后台，选择对应的变体所在位置，从上到下依次排序"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "X one5"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,512 @@
+<style>
+    #shopify-section-{{ section.id }} {
+        background: #121212;
+        padding: 80px 0;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-pagination-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 30px;
+        width: 100%;
+        max-width: 1200px;
+    }
+
+    #shopify-section-{{ section.id }} .swiper {
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    #shopify-section-{{ section.id }} .image-swiper-header {   
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #shopify-section-{{ section.id }} .image-wrapper-title {
+        max-width: 1200px; 
+        color: #FFF;
+        font-size: 32px;
+        font-weight: 800;
+        line-height: 48px; /* 150% */
+        width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .image-wrapper-content {
+        max-width: 1200px; 
+        color: #FFF;
+        font-size: 18px;
+        line-height: 27px; /* 150% */
+        padding-top: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-navigation-wrapper {
+        display: flex;
+        gap: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-wrapper {
+      align-items: flex-end;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-pagination {
+        position: static;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+        width: fit-content;
+        display: flex;
+        gap: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-slide {
+        transform: scale(0.9);
+        transform-origin: center bottom;   /* 👈 关键 */
+        transition: transform 0.4s ease;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-slide .image-swiper-header {   
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-slide img,
+    #shopify-section-{{ section.id }} .swiper-slide video {
+        border-radius: 12px;
+        border: 2px solid #FFF;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-slide-active {
+        transform: scale(1);
+        z-index: 2;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-slide-active .image-swiper-header {
+        display: flex;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-button-next,
+    #shopify-section-{{ section.id }} .swiper-button-prev {
+        position: relative;
+        margin: 0;
+        width: fit-content;
+        height: fit-content;
+        border-radius: 99px;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        left: 0;
+        right: 0;
+    }
+
+    #shopify-section-{{ section.id }} .desktopShow {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .mobileShow {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-button-prev {
+        border: 3px solid rgba(255, 255, 255, 0.08);    
+    }
+
+    #shopify-section-{{ section.id }} .swiper-button-next:before,
+    #shopify-section-{{ section.id }} .swiper-button-prev:before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        background: #121212;
+        top: 3px;
+        left: 3px;
+        right: 3px;
+        bottom: 3px;
+        border-radius: 99px;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-pagination-bullet {
+      width: fit-content;
+      height: fit-content;
+      text-align: center;
+      line-height: 1.4;
+      font-size: 20px;
+      color: #fff;
+      opacity: 0.6;
+      background: transparent;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-pagination-bullet-active {
+      color: #fff;
+      background: transparent;
+      opacity: 1;
+      font-weight: 700;
+    }
+
+    #shopify-section-{{ section.id }} .swiper-pagination-bullet-active:after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: #fff;
+      margin-top: 9px;
+    }
+
+    @media screen and (max-width: 767px) {
+        #shopify-section-{{ section.id }} {
+            padding: 24px 0;
+        }
+
+        #shopify-section-{{ section.id }} .swiper-pagination-wrapper {
+            overflow: hidden;
+        }
+
+        #shopify-section-{{ section.id }} .image-wrapper-title {
+            font-size: 26px;
+            line-height: 39px;
+            padding: 0;
+        }
+
+        #shopify-section-{{ section.id }} .image-wrapper-content {
+            font-size: 14px;
+            line-height: 21px;
+            padding: 8px 0 0 0;
+        }
+
+        #shopify-section-{{ section.id }} .swiper-pagination-bullet {
+            font-size: 12px;
+            text-wrap: nowrap;
+        }
+
+        #shopify-section-{{ section.id }} .swiper-pagination {
+            gap: 12px;
+            width: fit-content;
+            overflow: scroll;
+            scrollbar-width: none; /* Firefox */
+            padding: 0 12px;
+        }
+        
+        #shopify-section-{{ section.id }} .swiper-navigation-wrapper {
+            display: none;
+        }
+
+        #shopify-section-{{ section.id }} .desktopShow {
+          display: none;
+        }
+
+        #shopify-section-{{ section.id }} .mobileShow {
+          display: block;
+        }
+    }
+</style>
+
+<!-- Slider main container -->
+
+<div class="swiper">
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+    <!-- Slides -->
+    {%- assign swiper_tab_text = '' -%}
+    {%- for block in section.blocks -%}
+      {%- assign swiper_tab_text = swiper_tab_text | append: block.settings.tab_text | append: ',' -%}
+      <div class="swiper-slide">
+        <div class="image-swiper-header">
+            <div class="image-wrapper-title">
+                {{ block.settings.title }}
+            </div>
+
+            <div class="image-wrapper-content">
+                {{ block.settings.content }}
+            </div>
+        </div>
+        {% if block.settings.video != blank %}
+          <video
+            style="aspect-ratio: {{ block.settings.video.aspect_ratio }};"
+            class="lazy desktopShow"
+            preload="none"
+            width="100%"
+            height="auto"
+            data-poster="{{ block.settings.video.preview_image | image_url: width: 700 }}"
+            autoplay
+            loop
+            muted
+            playsinline
+            webkit-playsinline
+            x-webkit-airplay="allow"
+            x5-playsinline
+            x5-video-player-type="h5"
+            x5-video-orientation="portrait"
+            x5-video-player-fullscreen="false"
+        >
+            {% for source in block.settings.video.sources %}
+              <source
+                data-src="{{ source.url }}"
+                type="{{source.mime_type }}"
+                media="(min-width: 768px)"
+              >
+            {% endfor %}
+            Your browser does not support the video tag.
+          </video>
+        {% endif %}
+
+        {% if block.settings.mobile_video != blank %}
+          <video
+            style="aspect-ratio: {{ block.settings.mobile_video.aspect_ratio }};"
+            class="lazy mobileShow"
+            preload="none"
+            width="100%"
+            height="auto"
+            data-poster="{{ block.settings.mobile_video.preview_image | image_url: width: 700 }}"
+            autoplay
+            loop
+            muted
+            playsinline
+            webkit-playsinline
+            x-webkit-airplay="allow"
+            x5-playsinline
+            x5-video-player-type="h5"
+            x5-video-orientation="portrait"
+            x5-video-player-fullscreen="false"
+          >
+            {% for source in block.settings.mobile_video.sources %}
+              <source
+                data-src="{{ source.url }}"
+                type="{{source.mime_type }}"
+                media="(max-width: 769px)"
+              >
+            {% endfor %}
+            Your browser does not support the video tag.
+          </video>
+        {% elsif block.settings.video != blank %}
+          <video
+            style="aspect-ratio: {{ block.settings.video.aspect_ratio }};"
+            class="lazy mobileShow"
+            preload="none"
+            width="100%"
+            height="auto"
+            data-poster="{{ block.settings.video.preview_image | image_url: width: 700 }}"
+            autoplay
+            loop
+            muted
+            playsinline
+            webkit-playsinline
+            x-webkit-airplay="allow"
+            x5-playsinline
+            x5-video-player-type="h5"
+            x5-video-orientation="portrait"
+            x5-video-player-fullscreen="false"
+          >
+            {% for source in block.settings.video.sources %}
+              <source
+                data-src="{{ source.url }}"
+                type="{{source.mime_type }}"
+                media="(max-width: 769px)"
+              >
+            {% endfor %}
+            Your browser does not support the video tag.
+          </video>
+        {% endif %}
+        {% if block.settings.pc_image != blank %}
+          <img src="{{ block.settings.pc_image | image_url }}" alt="" width="100%" height="100%">
+        {% endif %}
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <div class="swiper-pagination-wrapper">
+    <!-- If we need pagination -->
+    <div class="swiper-pagination" data-swiper-tab-text="{{ swiper_tab_text }}"></div>
+    <div class="swiper-navigation-wrapper">
+        <div class="swiper-button-prev">
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="20" viewBox="0 0 11 20" fill="none">
+                <path d="M9.5 18.5L1.5 10L9.5 1.5" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+
+        <div id="progressCircle-{{ section.id }}" class="swiper-button-next">
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="20" viewBox="0 0 11 20" fill="none">
+                <path d="M1.5 18.5L9.5 10L1.5 1.5" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+    </div>
+  </div>
+  
+      
+</div>
+
+{{ 'swiper.min.css' | asset_url | stylesheet_tag }}
+{{ 'swiper.min.js' | asset_url | script_tag }}
+
+<script>
+  const progressContent = document.querySelector('#shopify-section-{{ section.id }} .autoplay-progress span');
+  const swiperTabText = document.querySelector('#shopify-section-{{ section.id }} .swiper-pagination').dataset.swiperTabText.split(',');
+  // 轮播延迟时间，进度环每1份的时间
+    const delayTime = 5000;
+    const progressCircle_delayTime = delayTime / 100;
+    const progressCircle = document.getElementById('progressCircle-{{section.id}}');
+    let progress = 0;
+    let autoProgressInterval = null;
+    let autoProgressStopped = false;
+    // 更新进度环
+    function updateProgress() {
+      if (autoProgressStopped) return;
+      progress = (progress + 1) % 101; // 0 到 100
+      progressCircle.style.background = `conic-gradient(
+        #fff 0%,
+        #fff ${progress}%,
+        rgba(255, 255, 255, 0.08) ${progress}%,
+        rgba(255, 255, 255, 0.08) 100%
+      )`;
+      if (progress === 0) {
+        swiper.slideNext(); // 切换到下一张幻灯片
+      }
+    }
+
+    // 启动进度环动画（注意这里每一份的时间是 delayTime/100 毫秒）
+    function startAutoProgress() {
+      if (autoProgressInterval) clearInterval(autoProgressInterval);
+      autoProgressStopped = false;
+      autoProgressInterval = setInterval(updateProgress, progressCircle_delayTime);
+    }
+    // 停止自动进度
+    function stopAutoProgress() {
+      autoProgressStopped = true;
+      if (autoProgressInterval) {
+        clearInterval(autoProgressInterval);
+        autoProgressInterval = null;
+      }
+    }
+    startAutoProgress();
+
+    // 修复：保证点击下一张按钮/进度条在最后一个slide时也能循环
+    const prevBtn = document.querySelector('#shopify-section-{{ section.id }} .swiper-button-prev');
+    const nextBtn = document.querySelector('#shopify-section-{{ section.id }} .swiper-button-next');
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function() {
+        stopAutoProgress();
+        swiper.slidePrev();
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function() {
+        stopAutoProgress();
+        // 检查Swiper是否为最后一个slide，若是则循环到第一个
+        if (swiper.isEnd) {
+          swiper.slideToLoop(0, 0); // loop模式下跳转到第一个并无动画
+        } else {
+          swiper.slideNext();
+        }
+      });
+    }
+
+  const swiper = new Swiper('#shopify-section-{{ section.id }} .swiper', {
+    observer: true,
+    observeParents: true,
+    slidesPerView: 1.8,
+    spaceBetween: 0,
+    centeredSlides: true,
+    loop: true,
+    navigation: {
+      nextEl: '#shopify-section-{{ section.id }} .swiper-button-next',
+      prevEl: '#shopify-section-{{ section.id }} .swiper-button-prev',
+    },
+    on: {
+      slideChange: function () {
+        progress = 0; // 切换幻灯片时重置进度
+        startAutoProgress(); // 重新启动自动进度
+
+        // 👇 同步滚动 tab 到可视区域
+        syncActiveTabIntoView(this);
+      },
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+        renderBullet: function (index, className) {
+          return '<span class="' + className + '">' + swiperTabText[index] + "</span>";
+        },
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 1.3,
+      }
+    }
+  });
+
+  function syncActiveTabIntoView(swiper) {
+        const container = document.querySelector(
+            '#shopify-section-{{ section.id }} .swiper-pagination'
+        );
+        const active = container.querySelector('.swiper-pagination-bullet-active');
+
+        if (!container || !active) return;
+
+        const containerRect = container.getBoundingClientRect();
+        const activeRect = active.getBoundingClientRect();
+
+        const offset =
+            activeRect.left -
+            containerRect.left -
+            containerRect.width / 2 +
+            activeRect.width / 2;
+
+        container.scrollBy({
+            left: offset,
+            behavior: 'smooth',
+        });
+  }
+
+</script>
+{% schema %}
+{
+  "name": "Image swiper",
+  "tag": "section",
+  "settings": [
+    
+  ],
+  "blocks": [
+    {
+      "name": "Item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_text",
+          "label": "Tab text"
+        },
+        {
+          "type": "image_picker",
+          "id": "pc_image",
+          "label": "PC image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "video",
+          "id": "mobile_video",
+          "label": "MB video"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image swiper"
+    }
+  ]
+}
+{% endschema %}

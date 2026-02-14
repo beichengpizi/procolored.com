@@ -1,0 +1,589 @@
+<style>
+    .x-one-versatility-{{ section.id }}{
+      background: #000;
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+    .x-one-versatility-{{ section.id }} .x-one-versatility-container {
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      /* 防止出现水平滚动条 */
+    }
+
+    /* ================= Text Styling ================= */
+    .x-one-versatility-{{ section.id }} .title-wrap {
+      display:flex;
+      flex-direction: column;
+      gap:25px;
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+
+
+    .x-one-versatility-{{ section.id }} .subtitle {
+      color: #898A8E;
+      font-size: 21px;
+      font-weight: 400;
+      line-height: 150%; /* 31.5px */
+
+    }
+
+    /* PC/Mobile 标题切换逻辑 */
+    .x-one-versatility-{{ section.id }} .pc-title {
+      display: block;
+      font-size: 58px;
+      color: #FF8F1C;
+      font-weight: 800;
+      line-height: 1.2;
+
+    }
+
+
+
+    /* 这里的 x 符号样式 */
+    .x-one-versatility-{{ section.id }} .times-symbol {
+      color: #ff8f00;
+      margin: 0 5px;
+    }
+
+    /* ================= Swiper Customization ================= */
+    .x-one-versatility-{{ section.id }} .swiper-container {
+      width: 100%;
+      /* 让slide溢出容器显示，实现PC端左右露出的效果 */
+      overflow: visible;
+    }
+
+    .x-one-versatility-{{ section.id }} .swiper-slide {
+      /* PC端默认宽度，配合 slidesPerView: 'auto' */
+      width: 1200px !important;
+      transition: transform 0.3s;
+      opacity: 0.4;
+      /* 非激活状态稍微透明 */
+      transform: scale(1);
+      /* 非激活状态稍微缩小 */
+    }
+
+    .x-one-versatility-{{ section.id }} .swiper-slide-active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 10;
+    }
+    .x-one-versatility-{{ section.id }} .slide-img.pc{
+      display:block;
+    }
+    .x-one-versatility-{{ section.id }} .slide-img.mb{
+      display:none;
+    }
+    .x-one-versatility-{{ section.id }} .slide-img {
+      width: 100%;
+      border-radius: 20px;
+      /* 模拟图片占位 */
+      background-color: #333;
+      {% comment %} min-height: 500px; {% endcomment %}
+      object-fit: cover;
+    }
+
+    /* ================= Bottom Tabs (Pagination) ================= */
+    .x-one-versatility-{{ section.id }} .custom-tabs {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #2a2a2a;
+      width: fit-content;
+      margin: 0 auto;
+      padding: 4px;
+      gap:4px;
+      border-radius: 16px;
+      margin-top: 30px;
+      overflow: hidden;
+    }
+
+    .x-one-versatility-{{ section.id }} .tab-item {
+      position: relative;
+      z-index: 1;
+      padding: 12px 24px;
+      color: #aaa;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      text-align: center;
+      line-height: 1.2;
+      min-width:140px;
+      white-space: nowrap;
+      position: relative;
+      height: 100%;
+      color: #000;
+      transition-duration: 60ms;
+      transition-property: color;
+      transition-timing-function: ease-out;
+    }
+
+    .x-one-versatility-{{ section.id }} .tab-item-container {
+      display: flex;
+      align-items: center;
+      height: 100%;
+
+      background: rgba(0, 0, 0, 0);
+      border: none;
+      color: inherit;
+      text-decoration: none;
+      letter-spacing: inherit;
+      opacity: 0.8;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+
+      border-radius: 999px;
+      will-change: opacity;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      text-align: center;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 130%;
+
+    }
+
+
+
+  .x-one-versatility-{{ section.id }} .tab-item .tab-item-container {
+      color: #fff;
+    }
+
+    .x-one-versatility-{{ section.id }} .tab-item.active .tab-item-container {
+      opacity: 1;
+      color: #000;
+      font-weight: 700;
+
+      transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s;
+    }
+
+    /* 滑块 */
+    .x-one-versatility-{{ section.id }} .tab-slider {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      height: calc(100% - 8px);
+      width: 0;
+      background: #fff;
+      border-radius: 12px;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s ease;
+      z-index: 0;
+    }
+    @media screen and (max-width: 768px) {
+      .x-one-versatility-{{ section.id }}{
+        padding-top: {{ section.settings.padding_top_mobile }}px;
+        padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+      }
+      .x-one-versatility-{{ section.id }} .x-one-versatility-container {
+        overflow: hidden;
+        width: 100%;
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .x-one-versatility-{{ section.id }} .title-wrap {
+        text-align: left;
+        gap:16px;
+        margin-bottom:24px;
+
+      }
+
+      .x-one-versatility-{{ section.id }} .pc-title{
+        color:  #FF8F1C;
+        font-size: 26px;
+        text-align: left;
+        font-weight: 800;
+        line-height: 130%;
+        max-width:308px;
+
+      }
+
+
+      .x-one-versatility-{{ section.id }} .subtitle {
+        color: #898A8E;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 150%;
+        max-width:253px;
+        text-align: left;
+      }
+
+      .x-one-versatility-{{ section.id }} .swiper-container {
+        /* 移动端由于外层有了padding，swiper占满剩余空间 */
+        width: 100%;
+        overflow: hidden;
+        /* 移动端通常不需要溢出显示太宽 */
+      }
+
+      .x-one-versatility-{{ section.id }} .swiper-slide {
+        width: 100% !important;
+        /* 移动端单张全宽 */
+        opacity: 1;
+        transform: scale(1);
+      }
+      .x-one-versatility-{{ section.id }} .slide-img.pc{
+        display:none;
+      }
+      .x-one-versatility-{{ section.id }} .slide-img.mb{
+        display:block;
+      }
+      .x-one-versatility-{{ section.id }} .slide-img {
+        {% comment %} min-height: 350px; {% endcomment %}
+        /* 移动端图片高度调整 */
+        border-radius: 16px;
+      }
+
+      .x-one-versatility-{{ section.id }} .custom-tabs {
+        width: 100%;
+        /* Tab占满宽度 */
+        justify-content: space-between;
+        padding: 3px;
+        gap:3px;
+        margin-top: 26px;
+        border-radius: 8px;
+      }
+
+      .x-one-versatility-{{ section.id }} .tab-item {
+        padding: 16px 12px;
+        min-width: 102px;
+        flex: 1;
+        /* 等分宽度 */
+      }
+
+      .x-one-versatility-{{ section.id }} .tab-item-container {
+
+        font-size: 10px;
+
+      }
+      .x-one-versatility-{{ section.id }}  .tab-slider {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        height: calc(100% - 6px);
+        border-radius: 8px;
+
+      }
+    }
+</style>
+
+<div
+  id="{% if section.settings.nav_id != empty %}custom-nav-{{ section.settings.nav_id }}{% endif %}"
+  class="x-one-versatility-{{ section.id }}"
+>
+  <div class="x-one-versatility-container">
+    <div class="title-wrap">
+      <div class="pc-title">
+        {{- section.settings.title -}}
+      </div>
+      <div class="subtitle">{{- section.settings.subtitle -}}</div>
+    </div>
+
+    <div class="swiper-container swiper-container-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'image' %}
+              {%- assign desktop_img = block.settings.image -%}
+
+              {%- assign mobile_img = block.settings.mobile_image | default: desktop_img -%}
+              <div class="swiper-slide">
+                <img
+                  data-sizes="80vw"
+                  data-srcset="
+                    {% if desktop_img.width >= 375 %}{{ desktop_img | image_url: width: 750 }} 375w,{% endif %}
+                    {% if desktop_img.width >= 750 %}{{ desktop_img | image_url: width: 1500 }} 750w,{% endif %}
+                    {% if desktop_img.width >= 1100 %}{{ desktop_img | image_url: width:2200 }} 1100w,{% endif %}
+                    {% if desktop_img.width >= 1500 %}{{ desktop_img | image_url: width: 3000 }} 1500w,{% endif %}
+                    {% if desktop_img.width >= 1780 %}{{ desktop_img | image_url: width: 3500 }} 1780w,{% endif %}
+                    {% if desktop_img.width >= 2000 %}{{ desktop_img | image_url: width: 4000 }} 2000w,{% endif %}
+                    {% if desktop_img.width >= 3000 %}{{ desktop_img | image_url: width: 3000 }} 3000w,{% endif %}
+                    {% if desktop_img.width >= 3840 %}{{ desktop_img | image_url: width: 3840 }} 3840w,{% endif %}
+
+                    {{ desktop_img | image_url }} {{ desktop_img.width }}w
+                  "
+                  data-src="{{ desktop_img | image_url: width: 1500 }}"
+                  style="max-width:100%;width:100%;aspect-ratio:{{ desktop_img.aspect_ratio }};"
+                  class="lazyload pc slide-img"
+                  alt="{{ block.settings.heading | strip_html | truncate: 30 | default: 'Feature Image' }}"
+                >
+                <img
+                  data-sizes="100vw"
+                  data-srcset="
+                    {% if mobile_img.width >= 100 %}{{ mobile_img | image_url: width: 200 }} 375w,{% endif %}
+                    {% if mobile_img.width >= 200 %}{{ mobile_img | image_url: width: 400 }} 375w,{% endif %}
+                      {% if mobile_img.width >= 375 %}{{ mobile_img | image_url: width: 750 }} 375w,{% endif %}
+                      {% if mobile_img.width >= 750 %}{{ mobile_img | image_url: width: 1500 }} 750w,{% endif %}
+                      {% if mobile_img.width >= 1100 %}{{ mobile_img | image_url: width:2200 }} 1100w,{% endif %}
+                      {% if mobile_img.width >= 1500 %}{{ mobile_img | image_url: width: 3000 }} 1500w,{% endif %}
+
+
+                      {{ mobile_img | image_url }} {{ mobile_img.width }}w
+                  "
+                  data-src="{{ mobile_img | image_url: width: 400 }}"
+                  style="max-width:100%;width:100%;aspect-ratio:{{ mobile_img.aspect_ratio }};"
+                  class="lazyload mb slide-img"
+                  alt="{{ block.settings.heading | strip_html | truncate: 30 | default: 'Feature Image' }}"
+                >
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- 自定义 Tab 导航 -->
+
+    <div class="custom-tabs">
+      <!-- 滑块 -->
+      <div class="tab-slider"></div>
+      {% for block in section.blocks %}
+        {%- assign tab_name = block.settings.heading | default: 'tab' -%}
+        {% if tab_name != empty %}
+          <div class="tab-item{% if forloop.first %} active{% endif %}">
+            <div class="tab-item-container">
+              {{ tab_name }}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+      {% comment %}
+        <div class="tab-item active">
+          <div class="tab-item-container">
+            <div>Small Business</div>
+            <div>Owners</div>
+          </div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-item-container">
+            <div>DIY Enthusiasts</div>
+            <div>& Makers</div>
+          </div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-item-container">
+            <div>Tech</div>
+            <div>Professionals</div>
+          </div>
+        </div>
+      {% endcomment %}
+    </div>
+  </div>
+</div>
+<script>
+  // 页面加载后执行
+  window.addEventListener('DOMContentLoaded', function () {
+    // 初始化 Swiper
+    const mySwiper = new Swiper('.swiper-container-{{ section.id }}', {
+      slidesPerView: 'auto', // 允许自定义宽度
+      centeredSlides: true, // 居中模式
+      spaceBetween: 20, // Slide 之间的间距
+      loop: false, // Tab对应内容通常不开启loop
+      speed: 600, // 切换速度
+
+      // 断点控制
+      breakpoints: {
+        768: {
+          slidesPerView: 1, // 移动端显示一张
+          spaceBetween: 10,
+          centeredSlides: true,
+        },
+      },
+
+      // 监听 Slide 切换事件
+      on: {
+        slideChange() {
+          updateActiveTab(this.activeIndex);
+        },
+      },
+    });
+
+    // 获取所有 Tab 元素
+    const tabs = document.querySelectorAll('.x-one-versatility-{{ section.id }} .tab-item');
+
+    // 为每个 Tab 添加点击事件
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => {
+        mySwiper.slideTo(index);
+        updateActiveTab(index);
+      });
+    });
+
+    // 移动滑块函数
+    const slider = document.querySelector('.x-one-versatility-{{ section.id }} .tab-slider');
+
+    const moveSlider = (index) => {
+      const activeTab = tabs[index];
+      if (!activeTab) return;
+
+      const rect = activeTab.getBoundingClientRect();
+      const parentRect = activeTab.parentElement.getBoundingClientRect();
+
+      const width = rect.width;
+      const left = rect.left - parentRect.left - 4;
+
+      slider.style.width = `${width}px`;
+      slider.style.transform = `translateX(${left}px)`;
+    };
+
+    // 更新 Tab 激活样式的函数（并移动滑块）
+    const updateActiveTab = (index) => {
+      tabs.forEach((tab) => tab.classList.remove('active'));
+      if (tabs[index]) {
+        tabs[index].classList.add('active');
+        moveSlider(index);
+      }
+    };
+
+    // 初始化滑块
+    const initSlider = () => {
+      moveSlider(0);
+    };
+
+    // 执行初始化
+    initSlider();
+  });
+</script>
+{% schema %}
+{
+  "name": "X one versatility",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "default": "versatility",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题",
+      "default": "Multi-Material <span class=\"times-symbol\">&times;</span><br>Multi-Tasking Versatility"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题",
+      "default": "An immersive journey from custom ideas to reality."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 80
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "图片",
+      "settings": [
+        {
+          "id": "event_tracking",
+          "type": "text",
+          "label": "埋点触发事件（触发时机：点击）",
+          "info": "例如：Click_ShopNow_SF_oven"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "图片（PC端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "图片（移动端）"
+        },
+        {
+          "type": "html",
+          "id": "heading",
+          "label": "tab标题"
+        }
+      ]
+    },
+    {
+      "type": "shopifyVideo",
+      "name": "视频(shopify)",
+      "settings": [
+        {
+          "id": "event_tracking",
+          "type": "text",
+          "label": "埋点触发事件（触发时机：点击）",
+          "info": "例如：Click_ShopNow_SF_oven"
+        },
+        {
+          "type": "image_picker",
+          "id": "video_poster_pc",
+          "label": "自定义视频封面(pc端)"
+        },
+        {
+          "type": "image_picker",
+          "id": "video_poster_mb",
+          "label": "自定义视频封面(移动端)"
+        },
+        {
+          "type": "video",
+          "id": "video_pc",
+          "label": "选择视频(pc端)"
+        },
+        {
+          "type": "video",
+          "id": "video_mb",
+          "label": "选择视频(移动端)"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "自定义产品图"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "X one versatility"
+    }
+  ]
+}
+{% endschema %}

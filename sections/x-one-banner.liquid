@@ -1,0 +1,507 @@
+<style>
+  .x-one-banner-wrapper {
+    position: relative;
+    background-color: #000;
+    aspect-ratio: 2 / 1;
+  }
+
+  .x-one-banner-title-wrapper {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    max-width: 962px;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    width: 100%;
+  }
+
+  .x-one-banner-title-text {
+    color: #fff;
+    text-align: center;
+
+    font-size: 40px;
+
+    font-weight: 800;
+    line-height: 1.2;
+    /* 133% */
+    margin-bottom: 24px;
+  }
+
+  .x-one-banner-subtitle-text {
+    color: #fff;
+    text-align: center;
+
+    font-size: 21px;
+
+    font-weight: 600;
+    line-height: 1.22;
+    {% comment %} /* 122% */
+    margin-bottom: 20px; {% endcomment %}
+  }
+
+  .x-one-banner-title-desc-text {
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
+
+    font-size: 18px;
+
+    font-weight: 400;
+    line-height: 1.38;
+    /* 138% */
+    margin-bottom: 30px;
+  }
+
+  {% comment %} .x-one-banner-button-group {
+    display: flex;
+    gap: 30px;
+  }
+
+  .x-one-banner-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    min-width: 200px;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    line-height: 1.4;
+
+  }
+
+  .x-one-banner-button.reserve-now {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 200 48" fill="none"><path d="M10 5V0H190V5H195V10H200V38H195V43H190.061V48H10V43H5V38H0V10H5V5H10Z" fill="%23FF8F1C"/><path d="M188 2H12V7H7V12H2V36H7V41H12V46H188.061V41H193V36H198V12H193V7H188V2ZM195 5V10H200V38H195V43H190.061V48H10V43H5V38H0V10H5V5H10V0H190V5H195Z" fill="%23FFEDED"/></svg>')
+      no-repeat center/contain;
+    background-size: 100% 100%;
+  }
+
+  .x-one-banner-button.reserve-now:hover {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 200 48" fill="none"><path d="M10 5V0H190V5H195V10H200V38H195V43H190.061V48H10V43H5V38H0V10H5V5H10Z" fill="%23FFB43B"/><path d="M188 2H12V7H7V12H2V36H7V41H12V46H188.061V41H193V36H198V12H193V7H188V2ZM195 5V10H200V38H195V43H190.061V48H10V43H5V38H0V10H5V5H10V0H190V5H195Z" fill="%23FFEDED"/></svg>')
+      no-repeat center/contain;
+  }
+
+  .x-one-banner-button.watch-video {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 200 48" fill="none"><path d="M188 2H12V7H7V12H2V36H7V41H12V46H188.061V41H193V36H198V12H193V7H188V2ZM195 5V10H200V38H195V43H190.061V48H10V43H5V38H0V10H5V5H10V0H190V5H195Z" fill="%23DDDDDD"/></svg>')
+      no-repeat center/contain;
+    background-size: 100% 100%;
+  }
+
+  .x-one-banner-button.watch-video:hover {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="48" viewBox="0 0 200 48" fill="none"><path d="M188 2H12V7H7V12H2V36H7V41H12V46H188.061V41H193V36H198V12H193V7H188V2ZM195 5V10H200V38H195V43H190.061V48H10V43H5V38H0V10H5V5H10V0H190V5H195Z" fill="%23FF8F1C"/></svg>')
+      no-repeat center/contain;
+  }
+
+  .x-one-banner-button.watch-video:focus {
+    color: #fff;
+  }
+
+  .x-one-banner-button-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+  } {% endcomment %}
+
+  .x-one-banner-content {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .x-one-banner-content video {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .x-one-banner-content video.pc {
+    display: block;
+  }
+
+  .x-one-banner-content video.mb {
+    display: none;
+  }
+  #x-one-banner-popup video.pc {
+    display: block;
+  }
+
+  #x-one-banner-popup video.mb {
+    display: none;
+  }
+  #x-one-banner-popup video {
+    width: 100%;
+  }
+
+  #x-one-banner-popup {
+    width: 80%;
+    background-color: transparent;
+  }
+
+  #x-one-banner-popup .fancybox-button svg {
+    color: #fff;
+  }
+
+  @media screen and (max-width: 768px) {
+    .x-one-banner-title-wrapper {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translate(-50%, 0);
+      max-width: 300px;
+    }
+
+    .x-one-banner-title-text {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.3;
+      /* 133% */
+      margin-bottom: 16px;
+    }
+
+    .x-one-banner-subtitle-text {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.3;
+      /* 122% */
+      {% comment %} margin-bottom: 8px; {% endcomment %}
+    }
+
+    .x-one-banner-title-desc-text {
+      color: rgba(255, 255, 255, 1);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.4;
+      /* 138% */
+      margin-bottom: 20px;
+    }
+
+    .x-one-banner-button-group {
+      gap: 20px;
+    }
+
+    .x-one-banner-button {
+      min-height: 30px;
+      font-size: 12px;
+      min-width: 124px;
+      border: none;
+      cursor: pointer;
+      box-sizing: border-box;
+      line-height: 1.2;
+      /* transition: box-shadow 0.2s;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.08); */
+      /* z-index: 2;
+          overflow: hidden; */
+    }
+
+    .x-one-banner-button.reserve-now {
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 124 30" fill="none"><path d="M117.497 0.504883V3.50586H120.501L120.504 6.00684V6.50586H123.5V23.5059H120.504V26.5059H117.561V29.5049L6.50879 29.5V26.5H3.50391V23.5H0.5V6.5H3.50391V5.99902L3.50098 3.5H6.50586V0.5L117.497 0.504883Z" fill="%23FF8F1C" stroke="%23FF8F1C"/></svg>')
+        no-repeat center/contain;
+      background-size: 100% 100%;
+    }
+
+    .x-one-banner-button.watch-video {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 124 30" fill="none"><path d="M117.497 0.504883V3.50586H120.501L120.504 6.00684V6.50586H123.5V23.5059H120.504V26.5059H117.561V29.5049L6.50879 29.5V26.5H3.50391V23.5H0.5V6.5H3.50391V5.99902L3.50098 3.5H6.50586V0.5L117.497 0.504883Z" stroke="%23DDDDDD"/></svg>')
+        no-repeat center/contain;
+      background-size: 100% 100%;
+    }
+
+    .x-one-banner-button-icon {
+      flex-shrink: 0;
+      width: 14px;
+      height: 14px;
+    }
+
+    .x-one-banner-content {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      height: 530px;
+    }
+
+    .x-one-banner-content video {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #x-one-banner-popup {
+      width: 100%;
+    }
+
+    .x-one-banner-content video.pc {
+      display: none;
+    }
+
+    .x-one-banner-content video.mb {
+      display: block;
+    }
+    #x-one-banner-popup video.pc {
+      display: none;
+    }
+
+    #x-one-banner-popup video.mb {
+      display: block;
+    }
+  }
+</style>
+
+<div
+  id="{% if section.settings.nav_id != empty %}custom-nav-{{ section.settings.nav_id }}{% endif %}"
+  class="x-one-banner-{{ section.id }}"
+>
+  <div class="x-one-banner-wrapper">
+    <div class="x-one-banner-container">
+      <div class="x-one-banner-title-wrapper">
+        <div class="x-one-banner-title-text">
+          The World's First Smart UV Full-Color Engraving Laser for Custom Production
+        </div>
+        <div class="x-one-banner-subtitle-text">Cut, Engrave and Print — Make Whatever You Want</div>
+        {% comment %}
+          <div class="x-one-banner-title-desc-text">
+            Start with an idea. Print it on any fabric.<br>
+            Let it bloom into real rewards.
+          </div>
+          <div class="x-one-banner-button-group">
+            <a
+              href="/products/procolored-k13-lite-dtf-printer-13-a3-white"
+              class="x-one-banner-button reserve-now"
+              onclick=""
+            >
+              <span>Buy Now</span>
+            </a>
+            <a
+              href="https://www.youtube.com/watch?v=Q2Crog7LQVE"
+              data-fancybox="video"
+              data-type="iframe"
+              class="x-one-banner-button watch-video"
+              onclick=""
+              ><span>Watch Video</span>
+              <div class="x-one-banner-button-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 20 20" fill="none">
+                  <path
+                    d="M14.167 1.66699H16.667V4H18.333V6.66699H20V13.333H18.333V16H16.667V17.667H14.167V19.333H5.83301V17.667H3.33301V16H1.66699V13.333H0V6.66699H1.66699V4H3.33301V1.66699H5.83301V0H14.167V1.66699ZM8 6V15H9.7998V6H8ZM9.80078 7.19922V13.7988H10.1533L10.5029 13.7998L11.2021 13.8008V13.7988H11.3008V12.5986H12.7998V11.1465L13.3037 11.1455L13.998 11.1445L13.999 10.4873L14.001 9.83008H12.7998V8.39844H11.3008V7.19922H9.80078Z"
+                    fill="white" />
+                </svg>
+              </div>
+            </a>
+          </div>
+        {% endcomment %}
+      </div>
+      <div class="x-one-banner-content">
+        <video
+          class="pc"
+          src="https://cdn.shopify.com/videos/c/o/v/423476e8052047898ec6c1f961ea0177.mp4"
+          autoplay
+          loop
+          muted
+          playsinline
+          webkit-playsinline
+          x5-playsinline
+        ></video>
+        <video
+          class="mb"
+          src="https://cdn.shopify.com/videos/c/o/v/5d7c304abd814937b8e8687daf162041.mp4"
+          autoplay
+          loop
+          muted
+          playsinline
+          webkit-playsinline
+          x5-playsinline
+        ></video>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "X one banner",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "图片",
+      "settings": [
+        {
+          "id": "event_tracking",
+          "type": "text",
+          "label": "埋点触发事件（触发时机：点击）",
+          "info": "例如：Click_ShopNow_SF_oven"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "图片（PC端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "图片（移动端）"
+        },
+        {
+          "type": "html",
+          "id": "heading",
+          "label": "主标题"
+        },
+        {
+          "type": "html",
+          "id": "content",
+          "label": "内容"
+        },
+
+        {
+          "id": "link",
+          "type": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "shopifyVideo",
+      "name": "视频(shopify)",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "video_poster_pc",
+          "label": "自定义视频封面(pc端)"
+        },
+        {
+          "type": "image_picker",
+          "id": "video_poster_mb",
+          "label": "自定义视频封面(移动端)"
+        },
+        {
+          "type": "video",
+          "id": "video_pc",
+          "label": "选择视频(pc端)"
+        },
+        {
+          "type": "video",
+          "id": "video_mb",
+          "label": "选择视频(移动端)"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "自定义产品图"
+        },
+
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "自定义产品名称"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "选择产品"
+        },
+        {
+          "type": "radio",
+          "id": "product_variant_location",
+          "label": "产品变体",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体"
+            }
+          ],
+          "default": "0",
+          "info": "查看对应产品后台，选择对应的变体所在位置，从上到下依次排序"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "X one banner"
+    }
+  ]
+}
+{% endschema %}

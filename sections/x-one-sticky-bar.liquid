@@ -1,0 +1,341 @@
+<style>
+  /* --- 3. 吸底条 (Sticky Bar) --- */
+  .x-one-sticky-bar-{{ section.id }} .sticky-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    color: #000;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    visibility: hidden;
+    /* 初始隐藏 */
+    opacity: 0;
+  }
+
+  .x-one-sticky-bar-{{ section.id }} .footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    gap: 20px;
+  }
+
+  .x-one-sticky-bar-{{ section.id }} .footer-text {
+    color: #000;
+    font-family: Mulish;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 20px */
+  }
+  .x-one-sticky-bar-{{ section.id }} .footer-text span {
+    color: #ff8f1c;
+  }
+
+  .x-one-sticky-bar-{{ section.id }} .footer-form {
+    display: flex;
+    align-items: center;
+  }
+
+  .x-one-sticky-bar-{{ section.id }} .footer-form input[type='email'] {
+    flex: 1;
+    font-weight: 600;
+    font-size: 15px;
+    width: 300px;
+    height: 32px;
+    min-width: 0; /* 修复flex下在某些移动端超出问题 */
+    margin: 0;
+    border-radius: 5px;
+    border: 1px solid #ffc284;
+    background: #fafafa;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .x-one-sticky-bar-{{ section.id }} .footer-form button {
+    height: 32px;
+    min-width: 145px;
+    padding: 0 30px;
+    font-size: 14px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    background-color: #ff8f1c;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .x-one-sticky-bar-{{ section.id }} .footer-form input[type='email']::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+    opacity: 1;
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  @media screen and (max-width: 768px) {
+    /* 3. Sticky Footer Mobile */
+    .x-one-sticky-bar-{{ section.id }} .sticky-footer {
+      padding: 8px 24px;
+      flex-direction: column;
+    }
+
+    .x-one-sticky-bar-{{ section.id }} .footer-content {
+      flex-direction: column;
+      gap: 7px;
+      text-align: center;
+    }
+
+    .x-one-sticky-bar-{{ section.id }} .footer-text {
+      font-size: 12px;
+    }
+
+    .x-one-sticky-bar-{{ section.id }} .footer-form {
+      width: 100%;
+      display: flex;
+    }
+
+    .x-one-sticky-bar-{{ section.id }} .footer-form input[type='email'] {
+      flex: 1;
+      height: 30px;
+      width: auto;
+      font-size: 12px;
+    }
+
+    .x-one-sticky-bar-{{ section.id }} .footer-form button {
+      min-width: 108px;
+      height: 30px;
+      padding: 0 15px;
+      font-size: 12px;
+    }
+    .x-one-sticky-bar-{{ section.id }} .footer-form input[type='email']::placeholder {
+      font-size: 12px;
+    }
+  }
+</style>
+
+<div
+  id="{% if section.settings.nav_id != empty %}custom-nav-{{ section.settings.nav_id }}{% endif %}"
+  class="x-one-sticky-bar-{{ section.id }}"
+>
+  <!-- 3. 吸底条 (Sticky Bar) -->
+  <div class="sticky-footer">
+    <div class="footer-content">
+      <div class="footer-text">Sign Up Now For <span> 53% Off </span> When X-One Launches</div>
+
+      <form
+        class="footer-form"
+        accept-charset="UTF-8"
+        action="/contact"
+        method="post"
+        enctype="multipart/form-data"
+        onsubmit="handleFormSubmit(event, 'Sticky Footer Bar')"
+      >
+        <input type="hidden" name="utf8" value="✓">
+        <input type="hidden" name="form_type" value="customer">
+        <input name="contact[tags]" type="hidden" value="newsletter">
+        <input
+          type="email"
+          name="contact[email]"
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email"
+          pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+          title="xxx@xxx.xxx"
+          placeholder="Enter Your Email"
+          required
+        >
+        <button type="submit" class="btn-primary">Sign Up</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "X one Sticky Bar",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "图片",
+      "settings": [
+        {
+          "id": "event_tracking",
+          "type": "text",
+          "label": "埋点触发事件（触发时机：点击）",
+          "info": "例如：Click_ShopNow_SF_oven"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "图片（PC端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "图片（移动端）"
+        },
+        {
+          "type": "html",
+          "id": "heading",
+          "label": "主标题"
+        },
+        {
+          "type": "html",
+          "id": "content",
+          "label": "内容"
+        },
+
+        {
+          "id": "link",
+          "type": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "shopifyVideo",
+      "name": "视频(shopify)",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "video_poster_pc",
+          "label": "自定义视频封面(pc端)"
+        },
+        {
+          "type": "image_picker",
+          "id": "video_poster_mb",
+          "label": "自定义视频封面(移动端)"
+        },
+        {
+          "type": "video",
+          "id": "video_pc",
+          "label": "选择视频(pc端)"
+        },
+        {
+          "type": "video",
+          "id": "video_mb",
+          "label": "选择视频(移动端)"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "自定义产品图"
+        },
+
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "自定义产品名称"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "选择产品"
+        },
+        {
+          "type": "radio",
+          "id": "product_variant_location",
+          "label": "产品变体",
+          "options": [
+            {
+              "value": "0",
+              "label": "第一个变体"
+            },
+            {
+              "value": "1",
+              "label": "第二个变体"
+            },
+            {
+              "value": "2",
+              "label": "第三个变体"
+            },
+            {
+              "value": "3",
+              "label": "第四个变体"
+            },
+            {
+              "value": "4",
+              "label": "第五个变体"
+            }
+          ],
+          "default": "0",
+          "info": "查看对应产品后台，选择对应的变体所在位置，从上到下依次排序"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "X one Sticky Bar"
+    }
+  ]
+}
+{% endschema %}

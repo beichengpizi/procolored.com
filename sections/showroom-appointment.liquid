@@ -191,17 +191,16 @@
         const showroomAppointmentApi = "/procolored/activity/showroom/getReservationRecord";
         const showroomCheckInApi = "/procolored/activity/showroom/checkin";
         const showroomCancelApi = "/procolored/activity/showroom/cancelReservation";
-        let customerId = null;
+        let customerEmail = null;
         function checkLocalStorage() {
             const smileShopifyData = window.localStorage.getItem("smile_shopify_data");
             
-            // 如果数据存在且有效，解析并获取 customerId
+            // 如果数据存在且有效，解析并获取 customerEmail
             if (smileShopifyData) {
                 try {
                     const parsedData = JSON.parse(smileShopifyData);
                     if (parsedData && parsedData.customer) {
-                        customerId = parsedData.customer.id;
-                        console.log("Customer ID found:", customerId);
+                        customerEmail = parsedData.customer.email;
 
                         // 停止检查并加载预约数据
                         clearInterval(storageCheckInterval);
@@ -239,7 +238,7 @@
 
 
         function loadShowroomAppointment() {
-            {% comment %} fetch(`${api}${showroomAppointmentApi}?customerId=${customerId}&origin=Shopify_US`, {
+            {% comment %} fetch(`${api}${showroomAppointmentApi}?customerEmail=${customerEmail}&origin=Shopify_US`, {
                 method: 'GET',
                 headers: window.ShopifyData.headers,
             }).then(response => {
@@ -251,7 +250,7 @@
             boosterFetch(
                 showroomAppointmentApi,
                 {
-                    customerId: customerId,
+                    email: customerEmail,
                     origin: 'Shopify_US'
                 },
                 { method: 'GET' }
@@ -518,7 +517,7 @@
         }
 
 
-        if(customerId != null) {
+        if(customerEmail != null) {
             loadShowroomAppointment();
         }
     });

@@ -261,6 +261,10 @@
 
     {%- liquid
       render 'vite-tag' with 'theme.css', preload_stylesheet: true
+    -%}
+    <!-- Smile.io 源文件（必须在 theme.js 之前加载，确保自定义元素先定义） -->
+    <script type="module" src="{{ 'smile-entry.js' | asset_url }}?v={{ 'now' | date: '%s' }}"></script>
+    {%- liquid
       render 'vite-tag' with 'theme.js'
       # if request.page_type contains 'customers/'
       #  render 'vite-tag' with 'customers.js'
@@ -354,6 +358,8 @@
     {{ 'jquery-3.7.1.min.js' | asset_url | script_tag }}
     {{ 'fancybox.min.js' | asset_url | script_tag }}
     {{ 'swiper.min.js' | asset_url | script_tag }}
+    {{ 'gsap.min.js' | asset_url | script_tag }}
+    {{ 'ScrollTrigger.min.js' | asset_url | script_tag }}
     <script>
       function isMobile() {
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -749,9 +755,22 @@
           }
         }
       </style>
+    {% if request.path == '/products/13-single-head-dtf-printer-roll' %}
       <div class="f13-promotional-activities">
-        <a class="f13-promotional-activities-img" href="/products/13-single-head-dtf-printer-roll">
-          <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/PC_40834be3-8a2f-4a0b-b519-a314a3fbe4fa.png?v=1768903599" alt="">
+        <a
+          class="f13-promotional-activities-img"
+          href="/products/13-single-head-dtf-printer-roll"
+          onclick="
+            TriplePixel('custom', 'float_quiz_entry_click', {
+               value: 1,
+               page: '{{ request.path }}'
+            });
+          "
+        >
+          <img
+            src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/PC_40834be3-8a2f-4a0b-b519-a314a3fbe4fa.png?v=1768903599"
+            alt=""
+          >
         </a>
         <div class="f13-promotional-activities-close-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 21 21" fill="none">
@@ -761,6 +780,32 @@
           </svg>
         </div>
       </div>
+    {% else %}
+      <div class="f13-promotional-activities">
+        <a
+          class="f13-promotional-activities-img"
+          href="/pages/procolored-valentines-day-2026#custom-nav-Prize-Quiz"
+          onclick="
+            TriplePixel('custom', 'float_quiz_entry_click', {
+               value: 1,
+               page: '{{ request.path }}'
+            });
+          "
+        >
+          <img
+            src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Group_2610437.png?v=1770622814"
+            alt=""
+          >
+        </a>
+        <div class="f13-promotional-activities-close-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 21 21" fill="none">
+            <circle cx="10.5" cy="10.5" r="9.79091" stroke="#BABABA" stroke-width="1.41818" />
+            <path d="M6.83447 14.4951L14.501 6.82861M6.83447 6.82861L14.501 14.4951" stroke="#BABABA"
+                stroke-width="1.41818" stroke-linecap="round" />
+          </svg>
+        </div>
+      </div>
+    {% endif %}
       <script>
         document.addEventListener('DOMContentLoaded', function () {
           const closeBtn1 = document.querySelector('.f13-promotional-activities-close-icon');

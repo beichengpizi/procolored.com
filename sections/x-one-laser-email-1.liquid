@@ -1,0 +1,493 @@
+<style>
+    /* --- 2. 底部 UV Laser 模块 (新增模块) --- */
+    .x-one-laser-email-{{ section.id }}  .laser-section {
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 80px 160px;
+      overflow: hidden;
+      background-color: #000;
+    }
+
+
+
+    .x-one-laser-email-{{ section.id }} .laser-content {
+      position: relative;
+      z-index: 2;
+      /* 确保文字在背景之上 */
+      max-width: 920px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .x-one-laser-email-{{ section.id }} .laser-title {
+      color: #FFF;
+      text-align: center;
+      font-family: Mulish;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 120%; /* 28.8px */
+      margin-bottom: 4px;
+
+    }
+
+    .x-one-laser-email-{{ section.id }} .laser-subtitle {
+      color: #898A8E;
+      font-family: Mulish;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 120%;
+
+      margin-bottom: 32px;
+    }
+    .x-one-laser-email-{{ section.id }} .laser-subtitle span{
+      text-decoration-line: line-through;
+  }
+
+    .x-one-laser-email-{{ section.id }} .laser-price {
+      color: #fff;
+      text-align: center;
+      font-family: Mulish;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 120%;
+      margin-bottom: 20px;
+    }
+    .x-one-laser-email-{{ section.id }} .laser-ks-text-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .x-one-laser-email-{{ section.id }} .laser-ks-text {
+      color: #fff;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 120%;
+    }
+    .x-one-laser-email-{{ section.id }} .kickstarter-logo-large {
+      width: 222px;
+    }
+    .x-one-laser-email-{{ section.id }} .kickstarter-logo-large img {
+      width: 100%;
+      max-width: 100%;
+    }
+    .x-one-laser-email-{{ section.id }} .hero-form {
+      display: flex;
+      width: 100%;
+      max-width: 630px;
+      margin: 0 auto 24px auto;
+      justify-content: center;
+    }
+
+    /* 注意提升优先级，确保 .hero-form input 样式在所有端生效 */
+    .x-one-laser-email-{{ section.id }} .hero-form input[type='email'] {
+      flex: 1;
+      height: 44px;
+      min-width: 0; /* 修复flex下在某些移动端超出问题 */
+      margin: 0;
+      border-radius: 5px;
+      border: 1px solid #f2f2f2;
+      background: #fff;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .x-one-laser-email-{{ section.id }} .hero-form button {
+      min-width: 172px;
+      min-height: 44px;
+      border-radius: 5px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      height: auto;
+    }
+
+    /* 按钮通用样式 */
+    .x-one-laser-email-{{ section.id }} .btn-primary {
+      color: #fff;
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1;
+      background-color: #ff8f1c;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* 输入框通用样式 */
+    .x-one-laser-email-{{ section.id }} input[type='email'] {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 0 15px;
+      outline: none;
+      color: #333;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+
+    .x-one-laser-email-{{ section.id }} input[type='email']::placeholder {
+      color: rgba(0, 0, 0, 0.4);
+      opacity: 1;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+
+    @media screen and (max-width: 768px) {
+      /* 2. Laser Section Mobile (改为上下堆叠) */
+      .x-one-laser-email-{{ section.id }} .laser-section {
+        padding: 24px 24px 60px 24px;
+        justify-content: flex-start;
+        /* 内容靠上 */
+        background: #000;
+
+      }
+
+
+
+      .x-one-laser-email-{{ section.id }} .laser-title {
+          color: #FFF;
+          text-align: center;
+          font-family: Mulish;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 120%; /* 16.8px */
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom:5px
+      }
+      .x-one-laser-email-{{ section.id }} .laser-subtitle {
+          color: rgba(255, 255, 255, 0.60);
+          text-align: center;
+          font-family: Mulish;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 120%; /* 16.8px */
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom:12px
+      }
+
+      .x-one-laser-email-{{ section.id }} .laser-price {
+        font-size: 14px;
+        line-height: 1.3;
+        margin-bottom: 12px;
+      }
+      .x-one-laser-email-{{ section.id }} .laser-ks-text-wrap {
+        gap: 5px;
+        align-items: baseline;
+      }
+      .x-one-laser-email-{{ section.id }} .laser-ks-text {
+        font-size: 14px;
+        line-height: 1.3; /* 28.8px */
+      }
+      .x-one-laser-email-{{ section.id }} .kickstarter-logo-large {
+        width: 115px;
+      }
+      /* 表单改为垂直布局 */
+      .x-one-laser-email-{{ section.id }} .hero-form {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        margin-bottom:12px;
+      }
+
+      /* 升级输入框优先级，避免被全局input[type=email]样式覆盖 */
+      .x-one-laser-email-{{ section.id }} .hero-form input[type='email'] {
+        height: 35px;
+        border-radius: 5px;
+        font-size: 12px;
+        padding: 0 12px;
+        box-sizing: border-box;
+        width: 100%;
+        min-width: 0;
+        flex: unset;
+        display: block;
+      }
+
+      /* 按钮 */
+      .x-one-laser-email-{{ section.id }} .hero-form button {
+        min-height: 35px;
+        width: 100%;
+        border-radius: 5px;
+        font-size: 12px;
+      }
+    }
+</style>
+
+<div
+  id="{% if section.settings.nav_id != empty %}custom-nav-{{ section.settings.nav_id }}{% endif %}"
+  class="x-one-laser-email-{{ section.id }}"
+>
+  <!-- 2. 底部 UV Laser 模块 (触发模块：当看到这个模块时，吸底条应隐藏，避免功能重复/遮挡) -->
+  <section class="laser-section trigger-module">
+    <div class="laser-content">
+      <div class="laser-title">{{ section.settings.title }}</div>
+      <div class="laser-subtitle">{{ section.settings.subtitle }}</div>
+      <!-- 复用 Hero 表单样式 -->
+      <form
+        class="hero-form"
+        accept-charset="UTF-8"
+        action="/contact"
+        method="post"
+        enctype="multipart/form-data"
+        onsubmit="handleFormSubmit(event, 'Bottom Laser Section')"
+      >
+        <input type="hidden" name="utf8" value="✓">
+        <input type="hidden" name="form_type" value="customer">
+        <input name="contact[tags]" type="hidden" value="newsletter">
+        <input
+          type="email"
+          name="contact[email]"
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email"
+          pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+          title="xxx@xxx.xxx"
+          placeholder="Enter Your Email"
+          required
+        >
+        <button type="submit" class="btn-primary">Sign Up</button>
+      </form>
+
+      <div class="laser-ks-text-wrap">
+        <div class="laser-ks-text">COMING SOON ON</div>
+        <div class="kickstarter-logo-large">
+          <img
+            data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Kickstarter-Logo_1.png?v=1770801698"
+            style="max-width:100%;width:100%;aspect-ratio:{{ product_image.aspect_ratio }};"
+            class="lazyload"
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+  // 页面加载后才执行
+  window.addEventListener('DOMContentLoaded', function () {
+    // 注册 ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    const stickyBar = document.querySelector('.sticky-footer');
+    // 获取所有带有 trigger-module 类的元素（Top Hero 和 Bottom Laser）
+    const triggerModules = document.querySelectorAll('.trigger-module');
+
+    // 初始状态：隐藏吸底条（位于底部下方）
+    gsap.set(stickyBar, { y: '100%', autoAlpha: 0 });
+    // 状态管理
+    let visibleCount = 0;
+    let stickyVisible = false; // 当前真实状态
+    // 动画函数
+    function showSticky() {
+      if (stickyVisible) return; // 已经显示就不执行
+      stickyVisible = true;
+
+      gsap.killTweensOf(stickyBar); // 防止残留动画
+      gsap.to(stickyBar, {
+        y: '0%',
+        autoAlpha: 1,
+        duration: 0.35,
+        ease: 'power2.out',
+      });
+    }
+
+    function hideSticky() {
+      if (!stickyVisible) return; // 已经隐藏就不执行
+      stickyVisible = false;
+
+      gsap.killTweensOf(stickyBar);
+      gsap.to(stickyBar, {
+        y: '100%',
+        autoAlpha: 0,
+        duration: 0.35,
+        ease: 'power2.in',
+      });
+    }
+
+    // --- 核心逻辑 ---
+    // 我们希望：只要用户正在查看任何一个“核心模块”（Hero 或 底部Laser），吸底条就消失。
+    // 只有当用户处于这两个模块之间的“内容区域”时，吸底条才显示。
+
+    triggerModules.forEach((module) => {
+      ScrollTrigger.create({
+        trigger: module,
+        start: 'top bottom',
+        end: 'bottom top',
+
+        onEnter: () => {
+          visibleCount++;
+          hideSticky();
+        },
+
+        onEnterBack: () => {
+          visibleCount++;
+          hideSticky();
+        },
+
+        onLeave: () => {
+          visibleCount--;
+          if (visibleCount <= 0) showSticky();
+        },
+
+        onLeaveBack: () => {
+          visibleCount--;
+          if (visibleCount <= 0) showSticky();
+        },
+      });
+    });
+    // 页面刷新时重新计算
+    ScrollTrigger.refresh();
+    // 确保页面加载时如果在顶部，吸底条是隐藏的
+    // hideSticky();
+
+    // --- 表单提交逻辑 (FormData 模拟) ---
+    function isValidEmail(email) {
+      // RFC 5322 简化版
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+
+    window.handleFormSubmit = function (event, source) {
+      event.preventDefault();
+      const form = event.target;
+      const btn = form.querySelector('button');
+      const originalText = btn.innerText;
+
+      // 获取邮箱
+      const emailInput = form.querySelector('input[type="email"]');
+      const email = emailInput.value.trim();
+
+      if (!isValidEmail(email)) {
+        alert('Please enter a valid email address.');
+        emailInput.focus();
+        return false;
+      }
+
+      // 1. 获取数据
+      const formData = new FormData(form);
+      {% comment %} formData.append('source', source); // 添加来源字段
+      formData.append('submittedAt', new Date().toLocaleString()); {% endcomment %}
+
+      // 2. 打印 FormData (模拟发送)
+      console.log(`%c [Form Submitted] Source: ${source}`, 'color: #05ce78; font-weight: bold;');
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }
+
+      // 3. UI 反馈
+      btn.disabled = true;
+      btn.innerText = 'Processing...';
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+      })
+        .then(function (response) {
+          console.log('response==', response);
+          if (response.ok) {
+            // 提交成功后显示提示，不重定向
+            alert('Submission successful! We will notify you when the pre-sale starts');
+            form.reset();
+            btn.innerText = 'Success';
+            btn.style.backgroundColor = '#05ce78';
+          } else {
+            form.reset();
+            btn.innerText = 'Success';
+            btn.style.backgroundColor = '#05ce78';
+            {% comment %} alert('Submission failed, please try again later.'); {% endcomment %}
+            window.open('https://preorder.procolored.com/reservation', '_blank');
+          }
+        })
+        .catch(function () {
+          alert('Submission failed, please check your network connection.');
+        })
+        .finally(function () {
+          btn.disabled = false;
+          btn.innerText = originalText;
+          btn.style.backgroundColor = '';
+        });
+    };
+  });
+</script>
+{% schema %}
+{
+  "name": "X one laser email 1",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题",
+      "default": "Super Early Bird $3699"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题",
+      "default": "MSRP: $7999"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "X one laser email 1"
+    }
+  ]
+}
+{% endschema %}

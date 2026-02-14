@@ -198,10 +198,7 @@
         {%- if section.settings.custom_liquid_1 != empty -%}
           {{ section.settings.custom_liquid_1 }}
         {%- endif -%}
-        <!-- 价格下方的自定义模块填充2 -->
-        {%- if section.settings.custom_liquid_2 != empty -%}
-          {{ section.settings.custom_liquid_2 }}
-        {%- endif -%}
+        
         <!-- 活动横幅倒计时 -->
         {%- if section.settings.flash_sale_countdown != blank or section.settings.flash_sale_countdown_end != blank -%}
           <div class="product-flash-sale-countdown-wrapper-container">
@@ -237,6 +234,11 @@
               {%- endif -%}
             </div>
           </div>
+        {%- endif -%}
+
+        <!-- 价格下方的自定义模块填充2 -->
+        {%- if section.settings.custom_liquid_2 != empty -%}
+          {{ section.settings.custom_liquid_2 }}
         {%- endif -%}
         <style>
           .purchases_over_automatic_discounts-content {

@@ -3,7 +3,11 @@
     width: 100%;
     overflow: hidden;
   }
-  
+
+  #shopify-section-{{ section.id }} .mySwiper {
+    position: relative;
+  }
+
     /* Top promotional banner 顶部促销活动横幅 start */
   {% for block in section.blocks %}
     .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }}.top-promotional-banner-wrapper {
@@ -124,6 +128,8 @@
             {% if block.settings.banner_bg_image_pc %}
               margin: 0;
             {%- endif -%}
+            width: 100%;
+            max-width: 242px;
           }
 
         .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }}  .top-promotional-banner-containner-content {
@@ -178,9 +184,10 @@
       display: flex;
       max-width: 1200px;
       margin: 0 auto;
-      padding-right: calc((136 / 1920) * 100vw);
-      {% comment %} padding-left: calc((360 / 1920) * 100vw); {% endcomment %}
-      gap: 120px;
+      {% comment %} padding-right: calc((136 / 1920) * 100vw); {% endcomment %}
+
+      {% comment %} gap: 120px; {% endcomment %}
+      width: 100%;
     }
 
   .top-promotional-banner-{{ section.id }}  .top-promotional-banner-containner-content {
@@ -297,7 +304,8 @@
 <section id="top-promotional-banner" class="top-promotional-banner-{{ section.id }} swiper mySwiper">
   <div class="swiper-wrapper">
     {% for block in section.blocks %}
-      <div id="swiper-block-{{ block.id }}"
+      <div
+        id="swiper-block-{{ block.id }}"
         class="top-promotional-banner-wrapper swiper-slide"
         onclick="window.location.href='{{ block.settings.banner_link | default: '/' }}'"
       >
@@ -326,24 +334,25 @@
               </div>
             {%- endif -%}
           </div>
-
-          <div class="top-promotional-banner-img">
-            {% assign banner_image_pc = block.settings.banner_image_pc %}
-            {% assign banner_image_mb = block.settings.banner_image_mb %}
-            {% if banner_image_pc and banner_image_mb %}
-              <picture>
-                <!-- 移动端图片：屏幕宽度小于等于768px时显示 -->
-                <source
-                  srcset="{{ block.settings.banner_image_mb | image_url:width:750 }}"
-                  media="(max-width: 768px)"
-                >
-                <img
-                  src="{{ block.settings.banner_image_pc | image_url:width:750 }}"
-                  alt="Black Friday Promotion Banner"
-                >
-              </picture>
-            {%- endif -%}
-          </div>
+          {% assign banner_image_pc = block.settings.banner_image_pc %}
+          {% assign banner_image_mb = block.settings.banner_image_mb %}
+          {% if banner_image_pc and banner_image_mb %}
+            <div class="top-promotional-banner-img">
+              {% if banner_image_pc and banner_image_mb %}
+                <picture>
+                  <!-- 移动端图片：屏幕宽度小于等于768px时显示 -->
+                  <source
+                    srcset="{{ block.settings.banner_image_mb | image_url:width:750 }}"
+                    media="(max-width: 768px)"
+                  >
+                  <img
+                    src="{{ block.settings.banner_image_pc | image_url:width:750 }}"
+                    alt="Black Friday Promotion Banner"
+                  >
+                </picture>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
         </div>
       </div>
     {% endfor %}
@@ -355,7 +364,7 @@
 <!-- Top promotional banner 顶部促销活动横幅 end -->
 <script>
   waitForCountdown(function () {
-    var swiper = new Swiper("#shopify-section-{{ section.id }} .mySwiper", {
+    var swiper = new Swiper('#shopify-section-{{ section.id }} .mySwiper', {
       slidesPerView: 1,
       observer: true,
       loop: true,
@@ -364,7 +373,7 @@
       },
       observeParents: true,
       pagination: {
-        el: "#shopify-section-{{ section.id }} .swiper-pagination",
+        el: '#shopify-section-{{ section.id }} .swiper-pagination',
       },
       on: {
         init() {
@@ -372,11 +381,10 @@
         },
         slideChangeTransitionEnd() {
           setTimeout(initCountdowns, 50);
-        }
-      }
+        },
+      },
     });
   });
-
 
   function waitForCountdown(cb) {
     if (window.jQuery && $.fn.countdown) {
@@ -388,46 +396,45 @@
     }
   }
 
-
   function formatUtcTime(v) {
-      let date = new Date(v);
-      return (
-          date.getFullYear() +
-          '/' +
-          (date.getMonth() + 1) +
-          '/' +
-          (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
-          ' ' +
-          (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
-          ':' +
-          (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
-          ':' +
-          (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
-      );
+    let date = new Date(v);
+    return (
+      date.getFullYear() +
+      '/' +
+      (date.getMonth() + 1) +
+      '/' +
+      (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+      ' ' +
+      (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+      ':' +
+      (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+      ':' +
+      (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+    );
   }
   function initCountdowns() {
     $('.mySwiper [data-countdown]').each(function () {
       try {
         $(this).countdown('destroy');
-      } catch(e){}
+      } catch (e) {}
 
       const end = $(this).data('countdown-end');
       const style = $(this).data('countdown-style');
       const finalDate = formatUtcTime(end);
 
-      $(this).countdown(finalDate).on('update.countdown', function (event) {
-        let format =
-          '<div class="time-block"><div class="time-value">%D</div><div class="time-label">Days</div></div>' +
-          '<div class="time-block"><div class="time-value">%H</div><div class="time-label">Hrs</div></div>' +
-          '<div class="time-block"><div class="time-value">%M</div><div class="time-label">Mins</div></div>' +
-          '<div class="time-block"><div class="time-value">%S</div><div class="time-label">Secs</div></div>';
+      $(this)
+        .countdown(finalDate)
+        .on('update.countdown', function (event) {
+          let format =
+            '<div class="time-block"><div class="time-value">%D</div><div class="time-label">Days</div></div>' +
+            '<div class="time-block"><div class="time-value">%H</div><div class="time-label">Hrs</div></div>' +
+            '<div class="time-block"><div class="time-value">%M</div><div class="time-label">Mins</div></div>' +
+            '<div class="time-block"><div class="time-value">%S</div><div class="time-label">Secs</div></div>';
 
-        $(this).html(event.strftime(format));
-      });
+          $(this).html(event.strftime(format));
+        });
     });
   }
-
-
 </script>
 
 {{ 'swiper.min.css' | asset_url | stylesheet_tag }}
@@ -440,9 +447,7 @@
   "enabled_on": {
     "groups": ["header"]
   },
-  "settings": [
-
-  ],
+  "settings": [],
   "blocks": [
     {
       "type": "item",

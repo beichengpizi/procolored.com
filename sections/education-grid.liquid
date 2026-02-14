@@ -100,6 +100,10 @@
       display: none !important;
     }
 
+    #shopify-section-{{ section.id }} .swiper-wrapper {
+      transform: none !important;
+    }
+
     #shopify-section-{{ section.id }} .swiper-slide {
       width: 100% !important;
     }
@@ -302,15 +306,27 @@
 
 <script>
   var swiper = new Swiper("#shopify-section-{{ section.id }} .mySwiper", {
-    slidesPerView: 1.3,
-    spaceBetween: 12,
-    slidesOffsetAfter: 32,
-    slidesOffsetBefore: 32,
+    slidesPerView: 3,
+    slidesOffsetAfter: 48,
+    slidesOffsetBefore: 48,
+    spaceBetween: 0,
+    allowTouchMove: false,
     pagination: {
       el: "#shopify-section-{{ section.id }} .swiper-pagination",
+    },
+    breakpoints: {
+      768: {
+        spaceBetween: 48,
+        slidesPerView: 1.3,
+        spaceBetween: 12,
+        slidesOffsetAfter: 32,
+        slidesOffsetBefore: 32,
+        allowTouchMove: true,
+      }
     }
   });
 </script>
+
 
 {% schema %}
 {

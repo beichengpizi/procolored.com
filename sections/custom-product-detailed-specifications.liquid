@@ -665,14 +665,15 @@
   // 监听页面DOM加载，初始化swiper与tab交互
   document.addEventListener('DOMContentLoaded', function () {
     const totalNums = {{ section.blocks.size }};
+    const section = document.querySelector('#shopify-section-{{ section.id }}');
     // 获取tab容器
-    const tabContainer = document.getElementById('product-detailed-specifications-tabs');
+    const tabContainer = section.querySelector('#product-detailed-specifications-tabs');
     if (!tabContainer) return;
 
     // 获取所有tab元素
     const tabs = tabContainer.querySelectorAll('.product-detailed-specifications-tab');
     // 获取所有banner元素
-    const bannerBoxes = document.querySelectorAll('.product-detailed-specifications-banner-box');
+    const bannerBoxes = section.querySelectorAll('.product-detailed-specifications-banner-box');
 
     let swiper = null;
     if (totalNums > 1) {

@@ -1,0 +1,418 @@
+{{ 'valentines-day-luck-wheel-activity-2026.css' | asset_url | stylesheet_tag }}
+
+<section class="lucky-wheel-activity-wrapper">
+  <!-- 转盘抽奖 -->
+  <section class="lucky-wheel-activity-section">
+    <div class="lucky-wheel-activity-title-icon">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/1_c11e778e-1a1b-4189-9f64-7995ee03e1b5.png?v=1770341926"
+        alt=""
+      >
+    </div>
+    <div class="lucky-wheel-activity-title">Order & Spin to Win Up to $2,000!</div>
+    <div class="lucky-wheel-activity-subtitle">
+      More orders, more spins. Win a huge gift card, a smokeless oven, or a heat press!
+    </div>
+    <div class="lucky-wheel-activity-wrapper-pc">
+      <div class="lucky-wheel-activity-container-pc">
+        <div class="lucky-wheel-activity-container-pc-icon1">
+          <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/OBJECTS.png?v=1770341925" alt="">
+        </div>
+        <div class="lucky-wheel-activity-container-pc-icon2">
+          <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/OBJECTS_1.png?v=1770341925" alt="">
+        </div>
+        <div class="panel-box">
+          <div id="my-lucky"></div>
+          <div class="button-box">&nbsp;</div>
+        </div>
+        <div class="right-box">
+          <div class="right-box-detail-content">
+            <!-- PC 端 未登录显示 -->
+            <div class="before-winning-box">
+              <div class="prize-item-title">Spin to Win – Exciting Prizes Await!</div>
+              <div class="prize-item-rules">
+                {% comment %}
+                  <div class="prize-item-rules-title">How to Earn Draw Chances:</div>
+                  <div class="prize-item-rules-desc">1.New User Registration: Earn 1 draw chance instantly.</div>
+                  <div class="prize-item-rules-desc">2.Share this event on Facebook to get an extra raffle entry! (Limit: once per month).</div>
+                {% endcomment %}
+              </div>
+              <div class="activity-button activity-button-pc">Sign Up to Win!</div>
+            </div>
+            <!-- PC 已登录显示 -->
+            <div class="logined-winning-box">
+              <div class="logined-winning-box-title">Ready to Spin? Your Prizes Awaits!</div>
+              <div class="logined-winning-box-content">
+                <div class="logined-winning-box-content-desc">
+                  Purchase any printer or consumables to earn more chances.
+                </div>
+                <div class="logined-winning-box-content-title">
+                  Spins Remaining:
+                  <span class="logined-winning-box-content-title-loading"></span>
+                  <span class="logined-winning-box-content-title-num">
+                    (<span class="Used-opportunities">0</span>/<span class="available-chance">0</span>)
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- 已中奖显示 -->
+            <div class="after-winning-box">
+              <div class="prize-item-title">
+                <span>Congratulations, Winner! </span>
+              </div>
+              {% comment %} <div class="prize-item-desc">Congrats! You've Won!</div> {% endcomment %}
+              <div class="prize-item-box">
+                <div class="prize-img">
+                  <img class="lazyload" data-src="" alt="">
+                </div>
+                <div class="prize-item-right">
+                  <div class="prize-item-name"></div>
+                  <div class="prize-item-tips"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- .after-winning-box -->
+
+          <!-- .right-box-detail-content -->
+          <div class="lucky-wheel-activity-container-pc-bottom">
+            <div class="lucky-wheel-activity-container-pc-bottom-content">
+              <div class="notice-box-left">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="notice-icon"
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                >
+                  <g clip-path="url(#clip0_9961_2893)">
+                    <path d="M13.8343 6.02185C14.0383 6.38035 14.4433 6.46922 14.7384 6.22148L17.9025 3.56494C18.1981 3.31717 18.2709 2.82396 18.0683 2.46529L17.9525 2.26211C17.7471 1.90291 17.3427 1.81182 17.0462 2.06029L13.8837 4.71816C13.5887 4.96664 13.5125 5.45781 13.7186 5.81924L13.8343 6.02185ZM11.0319 1.85555L3.72531 6.36193C3.58795 6.37715 3.42779 6.38599 3.23906 6.38599H0.977734C0.399785 6.38597 0.0390625 6.65566 0.0390625 7.26539V12.6864C0.0390625 13.2941 0.369434 13.5962 0.977734 13.5962H3.24748C3.43244 13.5967 3.58984 13.6056 3.72516 13.6206V13.6215L11.0319 18.1857C11.389 18.4075 11.8507 18.1507 11.8507 17.7303V2.31094C11.8507 1.89062 11.389 1.63383 11.0319 1.85555ZM17.9017 16.4151L14.7377 13.7572C14.444 13.5087 14.0375 13.5983 13.8335 13.9576L13.7171 14.1595C13.5117 14.5194 13.5873 15.0113 13.8822 15.2598L17.0449 17.9164C17.3406 18.1656 17.7465 18.0758 17.9511 17.7166L18.0655 17.5142C18.2709 17.1555 18.1974 16.6623 17.9017 16.4151ZM19.2116 9.06935H15.3587C14.9219 9.06935 14.5704 9.42295 14.5704 9.85922V10.1055C14.5704 10.5423 14.9219 10.8967 15.3587 10.8967H19.2116C19.6486 10.8967 20 10.5423 20 10.1055V9.86055C20.0022 9.42295 19.6492 9.06935 19.2116 9.06935Z" fill="url(#paint0_linear_9961_2893)" />
+                  </g>
+                  <defs>
+                    <linearGradient id="paint0_linear_9961_2893" x1="7.69231" y1="5.76932" x2="10.8886" y2="18.2672" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#FF5583"/>
+                      <stop offset="1" stop-color="#F56AA5"/>
+                    </linearGradient>
+                    <clipPath id="clip0_9961_2893">
+                      <rect width="20" height="20" fill="white"/>
+                    </clipPath>
+                  </defs>
+                </svg>
+                <div class="notice-content notice-content-pc">
+                  <div class="swiper-wrapper"></div>
+                </div>
+              </div>
+              <div class="notice-box-right">
+                <div class="rules">
+                  <a data-fancybox data-src="#rules-content" href="javascript:;" class="rules-text">Rules</a>
+                </div>
+                <div class="prize-list">
+                  <a data-fancybox data-src="#prize-list" href="javascript:;" class="prize-list-text">Prize List</a>
+                </div>
+                <div class="my-prize">
+                  <a data-fancybox data-src="#my-prize-content" href="javascript:;" class="my-prize-text">My Prizes</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- lucky-wheel-activity-wrapper-pc -->
+
+    <div class="lucky-wheel-activity-wrapper-mb">
+      <div class="lucky-wheel-activity-container-mb">
+        <div class="lucky-wheel-activity-container-mb-icon1">
+          <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/OBJECTS.png?v=1770341925" alt="">
+        </div>
+        <div class="lucky-wheel-activity-container-mb-icon2">
+          <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/OBJECTS_1.png?v=1770341925" alt="">
+        </div>
+        <div class="panel-box">
+          <div id="my-lucky-mb"></div>
+          <div class="button-box">&nbsp;</div>
+        </div>
+        <div class="right-box">
+          <!-- 未登录显示 -->
+          <div class="before-winning-box">
+            <div class="prize-item-title">Spin to Win – Exciting Prizes Await!</div>
+            <div class="prize-item-rules">
+              {% comment %}
+                <div class="prize-item-rules-title">How to Earn Draw Chances:</div>
+                <div class="prize-item-rules-desc">1.New User Registration: Earn 1 draw chance instantly.</div>
+                <div class="prize-item-rules-desc">
+                  2.Social Media Share: Share the event on Facebook, Instagram, or TikTok to earn 1 extra draw chance (one per platform monthly).
+                </div>
+              {% endcomment %}
+            </div>
+            <div class="activity-button activity-button-mb">Sign Up to Win!</div>
+          </div>
+          <!-- 移动 已登录显示 -->
+          <div class="logined-winning-box">
+            <div class="logined-winning-box-title">Ready to Spin? Your Prizes Awaits!</div>
+            <div class="logined-winning-box-content">
+              <div class="logined-winning-box-content-desc">
+                Purchase any printer or consumables to earn more chances.
+              </div>
+              <div class="logined-winning-box-content-title">
+                Spins Remaining:
+                <span class="logined-winning-box-content-title-loading"></span>
+                <span class="logined-winning-box-content-title-num">
+                  (<span class="Used-opportunities">0</span>/<span class="available-chance">0</span>)
+                </span>
+              </div>
+            </div>
+          </div>
+          <!-- 已中奖显示 -->
+          <div class="after-winning-box">
+            <div class="prize-item-title">
+              <span>Congratulations, Winner! </span>
+            </div>
+            {% comment %} <div class="prize-item-desc">Congrats! You've Won!</div> {% endcomment %}
+            <div class="prize-item-box">
+              <div class="prize-img">
+                <img class="lazyload" data-src="" alt="">
+              </div>
+              <div class="prize-item-right">
+                <div class="prize-item-name"></div>
+                <div class="prize-item-tips"></div>
+                {% comment %}
+                  <div class="prize-item-rules">
+                    Go to Personal <a href="https://www.procolored.com/account?view=coupon">Coupon</a> to view your
+                    discount code
+                  </div>
+                {% endcomment %}
+                {% comment %}
+                  <div class="discount-code-box">
+                    <div class="Discount-code-top">
+                      <div class="Discount-code-top-left">Code</div>
+                      <div class="Discount-code-top-copy">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" viewBox="0 0 30 20" fill="none">
+                          <rect width="100%" height="100%" rx="10" fill="#FF8F1C"/>
+                          <path d="M19.7249 14.2C19.5214 14.2 19.3263 14.1192 19.1824 13.9753C19.0386 13.8315 18.9578 13.6363 18.9578 13.4329C18.9578 13.2295 19.0386 13.0343 19.1824 12.8905C19.3263 12.7466 19.5214 12.6658 19.7249 12.6658C19.9216 12.6658 20.1102 12.5877 20.2493 12.4486C20.3884 12.3095 20.4666 12.1208 20.4666 11.9241V5.27592C20.4666 5.0792 20.3884 4.89054 20.2493 4.75144C20.1102 4.61234 19.9216 4.53419 19.7249 4.53419H13.0767C12.88 4.53419 12.6913 4.61234 12.5522 4.75144C12.4131 4.89054 12.335 5.0792 12.335 5.27592C12.335 5.47937 12.2542 5.67448 12.1103 5.81834C11.9664 5.9622 11.7713 6.04302 11.5679 6.04302C11.3644 6.04302 11.1693 5.9622 11.0255 5.81834C10.8816 5.67448 10.8008 5.47937 10.8008 5.27592C10.8021 4.67272 11.0423 4.09461 11.4689 3.66808C11.8954 3.24155 12.4735 3.00134 13.0767 3H19.7249C20.3281 3.00134 20.9062 3.24155 21.3327 3.66808C21.7592 4.09461 21.9994 4.67272 22.0008 5.27592V11.9241C21.9994 12.5273 21.7592 13.1054 21.3327 13.5319C20.9062 13.9584 20.3281 14.1987 19.7249 14.2Z" fill="white"/>
+                          <path d="M16.7904 17H10.4091C10.0927 17.0004 9.7792 16.9385 9.48673 16.8179C9.19425 16.6972 8.92851 16.5202 8.70473 16.2969C8.48094 16.0736 8.3035 15.8085 8.18257 15.5167C8.06164 15.2249 7.9996 14.9122 8 14.5964V8.20457C7.99947 7.88873 8.06141 7.57589 8.18228 7.28398C8.30314 6.99207 8.48056 6.72683 8.70437 6.50345C8.92817 6.28007 9.19395 6.10295 9.48649 5.98224C9.77903 5.86153 10.0926 5.7996 10.4091 5.8H16.7904C17.1069 5.7996 17.4204 5.8615 17.7128 5.98215C18.0053 6.10279 18.2711 6.27982 18.4948 6.50309C18.7186 6.72636 18.8961 6.99149 19.017 7.28328C19.1379 7.57507 19.2 7.8878 19.1996 8.20355V14.5954C19.225 15.9256 18.1236 17 16.7904 17ZM10.4091 7.33405C10.2944 7.33311 10.1807 7.35495 10.0745 7.39831C9.96833 7.44167 9.87188 7.50568 9.79076 7.58661C9.70965 7.66754 9.64549 7.76377 9.60203 7.86969C9.55856 7.97561 9.53667 8.0891 9.53762 8.20355V14.5954C9.53667 14.7099 9.55856 14.8234 9.60203 14.9293C9.64549 15.0352 9.70965 15.1314 9.79076 15.2124C9.87188 15.2933 9.96833 15.3573 10.0745 15.4007C10.1807 15.444 10.2944 15.4659 10.4091 15.4649H16.7904C16.9051 15.4659 17.0189 15.444 17.1251 15.4007C17.2312 15.3573 17.3277 15.2933 17.4088 15.2124C17.4899 15.1314 17.5541 15.0352 17.5975 14.9293C17.641 14.8234 17.6629 14.7099 17.662 14.5954V8.20355C17.6629 8.0891 17.641 7.97561 17.5975 7.86969C17.5541 7.76377 17.4899 7.66754 17.4088 7.58661C17.3277 7.50568 17.2312 7.44167 17.1251 7.39831C17.0189 7.35495 16.9051 7.33311 16.7904 7.33405H10.4091Z" fill="white"/>
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="Discount-code-bottom">
+                      <div class="Discount-code-content"></div>
+                    </div>
+                  </div>
+                {% endcomment %}
+              </div>
+            </div>
+          </div>
+          <div class="lucky-wheel-activity-container-mb-bottom">
+            <div class="lucky-wheel-activity-container-pc-bottom-content">
+              <div class="notice-box-left">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="notice-icon"
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                >
+                  <g clip-path="url(#clip0_9961_28934)">
+                    <path d="M13.8343 6.02185C14.0383 6.38035 14.4433 6.46922 14.7384 6.22148L17.9025 3.56494C18.1981 3.31717 18.2709 2.82396 18.0683 2.46529L17.9525 2.26211C17.7471 1.90291 17.3427 1.81182 17.0462 2.06029L13.8837 4.71816C13.5887 4.96664 13.5125 5.45781 13.7186 5.81924L13.8343 6.02185ZM11.0319 1.85555L3.72531 6.36193C3.58795 6.37715 3.42779 6.38599 3.23906 6.38599H0.977734C0.399785 6.38597 0.0390625 6.65566 0.0390625 7.26539V12.6864C0.0390625 13.2941 0.369434 13.5962 0.977734 13.5962H3.24748C3.43244 13.5967 3.58984 13.6056 3.72516 13.6206V13.6215L11.0319 18.1857C11.389 18.4075 11.8507 18.1507 11.8507 17.7303V2.31094C11.8507 1.89062 11.389 1.63383 11.0319 1.85555ZM17.9017 16.4151L14.7377 13.7572C14.444 13.5087 14.0375 13.5983 13.8335 13.9576L13.7171 14.1595C13.5117 14.5194 13.5873 15.0113 13.8822 15.2598L17.0449 17.9164C17.3406 18.1656 17.7465 18.0758 17.9511 17.7166L18.0655 17.5142C18.2709 17.1555 18.1974 16.6623 17.9017 16.4151ZM19.2116 9.06935H15.3587C14.9219 9.06935 14.5704 9.42295 14.5704 9.85922V10.1055C14.5704 10.5423 14.9219 10.8967 15.3587 10.8967H19.2116C19.6486 10.8967 20 10.5423 20 10.1055V9.86055C20.0022 9.42295 19.6492 9.06935 19.2116 9.06935Z" fill="url(#paint0_linear_9961_28934)"/>
+                  </g>
+                  <defs>
+                    <linearGradient id="paint0_linear_9961_28934" x1="7.69231" y1="5.76932" x2="10.8886" y2="18.2672" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#FF5583"/>
+                      <stop offset="1" stop-color="#F56AA5"/>
+                    </linearGradient>
+                    <clipPath id="clip0_9961_28934">
+                      <rect width="20" height="20" fill="white"/>
+                    </clipPath>
+                  </defs>
+                </svg>
+                <div class="notice-content notice-content-mb">
+                  <div class="swiper-wrapper"></div>
+                </div>
+              </div>
+              <div class="notice-box-right">
+                <div class="rules">
+                  <a data-fancybox data-src="#rules-content" href="javascript:;" class="rules-text">Rules</a>
+                </div>
+                <div class="prize-list">
+                  <a data-fancybox data-src="#prize-list" href="javascript:;" class="prize-list-text">Prize List</a>
+                </div>
+                <div class="my-prize">
+                  <a data-fancybox data-src="#my-prize-content" href="javascript:;" class="my-prize-text">My Prizes</a>
+                </div>
+              </div>
+            </div>
+            <div class="notice-box-mb">
+              <div class="rules">
+                <a data-fancybox data-src="#rules-content" href="javascript:;" class="rules-text">Rules</a>
+              </div>
+              <div class="prize-list">
+                <a data-fancybox data-src="#prize-list" href="javascript:;" class="prize-list-text">Prize List</a>
+              </div>
+              <div class="my-prize">
+                <a data-fancybox data-src="#my-prize-content" href="javascript:;" class="my-prize-text">My Prizes</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- lucky-wheel-activity-wrapper-mb -->
+
+    <!-- 抽奖规则弹出框 -->
+    <div style="display: none" id="rules-content">
+      <div class="rules-content-title">Rules</div>
+      <div class="rules-content-desc">
+        <div class="rules-content-desc-title">1. Eligibility</div>
+        <div class="rules-content-desc-item">
+          Top 3 Prizes: Exclusive to customers who purchase a printer (not limited to Valentine's Day promotional
+          printers ).
+        </div>
+        <div class="rules-content-desc-item">
+          Fourth Prize & Lucky Draw: Open to all customers who purchase printers or consumables. No minimum spend
+          required.
+        </div>
+        <div class="rules-content-desc-title">
+          2. Each eligible order grants one draw entry. Multiple orders = multiple entries.
+        </div>
+        <div class="rules-content-desc-title">
+          3. The giveaway will be split into two rounds, totaling 26 winners (excluding the lucky prize winners）.
+        </div>
+        <div class="rules-content-desc-item">
+          Round 1 Time: February 9th to 13th. Winners will be announced on February 14th.
+        </div>
+        <div class="rules-content-desc-item">
+          Round 2 Time: February 14th to 23rd. Winners will be announced on February 24th.
+        </div>
+        <div class="rules-content-desc-title">4. Prizes will be shipped 15 days after your order is delivered.</div>
+      </div>
+    </div>
+
+    <!-- 奖品列表弹出框 -->
+    <div style="display: none" id="prize-list">
+      <div class="rules-content-title">Prize List</div>
+      <div class="rules-content-desc">
+        <div class="rules-content-desc-title">Round 1 Prizes:</div>
+        <div class="rules-content-desc-item">First Prize: $2000 Gift Card × 1</div>
+        <div class="rules-content-desc-item">Second Prize: Smokeless Oven × 2</div>
+        <div class="rules-content-desc-item">Third Prize: Heat Press Machine × 3</div>
+        <div class="rules-content-desc-item">Fourth Prize: $100 Gift Card × 4</div>
+        <div class="rules-content-desc-item">Lucky Prize: $5 Gift Card</div>
+        <div class="rules-content-desc-title">Round 2 Prizes:</div>
+        <div class="rules-content-desc-item">First Prize: $2000 Gift Card × 1</div>
+        <div class="rules-content-desc-item">Second Prize: Smokeless Oven × 4</div>
+        <div class="rules-content-desc-item">Third Prize: Heat Press Machine × 5</div>
+        <div class="rules-content-desc-item">Fourth Prize: $100 Gift Card × 6</div>
+        <div class="rules-content-desc-item">Lucky Prize: $5 Gift Card</div>
+        <div class="rules-content-desc-item-tips">
+          <div class="rules-content-desc-item-tips-title">Notes</div>
+          <div class="rules-content-desc-item-tips-text">
+            The Second Prize (Smokeless Oven) and Third Prize (Heat Press Machine) will be replaced with an
+            equivalent-value Gift Card, sent to the winner’s email.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 奖品规则弹出框 -->
+    <div style="display: none" id="my-prize-content">
+      <div class="my-prize-content-title">My Prizes</div>
+      <div class="my-prize-content-desc"></div>
+      <!-- 未登录 -->
+      <div class="my-prize-content-item-not-logged-in">
+        <img
+          class="my-prize-content-item-not-logged-in-icon lazyload"
+          data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/1_1_2x_a121f25b-591c-483a-8b60-53c293b8e735.webp?v=1753062046"
+          alt="not logged in"
+        >
+        <div class="my-prize-content-item-not-logged-in-text">
+          Please
+          <span class="my-prize-content-item-not-logged-in-button">log in</span>
+          to view your prize records.
+        </div>
+      </div>
+      <!-- 已登录 无奖品 -->
+      <div class="my-prize-content-item-logged-in-no-prizes">
+        <img
+          class="my-prize-content-item-not-logged-in-icon lazyload"
+          data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/1_1_2x_a121f25b-591c-483a-8b60-53c293b8e735.webp?v=1753062046"
+          alt="not logged in"
+        >
+        <div class="my-prize-content-item-not-logged-in-text">You haven't won any prizes yet.</div>
+      </div>
+      <!-- 已登录 有奖品 -->
+      <div class="my-prize-content-item-logged-in has-prizes"></div>
+    </div>
+
+    <!-- 转盘停止，中奖后弹出框 -->
+    <div style="display: none" id="pop-up-box-after-winning">
+      <div class="pop-up-box-after-winning-wrapper">
+        <div class="pop-up-box-after-winning-wrapper-title-box">
+          <div class="pop-up-box-after-winning-wrapper-title-box-text">Congratulations, Winner!</div>
+        </div>
+        {% comment %} <div class="pop-up-box-after-winning-wrapper-subtitle">Congrats! You've Won!</div> {% endcomment %}
+        <div class="pop-up-box-after-winning-wrapper-prize-img">
+          <img class="lazyload" style="width: 100%;max-width: 100%;" data-src="" alt="">
+        </div>
+        <div class="pop-up-box-after-winning-wrapper-prize-content">
+          <div class="pop-up-box-after-winning-wrapper-prize-content-title"></div>
+          <div class="pop-up-box-after-winning-wrapper-prize-content-tips"></div>
+          {% comment %}
+            <div class="pop-up-box-after-winning-wrapper-prize-content-desc">
+              Go to Personal
+              <a
+                href="https://www.procolored.com/account?view=coupon"
+                target="_blank"
+                style="color: #FF8F1C;text-decoration-line: underline;outline: none;"
+                >Coupon</a
+              >
+              to view your discount code
+            </div>
+          {% endcomment %}
+        </div>
+        {% comment %}
+          <div class="pop-up-box-after-winning-wrapper-prize-discount-box">
+            <div class="pop-up-box-after-winning-wrapper-prize-discount-box-top">
+              <div class="pop-up-box-after-winning-wrapper-prize-discount-box-top-name">Code</div>
+              <div class="pop-up-box-after-winning-wrapper-prize-discount-box-copy-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 30 20" fill="none">
+                  <rect width="30" height="20" rx="10" fill="#FF8F1C" />
+                  <path d="M19.7249 14.2C19.5214 14.2 19.3263 14.1192 19.1824 13.9753C19.0386 13.8315 18.9578 13.6363 18.9578 13.4329C18.9578 13.2295 19.0386 13.0343 19.1824 12.8905C19.3263 12.7466 19.5214 12.6658 19.7249 12.6658C19.9216 12.6658 20.1102 12.5877 20.2493 12.4486C20.3884 12.3095 20.4666 12.1208 20.4666 11.9241V5.27592C20.4666 5.0792 20.3884 4.89054 20.2493 4.75144C20.1102 4.61234 19.9216 4.53419 19.7249 4.53419H13.0767C12.88 4.53419 12.6913 4.61234 12.5522 4.75144C12.4131 4.89054 12.335 5.0792 12.335 5.27592C12.335 5.47937 12.2542 5.67448 12.1103 5.81834C11.9664 5.9622 11.7713 6.04302 11.5679 6.04302C11.3644 6.04302 11.1693 5.9622 11.0255 5.81834C10.8816 5.67448 10.8008 5.47937 10.8008 5.27592C10.8021 4.67272 11.0423 4.09461 11.4689 3.66808C11.8954 3.24155 12.4735 3.00134 13.0767 3H19.7249C20.3281 3.00134 20.9062 3.24155 21.3327 3.66808C21.7592 4.09461 21.9994 4.67272 22.0008 5.27592V11.9241C21.9994 12.5273 21.7592 13.1054 21.3327 13.5319C20.9062 13.9584 20.3281 14.1987 19.7249 14.2Z" fill="white"/>
+                  <path d="M16.7904 17H10.4091C10.0927 17.0004 9.7792 16.9385 9.48673 16.8178C9.19425 16.6972 8.92851 16.5202 8.70473 16.2969C8.48094 16.0736 8.3035 15.8085 8.18257 15.5167C8.06164 15.2249 7.9996 14.9122 8 14.5964V8.20456C7.99947 7.88872 8.06141 7.57588 8.18228 7.28397C8.30314 6.99206 8.48056 6.72682 8.70437 6.50344C8.92817 6.28006 9.19395 6.10294 9.48649 5.98223C9.77903 5.86152 10.0926 5.79959 10.4091 5.79999H16.7904C17.1069 5.79959 17.4204 5.86149 17.7128 5.98213C18.0053 6.10278 18.2711 6.27981 18.4948 6.50308C18.7186 6.72635 18.8961 6.99147 19.017 7.28327C19.1379 7.57506 19.2 7.88779 19.1996 8.20354V14.5954C19.225 15.9255 18.1236 17 16.7904 17ZM10.4091 7.33404C10.2944 7.33309 10.1807 7.35494 10.0745 7.3983C9.96833 7.44166 9.87188 7.50567 9.79076 7.5866C9.70965 7.66753 9.64549 7.76376 9.60203 7.86968C9.55856 7.9756 9.53667 8.08909 9.53762 8.20354V14.5954C9.53667 14.7099 9.55856 14.8234 9.60203 14.9293C9.64549 15.0352 9.70965 15.1314 9.79076 15.2124C9.87188 15.2933 9.96833 15.3573 10.0745 15.4007C10.1807 15.444 10.2944 15.4659 10.4091 15.4649H16.7904C16.9051 15.4659 17.0189 15.444 17.1251 15.4007C17.2312 15.3573 17.3277 15.2933 17.4088 15.2124C17.4899 15.1314 17.5541 15.0352 17.5975 14.9293C17.641 14.8234 17.6629 14.7099 17.662 14.5954V8.20354C17.6629 8.08909 17.641 7.9756 17.5975 7.86968C17.5541 7.76376 17.4899 7.66753 17.4088 7.5866C17.3277 7.50567 17.2312 7.44166 17.1251 7.3983C17.0189 7.35494 16.9051 7.33309 16.7904 7.33404H10.4091Z" fill="white"/>
+                </svg>
+              </div>
+            </div>
+            <div class="pop-up-box-after-winning-wrapper-prize-discount-box-code"></div>
+          </div>
+        {% endcomment %}
+      </div>
+    </div>
+  </section>
+</section>
+
+<script src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/lucky-canvas_1.7.25.umd.js?v=1751940211"></script>
+{% assign customerId = '' %}
+{% assign isLogin = 0 %}
+{% if customer %}
+  {% assign isLogin = 1 %}
+  {% assign customerId = customer.id %}
+{% endif %}
+<script>
+  let customerId = '';
+  let customerIdString =''
+  let isLogin = {{ isLogin }};
+  let customerEmail = "";
+  if(isLogin === 1){
+      console.log('已登录帐号')
+      customerIdString = "{{customerId}}";
+      customerId = customerIdString - 0;
+      customerEmail="{{customer.email}}";
+  }else{
+      console.log('未登录帐号')
+  }
+
+
+  console.log('customerId==',customerId)
+</script>
+<script src="{{ 'valentines-day-luck-wheel-activity-2026.js' | asset_url }}" defer></script>

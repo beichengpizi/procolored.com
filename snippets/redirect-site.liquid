@@ -261,13 +261,13 @@
                 window.location.href = 'https://procolored.eu/';
                 return;
               }
-              if (isCanada(country)) {
+              {% comment %} if (isCanada(country)) {
                 // 加拿大访问主站, 顶栏提示可访问法国站
                 document.addEventListener('DOMContentLoaded', () => {
                   showTip('Vous pouvez aussi consulter notre site en français: https://fr.procolored.com', 'Consulter');
                 });
                 return;
-              }
+              } {% endcomment %}
             } else if (currentSite === 'EU') {
               // 当前站点为欧洲分站
               if (isEuropeCountry(country)) {
@@ -310,13 +310,13 @@
                 window.location.href = 'https://procolored.eu/';
                 return;
               }
-              if (isCanada(country)) {
+              {% comment %} if (isCanada(country)) {
                 // 加拿大访问法国分站, 提示可访问主站
                 document.addEventListener('DOMContentLoaded', () => {
                   showTip('You can also access our English site: https://www.procolored.com', 'Go to site');
                 });
                 return;
-              }
+              } {% endcomment %}
               if (isUnitedStates(country) || (!isEuropeCountry(country) && !isCanada(country))) {
                 // 美国 & 其它非欧/非加, 跳主站
                 window.location.href = 'https://www.procolored.com/';
