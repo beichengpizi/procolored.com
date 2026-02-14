@@ -224,8 +224,8 @@
                 <img
                   data-sizes="100vw"
                   data-srcset="
-                    {% if mobile_img.width >= 100 %}{{ mobile_img | image_url: width: 200 }} 375w,{% endif %}
-                    {% if mobile_img.width >= 200 %}{{ mobile_img | image_url: width: 400 }} 375w,{% endif %}
+                    {% if mobile_img.width >= 100 %}{{ mobile_img | image_url: width: 200 }} 100w,{% endif %}
+                    {% if mobile_img.width >= 200 %}{{ mobile_img | image_url: width: 400 }} 200w,{% endif %}
                       {% if mobile_img.width >= 375 %}{{ mobile_img | image_url: width: 750 }} 375w,{% endif %}
                       {% if mobile_img.width >= 750 %}{{ mobile_img | image_url: width: 1500 }} 750w,{% endif %}
                       {% if mobile_img.width >= 1100 %}{{ mobile_img | image_url: width:2200 }} 1100w,{% endif %}
@@ -234,7 +234,7 @@
 
                       {{ mobile_img | image_url }} {{ mobile_img.width }}w
                   "
-                  data-src="{{ mobile_img | image_url: width: 400 }}"
+                  data-src="{{ mobile_img | image_url: width: 500 }}"
                   style="max-width:100%;width:100%;aspect-ratio:{{ mobile_img.aspect_ratio }};"
                   class="lazyload"
                   alt="{{ block.settings.heading | strip_html | truncate: 30 | default: 'Feature Image' }}"
