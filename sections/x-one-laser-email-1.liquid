@@ -63,6 +63,7 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
+      margin-top: 24px;
     }
     .x-one-laser-email-{{ section.id }} .laser-ks-text {
       color: #fff;
@@ -120,16 +121,31 @@
     }
 
     /* 输入框通用样式 */
-    .x-one-laser-email-{{ section.id }} input[type='email'] {
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      padding: 0 15px;
-      outline: none;
-      color: #333;
-      font-size: 15px;
-      box-sizing: border-box;
+    {% comment %} .x-one-laser-email-{{ section.id }} input[type='email'] {
+      border: 1px solid #ddd !important;
+      border-radius: 4px !important;
+      padding: 0 15px !important;
+      outline: none !important;
+      color: #333 !important;
+      font-size: 15px !important;
+      box-sizing: border-box !important;
+      height: 44px !important;
+      min-width: 0 !important; /* 修复flex下在某些移动端超出问题 */
+      margin: 0 !important;
+      border-radius: 5px !important;
+      border: 1px solid #f2f2f2 !important;
+      background: #fff !important;
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
     }
-
+    .x-one-laser-email-{{ section.id }} button[type='button'] {
+      min-width: 172px !important;
+      min-height: 44px !important;
+      border-radius: 5px !important;
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      height: auto !important;
+    } {% endcomment %}
     .x-one-laser-email-{{ section.id }} input[type='email']::placeholder {
       color: rgba(0, 0, 0, 0.4);
       opacity: 1;
@@ -183,6 +199,7 @@
       .x-one-laser-email-{{ section.id }} .laser-ks-text-wrap {
         gap: 5px;
         align-items: baseline;
+        margin-top: 12px;
       }
       .x-one-laser-email-{{ section.id }} .laser-ks-text {
         font-size: 14px;
@@ -221,6 +238,30 @@
         border-radius: 5px;
         font-size: 12px;
       }
+
+    /* 输入框通用样式 */
+    {% comment %} .x-one-laser-email-{{ section.id }} input[type='email'] {
+        height: 35px !important;
+        border-radius: 5px !important;
+        font-size: 12px !important;
+        padding: 0 12px !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        flex: unset !important;
+        display: block !important;
+      }
+      .x-one-laser-email-{{ section.id }} button[type='button'] {
+        min-height: 35px !important;
+        width: 100% !important;
+        border-radius: 5px !important;
+        font-size: 12px !important;
+      } {% endcomment %}
+      {% comment %} .kl-private-reset-css-Xuajs1{
+        flex-direction: column !important;
+        min-height: 35px !important;
+        {% comment %} padding: 0 !important; {% endcomment %}
+        } {% endcomment %}
     }
 </style>
 
@@ -234,31 +275,33 @@
       <div class="laser-title">{{ section.settings.title }}</div>
       <div class="laser-subtitle">{{ section.settings.subtitle }}</div>
       <!-- 复用 Hero 表单样式 -->
-      <form
-        class="hero-form"
-        accept-charset="UTF-8"
-        action="/contact"
-        method="post"
-        enctype="multipart/form-data"
-        onsubmit="handleFormSubmit(event, 'Bottom Laser Section')"
-      >
-        <input type="hidden" name="utf8" value="✓">
-        <input type="hidden" name="form_type" value="customer">
-        <input name="contact[tags]" type="hidden" value="newsletter">
-        <input
-          type="email"
-          name="contact[email]"
-          autocorrect="off"
-          autocapitalize="off"
-          autocomplete="email"
-          pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
-          title="xxx@xxx.xxx"
-          placeholder="Enter Your Email"
-          required
+      {% comment %}
+        <form
+          class="hero-form"
+          accept-charset="UTF-8"
+          action="/contact"
+          method="post"
+          enctype="multipart/form-data"
+          onsubmit="handleFormSubmit(event, 'Bottom Laser Section')"
         >
-        <button type="submit" class="btn-primary">Sign Up</button>
-      </form>
-
+          <input type="hidden" name="utf8" value="✓">
+          <input type="hidden" name="form_type" value="customer">
+          <input name="contact[tags]" type="hidden" value="newsletter">
+          <input
+            type="email"
+            name="contact[email]"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+            title="xxx@xxx.xxx"
+            placeholder="Enter Your Email"
+            required
+          >
+          <button type="submit" class="btn-primary">Sign Up</button>
+        </form>
+      {% endcomment %}
+      <div class="klaviyo-form-WQw3g2"></div>
       <div class="laser-ks-text-wrap">
         <div class="laser-ks-text">COMING SOON ON</div>
         <div class="kickstarter-logo-large">

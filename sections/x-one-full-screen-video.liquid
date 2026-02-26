@@ -100,6 +100,8 @@
   }
 
   .custom-video-play-btn {
+    width:80px;
+    height:80px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -192,7 +194,7 @@
       position: relative;
       width: 100%;
       overflow: hidden;
-      height: 530px;
+
     }
 
     .x-one-full-screen-video-content video {
@@ -218,6 +220,12 @@
     #x-one-full-screen-video-popup video.mb {
       display: block;
     }
+    .custom-video-play-btn {
+      width:40px;
+      height:40px;
+      visibility: hidden;
+
+    }
   }
 </style>
 
@@ -229,32 +237,32 @@
     <div class="x-one-full-screen-video-container">
       <div class="x-one-full-screen-video-content">
         <video
-          class="pc"
+          class="pc lazy"
           preload="none"
-          src="https://cdn.shopify.com/videos/c/o/v/4e0166e54ad2488fabc12e9bac333d09.mp4"
+          data-src="https://cdn.shopify.com/videos/c/o/v/4e0166e54ad2488fabc12e9bac333d09.mp4"
           loop
           controls
           muted
           playsinline
           webkit-playsinline
           x5-playsinline
-          poster="https://cdn.shopify.com/s/files/1/0601/7820/2737/files/v2.jpg?v=1771050332"
+          data-poster="https://cdn.shopify.com/s/files/1/0601/7820/2737/files/02-13_X_One_02_40071f43-975e-46f0-af51-c75ab4c11d9b.jpg?v=1771899438"
         ></video>
         <video
-          class="mb"
+          class="mb lazy"
           preload="none"
-          src="https://cdn.shopify.com/videos/c/o/v/d561d4fc9ed542918b6483efade631a6.mp4"
+          data-src="https://cdn.shopify.com/videos/c/o/v/d561d4fc9ed542918b6483efade631a6.mp4"
           loop
           muted
           controls
           playsinline
           webkit-playsinline
           x5-playsinline
-          poster="https://cdn.shopify.com/s/files/1/0601/7820/2737/files/02-13_X_One_02.jpg?v=1771050344"
+          data-poster="https://cdn.shopify.com/s/files/1/0601/7820/2737/files/02-13_X_One_02.jpg?v=1771050344"
         ></video>
         <!-- 中间播放按钮 -->
         <div class="custom-video-play-btn">
-          <svg width="80" height="80" viewBox="0 0 80 80">
+          <svg width="100%" height="100%" viewBox="0 0 80 80">
             <circle cx="40" cy="40" r="40" fill="rgba(0,0,0,0.6)"/>
             <polygon points="32,24 60,40 32,56" fill="#fff"/>
           </svg>
@@ -277,6 +285,7 @@
     // 点击播放按钮
     playBtn.addEventListener('click', function () {
       const video = getActiveVideo();
+
       video.play();
       playBtn.classList.add('hide');
     });
@@ -422,51 +431,6 @@
           "type": "video",
           "id": "video_mb",
           "label": "选择视频(移动端)"
-        },
-        {
-          "type": "image_picker",
-          "id": "product_image",
-          "label": "自定义产品图"
-        },
-
-        {
-          "type": "text",
-          "id": "product_name",
-          "label": "自定义产品名称"
-        },
-        {
-          "type": "product",
-          "id": "product",
-          "label": "选择产品"
-        },
-        {
-          "type": "radio",
-          "id": "product_variant_location",
-          "label": "产品变体",
-          "options": [
-            {
-              "value": "0",
-              "label": "第一个变体"
-            },
-            {
-              "value": "1",
-              "label": "第二个变体"
-            },
-            {
-              "value": "2",
-              "label": "第三个变体"
-            },
-            {
-              "value": "3",
-              "label": "第四个变体"
-            },
-            {
-              "value": "4",
-              "label": "第五个变体"
-            }
-          ],
-          "default": "0",
-          "info": "查看对应产品后台，选择对应的变体所在位置，从上到下依次排序"
         }
       ]
     }

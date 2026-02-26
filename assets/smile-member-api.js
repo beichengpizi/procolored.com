@@ -56,13 +56,46 @@ class SmileAPI {
       )
 
       try {
-        const raw =
-          JSON.parse(window.localStorage.getItem('smile_shopify_data')) || {}
+        // const raw =
+        //   JSON.parse(window.localStorage.getItem('smile_shopify_data')) || {}
+
+        const smileInitEl = document.querySelector('.smile-shopify-init')
+
+        const digest = smileInitEl?.dataset?.digest
+
+        const customerData = {
+          email: smileInitEl?.dataset?.customerEmail,
+          first_name: smileInitEl?.dataset?.customerFirstName,
+          last_name: smileInitEl?.dataset?.customerLastName,
+          id: smileInitEl?.dataset?.customerId,
+          accepts_marketing:
+            smileInitEl?.dataset?.customerAcceptsMarketing === 'true',
+          orders_count: Number(smileInitEl?.dataset?.customerOrdersCount),
+          total_spent: Number(smileInitEl?.dataset?.customerTotalSpent),
+          tags: smileInitEl?.dataset?.customerTags
+        }
+
+        body = {
+          customer: customerData,
+          digest: digest
+        }
         // 过滤掉 channel_key 和 skip_smile_ui 字段
         // const { channel_key, skip_smile_ui, ...cleanBody } = raw
       
-        body = raw
-      } catch (e) {
+        //  从 DOM 获取 digest
+        // const smileInitEl = document.querySelector('.smile-shopify-init')
+        // const digest = smileInitEl?.dataset?.digest
+
+        // if (!digest) {
+        //   console.warn('Smile digest not found in DOM')
+        // }
+        // body = raw
+
+        // body = {
+        //   customer: raw.customer,
+        //   digest: digest
+        // }      
+    } catch (e) {
         console.error('Failed to parse localStorage data', e)
       }
 

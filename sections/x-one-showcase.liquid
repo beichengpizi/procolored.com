@@ -30,7 +30,7 @@
   .x-one-showcase-{{ section.id }} .sec-scene {
     position: relative;
     width: 100%;
-    min-height: 1056px;
+ 
     background: #000;
     overflow: hidden;
     {% comment %} border-radius: 20px; {% endcomment %}
@@ -38,20 +38,20 @@
 
   @media screen and (min-width: 1681px) {
     .x-one-showcase-{{ section.id }} .sec-scene {
-      min-height: 1300px;
+    
     }
   }
 
   @media screen and (min-width: 2072px) {
     .x-one-showcase-{{ section.id }} .sec-scene {
-      min-height: 1600px;
+     
     }
   }
 
   /* ===== PC 布局 ===== */
   .x-one-showcase-{{ section.id }} .scene-list {
     width: 100%;
-    min-height: 1056px;
+
     padding: 0 5.2vw;
     display: flex;
     column-gap: 12px;
@@ -255,7 +255,16 @@
       '(min-width: 769px)': function () {
         const sceneList = document.querySelector('.x-one-showcase-{{ section.id }} .scene-list');
         const lines = document.querySelectorAll('.x-one-showcase-{{ section.id }} .scene-line');
+        const secScene = document.querySelector('.x-one-showcase-{{ section.id }} .sec-scene');
 
+        // 获取sceneList的高度，加上50px
+        if (sceneList) {
+          const minHeight = sceneList.offsetHeight + 50;
+          sceneList.style.minHeight = minHeight + 'px';
+          if (secScene) {
+            secScene.style.minHeight = minHeight + 'px';
+          }
+        }
         gsap.set(sceneList, {
           scale: 1.8,
           transformPerspective: 1200,

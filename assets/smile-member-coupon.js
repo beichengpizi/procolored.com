@@ -13,8 +13,8 @@ class MemberCoupon extends window.HTMLElement {
     this.api = 'https://booster.procolored.com' // 正式
     // this.api = "https://test.procolored.com" //测试
     this.lotteryRecordsApi = '/procolored/shopify/getPersonalAsset'
-    this.userInfo =
-      JSON.parse(window.localStorage.getItem('smile_shopify_data')) || {}
+    // this.userInfo =
+    //   JSON.parse(window.localStorage.getItem('smile_shopify_data')) || {}
   }
 
   connectedCallback() {
@@ -218,8 +218,23 @@ class MemberCoupon extends window.HTMLElement {
       const { customer } = await this.MemberApi.getCustomesInfo()
 
       this.customer = customer
-      this.customerId = this.userInfo.customer.id
-      this.email = this.userInfo.customer.email
+      const smileInitEl = document.querySelector('.smile-shopify-init')
+
+
+      const customerData = {
+        email: smileInitEl?.dataset?.customerEmail,
+        first_name: smileInitEl?.dataset?.customerFirstName,
+        last_name: smileInitEl?.dataset?.customerLastName,
+        id: smileInitEl?.dataset?.customerId,
+        accepts_marketing:
+          smileInitEl?.dataset?.customerAcceptsMarketing === 'true',
+        orders_count: Number(smileInitEl?.dataset?.customerOrdersCount),
+        total_spent: Number(smileInitEl?.dataset?.customerTotalSpent),
+        tags: smileInitEl?.dataset?.customerTags
+      }
+
+      this.customerId = customerData.id
+      this.email = customerData.email
       this.origin = 'Shopify_US'
       console.log('this.customerId===', this.customerId)
       if (this.customerId) {

@@ -215,9 +215,28 @@
 
 
           }
-          .footer-{{ section.id }} .footer-section-bottom-content .row .footer-payment-icons{
-              padding: 0;
-          }
+        .footer-{{ section.id }} .country-switcher-footer{
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-top: 20px;
+          flex:none;
+          cursor: pointer;
+        }
+        .footer-{{ section.id }} .footer-section-bottom-content .row .footer-payment-icons{
+            padding: 0;
+        }
+        .footer-{{ section.id }} .country-switcher-footer .country-switcher-footer-icon {
+          width: 20px;
+          height: 20px;
+          flex-shrink: 0;
+
+        }
+        .footer-{{ section.id }} .country-switcher-footer .country-switcher-footer-country-name{
+          font-size: 16px;
+          color: #fff;
+
+        }
           @media only screen and (min-width: 768px) {
             .footer-{{ section.id }} .thb-widget-title.collapsible {
               margin-bottom: 20px;
@@ -1379,17 +1398,25 @@
   </div>
   <div class="sub-footer">
     <div class="row">
-      <div class="small-12 medium-8 columns">
-        {% render 'localization',
-          id: 'FooterLocalization',
-          show_language_switcher: show_language_switcher,
-          show_currency_switcher: show_currency_switcher,
-          open_top: true
-        %}
-      </div>
+      {% if show_language_switcher or show_currency_switcher %}
+        <div class="small-12 medium-8 columns">
+          {% render 'localization',
+            id: 'FooterLocalization',
+            show_language_switcher: show_language_switcher,
+            show_currency_switcher: show_currency_switcher,
+            open_top: true
+          %}
+        </div>
+      {% endif %}
       {% if section.settings.show_country_switcher %}
         <div class="small-12 medium-8 columns country-switcher-footer">
-          {% render 'country-switcher' %}
+          <div class="country-switcher-footer-icon">
+            <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none">
+              <g clip-path="url(#prefix__clip0_6956_12946)"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9h-5.4M12 21a9 9 0 01-9-9m9 9c1.988 0 3.6-4.03 3.6-9M12 21c-1.988 0-3.6-4.03-3.6-9M3 12a9 9 0 019-9m-9 9h5.4M12 3c-1.988 0-3.6 4.03-3.6 9M12 3c1.988 0 3.6 4.03 3.6 9m0 0H8.4" stroke="currentColor" stroke-width="1.5"></path></g><defs><clipPath id="prefix__clip0_6956_12946"><path fill="currentColor" d="M0 0h24v24H0z"></path></clipPath></defs>
+            </svg>
+          </div>
+          <div class="country-switcher-footer-country-name"></div>
+          {% comment %} {% render 'country-switcher' %} {% endcomment %}
         </div>
       {% endif %}
       <div class="footer-section-bottom-content">
@@ -1427,9 +1454,36 @@
 {% endif %}
 <script>
   $(document).ready(function () {
-    $('.country-switcher-footer').click(function (event) {
+    const footerCountryName = document.querySelector('.country-switcher-footer-country-name');
+    const getCurrentSite = () => {
+      const hostname = window.location.hostname;
+      if (hostname.endsWith('procolored.com')) {
+        if (hostname.startsWith('fr.')) return 'FR'; // 法国分站点
+        // 主站点、带 www 的主站都归为 US 主站
+        if (
+          hostname === 'procolored.com' ||
+          hostname === 'www.procolored.com' ||
+          hostname === 'www.procolored.com.'
+        )
+          return 'US';
+      } else if (hostname.endsWith('procolored.eu')) {
+        return 'EU'; // 欧洲分站
+      }
+      return 'US'; // 兜底：都视为主站 "US"
+    };
+    const currentSite = getCurrentSite(); // 当前站点类型
+    if (currentSite === 'US'){
+      footerCountryName.textContent = 'United States';
+    }else if (currentSite === 'EU'){
+      footerCountryName.textContent = 'EU Countries';
+    }else if (currentSite === 'FR'){
+      footerCountryName.textContent = 'France';
+    }
+    {% comment %} $('.country-switcher-footer').click(function (event) {
+
       event.stopPropagation(); // 阻止事件冒泡
-      console.log('被点击', $(this));
+
+    console.log('被点击', $(this));
       if ($(this).hasClass('active')) {
         $(this).removeClass('active');
         $(this).children('#countrybox').removeClass('ht-dropdownsearchshow');
@@ -1445,7 +1499,7 @@
     });
     $('.countrtItem').click(function () {
       $('.country-switcher-footer #countrybox').removeClass('ht-dropdownsearchshow');
-    });
+    }); {% endcomment %}
   });
 </script>
 {% schema %}

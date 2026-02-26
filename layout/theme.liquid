@@ -207,7 +207,7 @@
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- endif %}
     <!-- 根据用户IP地址，自动跳转到对应的站点 -->
-    {% render 'redirect-site' %}
+    {% comment %} {% render 'redirect-site' %} {% endcomment %}
     <title>
       {{ page_title }}
       {% if current_tags -%}
@@ -550,6 +550,7 @@
     <div id="wrapper">
       <div class="header--sticky"></div>
       {% sections 'header-group' %}
+       {% render 'select-country-popup-ip' %} 
       <!-- 获取用户IP 指引用户重定向到本地商店购买 -->
       {% comment %} {% render 'redirect-bar' %} {% endcomment %}
       <!-- 国家切换弹窗 -->
@@ -755,7 +756,7 @@
           }
         }
       </style>
-    {% if request.path == '/products/13-single-head-dtf-printer-roll' %}
+    {% comment %} {% if request.path == '/products/13-single-head-dtf-printer-roll' %} {% endcomment %}
       <div class="f13-promotional-activities">
         <a
           class="f13-promotional-activities-img"
@@ -780,7 +781,7 @@
           </svg>
         </div>
       </div>
-    {% else %}
+    {% comment %} {% else %}
       <div class="f13-promotional-activities">
         <a
           class="f13-promotional-activities-img"
@@ -805,7 +806,7 @@
           </svg>
         </div>
       </div>
-    {% endif %}
+    {% endif %} {% endcomment %}
       <script>
         document.addEventListener('DOMContentLoaded', function () {
           const closeBtn1 = document.querySelector('.f13-promotional-activities-close-icon');
