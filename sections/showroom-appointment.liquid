@@ -185,27 +185,53 @@
 {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
 {{ 'swiper-bundle.min.js' | asset_url | script_tag }}
 
+{% assign customerId = '' %}
+{% assign isLogin = 0 %}
+{% if customer %}
+  {% assign isLogin = 1 %}
+  {% assign customerId = customer.id %}
+{% endif %}
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        let customerId = ''; 
+        let customerIdString =''
+        let isLogin = {{ isLogin }};
+        let customerEmail = "";
+        console.log("customer.id");
+        if(isLogin === 1){
+            console.log('已登录帐号')
+            customerIdString = "{{customerId}}";
+            customerId = customerIdString - 0;
+            customerEmail="{{customer.email}}";
+        }else{
+            console.log('未登录帐号')
+        }
+        
+        console.log('customerId==',customerId);
+        
+        function shopifyLogin() {
+            const modalLogin = document.querySelector("modal-login");
+            if (modalLogin) {
+            console.log('modalLogin', modalLogin);
+            const loginForm = modalLogin.showModal(modalLogin.fetchForm.login.innerHTML);
+            modalLogin.loginBindEvent(loginForm.el);
+            } else {
+            console.warn('modalLogin 元素不存在');
+            }
+        }
+
         {% comment %} const api = 'https://booster.procolored.com'; {% endcomment %}
         const showroomAppointmentApi = "/procolored/activity/showroom/getReservationRecord";
         const showroomCheckInApi = "/procolored/activity/showroom/checkin";
         const showroomCancelApi = "/procolored/activity/showroom/cancelReservation";
-        let customerEmail = null;
         function checkLocalStorage() {
-            const smileShopifyData = window.localStorage.getItem("smile_shopify_data");
-            
             // 如果数据存在且有效，解析并获取 customerEmail
-            if (smileShopifyData) {
+            if (customerEmail) {
                 try {
-                    const parsedData = JSON.parse(smileShopifyData);
-                    if (parsedData && parsedData.customer) {
-                        customerEmail = parsedData.customer.email;
-
-                        // 停止检查并加载预约数据
-                        clearInterval(storageCheckInterval);
-                        loadShowroomAppointment();
-                    }
+                    // 停止检查并加载预约数据
+                    clearInterval(storageCheckInterval);
+                    loadShowroomAppointment();
                 } catch (error) {
                     console.error("Error parsing localStorage data:", error);
                 }

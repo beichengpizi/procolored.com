@@ -1,16 +1,198 @@
 <style>
+  .x-one-evolution-{{ section.id }}{
+    background:#000;
+    padding-top:{{ section.settings.padding_top }}px;
+    padding-bottom:{{ section.settings.padding_bottom }}px;
+  }
+  /* ================= 主容器 ================= */
+  .x-one-evolution-{{ section.id }} .evolution-section {
+    width: 100%;
+    position: relative;
+    height: 52.083vw;
+    min-height: 1000px;
+    max-height: 1000px;
+    background-image: url('{{ section.settings.image | image_url: width: 3840 }}');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    pointer-events: none;
+    overflow: hidden;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .x-one-evolution-{{ section.id }} .evolution-container {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ================= 头部文字 ================= */
+  .x-one-evolution-{{ section.id }} .header-content {
+    text-align: center;
+    margin-bottom: 60px;
+    max-width: 1030px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .x-one-evolution-{{ section.id }} .header-content-title {
+    color: #ff8f1c;
+    text-align: center;
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 120%;
+    margin-bottom: 24px;
+  }
+
+  .x-one-evolution-{{ section.id }} .header-content-subtitle {
+    color: #898a8e;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 150%;
+  }
+
+  /* ================= 时间轴容器 ================= */
+  .x-one-evolution-{{ section.id }} .timeline-wrapper {
+    position: relative;
+    z-index: 3;
+
+
+  }
+
+  .x-one-evolution-{{ section.id }} .timeline {
+    display: flex;
+    flex-direction: row-reverse;
+    /* PC端为主，反向排列 */
+    justify-content: space-between;
+    position: relative;
+    padding: 0 66px;
+  }
+
+  /* PC端横线 */
+  .x-one-evolution-{{ section.id }} .pc-horizontal-line {
+    display: block;
+    position: relative;
+    height: 1px;
+    background: linear-gradient(to right, transparent 0%, #ff8f1c 10%, #ff8f1c 90%, transparent 100%);
+    z-index: 1;
+  }
+
+  /* 隐藏移动端的竖线和虚线 */
+  .x-one-evolution-{{ section.id }} .mobile-vertical-line {
+    display: none;
+  }
+
+  .x-one-evolution-{{ section.id }} .connector-line {
+    display: none;
+  }
+
+  /* ================= 单个时间节点 (Item) ================= */
+  .x-one-evolution-{{ section.id }} .timeline-item {
+    width: 33%;
+    padding-left: 0;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  /* 大空心圆 (Big Circle) */
+  .x-one-evolution-{{ section.id }} .big-circle {
+    width: 14px;
+    height: 14px;
+    border: 3px solid #ff8f1c;
+    border-radius: 50%;
+    background-color: #000;
+    position: absolute;
+    top: -7px;
+    left: 0;
+    z-index: 5;
+  }
+
+  /* PC端竖线 */
+  .x-one-evolution-{{ section.id }} .connector-vertical {
+    display: block;
+    width: 1px;
+    height: 93px;
+    background-color: rgba(255, 255, 255, 0.6);
+    position: absolute;
+    top: 0;
+    left: 7px;
+  }
+
+  /* 小圆点 */
+  .x-one-evolution-{{ section.id }} .small-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #ff8f1c;
+    border-radius: 50%;
+    position: absolute;
+    left: 4px;
+    top: 88px;
+    z-index: 5;
+  }
+
+  /* ================= 内容区域样式 ================= */
+  .x-one-evolution-{{ section.id }} .item-content {
+    margin-top: 50px;
+    padding-left: 40px;
+  }
+
+  .x-one-evolution-{{ section.id }} .item-content h3 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 10px;
+    line-height: 1;
+    margin-top: -4px;
+  }
+
+  /* 年份高亮色 */
+  .x-one-evolution-{{ section.id }} .item-content h3.year-text {
+    color: #fff;
+
+  }
+
+  .x-one-evolution-{{ section.id }} .item-content h4 {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 130%;
+    max-width: 210px;
+    margin-bottom: 4px;
+  }
+
+  .x-one-evolution-{{ section.id }} .item-content p {
+    color: #8e8e8e;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+    margin-bottom:0;
+    /* 24px */
+  }
+  .x-one-evolution-{{ section.id }} .item-2025 .item-content h4 {
+    max-width: 240px;
+  }
+  .x-one-evolution-{{ section.id }} .item-2025 .year-text {
+    color: #ff8f1c;
+  }
+
+  /* ================= 移动端适配: max-width 1023px ================= */
+  @media screen and (max-width: 768px) {
     .x-one-evolution-{{ section.id }}{
-      background:#000;
-      padding-top:{{ section.settings.padding_top }}px;
-      padding-bottom:{{ section.settings.padding_bottom }}px;
+      padding-top:{{ section.settings.padding_top_mobile }}px;
+      padding-bottom:{{ section.settings.padding_bottom_mobile }}px;
     }
-    /* ================= 主容器 ================= */
     .x-one-evolution-{{ section.id }} .evolution-section {
-      width: 100%;
+      width: 100vw;
       position: relative;
-      height: 73.95vw;
-      min-height: 1420px;
-      background-image: url('{{ section.settings.image | image_url: width: 3840 }}');
+      min-height: 860px;
+      max-height: 950px;
+      height:229.33vw;
+      max-height: 860px;
+      background-image: url('{{ section.settings.mobile_image | image_url: width: 1500 }}');
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
@@ -18,313 +200,127 @@
       overflow: hidden;
     }
 
-    .x-one-evolution-{{ section.id }} .evolution-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ================= 头部文字 ================= */
     .x-one-evolution-{{ section.id }} .header-content {
-      text-align: center;
-      margin-bottom: 60px;
-      max-width: 1030px;
-      margin-left: auto;
-      margin-right: auto;
+      text-align: left;
+      margin-bottom: 8px;
+      padding-left: 24px;
+      padding-right: 24px;
     }
 
     .x-one-evolution-{{ section.id }} .header-content-title {
-      color: #ff8f1c;
-      text-align: center;
-      font-size: 58px;
-      font-weight: 800;
-      line-height: 120%;
-      margin-bottom: 25px;
+      text-align: left;
+      font-size: 26px;
+      line-height: 130%;
+      margin-bottom: 16px;
     }
 
     .x-one-evolution-{{ section.id }} .header-content-subtitle {
-      color: #898a8e;
-      text-align: center;
-      font-size: 21px;
+      text-align: left;
+      font-size: 14px;
       font-weight: 400;
-      line-height: 150%;
+      line-height: 130%;
     }
 
-    /* ================= 时间轴容器 ================= */
     .x-one-evolution-{{ section.id }} .timeline-wrapper {
-      position: relative;
-      z-index: 3;
-      padding: 0 50px;
-      margin-top: 50px;
-      margin-bottom: 40px;
+      padding: 0 24px;
+      margin-top: 0;
     }
 
     .x-one-evolution-{{ section.id }} .timeline {
-      display: flex;
-      flex-direction: row-reverse;
-      /* PC端为主，反向排列 */
-      justify-content: space-between;
-      position: relative;
-      padding: 0 90px;
+      flex-direction: column;
+      padding-right: 0;
+      padding-left: 5px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+      /* 从上到下 */
     }
 
-    /* PC端横线 */
+    /* 横线隐藏 */
     .x-one-evolution-{{ section.id }} .pc-horizontal-line {
-      display: block;
-      position: relative;
-      height: 1px;
-      background: linear-gradient(to right, transparent 0%, #ff8f1c 10%, #ff8f1c 90%, transparent 100%);
-      z-index: 1;
+      display: none;
     }
 
-    /* 隐藏移动端的竖线和虚线 */
+    /* 移动端显示竖线和虚线 */
     .x-one-evolution-{{ section.id }} .mobile-vertical-line {
-      display: none;
+      position: absolute;
+      top: 10px;
+      bottom: 50px;
+      left: 36px;
+      width: 1px;
+      background: linear-gradient(to bottom, #ff8f1c 60%, transparent 100%);
+      display: block;
     }
 
     .x-one-evolution-{{ section.id }} .connector-line {
-      display: none;
+      display: block;
+      position: absolute;
+      left: 16px;
+      top: 8px;
+      width: 38px;
+      height: 1px;
+      border-top: 1px solid #888;
     }
 
-    /* ================= 单个时间节点 (Item) ================= */
     .x-one-evolution-{{ section.id }} .timeline-item {
-      width: 30%;
-      padding-left: 0;
-      margin-bottom: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      width: 100%;
       position: relative;
+      margin-bottom: 24px;
+      padding-left: 76px;
+      display: block;
     }
 
-    /* 大空心圆 (Big Circle) */
     .x-one-evolution-{{ section.id }} .big-circle {
       width: 16px;
       height: 16px;
-      border: 3px solid #ff8f1c;
+      left: 0;
+      top: 0;
+      position: absolute;
+      border: 2px solid #ff8f1c;
       border-radius: 50%;
       background-color: #000;
-      position: absolute;
-      top: -8px;
-      left: 0;
       z-index: 5;
     }
 
-    /* PC端竖线 */
     .x-one-evolution-{{ section.id }} .connector-vertical {
-      display: block;
-      width: 1px;
-      height: 93px;
-      background-color: rgba(255, 255, 255, 0.6);
-      position: absolute;
-      top: 0;
-      left: 7px;
+      display: none;
     }
 
-    /* 小圆点 */
     .x-one-evolution-{{ section.id }} .small-dot {
       width: 8px;
       height: 8px;
+      left: 50px;
+      top: 5px;
+      z-index: 5;
+      position: absolute;
       background-color: #ff8f1c;
       border-radius: 50%;
-      position: absolute;
-      left: 4px;
-      top: 88px;
-      z-index: 5;
     }
 
-    /* ================= 内容区域样式 ================= */
     .x-one-evolution-{{ section.id }} .item-content {
-      margin-top: 30px;
-      padding-left: 40px;
+      margin-top: 0;
+      padding-left: 0;
     }
 
-    .x-one-evolution-{{ section.id }} .item-content h3 {
-      font-size: 36px;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 15px;
-      line-height: 1;
-      margin-top: -4px;
-    }
-
-    /* 年份高亮色 */
     .x-one-evolution-{{ section.id }} .item-content h3.year-text {
-      color: #fff;
-      font-family: Mulish;
-      font-size: 30px;
-      font-style: normal;
-      font-weight: 800;
-      line-height: 150%;
-      /* 45px */
-      margin-bottom: 10px;
+      font-size: 21px;
+      margin-bottom: 8px;
+      line-height: 130%;
     }
 
     .x-one-evolution-{{ section.id }} .item-content h4 {
-      color: #fff;
-      font-family: Mulish;
-      font-size: 21px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 130%;
-      /* 27.3px */
-      max-width: 210px;
-      margin-bottom: 5px;
+      font-size: 14px;
+      margin-bottom: 4px;
+      max-width: 100%;
     }
 
     .x-one-evolution-{{ section.id }} .item-content p {
-      color: #8e8e8e;
-      font-family: Mulish;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 150%;
-      margin-bottom:0;
-      /* 24px */
+      font-size: 12px;
+      line-height: 130%;
     }
-
-    .x-one-evolution-{{ section.id }} .item-2025 .year-text {
-      color: #ff8f1c;
+    .x-one-evolution-{{ section.id }} .item-2025 .item-content h4 {
+      max-width: 100%;
     }
-
-    /* ================= 移动端适配: max-width 1023px ================= */
-    @media screen and (max-width: 768px) {
-      .x-one-evolution-{{ section.id }}{
-        padding-top:{{ section.settings.padding_top_mobile }}px;
-        padding-bottom:{{ section.settings.padding_bottom_mobile }}px;
-      }
-      .x-one-evolution-{{ section.id }} .evolution-section {
-        width: 100vw;
-        position: relative;
-        min-height: 860px;
-        height:229.33vw;
-        background-image: url('{{ section.settings.mobile_image | image_url: width: 1500 }}');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        pointer-events: none;
-        overflow: hidden;
-      }
-
-      .x-one-evolution-{{ section.id }} .header-content {
-        text-align: left;
-        margin-bottom: 24px;
-        padding-left: 24px;
-        padding-right: 24px;
-      }
-
-      .x-one-evolution-{{ section.id }} .header-content-title {
-        text-align: left;
-        font-size: 26px;
-        line-height: 130%;
-        margin-bottom: 16px;
-      }
-
-      .x-one-evolution-{{ section.id }} .header-content-subtitle {
-        text-align: left;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 130%;
-      }
-
-      .x-one-evolution-{{ section.id }} .timeline-wrapper {
-        padding: 0 24px;
-        margin-top: 0;
-      }
-
-      .x-one-evolution-{{ section.id }} .timeline {
-        flex-direction: column;
-        padding-right: 0;
-        padding-left: 5px;
-        padding-top: 24px;
-        padding-bottom: 24px;
-        /* 从上到下 */
-      }
-
-      /* 横线隐藏 */
-      .x-one-evolution-{{ section.id }} .pc-horizontal-line {
-        display: none;
-      }
-
-      /* 移动端显示竖线和虚线 */
-      .x-one-evolution-{{ section.id }} .mobile-vertical-line {
-        position: absolute;
-        top: 10px;
-        bottom: 50px;
-        left: 36px;
-        width: 1px;
-        background: linear-gradient(to bottom, #ff8f1c 60%, transparent 100%);
-        display: block;
-      }
-
-      .x-one-evolution-{{ section.id }} .connector-line {
-        display: block;
-        position: absolute;
-        left: 16px;
-        top: 8px;
-        width: 38px;
-        height: 1px;
-        border-top: 1px dotted #888;
-      }
-
-      .x-one-evolution-{{ section.id }} .timeline-item {
-        width: 100%;
-        position: relative;
-        margin-bottom: 24px;
-        padding-left: 75px;
-        display: block;
-      }
-
-      .x-one-evolution-{{ section.id }} .big-circle {
-        width: 16px;
-        height: 16px;
-        left: 0;
-        top: 0;
-        position: absolute;
-        border: 2px solid #ff8f1c;
-        border-radius: 50%;
-        background-color: #000;
-        z-index: 5;
-      }
-
-      .x-one-evolution-{{ section.id }} .connector-vertical {
-        display: none;
-      }
-
-      .x-one-evolution-{{ section.id }} .small-dot {
-        width: 8px;
-        height: 8px;
-        left: 50px;
-        top: 5px;
-        z-index: 5;
-        position: absolute;
-        background-color: #ff8f1c;
-        border-radius: 50%;
-      }
-
-      .x-one-evolution-{{ section.id }} .item-content {
-        margin-top: 0;
-        padding-left: 0;
-      }
-
-      .x-one-evolution-{{ section.id }} .item-content h3.year-text {
-        font-size: 21px;
-        margin-bottom: 8px;
-        line-height: 130%;
-      }
-
-      .x-one-evolution-{{ section.id }} .item-content h4 {
-        font-size: 14px;
-        margin-bottom: 4px;
-        max-width: 100%;
-      }
-
-      .x-one-evolution-{{ section.id }} .item-content p {
-        font-size: 11px;
-        line-height: 130%;
-      }
-    }
+  }
 </style>
 
 <div

@@ -326,7 +326,12 @@
     </div>
   </div>
 </div>
-
+{% assign customerId = '' %}
+{% assign isLogin = 0 %}
+{% if customer %}
+  {% assign isLogin = 1 %}
+  {% assign customerId = customer.id %}
+{% endif %}
 <!-- Google Maps API -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgDxBObkrSzvxaBo_yb5u94CFZE3kBFWQ"></script>
 
@@ -599,18 +604,37 @@
 
   /** 页面加载时执行 */
   window.onload = loadShowrooms;
-    
+  let customerId = ''; 
+  let customerIdString =''
+  let isLogin = {{ isLogin }};
+  let customerEmail = "";
+  console.log("customer.id");
+  if(isLogin === 1){
+      console.log('已登录帐号')
+      customerIdString = "{{customerId}}";
+      customerId = customerIdString - 0;
+      customerEmail="{{customer.email}}";
+  }else{
+      console.log('未登录帐号')
+  }
+  
+  console.log('customerId==',customerId);
+  
+  function shopifyLogin() {
+    const modalLogin = document.querySelector("modal-login");
+    if (modalLogin) {
+      console.log('modalLogin', modalLogin);
+      const loginForm = modalLogin.showModal(modalLogin.fetchForm.login.innerHTML);
+      modalLogin.loginBindEvent(loginForm.el);
+    } else {
+      console.warn('modalLogin 元素不存在');
+    }
+  }
+
   const banner = document.querySelector('.section-image-with-text-overlay');
   banner.addEventListener('click', () => {
-    if(JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer === null) {
-      const modalLogin = document.querySelector("modal-login");
-      if (modalLogin) {
-        console.log("modalLogin", modalLogin);
-        const loginForm = modalLogin.showModal(
-          modalLogin.fetchForm.login.innerHTML
-        );
-        modalLogin.loginBindEvent(loginForm.el);
-      }
+    if(customerId == "") {
+      shopifyLogin()
     } else {
       document.getElementById("showroom-map").scrollIntoView({
           behavior: "smooth",

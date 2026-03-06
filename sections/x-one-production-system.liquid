@@ -1,224 +1,309 @@
 {% comment %} 统一所有slide高度，以第一个slide为最高，采用JS动态设定高度。 {% endcomment %}
 <style>
-  .x-one-production-system-{{ section.id }}{
-    background: #000;
-    padding-top:{{ section.settings.padding_top }}px;
-    padding-bottom:{{ section.settings.padding_bottom }}px;
-    overflow: hidden;
-  }
-  /* 外部容器：最大 1200px */
-  .x-one-production-system-{{ section.id }} .main-wrapper {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-  }
+    .x-one-production-system-{{ section.id }}{
+      background: #000;
+      padding-top:{{ section.settings.padding_top }}px;
+      padding-bottom:{{ section.settings.padding_bottom }}px;
+      overflow: hidden;
+    }
+    /* 外部容器：最大 1200px */
+    .x-one-production-system-{{ section.id }} .main-wrapper {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
 
-  .swiper-container-{{ section.id }} {
-    overflow: visible;
-    width: 100%;
-  }
+    .swiper-container-{{ section.id }} {
+      overflow: visible;
+      width: 100%;
+    }
 
-  /* --- 核心布局修改 --- */
-  .x-one-production-system-{{ section.id }} .swiper-slide {
-    width: 1200px !important;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    /* 高度由JS统一动态设置 */
-    /* min-height: var(--xone-slide-max-height, auto); */
-    box-sizing: border-box;
-  }
-  @media screen and (max-width: 1600px){
+    /* --- 核心布局修改 --- */
     .x-one-production-system-{{ section.id }} .swiper-slide {
       width: 1000px !important;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      /* 高度由JS统一动态设置 */
+      /* min-height: var(--xone-slide-max-height, auto); */
+      box-sizing: border-box;
     }
-  }
-  @media screen and (max-width: 1400px){
-    .x-one-production-system-{{ section.id }} .swiper-slide {
-      width: 960px !important;
+    @media screen and (max-width: 1600px){
+      .x-one-production-system-{{ section.id }} .swiper-slide {
+        width: 1000px !important;
+      }
     }
-  }
-  .x-one-production-system-{{ section.id }} .swiper-slide-active {
-    z-index: 10;
-  }
-
-  .x-one-production-system-{{ section.id }} .text-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
-    text-align: center;
-    color: #fff;
-    width: 100%;
-    margin-bottom: 60px;
-    box-sizing: border-box;
-    opacity: 0;
-  }
-
-  .x-one-production-system-{{ section.id }} .slide-title {
-    color: #FF8F1C;
-    text-align: center;
-    font-size: 58px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: 120%; /* 69.6px */
-    max-width: 855px;
-    margin: 0 auto;
-  }
-
-  .x-one-production-system-{{ section.id }} .slide-desc {
-    color: #898A8E;
-    text-align: center;
-    font-size: 21px;
-    font-weight: 400;
-    line-height: 150%;
-  }
-
-  .x-one-production-system-{{ section.id }} .media-container {
-    width: 100%;
-    height: 605px;
-    border-radius: 20px;
-    overflow: hidden;
-    background: #1a1a1a;
+    @media screen and (max-width: 1400px){
+      .x-one-production-system-{{ section.id }} .swiper-slide {
+        width: 960px !important;
+      }
+    }
+    .x-one-production-system-{{ section.id }} .swiper-slide-active {
+      z-index: 10;
+    }
+    .x-one-production-system-{{ section.id }} .text-area-container{
     position: relative;
+    min-height: 190px;
+    padding: 0 24px;
   }
-  .x-one-production-system-{{ section.id }} .media-content.pc{
-    display: block;
-  }
-  .x-one-production-system-{{ section.id }} .media-content.mb{
-    display: none;
-  }
-  .x-one-production-system-{{ section.id }} .media-content {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .x-one-production-system-{{ section.id }} .custom-controls {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 30px;
-    align-items: center;
-  }
-
-  .x-one-production-system-{{ section.id }} .nav-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.30);;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
-    transition: background 0.3s;
-  }
-
-  .x-one-production-system-{{ section.id }} .nav-btn:hover {
-    background: #555;
-  }
-
-  .x-one-production-system-{{ section.id }} .arrow {
-    border: solid #fff;
-    border-width: 0 2px 2px 0;
-    display: inline-block;
-    padding: 3px;
-  }
-
-  .x-one-production-system-{{ section.id }} .arrow-left {
-    transform: rotate(135deg);
-    margin-left: 2px;
-  }
-
-  .x-one-production-system-{{ section.id }} .arrow-right {
-    transform: rotate(-45deg);
-    margin-right: 2px;
-  }
-
-  .x-one-production-system-{{ section.id }} .nav-btn.next {
-    background: #fff;
-  }
-
-  .x-one-production-system-{{ section.id }} .nav-btn.next .arrow {
-    border-color: #000;
-  }
-
-  .x-one-production-system-{{ section.id }} .nav-btn.next:hover {
-    background: #e0e0e0;
-  }
-
-  .x-one-production-system-{{ section.id }} .progress-ring {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 40px;
-    height: 40px;
-    transform: rotate(-90deg);
-    pointer-events: none;
-  }
-
-  .x-one-production-system-{{ section.id }} .progress-ring__circle {
-    stroke: #FF8F1C;
-    stroke-width: 2;
-    fill: transparent;
-    r: 19;
-    cx: 20;
-    cy: 20;
-    stroke-dasharray: 144.5;
-    stroke-dashoffset: 144.5;
-    transition: stroke-dashoffset linear;
-  }
-  @media screen and (max-width: 768px) {
-    .x-one-production-system-{{ section.id }}{
-      padding-top:{{ section.settings.padding_top_mobile }}px;
-      padding-bottom:{{ section.settings.padding_bottom_mobile }}px;
-      overflow: hidden;
-    }
-    .swiper-container-{{ section.id }} {
-      overflow: hidden;
-      padding: 0 24px;
-    }
     .x-one-production-system-{{ section.id }} .text-area {
-      align-items: start;
-      gap: 14px;
-      text-align: left;
-      padding: 0;
-      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      text-align: center;
+      color: #fff;
+      width: 100%;
+      margin-bottom: 0;
+      box-sizing: border-box;
+      opacity: 0;
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0;
+
+
     }
-    .x-one-production-system-{{ section.id }} .swiper-slide {
-      width: 100% !important;
-      opacity: 1;
-    }
+
     .x-one-production-system-{{ section.id }} .slide-title {
-      font-size: 26px;
-      text-align: left;
-      max-width:100%;
-      margin: 0;
+      color: #FF8F1C;
+      text-align: center;
+      font-size: 48px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 120%; /* 69.6px */
+      max-width: 855px;
+      margin: 0 auto;
     }
+
     .x-one-production-system-{{ section.id }} .slide-desc {
-      font-size: 14px;
-      text-align: left;
-      max-width:100%;
-      min-height: 126px;
+      color: #898A8E;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 150%;
+      max-width: 840px;
+      width: 100%;
     }
-    .x-one-production-system-{{ section.id }} .custom-controls {
-      gap: 15px;
-      margin-top: 24px;
-    }
+
     .x-one-production-system-{{ section.id }} .media-container {
-      border-radius: 10px;
-      height:215px;
+      width: 100%;
+      height: 560px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #1a1a1a;
+      position: relative;
     }
     .x-one-production-system-{{ section.id }} .media-content.pc{
-      display: none;
-    }
-    .x-one-production-system-{{ section.id }} .media-content.mb{
       display: block;
     }
-  }
+    .x-one-production-system-{{ section.id }} .media-content.mb{
+      display: none;
+    }
+    .x-one-production-system-{{ section.id }} .media-content {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .x-one-production-system-{{ section.id }} .custom-controls-nav {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 32px;
+      align-items: center;
+      border-bottom: 1px solid #898A8E;
+      width: max-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .x-one-production-system-{{ section.id }} .nav-btn-new {
+      color: #898A8E;
+      text-align: center;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%; /* 21.6px */
+      padding-bottom: 12px;
+      position: relative;
+      cursor: pointer;
+    }
+    .x-one-production-system-{{ section.id }} .nav-btn-new.active {
+      color: #FFF;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .x-one-production-system-{{ section.id }} .nav-btn-new.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 100%;
+      height: 3px;
+      border-radius: 2px;
+      background: #FF8F1C;
+    }
+    .x-one-production-system-{{ section.id }} .custom-controls {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+      align-items: center;
+    }
+
+    .x-one-production-system-{{ section.id }} .nav-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.30);;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s;
+    }
+
+    .x-one-production-system-{{ section.id }} .nav-btn:hover {
+      background: #555;
+    }
+
+    .x-one-production-system-{{ section.id }} .arrow {
+      border: solid #fff;
+      border-width: 0 2px 2px 0;
+      display: inline-block;
+      padding: 3px;
+    }
+
+    .x-one-production-system-{{ section.id }} .arrow-left {
+      transform: rotate(135deg);
+      margin-left: 2px;
+    }
+
+    .x-one-production-system-{{ section.id }} .arrow-right {
+      transform: rotate(-45deg);
+      margin-right: 2px;
+    }
+
+    .x-one-production-system-{{ section.id }} .nav-btn.next {
+      background: #fff;
+    }
+
+    .x-one-production-system-{{ section.id }} .nav-btn.next .arrow {
+      border-color: #000;
+    }
+
+    .x-one-production-system-{{ section.id }} .nav-btn.next:hover {
+      background: #e0e0e0;
+    }
+
+    .x-one-production-system-{{ section.id }} .progress-ring {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40px;
+      height: 40px;
+      transform: rotate(-90deg);
+      pointer-events: none;
+    }
+
+    .x-one-production-system-{{ section.id }} .progress-ring__circle {
+      stroke: #FF8F1C;
+      stroke-width: 2;
+      fill: transparent;
+      r: 19;
+      cx: 20;
+      cy: 20;
+      stroke-dasharray: 144.5;
+      stroke-dashoffset: 144.5;
+      transition: stroke-dashoffset linear;
+    }
+    @media screen and (max-width: 768px) {
+      .x-one-production-system-{{ section.id }}{
+        padding-top:{{ section.settings.padding_top_mobile }}px;
+        padding-bottom:{{ section.settings.padding_bottom_mobile }}px;
+        overflow: hidden;
+      }
+      .swiper-container-{{ section.id }} {
+        overflow: hidden;
+         padding: 0 24px;
+
+      }
+      .x-one-production-system-{{ section.id }} .text-area-container{
+        position: relative;
+        min-height: 179px;
+        padding: 0 24px;
+      }
+      .x-one-production-system-{{ section.id }} .text-area {
+        align-items: start;
+        gap: 12px;
+        text-align: left;
+        padding: 0;
+        margin-bottom:0;
+      }
+      .x-one-production-system-{{ section.id }} .swiper-slide {
+        width: 100% !important;
+        opacity: 1;
+      }
+      .x-one-production-system-{{ section.id }} .slide-title {
+        font-size: 26px;
+        text-align: left;
+        max-width:100%;
+        margin: 0;
+      }
+      .x-one-production-system-{{ section.id }} .slide-desc {
+        font-size: 14px;
+        text-align: left;
+        max-width:100%;
+        {% comment %} min-height: 126px; {% endcomment %}
+      }
+      .x-one-production-system-{{ section.id }} .custom-controls {
+        gap: 15px;
+        margin-top: 24px;
+      }
+      .x-one-production-system-{{ section.id }} .media-container {
+        border-radius: 10px;
+        height:215px;
+      }
+      .x-one-production-system-{{ section.id }} .media-content.pc{
+        display: none;
+      }
+      .x-one-production-system-{{ section.id }} .media-content.mb{
+        display: block;
+      }
+      .x-one-production-system-{{ section.id }} .custom-controls-nav {
+        display: flex;
+        justify-content: space-between;
+        gap:0;
+        margin-top: 20px;
+        align-items: center;
+        border-bottom: 1px solid #898A8E;
+        width: max-content;
+        margin-left: 24px;
+        margin-right: 24px;
+        width: calc(100% - 48px);
+      }
+      .x-one-production-system-{{ section.id }} .nav-btn-new {
+
+        font-size: 14px;
+
+      }
+      .x-one-production-system-{{ section.id }} .nav-btn-new.active {
+        font-size: 14px;
+
+      }
+      .x-one-production-system-{{ section.id }} .nav-btn-new.active::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 100%;
+        height: 3px;
+        border-radius: 2px;
+        background: #FF8F1C;
+      }
+    }
 </style>
 
 <div
@@ -226,6 +311,18 @@
   class="x-one-production-system-{{ section.id }}"
 >
   <div class="main-wrapper">
+    <div class="text-area-container">
+      {% for block in section.blocks %}
+        {%- assign heading = block.settings.heading -%}
+        {%- assign subheading = block.settings.subheading -%}
+        <div class="text-area">
+          <div class="slide-title">{{- heading -}}</div>
+          <div class="slide-desc">
+            {{- subheading -}}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
     <div class="swiper-container swiper-container-{{ section.id }}">
       <div class="swiper-wrapper">
         {% for block in section.blocks %}
@@ -236,12 +333,14 @@
               {%- assign desktop_img = block.settings.image -%}
               {%- assign mobile_img = block.settings.mobile_image | default: desktop_img -%}
               <div class="swiper-slide" data-type="image" data-duration="5000">
-                <div class="text-area">
-                  <div class="slide-title">{{- heading -}}</div>
-                  <div class="slide-desc">
-                    {{- subheading -}}
+                {% comment %}
+                  <div class="text-area">
+                    <div class="slide-title">{{- heading -}}</div>
+                    <div class="slide-desc">
+                      {{- subheading -}}
+                    </div>
                   </div>
-                </div>
+                {% endcomment %}
                 <!-- 媒体部分在下 (圆角) -->
                 <div class="media-container">
                   <img
@@ -288,12 +387,14 @@
               {% assign video_mb = block.settings.video_mb %}
               {% assign video_poster_pc = block.settings.video_poster_pc | default: video_pc.preview_image %}
               <div class="swiper-slide" data-type="video">
-                <div class="text-area">
-                  <div class="slide-title">{{- heading -}}</div>
-                  <div class="slide-desc">
-                    {{- subheading -}}
+                {% comment %}
+                  <div class="text-area">
+                    <div class="slide-title">{{- heading -}}</div>
+                    <div class="slide-desc">
+                      {{- subheading -}}
+                    </div>
                   </div>
-                </div>
+                {% endcomment %}
                 <div class="media-container">
                   {% comment %}
                     <video class="media-content" muted playsinline style="background: #000;">
@@ -303,6 +404,7 @@
                   <video
                     class="media-content"
                     muted
+                    loop
                     playsinline
                     webkit-playsinline
                     x5-playsinline
@@ -326,20 +428,29 @@
         <!-- 省略注释示例slide，非实际渲染内容 -->
       </div>
     </div>
-
-    <!-- 底部导航 -->
-    <div class="custom-controls">
-      <div class="nav-btn prev" id="btnPrev">
-        <i class="arrow arrow-left"></i>
-      </div>
-      <div class="nav-btn next" id="btnNext">
-        <!-- SVG 进度条 -->
-        <svg class="progress-ring">
-          <circle class="progress-ring__circle" id="progressCircle" />
-        </svg>
-        <i class="arrow arrow-right"></i>
-      </div>
+    <div class="custom-controls-nav">
+      {% for block in section.blocks %}
+        {%- assign nav_title = block.settings.nav_title | default: 'tab' -%}
+        <div class="nav-btn-new{% if forloop.first %} active{% endif %}">
+          {{ nav_title }}
+        </div>
+      {% endfor %}
     </div>
+    <!-- 底部导航 -->
+    {% comment %}
+      <div class="custom-controls">
+        <div class="nav-btn prev" id="btnPrev">
+          <i class="arrow arrow-left"></i>
+        </div>
+        <div class="nav-btn next" id="btnNext">
+          <!-- SVG 进度条 -->
+          <svg class="progress-ring">
+            <circle class="progress-ring__circle" id="progressCircle" />
+          </svg>
+          <i class="arrow arrow-right"></i>
+        </div>
+      </div>
+    {% endcomment %}
   </div>
 </div>
 
@@ -400,29 +511,44 @@
     const setSlideTitleAnimated = (swiper, direction) => {
       const activeSlide = swiper.slides[swiper.activeIndex];
       if (activeSlide) {
-        const title = activeSlide.querySelector('.x-one-production-system-{{ section.id }} .text-area');
+        const titles = document.querySelectorAll('.x-one-production-system-{{ section.id }} .text-area');
+        const title = titles && titles.length > swiper.activeIndex ? titles[swiper.activeIndex] : titles[0];
         if (title) {
-          title.classList.remove('fadeInRight', 'fadeInLeft', 'animated');
-          const anim = direction === 'left' ? 'fadeInLeft' : 'fadeInRight';
+          title.classList.remove('fadeIn', 'animated');
+          const anim = direction === 'left' ? 'fadeIn' : 'fadeIn';
           title.classList.add('animated', anim);
           title.style.opacity = '1';
+          title.style.position = "relative";
+          title.style.zIndex = 3;
+          // Add margin-bottom for PC (32px) and mobile (20px)
+          if(window.innerWidth <= 768) {
+            title.style.marginBottom = '20px';
+          } else {
+            title.style.marginBottom = '32px';
+          }
+       
         }
       }
     };
 
     // Swiper初始化（PC禁止鼠标/触摸拖拽, 移动开启触摸/自动切换）
+    // 获取所有自定义导航按钮
+    const navBtns = document.querySelectorAll('.x-one-production-system-{{ section.id }} .custom-controls-nav .nav-btn-new');
+
     const mySwiper = new Swiper('.x-one-production-system-{{ section.id }} .swiper-container', {
-      speed: 500,
       slidesPerView: 'auto',
       centeredSlides: true,
       spaceBetween: 20,
-      allowTouchMove: false, // PC默认禁止touch
+      allowTouchMove: window.innerWidth <= 768 ? true : false, // 移动端允许touch, PC禁止
+      effect: window.innerWidth <= 768 ? 'fade' : 'slide', // 移动端开启fade切换效果
+      fadeEffect: window.innerWidth <= 768 ? { crossFade: true } : undefined,
       breakpoints: {
         768: {
+
           slidesPerView: 1,
           centeredSlides: false,
-          spaceBetween: 10,
-          allowTouchMove: true, // 移动端开
+          spaceBetween: 50,
+          allowTouchMove: false, // 移动端开
         },
       },
       on: {
@@ -430,7 +556,9 @@
           setTimeout(() => {
             runSlideLogic(this.slides[this.activeIndex]);
             setSlideTitleAnimated(this, 'right');
-            updateNavBtnStatus();
+            // 激活对应的导航按钮
+            navBtns.forEach(b => b.classList.remove('active'));
+            if (navBtns[this.activeIndex]) navBtns[this.activeIndex].classList.add('active');
             setUnifiedSlideHeight();
           }, 100);
         },
@@ -440,7 +568,9 @@
         slideChangeTransitionEnd() {
           setSlideTitleAnimated(this, lastDirection);
           runSlideLogic(this.slides[this.activeIndex]);
-          updateNavBtnStatus();
+          // 激活对应的导航按钮
+          navBtns.forEach(b => b.classList.remove('active'));
+          if (navBtns[this.activeIndex]) navBtns[this.activeIndex].classList.add('active');
           setUnifiedSlideHeight();
         },
         touchStart(swiper, event) {
@@ -457,6 +587,9 @@
           if (nowIndex !== prevIndex) {
             lastDirection = direction;
             setTimeout(() => setSlideTitleAnimated(swiper, direction), 50);
+            // 激活对应的导航按钮（在移动端触摸时也同步按钮）
+            navBtns.forEach(b => b.classList.remove('active'));
+            if (navBtns[nowIndex]) navBtns[nowIndex].classList.add('active');
           }
         },
       },
@@ -464,7 +597,7 @@
     window.mySwiper = mySwiper;
 
     // 按钮状态
-    function updateNavBtnStatus() {
+    {% comment %} function updateNavBtnStatus() {
       if (!btnPrev || !btnNext) return;
       if (mySwiper.isBeginning || mySwiper.activeIndex === 0) {
         btnPrev.classList.add('disabled');
@@ -478,7 +611,7 @@
       btnNext.classList.remove('disabled');
       btnNext.style.pointerEvents = '';
       btnNext.style.opacity = '';
-    }
+    } {% endcomment %}
     const applyTitleAnimOnBtn = (direction) => setSlideTitleAnimated(mySwiper, direction);
 
     // slide宽度自适应
@@ -486,93 +619,18 @@
       const isMobile = window.innerWidth <= 768;
       const slides = document.querySelectorAll('.x-one-production-system-{{ section.id }} .swiper-slide');
       slides.forEach((slide) => {
-        slide.style.width = isMobile ? `${window.innerWidth}px` : '1200px';
+        slide.style.width = isMobile ? `${window.innerWidth}px` : '1000px';
       });
       if (window.mySwiper && typeof window.mySwiper.update === 'function') {
         window.mySwiper.update();
       }
-      setTimeout(updateNavBtnStatus, 100);
+      {% comment %} setTimeout(updateNavBtnStatus, 100); {% endcomment %}
       setTimeout(setUnifiedSlideHeight, 110);
     };
     window.addEventListener('resize', updateMobileSlideWidth);
     updateMobileSlideWidth();
 
-    // Slide内容驱动自动切换或视频播放
-    {% comment %} const runSlideLogic = (slide) => {
-      if (!slide) return;
-      const type = slide.getAttribute('data-type');
-      // 移动端自动轮播/播放
-      if (window.innerWidth <= 768) {
-        if (type === 'video') {
-          const video = slide.querySelector('video');
-          const sources = video.querySelectorAll('source');
-          if (sources.length > 0) {
-            sources.forEach((source) => {
-              if (source.dataset && source.dataset.src) {
-                source.src = source.dataset.src;
-              }
-            });
-          }
-          if (video) {
-            currentVideo = video;
-            video.currentTime = 0;
-            const playPromise = video.play();
-            if (playPromise !== undefined) {
-              playPromise
-                .then((_) => {
-                  let duration = video.duration;
-                  if (!duration || isNaN(duration) || duration === Infinity) duration = 10;
-                  if (duration < 3) duration = 5;
-                  startProgress(duration * 1000);
-                  timer = setTimeout(() => {
-                    if (mySwiper.isEnd || mySwiper.activeIndex === mySwiper.slides.length - 1) {
-                      lastDirection = 'right';
-                      mySwiper.slideTo(0);
-                    } else {
-                      mySwiper.slideNext();
-                    }
-                  }, duration * 1000);
-                })
-                .catch((error) => {
-                  startProgress(6000);
-                  timer = setTimeout(() => {
-                    if (mySwiper.isEnd || mySwiper.activeIndex === mySwiper.slides.length - 1) {
-                      lastDirection = 'right';
-                      mySwiper.slideTo(0);
-                    } else {
-                      mySwiper.slideNext();
-                    }
-                  }, 6000);
-                });
-            }
-            video.onended = () => {
-              if (timer) clearTimeout(timer);
-              if (mySwiper.isEnd || mySwiper.activeIndex === mySwiper.slides.length - 1) {
-                lastDirection = 'right';
-                mySwiper.slideTo(0);
-              } else {
-                mySwiper.slideNext();
-              }
-            };
-          }
-        } else {
-          const duration = parseInt(slide.getAttribute('data-duration')) || 3000;
-          startProgress(duration);
-          timer = setTimeout(() => {
-            if (mySwiper.isEnd || mySwiper.activeIndex === mySwiper.slides.length - 1) {
-              lastDirection = 'right';
-              mySwiper.slideTo(0);
-            } else if (typeof mySwiper.slideNext === 'function') {
-              lastDirection = 'right';
-              mySwiper.slideNext();
-            }
-          }, duration);
-        }
-      } else {
-        // 非移动端：无自动切换
-        startProgress(1000); // PC端进度条1秒reset一次（即无实际自动切换，仅动画效果）
-      }
-    }; {% endcomment %}
+
     const runSlideLogic = (slide) => {
         if (!slide) return;
       
@@ -598,7 +656,7 @@
           }
       
           // 移动端才自动跳下一张
-          if (window.innerWidth <= 768) {
+          {% comment %} if (window.innerWidth <= 768) {
             video.onended = () => {
               if (mySwiper.isEnd) {
                 mySwiper.slideTo(0);
@@ -606,7 +664,7 @@
                 mySwiper.slideNext();
               }
             };
-          }
+          } {% endcomment %}
       
           return;
         }
@@ -614,7 +672,7 @@
         // ==============================
         // 移动端图片自动轮播
         // ==============================
-        if (window.innerWidth <= 768) {
+        {% comment %} if (window.innerWidth <= 768) {
       
           const duration = parseInt(slide.getAttribute('data-duration')) || 3000;
       
@@ -627,7 +685,7 @@
               mySwiper.slideNext();
             }
           }, duration);
-        }
+        } {% endcomment %}
       };
       
     // 进度环动画
@@ -652,14 +710,37 @@
         progressCircle.style.transition = 'none';
         progressCircle.style.strokeDashoffset = circumference;
       }
+
       const titles = document.querySelectorAll('.x-one-production-system-{{ section.id }} .text-area');
       titles.forEach((t) => {
-        t.classList.remove('animated', 'fadeInRight', 'fadeInLeft');
+        t.classList.remove('animated', 'fadeIn');
         t.style.opacity = '0';
+        t.style.position = "absolute";
+        t.style.zIndex = -1;
+        t.style.marginBottom = '0';
       });
     };
 
     // 按钮切换逻辑（保留）
+    // custom-controls-nav 下 nav-btn-new 点击切换对应slide
+
+    navBtns.forEach((btn, idx) => {
+      btn.addEventListener('click', () => {
+        if (mySwiper.activeIndex === idx) return;
+        resetState();
+        lastDirection = idx > mySwiper.activeIndex ? 'right' : 'left';
+        mySwiper.slideTo(idx);
+
+        // 激活的元素添加active
+        navBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        setTimeout(() => {
+          applyTitleAnimOnBtn(lastDirection);
+        }, 50);
+        setTimeout(setUnifiedSlideHeight, 120);
+      });
+    });
     if (btnPrev) {
       btnPrev.addEventListener('click', () => {
         if (mySwiper.isBeginning || mySwiper.activeIndex === 0) return;
@@ -690,12 +771,12 @@
 
     mySwiper.on('transitionEnd', () => {
       setSlideTitleAnimated(mySwiper, lastDirection);
-      updateNavBtnStatus();
+      {% comment %} updateNavBtnStatus(); {% endcomment %}
       setUnifiedSlideHeight();
     });
     setTimeout(() => {
       setSlideTitleAnimated(mySwiper, 'right');
-      updateNavBtnStatus();
+      {% comment %} updateNavBtnStatus(); {% endcomment %}
       setUnifiedSlideHeight();
     }, 100);
 
@@ -711,14 +792,14 @@
     // ----------------
     // PC端 - 利用ScrollTrigger.min.js监听滚轮触发切换
     // ----------------
-    if (window.innerWidth > 768 && typeof window.gsap !== 'undefined') {
+    if ( window.gsap !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger);
-
+      let hasPlayed = false;
       const container = document.querySelector('.x-one-production-system-{{ section.id }} .main-wrapper');
       const totalSlides = mySwiper.slides.length;
       {% comment %} const scrollDistance = totalSlides * window.innerHeight; {% endcomment %}
        // 每一张slide只需要滚动 600px 就切换
-      const perSlideDistance = 900;
+      const perSlideDistance = 600;
       const scrollDistance = perSlideDistance * (totalSlides - 1);
 
       {% comment %}
@@ -739,34 +820,19 @@
             - 判断左右切换方向
             - 切换到对应 slide (mySwiper.slideTo)
       {% endcomment %}
+      // 使用 ScrollTrigger 的 onEnter 只在进入显示区域时，触发一次动效
       ScrollTrigger.create({
         trigger: container,
-        start: 'top top',
-        end: `+=${scrollDistance}`,
-        pin: true,
-        scrub: 0.1, // 小阻尼
-        snap: {
-          snapTo: 1 / (totalSlides - 1), // 根据幻灯片数量均分吸附
-          duration: 0.2,
-          ease: 'power1.inOut',
+        start: "top top",
+        end: "bottom bottom",
+        invalidateOnRefresh: true,
+
+        onEnter: () => {
+          runSlideLogic(mySwiper.slides[mySwiper.activeIndex]);
         },
-        // 每次滚动触发，判断当前 slideIndex，切换 swiper 至对应页面
-        onUpdate: (self) => {
-          const progress = self.progress; // 滚动进度0-1
-          const slideIndex = Math.round(progress * (totalSlides - 1)); // 当前页面的 index
-
-          if (slideIndex !== mySwiper.activeIndex) {
-            resetState();
-
-            // 根据 slideIndex 和当前索引判断切换方向
-            if (slideIndex > mySwiper.activeIndex) {
-              lastDirection = 'right';
-            } else {
-              lastDirection = 'left';
-            }
-
-            mySwiper.slideTo(slideIndex); // 切换到对应页面
-          }
+        onEnterBack: () => {
+          // 向上滚动再次触发
+          runSlideLogic(mySwiper.slides[mySwiper.activeIndex]);
         },
       });
     }
@@ -851,6 +917,11 @@
           "info": "例如：Click_ShopNow_SF_oven"
         },
         {
+          "type": "text",
+          "id": "nav_title",
+          "label": "nav 标题"
+        },
+        {
           "type": "image_picker",
           "id": "image",
           "label": "图片（PC端）"
@@ -882,6 +953,11 @@
       "type": "shopifyVideo",
       "name": "视频(shopify)",
       "settings": [
+        {
+          "type": "text",
+          "id": "nav_title",
+          "label": "nav 标题"
+        },
         {
           "type": "image_picker",
           "id": "video_poster_pc",

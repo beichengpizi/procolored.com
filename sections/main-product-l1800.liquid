@@ -119,7 +119,7 @@
     background-repeat: no-repeat;
     background-size: 100% 100%;
     position: relative;
-    min-height: 88px;
+    min-height: 92px;
     padding: 16px;
     {%- if section.settings.flash_sale_countdown_title_position == 'bottom' -%}
       border-radius: 10px 10px 0px 0px;
@@ -1376,7 +1376,7 @@
   const $finalPrice = $reminder.find('[data-final-price]');
   const $originPrice = $reminder.find('[data-origin-price]');
   const $finalSalePrice = $reminder.find('[data-final-sale-price]');
-  let intervalId=null;
+  let discountIntervalId=null;
        // 倒计时格式化时间 兼容ios时间格式
        function formatUtcTime(v) {
         let date = new Date(v);
@@ -1733,7 +1733,7 @@
                   }
                 }else{
                   console.log('活动已结束');
-                  clearInterval(intervalId);
+                  clearInterval(discountIntervalId);
                   $('#ProductInfo-{{ section.id }}').find('.activity-price-display').css('display', 'none');
                   $('#ProductInfo-{{ section.id }}').find('.activity-price-display').removeClass('show');
                   $('#ProductInfo-{{ section.id }}').removeClass('showActivityPrice');
@@ -1818,13 +1818,13 @@
               $reminder.css({'opacity': '1'});
               }
               
-              clearInterval(intervalId);
+              clearInterval(discountIntervalId);
             } else if (UTCDate_main !== '' && UTCDate_end_main === '' && currentTimestamp >= timestamp_main) {
               console.log('仅开始时间存在时，当前时间大于活动开始时间');
               {% comment %} $reminder.attr('style', 'display: flex !important;'); {% endcomment %}
               $reminder.css({'display': 'inline-flex'});
               $reminder.css({'opacity': '1'});
-              clearInterval(intervalId);
+              clearInterval(discountIntervalId);
             } else if (UTCDate_main !== '' && UTCDate_end_main !== '' && timestamp_end_main > currentTimestamp && currentTimestamp >= timestamp_main) {
               console.log('仅开始时间和结束时间同时存在时，当前时间大于开始时间且小于结束时间');
               {% comment %} $reminder.attr('style', 'display: flex !important;'); {% endcomment %}
@@ -1843,10 +1843,10 @@
               {% comment %} $reminder.attr('style', 'display: none !important;'); {% endcomment %}
               if(UTCDate_main !== '' && UTCDate_end_main !== '' && currentTimestamp > timestamp_end_main && currentTimestamp >= timestamp_main){
                 console.log('活动已结束');
-                clearInterval(intervalId);
+                clearInterval(discountIntervalId);
               }else if (UTCDate_main === '' && UTCDate_end_main !== '' && currentTimestamp > timestamp_end_main){
                 console.log('活动已结束');
-                clearInterval(intervalId);
+                clearInterval(discountIntervalId);
               }
             }
           }
@@ -1864,13 +1864,13 @@
               {% comment %} $reminder.attr('style', 'display: flex !important;'); {% endcomment %}
               $reminder.css({'display': 'inline-flex'});
               $reminder.css({'opacity': '1'});
-              clearInterval(intervalId);
+              clearInterval(discountIntervalId);
             } else if (UTCDate_main !== '' && UTCDate_end_main === '' && currentTimestamp >= timestamp_main) {
               console.log('仅开始时间存在时，当前时间大于活动开始时间');
               {% comment %} $reminder.attr('style', 'display: flex !important;'); {% endcomment %}
               $reminder.css({'display': 'inline-flex'});
               $reminder.css({'opacity': '1'});
-              clearInterval(intervalId);
+              clearInterval(discountIntervalId);
             } else if (UTCDate_main !== '' && UTCDate_end_main !== '' && timestamp_end_main > currentTimestamp && currentTimestamp >= timestamp_main) {
               console.log('仅开始时间和结束时间同时存在时，当前时间大于开始时间且小于结束时间');
               {% comment %} $reminder.attr('style', 'display: flex !important;'); {% endcomment %}
@@ -1889,10 +1889,10 @@
               {% comment %} $reminder.attr('style', 'display: none !important;'); {% endcomment %}
               if(UTCDate_main !== '' && UTCDate_end_main !== '' && currentTimestamp > timestamp_end_main && currentTimestamp >= timestamp_main){
                 console.log('活动已结束');
-                clearInterval(intervalId);
+                clearInterval(discountIntervalId);
               }else if (UTCDate_main === '' && UTCDate_end_main !== '' && currentTimestamp > timestamp_end_main){
                 console.log('活动已结束');
-                clearInterval(intervalId);
+                clearInterval(discountIntervalId);
               }
             }
           }
@@ -1901,12 +1901,12 @@
     
           // 设置定时器，每10秒检查一次
           console.log('定时器开始');
-           intervalId = setInterval(updateDiscountReminder, 1000);
-           console.log('定时器ID',intervalId);
+           discountIntervalId = setInterval(updateDiscountReminder, 1000);
+           console.log('定时器ID',discountIntervalId);
     
           // 在页面卸载时清除定时器，防止内存泄漏
           window.addEventListener('beforeunload', () => {
-            clearInterval(intervalId);
+            clearInterval(discountIntervalId);
           });
     
       }else{
@@ -1922,8 +1922,8 @@
         }
         // 结束定时器
         console.log('结束定时器');
-        console.log('获取当前定时器ID',intervalId);
-        clearInterval(intervalId);
+        console.log('获取当前定时器ID',discountIntervalId);
+        clearInterval(discountIntervalId);
       }
     }
       
@@ -2200,7 +2200,7 @@
       "default": false,
       "label": "Enable video looping"
     },
-        {
+    {
       "type": "liquid",
       "id": "custom_liquid_1",
       "label": "价格下方的自定义模块填充1",

@@ -557,6 +557,13 @@
   </div>
 </div>
 
+{% assign customerId = '' %}
+{% assign isLogin = 0 %}
+{% if customer %}
+  {% assign isLogin = 1 %}
+  {% assign customerId = customer.id %}
+{% endif %}
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const api = "https://booster.procolored.com"; //正式环境
@@ -566,20 +573,39 @@
     const uploadImgApi = '/procolored/api/oss/upload';
     const section = document.querySelector("#shopify-section-{{ section.id }}");
     const inputElement = section.querySelectorAll("input");
+    
+    function shopifyLogin() {
+      const modalLogin = document.querySelector("modal-login");
+      if (modalLogin) {
+        console.log('modalLogin', modalLogin);
+        const loginForm = modalLogin.showModal(modalLogin.fetchForm.login.innerHTML);
+        modalLogin.loginBindEvent(loginForm.el);
+      } else {
+        console.warn('modalLogin 元素不存在');
+      }
+    }
+
+    let customerId = ''; 
+    let customerIdString =''
+    let isLogin = {{ isLogin }};
+    let customerEmail = "";
+    console.log("customer.id");
+    if(isLogin === 1){
+        console.log('已登录帐号')
+        customerIdString = "{{customerId}}";
+        customerId = customerIdString - 0;
+        customerEmail="{{customer.email}}";
+    }else{
+        console.log('未登录帐号')
+    }
+    
+    console.log('customerId==',customerId);
+  
     inputElement.forEach((inputItem) => {
       inputItem.addEventListener('click', () => {
-        if(JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer == undefined) {
-          const modalLogin = document.querySelector("modal-login");
-          if (modalLogin) {
-            console.log("modalLogin", modalLogin);
-            const loginForm = modalLogin.showModal(
-              modalLogin.fetchForm.login.innerHTML
-            );
-            modalLogin.loginBindEvent(loginForm.el);
-          } else {
-            console.warn("modalLogin 元素不存在");
-          }
-        } 
+        if(customerId == "") {
+          shopifyLogin();
+        }
       }); 
     });
     // 初始化国际电话输入框
@@ -819,17 +845,8 @@
     section.querySelector("#submitButton").addEventListener('click', (e) => {
       e.preventDefault();
 
-      if(JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer == undefined) {
-        const modalLogin = document.querySelector("modal-login");
-        if (modalLogin) {
-          console.log("modalLogin", modalLogin);
-          const loginForm = modalLogin.showModal(
-            modalLogin.fetchForm.login.innerHTML
-          );
-          modalLogin.loginBindEvent(loginForm.el);
-        } else {
-          console.warn("modalLogin 元素不存在");
-        }
+      if(customerId == "") {
+        shopifyLogin();
       } else {
           
         if (submitting) return;
@@ -858,7 +875,7 @@
       const agreeTerms = document.getElementById("agreeTerms").checked;
       const postData = {
         origin: 'Shopify_US',
-        customerId: JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer.id || {},
+        customerId: customerId,
         firstName,
         lastName,
         email,

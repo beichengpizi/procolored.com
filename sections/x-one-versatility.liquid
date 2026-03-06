@@ -16,16 +16,16 @@
     .x-one-versatility-{{ section.id }} .title-wrap {
       display:flex;
       flex-direction: column;
-      gap:25px;
+      gap:24px;
       text-align: center;
-      margin-bottom: 60px;
+      margin-bottom: 32px;
     }
 
 
 
     .x-one-versatility-{{ section.id }} .subtitle {
       color: #898A8E;
-      font-size: 21px;
+      font-size: 18px;
       font-weight: 400;
       line-height: 150%; /* 31.5px */
 
@@ -34,7 +34,7 @@
     /* PC/Mobile 标题切换逻辑 */
     .x-one-versatility-{{ section.id }} .pc-title {
       display: block;
-      font-size: 58px;
+      font-size: 48px;
       color: #FF8F1C;
       font-weight: 800;
       line-height: 1.2;
@@ -53,12 +53,14 @@
     .x-one-versatility-{{ section.id }} .swiper-container {
       width: 100%;
       /* 让slide溢出容器显示，实现PC端左右露出的效果 */
-      overflow: visible;
+      {% comment %} overflow: visible; {% endcomment %}
+      overflow: hidden;
+      max-width: 1000px;
     }
 
     .x-one-versatility-{{ section.id }} .swiper-slide {
       /* PC端默认宽度，配合 slidesPerView: 'auto' */
-      width: 1200px !important;
+      width: 1000px !important;
       transition: transform 0.3s;
       opacity: 0.4;
       /* 非激活状态稍微透明 */
@@ -92,31 +94,31 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #2a2a2a;
+      {% comment %} background-color: #2a2a2a; {% endcomment %}
       width: fit-content;
       margin: 0 auto;
-      padding: 4px;
+      {% comment %} padding: 4px; {% endcomment %}
       gap:4px;
-      border-radius: 16px;
-      margin-top: 30px;
+      {% comment %} border-radius: 16px; {% endcomment %}
+      margin-bottom: 32px;
       overflow: hidden;
     }
 
     .x-one-versatility-{{ section.id }} .tab-item {
       position: relative;
       z-index: 1;
-      padding: 22px 24px;
-      color: #aaa;
+      padding: 23px 17px;
       cursor: pointer;
-      border-radius: 8px;
       transition: all 0.3s ease;
-      text-align: center;
-      line-height: 1.2;
       min-width:140px;
       white-space: nowrap;
       position: relative;
       height: 100%;
-      color: #000;
+      color: #FFF;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 120%;
       transition-duration: 60ms;
       transition-property: color;
       transition-timing-function: ease-out;
@@ -126,27 +128,17 @@
       display: flex;
       align-items: center;
       height: 100%;
-
-      background: rgba(0, 0, 0, 0);
       border: none;
       color: inherit;
       text-decoration: none;
       letter-spacing: inherit;
-      opacity: 0.8;
+      opacity: 1;
       transition: transform 0.3s ease, opacity 0.3s ease;
-
-      border-radius: 999px;
       will-change: opacity;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      color: #fff;
       text-align: center;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 130%;
-
     }
 
 
@@ -157,21 +149,20 @@
 
     .x-one-versatility-{{ section.id }} .tab-item.active .tab-item-container {
       opacity: 1;
-      color: #000;
       font-weight: 700;
-
       transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s;
     }
 
     /* 滑块 */
     .x-one-versatility-{{ section.id }} .tab-slider {
       position: absolute;
-      top: 4px;
-      left: 4px;
-      height: calc(100% - 8px);
+      top: 0;
+      left: 0;
+      height: 100%;
       width: 0;
-      background: #fff;
       border-radius: 12px;
+      border: 1px solid #000;
+      background: linear-gradient(0deg, #1F1F1F 0%, #1F1F1F 100%), linear-gradient(90deg, #FFB569 0%, #FF8F1C 100%);
       transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s ease;
       z-index: 0;
     }
@@ -188,8 +179,8 @@
       }
       .x-one-versatility-{{ section.id }} .title-wrap {
         text-align: left;
-        gap:16px;
-        margin-bottom:24px;
+        gap:12px;
+        margin-bottom:20px;
 
       }
 
@@ -206,8 +197,8 @@
 
       .x-one-versatility-{{ section.id }} .subtitle {
         color: #898A8E;
-        font-size: 16px;
-        font-weight: 600;
+        font-size: 14px;
+        font-weight: 400;
         line-height: 150%;
         max-width:253px;
         text-align: left;
@@ -242,29 +233,28 @@
         width: 100%;
         /* Tab占满宽度 */
         justify-content: space-between;
-        padding: 3px;
+
         gap:3px;
-        margin-top: 26px;
+        margin-bottom: 20px;
         border-radius: 8px;
       }
 
       .x-one-versatility-{{ section.id }} .tab-item {
-        padding: 16px 12px;
-        min-width: 102px;
+        padding: 16px 10px;
+        min-width: 106px;
+        font-weight:400;
         flex: 1;
         /* 等分宽度 */
       }
 
       .x-one-versatility-{{ section.id }} .tab-item-container {
 
-        font-size: 10px;
+        font-size: 12px;
 
       }
       .x-one-versatility-{{ section.id }}  .tab-slider {
         position: absolute;
-        top: 3px;
-        left: 3px;
-        height: calc(100% - 6px);
+
         border-radius: 8px;
 
       }
@@ -281,6 +271,22 @@
         {{- section.settings.title -}}
       </div>
       <div class="subtitle">{{- section.settings.subtitle -}}</div>
+    </div>
+    <!-- 自定义 Tab 导航 -->
+
+    <div class="custom-tabs">
+      <!-- 滑块 -->
+      <div class="tab-slider"></div>
+      {% for block in section.blocks %}
+        {%- assign tab_name = block.settings.heading | default: 'tab' -%}
+        {% if tab_name != empty %}
+          <div class="tab-item{% if forloop.first %} active{% endif %}">
+            <div class="tab-item-container">
+              {{ tab_name }}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
     </div>
 
     <div class="swiper-container swiper-container-{{ section.id }}">
@@ -334,43 +340,6 @@
         {% endfor %}
       </div>
     </div>
-
-    <!-- 自定义 Tab 导航 -->
-
-    <div class="custom-tabs">
-      <!-- 滑块 -->
-      <div class="tab-slider"></div>
-      {% for block in section.blocks %}
-        {%- assign tab_name = block.settings.heading | default: 'tab' -%}
-        {% if tab_name != empty %}
-          <div class="tab-item{% if forloop.first %} active{% endif %}">
-            <div class="tab-item-container">
-              {{ tab_name }}
-            </div>
-          </div>
-        {% endif %}
-      {% endfor %}
-      {% comment %}
-        <div class="tab-item active">
-          <div class="tab-item-container">
-            <div>Small Business</div>
-            <div>Owners</div>
-          </div>
-        </div>
-        <div class="tab-item">
-          <div class="tab-item-container">
-            <div>DIY Enthusiasts</div>
-            <div>& Makers</div>
-          </div>
-        </div>
-        <div class="tab-item">
-          <div class="tab-item-container">
-            <div>Tech</div>
-            <div>Professionals</div>
-          </div>
-        </div>
-      {% endcomment %}
-    </div>
   </div>
 </div>
 <script>
@@ -378,18 +347,24 @@
   window.addEventListener('DOMContentLoaded', function () {
     // 初始化 Swiper
     const mySwiper = new Swiper('.swiper-container-{{ section.id }}', {
-      slidesPerView: 'auto', // 允许自定义宽度
-      centeredSlides: true, // 居中模式
-      spaceBetween: 20, // Slide 之间的间距
-      loop: false, // Tab对应内容通常不开启loop
-      speed: 600, // 切换速度
+      effect: 'fade', // 切换效果改为fade
+      fadeEffect: {
+        crossFade: true,
+      },
+      slidesPerView: 'auto',
+      centeredSlides: true,
+      spaceBetween: 0,
+      loop: false,
+      speed: 600,
+      allowTouchMove: false, // 禁止手动切换
 
-      // 断点控制
+      // 断点控制（fade模式下，slidesPerView应为1）
       breakpoints: {
         768: {
-          slidesPerView: 1, // 移动端显示一张
-          spaceBetween: 10,
+          slidesPerView: 1,
+          spaceBetween: 0,
           centeredSlides: true,
+          allowTouchMove: false, // 禁止手动切换
         },
       },
 
@@ -423,10 +398,10 @@
       const parentRect = activeTab.parentElement.getBoundingClientRect();
 
       const width = rect.width;
-      const left = rect.left - parentRect.left - 4;
+      const left = rect.left - parentRect.left;
 
       slider.style.width = `${width}px`;
-      slider.style.transform = `translateX(${left}px)`;
+       slider.style.transform = `translateX(${left}px)`; 
     };
 
     // 更新 Tab 激活样式的函数（并移动滑块）

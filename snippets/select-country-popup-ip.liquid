@@ -513,14 +513,17 @@
 
     initGeoBanner();
 
-    const countrySwitcherFooter = document.querySelector('.country-switcher-footer');
-    if (countrySwitcherFooter) {
-      countrySwitcherFooter.addEventListener('click', function (event) {
-        console.log('countrySwitcherFooter');
-        window.localStorage.removeItem(GEO_BANNER_CLOSED_KEY);
-        window.localStorage.removeItem(GEO_BANNER_EXPIRE_KEY);
-        manuallyOpen = true;
-        initGeoBanner();
+    // 存在多个country-switcher-footer情况
+    const countrySwitcherFooters = document.querySelectorAll('.country-switcher-footer');
+    if (countrySwitcherFooters && countrySwitcherFooters.length > 0) {
+      countrySwitcherFooters.forEach(function(countrySwitcherFooter) {
+        countrySwitcherFooter.addEventListener('click', function (event) {
+          console.log('countrySwitcherFooter');
+          window.localStorage.removeItem(GEO_BANNER_CLOSED_KEY);
+          window.localStorage.removeItem(GEO_BANNER_EXPIRE_KEY);
+          manuallyOpen = true;
+          initGeoBanner();
+        });
       });
     }
   });

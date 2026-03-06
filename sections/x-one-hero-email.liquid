@@ -1,246 +1,383 @@
 {% comment %} 格式化后的样式代码 {% endcomment %}
 <style>
-  .x-one-hero-section-{{ section.id }} {
-    padding: 100px 0;
-    background: #000;
-  }
-
-  /* --- 1. Hero 区域 (顶部) --- */
-  .x-one-hero-section-{{ section.id }} .hero-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .x-one-hero-section-{{ section.id }} .hero-section-title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 24px;
-  }
-
-  .x-one-hero-section-{{ section.id }} .hero-section-title-text {
-    color: #fff;
-    text-align: center;
-    font-size: 40px;
-    font-weight: 800;
-    line-height: 120%;
-  }
-
-  .x-one-hero-section-{{ section.id }} .kickstarter-logo-large {
-    width: 337px;
-  }
-
-  .x-one-hero-section-{{ section.id }} .kickstarter-logo-large img {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .x-one-hero-section-{{ section.id }} .hero-section-desc {
-    color: #FFF;
-    text-align: center;
-    font-family: Mulish;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 120%; /* 28.8px */
-    margin-bottom: 20px;
-  }
-
-  .x-one-hero-section-{{ section.id }} .hero-section-desc span {
-    color: #FF8F1C;
-    font-family: Mulish;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: 120%;
-  }
-
-  .x-one-hero-section-{{ section.id }} .hero-section-price {
-    color: #FFF;
-    text-align: center;
-    font-family: Mulish;
-    font-size: 21px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 120%; /* 25.2px */
-  }
-
-  .x-one-hero-section-{{ section.id }} .hero-section-price span {
-    color: #FF8F1C;
-    font-family: Mulish;
-    font-size: 21px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 120%;
-  }
-
-  .x-one-hero-section-{{ section.id }} .hero-section-tips {
-    color: #898A8E;
-    text-align: center;
-    font-family: Mulish;
-    font-size: 21px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 120%; /* 25.2px */
-    margin-bottom: 24px;
-  }
-
-  .x-one-hero-section-{{ section.id }} .hero-section-tips span {
-    text-decoration-line: line-through;
-    font-size: 21px;
-  }
-
-  .x-one-hero-section-{{ section.id }} .hero-form {
-    display: flex;
-    width: 100%;
-    max-width: 630px;
-    justify-content: center;
-  }
-
-  /* 注意提升优先级，确保 .hero-form input 样式在所有端生效 */
-  .x-one-hero-section-{{ section.id }} .hero-form input[type='email'] {
-    flex: 1;
-    height: 44px;
-    min-width: 0; /* 修复flex下在某些移动端超出问题 */
-    margin: 0;
-    border-radius: 5px;
-    border: 1px solid #F2F2F2;
-    background: #FFF;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
-  .x-one-hero-section-{{ section.id }} .hero-form button {
-    min-width: 172px;
-    min-height: 44px;
-    border-radius: 5px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    height: auto;
-  }
-
-  /* 按钮通用样式 */
-  .x-one-hero-section-{{ section.id }} .btn-primary {
-    color: #FFF;
-    font-size: 19px;
-    font-weight: 700;
-    line-height: 1;
-    background-color: #FF8F1C;
-    border: none;
-    cursor: pointer;
-  }
-
-  /* 输入框通用样式 */
-  .x-one-hero-section-{{ section.id }} input[type='email'] {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 0 15px;
-    outline: none;
-    color: #333;
-    font-size: 15px;
-    box-sizing: border-box;
-  }
-
-  .x-one-hero-section-{{ section.id }} input[type='email']::placeholder {
-    color: rgba(0, 0, 0, 0.4);
-    opacity: 1;
-    font-weight: 600;
-    font-size: 15px;
-  }
-
-  @media screen and (max-width: 768px) {
     .x-one-hero-section-{{ section.id }} {
-      padding: 80px 24px;
+      padding: 100px 0;
+      background: #000;
+    }
+
+    /* --- 1. Hero 区域 (顶部) --- */
+    .x-one-hero-section-{{ section.id }} .hero-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .x-one-hero-section-{{ section.id }} .hero-section-title {
-      flex-direction: column;
-      gap: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
       margin-bottom: 24px;
     }
 
     .x-one-hero-section-{{ section.id }} .hero-section-title-text {
-      font-size: 26px;
-      line-height: 1.3;
+      color: #fff;
+      text-align: center;
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 120%;
     }
 
     .x-one-hero-section-{{ section.id }} .kickstarter-logo-large {
-      width: 266px;
+      width: 337px;
+    }
+
+    .x-one-hero-section-{{ section.id }} .kickstarter-logo-large img {
+      width: 100%;
+      max-width: 100%;
     }
 
     .x-one-hero-section-{{ section.id }} .hero-section-desc {
-      font-size: 14px;
-      max-width: 220px;
-      margin: 0 auto;
-      margin-bottom: 10px;
+      color: #FFF;
+      text-align: center;
+      font-family: Mulish;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 120%; /* 28.8px */
+      margin-bottom: 20px;
     }
 
     .x-one-hero-section-{{ section.id }} .hero-section-desc span {
-      font-size: 14px;
+      color: #FF8F1C;
+      font-family: Mulish;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 120%;
     }
 
     .x-one-hero-section-{{ section.id }} .hero-section-price {
       color: #FFF;
       text-align: center;
       font-family: Mulish;
-      font-size: 14px;
+      font-size: 21px;
       font-style: normal;
       font-weight: 400;
-      line-height: 130%;
+      line-height: 120%; /* 25.2px */
     }
 
     .x-one-hero-section-{{ section.id }} .hero-section-price span {
-      line-height: 130%;
+      color: #FF8F1C;
+      font-family: Mulish;
+      font-size: 21px;
+      font-style: normal;
       font-weight: 700;
+      line-height: 120%;
     }
 
     .x-one-hero-section-{{ section.id }} .hero-section-tips {
-      font-size: 14px;
-      max-width: 100%;
-      margin: 0 auto;
-      margin-bottom: 12px;
+      color: #898A8E;
+      text-align: center;
+      font-family: Mulish;
+      font-size: 21px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 120%; /* 25.2px */
+      margin-bottom: 24px;
     }
 
     .x-one-hero-section-{{ section.id }} .hero-section-tips span {
-      font-size: 14px;
+      text-decoration-line: line-through;
+      font-size: 21px;
     }
 
-    /* 表单改为垂直布局 */
     .x-one-hero-section-{{ section.id }} .hero-form {
-      flex-direction: column;
-      gap: 8px;
+      display: flex;
       width: 100%;
-      max-width: 100%;
-      margin: 0 auto;
+      max-width: 630px;
+      justify-content: center;
     }
+    /* klaviyo-form-WQw3g2 表单样式 start */
+    .x-one-hero-section-{{ section.id }} .hero-form-new{
+      width: 100% !important;
 
-    /* 升级输入框优先级，避免被全局input[type=email]样式覆盖 */
-    .x-one-hero-section-{{ section.id }} .hero-form input[type='email'] {
-      height: 35px;
-      border-radius: 5px;
-      font-size: 12px;
-      padding: 0 12px;
-      box-sizing: border-box;
-      width: 100%;
-      min-width: 0;
-      flex: unset;
-      display: block;
     }
+    .x-one-hero-section-{{ section.id }} .hero-form-new [data-testid="klaviyo-form-WQw3g2"] {
+      display: flex;
+      max-width: 630px !important;
+      width: 100% !important;
 
-    /* 按钮 */
-    .x-one-hero-section-{{ section.id }} .hero-form button {
-      min-height: 35px;
-      width: 100%;
-      border-radius: 5px;
-      font-size: 12px;
+      justify-content: center !important;
     }
+    .x-one-hero-section-{{ section.id }} .hero-form-new [data-testid="form-row"] {
+      display: flex;
+      width: 100% !important;
+
+      justify-content: center !important;
+    }
+    .x-one-hero-section-{{ section.id }} .hero-form-new  [data-testid="form-row"] [data-testid="form-component"]:nth-child(1) {
+      flex: 1 !important;
+      height: 44px !important;
+      min-width: 0 !important; /* 修复flex下在某些移动端超出问题 */
+      margin: 0 !important;
+      border-radius: 5px !important;
+
+      background: #FFF !important;
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+    .x-one-hero-section-{{ section.id }} .hero-form-new  [data-testid="form-row"] [data-testid="form-component"]:nth-child(1) input[type='email'] {
+
+      height: 44px !important;
+      min-width: 0 !important; /* 修复flex下在某些移动端超出问题 */
+      margin: 0 !important;
+      border-radius: 5px !important;
+      border: 1px solid #F2F2F2 !important;
+      background: #FFF !important;
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+    .x-one-hero-section-{{ section.id }} .hero-form-new  [data-testid="form-row"] [data-testid="form-component"]:nth-child(1) input[type='email']:focus-visible {
+      /* outline-width: 2px; */
+      outline-style: none !important;
+      outline-color: #000000;
+      outline-offset: 0;
   }
+    .x-one-hero-section-{{ section.id }} .hero-form-new  [data-testid="form-row"] [data-testid="form-component"]:nth-child(2){
+      min-width: 172px !important;
+      min-height: 44px !important;
+      border-radius: 5px !important;
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      height: auto !important;
+      padding: 0 !important;
+    }
+    .x-one-hero-section-{{ section.id }} .hero-form-new  [data-testid="form-row"] [data-testid="form-component"]:nth-child(2)>button {
+      min-width: 172px !important;
+      min-height: 44px !important;
+      border-radius: 5px !important;
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      height: auto !important;
+
+    }
+
+    /* klaviyo-form-WQw3g2 表单样式 end */
+
+    /* 注意提升优先级，确保 .hero-form input 样式在所有端生效 */
+    .x-one-hero-section-{{ section.id }} .hero-form input[type='email'] {
+      flex: 1;
+      height: 44px;
+      min-width: 0; /* 修复flex下在某些移动端超出问题 */
+      margin: 0;
+      border-radius: 5px;
+      border: 1px solid #F2F2F2;
+      background: #FFF;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .x-one-hero-section-{{ section.id }} .hero-form button {
+      min-width: 172px;
+      min-height: 44px;
+      border-radius: 5px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      height: auto;
+    }
+
+    /* 按钮通用样式 */
+    .x-one-hero-section-{{ section.id }} .btn-primary {
+      color: #FFF;
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1;
+      background-color: #FF8F1C;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* 输入框通用样式 */
+    .x-one-hero-section-{{ section.id }} input[type='email'] {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 0 15px;
+      outline: none;
+      color: #333;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+
+    .x-one-hero-section-{{ section.id }} input[type='email']::placeholder {
+      color: rgba(0, 0, 0, 0.4);
+      opacity: 1;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .x-one-hero-section-{{ section.id }} {
+        padding: 80px 24px;
+      }
+
+      .x-one-hero-section-{{ section.id }} .hero-section-title {
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 24px;
+      }
+
+      .x-one-hero-section-{{ section.id }} .hero-section-title-text {
+        font-size: 26px;
+        line-height: 1.3;
+      }
+
+      .x-one-hero-section-{{ section.id }} .kickstarter-logo-large {
+        width: 266px;
+      }
+
+      .x-one-hero-section-{{ section.id }} .hero-section-desc {
+        font-size: 14px;
+        max-width: 220px;
+        margin: 0 auto;
+        margin-bottom: 10px;
+      }
+
+      .x-one-hero-section-{{ section.id }} .hero-section-desc span {
+        font-size: 14px;
+      }
+
+      .x-one-hero-section-{{ section.id }} .hero-section-price {
+        color: #FFF;
+        text-align: center;
+        font-family: Mulish;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%;
+      }
+
+      .x-one-hero-section-{{ section.id }} .hero-section-price span {
+        line-height: 130%;
+        font-weight: 700;
+      }
+
+      .x-one-hero-section-{{ section.id }} .hero-section-tips {
+        font-size: 14px;
+        max-width: 100%;
+        margin: 0 auto;
+        margin-bottom: 12px;
+      }
+
+      .x-one-hero-section-{{ section.id }} .hero-section-tips span {
+        font-size: 14px;
+      }
+    /* klaviyo-form-WQw3g2 表单样式 start */
+    .x-one-hero-section-{{ section.id }} .hero-form-new{
+      width: 100% !important;
+
+    }
+    .x-one-hero-section-{{ section.id }} .hero-form-new [data-testid="klaviyo-form-WQw3g2"] {
+
+
+
+        width: 100% !important;
+        max-width: 100% !important;
+
+
+    }
+    .x-one-hero-section-{{ section.id }} .hero-form-new [data-testid="form-row"] {
+
+      width: 100% !important;
+      gap: 8px !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+    }
+    .x-one-hero-section-{{ section.id }} .hero-form-new  [data-testid="form-row"] [data-testid="form-component"]:nth-child(1) {
+      flex: 1 !important;
+      height: 35px !important;
+      min-width: 0 !important; /* 修复flex下在某些移动端超出问题 */
+      margin: 0 !important;
+      border-radius: 5px !important;
+
+      background: #FFF !important;
+      border-top-right-radius: 5px !important;
+      border-bottom-right-radius: 5px !important;
+    }
+    .x-one-hero-section-{{ section.id }} .hero-form-new  [data-testid="form-row"] [data-testid="form-component"]:nth-child(1) input[type='email'] {
+
+      height: 35px !important;
+      min-width: 0 !important; /* 修复flex下在某些移动端超出问题 */
+      margin: 0 !important;
+      border-radius: 5px !important;
+      border: 1px solid #F2F2F2 !important;
+      background: #FFF !important;
+      border-top-right-radius: 5px !important;
+      border-bottom-right-radius: 5px !important;
+    }
+    .x-one-hero-section-{{ section.id }} .hero-form-new  [data-testid="form-row"] [data-testid="form-component"]:nth-child(1) input[type='email']:focus-visible {
+      /* outline-width: 2px; */
+      outline-style: none !important;
+      outline-color: #000000;
+      outline-offset: 0;
+  }
+    .x-one-hero-section-{{ section.id }} .hero-form-new  [data-testid="form-row"] [data-testid="form-component"]:nth-child(2){
+      min-width: auto !important;
+      min-height: 35px !important;
+      border-radius: 5px !important;
+      border-top-left-radius: 5px !important;
+      border-bottom-left-radius: 5px !important;
+      height: auto !important;
+      padding: 0 !important;
+      width: 100%;
+
+    }
+    .x-one-hero-section-{{ section.id }} .hero-form-new  [data-testid="form-row"] [data-testid="form-component"]:nth-child(2)>button {
+      min-width: auto !important;
+      min-height: 35px !important;
+      border-radius: 5px !important;
+      border-top-left-radius: 5px !important;
+      border-bottom-left-radius: 5px !important;
+      height: auto !important;
+      width: 100%;
+
+    }
+
+    /* klaviyo-form-WQw3g2 表单样式 end */
+      /* 表单改为垂直布局 */
+      .x-one-hero-section-{{ section.id }} .hero-form {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      /* 升级输入框优先级，避免被全局input[type=email]样式覆盖 */
+      .x-one-hero-section-{{ section.id }} .hero-form input[type='email'] {
+        height: 35px;
+        border-radius: 5px;
+        font-size: 12px;
+        padding: 0 12px;
+        box-sizing: border-box;
+        width: 100%;
+        min-width: 0;
+        flex: unset;
+        display: block;
+      }
+
+      /* 按钮 */
+      .x-one-hero-section-{{ section.id }} .hero-form button {
+        min-height: 35px;
+        width: 100%;
+        border-radius: 5px;
+        font-size: 12px;
+      }
+    }
 </style>
 <!-- 1. 顶部 Hero 区域 (触发模块：进入隐藏吸底，离开显示吸底) -->
 <div
@@ -263,31 +400,34 @@
     <div class="hero-section-price">Launch Special Starts at <span> $3799</span></div>
     <div class="hero-section-tips">MSRP <span> $7999</span></div>
 
-    {% comment %} <form
-      class="hero-form"
-      accept-charset="UTF-8"
-      action="/contact"
-      method="post"
-      enctype="multipart/form-data"
-      onsubmit="handleFormSubmit(event, 'Top Hero Form')"
-    >
-      <input type="hidden" name="utf8" value="✓">
-      <input type="hidden" name="form_type" value="customer">
-      <input name="contact[tags]" type="hidden" value="newsletter">
-      <input
-        type="email"
-        name="contact[email]"
-        autocorrect="off"
-        autocapitalize="off"
-        autocomplete="email"
-        pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
-        title="xxx@xxx.xxx"
-        placeholder="Enter Your Email"
-        required
+    {% comment %}
+      <form
+        class="hero-form"
+        accept-charset="UTF-8"
+        action="/contact"
+        method="post"
+        enctype="multipart/form-data"
+        onsubmit="handleFormSubmit(event, 'Top Hero Form')"
       >
-      <button type="submit" class="btn-primary">Sign Up</button>
-    </form> {% endcomment %}
-    <div class="klaviyo-form-WQw3g2"></div>
+        <input type="hidden" name="utf8" value="✓">
+        <input type="hidden" name="form_type" value="customer">
+        <input name="contact[tags]" type="hidden" value="newsletter">
+        <input
+          type="email"
+          name="contact[email]"
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email"
+          pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+          title="xxx@xxx.xxx"
+          placeholder="Enter Your Email"
+          required
+        >
+        <button type="submit" class="btn-primary">Sign Up</button>
+      </form>
+    {% endcomment %}
+
+    <div class="klaviyo-form-WQw3g2 hero-form-new"></div>
   </div>
 </div>
 {% schema %}
@@ -352,117 +492,7 @@
       "default": 0
     }
   ],
-  "blocks": [
-    {
-      "type": "image",
-      "name": "图片",
-      "settings": [
-        {
-          "id": "event_tracking",
-          "type": "text",
-          "label": "埋点触发事件（触发时机：点击）",
-          "info": "例如：Click_ShopNow_SF_oven"
-        },
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "图片（PC端）"
-        },
-        {
-          "type": "image_picker",
-          "id": "mobile_image",
-          "label": "图片（移动端）"
-        },
-        {
-          "type": "html",
-          "id": "heading",
-          "label": "主标题"
-        },
-        {
-          "type": "html",
-          "id": "content",
-          "label": "内容"
-        },
-
-        {
-          "id": "link",
-          "type": "url",
-          "label": "Link"
-        }
-      ]
-    },
-    {
-      "type": "shopifyVideo",
-      "name": "视频(shopify)",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "video_poster_pc",
-          "label": "自定义视频封面(pc端)"
-        },
-        {
-          "type": "image_picker",
-          "id": "video_poster_mb",
-          "label": "自定义视频封面(移动端)"
-        },
-        {
-          "type": "video",
-          "id": "video_pc",
-          "label": "选择视频(pc端)"
-        },
-        {
-          "type": "video",
-          "id": "video_mb",
-          "label": "选择视频(移动端)"
-        },
-        {
-          "type": "image_picker",
-          "id": "product_image",
-          "label": "自定义产品图"
-        },
-
-        {
-          "type": "text",
-          "id": "product_name",
-          "label": "自定义产品名称"
-        },
-        {
-          "type": "product",
-          "id": "product",
-          "label": "选择产品"
-        },
-        {
-          "type": "radio",
-          "id": "product_variant_location",
-          "label": "产品变体",
-          "options": [
-            {
-              "value": "0",
-              "label": "第一个变体"
-            },
-            {
-              "value": "1",
-              "label": "第二个变体"
-            },
-            {
-              "value": "2",
-              "label": "第三个变体"
-            },
-            {
-              "value": "3",
-              "label": "第四个变体"
-            },
-            {
-              "value": "4",
-              "label": "第五个变体"
-            }
-          ],
-          "default": "0",
-          "info": "查看对应产品后台，选择对应的变体所在位置，从上到下依次排序"
-        }
-      ]
-    }
-  ],
+  "blocks": [],
   "max_blocks": 20,
   "presets": [
     {
