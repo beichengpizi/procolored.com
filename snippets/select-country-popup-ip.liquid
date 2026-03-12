@@ -166,7 +166,7 @@
       <div class="mkt-select-country__popup__other_sites_title">Other sites</div>
       <div class="mkt-select-country__popup__content">
         <a class="mkt-select-country__popup__country-item" href="https://www.procolored.com/">
-          <span class="mkt-select-country__popup__country-name">United States</span>
+          <span class="mkt-select-country__popup__country-name">United States and others</span>
           <span class="mkt-select-country__popup__country-language">English&nbsp;/&nbsp;$USD</span>
         </a>
         {% comment %}
@@ -175,6 +175,10 @@
             <span class="mkt-select-country__popup__country-language">English&nbsp;/&nbsp;£GBP</span>
           </a>
         {% endcomment %}
+         <a class="mkt-select-country__popup__country-item" href="https://procolored.eu/">
+          <span class="mkt-select-country__popup__country-name">United Kingdom</span>
+          <span class="mkt-select-country__popup__country-language">English&nbsp;/&nbsp;£GBP</span>
+        </a>
         <a class="mkt-select-country__popup__country-item" href="https://procolored.eu/">
           <span class="mkt-select-country__popup__country-name">EU Countries</span>
           <span class="mkt-select-country__popup__country-language">English&nbsp;/&nbsp;£GBP</span>
@@ -281,6 +285,12 @@
       String(countryCode || '').toUpperCase() === 'US';
 
     /**
+     * 判断是否英国
+     */
+    const isUnitedKingdom = (countryCode) =>
+      String(countryCode || '').toUpperCase() === 'GB';
+
+    /**
      * 根据国家码选择 go to site 的语言
      */
     {% comment %}
@@ -358,7 +368,7 @@
                   if (isUnitedStates(country)) {
                     showCountrySelect(
                       'https://www.procolored.com/',
-                      'United States',
+                      'United States and others',
                       'English / $USD'
                     );
                     return;
@@ -374,6 +384,16 @@
                       'https://fr.procolored.com/',
                       'France',
                       'Français / €EUR'
+                    );
+                    // window.location.href = 'https://fr.procolored.com/';
+                    return;
+                  }
+                  if (isUnitedKingdom(country)) {
+                    // 法国 IP 跳转法国站
+                    showCountrySelect(
+                      'https://procolored.eu/',
+                      'United Kingdom',
+                      'English / £GBP'
                     );
                     // window.location.href = 'https://fr.procolored.com/';
                     return;
@@ -402,7 +422,7 @@
                 if (manuallyOpen) {
                   showCountrySelect(
                     'https://www.procolored.com/',
-                    'United States',
+                    'United States and others',
                     'English / $USD'
                   );
                   return;
@@ -452,7 +472,7 @@
                   // 美国 & 其它非欧/非加国家, 全部跳回主站
                   showCountrySelect(
                     'https://www.procolored.com/',
-                    'United States',
+                    'United States and others',
                     'English / $USD'
                   );
                   return;
@@ -483,7 +503,7 @@
                   // 加拿大访问法国分站, 提示可访问主站
                   showCountrySelect(
                     'https://www.procolored.com/',
-                    'United States',
+                    'United States and others',
                     'English / $USD'
                   );
                   return;
@@ -496,7 +516,7 @@
                   // 美国 & 其它非欧/非加, 跳主站
                   showCountrySelect(
                     'https://www.procolored.com/',
-                    'United States',
+                    'United States and others',
                     'English / $USD'
                   );
                   return;

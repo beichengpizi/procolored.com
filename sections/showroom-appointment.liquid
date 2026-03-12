@@ -227,7 +227,8 @@
         const showroomCancelApi = "/procolored/activity/showroom/cancelReservation";
         function checkLocalStorage() {
             // 如果数据存在且有效，解析并获取 customerEmail
-            if (customerEmail) {
+            if (customerEmail != "") {
+                console.log('customerEmail', customerEmail);
                 try {
                     // 停止检查并加载预约数据
                     clearInterval(storageCheckInterval);
@@ -239,7 +240,7 @@
         }
 
         // 每500毫秒检查一次 localStorage 中的数据，直到数据准备好
-        const storageCheckInterval = setInterval(checkLocalStorage, 500);
+        checkLocalStorage();
 
         function formatDateToCustomFormat(startDateStr, endDateStr) {
             // 创建起始和结束时间的 Date 对象
@@ -543,7 +544,7 @@
         }
 
 
-        if(customerEmail != null) {
+        if(customerEmail != "") {
             loadShowroomAppointment();
         }
     });
