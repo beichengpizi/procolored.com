@@ -125,6 +125,21 @@
           {% endif %}
 
       }
+      .comparison-table-wrapper-{{section.id}}  .hightlight-params {
+        color: #ff8f1c;
+      }
+
+      .comparison-table-wrapper-{{section.id}} .product-label {
+        color: #fff;
+        background: linear-gradient(90deg,#ffbf00 -9.86%,#f10 51.87%,#ff00e0 115.74%);
+        padding: 0 10px;
+        border-radius: 99px;
+        font-size: 14px;
+        margin-bottom: 5px;
+        position: absolute;
+        right: 0;
+      }
+
       .comparison-table-wrapper-{{section.id}} .custom-title-wrap{
         text-align: {{section.settings.title_text_alignment}};
         display: flex;
@@ -169,7 +184,7 @@
       }
       .comparison-table-wrapper-{{section.id}} .comparison-table-header-item{
         {% if product_count > 0 %}
-          grid-template-columns: 146px{% for i in (2..product_count) %} 196px{% endfor %};
+          grid-template-columns: repeat(6, 1fr);
         {% endif %}
         gap: 24px;
         padding: 0 0 8px 0;
@@ -259,6 +274,7 @@
         display: flex;
         flex-direction: column;
         width: 100%;
+        position: relative;
       }
 
   .comparison-table-wrapper-{{section.id}}  .spec-label {
@@ -299,6 +315,22 @@
   .comparison-table-wrapper-{{section.id}}  .work-day {
         font-size: {{section.settings.spec_value_size}}px;
       }
+
+  .comparison-table-wrapper-{{section.id}}  .daily-price-display .price {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .comparison-table-wrapper-{{section.id}}  .daily-price-display .price ins {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .comparison-table-wrapper-{{section.id}}  .daily-price-display .price del {
+    font-size: 14px;
+  }
+
   .comparison-table-wrapper-{{section.id}}  .spec-label-mobile{
         display: none;
       }
@@ -338,6 +370,11 @@
 
 
           }
+
+        .comparison-table-wrapper-{{section.id}} .product-label {
+          font-size: 12px;
+        }
+
         .comparison-table-wrapper-{{section.id}} .custom-title {
           font-size: {{ section.settings.title_size_mobile }}px;
           margin-bottom: {{section.settings.title_to_content_padding_mobile}}px;
@@ -522,12 +559,24 @@
               class="printer-image lazyload"
               alt="{{ product_name }}"
             >
+            <div class="product-label">{{ block.settings.product_label }}</div>
             {% if product_name != empty %}
               <div class="printer-title">{{ product_name }}</div>
             {% endif %}
             {% if product_description != empty %}
               <div class="printer-description">{{ product_description }}</div>
             {% endif %}
+            <div class="daily-price-display">
+              <div class="price">
+                {% if prod.metafields.custom.activity_sale_price.value != blank and prod.metafields.custom.activity_sale_price.value < prod.metafields.custom.activity_original_price.value %}
+                  <ins>{{ prod.metafields.custom.activity_sale_price.value | money_with_currency }}</ins>
+                  <del>{{ prod.metafields.custom.activity_original_price.value | money_with_currency }}</del>
+                {% else %}
+                  <ins>{{ prod.price | money_with_currency }}</ins>
+                {% endif %}
+              </div>
+            </div>
+            
             {% if show_buy_button %}
               <div class="printer-button-wrapper">
                 <product-card>
@@ -561,31 +610,177 @@
       </div>
 
       <div class="comparison-table-item">
+        <div class="spec-label">{{ 'products.product.parameter.print_size' | t }}</div>
+        {%- assign parameter_label = 'products.product.parameter.print_size' | t -%}
+        {% for block in section.blocks %}
+          {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
+          {% assign print_size = block.settings.product.metafields.custom.print_size.value %}
+          <div class="spec-column">
+            <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
+              {{ 'products.product.parameter.print_size' | t }}
+            </div>
+            <div
+              {% if highlight_params contains parameter_label %}
+                class="hightlight-params"
+              {% endif %}
+            >
+              {{ print_size }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="comparison-table-item">
+        <div class="spec-label">
+          <span class="spec-label-title"> {{ 'products.product.parameter.profit_per_day' | t -}}</span>
+          <br>
+          <span class="spec-label-desc">{{ 'products.product.parameter.profit_per_day_value' | t }}</span>
+        </div>
+        {%- assign parameter_label = 'products.product.parameter.profit_per_day' | t -%}
+        {% for block in section.blocks %}
+          {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
+          {% assign profit_per_day_array = block.settings.product.metafields.custom.profit_per_day.value %}
+          <div class="profit-section">
+            <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
+              {{ 'products.product.parameter.profit_per_day' | t }}
+            </div>
+            <div class="profit-amount {% if highlight_params contains parameter_label %}hightlight-params{% endif %}">
+              {{ profit_per_day_array[0] }}
+            </div>
+            {% comment %} <div class="work-day">{{ profit_per_day_array[1] }}</div> {% endcomment %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="comparison-table-item">
+        {%- assign parameter_label = 'products.product.parameter.print_speed' | t -%}
+        <div class="spec-label">{{ 'products.product.parameter.print_speed' | t }}</div>
+        {% for block in section.blocks %}
+          {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
+          {% assign print_speed = block.settings.product.metafields.custom.print_speed.value %}
+          <div class="spec-column">
+            <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
+              {{ 'products.product.parameter.print_speed' | t }}
+            </div>
+            <div
+              {% if highlight_params contains parameter_label %}
+                class="hightlight-params"
+              {% endif %}
+            >
+              {{ print_speed }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="comparison-table-item">
+        <div class="spec-label">{{ 'products.product.parameter.unit_per_hour' | t }}</div>
+        {%- assign parameter_label = 'products.product.parameter.unit_per_hour' | t -%}
+        {% for block in section.blocks %}
+          {% assign unit_per_hour = block.settings.product.metafields.custom.unit_per_hour.value %}
+          {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
+          <div class="spec-column">
+            <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
+              {{ 'products.product.parameter.unit_per_hour' | t }}
+            </div>
+            <div
+              {% if highlight_params contains parameter_label %}
+                class="hightlight-params"
+              {% endif %}
+            >
+              {{ unit_per_hour }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="comparison-table-item">
+        <div class="spec-label">{{ 'products.product.parameter.printer_suitable_business_size' | t }}</div>
+        {%- assign parameter_label = 'products.product.parameter.printer_suitable_business_size' | t -%}
+        {% for block in section.blocks %}
+          {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
+          {% assign printer_suitable_business_size = block.settings.product.metafields.custom.printer_suitable_business_size.value %}
+          <div class="spec-column">
+            <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
+              {{ 'products.product.parameter.printer_suitable_business_size' | t }}
+            </div>
+            <div
+              {% if highlight_params contains parameter_label %}
+                class="hightlight-params"
+              {% endif %}
+            >
+              {{ printer_suitable_business_size }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="comparison-table-item">
         <div class="spec-label">{{ 'products.product.parameter.printer_head' | t }}</div>
+        {%- assign parameter_label = 'products.product.parameter.printer_head' | t -%}
         {% for block in section.blocks %}
           {% assign printer_head = block.settings.product.metafields.custom.Printer_head.value %}
+          {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
           <div class="spec-column">
             <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
               {{ 'products.product.parameter.printer_head' | t }}
             </div>
-            <div>{{ printer_head }}</div>
+            <div
+              {% if highlight_params contains parameter_label %}
+                class="hightlight-params"
+              {% endif %}
+            >
+              {{ printer_head }}
+            </div>
           </div>
         {% endfor %}
       </div>
-      <div class="comparison-table-item">
+
+      <div class="comparison-table-item mobile-hidden-new">
         <div class="spec-label">{{ 'products.product.parameter.printer_config' | t }}</div>
+        {%- assign parameter_label = 'products.product.parameter.printer_config' | t -%}
         {% for block in section.blocks %}
           {% assign printer_config = block.settings.product.metafields.custom.printer_config.value %}
+          {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
           <div class="spec-column">
             <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
               {{ 'products.product.parameter.printer_config' | t }}
             </div>
-            <div>{{ printer_config }}</div>
+            <div
+              {% if highlight_params contains parameter_label %}
+                class="hightlight-params"
+              {% endif %}
+            >
+              {{ printer_config }}
+            </div>
           </div>
         {% endfor %}
       </div>
-      <div class="comparison-table-item">
+
+      <div class="comparison-table-item mobile-hidden-new">
+        {%- assign parameter_label = 'products.product.parameter.color_configuration' | t -%}
+        <div class="spec-label">{{ 'products.product.parameter.color_configuration' | t }}</div>
+        {% for block in section.blocks %}
+          {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
+          {% assign color_configuration = block.settings.product.metafields.custom.color_configuration.value %}
+          <div class="spec-column">
+            <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
+              {{ 'products.product.parameter.color_configuration' | t }}
+            </div>
+            <div
+              {% if highlight_params contains parameter_label %}
+                class="hightlight-params"
+              {% endif %}
+            >
+              {{ color_configuration }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="comparison-table-item mobile-hidden-new">
         <div class="spec-label">{{ 'products.product.parameter.print_accuracy' | t }}</div>
+        {%- assign parameter_label = 'products.product.parameter.print_accuracy' | t -%}
         {% for block in section.blocks %}
           {% assign print_accuracy_full = block.settings.product.metafields.custom.print_accuracy.value %}
           {% if print_accuracy_full contains '(' and print_accuracy_full contains ')' %}
@@ -597,7 +792,7 @@
           {% endif %}
           {% assign print_accuracy = dpi_part %}
           {% assign print_pass = pass_part %}
-
+          {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
           <div class="profit-section">
             <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
               {{ 'products.product.parameter.print_accuracy' | t }}
@@ -605,81 +800,53 @@
             <div>
               <div class="profit-amount">{{ print_accuracy }}</div>
               {% if print_pass != '' %}
-                <div class="work-day">({{ print_pass }})</div>
+                <div class="work-day {% if highlight_params contains parameter_label %}hightlight-params{% endif %}">
+                  ({{ print_pass }})
+                </div>
               {% endif %}
             </div>
           </div>
         {% endfor %}
       </div>
-      <div class="comparison-table-item">
-        <div class="spec-label">{{ 'products.product.parameter.print_size' | t }}</div>
-        {% for block in section.blocks %}
-          {% assign print_size = block.settings.product.metafields.custom.print_size.value %}
-          <div class="spec-column">
-            <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
-              {{ 'products.product.parameter.print_size' | t }}
-            </div>
-            <div>{{ print_size }}</div>
-          </div>
-        {% endfor %}
-      </div>
-      <div class="comparison-table-item">
-        <div class="spec-label">{{ 'products.product.parameter.print_speed' | t }}</div>
-        {% for block in section.blocks %}
-          {% assign print_speed = block.settings.product.metafields.custom.print_speed.value %}
-          <div class="spec-column">
-            <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
-              {{ 'products.product.parameter.print_speed' | t }}
-            </div>
-            <div>{{ print_speed }}</div>
-          </div>
-        {% endfor %}
-      </div>
-      <div class="comparison-table-item mobile-hidden-new">
-        <div class="spec-label">{{ 'products.product.parameter.color_configuration' | t }}</div>
-        {% for block in section.blocks %}
-          {% assign color_configuration = block.settings.product.metafields.custom.color_configuration.value %}
-          <div class="spec-column">
-            <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
-              {{ 'products.product.parameter.color_configuration' | t }}
-            </div>
-            <div>{{ color_configuration }}</div>
-          </div>
-        {% endfor %}
-      </div>
+
       <div class="comparison-table-item mobile-hidden-new">
         <div class="spec-label">{{ 'products.product.parameter.applicable_system' | t }}</div>
+        {%- assign parameter_label = 'products.product.parameter.applicable_system' | t -%}
         {% for block in section.blocks %}
+          {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
           {% assign applicable_system = block.settings.product.metafields.custom.applicable_system.value %}
           <div class="spec-column">
             <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
               {{ 'products.product.parameter.applicable_system' | t }}
             </div>
-            <div>{{ applicable_system }}</div>
+            <div
+              {% if highlight_params contains parameter_label %}
+                class="hightlight-params"
+              {% endif %}
+            >
+              {{ applicable_system }}
+            </div>
           </div>
         {% endfor %}
       </div>
+
       <div class="comparison-table-item mobile-hidden-new">
+        {%- assign parameter_label = 'products.product.parameter.software' | t -%}
         <div class="spec-label">{{ 'products.product.parameter.software' | t }}</div>
         {% for block in section.blocks %}
+          {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
           {% assign software = block.settings.product.metafields.custom.software.value %}
           <div class="spec-column">
             <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
               {{ 'products.product.parameter.software' | t }}
             </div>
-            <div>{{ software }}</div>
-          </div>
-        {% endfor %}
-      </div>
-      <div class="comparison-table-item mobile-hidden-new">
-        <div class="spec-label">{{ 'products.product.parameter.printer_suitable_business_size' | t }}</div>
-        {% for block in section.blocks %}
-          {% assign printer_suitable_business_size = block.settings.product.metafields.custom.printer_suitable_business_size.value %}
-          <div class="spec-column">
-            <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
-              {{ 'products.product.parameter.printer_suitable_business_size' | t }}
+            <div
+              {% if highlight_params contains parameter_label %}
+                class="hightlight-params"
+              {% endif %}
+            >
+              {{ software }}
             </div>
-            <div>{{ printer_suitable_business_size }}</div>
           </div>
         {% endfor %}
       </div>
@@ -747,37 +914,6 @@
         </div>
       {% endcomment %}
 
-      <div class="comparison-table-item mobile-hidden-new">
-        <div class="spec-label">{{ 'products.product.parameter.unit_per_hour' | t }}</div>
-        {% for block in section.blocks %}
-          {% assign unit_per_hour = block.settings.product.metafields.custom.unit_per_hour.value %}
-          <div class="spec-column">
-            <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
-              {{ 'products.product.parameter.unit_per_hour' | t }}
-            </div>
-            <div>{{ unit_per_hour }}</div>
-          </div>
-        {% endfor %}
-      </div>
-
-      <div class="comparison-table-item mobile-hidden-new">
-        <div class="spec-label">
-          <span class="spec-label-title"> {{ 'products.product.parameter.profit_per_day' | t -}}</span>
-
-          <br>
-          <span class="spec-label-desc">{{ 'products.product.parameter.profit_per_day_value' | t }}</span>
-        </div>
-        {% for block in section.blocks %}
-          {% assign profit_per_day_array = block.settings.product.metafields.custom.profit_per_day.value %}
-          <div class="profit-section">
-            <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
-              {{ 'products.product.parameter.profit_per_day' | t }}
-            </div>
-            <div class="profit-amount">{{ profit_per_day_array[0] }}</div>
-            {% comment %} <div class="work-day">{{ profit_per_day_array[1] }}</div> {% endcomment %}
-          </div>
-        {% endfor %}
-      </div>
       <button class="learn-more-btn">
         <span>{{ 'general.learn_more' | t }}</span>
         {% comment %}
@@ -1357,6 +1493,17 @@
           "type": "html",
           "id": "description",
           "label": "产品描述"
+        },
+        {
+          "type": "text",
+          "id": "product_label",
+          "label": "Product label"
+        },
+        {
+          "type": "textarea",
+          "id": "highlight_params",
+          "label": "产品高亮属性",
+          "info": "填写当前产品需要高亮的属性名称，就是表头，多个属性名称之间用英文逗号隔开"
         }
       ]
     }

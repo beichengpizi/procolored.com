@@ -876,7 +876,11 @@
                 </div>
 
                 {%- if show_banner and banner_pc -%}
-                  <div class="collection-banner">
+                  {% if section.settings.banner_link != blank %}
+                    <a class="collection-banner" href="{{ section.settings.banner_link }}">
+                  {% else %}
+                    <div class="collection-banner">
+                  {% endif %}
                     {%- if banner_pc -%}
                       <img
                         style="aspect-ratio: {{ banner_pc.aspect_ratio }};"
@@ -921,7 +925,11 @@
                         data-src="{{banner_mobile | image_url:width:1000}}"
                       >
                     {%- endif -%}
-                  </div>
+                  {% if section.settings.banner_link != blank %}
+                    </a>
+                  {% else %}
+                    </div>
+                  {% endif %}
                 {% else %}
                   {%- if sub_collection_banner_pc.count == sub_collection_banner_mb.count
                     and sub_collection_banner_pc.count > 0
@@ -1210,6 +1218,11 @@
       "id": "banner_mobile",
       "label": "横幅(移动端)",
       "info": "全局：当前系列横幅图片（包括子系列默认图片），若想单独配置子系列横幅需要在系列元字段sub-collection pages banner MB配置"
+    },
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "点击banner跳转链接"
     },
     {
       "type": "checkbox",
