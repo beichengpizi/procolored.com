@@ -227,6 +227,12 @@
             {{ product_card_product.price_min | money }}
           {%- endcapture -%}
           <div class="badge-starting">Starting at {{ starting_num }}</div>
+        {% elsif prod_tags contains 'popular' %}
+          <div class="badge-new-arrival">Most Popular</div>
+        {% elsif prod_tags contains 'home friendly' %}
+          <div class="badge-new-arrival">Home Friendly</div>
+        {% elsif prod_tags contains 'profit' %}
+          <div class="badge-new-arrival">💰 Profit Maker</div>
         {% else %}
           {%- unless product_card_product.selected_or_first_available_variant.available -%}
             <div class="badge-sold-out">Coming Soon</div>
