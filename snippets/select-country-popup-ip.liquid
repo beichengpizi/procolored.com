@@ -132,7 +132,7 @@
 <div class="mkt-select-country__popup__language-selector-popup-mask">
   <div class="mkt-select-country__popup__language-selector-popup">
     <div class="mkt-select-country__popup__title">
-      <span>Select Your Country / Region</span>
+      <span class="mkt-select-country__popup__title-text">Select Your Country / Region</span>
       <div class="mkt-select-country__popup__close-button">
         <svg
           class="icon"
@@ -166,27 +166,27 @@
       <div class="mkt-select-country__popup__other_sites_title">Other sites</div>
       <div class="mkt-select-country__popup__content">
         {% unless request.host contains 'www.procolored.com' %}
-          <a class="mkt-select-country__popup__country-item" href="https://www.procolored.com/">
+          <a class="mkt-select-country__popup__country-item" data-site-code="US" href="https://www.procolored.com/">
             <span class="mkt-select-country__popup__country-name">United States and others</span>
-            <span class="mkt-select-country__popup__country-language">English&nbsp;/&nbsp;$USD</span>
-          </a>
-        {% endunless %}
-         {% unless request.host contains 'procolored.eu' %}
-          <a class="mkt-select-country__popup__country-item" href="https://procolored.eu/">
-            <span class="mkt-select-country__popup__country-name">United Kingdom</span>
-            <span class="mkt-select-country__popup__country-language">English&nbsp;/&nbsp;£GBP</span>
+            <span class="mkt-select-country__popup__country-language">English&nbsp;/&nbsp;USD</span>
           </a>
         {% endunless %}
         {% unless request.host contains 'procolored.eu' %}
-          <a class="mkt-select-country__popup__country-item" href="https://procolored.eu/">
+          <a class="mkt-select-country__popup__country-item" data-site-code="GB" href="https://procolored.eu/">
+            <span class="mkt-select-country__popup__country-name">United Kingdom</span>
+            <span class="mkt-select-country__popup__country-language">English&nbsp;/&nbsp;GBP</span>
+          </a>
+        {% endunless %}
+        {% unless request.host contains 'procolored.eu' %}
+          <a class="mkt-select-country__popup__country-item" data-site-code="EU" href="https://procolored.eu/">
             <span class="mkt-select-country__popup__country-name">EU Countries</span>
-            <span class="mkt-select-country__popup__country-language">English&nbsp;/&nbsp;€EUR</span>
+            <span class="mkt-select-country__popup__country-language">English&nbsp;/&nbsp;EUR</span>
           </a>
         {% endunless %}
         {% unless request.host contains 'fr.procolored.com' %}
-          <a class="mkt-select-country__popup__country-item" href="https://fr.procolored.com/">
+          <a class="mkt-select-country__popup__country-item" data-site-code="FR" href="https://fr.procolored.com/">
             <span class="mkt-select-country__popup__country-name">Francophone</span>
-            <span class="mkt-select-country__popup__country-language">Français&nbsp;/&nbsp;€EUR</span>
+            <span class="mkt-select-country__popup__country-language">French&nbsp;/&nbsp;EUR</span>
           </a>
         {% endunless %}
       </div>
@@ -195,323 +195,383 @@
 </div>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // 点击关闭按钮或遮罩层都可以关闭弹窗
     const closeBtn = document.querySelector('.mkt-select-country__popup__close-button');
-    let manuallyOpen = false;
     const mask = document.querySelector('.mkt-select-country__popup__language-selector-popup-mask');
-    const recommended_visit_country_url = document.querySelector('.mkt-select-country__popup__recommended_visit_country-url');
-    const recommended_visit_country_name = document.querySelector('.mkt-select-country__popup__recommended_visit_country-name');
-    const recommended_visit_country_language = document.querySelector('.mkt-select-country__popup__recommended_visit_country-language');
-    const GEO_BANNER_CLOSED_KEY = 'geoBannerClosed';
-    const GEO_BANNER_EXPIRE_KEY = 'geoBannerClosedExpire';
-    const EXPIRE_MS = 7 * 24 * 60 * 60 * 1000; // 1周
+    const titleText = document.querySelector('.mkt-select-country__popup__title-text');
+    const recommendedVisitTitle = document.querySelector('.mkt-select-country__popup__recommended_visit_title');
+    const otherSitesTitle = document.querySelector('.mkt-select-country__popup__other_sites_title');
+    const recommendedVisitCountryUrl = document.querySelector('.mkt-select-country__popup__recommended_visit_country-url');
+    const recommendedVisitCountryName = document.querySelector('.mkt-select-country__popup__recommended_visit_country-name');
+    const recommendedVisitCountryLanguage = document.querySelector('.mkt-select-country__popup__recommended_visit_country-language');
+    let geoDataRequest = null;
 
-    // 检查 geoBannerClosed 是否在有效期内
-    function isGeoBannerClosedValid() {
-      const closed = window.localStorage.getItem(GEO_BANNER_CLOSED_KEY);
-      const expire = window.localStorage.getItem(GEO_BANNER_EXPIRE_KEY);
-      if (closed !== '1') return false;
-      if (!expire) return false;
-      if (Date.now() > parseInt(expire, 10)) {
-        // 已过期，自动清理
-        window.localStorage.removeItem(GEO_BANNER_CLOSED_KEY);
-        window.localStorage.removeItem(GEO_BANNER_EXPIRE_KEY);
-        return false;
-      }
-      return true;
+    const sites = {
+      US: {
+        code: 'US',
+        url: 'https://www.procolored.com/',
+      },
+      GB: {
+        code: 'GB',
+        url: 'https://procolored.eu/',
+      },
+      EU: {
+        code: 'EU',
+        url: 'https://procolored.eu/',
+      },
+      FR: {
+        code: 'FR',
+        url: 'https://fr.procolored.com/',
+      },
+    };
+
+    const localizedCopy = {
+      EN: {
+        popup: {
+          title: 'Select Your Country / Region',
+          recommendedTitle: 'Recommended visit',
+          otherSitesTitle: 'Other sites',
+        },
+        sites: {
+          US: { name: 'United States and others', language: 'English / USD' },
+          GB: { name: 'United Kingdom', language: 'English / GBP' },
+          EU: { name: 'EU Countries', language: 'English / EUR' },
+          FR: { name: 'Francophone', language: 'French / EUR' },
+        },
+      },
+      FR: {
+        popup: {
+          title: 'Selectionnez votre pays / region',
+          recommendedTitle: 'Site recommande',
+          otherSitesTitle: 'Autres sites',
+        },
+        sites: {
+          US: { name: 'Etats-Unis et autres regions', language: 'Anglais / USD' },
+          GB: { name: 'Royaume-Uni', language: 'Anglais / GBP' },
+          EU: { name: "Pays de l'Union europeenne", language: 'Anglais / EUR' },
+          FR: { name: 'Espace francophone', language: 'Francais / EUR' },
+        },
+      },
+      DE: {
+        popup: {
+          title: 'Wahlen Sie Ihr Land / Ihre Region',
+          recommendedTitle: 'Empfohlene Website',
+          otherSitesTitle: 'Weitere Websites',
+        },
+        sites: {
+          US: { name: 'Vereinigte Staaten und weitere Regionen', language: 'Englisch / USD' },
+          GB: { name: 'Vereinigtes Konigreich', language: 'Englisch / GBP' },
+          EU: { name: 'EU-Lander', language: 'Englisch / EUR' },
+          FR: { name: 'Frankophoner Raum', language: 'Franzosisch / EUR' },
+        },
+      },
+      ES: {
+        popup: {
+          title: 'Selecciona tu pais o region',
+          recommendedTitle: 'Sitio recomendado',
+          otherSitesTitle: 'Otros sitios',
+        },
+        sites: {
+          US: { name: 'Estados Unidos y otros paises', language: 'Ingles / USD' },
+          GB: { name: 'Reino Unido', language: 'Ingles / GBP' },
+          EU: { name: 'Paises de la UE', language: 'Ingles / EUR' },
+          FR: { name: 'Zona francofona', language: 'Frances / EUR' },
+        },
+      },
+      JP: {
+        popup: {
+          title: '国または地域を選択',
+          recommendedTitle: 'おすすめのサイト',
+          otherSitesTitle: 'その他のサイト',
+        },
+        sites: {
+          US: { name: '米国およびその他の地域', language: '英語 / USD' },
+          GB: { name: '英国', language: '英語 / GBP' },
+          EU: { name: 'EU諸国', language: '英語 / EUR' },
+          FR: { name: 'フランス語圏', language: 'フランス語 / EUR' },
+        },
+      },
+    };
+
+    const europeanCountries = [
+      'AT',
+      'BE',
+      'BG',
+      'CY',
+      'CZ',
+      'DK',
+      'EE',
+      'FI',
+      'FR',
+      'DE',
+      'GR',
+      'HU',
+      'IE',
+      'IT',
+      'LV',
+      'LT',
+      'LU',
+      'MT',
+      'NL',
+      'PL',
+      'PT',
+      'RO',
+      'SK',
+      'SI',
+      'ES',
+      'SE',
+      'GB',
+      'CH',
+      'HR',
+      'AL',
+      'AD',
+      'AM',
+      'BY',
+      'BA',
+      'FO',
+      'GI',
+      'IS',
+      'IM',
+      'XK',
+      'LI',
+      'MK',
+      'MD',
+      'MC',
+      'ME',
+      'NO',
+      'RU',
+      'SM',
+      'RS',
+      'TR',
+      'UA',
+      'VA',
+    ];
+
+    function fetchGeoData() {
+      if (geoDataRequest) return geoDataRequest;
+
+      geoDataRequest = fetch('https://dtc.mblock.cc/shopify/ip', {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'omit',
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`geo request failed: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((resp) => {
+          if (resp && resp.code === 0 && resp.data) {
+            return resp.data;
+          }
+          return null;
+        })
+        .catch((error) => {
+          geoDataRequest = null;
+          console.error(error);
+          return null;
+        });
+
+      return geoDataRequest;
     }
 
-    // 设置 geoBannerClosed，有效期1周
-    function setGeoBannerClosed24h() {
-      window.localStorage.setItem(GEO_BANNER_CLOSED_KEY, '1');
-      window.localStorage.setItem(GEO_BANNER_EXPIRE_KEY, String(Date.now() + EXPIRE_MS));
-    }
-
-    /**
-     * 判断当前所在的 procolored 站点
-     * 返回值: "US" | "FR" | "EU"
-     */
-    const getCurrentSite = () => {
+    function getCurrentSite() {
       const hostname = window.location.hostname;
+
       if (hostname.endsWith('procolored.com')) {
-        if (hostname.startsWith('fr.')) return 'FR'; // 法国分站点
-        // 主站点、带 www 的主站都归为 US 主站
+        if (hostname.startsWith('fr.')) return 'FR';
         if (
           hostname === 'procolored.com' ||
           hostname === 'www.procolored.com' ||
           hostname === 'www.procolored.com.'
-        )
+        ) {
           return 'US';
+        }
       } else if (hostname.endsWith('procolored.eu')) {
-        return 'EU'; // 欧洲分站
+        return 'EU';
       }
-      return 'US'; // 兜底：都视为主站 "US"
-    };
 
-    // 欧洲国家二字码（包含部分欧盟和欧洲以外地区，适配跨欧分站需求）
-    const europeanCountries = [
-      'AT', 'BE', 'BG', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT',
-      'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'GB', 'CH',
-      'HR', 'AL', 'AD', 'AM', 'BY', 'BA', 'FO', 'GI', 'IS', 'IM', 'XK', 'LI', 'MK', 'MD',
-      'MC', 'ME', 'NO', 'RU', 'SM', 'RS', 'TR', 'UA', 'VA',
-    ];
+      return 'US';
+    }
 
-    /**
-     * 判断国家码是否属于欧洲（支持大小写）
-     */
     const isEuropeCountry = (countryCode) =>
       europeanCountries.includes(String(countryCode || '').toUpperCase());
+    const isFrance = (countryCode) => String(countryCode || '').toUpperCase() === 'FR';
+    const isCanada = (countryCode) => String(countryCode || '').toUpperCase() === 'CA';
+    const isUnitedStates = (countryCode) => String(countryCode || '').toUpperCase() === 'US';
+    const isUnitedKingdom = (countryCode) => String(countryCode || '').toUpperCase() === 'GB';
 
-    /**
-     * 判断是否法国
-     */
-    const isFrance = (countryCode) =>
-      String(countryCode || '').toUpperCase() === 'FR';
+    function getLocaleKeyFromCountry(countryCode) {
+      const code = String(countryCode || '').toUpperCase();
 
-    /**
-     * 判断是否加拿大
-     */
-    const isCanada = (countryCode) =>
-      String(countryCode || '').toUpperCase() === 'CA';
+      if (['FR', 'BE', 'CH', 'LU', 'MC'].includes(code)) return 'FR';
+      if (['DE', 'AT'].includes(code)) return 'DE';
+      if (['ES', 'AR', 'CL', 'CO', 'MX', 'PE'].includes(code)) return 'ES';
+      if (code === 'JP') return 'JP';
 
-    /**
-     * 判断是否美国
-     */
-    const isUnitedStates = (countryCode) =>
-      String(countryCode || '').toUpperCase() === 'US';
-
-    /**
-     * 判断是否英国
-     */
-    const isUnitedKingdom = (countryCode) =>
-      String(countryCode || '').toUpperCase() === 'GB';
-
-    /**
-     * 根据国家码选择 go to site 的语言
-     */
-    {% comment %}
-    function getGoToSiteText(customText) {
-      // 新实现：直接使用传递的字符串
-      return customText || 'Go to site';
+      return 'EN';
     }
-    {% endcomment %}
+
+    function getLocaleKeyFromNavigator() {
+      const language = String(navigator.language || '').toLowerCase();
+
+      if (language.startsWith('fr')) return 'FR';
+      if (language.startsWith('de')) return 'DE';
+      if (language.startsWith('es')) return 'ES';
+      if (language.startsWith('ja')) return 'JP';
+      if (getCurrentSite() === 'FR') return 'FR';
+
+      return 'EN';
+    }
+
+    function getLocalePack(localeKey) {
+      return localizedCopy[localeKey] || localizedCopy.EN;
+    }
+
+    function getLocalizedSite(siteCode, localeKey) {
+      const localePack = getLocalePack(localeKey);
+      return localePack.sites[siteCode] || localizedCopy.EN.sites[siteCode] || { name: '', language: '' };
+    }
+
+    function getCurrentSiteInfo() {
+      const currentSite = getCurrentSite();
+
+      if (currentSite === 'FR') return sites.FR;
+      if (currentSite === 'EU') return sites.EU;
+      return sites.US;
+    }
+
+    function getManualRecommendation(countryCode) {
+      const currentSite = getCurrentSite();
+
+      if (currentSite === 'US') {
+        if (isUnitedStates(countryCode)) return sites.US;
+        if (isEuropeCountry(countryCode)) {
+          if (isFrance(countryCode)) return sites.FR;
+          if (isUnitedKingdom(countryCode)) return sites.GB;
+          return sites.EU;
+        }
+        return sites.US;
+      }
+
+      if (currentSite === 'EU') {
+        if (isEuropeCountry(countryCode)) return sites.EU;
+        if (isCanada(countryCode)) return sites.FR;
+        if (isUnitedStates(countryCode) || (!isEuropeCountry(countryCode) && !isCanada(countryCode))) {
+          return sites.US;
+        }
+        return sites.EU;
+      }
+
+      if (currentSite === 'FR') {
+        if (isFrance(countryCode)) return sites.FR;
+        if (isEuropeCountry(countryCode)) return sites.EU;
+        if (isUnitedStates(countryCode) || (!isEuropeCountry(countryCode) && !isCanada(countryCode))) {
+          return sites.US;
+        }
+        return sites.FR;
+      }
+
+      return getCurrentSiteInfo();
+    }
 
     function closePopup() {
-      if (mask) mask.classList.remove('active');
-      manuallyOpen = false;
-      setGeoBannerClosed24h(); // 关闭标记并设置过期时间
-    }
-
-    /**
-     * 在页面顶部显示 banner 提示
-     * @param {string} url - 支持 http(s) 链接, 自动转为可点击超链接
-     * @param {string} [name] - 新的: 传递"Go to site" 或 "Consulter"
-     * @param {string} [language] - 新的: 传递"Go to site" 或 "Consulter"
-     */
-    const showCountrySelect = (url, name, language) => {
-      {% comment %} console.log('isGeoBannerClosedValid',isGeoBannerClosedValid()); {% endcomment %}
-      if (isGeoBannerClosedValid()) return; // 用户已经点击“关闭”且在24小时有效期内不再显示
-
-      if (!mask || !closeBtn) return;
-
-      console.log(url, name, language);
-      recommended_visit_country_url.href = url;
-      recommended_visit_country_name.textContent = name;
-      recommended_visit_country_language.textContent = language;
-
-      if (mask) mask.classList.add('active');
-
-      if (closeBtn) {
-        closeBtn.addEventListener('click', closePopup);
-      }
       if (mask) {
-        mask.addEventListener('click', function (e) {
-          // 只有点击遮罩（而非弹窗内容区）才关闭
-          if (e.target === mask) {
-            closePopup();
-          }
-        });
-      }
-    };
-
-    // 主重定向/提示逻辑，使用同步 XHR 保证首屏有效
-    function initGeoBanner() {
-      if (!isGeoBannerClosedValid()) {
-        try {
-          // 同步请求后端接口，获取用户 IP 定位国家信息
-          const xhr = new XMLHttpRequest();
-          xhr.open('GET', 'https://dtc.mblock.cc/shopify/ip', false); // false = 同步
-          xhr.send();
-
-          if (xhr.status === 200) {
-            const resp = JSON.parse(xhr.responseText);
-            if (resp && resp.code === 0 && resp.data) {
-              const geoData = resp.data;
-              const country = geoData.country_iso_code || ''; // 用户所在国家二字码
-              const currentSite = getCurrentSite(); // 当前站点类型
-
-              {% comment %} console.log('访问ip所在区', country); {% endcomment %}
-
-              // 各站点根据身份做不同提示/跳转
-              if (currentSite === 'US') {
-                {% comment %}
-                console.log('当前站点为 US 主站');
-                console.log('访问ip所在区', country);
-                {% endcomment %}
-                // 当前站点为 US 主站
-                // 在美国地区, 判断是否手动打开
-                if (manuallyOpen) {
-                  if (isUnitedStates(country)) {
-                    showCountrySelect(
-                      'https://www.procolored.com/',
-                      'United States and others',
-                      'English / $USD'
-                    );
-                    return;
-                  }
-                } else {
-                  if (isUnitedStates(country)) return; // 在美国地区, 不处理
-                }
-
-                if (isEuropeCountry(country)) {
-                  if (isFrance(country)) {
-                    // 法国 IP 跳转法国站
-                    showCountrySelect(
-                      'https://fr.procolored.com/',
-                      'Francophone',
-                      'Français / €EUR'
-                    );
-                    // window.location.href = 'https://fr.procolored.com/';
-                    return;
-                  }
-                  if (isUnitedKingdom(country)) {
-                    // 法国 IP 跳转法国站
-                    showCountrySelect(
-                      'https://procolored.eu/',
-                      'United Kingdom',
-                      'English / £GBP'
-                    );
-                    // window.location.href = 'https://fr.procolored.com/';
-                    return;
-                  }
-                  // 欧洲其他国家跳转欧洲站
-                  console.log('欧洲其他国家');
-                  showCountrySelect(
-                    'https://procolored.eu/',
-                    'EU Countries',
-                    'English / £GBP'
-                  );
-                  // window.location.href = 'https://procolored.eu/';
-                  return;
-                }
-                // 手动打开弹窗
-                if (manuallyOpen) {
-                  showCountrySelect(
-                    'https://www.procolored.com/',
-                    'United States and others',
-                    'English / $USD'
-                  );
-                  return;
-                }
-              } else if (currentSite === 'EU') {
-                // 当前站点为欧洲分站
-                if (isEuropeCountry(country)) {
-                  // 在欧洲地区, 判断是否手动打开
-                  if (manuallyOpen) {
-                    showCountrySelect(
-                      'https://procolored.eu/',
-                      'EU Countries',
-                      'English / £GBP'
-                    );
-                    return;
-                  } else {
-                    // 如果是欧盟其他国家，停留欧洲分站
-                    return;
-                  }
-                }
-
-                if (isCanada(country)) {
-                  // 加拿大访问欧洲分站, 跳回主站+顶栏提示可访问法国站
-                  // window.location.href = 'https://www.procolored.com/';
-                  // 此处如需提示可解注释 showCountrySelect
-                  showCountrySelect(
-                    'https://fr.procolored.com/',
-                    'Francophone',
-                    'Français / €EUR'
-                  );
-                  return;
-                }
-
-                if (
-                  isUnitedStates(country) ||
-                  (!isEuropeCountry(country) && !isCanada(country))
-                ) {
-                  // 美国 & 其它非欧/非加国家, 全部跳回主站
-                  showCountrySelect(
-                    'https://www.procolored.com/',
-                    'United States and others',
-                    'English / $USD'
-                  );
-                  return;
-                }
-              } else if (currentSite === 'FR') {
-                // 当前站点为法国分站
-                if (isFrance(country)) {
-                  if(manuallyOpen) {
-                    // 法国访问本站, 提示可访问欧洲站
-                    showCountrySelect(
-                      'https://procolored.eu/',
-                      'EU Countries',
-                      'English / £GBP'
-                    );
-                    return;
-                  } else return;
-                }
-
-                if (isEuropeCountry(country)) {
-                  // 欧洲非法国国家, 跳转欧洲分站
-                  showCountrySelect(
-                    'https://procolored.eu/',
-                    'EU Countries',
-                    'English / £GBP'
-                  );
-                  return;
-                }
-
-                if (
-                  isUnitedStates(country) ||
-                  (!isEuropeCountry(country) && !isCanada(country))
-                ) {
-                  // 美国 & 其它非欧/非加, 跳主站
-                  showCountrySelect(
-                    'https://www.procolored.com/',
-                    'United States and others',
-                    'English / $USD'
-                  );
-                  return;
-                }
-              }
-            }
-          }
-        } catch (e) {
-          // 若接口异常, 则不阻塞页面正常显示
-          console.error(e);
-        }
+        mask.classList.remove('active');
       }
     }
 
-    initGeoBanner();
+    function renderPopupCopy(localeKey) {
+      const localePack = getLocalePack(localeKey);
 
-    // 存在多个country-switcher-footer情况
+      if (titleText) {
+        titleText.textContent = localePack.popup.title;
+      }
+      if (recommendedVisitTitle) {
+        recommendedVisitTitle.textContent = localePack.popup.recommendedTitle;
+      }
+      if (otherSitesTitle) {
+        otherSitesTitle.textContent = localePack.popup.otherSitesTitle;
+      }
+
+      document.querySelectorAll('.mkt-select-country__popup__country-item[data-site-code]').forEach((item) => {
+        const siteCode = item.getAttribute('data-site-code');
+        const siteCopy = getLocalizedSite(siteCode, localeKey);
+        const nameElement = item.querySelector('.mkt-select-country__popup__country-name');
+        const languageElement = item.querySelector('.mkt-select-country__popup__country-language');
+
+        if (nameElement) {
+          nameElement.textContent = siteCopy.name;
+        }
+        if (languageElement) {
+          languageElement.textContent = siteCopy.language;
+        }
+      });
+    }
+
+    function showCountrySelect(siteInfo, localeKey) {
+      const targetSite = siteInfo || getCurrentSiteInfo();
+      const resolvedLocaleKey = localeKey || getLocaleKeyFromNavigator();
+      const localizedSite = getLocalizedSite(targetSite.code, resolvedLocaleKey);
+
+      if (!mask || !recommendedVisitCountryUrl || !recommendedVisitCountryName || !recommendedVisitCountryLanguage) {
+        return;
+      }
+
+      renderPopupCopy(resolvedLocaleKey);
+      recommendedVisitCountryUrl.href = targetSite.url;
+      recommendedVisitCountryName.textContent = localizedSite.name;
+      recommendedVisitCountryLanguage.textContent = localizedSite.language;
+      mask.classList.add('active');
+    }
+
+    async function openCountryPopup() {
+      try {
+        const geoData = await fetchGeoData();
+        const localeKey = geoData
+          ? getLocaleKeyFromCountry(geoData.country_iso_code || '')
+          : getLocaleKeyFromNavigator();
+        const recommendation = geoData
+          ? getManualRecommendation(geoData.country_iso_code || '')
+          : getCurrentSiteInfo();
+
+        showCountrySelect(recommendation, localeKey);
+      } catch (error) {
+        console.error(error);
+        showCountrySelect(getCurrentSiteInfo(), getLocaleKeyFromNavigator());
+      }
+    }
+
+    renderPopupCopy(getLocaleKeyFromNavigator());
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closePopup);
+    }
+
+    if (mask) {
+      mask.addEventListener('click', function (event) {
+        if (event.target === mask) {
+          closePopup();
+        }
+      });
+    }
+
     const countrySwitcherFooters = document.querySelectorAll('.country-switcher-footer');
     if (countrySwitcherFooters && countrySwitcherFooters.length > 0) {
-      countrySwitcherFooters.forEach(function(countrySwitcherFooter) {
+      countrySwitcherFooters.forEach(function (countrySwitcherFooter) {
         countrySwitcherFooter.addEventListener('click', function (event) {
-          console.log('countrySwitcherFooter');
-          window.localStorage.removeItem(GEO_BANNER_CLOSED_KEY);
-          window.localStorage.removeItem(GEO_BANNER_EXPIRE_KEY);
-          manuallyOpen = true;
-          initGeoBanner();
+          if (event) {
+            if (typeof event.preventDefault === 'function') {
+              event.preventDefault();
+            }
+            if (typeof event.stopImmediatePropagation === 'function') {
+              event.stopImmediatePropagation();
+            } else if (typeof event.stopPropagation === 'function') {
+              event.stopPropagation();
+            }
+          }
+
+          openCountryPopup();
         });
       });
     }

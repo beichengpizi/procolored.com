@@ -172,7 +172,7 @@
     class="product-card product-card-{{product_card_product.id}} text-{{ product_content_alignment }} product-card--content-spacing-{{ info_spacing }} product-card--border-{{ product_card_border }} {{ product_card_shadow_class }}"
   >
     <figure class="ethan666 product-featured-image {% if products_hover_images and product_card_product.images.size > 1 %}thb-hover{% endif %}">
-      {% render 'product-card-badge', product_card_product: product_card_product %}
+      {% render 'product-card-badge', product_card_product: product_card_product, custom_discount: custom_discount %}
 
       {% assign prod_tags = product_card_product.tags | downcase %}
       <a
@@ -228,11 +228,11 @@
           {%- endcapture -%}
           <div class="badge-starting">Starting at {{ starting_num }}</div>
         {% elsif prod_tags contains 'popular' %}
-          <div class="badge-new-arrival">Most Popular</div>
+          <div class="badge-new">Most Popular</div>
         {% elsif prod_tags contains 'home friendly' %}
-          <div class="badge-new-arrival">Home Friendly</div>
+          <div class="badge-new">Home Friendly</div>
         {% elsif prod_tags contains 'profit' %}
-          <div class="badge-new-arrival">💰 Profit Maker</div>
+          <div class="badge-new">💰 Profit Maker</div>
         {% else %}
           {%- unless product_card_product.selected_or_first_available_variant.available -%}
             <div class="badge-sold-out">Coming Soon</div>
