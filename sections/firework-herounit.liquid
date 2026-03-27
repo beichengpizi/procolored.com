@@ -1,0 +1,473 @@
+<script src="https://unpkg.com/localstorage-slim@2.7.0/dist/localstorage-slim.js" defer></script>
+<script async src="https://asset.fwcdn3.com/js/storyblock.js"></script>
+
+<style>
+  #shopify-section-{{ section.id }} #text-content-wrapper {
+    display: none;
+  }
+
+  @media screen and (min-width: 768px) {
+    #shopify-section-{{ section.id }} {
+      background-image: url({{ section.settings.background_image | image_url }});
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .fw-herounit-wrapper {
+    display: flex;
+    max-width: 1200px;
+    align-items: center;
+    margin: 20px auto;
+    justify-content: space-between;
+  }
+
+  #shopify-section-{{ section.id }} .fw-herounit-title {
+    color: #121212;
+    font-size: 40px;
+    font-weight: 800;
+    margin-bottom: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .fw-herounit-title p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .fw-herounit-content {
+    color: #121212;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px; /* 150% */
+  }
+
+  #shopify-section-{{ section.id }} fw-herounit {
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .fw-herounit-icons {
+    border-radius: 8px;
+    width: fit-content;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 12px;
+    align-self: stretch;
+    margin-top: 32px;
+    border-radius: 10px;
+    border: 1px solid #fff;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(43.45000076293945px);
+    max-width: 396px;
+  }
+
+  #shopify-section-{{ section.id }} .fw-herounit-icon {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    padding-top: 8px;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .fw-herounit-icon-text {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 140%; /* 16.8px */
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} #fw_combined_player-{{ section.id }} {
+    width: 380px;
+    margin-right: 37px;
+    height: 100%;
+    aspect-ratio: 9 / 16;
+  }
+
+  #shopify-section-{{ section.id }} .remind-button {
+    padding: 12px 24px;
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 99px;
+    background: #2B7FFF;
+    width: fit-content;
+    margin-top: 28px;
+    cursor: pointer;
+  }
+
+  /* 灰色遮罩层 */
+  #shopify-section-{{ section.id }} .subscribe-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  /* 白色弹窗框 */
+  #shopify-section-{{ section.id }} .subscribe-popup-box {
+    background: #fff;
+    width: 568px;
+    padding: 24px 20px;
+    border-radius: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .subscribe-title {
+    color: #000;
+    font-size: 20px;
+    font-weight: 700;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .subscribe-desc {
+    color: #000;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: left;
+    line-height: 19.6px;
+    padding-bottom: 20px;
+  }
+
+  #shopify-section-{{ section.id }} [type="email"] {
+    border-radius: 8px 0 0 8px;
+    background: #F9F9F9;
+  }
+
+  #shopify-section-{{ section.id }} .btn-primary {
+    border-radius: 0 8px 8px 0;
+    background: #000;
+  }
+
+  #shopify-section-{{ section.id }} .close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .subscribe-popup-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }} .fw-herounit-wrapper {
+      flex-direction: column;
+      margin: 0;
+      background: url({{ section.settings.mobile_image | image_url }});
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .fw-herounit-left {
+      margin: 50px auto 24px auto;
+      max-width: 270px;
+    }
+
+    #shopify-section-{{ section.id }} .fw-herounit-title {
+      font-size: 18px;
+      margin-bottom: 4px;
+      font-weight: 600;
+      line-height: 140%; /* 25.2px */
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .fw-herounit-content {
+      font-size: 12px;
+      line-height: 140%; /* 16.8px */
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .fw-herounit-icons {
+      gap: 6px;
+      margin-top: 24px;
+      grid-template-columns: repeat(4, 1fr);
+      max-width: 270px;
+      align-items: start;
+      box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.03) inset;
+      backdrop-filter: blur(2.8499999046325684px);
+    }
+
+    #shopify-section-{{ section.id }} .fw-herounit-icon {
+      padding-top: 0;
+    }
+
+    #shopify-section-{{ section.id }} .fw-herounit-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .fw-herounit-icon-text {
+      font-size: 10px;
+      text-align: center;
+      padding-top: 8px;
+      line-height: 140%;
+    }
+
+    #shopify-section-{{ section.id }} #fw_combined_player-{{ section.id }} {
+      width: 100%;
+      margin: 0 auto 50px auto;
+      max-width: 278px;
+    }
+
+    #shopify-section-{{ section.id }} .remind-button {
+      font-size: 14px;
+      margin: 16px auto 0 auto;
+    }
+
+    #shopify-section-{{ section.id }} .subscribe-popup-box {
+      margin: 0 12px;
+      border-radius: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .subscribe-title {
+      font-size: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .subscribe-desc {
+      padding-bottom: 12px;
+    }
+  }
+</style>
+<div class="fw-herounit-wrapper">
+  <div class="fw-herounit-left-wrapper">
+    <div class="fw-herounit-left">
+      <div class="fw-herounit-title">
+        {{ section.settings.title }}
+      </div>
+
+      <div class="fw-herounit-content">
+        {{ section.settings.content }}
+      </div>
+
+      <div class="fw-herounit-icons">
+        {% for block in section.blocks %}
+          {% if block.type == 'icon' %}
+            <div class="fw-herounit-icon">
+              {{ block.settings.icon_image }}
+              <span class="fw-herounit-icon-text">{{ block.settings.icon_text }}</span>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% if section.settings.button_text != blank %}
+        <div class="remind-button">{{ section.settings.button_text }}</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div id="fw_combined_player-{{ section.id }}"></div>
+</div>
+
+<!-- ===== 成功弹窗 ===== -->
+<div class="klaviyo-form-SFFuRY"></div>
+
+<div class="subscribe-popup-overlay" id="subscribe-successful" style="display: none;">
+  <div class="subscribe-popup-box">
+    <h2 class="subscribe-title">Thanks for subscribing!</h2>
+    <div>You're All Set! 🎉</div>
+
+    <div class="subscribe-desc">We'll send you a reminder before the live starts.</div>
+    <div class="close-button">×</div>
+  </div>
+</div>
+
+{% assign customerId = '' %}
+{% assign isLogin = 0 %}
+{% if customer %}
+  {% assign isLogin = 1 %}
+  {% assign customerId = customer.id %}
+  {%- assign customerEmail = customer.email -%}
+{% endif %}
+<script>
+  $(document).ready(function () {
+    let customerId = ''; 
+    let customerIdString =''
+    let isLogin = {{ isLogin }};
+    let customerEmail = "";
+    console.log("customer.id");
+    if(isLogin === 1){
+        console.log('已登录帐号')
+        customerIdString = "{{customerId}}";
+        customerId = customerIdString - 0;
+        customerEmail="{{customer.email}}";
+    }else{
+        console.log('未登录帐号')
+    }
+    
+    console.log('customerId==',customerId);
+    const channel = '{{ section.settings.channel }}';
+    const playlist_ID = '{{ section.settings.playlist_ID }}';
+    {% comment %} 判断#fw-player是否存在 {% endcomment %}
+    if (document.getElementById('fw_combined_player-{{ section.id }}') && channel != '' && playlist_ID != '' ) {
+      // 页面加载时检查是否显示浮窗
+      const player = document.createElement("span");
+      // 插入fw-herounit播放器到页面
+      player.innerHTML = `<fw-herounit id="move-to-body" height="100%" channel="${channel}" max_videos="1" playlist="${playlist_ID}" style="height: 100%;"></fw-herounit>`;
+      document.getElementById("fw_combined_player-{{ section.id }}").appendChild(player);
+    } else {
+      console.log('#fw-player 不存在');
+    }
+
+    function shopifyLogin() {
+      const modalLogin = document.querySelector("modal-login");
+      if (modalLogin) {
+        console.log('modalLogin', modalLogin);
+        const loginForm = modalLogin.showModal(modalLogin.fetchForm.login.innerHTML);
+        modalLogin.loginBindEvent(loginForm.el);
+      } else {
+        console.warn('modalLogin 元素不存在');
+      }
+    }
+
+    document.querySelector("#shopify-section-{{ section.id }} .remind-button")
+      .addEventListener('click', function() {
+
+        if (customerId != "") {
+          // ✅ 已登录：直接提交到 Klaviyo
+          console.log('已登录，直接提交邮箱');
+
+          window._learnq = window._learnq || [];
+          window._learnq.push([
+            'identify',
+            {
+              '$email': customerEmail
+            }
+          ]);
+
+          // 👉 可选：记录一个事件（方便做 flow）
+          window._learnq.push([
+            'track',
+            'Subscribed HeroUnit',
+            {
+              email: customerEmail
+            }
+          ]);
+          
+          document.querySelector("#shopify-section-{{ section.id }} #subscribe-successful").style.display = "flex";
+        } else {
+          // ❌ 未登录：弹出表单
+          console.log('未登录，弹窗');
+
+          window._klOnsite = window._klOnsite || [];
+          window._klOnsite.push(['openForm', 'SFFuRY']);
+        }
+    });
+
+    document.querySelector("#shopify-section-{{ section.id }} .close-button").addEventListener('click', function() {
+      document.querySelector("#shopify-section-{{ section.id }} #subscribe-successful").style.display = "none";
+    });
+
+    const successPopup = document.querySelector("#shopify-section-{{ section.id }} #subscribe-successful");
+
+    successPopup.addEventListener("click", function (e) {
+      // 点击的不是弹窗内容
+      if (!e.target.closest(".subscribe-popup-box")) {
+        successPopup.style.display = "none";
+      }
+    });
+
+    const popup = document.getElementById("subscribe-popup");
+    const popupBox = popup.querySelectorAll(".needsclick");
+
+    // 点击遮罩层关闭
+    popup.addEventListener("click", function (e) {
+      // 如果点击的不是表单内部
+      console.log('click model');
+      if (!e.target.closest(".needsclick")) {
+        popup.style.display = "none";
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Firework HeroUnit",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "liquid",
+      "id": "content",
+      "label": "Content"
+    },
+    {
+      "type": "header",
+      "content": "内容配置"
+    },
+    {
+      "type": "text",
+      "id": "channel",
+      "label": "Channel*",
+      "default": "procolored"
+    },
+    {
+      "type": "text",
+      "id": "playlist_ID",
+      "label": "Playlist ID",
+      "default": "gOdre6",
+      "info": "[How to find Channel and Playlist ID](https://help.firework.com/leveraging-the-shopify-embed-app)"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Icon",
+      "type": "icon",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "icon_image",
+          "label": "Icon Image"
+        },
+        {
+          "type": "liquid",
+          "id": "icon_text",
+          "label": "Icon Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Firework HeroUnit"
+    }
+  ]
+}
+{% endschema %}

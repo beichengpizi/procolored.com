@@ -1,0 +1,635 @@
+<script src="https://unpkg.com/localstorage-slim@2.7.0/dist/localstorage-slim.js" defer></script>
+<script async src="https://asset.fwcdn3.com/js/storyblock.js"></script>
+
+<style>
+  #shopify-section-{{ section.id }} {
+    padding: 80px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  #shopify-section-{{ section.id }} .fw-herounit-title {
+    color: #121212;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 60px; /* 150% */
+  }
+
+  #shopify-section-{{ section.id }} .fw-herounit-title p {
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .fw-herounit-content {
+    color: #121212;
+    font-size: 18px;
+    line-height: 27px; /* 150% */
+    padding-top: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .live-stream-wrapper {
+    display: grid;
+    max-width: 1200px;
+    grid-template-columns: repeat(4, calc(25% - 12px));
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .live-stream-item {
+    border-radius: 12px;
+    border: 1px solid rgba(18, 18, 18, 0.10);
+    background: #FFF; 
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #shopify-section-{{ section.id }} .live-stream-image {
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .live-stream-image img,
+  #shopify-section-{{ section.id }} .first-live-stream-image img {
+    border-radius: 10px 10px 0 0;
+  }
+
+  #shopify-section-{{ section.id }} .first-live-stream-image {
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .starting-soon-label {
+    border-radius: 99px;
+    background: #2B7FFF;
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px; /* 150% */
+    margin-bottom: 36px;
+    padding: 4px 12px;
+    width: fit-content;
+    position: absolute;
+    top: 16px;
+    left: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .live-stream-content {
+    padding: 16px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  #shopify-section-{{ section.id }} .countdown-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 8px;
+    padding-top: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .count-box {
+    border-radius: 4px;
+    border: 0.5px dashed #121212;
+    background: rgba(0, 0, 0, 0.00);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    height: 56px;
+    justify-content: center;
+    width: 52px;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .count-number {
+    color: #121212;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 26px; /* 108.333% */
+    letter-spacing: 0.48px;
+    height: 19px;
+    display: flex;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .count-label {
+    color: #121212;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 26px; /* 216.667% */
+    letter-spacing: 0.24px;
+    height: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .live-stream-title {
+    overflow: hidden;
+    color: #121212;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px; /* 150% */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  #shopify-section-{{ section.id }} .live-stream-time-wrapper {
+    display: flex;
+    gap: 24px;
+    color: rgba(18, 18, 18, 0.60);
+    font-size: 12px;
+    line-height: 18px; /* 150% */
+    padding-top: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .live-stream-date {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .live-stream-button {
+    border-radius: 8px;
+    background: #2B7FFF;
+    padding: 12px;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px; /* 150% */
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .hidden {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .fw-herounit-left {
+    position: relative;
+    margin-bottom: 48px;
+  }
+
+  #shopify-section-{{ section.id }} .fw-herounit-left img {
+    border-radius: 16px;
+    border: 1px solid rgba(18, 18, 18, 0.10);
+  }
+
+  #shopify-section-{{ section.id }} .fw-herounit-text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 48px;
+    width: 50%;
+  }
+
+  #shopify-section-{{ section.id }} .desktop {
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .mobile {
+    display: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }} {
+      padding: 40px 16px;
+    }
+
+    #shopify-section-{{ section.id }} .fw-herounit-title {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 27px; /* 150% */
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    #shopify-section-{{ section.id }} .fw-herounit-content {
+      font-size: 12px;
+      line-height: 18px; /* 150% */
+      padding-top: 8px;
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .live-stream-wrapper {
+      grid-template-columns: repeat(2, calc(50% - 4px));
+      gap: 16px 8px;
+    }
+
+    #shopify-section-{{ section.id }} .live-stream-image img,
+    #shopify-section-{{ section.id }} .first-live-stream-image img {
+      border-radius: 12px 12px 0 0;
+    }
+
+    #shopify-section-{{ section.id }} .starting-soon-label {
+      font-size: 10px;
+      line-height: 15px; /* 150% */
+      margin-bottom: 24px;
+      padding: 4px 8px;
+      top: 8px;
+      left: 6px;
+    }
+
+    #shopify-section-{{ section.id }} .live-stream-content {
+      padding: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .countdown-wrapper {
+      gap: 4px;
+      padding-top: 28px;
+    }
+
+    #shopify-section-{{ section.id }} .count-box {
+      border-radius: 2px;
+      border: 0.25px dashed #121212;
+      padding: 4px;
+      width: 36px;
+      height: 36px;
+      gap: 0;
+    }
+
+    #shopify-section-{{ section.id }} .count-number {
+      color: #121212;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 14px; /* 108.333% */
+    }
+
+    #shopify-section-{{ section.id }} .count-label {
+      font-size: 10px;
+      line-height: 15px; /* 216.667% */
+    }
+
+    #shopify-section-{{ section.id }} .live-stream-title {
+      font-size: 12px;
+      line-height: 18px; /* 150% */
+    }
+
+    #shopify-section-{{ section.id }} .live-stream-time-wrapper {
+      flex-direction: column;
+      gap: 6px;
+      font-size: 10px;
+      line-height: 15px; /* 150% */
+      padding-top: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .live-stream-date {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .live-stream-date svg {
+      width: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .live-stream-button {
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-size: 12px;
+      line-height: 18px; /* 150% */
+      cursor: pointer;
+    }
+
+    #shopify-section-{{ section.id }} .hidden {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .fw-herounit-left {
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .fw-herounit-text {
+      top: 24px;
+      left: 50%;
+      transform: translate(-50%);
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .fw-herounit-text svg {
+      width: 45px;
+    }
+
+    #shopify-section-{{ section.id }} .desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .mobile {
+      display: block;
+    }
+  }
+</style>
+<div class="fw-herounit-wrapper">
+  <div class="fw-herounit-left">
+    <img class="desktop" src="{{ section.settings.background_image | img_url: 'master' }}" alt="" width="100%" height="100%">
+    <img class="mobile" src="{{ section.settings.mobile_background_image | img_url: 'master' }}" alt="" width="100%" height="100%">
+    <div class="fw-herounit-text">
+        <div class="fw-herounit-title">
+            {{ section.settings.title }}
+        </div>
+
+        <div class="fw-herounit-content">
+            {{ section.settings.content }}
+        </div>
+    </div>
+  </div>
+
+  <div id="fw_combined_player-{{ section.id }}" class="live-stream-wrapper">
+  </div>
+</div>
+
+<script async type="text/javascript" 
+src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UZTJ3d">
+</script>
+
+<script>
+  
+  let targetTime = '';
+  $(document).ready(function () {
+    const channel = '{{ section.settings.channel }}';
+    const playlist_ID = '{{ section.settings.playlist_ID }}';
+    const section = document.querySelector('#fw_combined_player-{{ section.id }}');
+
+    fetch(`https://cdn1-api.fireworktv.com/embed/v2/playlists/${playlist_ID}/feeds?page_size=10&n=1&_=1772100713403`).then(response => {
+      if (!response.ok) {
+        throw new Error('网络请求失败');
+      }
+      return response.json();
+    }).then(data => {
+        targetTime = new Date(data.feed_items[0].video.started_at).getTime();
+        data.feed_items.forEach((item, index) => {
+            if (section && channel != '' && playlist_ID != '' && index <= 3) {
+                // 页面加载时检查是否显示浮窗
+                const player = document.createElement("span");
+                // 插入fw-herounit播放器到页面
+                player.innerHTML = `
+                <div class="live-stream-item">
+                    <div class="live-stream-image first-live-stream-image ${checkFirstLive(index, true)}">
+                        <img src="{{ section.settings.first_live_stream_image | img_url: 'master' }}" alt="" width="100%" height="100%">
+                        <div class="starting-soon-label">
+                            Starting soon
+                        </div>
+                        <div class="countdown-wrapper">
+                            <div class="count-box">
+                                <div class="count-number" id="days">00</div>
+                                <div class="count-label">Days</div>
+                            </div>
+
+                            <div class="count-box">
+                                <div class="count-number" id="hours">00</div>
+                                <div class="count-label">Hrs</div>
+                            </div>
+
+                            <div class="count-box">
+                                <div class="count-number" id="minutes">00</div>
+                                <div class="count-label">Mins</div>
+                            </div>
+
+                            <div class="count-box">
+                                <div class="count-number" id="seconds">00</div>
+                                <div class="count-label">Secs</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="live-stream-image ${checkFirstLive(index, false)}">
+                      <img src="{{ section.settings.live_stream_image | img_url: 'master' }}" alt="" width="100%" height="100%">
+                      <div class="starting-soon-label">
+                          next live
+                      </div>
+                    </div>
+
+                    <div class="live-stream-content">
+                        <div class="live-stream-title">
+                            ${item.video.caption}
+                        </div>
+
+                        <div class="live-stream-time-wrapper">
+                            <div class="live-stream-date">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M5.33331 1.33337V4.00004" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M10.6667 1.33337V4.00004" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12.6667 2.66663H3.33333C2.59695 2.66663 2 3.26358 2 3.99996V13.3333C2 14.0697 2.59695 14.6666 3.33333 14.6666H12.6667C13.403 14.6666 14 14.0697 14 13.3333V3.99996C14 3.26358 13.403 2.66663 12.6667 2.66663Z" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M2 6.66663H14" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+
+                                <span class="live-stream-date-text">
+                                    ${formatToPT(item.video.started_at)}
+                                </span>
+                            </div>
+
+                            <div class="live-stream-date">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <g clip-path="url(#clip0_9866_9125)">
+                                        <path d="M7.99998 14.6667C11.6819 14.6667 14.6666 11.6819 14.6666 8.00004C14.6666 4.31814 11.6819 1.33337 7.99998 1.33337C4.31808 1.33337 1.33331 4.31814 1.33331 8.00004C1.33331 11.6819 4.31808 14.6667 7.99998 14.6667Z" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8 4V8L10.6667 9.33333" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_9866_9125">
+                                        <rect width="16" height="16" fill="white"/>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+
+                                <span class="live-stream-time-text">${formatTimeToPT(item.video.started_at)}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+                section.appendChild(player);
+                section.querySelectorAll(".live-stream-button").forEach((item) => {
+                  item.addEventListener('click', () => {
+                    console.log('customer data', JSON.parse(window.localStorage.getItem("smile_shopify_data")));
+                    if(JSON.parse(window.localStorage.getItem("smile_shopify_data")) == undefined) {
+                      const modalLogin = document.querySelector("modal-login");
+                      if (modalLogin) {
+                        const loginForm = modalLogin.showModal(
+                          modalLogin.fetchForm.login.innerHTML
+                        );
+                        modalLogin.loginBindEvent(loginForm.el);
+                      } else {
+                        console.warn("modalLogin 元素不存在");
+                      }
+                    } 
+                    
+                    const streamTime = item.getAttribute("data-time");
+
+                    // 1️⃣ 识别用户 + 保存预约时间
+                    _learnq.push(["identify", {
+                      "$email": JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer.email,
+                      "live_stream_reminder": streamTime
+                    }]);
+
+                    // 2️⃣ 记录预约事件（可选）
+                    _learnq.push(["track", "Live Stream Reminder Booked", {
+                      stream_time: streamTime
+                    }]);
+
+                    alert("You're booked! We'll remind you before the stream.");
+                  });
+                });
+                updateCountdown();
+                const timer = setInterval(updateCountdown, 1000);
+            } else {
+                console.log('#fw-player 不存在');
+            }
+        });
+    });
+  });
+
+  function formStartDate(date) {
+    return date.split("T")[0];
+  }
+
+  function checkFirstLive(index, show) {
+    if(index == 0) {
+        return show ? '' : 'hidden';
+    }
+    else return show ? 'hidden' : '';
+  }
+
+  function formatLabel(index) {
+    return index == 0 ? 'Starting Soon' : 'next live';
+  }
+
+  function formatToPT(dateString) {
+    const date = new Date(dateString);
+
+    // 转换为太平洋时间
+    const options = {
+        timeZone: 'America/Los_Angeles',
+        month: 'short',
+        day: 'numeric'
+    };
+
+    const formatter = new Intl.DateTimeFormat('en-US', options);
+    const parts = formatter.formatToParts(date);
+
+    const month = parts.find(p => p.type === 'month').value;
+    const day = parseInt(parts.find(p => p.type === 'day').value);
+
+    // 添加序数后缀
+    function getOrdinal(n) {
+        if (n > 3 && n < 21) return 'th';
+        switch (n % 10) {
+        case 1: return 'st';
+        case 2: return 'nd';
+        case 3: return 'rd';
+        default: return 'th';
+        }
+    }
+
+    return `${month} ${day}${getOrdinal(day)} (PT)`;
+  }
+
+  function formatTimeToPT(dateString) {
+    const date = new Date(dateString);
+
+    const formatter = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'America/Los_Angeles',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false // 24小时制
+    });
+
+    return formatter.format(date);
+  }
+
+  // 🎯 设置目标时间（UTC时间示例）
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const diff = targetTime - now;
+    const section = document.querySelector('#fw_combined_player-{{ section.id }}');
+
+    if (diff <= 0) {
+      section.querySelector("#days").innerText = "00";
+      section.querySelector("#hours").innerText = "00";
+      section.querySelector("#minutes").innerText = "00";
+      section.querySelector("#seconds").innerText = "00";
+      clearInterval(timer);
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    section.querySelector("#days").innerText = String(days).padStart(2, "0");
+    section.querySelector("#hours").innerText = String(hours).padStart(2, "0");
+    section.querySelector("#minutes").innerText = String(minutes).padStart(2, "0");
+    section.querySelector("#seconds").innerText = String(seconds).padStart(2, "0");
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Firework Live Stream",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background"
+    },
+    {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+    },
+    {
+        "type": "image_picker",
+        "id": "mobile_background_image",
+        "label": "Mobile background image"
+    },
+    {
+        "type": "liquid",
+        "id": "title",
+        "label": "Title"
+    },
+    {
+        "type": "text",
+        "id": "content",
+        "label": "Content"
+    },
+    {
+        "type": "image_picker",
+        "id": "live_stream_image",
+        "label": "Live stream image"
+    },
+    {
+        "type": "image_picker",
+        "id": "first_live_stream_image",
+        "label": "First live stream image"
+    },
+    {
+      "type": "header",
+      "content": "内容配置"
+    },
+    {
+      "type": "text",
+      "id": "channel",
+      "label": "Channel*",
+      "default": "procolored"
+    },
+    {
+      "type": "text",
+      "id": "playlist_ID",
+      "label": "Playlist ID",
+      "default": "gOdre6",
+      "info": "[How to find Channel and Playlist ID](https://help.firework.com/leveraging-the-shopify-embed-app)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Firework Live Stream"
+    }
+  ]
+}
+{% endschema %}

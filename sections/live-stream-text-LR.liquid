@@ -1,0 +1,182 @@
+<style>
+    #shopify-section-{{ section.id }} {
+        background: {{ section.settings.background }};
+        padding: 80px 0;
+    }
+
+    #shopify-section-{{ section.id }} .live-stream-text-LR {
+        display: flex;
+        gap: 48px;
+        max-width: 1200px;
+        margin: 0 auto;
+        align-items: center;
+    }
+
+    #shopify-section-{{ section.id }} .live-stream-text-LR img {
+        max-width: 55%;
+    }
+
+    #shopify-section-{{ section.id }} .join-the-community {
+        display: flex;
+        height: 54px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #shopify-section-{{ section.id }} .join-the-community:hover {
+        color: #fff;
+    }
+
+    #shopify-section-{{ section.id }} .live-stream-content ul {
+        margin-bottom: 0;
+        margin-left: 0;
+        list-style-position: inside;
+    }
+
+    #shopify-section-{{ section.id }} .desktop {
+        display: flex;
+    }
+
+    #shopify-section-{{ section.id }} .mobile {
+        display: none;
+    }
+
+    @media screen and (max-width: 768px) {
+        #shopify-section-{{ section.id }} {
+            padding: 40px 16px;
+        }
+
+        #shopify-section-{{ section.id }} .live-stream-text-LR {
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        #shopify-section-{{ section.id }} .live-stream-text-LR img {
+            max-width: 100%;
+        }
+
+        #shopify-section-{{ section.id }} .live-stream-content{
+            font-size: 16px;
+            line-height: 22.4px; /* 140% */
+            padding-top: 12px;
+            font-weight: 700;
+        }
+
+        #shopify-section-{{ section.id }} .live-stream-content li {
+            font-size: 14px;
+            line-height: 19.6px; /* 140% */
+            font-weight: 400;
+            padding: 2px 0;
+        }
+
+        #shopify-section-{{ section.id }} .live-stream-content ul {
+            margin-bottom: 0;
+        }
+
+        #shopify-section-{{ section.id }} .join-the-community {
+            font-size: 14px;
+            padding: 12px 0;
+            margin: 16px 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 16px;
+            height: fit-content;
+        }
+
+        #shopify-section-{{ section.id }} .desktop {
+            display: none;
+        }
+
+        #shopify-section-{{ section.id }} .mobile {
+            display: flex;
+        }
+    }
+</style>
+
+<div class="live-stream-text-LR desktop">
+  <img src="{{ section.settings.image | img_url: 'master' }}" alt="" width="auto" height="auto">
+
+  <div class="live-stream-text-wrapper">
+    <div class="live-stream-title-wrapper">
+        <div>
+            {{ section.settings.title }}
+        </div>
+
+        <div>
+            {{ section.settings.content }}
+        </div>
+
+        {%- if section.settings.button_text != blank -%}
+            <a class="join-the-community" href="{{ section.settings.button_link }}">
+                {{ section.settings.button_text }}
+            </a>
+        {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<div class="live-stream-text-LR mobile">
+    <div>
+        {{ section.settings.title }}
+    </div>
+    <div class="live-stream-text-wrapper">
+        <div class="live-stream-title-wrapper">
+            <img src="{{ section.settings.image | img_url: 'master' }}" alt="" width="auto" height="auto">
+            <div class="live-stream-content">
+                {{ section.settings.content }}
+            </div>
+        </div>
+
+        {%- if section.settings.button_text != blank -%}
+            <a class="join-the-community" href="{{ section.settings.button_link }}">
+                {{ section.settings.button_text }}
+            </a>
+        {%- endif -%}
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "Live Stream text LR",
+  "tag": "section",
+  "settings": [
+    {
+        "type": "color",
+        "id": "background",
+        "label": "Background"
+    },
+    {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+    },
+    {
+        "type": "liquid",
+        "id": "title",
+        "label": "Title"
+    },
+    {
+        "type": "liquid",
+        "id": "content",
+        "label": "Content"
+    },
+    {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text"
+    },
+    {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Live Stream text LR"
+    }
+  ]
+}
+{% endschema %}

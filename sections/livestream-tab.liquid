@@ -1,0 +1,877 @@
+<style>
+  :root {
+    /* Font sizes */
+    --text-h0-n: 56px;
+    --text-h1-n: 40px;
+    --text-h2-n: 30px;
+    --text-h3-n: 26px;
+    --text-h4-n: 24px;
+    --text-h5-n: 20px;
+    --text-h6-n: 16px;
+    --text-xs-n: 12px;
+    --text-sm-n: 14px;
+    --text-base-n: 18px;
+    --text-lg-n: 19px;
+  }
+
+  .text-xxs { font-size: 10px; line-height: 1.3; }
+  .text-xs { font-size: var(--text-xs-n); line-height: 1.3; }
+  .text-sm { font-size: var(--text-sm-n); line-height: 1.3; }
+  .text-base { font-size: var(--text-base-n); line-height: 1.3; }
+  .text-md { font-size: var(--text-md-n); line-height: 1.2; }
+  .text-lg { font-size: var(--text-lg-n); line-height: 1.2; }
+
+  /* 重置样式 start */
+  .product-detailed-specifications-{{ section.id }} .h0 { font-size: var(--text-h0-n); line-height: 1; }
+  .product-detailed-specifications-{{ section.id }} h1,
+  .product-detailed-specifications-{{ section.id }} .h1,
+  .product-detailed-specifications-{{ section.id }} .prose h1:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h1-n); line-height: 1.1;
+  }
+  .product-detailed-specifications-{{ section.id }} h2,
+  .product-detailed-specifications-{{ section.id }} .h2,
+  .product-detailed-specifications-{{ section.id }} .prose h2:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h2-n); line-height: 1.1;
+  }
+  .product-detailed-specifications-{{ section.id }} h3,
+  .product-detailed-specifications-{{ section.id }} .h3,
+  .product-detailed-specifications-{{ section.id }} .prose h3:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h3-n); line-height: 1.2;
+  }
+  .product-detailed-specifications-{{ section.id }} h4,
+  .product-detailed-specifications-{{ section.id }} .h4,
+  .product-detailed-specifications-{{ section.id }} .prose h4:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h4-n); line-height: 1.3;
+  }
+  .product-detailed-specifications-{{ section.id }} h5,
+  .product-detailed-specifications-{{ section.id }} .h5,
+  .product-detailed-specifications-{{ section.id }} .prose h5:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h5-n); line-height: 1.4;
+  }
+  .product-detailed-specifications-{{ section.id }} h6,
+  .product-detailed-specifications-{{ section.id }} .h6,
+  .product-detailed-specifications-{{ section.id }} .prose h6:not(.h0, .h1, .h2, .h3, .h4, .h5, .h6) {
+    font-size: var(--text-h6-n); line-height: 1.4;
+  }
+  /* 重置样式 end */
+  /* product-detailed-specifications  start  */
+  .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-wrapper {
+    background-color: {{ section.settings.bg_color }};
+    padding: {{ section.settings.padding_top }}px 0px {{ section.settings.padding_bottom }}px 0px;
+    overflow: hidden;
+  }
+
+  .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-title-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+
+  .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-title {
+    color: {{ section.settings.title_color }};
+    text-align: center;
+    line-height: 1.22;
+    margin-bottom: {{ section.settings.title_padding_bottom }}px;
+  }
+
+  .product-detailed-specifications-{{ section.id }} .live-stream-list {
+	display: none;
+	max-width: 1200px;
+	margin: 0 auto;
+  }
+
+  .product-detailed-specifications-{{ section.id }} .live-stream-list.active {
+	display: block;
+  }
+
+  .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-subtitle {
+    color: {{ section.settings.subtitle_color }};
+    text-align: center;
+    line-height: 1.38;
+    margin-bottom: {{ section.settings.subtitle_padding_bottom }}px;
+  }
+
+  .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-desc {
+    color: {{ section.settings.desc_color }};
+    text-align: center;
+    line-height: 1.38;
+    margin-bottom: {{ section.settings.desc_padding_bottom }}px;
+  }
+
+
+
+  .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    max-width: 100%;
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    touch-action: pan-x;
+    border-radius: {{ section.settings.tab_border_radius }}px;
+    background: {{ section.settings.tab_bg_color }};
+    margin-bottom: {{ section.settings.tab_padding_bottom }}px;
+  }
+
+  .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-tab {
+    cursor: pointer;
+    text-align: center;
+    color: {{ section.settings.tab_font_color }};
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+    padding: 10px 20px;
+
+    -webkit-tap-highlight-color: transparent;
+    /* 消除移动端点击背景 */
+    -webkit-touch-callout: none;
+    outline: none;
+  }
+
+  .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-tab.active {
+    color: {{ section.settings.tab_active_font_color }};
+    background: {{ section.settings.tab_active_bg_color }};
+    border-radius: {{ section.settings.tab_border_radius }}px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-wrapper {
+      padding: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px 0;
+    }
+
+    .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-container {
+      max-width: 100%;
+    }
+
+	.product-detailed-specifications-{{ section.id }} .live-stream-list.active {
+		padding: 0 16px;
+	}
+
+    .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-title {
+      font-size: {{ section.settings.title_size_mobile }}px;
+      line-height: 1.26;
+      margin-bottom: {{ section.settings.title_padding_bottom_mobile }}px;
+      padding: 0 24px;
+    }
+
+    .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-subtitle {
+      font-size: {{ section.settings.subtitle_size_mobile }}px;
+      margin-bottom: {{ section.settings.subtitle_padding_bottom_mobile }}px;
+      padding: 0 24px;
+    }
+
+    .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-desc {
+      font-size: {{ section.settings.desc_size_mobile }}px;
+      margin-bottom: {{ section.settings.desc_padding_bottom_mobile }}px;
+      padding: 0 24px;
+    }
+
+    .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-tabs {
+      border-radius: {{ section.settings.tab_border_radius }}px;
+      margin-bottom: {{ section.settings.tab_padding_bottom_mobile }}px;
+      width: 100%;
+      background: transparent;
+      gap: 10px;
+      border-radius: 0;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-tab {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1;
+      padding: 10px 20px;
+      border-radius: {{ section.settings.tab_border_radius_mb }}px;
+      background: {{ section.settings.tab_bg_color }};
+    }
+
+    .product-detailed-specifications-{{ section.id }} .product-detailed-specifications-tab.active {
+      background: {{ section.settings.tab_active_bg_color }};
+    }
+
+
+  }
+  /* product-detailed-specifications  end  */
+</style>
+<!-- product-detailed-specifications  start -->
+
+{% comment %} 修复了语法和结构错误（tab循环div，block.type拼写错误，冗余attributes，修正标签闭合格式等） {% endcomment %}
+<section
+  id="{% if section.settings.nav_id != empty %}custom-nav-{{ section.settings.nav_id }}{% endif %}"
+  class="product-detailed-specifications-{{ section.id }}"
+>
+  <div class="product-detailed-specifications-wrapper">
+    <div class="product-detailed-specifications-container">
+      <div class="product-detailed-specifications-title-wrapper">
+        {%- if section.settings.title != empty -%}
+          <div class="product-detailed-specifications-title {{ section.settings.title_size }}  {{ section.settings.title_font_family }}">
+            {{ section.settings.title }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.subtitle != empty -%}
+          <div class="product-detailed-specifications-subtitle {{ section.settings.subtitle_size }}  {{ section.settings.subtitle_font_family }}">
+            {{ section.settings.subtitle }}
+          </div>
+        {%- endif -%}
+        {%- if section.blocks.size > 1 -%}
+          <div
+            id="product-detailed-specifications-tabs"
+            class="product-detailed-specifications-tabs"
+          >
+            {%- for block in section.blocks -%}
+              {% assign tab_label = block.settings.tab_name | default: 'Tab' %}
+              <div class="product-detailed-specifications-tab{% if forloop.first %} active{% endif %}">
+                {{ tab_label }}
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.desc != empty -%}
+          <div class="product-detailed-specifications-desc {{ section.settings.desc_size }}  {{ section.settings.deac_font_family }}">
+            {{ section.settings.desc }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="product-detailed-specifications-content">
+        <div
+          class="swiper-container product-detailed-specifications-swiper-container-{{section.id}}"
+        >
+          {%- for block in section.blocks -%}
+			<div class="live-stream-list">
+				{% case block.type %}
+					{%- when 'print_speed' -%}
+						{% if block.settings.content_html != empty %}{{ block.settings.content_html }}{% endif %}
+					{%- when 'printer_specifications' -%}
+						{% if block.settings.content_html != empty %}{{ block.settings.content_html }}{% endif %}
+				{%- endcase -%}
+			</div>
+		  {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- product-detailed-specifications  end -->
+<script>
+  // 监听页面DOM加载，初始化swiper与tab交互
+  document.addEventListener('DOMContentLoaded', function () {
+    const section = document.querySelector('.product-detailed-specifications-{{ section.id }}');
+	section.querySelector('.live-stream-list').classList.add('active');
+	let liveStreamList = section.querySelectorAll('.live-stream-list');
+	let tabList = section.querySelectorAll('.product-detailed-specifications-tab');
+	let tabContainer = section.querySelector('#product-detailed-specifications-tabs');
+	/**
+     * 横向滑动指定tab至容器中央
+     */
+    function scrollTabIntoView(activeTab) {
+      const tabCenter = activeTab.offsetLeft + activeTab.offsetWidth / 2;
+      const scrollTo = tabCenter - tabContainer.clientWidth / 2;
+      tabContainer.scrollTo({
+        left: scrollTo,
+        behavior: 'smooth',
+      });
+    }
+
+	section.querySelectorAll('.product-detailed-specifications-tab').forEach((item, index) => {
+		item.addEventListener('click', function() {
+			tabList.forEach((tabItem) => tabItem.classList.remove('active'));
+			tabList[index].classList.add('active');
+			liveStreamList.forEach((liveStreamItem) => liveStreamItem.classList.remove('active'));
+			liveStreamList[index].classList.add('active');
+
+			if (tabList[index]) scrollTabIntoView(tabList[index]);
+		});
+	});
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Live Stream Tab",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "default": "star-products",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+    {
+      "type": "select",
+      "id": "section_max_width",
+      "label": "模块最大宽度",
+      "options": [
+        {
+          "value": "none",
+          "label": "全屏"
+        },
+        {
+          "value": "1200",
+          "label": "1200px"
+        },
+        {
+          "value": "980",
+          "label": "980px"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "大标题",
+      "default": "Explore detailed specifications and see how F13 outperforms the rest"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "小标题",
+      "default": "<div>November 24th - November 30th</div>"
+    },
+    {
+      "type": "html",
+      "id": "desc",
+      "label": "描述",
+      "default": "With three models to choose from, we have the perfect printer for every scale of operation. Choose the right model for your needs and start creating stunning custom designs today!"
+    },
+    {
+      "type": "range",
+      "id": "tab_border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "tab圆角大小",
+      "default": 99
+    },
+    {
+      "type": "range",
+      "id": "tab_border_radius_mb",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "tab圆角大小(移动端)",
+      "default": 99
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "标题字体颜色",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "小标题字体颜色",
+      "default": "#3D3D3D"
+    },
+    {
+      "type": "color",
+      "id": "desc_color",
+      "label": "描述字体颜色",
+      "default": "#3D3D3D"
+    },
+    {
+      "type": "color",
+      "id": "tab_font_color",
+      "label": "tab字体颜色",
+      "default": "#3D3D3D"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_font_color",
+      "label": "tab字体激活颜色",
+      "default": "#fff"
+    },
+    {
+      "type": "color_background",
+      "id": "tab_bg_color",
+      "label": "tab背景颜色",
+      "default": "#fff"
+    },
+    {
+      "type": "color_background",
+      "id": "tab_active_bg_color",
+      "label": "tab背景激活颜色",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#F9F9F9"
+    },
+
+    {
+      "type": "color_background",
+      "id": "background_gradient_color",
+      "label": "容器渐变背景色"
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": "大标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题字体大小（移动端）",
+      "default": 26
+    },
+    {
+      "type": "select",
+      "id": "subtitle_size",
+      "label": "小标题字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "text-base"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题字体大小（移动端）",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "desc_size",
+      "label": "描述字体大小",
+      "options": [
+        {
+          "value": "h0",
+          "label": "H0"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "text-lg",
+          "label": "大文本"
+        },
+        {
+          "value": "text-base",
+          "label": "标准文本"
+        },
+        {
+          "value": "text-sm",
+          "label": "小文本"
+        },
+        {
+          "value": "text-xs",
+          "label": "超小文本"
+        }
+      ],
+      "default": "text-base"
+    },
+    {
+      "type": "range",
+      "id": "desc_size_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "描述字体大小（移动端）",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "字体系列"
+    },
+    {
+      "type": "select",
+      "id": "title_font_family",
+      "label": "大标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-extraBold"
+    },
+    {
+      "type": "select",
+      "id": "subtitle_font_family",
+      "label": "小标题字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-regular"
+    },
+    {
+      "type": "select",
+      "id": "heading_font_family",
+      "label": "描述字体系列",
+      "options": [
+        {
+          "value": "custom-font-extraBold",
+          "label": "ExtraBold"
+        },
+        {
+          "value": "custom-font-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "custom-font-semiBold",
+          "label": "semiBold"
+        },
+        {
+          "value": "custom-font-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "custom-font-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "custom-font-light",
+          "label": "Light"
+        }
+      ],
+      "default": "custom-font-regular"
+    },
+    {
+      "type": "range",
+      "id": "title_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "大标题底部填充",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "subtitle_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "小标题底部填充",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "描述底部填充",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "tab_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "tab内容框底部填充",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "title_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "大标题底部填充(移动端)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "subtitle_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "小标题底部填充(移动端)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "描述底部填充(移动端)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "tab_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "tab内容框底部填充(移动端)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Print speed",
+      "type": "print_speed",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_name",
+          "label": "tab名称",
+          "default": "Print Speed"
+        },
+        {
+          "type": "liquid",
+          "id": "content_html",
+          "label": "自定义代码"
+        }
+      ]
+    },
+    {
+      "name": "Printer Specifications",
+      "type": "printer_specifications",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_name",
+          "label": "tab名称",
+          "default": "Printer Specifications"
+        },
+        {
+          "type": "liquid",
+          "id": "content_html",
+          "label": "自定义代码"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [
+    {
+      "name": "Live Stream Tab",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

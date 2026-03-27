@@ -1,0 +1,162 @@
+<script src="https://unpkg.com/localstorage-slim@2.7.0/dist/localstorage-slim.js" defer></script>
+<script async src="https://asset.fwcdn3.com/js/storyblock.js"></script>
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background }};
+  }
+
+  #shopify-section-{{ section.id }} .fw-herounit-wrapper {
+    padding: 80px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .fw-storyblock-item {
+    display: flex;
+    aspect-ratio: 9 / 16;
+  }
+
+  #shopify-section-{{ section.id }} .fw-herounit-title {
+    color: #121212;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 60px; /* 150% */
+  }
+
+  #shopify-section-{{ section.id }} .fw-herounit-title p {
+    margin-bottom: 0;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .fw-herounit-content {
+    color: #121212;
+    font-size: 18px;
+    line-height: 27px; /* 150% */
+    padding-top: 12px;
+    padding-bottom: 48px;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }} .fw-herounit-wrapper {
+      padding: 16px;
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .fw-storyblock-item {
+      display: flex;
+      aspect-ratio: 9 / 16;
+    }
+
+    #shopify-section-{{ section.id }} .fw-herounit-title {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 31.92px; /* 133% */
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .fw-herounit-title p {
+      margin-bottom: 0;
+    }
+
+    #shopify-section-{{ section.id }} .fw-herounit-content {
+      font-size: 12px;
+      line-height: 18px; /* 150% */
+      padding-bottom: 24px;
+      text-align: center;
+    }
+  }
+</style>
+<div class="fw-herounit-wrapper">
+  <div class="fw-herounit-left">
+    <div class="fw-herounit-title">
+      {{ section.settings.title }}
+    </div>
+
+    <div class="fw-herounit-content">
+      {{ section.settings.content }}
+    </div>
+  </div>
+  <div id="fw_combined_player-{{ section.id }}"></div>
+</div>
+<script>
+  $(document).ready(function () {
+    const channel = '{{ section.settings.channel }}';
+    const playlist_ID = '{{ section.settings.playlist_ID }}';
+    const container = document.getElementById('fw_combined_player-{{ section.id }}');
+
+    if (!container || !channel || !playlist_ID) {
+      console.log('参数缺失');
+      return;
+    }
+
+    /* ===============================
+     渲染视频
+  =============================== */
+
+    function renderVideos() {
+      container.innerHTML = '';
+      const videoEl = document.createElement('div');
+
+      videoEl.innerHTML = `
+      <fw-embed-feed 
+        mode="row"
+        channel="${channel}"
+        playlist="${playlist_ID}"
+        autoplay="false">
+      </fw-embed-feed>
+    `;
+      container.appendChild(videoEl);
+    }
+
+    renderVideos(); // ✅ 只请求一次
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Firework Embed Feed",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "liquid",
+      "id": "content",
+      "label": "Content"
+    },
+    {
+      "type": "header",
+      "content": "内容配置"
+    },
+    {
+      "type": "text",
+      "id": "channel",
+      "label": "Channel*",
+      "default": "procolored"
+    },
+    {
+      "type": "text",
+      "id": "playlist_ID",
+      "label": "Playlist ID",
+      "default": "gOdre6",
+      "info": "[How to find Channel and Playlist ID](https://help.firework.com/leveraging-the-shopify-embed-app)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Firework Embed Feed"
+    }
+  ]
+}
+{% endschema %}

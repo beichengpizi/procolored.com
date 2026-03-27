@@ -1,0 +1,226 @@
+<style>
+    #shopify-section-{{ section.id }} {
+        background: {{ section.settings.background }};
+    }
+
+    #shopify-section-{{ section.id }} .hero-form {
+        display: flex;
+        width: 100%;
+        max-width: 526px;
+        margin: 0 auto;
+        justify-content: center;
+    }
+
+    /* 注意提升优先级，确保 .hero-form input 样式在所有端生效 */
+    #shopify-section-{{ section.id }} .hero-form input[type='email'] {
+        flex: 1;
+        height: 44px;
+        min-width: 0; /* 修复flex下在某些移动端超出问题 */
+        margin: 0;
+        border-radius: 5px;
+        border: 1px solid #f2f2f2;
+        background: #fff;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    #shopify-section-{{ section.id }} .hero-form button {
+        min-width: 155px;
+        min-height: 44px;
+        border-radius: 5px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        height: auto;
+    }
+
+    /* 按钮通用样式 */
+    #shopify-section-{{ section.id }} .btn-primary {
+        color: #fff;
+        font-size: 19px;
+        font-weight: 700;
+        line-height: 1;
+        background-color: #ff8f1c;
+        border: none;
+        cursor: pointer;
+    }
+
+    #shopify-section-{{ section.id }} .live-stream-contact-text {
+        
+    }
+
+    #shopify-section-{{ section.id }} .live-stream-contact-title {
+        color: #FFF;
+        font-size: 24px;
+        font-weight: 800;
+        line-height: 36px; /* 150% */
+    }
+
+    #shopify-section-{{ section.id }} .live-stream-contact-content {
+        color: #FFF;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 27px; /* 150% */
+    }
+
+    #shopify-section-{{ section.id }} .live-stream-contact {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 24px 0;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    @media screen and (max-width: 768px) {
+        /* 升级输入框优先级，避免被全局input[type=email]样式覆盖 */
+        #shopify-section-{{ section.id }} .hero-form input[type='email'] {
+            height: 35px;
+            border-radius: 5px;
+            font-size: 12px;
+            padding: 0 12px;
+            box-sizing: border-box;
+            width: 100%;
+            min-width: 0;
+            flex: unset;
+            display: block;
+        }
+
+        /* 按钮 */
+        #shopify-section-{{ section.id }} .hero-form button {
+            min-height: 35px;
+            width: 100%;
+            font-size: 12px;
+        }
+
+        #shopify-section-{{ section.id }} .hero-form {
+            flex-direction: row;
+        }
+
+        /* 注意提升优先级，确保 .hero-form input 样式在所有端生效 */
+        #shopify-section-{{ section.id }} .hero-form input[type='email'] {
+            flex: 1;
+            height: 44px;
+            min-width: 0; /* 修复flex下在某些移动端超出问题 */
+            margin: 0;
+            border-radius: 5px;
+            border: 1px solid #f2f2f2;
+            background: #fff;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        #shopify-section-{{ section.id }} .hero-form button {
+            min-height: 36px;
+            min-width: unset;
+            width: fit-content;
+            padding: 0 12px;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        /* 按钮通用样式 */
+        #shopify-section-{{ section.id }} .btn-primary {
+            color: #fff;
+            font-size: 19px;
+            font-weight: 700;
+            line-height: 1;
+            background-color: #ff8f1c;
+            border: none;
+            cursor: pointer;
+        }
+
+        #shopify-section-{{ section.id }} .live-stream-contact-text {
+            
+        }
+
+        #shopify-section-{{ section.id }} .live-stream-contact-title {
+            font-size: 18px;
+            line-height: 27px; /* 150% */
+            text-align: center;
+        }
+
+        #shopify-section-{{ section.id }} .live-stream-contact-content {
+            color: #FFF;
+            font-size: 12px;
+            line-height: 18px; /* 150% */
+            text-align: center;
+        }
+
+        #shopify-section-{{ section.id }} .live-stream-contact {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 24px 16px;
+            flex-direction: column;
+        }
+    }
+</style>
+
+<div class="live-stream-contact">
+    <div class="live-stream-contact-text">
+        <div class="live-stream-contact-title">
+            {{ section.settings.title }}
+        </div>
+
+        <div class="live-stream-contact-content">
+            {{ section.settings.content }}
+        </div>
+    </div>
+
+    <form
+        class="hero-form"
+        accept-charset="UTF-8"
+        action="/contact"
+        method="post"
+        method="POST"
+        enctype="multipart/form-data"
+
+        onsubmit="handleFormSubmit(event, 'Bottom Laser Section')"
+        >
+        <input type="hidden" name="utf8" value="✓">
+        <input type="hidden" name="form_type" value="customer">
+        <input name="contact[tags]" type="hidden" value="newsletter">
+        <input
+            type="email"
+            name="contact[email]"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+            title="xxx@xxx.xxx"
+            placeholder="Enter Your Email"
+            required
+        >
+        <button type="submit" class="btn-primary">Get Reminders</button>
+    </form>
+
+</div>
+
+{% schema %}
+  {
+    "name": "Live Stream contact",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Label"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "content",
+        "label": "Content"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Live Stream contact"
+      }
+    ]
+  }
+{% endschema %}
