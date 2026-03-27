@@ -1,0 +1,1083 @@
+<section
+  id="hp-dynamic-tabs-{{ section.id }}"
+  class="hp-section"
+>
+  {% liquid
+    assign unique_tab_count = 0
+    assign unique_tab_keys = '|'
+
+    for block in section.blocks
+      if block.type == 'tab'
+        assign raw_tab_key = block.settings.tab_key | default: block.settings.label | default: block.id
+        assign tab_key = raw_tab_key | handle
+        if tab_key == blank
+          assign tab_key = block.id | handle
+        endif
+
+        assign key_token = '|' | append: tab_key | append: '|'
+
+        unless unique_tab_keys contains key_token
+          assign unique_tab_keys = unique_tab_keys | append: tab_key | append: '|'
+          assign unique_tab_count = unique_tab_count | plus: 1
+        endunless
+      endif
+    endfor
+  %}
+
+  <div class="hp-header">
+    {% if section.settings.title != blank %}
+      <div class="hp-title">{{ section.settings.title | escape }}</div>
+    {% endif %}
+
+    {% if section.settings.subtitle != blank %}
+      <div class="hp-subtitle">{{ section.settings.subtitle | escape }}</div>
+    {% endif %}
+
+    {% if unique_tab_count > 0 %}
+      <div class="hp-tabs" role="tablist" aria-label="{{ section.settings.title | escape }}">
+        {% liquid
+          assign rendered_tab_count = 0
+          assign seen_tab_keys = '|'
+        %}
+
+        {% for block in section.blocks %}
+          {% if block.type == 'tab' %}
+            {% liquid
+              assign raw_tab_key = block.settings.tab_key | default: block.settings.label | default: block.id
+              assign tab_key = raw_tab_key | handle
+              if tab_key == blank
+                assign tab_key = block.id | handle
+              endif
+
+              assign key_token = '|' | append: tab_key | append: '|'
+            %}
+
+            {% unless seen_tab_keys contains key_token %}
+              <button
+                class="hp-tab-btn{% if rendered_tab_count == 0 %} is-active{% endif %}"
+                type="button"
+                role="tab"
+                aria-selected="{% if rendered_tab_count == 0 %}true{% else %}false{% endif %}"
+                aria-controls="hp-panel-{{ section.id }}-{{ tab_key }}"
+                id="hp-tab-{{ section.id }}-{{ tab_key }}"
+                data-target="{{ tab_key }}"
+                data-tab-key="{{ tab_key }}"
+                data-block-id="{{ block.id }}"
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.label | default: 'Tab' | escape }}
+              </button>
+
+              {% liquid
+                assign seen_tab_keys = seen_tab_keys | append: tab_key | append: '|'
+                assign rendered_tab_count = rendered_tab_count | plus: 1
+              %}
+            {% endunless %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="hp-slider-section">
+    {% if unique_tab_count > 0 %}
+      {% liquid
+        assign rendered_panel_count = 0
+        assign seen_panel_keys = '|'
+      %}
+
+      {% for block in section.blocks %}
+        {% if block.type == 'tab' %}
+          {% liquid
+            assign raw_tab_key = block.settings.tab_key | default: block.settings.label | default: block.id
+            assign tab_key = raw_tab_key | handle
+            if tab_key == blank
+              assign tab_key = block.id | handle
+            endif
+
+            assign key_token = '|' | append: tab_key | append: '|'
+          %}
+
+          {% unless seen_panel_keys contains key_token %}
+            {% liquid
+              assign card_count = 0
+
+              for child_block in section.blocks
+                if child_block.type == 'card'
+                  assign card_tab_key = child_block.settings.tab_key | handle
+                  if card_tab_key == tab_key
+                    assign card_count = card_count | plus: 1
+                  endif
+                endif
+              endfor
+            %}
+
+            <div
+              class="hp-panel{% if rendered_panel_count == 0 %} is-active{% endif %}"
+              id="hp-panel-{{ section.id }}-{{ tab_key }}"
+              role="tabpanel"
+              aria-labelledby="hp-tab-{{ section.id }}-{{ tab_key }}"
+              data-panel="{{ tab_key }}"
+              data-tab-key="{{ tab_key }}"
+            >
+              <div class="hp-swiper-wrap">
+                <div class="swiper-container hp-swiper">
+                  <div class="swiper-wrapper">
+                    {% if card_count > 0 %}
+                      {% for child_block in section.blocks %}
+                        {% if child_block.type == 'card' %}
+                          {% assign card_tab_key = child_block.settings.tab_key | handle %}
+
+                          {% if card_tab_key == tab_key %}
+                            <div
+                              class="swiper-slide hp-slide"
+                              data-block-id="{{ child_block.id }}"
+                              data-card-tab-key="{{ tab_key }}"
+                              {{ child_block.shopify_attributes }}
+                            >
+                              {% if child_block.settings.link != blank %}
+                                <a
+                                  class="hp-card"
+                                  href="{{ child_block.settings.link }}"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {% if child_block.settings.image != blank %}
+                                    {{
+                                      child_block.settings.image
+                                      | image_url: width: 900
+                                      | image_tag:
+                                        class: 'hp-card-img',
+                                        loading: 'lazy',
+                                        widths: '360, 540, 720, 900',
+                                        sizes: '(max-width: 767px) 80vw, (max-width: 1023px) 45vw, 28vw',
+                                        alt: child_block.settings.title
+                                    }}
+                                  {% else %}
+                                    <div class="hp-card-img hp-card-img--placeholder"></div>
+                                  {% endif %}
+
+                                  <div class="hp-card-content">
+                                    {% if child_block.settings.title != blank %}
+                                      <h3 class="hp-card-title">{{ child_block.settings.title | escape }}</h3>
+                                    {% endif %}
+                                    {% if child_block.settings.desc != blank %}
+                                      <p class="hp-card-desc">{{ child_block.settings.desc | escape }}</p>
+                                    {% endif %}
+                                  </div>
+                                </a>
+                              {% else %}
+                                <div class="hp-card">
+                                  {% if child_block.settings.image != blank %}
+                                    {{
+                                      child_block.settings.image
+                                      | image_url: width: 900
+                                      | image_tag:
+                                        class: 'hp-card-img',
+                                        loading: 'lazy',
+                                        widths: '360, 540, 720, 900',
+                                        sizes: '(max-width: 767px) 80vw, (max-width: 1023px) 45vw, 28vw',
+                                        alt: child_block.settings.title
+                                    }}
+                                  {% else %}
+                                    <div class="hp-card-img hp-card-img--placeholder"></div>
+                                  {% endif %}
+
+                                  <div class="hp-card-content">
+                                    {% if child_block.settings.title != blank %}
+                                      <h3 class="hp-card-title">{{ child_block.settings.title | escape }}</h3>
+                                    {% endif %}
+                                    {% if child_block.settings.desc != blank %}
+                                      <p class="hp-card-desc">{{ child_block.settings.desc | escape }}</p>
+                                    {% endif %}
+                                  </div>
+                                </div>
+                              {% endif %}
+                            </div>
+                          {% endif %}
+                        {% endif %}
+                      {% endfor %}
+                    {% else %}
+                      <div class="swiper-slide hp-slide hp-empty-slide">
+                        <div class="hp-card">
+                          <div class="hp-card-content">
+                            <h3 class="hp-card-title">No content</h3>
+                            <p class="hp-card-desc">
+                              This tab has no cards yet. Add card blocks and use the same tab key.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+
+              <div class="hp-controls">
+                <div class="hp-pagination-wrap">
+                  <div class="swiper-pagination"></div>
+                </div>
+
+                <div class="hp-nav-buttons">
+                  <button class="hp-nav hp-prev" type="button" aria-label="上一张">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M15 18l-6-6 6-6"></path>
+                    </svg>
+                  </button>
+                  <button class="hp-nav hp-next" type="button" aria-label="下一张">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M9 18l6-6-6-6"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {% liquid
+              assign seen_panel_keys = seen_panel_keys | append: tab_key | append: '|'
+              assign rendered_panel_count = rendered_panel_count | plus: 1
+            %}
+          {% endunless %}
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <div class="hp-empty-root">
+        <div class="hp-empty-root-card">
+          <h3>请先添加 Tab block</h3>
+          <p>先创建一个或多个 Tab，再添加 Card，并给 Card 填写对应的 tab key。</p>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  #hp-dynamic-tabs-{{ section.id }} {
+    --hp-bg: #ffffff;
+    --hp-text-main: #000000;
+    --hp-text-sub: #3D3D3D;
+    --hp-card-bg: #F9F9F9;
+    {% comment %} --hp-transition: 0.3s; {% endcomment %}
+    --hp-content-width: 1200px;
+    --hp-page-padding: 24px;
+    --hp-radius-lg: 20px;
+    width: 100%;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background: var(--hp-bg);
+  }
+
+
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-header {
+    max-width: 1248px;
+    margin: 0 auto;
+    padding: 0 24px;
+    text-align: center;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-title {
+    color: #121212;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-subtitle {
+    color: #121212;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 48px;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-tabs {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 99px;
+    background: #f9f9f9;
+    margin-bottom: 32px;
+    max-width: 100%;
+    gap: 0;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-tab-btn {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: #3d3d3d;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+    padding: 12px 24px;
+    cursor: pointer;
+    outline: none;
+    white-space: nowrap;
+    min-width: 148px;
+    min-height: 48px;
+    border-radius: 999px;
+    {% comment %} transition: background var(--hp-transition) ease, color var(--hp-transition) ease; {% endcomment %}
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-tab-btn.is-active {
+    background: #000;
+    color: #fff;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-slider-section {
+    width: 100%;
+    position: relative;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-panel {
+    display: none;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-panel.is-active {
+    display: block;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-swiper-wrap {
+    padding-left: 24px;
+    overflow: hidden;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-swiper {
+    overflow: visible;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-slide {
+    height: auto;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+    border-radius: var(--hp-radius-lg);
+    overflow: hidden;
+    background-color: var(--hp-card-bg);
+
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-card-img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    background: #e8e8e8;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-card-img--placeholder {
+    background: linear-gradient(135deg, #efefef 0%, #e4e4e4 100%);
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-card-content {
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-card-title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.33;
+    margin: 0 0 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: #000;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-card-desc {
+    font-size: 14px;
+    color: var(--hp-text-sub);
+    line-height: 1.4;
+    margin: 0;
+    font-weight: 400;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-empty-slide .hp-card {
+    min-height: 260px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-empty-root {
+    max-width: 1248px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-empty-root-card {
+
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    background: #fafafa;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-empty-root-card h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-empty-root-card p {
+    margin: 0;
+    color: var(--hp-text-sub);
+    line-height: 1.7;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 48px;
+    max-width: var(--hp-content-width);
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-pagination-wrap {
+    position: relative;
+    flex: 1;
+    max-width: 138px;
+    height: 4px;
+    border-radius: 99px;
+    background: rgba(18, 18, 18, 0.08)
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .swiper-pagination-progressbar {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 4px !important;
+    border-radius: 99px !important;
+    background: rgba(18, 18, 18, 0.08) !important;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .swiper-pagination-progressbar-fill {
+    background: #121212 !important;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-nav {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--hp-text-main);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    {% comment %} transition: opacity var(--hp-transition) ease; {% endcomment %}
+    padding: 0;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-nav.swiper-button-disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  #hp-dynamic-tabs-{{ section.id }} .hp-nav svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  @media (max-width: 768px) {
+    #hp-dynamic-tabs-{{ section.id }} {
+        --hp-radius-lg: 8px;
+        width: 100%;
+        padding-top: {{ section.settings.padding_top_mb }}px;
+        padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+        background: var(--hp-bg);
+      }
+    #hp-dynamic-tabs-{{ section.id }} .hp-title {
+        font-size: 26px;
+        font-weight: 800;
+    }
+
+    #hp-dynamic-tabs-{{ section.id }} .hp-subtitle {
+        font-size: 14px;
+        font-weight: 400;
+      margin-bottom: 24px;
+    }
+
+      #hp-dynamic-tabs-{{ section.id }} .hp-card-img {
+        aspect-ratio: 153 / 115;
+
+      }
+      #hp-dynamic-tabs-{{ section.id }} .hp-card-content {
+        padding: 20px 16px;
+      }
+      #hp-dynamic-tabs-{{ section.id }} .hp-card-title {
+        font-size: 18px;
+        font-weight: 800;
+        line-height: 1.38;
+        margin: 0 0 12px;
+
+      }
+
+
+      #hp-dynamic-tabs-{{ section.id }} .hp-tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        width: calc(100% + 48px);
+        max-width: none;
+        margin: 0 -24px 20px;
+        padding: 0 24px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        gap: 0;
+        background: transparent;
+        border-radius: 0;
+        scroll-behavior: smooth;
+      }
+
+      #hp-dynamic-tabs-{{ section.id }} .hp-tabs::-webkit-scrollbar {
+        display: none;
+      }
+
+      #hp-dynamic-tabs-{{ section.id }} .hp-tab-btn {
+        flex: 0 0 auto;
+        min-width: auto;
+        min-height: 38px;
+        padding: 8px 24px;
+        font-size: 16px;
+      }
+
+    #hp-dynamic-tabs-{{ section.id }} .hp-controls {
+      display: none;
+    }
+
+  }
+
+  @media (min-width: 1248px) {
+    #hp-dynamic-tabs-{{ section.id }} .hp-swiper-wrap {
+        padding-left: calc((100vw - var(--hp-content-width)) / 2);
+    }
+
+    #hp-dynamic-tabs-{{ section.id }} .hp-controls {
+        margin-left: calc((100vw - var(--hp-content-width)) / 2);
+
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    const SECTION_ID = '{{ section.id }}';
+    const ROOT_ID = `hp-dynamic-tabs-${SECTION_ID}`;
+    const GLOBAL_KEY = '__HP_DYNAMIC_TABS__';
+    const SWIPER_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/css/swiper.min.css';
+    const SWIPER_JS = 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.min.js';
+
+    class DynamicTabsSection {
+      constructor(root, sectionId) {
+        this.root = root;
+        this.sectionId = sectionId;
+        this.tabButtons = [];
+        this.panels = [];
+        this.tabsContainer = null;
+        this.swipers = new Map();
+        this.onRootClick = this.onRootClick.bind(this);
+      }
+
+      init() {
+        this.tabButtons = [...this.root.querySelectorAll('.hp-tab-btn')];
+        this.panels = [...this.root.querySelectorAll('.hp-panel')];
+        this.tabsContainer = this.root.querySelector('.hp-tabs');
+
+        if (!this.tabButtons.length || !this.panels.length) {
+          return;
+        }
+
+        this.root.addEventListener('click', this.onRootClick);
+
+        this.panels.forEach((panel) => {
+          const swiper = this.createSwiper(panel);
+          if (swiper) {
+            this.swipers.set(panel.dataset.panel, swiper);
+          }
+        });
+
+        const firstTabKey = this.tabButtons[0]?.dataset.target;
+        if (firstTabKey) {
+          this.activateTab(firstTabKey, { scrollBehavior: 'auto' });
+        }
+      }
+
+      onRootClick(event) {
+        const button = event.target.closest('.hp-tab-btn');
+        if (!button || !this.root.contains(button)) {
+          return;
+        }
+
+        this.activateTab(button.dataset.target);
+      }
+
+      createSwiper(panel) {
+        const container = panel.querySelector('.hp-swiper');
+        const paginationEl = panel.querySelector('.swiper-pagination');
+        const prevEl = panel.querySelector('.hp-prev');
+        const nextEl = panel.querySelector('.hp-next');
+
+        if (!container || !window.Swiper) {
+          return null;
+        }
+
+        return new window.Swiper(container, {
+          slidesPerView: 3.5,
+          spaceBetween: 20,
+          grabCursor: true,
+          watchOverflow: true,
+          observer: true,
+          observeParents: true,
+          pagination: {
+            el: paginationEl,
+            type: 'progressbar',
+          },
+          navigation: {
+            nextEl,
+            prevEl,
+          },
+          breakpoints: {
+            1199: {
+              slidesPerView: 3.2,
+              spaceBetween: 20,
+            },
+            1023: {
+              slidesPerView: 2.2,
+              spaceBetween: 20,
+            },
+            767: {
+              slidesPerView: 1.1,
+              spaceBetween: 12,
+            },
+          },
+        });
+      }
+      scrollTabIntoView(tabKey, behavior = 'smooth') {
+        if (!this.tabsContainer) {
+          return;
+        }
+
+        if (!window.matchMedia('(max-width: 768px)').matches) {
+          return;
+        }
+
+        const activeButton = this.tabButtons.find((button) => button.dataset.target === tabKey);
+
+        if (!activeButton) {
+          return;
+        }
+
+        const container = this.tabsContainer;
+        const containerRect = container.getBoundingClientRect();
+        const buttonRect = activeButton.getBoundingClientRect();
+
+        const targetScrollLeft =
+          container.scrollLeft +
+          (buttonRect.left - containerRect.left) -
+          (container.clientWidth / 2 - buttonRect.width / 2);
+
+        const maxScrollLeft = container.scrollWidth - container.clientWidth;
+        const nextScrollLeft = Math.max(0, Math.min(targetScrollLeft, maxScrollLeft));
+
+        container.scrollTo({
+          left: nextScrollLeft,
+          behavior,
+        });
+      }
+      activateTab(tabKey, { blockId = null, scrollBehavior = 'smooth' } = {}) {
+        this.tabButtons.forEach((button) => {
+          const isActive = button.dataset.target === tabKey;
+          button.classList.toggle('is-active', isActive);
+          button.setAttribute('aria-selected', String(isActive));
+        });
+
+        requestAnimationFrame(() => {
+          this.scrollTabIntoView(tabKey, scrollBehavior);
+        });
+
+        this.panels.forEach((panel) => {
+          const isActive = panel.dataset.panel === tabKey;
+          panel.classList.toggle('is-active', isActive);
+
+          if (!isActive) {
+            return;
+          }
+
+          const swiper = this.swipers.get(tabKey);
+          if (!swiper) {
+            return;
+          }
+
+          requestAnimationFrame(() => {
+            swiper.update();
+
+            if (blockId) {
+              const targetSlide = panel.querySelector(`.swiper-slide[data-block-id="${blockId}"]`);
+              if (targetSlide) {
+                const slideIndex = [...swiper.slides].indexOf(targetSlide);
+                if (slideIndex > -1) {
+                  swiper.slideTo(slideIndex, 0);
+                  return;
+                }
+              }
+            }
+
+            swiper.slideTo(0, 0);
+          });
+        });
+      }
+
+      focusBlock(target) {
+        const blockElement = target?.closest?.('[data-block-id]');
+        if (!blockElement || !this.root.contains(blockElement)) {
+          return;
+        }
+
+        const tabKey =
+          blockElement.dataset.tabKey || blockElement.dataset.cardTabKey || blockElement.dataset.target || '';
+
+        const blockId = blockElement.dataset.blockId || null;
+
+        if (!tabKey) {
+          return;
+        }
+
+        this.activateTab(tabKey, { blockId });
+      }
+
+      destroy() {
+        this.root.removeEventListener('click', this.onRootClick);
+
+        this.swipers.forEach((swiper) => {
+          if (swiper && typeof swiper.destroy === 'function') {
+            swiper.destroy(true, true);
+          }
+        });
+
+        this.swipers.clear();
+        this.tabButtons = [];
+        this.panels = [];
+      }
+    }
+
+    const manager =
+      window[GLOBAL_KEY] ||
+      (window[GLOBAL_KEY] = {
+        instances: new Map(),
+        eventsBound: false,
+        swiperPromise: null,
+
+        loadSwiper() {
+          if (window.Swiper) {
+            return Promise.resolve(window.Swiper);
+          }
+
+          if (this.swiperPromise) {
+            return this.swiperPromise;
+          }
+
+          this.swiperPromise = new Promise((resolve, reject) => {
+            if (!document.querySelector('link[data-hp-swiper-css]')) {
+              const link = document.createElement('link');
+              link.rel = 'stylesheet';
+              link.href = SWIPER_CSS;
+              link.setAttribute('data-hp-swiper-css', 'true');
+              document.head.appendChild(link);
+            }
+
+            const existingScript = document.querySelector('script[data-hp-swiper-js]');
+
+            if (existingScript) {
+              if (existingScript.dataset.loaded === 'true' && window.Swiper) {
+                resolve(window.Swiper);
+                return;
+              }
+
+              existingScript.addEventListener(
+                'load',
+                () => {
+                  existingScript.dataset.loaded = 'true';
+                  resolve(window.Swiper);
+                },
+                { once: true }
+              );
+
+              existingScript.addEventListener(
+                'error',
+                () => {
+                  this.swiperPromise = null;
+                  reject(new Error('Failed to load Swiper'));
+                },
+                { once: true }
+              );
+
+              return;
+            }
+
+            const script = document.createElement('script');
+            script.src = SWIPER_JS;
+            script.async = true;
+            script.setAttribute('data-hp-swiper-js', 'true');
+
+            script.addEventListener(
+              'load',
+              () => {
+                script.dataset.loaded = 'true';
+                resolve(window.Swiper);
+              },
+              { once: true }
+            );
+
+            script.addEventListener(
+              'error',
+              () => {
+                this.swiperPromise = null;
+                reject(new Error('Failed to load Swiper'));
+              },
+              { once: true }
+            );
+
+            document.head.appendChild(script);
+          });
+
+          return this.swiperPromise;
+        },
+
+        async register(sectionId) {
+          const root = document.getElementById(`hp-dynamic-tabs-${sectionId}`);
+          if (!root) {
+            return;
+          }
+
+          try {
+            await this.loadSwiper();
+          } catch (error) {
+            console.error('[DynamicTabs] Swiper load failed:', error);
+            return;
+          }
+
+          this.unregister(sectionId);
+
+          const instance = new DynamicTabsSection(root, sectionId);
+          instance.init();
+          this.instances.set(sectionId, instance);
+        },
+
+        unregister(sectionId) {
+          const instance = this.instances.get(sectionId);
+          if (!instance) {
+            return;
+          }
+
+          instance.destroy();
+          this.instances.delete(sectionId);
+        },
+
+        bindGlobalEvents() {
+          if (this.eventsBound) {
+            return;
+          }
+
+          this.eventsBound = true;
+
+          document.addEventListener('shopify:section:load', (event) => {
+            const sectionId = event.detail?.sectionId;
+            const root = document.getElementById(`hp-dynamic-tabs-${sectionId}`);
+            if (!sectionId || !root) {
+              return;
+            }
+
+            this.register(sectionId);
+          });
+
+          document.addEventListener('shopify:section:unload', (event) => {
+            const sectionId = event.detail?.sectionId;
+            if (!sectionId) {
+              return;
+            }
+
+            this.unregister(sectionId);
+          });
+
+          document.addEventListener('shopify:block:select', (event) => {
+            const sectionId = event.detail?.sectionId;
+            const instance = this.instances.get(sectionId);
+
+            if (!instance) {
+              return;
+            }
+
+            instance.focusBlock(event.target);
+          });
+        },
+      });
+
+    manager.bindGlobalEvents();
+
+    const mount = () => {
+      manager.register(SECTION_ID);
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', mount, { once: true });
+    } else {
+      mount();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Dynamic tabs slider",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "标题",
+      "default": "Learn the Business Behind Home Printing"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "副标题",
+      "default": "A side gig succeeds when structure replaces guesswork."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "上边距",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "下边距",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mb",
+      "label": "上边距(移动端)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mb",
+      "label": "下边距(移动端)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Tab 名称",
+          "default": "Section A"
+        },
+        {
+          "type": "text",
+          "id": "tab_key",
+          "label": "Tab Key（必须唯一）",
+          "default": "section-a"
+        }
+      ]
+    },
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_key",
+          "label": "所属 Tab Key",
+          "default": "section-a"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "图片"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "标题",
+          "default": "Card title"
+        },
+        {
+          "type": "textarea",
+          "id": "desc",
+          "label": "描述",
+          "default": "Add a short description for this card."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "链接"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [
+    {
+      "name": "Dynamic tabs slider"
+    }
+  ]
+}
+{% endschema %}

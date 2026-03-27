@@ -1,0 +1,666 @@
+<style>
+  .home-printing-section1-{{ section.id }}{
+    background: #fff;
+    padding-top:{{ section.settings.padding_top }}px;
+    padding-bottom:{{ section.settings.padding_bottom }}px;
+  }
+    .home-printing-section1-{{ section.id }} .section-header-{{ section.id }} {
+      text-align: center;
+      padding: 0 24px;
+      margin-bottom: 48px;
+    }
+
+    .home-printing-section1-{{ section.id }} .section-header-{{ section.id }} .section-header-title {
+      color: #121212;
+      text-align: center;
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.5;
+      margin: 0 0 20px 0;
+    }
+
+    .home-printing-section1-{{ section.id }} .section-header-{{ section.id }} .section-header-subtitle {
+      color: #121212;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.5;
+      max-width: 509px;
+      margin: 0 auto;
+    }
+    .home-printing-section1-{{ section.id }} .section-header-{{ section.id }} .section-header-subtitle span{
+        display:block;
+    }
+    .home-printing-section1-{{ section.id }} .marquee-row {
+      width: 100%;
+      overflow: hidden;
+      margin-bottom: 32px;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: pan-y;
+    }
+
+    .home-printing-section1-{{ section.id }} .marquee-row.is-dragging {
+      cursor: grabbing;
+    }
+
+    .home-printing-section1-{{ section.id }} .marquee-track {
+      display: flex;
+      width: max-content;
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+    }
+
+    .home-printing-section1-{{ section.id }} .marquee-group {
+      display: flex;
+      gap: 24px;
+      padding-right: 24px;
+      flex-shrink: 0;
+    }
+
+    .home-printing-section1-{{ section.id }} .card {
+      width: 546px;
+      min-height: 1px;
+      border-radius: 12px;
+      background: #f9f9f9;
+      padding: 28px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-shrink: 0;
+    }
+
+    .home-printing-section1-{{ section.id }} .card-icon {
+      width: 116px;
+      flex-shrink: 0;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .home-printing-section1-{{ section.id }} .card-icon img {
+      width: 100%;
+      max-width: 100%;
+      aspect-ratio: 1/1;
+      flex-shrink: 0;
+    }
+
+    .home-printing-section1-{{ section.id }} .card-content {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .home-printing-section1-{{ section.id }} .card-content .card-content-title {
+      color: #000;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.33;
+    }
+
+    .home-printing-section1-{{ section.id }} .card-content .card-content-desc {
+      color: #3d3d3d;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 768px) {
+        .home-printing-section1-{{ section.id }}{
+            background: #fff;
+            padding-top:{{ section.settings.padding_top_mobile }}px;
+            padding-bottom:{{ section.settings.padding_bottom_mobile }}px;
+          }
+      .home-printing-section1-{{ section.id }} .section-header-{{ section.id }} .section-header-title {
+        text-align: center;
+        font-size: 24px;
+        font-weight: 800;
+        line-height: 1.33;
+        margin-bottom: 12px;
+      }
+
+      .home-printing-section1-{{ section.id }} .section-header-{{ section.id }} .section-header-subtitle {
+        text-align: center;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.4;
+      }
+      .home-printing-section1-{{ section.id }} .section-header-{{ section.id }} .section-header-subtitle span{
+        display:inline;
+    }
+
+      .home-printing-section1-{{ section.id }} .marquee-group {
+        display: flex;
+        gap: 16px;
+        padding-right: 16px;
+        flex-shrink: 0;
+      }
+
+      .home-printing-section1-{{ section.id }} .marquee-row {
+        margin-bottom: 16px;
+      }
+
+      .home-printing-section1-{{ section.id }} .card {
+        width: 367px;
+        padding: 16px 12px;
+        gap: 16px;
+      }
+
+      .home-printing-section1-{{ section.id }} .card-icon {
+        width: 88px;
+      }
+
+      .home-printing-section1-{{ section.id }} .card-content .card-content-title {
+        color: #000;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 1.4;
+      }
+
+      .home-printing-section1-{{ section.id }} .card-content .card-content-desc {
+        color: #3d3d3d;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 140%;
+      }
+    }
+</style>
+
+<div
+  id="{% if section.settings.nav_id != empty %}custom-nav-{{ section.settings.nav_id }}{% endif %}"
+  class="home-printing-section1-{{ section.id }}"
+>
+  <div class="section-header-{{ section.id }}">
+    <div class="section-header-title">Thinking About Starting a Side Hustle?</div>
+    <div class="section-header-subtitle">
+      Many families want to earn extra income from home
+      <span>— but the same doubts often stop them from getting started:</span>
+    </div>
+  </div>
+
+  <!-- 第一行：向左 -->
+  <div class="marquee-row" id="row1-{{ section.id }}">
+    <div class="marquee-track">
+      <div class="marquee-group">
+        <div class="card">
+          <div class="card-icon">
+            <img
+              class="lazyload"
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/fOAdKO2y4W59V94D_1.png?v=1774323017"
+              alt=""
+            >
+          </div>
+          <div class="card-content">
+            <div class="card-content-title">Can a small space really work?</div>
+            <div class="card-content-desc">
+              Many beginners start with just a garage corner, spare room, or desk area rather than a full workshop.
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <img
+              class="lazyload"
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/1_1f91b489-f61d-4e7d-bdd1-87f5ce3acd79.png?v=1774323017"
+              alt=""
+            >
+          </div>
+          <div class="card-content">
+            <div class="card-content-title">Is the income potential realistic?</div>
+            <div class="card-content-desc">
+              Instead of large volumes, many beginners focus on small but consistent daily orders.
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <img
+              class="lazyload"
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_653.png?v=1774323017"
+              alt=""
+            >
+          </div>
+          <div class="card-content">
+            <div class="card-content-title">Do I need a lot of equipment?</div>
+            <div class="card-content-desc">
+              A basic setup usually includes a printer, curing equipment, and a small workspace.
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <img
+              class="lazyload"
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Frame_2056264302.png?v=1774323017"
+              alt=""
+            >
+          </div>
+          <div class="card-content">
+            <div class="card-content-title">Is the risk manageable for beginners?</div>
+            <div class="card-content-desc">
+              Compared with inventory-based businesses, printing can operate on demand with lower upfront stock.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第二行：向右 -->
+  <div class="marquee-row" id="row2-{{ section.id }}">
+    <div class="marquee-track">
+      <div class="marquee-group">
+        <div class="card">
+          <div class="card-icon">
+            <img
+              class="lazyload"
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/jimeng-2026-03-13-4615-_emoji_1.png?v=1774323017"
+              alt=""
+            >
+          </div>
+          <div class="card-content">
+            <div class="card-content-title">Is the technology difficult to learn?</div>
+            <div class="card-content-desc">
+              Modern DTF printers are designed for simple workflows, making them approachable even for beginners.
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <img
+              class="lazyload"
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Frame_2056264302_1.png?v=1774323017"
+              alt=""
+            >
+          </div>
+          <div class="card-content">
+            <div class="card-content-title">Could this grow beyond a side project?</div>
+            <div class="card-content-desc">
+              Some families begin part-time and gradually expand as orders become more consistent.
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <img
+              class="lazyload"
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_649.png?v=1774323017"
+              alt=""
+            >
+          </div>
+          <div class="card-content">
+            <div class="card-content-title">Where would the first customers come from?</div>
+            <div class="card-content-desc">
+              Early orders often start from local communities, small businesses, or personal networks.
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <img
+              class="lazyload"
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/image_650.png?v=1774323017"
+              alt=""
+            >
+          </div>
+          <div class="card-content">
+            <div class="card-content-title">How much time does it take each week?</div>
+            <div class="card-content-desc">
+              Many home studios begin part-time, operating during evenings or weekends.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  (function () {
+    let args = null;
+    let timer = null;
+    function debounce(fn, wait) {
+      timer = null;
+      return function () {
+        args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          fn.apply(null, args);
+        }, wait);
+      };
+    }
+
+    function NativeMarquee(selector, options) {
+      this.root = document.querySelector(selector);
+      this.track = this.root.querySelector('.marquee-track');
+      this.baseGroup = this.root.querySelector('.marquee-group').cloneNode(true);
+
+      this.direction = options.direction === 'right' ? 1 : -1;
+      this.speed = options.speed || 50;
+
+      this.groupWidth = 0;
+      this.currentX = 0;
+      this.lastTime = 0;
+      this.rafId = null;
+      this.pointerId = null;
+      this.dragStartClientX = 0;
+      this.dragStartTranslate = 0;
+
+      this.pauseState = {
+        hover: false,
+        drag: false,
+        hidden: false,
+        outOfView: false,
+      };
+
+      this.isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+      this.build();
+      this.bindEvents();
+      this.play();
+    }
+
+    NativeMarquee.prototype.build = function () {
+      this.track.innerHTML = '';
+
+      var prev = this.baseGroup.cloneNode(true);
+      var curr = this.baseGroup.cloneNode(true);
+      var next = this.baseGroup.cloneNode(true);
+
+      prev.setAttribute('aria-hidden', 'true');
+      next.setAttribute('aria-hidden', 'true');
+
+      this.track.appendChild(prev);
+      this.track.appendChild(curr);
+      this.track.appendChild(next);
+
+      this.groups = {
+        prev: prev,
+        curr: curr,
+        next: next,
+      };
+
+      this.measure();
+      this.currentX = -this.groupWidth;
+      this.applyTranslate(this.currentX);
+    };
+
+    NativeMarquee.prototype.measure = function () {
+      let width = this.groups.curr.getBoundingClientRect().width;
+      this.groupWidth = Math.round(width * 1000) / 1000;
+    };
+
+    NativeMarquee.prototype.applyTranslate = function (x) {
+      this.currentX = x;
+      this.track.style.transform = 'translate3d(' + x + 'px, 0, 0)';
+    };
+
+    NativeMarquee.prototype.normalize = function () {
+      if (!this.groupWidth) return;
+
+      while (this.currentX <= -this.groupWidth * 2) {
+        this.currentX += this.groupWidth;
+      }
+
+      while (this.currentX >= 0) {
+        this.currentX -= this.groupWidth;
+      }
+    };
+
+    NativeMarquee.prototype.isPaused = function () {
+      return this.pauseState.hover || this.pauseState.drag || this.pauseState.hidden || this.pauseState.outOfView;
+    };
+
+    NativeMarquee.prototype.stopRAF = function () {
+      if (this.rafId !== null) {
+        cancelAnimationFrame(this.rafId);
+        this.rafId = null;
+      }
+    };
+
+    NativeMarquee.prototype.play = function () {
+      const self = this;
+
+      if (this.rafId !== null || this.isPaused()) return;
+
+      this.lastTime = performance.now();
+
+      function tick(now) {
+        if (self.isPaused()) {
+          self.stopRAF();
+          return;
+        }
+
+        var delta = now - self.lastTime;
+        self.lastTime = now;
+
+        if (delta < 0 || delta > 34) {
+          delta = 16.7;
+        }
+
+        if (self.groupWidth) {
+          self.currentX += self.direction * self.speed * (delta / 1000);
+          self.normalize();
+          self.applyTranslate(self.currentX);
+        }
+
+        self.rafId = requestAnimationFrame(tick);
+      }
+
+      this.rafId = requestAnimationFrame(tick);
+    };
+
+    NativeMarquee.prototype.pause = function (reason) {
+      if (!this.pauseState.hasOwnProperty(reason)) return;
+      this.pauseState[reason] = true;
+      this.stopRAF();
+    };
+
+    NativeMarquee.prototype.resume = function (reason) {
+      if (!this.pauseState.hasOwnProperty(reason)) return;
+      this.pauseState[reason] = false;
+
+      if (!this.isPaused()) {
+        this.play();
+      }
+    };
+
+    NativeMarquee.prototype.handlePointerDown = function (e) {
+      this.pointerId = e.pointerId;
+      this.pause('drag');
+      this.root.classList.add('is-dragging');
+
+      this.dragStartClientX = e.clientX;
+      this.dragStartTranslate = this.currentX;
+
+      try {
+        this.root.setPointerCapture(e.pointerId);
+      } catch (err) {}
+    };
+
+    NativeMarquee.prototype.handlePointerMove = function (e) {
+      if (this.pointerId !== e.pointerId) return;
+      if (!this.pauseState.drag) return;
+
+      let dx = e.clientX - this.dragStartClientX;
+      this.currentX = this.dragStartTranslate + dx;
+      this.normalize();
+      this.applyTranslate(this.currentX);
+    };
+
+    NativeMarquee.prototype.handlePointerUp = function (e) {
+      if (this.pointerId !== e.pointerId) return;
+
+      this.pointerId = null;
+      this.root.classList.remove('is-dragging');
+      this.normalize();
+      this.applyTranslate(this.currentX);
+
+      try {
+        this.root.releasePointerCapture(e.pointerId);
+      } catch (err) {}
+
+      this.resume('drag');
+    };
+
+    NativeMarquee.prototype.handleResize = function () {
+      let oldWidth = this.groupWidth || 1;
+      let progress = this.currentX / oldWidth;
+
+      this.measure();
+
+      if (!this.groupWidth) return;
+
+      this.currentX = progress * this.groupWidth;
+      this.normalize();
+      this.applyTranslate(this.currentX);
+    };
+
+    NativeMarquee.prototype.bindEvents = function () {
+      let self = this;
+
+      if (this.isFinePointer) {
+        this.root.addEventListener('mouseenter', function () {
+          self.pause('hover');
+        });
+
+        this.root.addEventListener('mouseleave', function () {
+          self.resume('hover');
+        });
+      }
+
+      this.root.addEventListener('pointerdown', function (e) {
+        self.handlePointerDown(e);
+      });
+
+      this.root.addEventListener('pointermove', function (e) {
+        self.handlePointerMove(e);
+      });
+
+      this.root.addEventListener('pointerup', function (e) {
+        self.handlePointerUp(e);
+      });
+
+      this.root.addEventListener('pointercancel', function (e) {
+        self.handlePointerUp(e);
+      });
+
+      this.root.addEventListener('dragstart', function (e) {
+        e.preventDefault();
+      });
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+          self.pause('hidden');
+        } else {
+          self.resume('hidden');
+        }
+      });
+
+      if ('IntersectionObserver' in window) {
+        this.io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.target !== self.root) return;
+
+              if (entry.isIntersecting) {
+                self.resume('outOfView');
+              } else {
+                self.pause('outOfView');
+              }
+            });
+          },
+          {
+            threshold: 0.01,
+          }
+        );
+
+        this.io.observe(this.root);
+      }
+
+      this.onResize = debounce(function () {
+        self.handleResize();
+      }, 120);
+
+      window.addEventListener('resize', this.onResize, { passive: true });
+    };
+
+    new NativeMarquee('#row1-{{ section.id }}', {
+      direction: 'left',
+      speed: 50,
+    });
+
+    new NativeMarquee('#row2-{{ section.id }}', {
+      direction: 'right',
+      speed: 50,
+    });
+  })();
+</script>
+{% schema %}
+{
+  "name": "home printing section1",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 160
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 48
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "home printing section1"
+    }
+  ]
+}
+{% endschema %}

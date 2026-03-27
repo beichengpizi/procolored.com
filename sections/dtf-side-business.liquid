@@ -1,0 +1,556 @@
+{% liquid
+  assign prefix = 'DTF-side-business-' | append: section.id
+%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: #fff;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-section {
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-container {
+    max-width: 1248px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-section-header {
+    max-width: 765px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 48px;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-section-title {
+    color: #000;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.22;
+    margin: 0 0 20px;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-section-subtitle {
+    color: #121212;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-cards-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-card {
+    background: #F9F9F9;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-video-trigger {
+    display: block;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-video-trigger.is-disabled {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-video-thumb {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding-top: 61.66%;
+    overflow: hidden;
+    background-color: #e0e0e0;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-video-thumb-image,
+  #shopify-section-{{ section.id }} .{{ prefix }}-video-thumb-placeholder,
+  #shopify-section-{{ section.id }} .{{ prefix }}-video-thumb-placeholder svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-video-thumb-image {
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-video-trigger:hover .{{ prefix }}-video-thumb-image {
+    transform: scale(1.05);
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-video-thumb-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8e8e8;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-placeholder-svg {
+    width: 100%;
+    height: 100%;
+    fill: #cfcfcf;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-card-content {
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-user-profile {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 10px;
+    width: fit-content;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-user-avatar {
+    flex: 0 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-user-avatar-image,
+  #shopify-section-{{ section.id }} .{{ prefix }}-user-avatar-placeholder,
+  #shopify-section-{{ section.id }} .{{ prefix }}-user-avatar-placeholder svg {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-user-avatar-image {
+    object-fit: cover;
+    display: block;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-user-avatar-placeholder {
+    overflow: hidden;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-user-name {
+    color: #000;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.38;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .{{ prefix }}-user-desc {
+    color: #3D3D3D;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+
+
+
+
+
+
+  @media (max-width: 992px) {
+    #shopify-section-{{ section.id }} {
+      background: #fff;
+      padding-top: {{ section.settings.padding_top_mobile }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    }
+
+    #shopify-section-{{ section.id }} .{{ prefix }}-container {
+      max-width: 100%;
+      padding: 0;
+    }
+
+    #shopify-section-{{ section.id }} .{{ prefix }}-section-header {
+      max-width: 100%;
+      padding: 0 24px;
+      margin-bottom: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .{{ prefix }}-section-title {
+      font-size: 24px;
+      line-height: 1.33;
+      margin-bottom: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .{{ prefix }}-section-subtitle {
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    #shopify-section-{{ section.id }} .{{ prefix }}-cards-wrapper {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 12px;
+      padding: 0 24px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    #shopify-section-{{ section.id }} .{{ prefix }}-cards-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .{{ prefix }}-card {
+      border-radius: 8px;
+      flex: 0 0 78.378vw;
+      scroll-snap-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .{{ prefix }}-video-thumb {
+      padding-top: 60.66%;
+    }
+
+    #shopify-section-{{ section.id }} .{{ prefix }}-card-content {
+      padding: 20px 16px;
+    }
+
+    #shopify-section-{{ section.id }} .{{ prefix }}-user-profile {
+      margin-bottom: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .{{ prefix }}-user-avatar-image,
+    #shopify-section-{{ section.id }} .{{ prefix }}-user-avatar-placeholder,
+    #shopify-section-{{ section.id }} .{{ prefix }}-user-avatar-placeholder svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    #shopify-section-{{ section.id }} .{{ prefix }}-user-name {
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    #shopify-section-{{ section.id }} .{{ prefix }}-user-desc {
+      font-size: 14px;
+    }
+
+
+  }
+</style>
+
+<section id="{{ prefix }}" class="{{ prefix }}-section">
+  <div class="{{ prefix }}-container">
+    {% if section.settings.title != empty or section.settings.subtitle != empty %}
+      <div class="{{ prefix }}-section-header">
+        {% if section.settings.title != empty %}
+          <div class="{{ prefix }}-section-title">{{ section.settings.title }}</div>
+        {% endif %}
+
+        {% if section.settings.subtitle != empty %}
+          <div class="{{ prefix }}-section-subtitle">{{ section.settings.subtitle }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="{{ prefix }}-cards-wrapper">
+        {% for block in section.blocks %}
+          {% liquid
+            assign thumb_class = prefix | append: '-video-thumb-image'
+            assign avatar_class = prefix | append: '-user-avatar-image'
+            assign fancybox_video_class = prefix | append: '-fancybox-video'
+            assign thumb_alt = block.settings.thumbnail.alt | default: block.settings.user_name | default: 'Video thumbnail'
+            assign avatar_alt = block.settings.user_avatar.alt | default: block.settings.user_name | default: 'User avatar'
+            assign inline_video_id = prefix | append: '-video-inline-' | append: block.id
+          %}
+
+          <div class="{{ prefix }}-card" {{ block.shopify_attributes }}>
+            {% if block.settings.video %}
+              <a
+                
+                href="{{block.settings.video.sources[1].url}}"
+                data-fancybox
+                data-caption="{{ thumb_alt}}"
+                class="{{ prefix }}-video-trigger"
+                aria-label="Open video for {{ block.settings.user_name | default: 'this story' | escape }}"
+              >
+                <div class="{{ prefix }}-video-thumb">
+                  {% if block.settings.thumbnail %}
+                    {{
+                      block.settings.thumbnail
+                      | image_url: width: 1200
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '400, 600, 800, 1000, 1200',
+                        class: thumb_class,
+                        alt: thumb_alt
+                    }}
+                  {% else %}
+                    <div class="{{ prefix }}-video-thumb-placeholder">
+                      {{ 'image' | placeholder_svg_tag: prefix | append: '-placeholder-svg' }}
+                    </div>
+                  {% endif %}
+
+                  <span class="{{ prefix }}-play-btn" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 46 46" fill="none">
+                      <circle cx="23" cy="23" r="23" fill="black" fill-opacity="0.5" />
+                      <path
+                        d="M30.0302 19.7199L21.4578 14.6067C18.5647 12.8701 16.1001 14.0278 16.1001 17.2115V28.7886C16.1001 31.9723 18.4575 33.13 21.4578 31.3934L30.0302 26.2802C32.9234 24.3507 32.9234 21.4564 30.0302 19.7199Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </a>
+            {% else %}
+              <div class="{{ prefix }}-video-trigger is-disabled" aria-disabled="true">
+                <div class="{{ prefix }}-video-thumb">
+                  {% if block.settings.thumbnail %}
+                    {{
+                      block.settings.thumbnail
+                      | image_url: width: 1200
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '400, 600, 800, 1000, 1200',
+                        class: thumb_class,
+                        alt: thumb_alt
+                    }}
+                  {% else %}
+                    <div class="{{ prefix }}-video-thumb-placeholder">
+                      {{ 'image' | placeholder_svg_tag: prefix | append: '-placeholder-svg' }}
+                    </div>
+                  {% endif %}
+
+                  <span class="{{ prefix }}-play-btn" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 46 46" fill="none">
+                      <circle cx="23" cy="23" r="23" fill="black" fill-opacity="0.5" />
+                      <path
+                        d="M30.0302 19.7199L21.4578 14.6067C18.5647 12.8701 16.1001 14.0278 16.1001 17.2115V28.7886C16.1001 31.9723 18.4575 33.13 21.4578 31.3934L30.0302 26.2802C32.9234 24.3507 32.9234 21.4564 30.0302 19.7199Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            {% endif %}
+
+            <div class="{{ prefix }}-card-content">
+              {% if block.settings.profile_link != blank %}
+                <a
+                  href="{{ block.settings.profile_link }}"
+                  class="{{ prefix }}-user-profile"
+                  {% if block.settings.open_profile_in_new_tab %}
+                    target="_blank" rel="noopener noreferrer"
+                  {% endif %}
+                >
+              {% else %}
+                <div class="{{ prefix }}-user-profile">
+              {% endif %}
+
+                <div class="{{ prefix }}-user-avatar">
+                  {% if block.settings.user_avatar != blank %}
+                    {{
+                      block.settings.user_avatar
+                      | image_url: width: 200
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '72, 88, 120, 160, 200',
+                        class: avatar_class,
+                        alt: avatar_alt
+                    }}
+                  {% else %}
+                    <div class="{{ prefix }}-user-avatar-placeholder">
+                      {{ 'image' | placeholder_svg_tag: prefix | append: '-placeholder-svg' }}
+                    </div>
+                  {% endif %}
+                </div>
+
+                {% if block.settings.user_name != blank %}
+                  <div class="{{ prefix }}-user-name">{{ block.settings.user_name }}</div>
+                {% endif %}
+
+              {% if block.settings.profile_link != blank %}
+                </a>
+              {% else %}
+                </div>
+              {% endif %}
+
+              {% if block.settings.user_desc != blank %}
+                <div class="{{ prefix }}-user-desc">{{ block.settings.user_desc | newline_to_br }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+
+
+{% schema %}
+{
+  "name": "DTF side business",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "html",
+      "id": "title",
+      "label": "Section title",
+      "default": "How Real Families Started Their DTF Side Business"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "Section subtitle",
+      "default": "Watch how beginners turned a home DTF printing setup into their first printing income."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 24
+    }
+  ],
+  "blocks": [
+    {
+      "type": "story_card",
+      "name": "Story card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "thumbnail",
+          "label": "Thumbnail image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Popup video"
+        },
+        {
+          "type": "image_picker",
+          "id": "user_avatar",
+          "label": "User avatar"
+        },
+        {
+          "type": "html",
+          "id": "user_name",
+          "label": "User name",
+          "default": "Marcus Libby"
+        },
+        {
+          "type": "html",
+          "id": "user_desc",
+          "label": "User description",
+          "default": "I've been running a small business for 8 years, where I create handmade products from Raysin and wood. Through detailed engravings and precise cuts, I can now offer unique items that my customers love."
+        },
+        {
+          "type": "url",
+          "id": "profile_link",
+          "label": "Profile link"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_profile_in_new_tab",
+          "label": "Open profile link in new tab",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "DTF side business",
+      "blocks": [
+        {
+          "type": "story_card"
+        },
+        {
+          "type": "story_card"
+        },
+        {
+          "type": "story_card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

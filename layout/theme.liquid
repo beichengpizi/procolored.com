@@ -39,102 +39,104 @@
       <meta name="robots" content="index,follow">
     {% endif %}
 
-    {% comment %} <script>
-      async function getVisitorIP() {
-        try {
-          const response = await fetch('https://api.ipify.org/');
-          const ipAddress = await response.text();
-          return ipAddress;
-        } catch (error) {
-          console.error('Failed to get visitor IP:', error);
-          return null;
-        }
-      }
-      async function isFromEurope() {
-        try {
-          const IsEu = window.sessionStorage.getItem('is_eu');
-          if (IsEu != undefined) {
-            return IsEu !== 'false';
+    {% comment %}
+      <script>
+        async function getVisitorIP() {
+          try {
+            const response = await fetch('https://api.ipify.org/');
+            const ipAddress = await response.text();
+            return ipAddress;
+          } catch (error) {
+            console.error('Failed to get visitor IP:', error);
+            return null;
           }
+        }
+        async function isFromEurope() {
+          try {
+            const IsEu = window.sessionStorage.getItem('is_eu');
+            if (IsEu != undefined) {
+              return IsEu !== 'false';
+            }
 
-          const ipAddress = await getVisitorIP();
-          if (!ipAddress) {
-            console.log('Could not determine the IP.');
+            const ipAddress = await getVisitorIP();
+            if (!ipAddress) {
+              console.log('Could not determine the IP.');
+              return false;
+            }
+            const url = `https://ipinfo.io/${ipAddress}/json`;
+            const geoResponse = await fetch(url);
+            const geoData = await geoResponse.json();
+            console.log(geoData);
+            const countryCode = geoData.country;
+            const europeanCountries = [
+              'AT',
+              'BE',
+              'BG',
+              'CY',
+              'CZ',
+              'DK',
+              'EE',
+              'FI',
+              'FR',
+              'DE',
+              'GR',
+              'HU',
+              'IE',
+              'IT',
+              'LV',
+              'GE',
+              'LT',
+              'LU',
+              'MT',
+              'NL',
+              'PL',
+              'PT',
+              'RO',
+              'SK',
+              'SI',
+              'ES',
+              'SE',
+              'GB',
+              'CH',
+              'HR',
+              'AL',
+              'AD',
+              'AM',
+              'BY',
+              'BA',
+              'FO',
+              'GI',
+              'IS',
+              'IM',
+              'XK',
+              'LI',
+              'MK',
+              'MD',
+              'MC',
+              'ME',
+              'NO',
+              'RU',
+              'SM',
+              'RS',
+              'TR',
+              'UA',
+              'VA',
+            ];
+            const tmp = europeanCountries.includes(countryCode.toUpperCase());
+            window.sessionStorage.setItem('is_eu', tmp);
+            return tmp;
+          } catch (error) {
+            console.error('Failed to fetch geolocation data:', error);
             return false;
           }
-          const url = `https://ipinfo.io/${ipAddress}/json`;
-          const geoResponse = await fetch(url);
-          const geoData = await geoResponse.json();
-          console.log(geoData);
-          const countryCode = geoData.country;
-          const europeanCountries = [
-            'AT',
-            'BE',
-            'BG',
-            'CY',
-            'CZ',
-            'DK',
-            'EE',
-            'FI',
-            'FR',
-            'DE',
-            'GR',
-            'HU',
-            'IE',
-            'IT',
-            'LV',
-            'GE',
-            'LT',
-            'LU',
-            'MT',
-            'NL',
-            'PL',
-            'PT',
-            'RO',
-            'SK',
-            'SI',
-            'ES',
-            'SE',
-            'GB',
-            'CH',
-            'HR',
-            'AL',
-            'AD',
-            'AM',
-            'BY',
-            'BA',
-            'FO',
-            'GI',
-            'IS',
-            'IM',
-            'XK',
-            'LI',
-            'MK',
-            'MD',
-            'MC',
-            'ME',
-            'NO',
-            'RU',
-            'SM',
-            'RS',
-            'TR',
-            'UA',
-            'VA',
-          ];
-          const tmp = europeanCountries.includes(countryCode.toUpperCase());
-          window.sessionStorage.setItem('is_eu', tmp);
-          return tmp;
-        } catch (error) {
-          console.error('Failed to fetch geolocation data:', error);
-          return false;
         }
-      }
-      // isFromEurope().then((isEuropean) => {
-      //   if (isEuropean) {
-      //     window.location.href = 'https://procolored.eu'
-      //   }
-      // })
-    </script> {% endcomment %}
+        // isFromEurope().then((isEuropean) => {
+        //   if (isEuropean) {
+        //     window.location.href = 'https://procolored.eu'
+        //   }
+        // })
+      </script>
+    {% endcomment %}
     <script>
       (function (w, d, t, r, u) {
         var f, n, i;
@@ -313,7 +315,6 @@
 
     <!-- 在 theme.liquid 的 <head> 里添加 -->
 
-
     {{ content_for_header }}
     <!-- Header hook for plugins -->
 
@@ -358,8 +359,6 @@
     {{ 'jquery-3.7.1.min.js' | asset_url | script_tag }}
     {{ 'fancybox.min.js' | asset_url | script_tag }}
     {{ 'swiper.min.js' | asset_url | script_tag }}
-    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
-    {{ 'swiper-bundle.min.js' | asset_url | script_tag }}
     {{ 'gsap.min.js' | asset_url | script_tag }}
     {{ 'ScrollTrigger.min.js' | asset_url | script_tag }}
     <script>
@@ -552,9 +551,9 @@
     <div id="wrapper">
       <div class="header--sticky"></div>
       {% sections 'header-group' %}
-       {% render 'select-country-popup-ip' %} 
+      {% render 'select-country-popup-ip' %}
       <!-- 获取用户IP 指引用户重定向到本地商店购买 -->
-    {% render 'redirect-bar' %} 
+      {% render 'redirect-bar' %}
       <!-- 国家切换弹窗 -->
       {% comment %}
         {% if template contains 'index' %}
@@ -709,56 +708,130 @@
     {%- endif -%}
     {% render 'back-to-top' %}
     <!-- F13 促销活动 右下角弹窗 活动结束关闭代码 -->
- 
-      <style>
+
+    <style>
+      .f13-promotional-activities {
+        position: fixed;
+        bottom: 68px;
+        right: 0;
+        z-index: 9999;
+        padding: 20px;
+      }
+
+      .f13-promotional-activities-img {
+        display: flex;
+        width: 150px;
+      }
+
+      .f13-promotional-activities-img img {
+        display: flex;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .f13-promotional-activities-close-icon {
+        position: absolute;
+        top: 0;
+        right: 20px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
+      @media only screen and (max-width: 768px) {
         .f13-promotional-activities {
           position: fixed;
-          bottom: 68px;
+          bottom: 120px;
           right: 0;
           z-index: 9999;
-          padding: 20px;
+          padding: 15px;
         }
 
         .f13-promotional-activities-img {
-          display: flex;
-          width: 150px;
+          width: 80px;
         }
-
-        .f13-promotional-activities-img img {
-          display: flex;
-          width: 100%;
-          max-width: 100%;
-        }
-
         .f13-promotional-activities-close-icon {
-          position: absolute;
           top: 0;
-          right: 20px;
-          width: 20px;
-          height: 20px;
-          cursor: pointer;
+          right: 10px;
+          width: 15px;
+          height: 15px;
         }
-        @media only screen and (max-width: 768px) {
-          .f13-promotional-activities {
-            position: fixed;
-            bottom: 120px;
-            right: 0;
-            z-index: 9999;
-            padding: 15px;
-          }
+      }
+    </style>
 
-          .f13-promotional-activities-img {
-            width: 80px;
-          }
-          .f13-promotional-activities-close-icon {
-            top: 0;
-            right: 10px;
-            width: 15px;
-            height: 15px;
-          }
-        }
-      </style>
-    {% comment %} {% if request.path == '/products/13-single-head-dtf-printer-roll' %} {% endcomment %}
+    {%
+      if request.path == '/products/products-13-dual-heads-dtf-pro-a3-dtf-printer-direct-to-film-printer-upgrade' or request.path ==
+      '/products/13-dual-heads-dtf-pro-a3-dtf-transfer-printer-oven' or request.path ==
+      '/products/13-dual-heads-dtf-pro-a3-dtf-transfer-printer-complete-bundle' or request.path ==
+      '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-oven-premium' or request.path ==
+      '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-complete-bundle-premium' or request.path ==
+      '/products/13-dual-heads-dtf-pro-a3-dtf-transfer-printer-dtf-shaker-bundle' or request.path ==
+      '/products/13-dual-heads-dtf-pro-a3-dtf-transfer-printer-ultimate-bundle'or request.path ==
+      '/products/products-13-dual-heads-dtf-pro-a3-dtf-printer-with-printer-stand' or request.path ==
+      '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-oven' or request.path ==
+      '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-with-stand-complete-bundle' or request.path ==
+      '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-oven-premium' or request.path ==
+      '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-complete-bundle-premium' or request.path ==
+      '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-shaker-oven' or request.path ==
+      '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-ultimate-bundle'
+    %}
+      <!-- 默认F13 pro弹窗 -->
+      <div class="f13-promotional-activities">
+        <a
+          class="f13-promotional-activities-img"
+          href="#"
+          onclick="
+            TriplePixel('custom', 'float_quiz_entry_click', {
+               value: 1,
+               page: '{{ request.path }}'
+            });
+          "
+        >
+          <img
+            src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/F13pro_PC_2b036037-852c-45cf-9b15-82f512cf3164.png?v=1773648243"
+            alt=""
+          >
+        </a>
+        <div class="f13-promotional-activities-close-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 21 21" fill="none">
+            <circle cx="10.5" cy="10.5" r="9.79091" stroke="#BABABA" stroke-width="1.41818" />
+            <path d="M6.83447 14.4951L14.501 6.82861M6.83447 6.82861L14.501 14.4951" stroke="#BABABA" stroke-width="1.41818"
+              stroke-linecap="round" />
+          </svg>
+        </div>
+      </div>
+    {%
+      elsif request.path == '/products/procolored-p13-dtf-printer' or request.path ==
+      '/products/procolored-p13-dtf-printer-13-a3-xp600-oven-windows' or request.path ==
+      '/products/procolored-p13-dtf-printer-13-a3-xp600-complete-bundle-windows' or request.path ==
+      '/products/procolored-p13-dtf-printer-13-a3-xp600-dtf-shaker-bundle-windows' or request.path ==
+      '/products/procolored-p13-dtf-printer-13-a3-xp600-ultimate-bundle-windows' or request.path ==
+      '/products/procolored-p13-dtf-printer-13-a3-xp600-oven-premium' or request.path ==
+      '/products/procolored-p13-dtf-printer-13-a3-xp600-complete-bundle-premium'
+    %}
+      <!-- 默认p13弹窗 -->
+      <div class="f13-promotional-activities">
+        <a
+          class="f13-promotional-activities-img"
+          href="#"
+          onclick="
+            TriplePixel('custom', 'float_quiz_entry_click', {
+               value: 1,
+               page: '{{ request.path }}'
+            });
+          "
+        >
+          <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/P13_PC.png?v=1773648167" alt="">
+        </a>
+        <div class="f13-promotional-activities-close-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 21 21" fill="none">
+            <circle cx="10.5" cy="10.5" r="9.79091" stroke="#BABABA" stroke-width="1.41818" />
+            <path d="M6.83447 14.4951L14.501 6.82861M6.83447 6.82861L14.501 14.4951" stroke="#BABABA" stroke-width="1.41818"
+              stroke-linecap="round" />
+          </svg>
+        </div>
+      </div>
+    {% else %}
+      <!-- 默认F13弹窗 -->
       <div class="f13-promotional-activities">
         <a
           class="f13-promotional-activities-img"
@@ -778,49 +851,24 @@
         <div class="f13-promotional-activities-close-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 21 21" fill="none">
             <circle cx="10.5" cy="10.5" r="9.79091" stroke="#BABABA" stroke-width="1.41818" />
-            <path d="M6.83447 14.4951L14.501 6.82861M6.83447 6.82861L14.501 14.4951" stroke="#BABABA"
-                stroke-width="1.41818" stroke-linecap="round" />
+            <path d="M6.83447 14.4951L14.501 6.82861M6.83447 6.82861L14.501 14.4951" stroke="#BABABA" stroke-width="1.41818"
+              stroke-linecap="round" />
           </svg>
         </div>
       </div>
-    {% comment %} {% else %}
-      <div class="f13-promotional-activities">
-        <a
-          class="f13-promotional-activities-img"
-          href="/pages/procolored-valentines-day-2026#custom-nav-Prize-Quiz"
-          onclick="
-            TriplePixel('custom', 'float_quiz_entry_click', {
-               value: 1,
-               page: '{{ request.path }}'
-            });
-          "
-        >
-          <img
-            src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/Group_2610437.png?v=1770622814"
-            alt=""
-          >
-        </a>
-        <div class="f13-promotional-activities-close-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 21 21" fill="none">
-            <circle cx="10.5" cy="10.5" r="9.79091" stroke="#BABABA" stroke-width="1.41818" />
-            <path d="M6.83447 14.4951L14.501 6.82861M6.83447 6.82861L14.501 14.4951" stroke="#BABABA"
-                stroke-width="1.41818" stroke-linecap="round" />
-          </svg>
-        </div>
-      </div>
-    {% endif %} {% endcomment %}
-      <script>
-        document.addEventListener('DOMContentLoaded', function () {
-          const closeBtn1 = document.querySelector('.f13-promotional-activities-close-icon');
-          const promoBox1 = document.querySelector('.f13-promotional-activities');
-          if (closeBtn1 && promoBox1) {
-            closeBtn1.addEventListener('click', function () {
-              promoBox1.style.display = 'none';
-            });
-          }
-        });
-      </script>
-    
+    {% endif %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const closeBtn1 = document.querySelector('.f13-promotional-activities-close-icon');
+        const promoBox1 = document.querySelector('.f13-promotional-activities');
+        if (closeBtn1 && promoBox1) {
+          closeBtn1.addEventListener('click', function () {
+            promoBox1.style.display = 'none';
+          });
+        }
+      });
+    </script>
+
     <!-- F13 促销活动 右下角弹窗 活动结束关闭代码 -->
     <!-- Gem_Page_Footer_Script -->
     {%- liquid

@@ -1,0 +1,1908 @@
+<style>
+  .printing-business-survey-{{ section.id }} .printing-business-survey-wrap {
+    position: relative;
+    background:#fff;
+    padding-top:80px;
+    padding-bottom:80px;
+
+
+  }
+
+  .printing-business-survey-{{ section.id }} .printing-business-survey-container {
+    position: relative;
+    max-width: 1248px;
+    padding:0 24px;
+    margin: 0 auto;
+
+  }
+
+
+
+  .printing-business-survey-{{ section.id }} .printing-business-survey-title-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 48px;
+  }
+
+
+
+  .printing-business-survey-{{ section.id }} .printing-business-survey-title {
+    color: #121212;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.5;
+    margin-bottom: 5px;
+  }
+
+  .printing-business-survey-{{ section.id }} .printing-business-survey-subtitle {
+    color: #121212;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 634px;
+
+  }
+
+
+  @media screen and (max-width: 768px) {
+    .printing-business-survey-{{ section.id }} .printing-business-survey-wrap {
+      padding-top:50px;
+      padding-bottom:50px;
+
+
+    }
+
+    .printing-business-survey-{{ section.id }} .printing-business-survey-container {
+      max-width: 100%;
+    }
+
+
+
+    .printing-business-survey-{{ section.id }} .printing-business-survey-title-wrap {
+      margin-bottom: 24px;
+    }
+
+    .printing-business-survey-{{ section.id }} .printing-business-survey-title {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.33;
+      max-width: 100%;
+      margin-bottom: 12px;
+    }
+
+    .printing-business-survey-{{ section.id }} .printing-business-survey-subtitle {
+      color:  #3D3D3D;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.4;
+      max-width: 100%;
+    }
+
+
+
+
+
+
+  }
+</style>
+<style>
+  .printing-business-survey-{{ section.id }} .modal {
+    width: 980px;
+    padding: 28px;
+    border-radius: 20px;
+    background: linear-gradient(234deg, #FB805E 2.36%, #FFD87D 49.62%, #FF815F 99.2%);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #D9D9D9 #F9F9F9;
+    margin: 0 auto;
+  }
+  {% comment %} .printing-business-survey-{{ section.id }} .modal::-webkit-scrollbar {
+    width: 4px;
+    background: #F9F9F9;
+  }
+  .printing-business-survey-{{ section.id }} .modal::-webkit-scrollbar-thumb {
+    border-radius: 99px;
+    background: #D9D9D9;
+  }
+  .printing-business-survey-{{ section.id }} .modal::-webkit-scrollbar-track {
+    background:  #F9F9F9;
+    border-radius: 99px;
+  } {% endcomment %}
+
+  .printing-business-survey-{{ section.id }} .modal-container {
+    background-color: #fff;
+    position: relative;
+    padding: 60px 46px;
+    min-height: 764px;
+    border-radius: 8px;
+    overflow: hidden;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #D9D9D9 #F9F9F9;
+    {% comment %} max-height: 820px; {% endcomment %}
+  }
+
+  .printing-business-survey-{{ section.id }} .modal-top-bg-img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+  }
+  #quizContainer-{{ section.id }}{
+    position: relative;
+
+  }
+
+
+  .printing-business-survey-{{ section.id }} .modal-top-bg-img img{
+
+    width: 100%;
+    max-width: 100%;
+  }
+  .printing-business-survey-{{ section.id }} .modal-top-bg-img img.pc {
+    display: flex;
+  }
+  .printing-business-survey-{{ section.id }} .modal-top-bg-img img.mb {
+    display: none;
+  }
+
+
+  .printing-business-survey-{{ section.id }} .modal-header-title {
+    color: #000;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.33;
+  }
+
+  .printing-business-survey-{{ section.id }} .option {
+    padding: 20px 30px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    background: #f9f9f9;
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.55;
+    /* 清除点击的默认背景色 */
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    margin-left: 92px;
+    margin-right: 92px;
+  }
+
+  .printing-business-survey-{{ section.id }} .option.selected {
+    color: #FF8F1C;
+    background: #FFF7EF;
+  }
+
+  .printing-business-survey-{{ section.id }} #optionalInput-{{ section.id }} {
+    display: flex;
+    width: 100%;
+    padding: 10px 30px;
+    align-items: center;
+    gap: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #d1d1d1;
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24.84px;
+  }
+
+  .printing-business-survey-{{ section.id }} #optionalInput-{{ section.id }}::placeholder,.printing-business-survey-{{ section.id }} #emailInput-{{ section.id }}::placeholder {
+    color: #6d6d6d;
+    /* 修改placeholder字体颜色，可按需调整 */
+    opacity: 1;
+    font-size: 16px;
+  }
+
+  .printing-business-survey-{{ section.id }} .footer {
+    gap: 18px;
+    margin-top: 56px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .printing-business-survey-{{ section.id }} .footer button {
+    font-size: 16px;
+    font-weight: 700;
+    padding: 10px 30px;
+    border-radius: 99px;
+    border: none;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+    min-width: 228px;
+    min-height: 48px;
+    /* 清除点击的默认背景色 */
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  .printing-business-survey-{{ section.id }} .modal-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 36px;
+    justify-content: center;
+  }
+
+  .printing-business-survey-{{ section.id }} .progress-bar {
+    flex: 1;
+    height: 10px;
+    border-radius: 99px;
+    background: #eee;
+    position: relative;
+    overflow: visible;
+  }
+
+  .printing-business-survey-{{ section.id }} .question-title {
+    color: #000;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-top: 40px;
+    margin-bottom: 42px;
+    padding: 0 92px;
+  }
+
+  .printing-business-survey-{{ section.id }} .progress-inner {
+    height: 100%;
+    width: 0%;
+    background: #FF8F1C;
+    transition: width 0.3s;
+    position: relative;
+    border-radius: 99px;
+    overflow: visible;
+  }
+  .printing-business-survey-{{ section.id }} .progress-percent {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(50%, -50%);
+    min-width: 52px;
+    height: 30px;
+    border-radius: 6px;
+    background: #FF8F1C;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  .printing-business-survey-{{ section.id }} #backBtn-{{ section.id }} {
+    color: #000;
+    border-radius: 99px;
+    border: 1px solid #000;
+    background: #fff;
+  }
+
+  .printing-business-survey-{{ section.id }} #backBtn-{{ section.id }}:disabled {
+    border-radius: 99px;
+    background: #fff;
+    color: rgba(0, 0, 0, 0.50);
+    border: 1px solid rgba(0, 0, 0, 0.50);
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* ===== Result Page ===== */
+
+  .printing-business-survey-{{ section.id }} .result-title {
+    margin-bottom: 38px;
+    color: #96511F;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.22; /* 122% */
+    max-width:514px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align: center;
+    {% comment %} margin-top: -50px; {% endcomment %}
+  }
+
+  .printing-business-survey-{{ section.id }} .result-subtitle {
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.38;
+    text-align: center;
+    margin-bottom: 8px;
+    max-width:514px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .printing-business-survey-{{ section.id }} .result-desc {
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.38;
+    text-align: center;
+    margin-bottom: 24px;
+    max-width:514px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .printing-business-survey-{{ section.id }} .result-desc span {
+    color: #FF8F1C;
+    font-weight: 700;
+  }
+
+  .printing-business-survey-{{ section.id }} .result-product-container {
+    display: flex;
+    align-items: center;
+    gap:45px;
+    padding: 36px;
+    border-radius: 10px;
+    text-align: center;
+    border-radius: 8px;
+    background: #FFF7EE;
+    max-width:514px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 24px;
+  }
+
+  .printing-business-survey-{{ section.id }} .result-product-img {
+    display: flex;
+    width: 168px;
+    height: 168px;
+    aspect-ratio: 1/1;
+    margin-bottom: 0;
+  }
+
+  .printing-business-survey-{{ section.id }} .result-product-img img {
+    width: 100%;
+    max-width: 100%;
+  }
+  .printing-business-survey-{{ section.id }} .result-product-content{
+    display:flex;
+    flex-direction: column;
+
+  }
+  .printing-business-survey-{{ section.id }} .result-product-title {
+    color: #000;
+    font-size: 16px;
+    text-align: left;
+    font-weight: 700;
+    line-height: 1.4; /* 140% */
+    margin-bottom: 4px;
+  }
+
+  .printing-business-survey-{{ section.id }} .result-product-button-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+  }
+
+  .printing-business-survey-{{ section.id }} .result-product-button-group > .result-product-button-learn-more {
+    display: flex;
+    min-width: 108px;
+    min-height: 30px;
+    padding: 5px 15px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 99px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    cursor: pointer;
+    width: max-content;
+  }
+  .printing-business-survey-{{ section.id }} .result-product-button-group > .result-product-button-buy-now product-card{
+    display: flex;
+    min-width: 108px;
+    min-height: 30px;
+    padding: 4px 22px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 99px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #fff;
+    background: #000;
+    cursor: pointer;
+  }
+  .printing-business-survey-{{ section.id }} .result-product-button-group > .result-product-button-learn-more {
+    border: 1px solid #000;
+    background: #fff;
+    color: #000;
+  }
+
+
+  .printing-business-survey-{{ section.id }} .result-product-button-buy-now .button.accent, input[type=submit].accent {
+      background: none;
+      color: #fff;
+      height: auto;
+      min-height: auto;
+      padding: 0;
+      font-size: inherit;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+  }
+
+  .printing-business-survey-{{ section.id }} .coupon-box {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 24px;
+
+  }
+
+  .printing-business-survey-{{ section.id }} .coupon-code {
+    display: flex;
+    align-items: center;
+    color:  #3D3D3D;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 2.07;
+  }
+
+  .printing-business-survey-{{ section.id }} .copy-btn {
+    color: #1677FF;
+    font-size: 12px;
+    font-weight: 400;
+    line-height:2.07;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    cursor: pointer;
+  }
+
+  .printing-business-survey-{{ section.id }} .notes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: #3d3d3d;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    max-width:514px;
+    margin-left:auto;
+    margin-right:auto;
+
+  }
+
+
+  .printing-business-survey-{{ section.id }} .email-tips {
+    color: #000;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    max-width:514px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 20px;
+
+  }
+
+  .printing-business-survey-{{ section.id }} .email-box {
+    display: flex;
+    border-radius: 10px;
+    border: 1px solid #e7e7e7;
+    background: #f9f9f9;
+    overflow: hidden;
+    max-width:514px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 17px;
+
+  }
+
+  .printing-business-survey-{{ section.id }} .email-box input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    margin:0;
+    height: auto;
+    min-height: 50px;
+  }
+
+  .printing-business-survey-{{ section.id }} .email-box input:focus,
+  .printing-business-survey-{{ section.id }} .email-box input:hover {
+    border: none;
+    outline: none;
+  }
+
+  .printing-business-survey-{{ section.id }} .email-box button {
+    background: #000;
+    color: #fff;
+    border-radius: 0 10px 10px 0;
+    background: #000;
+    color: #fff;
+    padding: 14px 55px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    outline: none;
+    border: none;
+  }
+
+  /* 图片选项容器 */
+  .printing-business-survey-{{ section.id }} .pic-option-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0 180px;
+  }
+
+  /* 单个图片选项 */
+  .printing-business-survey-{{ section.id }} .pic-option {
+    cursor: pointer;
+    /* 清除点击的默认背景色 */
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  .printing-business-survey-{{ section.id }} .pic-wrapper {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    /* border: 2px solid transparent; */
+    width: 100%;
+
+    margin: 0 auto;
+    /* 清除点击的默认背景色 */
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  .printing-business-survey-{{ section.id }} .pic-wrapper img {
+    width: 100%;
+    max-width: 100%;
+    display: block;
+    aspect-ratio: 4/3;
+  }
+
+  /* 勾选框 */
+  .printing-business-survey-{{ section.id }} .check-mark {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 18px;
+    height: 18px;
+
+  }
+
+  .printing-business-survey-{{ section.id }} .check-mark svg {
+    opacity: 0;
+  }
+
+  .printing-business-survey-{{ section.id }} .pic-option.selected .check-mark {
+    display: flex;
+    border-color: #000;
+    width: 18px;
+    height: 18px;
+  }
+
+  .printing-business-survey-{{ section.id }} .pic-option.selected .check-mark svg {
+    opacity: 1;
+  }
+
+  /* 文字 */
+  .printing-business-survey-{{ section.id }} .pic-text {
+    color: #000;
+    text-align: center;
+
+    font-size: 16px;
+
+    font-weight: 400;
+    line-height: 1.25;
+    margin-top: 8px;
+  }
+
+  /* 选中态 */
+  .printing-business-survey-{{ section.id }} .pic-option.selected .pic-wrapper {
+    border-color: #a73032;
+  }
+
+  .printing-business-survey-{{ section.id }} .quiz-toast {
+    position: fixed;
+    left: 50%;
+    top: 80px;
+    transform: translateX(-50%) translateY(10px);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 24px;
+    font-size: 12px;
+    color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 9999;
+  }
+
+  .printing-business-survey-{{ section.id }} .quiz-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* 成功态 */
+  .printing-business-survey-{{ section.id }} .quiz-toast.success {
+    background: rgba(46, 125, 50, 0.95);
+  }
+
+  /* 失败态 */
+  .printing-business-survey-{{ section.id }} .quiz-toast.error {
+    background: rgba(211, 47, 47, 0.95);
+  }
+
+  /* icon */
+  .printing-business-survey-{{ section.id }} .toast-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .printing-business-survey-{{ section.id }} .toast-text {
+    white-space: nowrap;
+  }
+
+  /* =========================
+     Mobile Adaptation
+     ========================= */
+  @media (max-width: 768px) {
+
+    .printing-business-survey-{{ section.id }} .modal {
+      width: 100%;
+      padding: 12px;
+      overflow-y: auto;
+      height: auto;
+    }
+
+    .printing-business-survey-{{ section.id }} .modal-container {
+      padding: 32px 12px 28px 12px;
+      min-height: 620px;
+      max-height: 620px;
+    }
+    .printing-business-survey-{{ section.id }} .modal-top-bg-img img.pc {
+      display: none;
+    }
+    .printing-business-survey-{{ section.id }} .modal-top-bg-img img.mb {
+      display: flex;
+    }
+
+
+    .printing-business-survey-{{ section.id }} .modal-header-title {
+      color: #000;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.33;
+    }
+
+    .printing-business-survey-{{ section.id }} .option {
+      font-size: 14px;
+      line-height:1.4;
+      padding: 10px 12px;
+      border-radius: 4px;
+      font-weight: 400;
+      margin-bottom: 16px;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .printing-business-survey-{{ section.id }} #optionalInput-{{ section.id }} {
+      padding: 10px 12px;
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .printing-business-survey-{{ section.id }} #optionalInput-{{ section.id }}::placeholder,.printing-business-survey-{{ section.id }} #emailInput-{{ section.id }}::placeholder {
+      font-size: 12px;
+    }
+
+    .printing-business-survey-{{ section.id }} .footer {
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 38px;
+    }
+
+    .printing-business-survey-{{ section.id }} .footer button {
+      font-size: 14px;
+      padding: 10px;
+      border: none;
+      min-width: 100%;
+      min-height: 48px;
+    }
+
+    .printing-business-survey-{{ section.id }} .modal-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 18px;
+      justify-content: center;
+    }
+
+    .printing-business-survey-{{ section.id }} .progress-bar {
+      height: 8px;
+    }
+
+    .printing-business-survey-{{ section.id }} .question-title {
+      font-size: 20px;
+      line-height: 1.3;
+      font-weight: 800;
+      margin-top: 40px;
+      margin-bottom: 24px;
+      padding: 0;
+      text-align: center;
+    }
+
+    .printing-business-survey-{{ section.id }} .progress-inner {
+      height: 100%;
+      width: 0%;
+      background: #FF8F1C;
+      transition: width 0.3s;
+      position: relative;
+      border-radius: 99px;
+      overflow: visible;
+    }
+    .printing-business-survey-{{ section.id }} .progress-percent {
+      min-width: 46px;
+      height: 28px;
+      border-radius: 6px;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.4;
+      transform: translate(0, -50%);
+    }
+
+
+
+    .printing-business-survey-{{ section.id }} #backBtn-{{ section.id }} {
+      color: #000;
+      border-radius: 99px;
+      border: 1px solid #000;
+      background: #fff;
+    }
+
+    .printing-business-survey-{{ section.id }} #backBtn-{{ section.id }}:disabled {
+      border: 1px solid #eee;
+      background: #eee;
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* ===== Result Page ===== */
+
+    .printing-business-survey-{{ section.id }} .result-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 800;
+      line-height:1.33;
+      padding: 0;
+      margin-top: 42px;
+      margin-bottom: 8px;
+    }
+
+    .printing-business-survey-{{ section.id }} .result-subtitle {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 400;
+      line-height:1.4;
+      padding: 0;
+      margin-bottom: 4px;
+    }
+
+    .printing-business-survey-{{ section.id }} .result-desc {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 400;
+      line-height:1.4; /* 140% */
+      margin-bottom: 12px;
+    }
+
+    .printing-business-survey-{{ section.id }} .result-desc span {
+      color: #FF8F1C;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 24.84px;
+    }
+
+    .printing-business-survey-{{ section.id }} .result-product-container {
+      padding: 16px 12px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .printing-business-survey-{{ section.id }} .result-product-img {
+      width: 90px;
+      height: 90px;
+      margin-bottom: 0;
+    }
+    .printing-business-survey-{{ section.id }} .result-product-content{
+      align-items: center;
+
+    }
+    .printing-business-survey-{{ section.id }} .result-product-title {
+      color: #000;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+
+    .printing-business-survey-{{ section.id }} .result-product-button-group {
+      gap: 12px;
+      padding: 0;
+      width: 100%;
+    }
+
+    .printing-business-survey-{{ section.id }} .result-product-button-group > .result-product-button-learn-more {
+      display: flex;
+      flex-wrap: wrap;
+      min-width: calc(100% / 2 - 6px);
+      min-height: 30px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+    .printing-business-survey-{{ section.id }} .result-product-button-group > .result-product-button-buy-now {
+
+      min-width: calc(100% / 2 - 6px);
+
+    }
+    .printing-business-survey-{{ section.id }} .result-product-button-group > .result-product-button-buy-now product-card{
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      min-width: 100%;
+      min-height: 30px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.4;
+      background: #000;
+      cursor: pointer;
+    }
+    .printing-business-survey-{{ section.id }} .coupon-box {
+      display: flex;
+      margin-bottom: 12px;
+    }
+
+    .printing-business-survey-{{ section.id }} .coupon-code {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 2.07;
+    }
+
+    .printing-business-survey-{{ section.id }} .copy-btn {
+      width: max-content;
+      font-size: 12px;
+    }
+
+    .printing-business-survey-{{ section.id }} .notes-container {
+      font-size: 10px;
+      font-weight: 400;
+      line-height: 1.4;
+      gap:0;
+
+    }
+
+
+
+    .printing-business-survey-{{ section.id }} .email-tips {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 12px;
+
+    }
+
+    .printing-business-survey-{{ section.id }} .email-box {
+      border-radius: 5px;
+      margin-bottom: 12px;
+    }
+
+    .printing-business-survey-{{ section.id }} .email-box input {
+      flex: 1;
+      padding: 8px;
+      border-radius: 5px;
+      min-height: 40px;
+    }
+
+    .printing-business-survey-{{ section.id }} .email-box button {
+      border-radius: 0 5px 5px 0;
+      padding: 10px 22px;
+      font-size: 12px;
+    }
+
+    /* 图片选项容器 */
+    .printing-business-survey-{{ section.id }} .pic-option-list {
+      gap: 8px;
+      padding: 0;
+    }
+
+    /* 单个图片选项 */
+    .printing-business-survey-{{ section.id }} .pic-option {
+      cursor: pointer;
+    }
+
+    .printing-business-survey-{{ section.id }} .pic-wrapper {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .printing-business-survey-{{ section.id }} .pic-wrapper img {
+      width: 100%;
+      max-width: 100%;
+      display: block;
+      aspect-ratio: 4/3;
+    }
+
+    /* 勾选框 */
+    .printing-business-survey-{{ section.id }} .check-mark {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 18px;
+      height: 18px;
+
+    }
+
+    .printing-business-survey-{{ section.id }} .check-mark svg {
+      opacity: 0;
+    }
+
+    .printing-business-survey-{{ section.id }} .pic-option.selected .check-mark {
+      display: flex;
+      border-color: #000;
+      width: 18px;
+      height: 18px;
+    }
+
+    .printing-business-survey-{{ section.id }} .pic-option.selected .check-mark svg {
+      opacity: 1;
+    }
+
+    /* 文字 */
+    .printing-business-survey-{{ section.id }} .pic-text {
+      font-size: 12px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    .printing-business-survey-{{ section.id }} .quiz-toast {
+      position: fixed;
+      left: 50%;
+      top: 80px;
+      transform: translateX(-50%) translateY(10px);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 24px;
+      font-size: 12px;
+      color: #fff;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 9999;
+    }
+
+    .printing-business-survey-{{ section.id }} .quiz-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* 成功态 */
+    .printing-business-survey-{{ section.id }} .quiz-toast.success {
+      background: rgba(46, 125, 50, 0.95);
+    }
+
+    /* 失败态 */
+    .printing-business-survey-{{ section.id }} .quiz-toast.error {
+      background: rgba(211, 47, 47, 0.95);
+    }
+
+    /* icon */
+    .printing-business-survey-{{ section.id }} .toast-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .printing-business-survey-{{ section.id }} .toast-text {
+      white-space: nowrap;
+    }
+  }
+</style>
+<section
+  id="{%- if section.settings.nav_id != empty %}custom-nav-{{- section.settings.nav_id -}}{% endif -%}"
+  class="printing-business-survey-{{ section.id }}"
+>
+  <div class="printing-business-survey-wrap">
+    <div class="printing-business-survey-container">
+      <div class="printing-business-survey-title-wrap">
+        <div class="printing-business-survey-title">Is Your Home Ready for a Printing Side Business?</div>
+        <div class="printing-business-survey-subtitle">
+          Take this 60-second quiz and see which setup fits your family best. Just answer honestly about your space,
+          time and goals.
+        </div>
+      </div>
+      <div class="modal">
+        <div class="modal-container">
+          <div class="modal-top-bg-img">
+            <img
+              class="pc lazyload"
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20260325-153923.png?v=1774424475"
+              alt=""
+            >
+            <img
+              class="mb lazyload"
+              data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20260325-153930.png?v=1774424476"
+              alt=""
+            >
+          </div>
+          <!-- 问卷内容 -->
+          <div id="quizContainer-{{ section.id }}"></div>
+          <!-- 底部 -->
+          <div class="footer">
+            <button id="backBtn-{{ section.id }}" disabled>Previous question</button>
+            <button id="nextBtn-{{ section.id }}">Next question</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    (function () {
+    const sectionRoot = document.querySelector('.printing-business-survey-{{ section.id }}');
+    const quizContainer = document.getElementById('quizContainer-{{ section.id }}');
+    const nextBtn = document.getElementById('nextBtn-{{ section.id }}');
+    const backBtn = document.getElementById('backBtn-{{ section.id }}');
+
+    if (!sectionRoot || !quizContainer || !nextBtn || !backBtn) return;
+
+    // ======= API 常量 =======
+    const saveUserAnswersApi = '/procolored/quizQuestion/saveUserAnswers';
+    const submitEmailApi = '/procolored/quizQuestion/submitEmail';
+    const questionsWithOptionsApi = '/procolored/quizQuestion/getQuestionsWithOptions';
+    let discount_code = 'SIDE80';
+    let discount_value = '$80';
+    let origin = 'Shopify_US';
+    {% comment %} const activityCode = 'valentines_day'; {% endcomment %}
+     const activityCode = 'family_printing';
+
+    // ======= 状态管理 =======
+    let questions = [];
+    let currentIndex = 0;
+    let answers = {};
+    let isResultPage = false;
+    let quizSessionId = '';
+    let productHandle = '';
+    let productTitle = '';
+    let productUrl = '';
+    let productImg = '';
+    let productId = '';
+    let progressInner = null;
+
+    const us = [
+      {
+        handle: 'procolored-k13-lite-dtf-printer-13-a3-pink',
+        id: '51557601149109',
+        url: '/products/procolored-k13-lite-dtf-printer-13-a3-pink',
+        img: 'https://www.procolored.com/cdn/shop/files/K13_lite_pink_10.png?v=1767585182&width=750',
+      },
+      {
+        handle: 'procolored-p13-dtf-printer',
+        id: '51708750528693',
+        url: '/products/procolored-p13-dtf-printer?variant=51708750528693',
+        img: 'https://www.procolored.com/cdn/shop/files/DTF_Printer_Main_4.png?v=1765787950&width=750',
+      },
+      {
+        handle: 'products-13-dual-heads-dtf-pro-a3-dtf-printer-direct-to-film-printer-upgrade',
+        id: '43687012925621',
+        url: '/products/products-13-dual-heads-dtf-pro-a3-dtf-printer-direct-to-film-printer-upgrade',
+        img: 'https://www.procolored.com/cdn/shop/files/F13_Pro_0479da75-8ab0-4338-bffa-583a1c04aa8c.png?v=1765786510',
+      },
+      {
+        handle: '13-single-head-dtf-printer-roll',
+        id: '41436916154549',
+        url: '/products/13-single-head-dtf-printer-roll',
+        img: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20260209-153506.png?v=1770622838',
+      },
+    ];
+
+    const eu = [
+      {
+        handle: 'procolored-k13-lite-dtf-printer-13-a3-pink',
+        id: '50973655925019',
+        url: '/products/procolored-k13-lite-dtf-printer-13-a3-pink',
+        img: 'https://www.procolored.com/cdn/shop/files/K13_lite_pink_10.png?v=1767585182&width=750',
+      },
+      {
+        handle: 'procolored-p13-dtf-printer',
+        id: '50435919380763',
+        url: '/products/procolored-p13-dtf-printer',
+        img: 'https://www.procolored.com/cdn/shop/files/DTF_Printer_Main_4.png?v=1765787950&width=750',
+      },
+      {
+        handle: '13-dual-heads-dtf-pro-a3-dtf-printer-direct-to-film-printer-upgrade',
+        id: '49396040302875',
+        url: '/products/13-dual-heads-dtf-pro-a3-dtf-printer-direct-to-film-printer-upgrade',
+        img: 'https://www.procolored.com/cdn/shop/files/F13_Pro_0479da75-8ab0-4338-bffa-583a1c04aa8c.png?v=1765786510',
+      },
+      {
+        handle: '13-single-head-dtf-printer-roll',
+        id: '49392716448027',
+        url: '/products/13-single-head-dtf-printer-roll',
+        img: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20260209-153506.png?v=1770622838',
+      },
+    ];
+
+    const fr = [
+      {
+        handle: 'imprimante-dtf-k13-lite-13-a3-rose',
+        id: '9145801638111',
+        url: '/products/imprimante-dtf-k13-lite-13-a3-rose',
+        img: 'https://www.procolored.com/cdn/shop/files/K13_lite_pink_10.png?v=1767585182&width=750',
+      },
+      {
+        handle: 'procolored-p13-dtf-printer',
+        id: '9090873065695',
+        url: '/products/procolored-p13-dtf-printer',
+        img: 'https://www.procolored.com/cdn/shop/files/DTF_Printer_Main_4.png?v=1765787950&width=750',
+      },
+      {
+        handle: '13-dual-heads-dtf-pro-a3-dtf-printer-direct-to-film-printer-upgrade',
+        id: '9090872148191',
+        url: '/products/13-dual-heads-dtf-pro-a3-dtf-printer-direct-to-film-printer-upgrade',
+        img: 'https://www.procolored.com/cdn/shop/files/F13_Pro_0479da75-8ab0-4338-bffa-583a1c04aa8c.png?v=1765786510',
+      },
+      {
+        handle: '13-single-head-dtf-printer-roll',
+        id: '9090872279263',
+        url: '/products/13-single-head-dtf-printer-roll',
+        img: 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/20260209-153506.png?v=1770622838',
+      },
+    ];
+
+    let productList = [];
+    const hostname = window?.location?.hostname || '';
+
+    if (hostname.endsWith('procolored.eu')) {
+      productList = eu;
+      origin="Shopify_EU";
+      discount_value="£70";
+      discount_code = 'SIDE80';
+    } else if (hostname === 'procolored.com' || hostname === 'www.procolored.com') {
+      productList = us;
+      origin="Shopify_US";
+      discount_value="$80";
+      discount_code = 'SIDE80';
+    } else if (hostname.startsWith('fr.')) {
+      productList = fr;
+      origin="Shopify_FR";
+      discount_value="€80";
+      discount_code = 'SIDE80';
+    } else {
+      productList = us;
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') e.preventDefault();
+    });
+
+    nextBtn.onclick = async () => {
+      if (!questions.length) return;
+
+      const q = questions[currentIndex];
+      if (!q) return;
+
+      if (!validateCurrentQuestion(q)) return;
+
+      if (currentIndex < questions.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      } else {
+        await submitAnswers();
+      }
+    };
+
+    backBtn.onclick = () => {
+      if (!questions.length) return;
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderQuestion();
+      }
+    };
+
+    loadQuestions();
+
+    function setFooterVisible(visible) {
+      const surveyFooter = sectionRoot.querySelector('.footer');
+      if (surveyFooter) {
+        surveyFooter.style.display = visible ? 'flex' : 'none';
+      }
+    }
+
+    function setNextButtonText() {
+      if (!questions.length) {
+        nextBtn.innerText = 'Next question';
+        return;
+      }
+      nextBtn.innerText = currentIndex === questions.length - 1 ? 'Submit' : 'Next question';
+    }
+
+    function normalizeHandle(handle) {
+      return String(handle || '')
+        .trim()
+        .replace(/^\/products\//, '')
+        .replace(/\?.*$/, '')
+        .replace(/^products-/, '');
+    }
+
+    function findProductByHandle(handle) {
+      const target = normalizeHandle(handle);
+      if (!target) return null;
+
+      return (
+        productList.find((item) => item.handle === handle) ||
+        productList.find((item) => normalizeHandle(item.handle) === target) ||
+        productList.find((item) => normalizeHandle(item.handle).includes(target)) ||
+        productList.find((item) => target.includes(normalizeHandle(item.handle))) ||
+        null
+      );
+    }
+
+    function escapeHtml(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function resetQuiz() {
+      currentIndex = 0;
+      answers = {};
+      isResultPage = false;
+      quizSessionId = '';
+      productHandle = '';
+      productTitle = '';
+      productUrl = '';
+      productImg = '';
+      productId = '';
+
+      nextBtn.style.display = 'inline-block';
+      backBtn.style.display = 'inline-block';
+      nextBtn.disabled = false;
+      backBtn.disabled = true;
+
+      setFooterVisible(true);
+      renderQuestion();
+    }
+
+    function bindCloseBtn() {
+      const closeBtn = document.getElementById('closeBtn66');
+      if (!closeBtn) return;
+
+      closeBtn.onclick = () => {
+        resetQuiz();
+      };
+    }
+
+    async function loadQuestions() {
+      try {
+        quizContainer.innerHTML = '<div class="question-title">Loading...</div>';
+        nextBtn.disabled = true;
+        backBtn.disabled = true;
+
+        const data = await boosterFetch(
+          questionsWithOptionsApi,
+          {
+            origin: origin,
+            activityCode: activityCode,
+          },
+          { method: 'GET' }
+        );
+
+        console.log('查询结果:', data);
+
+        if (data.code !== 200) {
+          quizContainer.innerHTML = '<div class="question-title">Failed to load questions</div>';
+          showToast(data.msg || 'Failed to load questions', 'error');
+          return;
+        }
+
+        questions = Array.isArray(data.result) ? data.result : [];
+        console.log('questions:', questions);
+
+        if (!questions.length) {
+          quizContainer.innerHTML = '<div class="question-title">No questions available</div>';
+          showToast('No questions found', 'error');
+          nextBtn.style.display = 'none';
+          backBtn.style.display = 'none';
+          return;
+        }
+
+        currentIndex = 0;
+        answers = {};
+        isResultPage = false;
+
+        nextBtn.style.display = 'inline-block';
+        backBtn.style.display = 'inline-block';
+        nextBtn.disabled = false;
+        backBtn.disabled = true;
+        setFooterVisible(true);
+
+        renderQuestion();
+      } catch (error) {
+        console.error('loadQuestions error:', error);
+        quizContainer.innerHTML = '<div class="question-title">Failed to load questions</div>';
+        showToast('Failed to load questions', 'error');
+      } finally {
+        setNextButtonText();
+      }
+    }
+
+    function renderOptionalInput(q) {
+      const options = Array.isArray(q?.options) ? q.options : [];
+      const opt = options.find((o) => o.optional === 1);
+      if (!opt) return '';
+
+      const show = answers[q.id]?.optionIds?.includes(opt.id);
+
+      return `
+        <div class="optional-input" style="display:${show ? 'flex' : 'none'}">
+          <input
+            id="optionalInput-{{ section.id }}"
+            placeholder="（Optional）"
+            value="${escapeHtml(answers[q.id]?.optionalContent || '')}"
+          >
+        </div>
+      `;
+    }
+
+    function isSelected(qId, oId) {
+      return !!answers[qId]?.optionIds?.includes(oId);
+    }
+
+    function toggleOptionalInput(question) {
+      const optionalOption = question.options.find((o) => o.optional === 1);
+      if (!optionalOption) return;
+
+      const inputBox = document.querySelector('.optional-input');
+      if (!inputBox) return;
+
+      const selected = answers[question.id]?.optionIds?.includes(optionalOption.id);
+      inputBox.style.display = selected ? 'flex' : 'none';
+
+      if (!selected && answers[question.id]) {
+        answers[question.id].optionalContent = '';
+        const input = document.getElementById('optionalInput-{{ section.id }}');
+        if (input) input.value = '';
+      }
+    }
+
+    function bindOptionalInput(question) {
+      const input = document.getElementById('optionalInput-{{ section.id }}');
+      if (!input) return;
+
+      input.oninput = (e) => {
+        if (!answers[question.id]) {
+          answers[question.id] = { optionIds: [], optionalContent: '' };
+        }
+        answers[question.id].optionalContent = e.target.value;
+      };
+    }
+
+    function bindOptionsNew(question) {
+      const selector = question.questionWithPic === 1 ? '.pic-option' : '.option';
+
+      document.querySelectorAll(selector).forEach((el) => {
+        el.onclick = () => {
+          const optionId = Number(el.dataset.id);
+          const currentOption = question.options.find((o) => Number(o.id) === optionId);
+          const isOptional = currentOption?.optional === 1;
+
+          if (question.questionType === 'single') {
+            document.querySelectorAll(selector).forEach((o) => o.classList.remove('selected'));
+            el.classList.add('selected');
+
+            answers[question.id] = {
+              optionIds: [optionId],
+              optionalContent: isOptional ? answers[question.id]?.optionalContent || '' : '',
+            };
+          }
+
+          if (question.questionType === 'multi') {
+            const data = answers[question.id] || { optionIds: [], optionalContent: '' };
+
+            if (el.classList.contains('selected')) {
+              el.classList.remove('selected');
+              data.optionIds = data.optionIds.filter((id) => id !== optionId);
+            } else {
+              const maxSelect = Number(question.maxSelect) || Infinity;
+              if (data.optionIds.length >= maxSelect) {
+                showToast(`You can select up to ${maxSelect} options`, 'error');
+                return;
+              }
+              el.classList.add('selected');
+              data.optionIds.push(optionId);
+            }
+
+            const optionalOption = question.options.find((o) => o.optional === 1);
+            if (optionalOption && !data.optionIds.includes(optionalOption.id)) {
+              data.optionalContent = '';
+            }
+
+            answers[question.id] = data;
+          }
+
+          toggleOptionalInput(question);
+        };
+      });
+
+      bindOptionalInput(question);
+    }
+
+    function updateProgress() {
+      progressInner = document.getElementById('progressInner-{{ section.id }}');
+      const progressPercent = document.getElementById('progressPercent-{{ section.id }}');
+    
+      if (progressInner && questions.length) {
+        const percent = Math.round(((currentIndex + 1) / questions.length) * 100);
+        progressInner.style.width = percent + '%';
+    
+        if (progressPercent) {
+          progressPercent.textContent = percent + '%';
+        }
+      }
+    }
+
+    function renderQuestion() {
+      const q = questions[currentIndex];
+
+      if (!q) {
+        quizContainer.innerHTML = '<div class="question-title">No questions available</div>';
+        nextBtn.style.display = 'none';
+        backBtn.style.display = 'none';
+        return;
+      }
+
+      const options = Array.isArray(q.options) ? q.options : [];
+
+      const optionHTML =
+        q.questionWithPic === 1
+          ? `
+            <div class="pic-option-list">
+              ${options
+                .map(
+                  (o) => `
+                    <div class="pic-option ${isSelected(q.id, o.id) ? 'selected' : ''}" data-id="${o.id}">
+                      <div class="pic-wrapper">
+                        <img src="${o.optionPic || ''}" alt="${escapeHtml(o.optionText || '')}">
+                        <span class="check-mark">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fill="none">
+                            <path d="M14 0C16.2091 0 18 1.79086 18 4V14C18 16.2091 16.2091 18 14 18H4C1.79086 18 1.61066e-08 16.2091 0 14V4C0 1.79086 1.79086 1.61064e-08 4 0H14ZM14.3477 5.49609C13.9711 5.11994 13.3598 5.11971 12.9834 5.49609L7.99414 10.4854L5.01562 7.50684L4.90723 7.41309C4.52977 7.13337 3.99357 7.16469 3.65137 7.50684C3.27508 7.88321 3.27545 8.49352 3.65137 8.87012L7.28516 12.5049L7.39355 12.5977C7.64769 12.7862 7.9734 12.8328 8.26367 12.7393C8.43176 12.6994 8.59154 12.6155 8.72266 12.4844L14.3477 6.86035L14.4404 6.75195C14.7204 6.37446 14.69 5.8384 14.3477 5.49609Z" fill="black"/>
+                          </svg>
+                        </span>
+                      </div>
+                      <div class="pic-text">${escapeHtml(o.optionText || '')}</div>
+                    </div>
+                  `
+                )
+                .join('')}
+            </div>
+          `
+          : options
+              .map(
+                (o) => `
+                  <div class="option ${isSelected(q.id, o.id) ? 'selected' : ''}" data-id="${o.id}">
+                    ${escapeHtml(o.optionText || '')}
+                  </div>
+                `
+              )
+              .join('');
+
+      quizContainer.innerHTML = `
+        <div class="modal-header">
+          <div class="modal-header-title">Question ${q.questionNo || currentIndex + 1}/${questions.length}</div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-inner" id="progressInner-{{ section.id }}">
+          <span class="progress-percent" id="progressPercent-{{ section.id }}">0%</span>
+          </div>
+        </div>
+        <div class="question-title">${escapeHtml(q.questionTitle || '')}</div>
+        ${optionHTML}
+        ${renderOptionalInput(q)}
+      `;
+
+      bindOptionsNew(q);
+      bindCloseBtn();
+
+      backBtn.disabled = currentIndex === 0;
+      setNextButtonText();
+      updateProgress();
+    }
+
+    function validateCurrentQuestion(q) {
+      if (!q || !q.required) return true;
+
+      const answer = answers[q.id];
+      const optionIds = Array.isArray(answer?.optionIds) ? answer.optionIds : Array.isArray(answer) ? answer : [];
+
+      if (!optionIds.length) {
+        showToast('Please select at least one option', 'error');
+        return false;
+      }
+
+      return true;
+    }
+
+    function buildSubmitData() {
+      const list = [];
+
+      Object.keys(answers).forEach((qId) => {
+        const item = answers[qId];
+        const optionIds = Array.isArray(item?.optionIds) ? item.optionIds : Array.isArray(item) ? item : [];
+
+        optionIds.forEach((optId) => {
+          const dto = {
+            questionId: Number(qId),
+            optionId: Number(optId),
+          };
+
+          if (item?.optionalContent) {
+            dto.optionalContent = item.optionalContent;
+          }
+
+          list.push(dto);
+        });
+      });
+
+      return {
+        quizSubmitAnswerDTOList: list,
+      };
+    }
+
+    async function submitAnswers() {
+      const payload = buildSubmitData();
+
+      if (!payload.quizSubmitAnswerDTOList.length) {
+        showToast('Please complete the quiz before submitting', 'error');
+        return;
+      }
+
+      try {
+        nextBtn.disabled = true;
+        backBtn.disabled = true;
+        nextBtn.innerText = 'Submitting...';
+
+        const data = await boosterFetch(
+          saveUserAnswersApi,
+          {
+            ...payload,
+            origin: origin,
+          },
+          { method: 'POST' }
+        );
+
+        console.log('提交答案返回查询结果:', data);
+
+        if (data.code !== 200) {
+          showToast(data.msg || 'Failed to submit answers', 'error');
+          return;
+        }
+
+        quizSessionId = data.result?.sessionId || '';
+        productHandle = data.result?.handle || '';
+        productTitle = data.result?.recommendedProduct || '';
+
+        const productObj = findProductByHandle(productHandle);
+
+        productUrl =
+          productObj?.url ||
+          data.result?.productUrl ||
+          (productHandle ? `/products/${normalizeHandle(productHandle)}` : '');
+
+        productImg = productObj?.img || data.result?.productImg || '';
+        productId = productObj?.id || data.result?.productId || '';
+
+        renderResult();
+      } catch (error) {
+        console.error('submitAnswers error:', error);
+        showToast('Failed to submit answers', 'error');
+      } finally {
+        if (!isResultPage) {
+          nextBtn.disabled = false;
+          backBtn.disabled = currentIndex === 0;
+          setNextButtonText();
+        }
+      }
+    }
+
+    function renderResult() {
+      isResultPage = true;
+
+      const safeProductTitle = escapeHtml(productTitle || 'Recommended Product');
+      const safeProductImg = productImg || '';
+      const safeProductUrl = productUrl || '#';
+      const hasProductId = !!productId;
+      const hasProductUrl = safeProductUrl && safeProductUrl !== '#';
+
+      const buyNowHtml = hasProductId
+        ? `
+          <div class="result-product-button-buy-now">
+            <product-card>
+              <div
+                class="product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                data-product-id="${productId}"
+                tabindex="-1"
+              >
+                <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                  <circle class="spinner-path" fill="none" stroke-width="6" cx="33" cy="33" r="30" stroke="var(--color-body)"></circle>
+                </svg>
+                <span class="product-card--add-to-cart-text">Buy Now</span>
+              </div>
+            </product-card>
+          </div>
+        `
+        : hasProductUrl
+        ? `
+          <div class="result-product-button-buy-now">
+            <div class="result-product-button-learn-more" id="buyNowBtn-{{ section.id }}">Buy Now</div>
+          </div>
+        `
+        : '';
+
+      quizContainer.innerHTML = `
+        <div class="result-title">Congratulations!</div>
+        <div class="result-subtitle">You've unlocked your dream printer!</div>
+        <div class="result-desc">
+          Get exclusive savings of <span>${discount_value}</span> with your discount code below.
+        </div>
+
+        <div class="result-product-container">
+          <div class="result-product-img">
+            <img src="${safeProductImg}" alt="${safeProductTitle}">
+          </div>
+          <div class="result-product-content">
+            <div class="result-product-title">${safeProductTitle}</div>
+            <div class="coupon-box">
+              <div class="coupon-code">
+                ${discount_value} Discount Code: <div id="couponText-{{ section.id }}">${discount_code}</div>
+              </div>
+              <button class="copy-btn" id="copyBtn-{{ section.id }}" type="button">COPY</button>
+            </div>
+            <div class="result-product-button-group">
+              ${hasProductUrl ? `<div class="result-product-button-learn-more" id="learnMoreBtn-{{ section.id }}">Learn More</div>` : ''}
+              ${buyNowHtml}
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+        <div class="email-tips">
+          Enter your email to receive the ${discount_value} discount and more offers！
+        </div>
+
+        <div class="email-box">
+          <input type="email" id="emailInput-{{ section.id }}" placeholder="Enter your email" />
+          <button id="emailSubmitBtn-{{ section.id }}" type="button">Submit</button>
+        </div>
+
+        <div class="notes-container">
+          <div class="notes-title">Notes</div>
+          <div class="notes-desc">1.One discount code per email.</div>
+          <div class="notes-desc">2.The discount code is valid for 60 days.</div>
+          <div class="notes-desc">3.Applied to the printers only.</div>
+          <div class="notes-desc">4.This discount code cannot be combined with other discount codes.</div>
+        </div>
+
+      `;
+
+      nextBtn.style.display = 'none';
+      backBtn.style.display = 'none';
+      setFooterVisible(false);
+      progressInner = null;
+
+      const learnMoreBtn = document.getElementById('learnMoreBtn-{{ section.id }}');
+      if (learnMoreBtn && hasProductUrl) {
+        learnMoreBtn.onclick = () => window.open(safeProductUrl, '_blank');
+      }
+
+      const buyNowBtn = document.getElementById('buyNowBtn-{{ section.id }}');
+      if (buyNowBtn && hasProductUrl) {
+        buyNowBtn.onclick = () => window.open(safeProductUrl, '_blank');
+      }
+
+      const copyBtn = document.getElementById('copyBtn-{{ section.id }}');
+      if (copyBtn) {
+        copyBtn.onclick = async () => {
+          try {
+            await navigator.clipboard.writeText(discount_code);
+            showToast('Copied', 'success');
+          } catch (error) {
+            const textNode = document.getElementById('couponText-{{ section.id }}');
+            if (textNode) {
+              const range = document.createRange();
+              range.selectNodeContents(textNode);
+              const selection = window.getSelection();
+              selection.removeAllRanges();
+              selection.addRange(range);
+            }
+            showToast('Coupon code selected', 'success');
+          }
+        };
+      }
+
+      const emailSubmitBtn = document.getElementById('emailSubmitBtn-{{ section.id }}');
+      const emailInput = document.getElementById('emailInput-{{ section.id }}');
+
+      if (emailSubmitBtn) {
+        emailSubmitBtn.onclick = submitEmail;
+      }
+
+      if (emailInput) {
+        emailInput.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            submitEmail();
+          }
+        });
+      }
+
+      bindCloseBtn();
+    }
+
+    async function submitEmail() {
+      const emailInput = document.getElementById('emailInput-{{ section.id }}');
+      const submitBtn = document.getElementById('emailSubmitBtn-{{ section.id }}');
+      if (!emailInput || !submitBtn) return;
+
+      const email = emailInput.value.trim();
+      const reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!reg.test(email)) {
+        showToast('Please enter a valid email address', 'error');
+        return;
+      }
+
+      if (!quizSessionId) {
+        showToast('Session expired, please retry', 'error');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.classList.add('loading');
+      submitBtn.innerText = 'Submitting...';
+
+      try {
+        const data = await boosterFetch(
+          submitEmailApi,
+          {
+            sessionId: quizSessionId,
+            email,
+            origin: origin,
+          },
+          { method: 'POST' }
+        );
+
+        console.log('邮箱提交结果:', data);
+
+        if (data.code === 200) {
+          showToast('Email submitted successfully 🎉', 'success');
+          submitBtn.innerText = 'Submitted';
+          submitBtn.disabled = true;
+          emailInput.disabled = true;
+        } else {
+          submitBtn.disabled = false;
+          submitBtn.innerText = 'Submit';
+          showToast(data.msg || 'Submit failed', 'error');
+        }
+      } catch (error) {
+        console.error('submitEmail error:', error);
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Submit';
+        showToast('Network error, please retry', 'error');
+      } finally {
+        submitBtn.classList.remove('loading');
+        if (submitBtn.innerText !== 'Submitted') {
+          submitBtn.innerText = 'Submit';
+        }
+      }
+    }
+
+    function showToast(text, type = 'success') {
+      let toast = document.getElementById('quizToast-{{ section.id }}');
+
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'quizToast';
+
+        const modalContainer = sectionRoot.querySelector('.modal-container');
+        if (modalContainer) {
+          modalContainer.appendChild(toast);
+        } else {
+          document.body.appendChild(toast);
+        }
+      }
+
+      toast.innerHTML = `
+        <span class="toast-icon">${type === 'success' ? '✓' : '✕'}</span>
+        <span class="toast-text">${escapeHtml(text)}</span>
+      `;
+
+      toast.className = `quiz-toast show ${type}`;
+
+      clearTimeout(toast.timer);
+      toast.timer = setTimeout(() => {
+        toast.className = 'quiz-toast';
+      }, 2500);
+    }
+  })();
+  });
+</script>
+{% schema %}
+{
+  "name": "printing business survey",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "default": "star-products",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    }
+  ],
+  "blocks": [],
+
+  "presets": [
+    {
+      "name": "printing business survey",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}
