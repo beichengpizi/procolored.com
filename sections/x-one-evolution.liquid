@@ -1,24 +1,15 @@
 <style>
   .x-one-evolution-{{ section.id }}{
     background:#000;
-    padding-top:{{ section.settings.padding_top }}px;
-    padding-bottom:{{ section.settings.padding_bottom }}px;
+    padding-top: clamp(0px, calc(100vw * {{ section.settings.padding_top }} / 1920), {{ section.settings.padding_top | times: 2 }}px);
+    padding-bottom: clamp(0px, calc(100vw * {{ section.settings.padding_bottom }} / 1920), {{ section.settings.padding_bottom | times: 2 }}px);
   }
+
   /* ================= 主容器 ================= */
   .x-one-evolution-{{ section.id }} .evolution-section {
     width: 100%;
     position: relative;
-    height: 52.083vw;
-    min-height: 1000px;
-    max-height: 1000px;
-    background-image: url('{{ section.settings.image | image_url: width: 3840 }}');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    pointer-events: none;
-    overflow: hidden;
-    max-width: 1200px;
-    margin: 0 auto;
+    {% comment %} background-image: url('{{ section.settings.image | image_url: width: 3840 }}'); {% endcomment %}
   }
 
   .x-one-evolution-{{ section.id }} .evolution-container {
@@ -26,11 +17,11 @@
     z-index: 1;
   }
 
-  /* ================= 头部文字 ================= */
+  /* ================= 头部文字（PC按1920） ================= */
   .x-one-evolution-{{ section.id }} .header-content {
     text-align: center;
-    margin-bottom: 60px;
-    max-width: 1030px;
+    margin-bottom: clamp(32px, calc(100vw * 68 / 1920), 136px);
+    max-width: min(100%, clamp(720px, calc(100vw * 1200 / 1920), 2400px));
     margin-left: auto;
     margin-right: auto;
   }
@@ -38,35 +29,71 @@
   .x-one-evolution-{{ section.id }} .header-content-title {
     color: #ff8f1c;
     text-align: center;
-    font-size: 48px;
+    font-size: clamp(28px, calc(100vw * 48 / 1920), 96px);
     font-weight: 800;
     line-height: 120%;
-    margin-bottom: 24px;
+    margin-bottom: clamp(12px, calc(100vw * 24 / 1920), 48px);
   }
 
   .x-one-evolution-{{ section.id }} .header-content-subtitle {
     color: #898a8e;
     text-align: center;
-    font-size: 18px;
+    font-size: clamp(14px, calc(100vw * 18 / 1920), 30px);
     font-weight: 400;
     line-height: 150%;
+    max-width: min(100%, clamp(560px, calc(100vw * 760 / 1920), 1520px));
+    margin-left: auto;
+    margin-right: auto;
   }
 
   /* ================= 时间轴容器 ================= */
   .x-one-evolution-{{ section.id }} .timeline-wrapper {
     position: relative;
     z-index: 3;
+  }
 
+  .x-one-evolution-{{ section.id }} .timeline-bg-img {
+    position: relative;
+    width: 100%;
+    left: 0;
+    top: 0;
+  }
 
+  .x-one-evolution-{{ section.id }} .timeline-bg-img img {
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    min-height: clamp(360px, calc(100vw * 600 / 1920), 1200px);
+  }
+
+  .x-one-evolution-{{ section.id }} .timeline-bg-img img.pc {
+    display: block;
+    {% comment %} aspect-ratio: 96 / 43; {% endcomment %}
+  }
+
+  .x-one-evolution-{{ section.id }} .timeline-bg-img img.mb {
+    display: none;
+    {% comment %} aspect-ratio: 375 / 194; {% endcomment %}
+  }
+
+  .x-one-evolution-{{ section.id }} .timeline-content {
+    position: absolute;
+    max-width: min(100%, clamp(860px, calc(100vw * 1248 / 1920), 2496px));
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 clamp(16px, calc(100vw * 24 / 1920), 48px);
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
   }
 
   .x-one-evolution-{{ section.id }} .timeline {
     display: flex;
-    flex-direction: row-reverse;
-    /* PC端为主，反向排列 */
+    flex-direction: row;
     justify-content: space-between;
     position: relative;
-    padding: 0 66px;
+    gap: clamp(24px, calc(100vw * 80 / 1920), 160px);
   }
 
   /* PC端横线 */
@@ -74,7 +101,7 @@
     display: block;
     position: relative;
     height: 1px;
-    background: linear-gradient(to right, transparent 0%, #ff8f1c 10%, #ff8f1c 90%, transparent 100%);
+    background: linear-gradient(180deg, #FF8F1C 60%, rgba(255, 143, 28, 0.00) 100%);
     z-index: 1;
   }
 
@@ -87,7 +114,7 @@
     display: none;
   }
 
-  /* ================= 单个时间节点 (Item) ================= */
+  /* ================= 单个时间节点 ================= */
   .x-one-evolution-{{ section.id }} .timeline-item {
     width: 33%;
     padding-left: 0;
@@ -98,165 +125,168 @@
     position: relative;
   }
 
-  /* 大空心圆 (Big Circle) */
   .x-one-evolution-{{ section.id }} .big-circle {
-    width: 14px;
-    height: 14px;
-    border: 3px solid #ff8f1c;
-    border-radius: 50%;
+    width: clamp(12px, calc(100vw * 16 / 1920), 32px);
+    height: clamp(12px, calc(100vw * 16 / 1920), 32px);
+    border: clamp(1px, calc(100vw * 2 / 1920), 4px) solid #FF8F1C;
     background-color: #000;
-    position: absolute;
-    top: -7px;
-    left: 0;
-    z-index: 5;
-  }
-
-  /* PC端竖线 */
-  .x-one-evolution-{{ section.id }} .connector-vertical {
-    display: block;
-    width: 1px;
-    height: 93px;
-    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
     position: absolute;
     top: 0;
-    left: 7px;
-  }
-
-  /* 小圆点 */
-  .x-one-evolution-{{ section.id }} .small-dot {
-    width: 8px;
-    height: 8px;
-    background-color: #ff8f1c;
-    border-radius: 50%;
-    position: absolute;
-    left: 4px;
-    top: 88px;
+    left: 0;
+    transform: translateY(-50%);
     z-index: 5;
   }
 
   /* ================= 内容区域样式 ================= */
   .x-one-evolution-{{ section.id }} .item-content {
-    margin-top: 50px;
-    padding-left: 40px;
+    margin-top: clamp(20px, calc(100vw * 32 / 1920), 40px);
   }
 
   .x-one-evolution-{{ section.id }} .item-content h3 {
-    font-size: 24px;
+    font-size: clamp(18px, calc(100vw * 24 / 1920), 36px);
     font-weight: 800;
-    color: #fff;
-    margin-bottom: 10px;
-    line-height: 1;
-    margin-top: -4px;
+    line-height: 1.16;
+    margin-bottom: clamp(8px, calc(100vw * 16 / 1920), 24px);
+    margin-top: 0;
   }
 
-  /* 年份高亮色 */
   .x-one-evolution-{{ section.id }} .item-content h3.year-text {
     color: #fff;
-
   }
 
   .x-one-evolution-{{ section.id }} .item-content h4 {
     color: #fff;
-    font-size: 16px;
+    font-size: clamp(14px, calc(100vw * 18 / 1920), 24px);
     font-weight: 700;
-    line-height: 130%;
-    max-width: 210px;
-    margin-bottom: 4px;
+    line-height: 138%;
+    margin-bottom: clamp(6px, calc(100vw * 8 / 1920), 16px);
+    margin-top: 0;
   }
 
   .x-one-evolution-{{ section.id }} .item-content p {
-    color: #8e8e8e;
-    font-size: 16px;
+    color: #86868B;
+    font-size: clamp(12px, calc(100vw * 16 / 1920), 20px);
     font-weight: 400;
     line-height: 150%;
-    margin-bottom:0;
-    /* 24px */
+    margin-bottom: 0;
+    margin-top: 0;
   }
-  .x-one-evolution-{{ section.id }} .item-2025 .item-content h4 {
-    max-width: 240px;
-  }
+
   .x-one-evolution-{{ section.id }} .item-2025 .year-text {
     color: #ff8f1c;
   }
 
-  /* ================= 移动端适配: max-width 1023px ================= */
+  .x-one-evolution-{{ section.id }} .small-dot {
+    width: clamp(6px, calc(100vw * 8 / 1920), 16px);
+    height: clamp(6px, calc(100vw * 8 / 1920), 16px);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    position: absolute;
+    background-color: #ff8f1c;
+    border-radius: 50%;
+  }
+
+  /* ================= 移动端（按750设计稿响应） ================= */
   @media screen and (max-width: 768px) {
     .x-one-evolution-{{ section.id }}{
-      padding-top:{{ section.settings.padding_top_mobile }}px;
-      padding-bottom:{{ section.settings.padding_bottom_mobile }}px;
+      padding-top: clamp(0px, calc(100vw * {{ section.settings.padding_top_mobile }} / 750), {{ section.settings.padding_top_mobile }}px);
+      padding-bottom: clamp(0px, calc(100vw * {{ section.settings.padding_bottom_mobile }} / 750), {{ section.settings.padding_bottom_mobile }}px);
     }
+
     .x-one-evolution-{{ section.id }} .evolution-section {
-      width: 100vw;
+      width: 100%;
       position: relative;
-      min-height: 860px;
-      max-height: 950px;
-      height:229.33vw;
-      max-height: 860px;
-      background-image: url('{{ section.settings.mobile_image | image_url: width: 1500 }}');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      pointer-events: none;
-      overflow: hidden;
+      {% comment %} background-image: url('{{ section.settings.mobile_image | image_url: width: 1500 }}'); {% endcomment %}
     }
 
     .x-one-evolution-{{ section.id }} .header-content {
       text-align: left;
-      margin-bottom: 8px;
-      padding-left: 24px;
-      padding-right: 24px;
+      margin-bottom: clamp(24px, calc(100vw * 40 / 750), 40px);
+      padding-left: clamp(16px, calc(100vw * 40 / 750), 40px);
+      padding-right: clamp(16px, calc(100vw * 40 / 750), 40px);
+      max-width: 100%;
     }
 
     .x-one-evolution-{{ section.id }} .header-content-title {
       text-align: left;
-      font-size: 26px;
-      line-height: 130%;
-      margin-bottom: 16px;
+      font-size: clamp(22px, calc(100vw * 28 / 750), 28px);
+      line-height: 1.14;
+      font-weight: 800;
+      margin-bottom: clamp(8px, calc(100vw * 16 / 750), 16px);
     }
 
     .x-one-evolution-{{ section.id }} .header-content-subtitle {
+      color: #fff;
       text-align: left;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 130%;
+      font-size: clamp(12px, calc(100vw * 14 / 750), 14px);
+      font-weight: 600;
+      line-height: 1.57;
+      max-width: 100%;
     }
 
     .x-one-evolution-{{ section.id }} .timeline-wrapper {
-      padding: 0 24px;
+      padding: 0;
       margin-top: 0;
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    .x-one-evolution-{{ section.id }} .timeline-bg-img {
+      position: relative;
+    }
+
+    .x-one-evolution-{{ section.id }} .timeline-bg-img img {
+      min-height: auto;
+    }
+
+    .x-one-evolution-{{ section.id }} .timeline-bg-img img.pc {
+      display: none;
+    }
+
+    .x-one-evolution-{{ section.id }} .timeline-bg-img img.mb {
+      display: block;
+    }
+
+    .x-one-evolution-{{ section.id }} .timeline-content {
+      position: relative;
+      padding: 0 clamp(16px, calc(100vw * 40 / 750), 40px);
+      margin-bottom: clamp(16px, calc(100vw * 25 / 750), 25px);
+      max-width: 100%;
     }
 
     .x-one-evolution-{{ section.id }} .timeline {
       flex-direction: column;
       padding-right: 0;
-      padding-left: 5px;
-      padding-top: 24px;
-      padding-bottom: 24px;
-      /* 从上到下 */
+      padding-left: 0;
+      padding-top: clamp(6px, calc(100vw * 10 / 750), 10px);
+      padding-bottom: 0;
+      margin-left: calc(100vw * -7.5 / 750);
+      gap: clamp(20px, calc(100vw * 36 / 750), 36px);
     }
 
-    /* 横线隐藏 */
     .x-one-evolution-{{ section.id }} .pc-horizontal-line {
       display: none;
     }
 
-    /* 移动端显示竖线和虚线 */
     .x-one-evolution-{{ section.id }} .mobile-vertical-line {
       position: absolute;
-      top: 10px;
-      bottom: 50px;
-      left: 36px;
+      top: 0;
+      bottom: 0;
+      left: clamp(16px, calc(100vw * 40 / 750), 40px);
       width: 1px;
-      background: linear-gradient(to bottom, #ff8f1c 60%, transparent 100%);
+      background: linear-gradient(180deg, #FF8F1C 60%, rgba(255, 143, 28, 0.00) 100%);
       display: block;
     }
 
     .x-one-evolution-{{ section.id }} .connector-line {
       display: block;
       position: absolute;
-      left: 16px;
-      top: 8px;
-      width: 38px;
+      left: clamp(6px, calc(100vw * 16 / 750), 16px);
+      top: clamp(4px, calc(100vw * 8 / 750), 8px);
+      width: clamp(18px, calc(100vw * 38 / 750), 38px);
       height: 1px;
       border-top: 1px solid #888;
     }
@@ -264,282 +294,308 @@
     .x-one-evolution-{{ section.id }} .timeline-item {
       width: 100%;
       position: relative;
-      margin-bottom: 24px;
-      padding-left: 76px;
+      margin-bottom: 0;
+      padding-left: clamp(20px, calc(100vw * 41 / 750), 41px);
       display: block;
     }
 
     .x-one-evolution-{{ section.id }} .big-circle {
-      width: 16px;
-      height: 16px;
+      width: clamp(10px, calc(100vw * 16 / 750), 16px);
+      height: clamp(10px, calc(100vw * 16 / 750), 16px);
       left: 0;
       top: 0;
+      transform: none;
       position: absolute;
-      border: 2px solid #ff8f1c;
+      border: clamp(1px, calc(100vw * 2 / 750), 2px) solid #ff8f1c;
       border-radius: 50%;
       background-color: #000;
       z-index: 5;
     }
 
-    .x-one-evolution-{{ section.id }} .connector-vertical {
-      display: none;
-    }
-
     .x-one-evolution-{{ section.id }} .small-dot {
-      width: 8px;
-      height: 8px;
-      left: 50px;
-      top: 5px;
-      z-index: 5;
-      position: absolute;
-      background-color: #ff8f1c;
-      border-radius: 50%;
+      width: clamp(4px, calc(100vw * 8 / 750), 8px);
+      height: clamp(4px, calc(100vw * 8 / 750), 8px);
     }
 
     .x-one-evolution-{{ section.id }} .item-content {
-      margin-top: 0;
+      margin-top: calc(100vw * -4 / 750);
       padding-left: 0;
     }
 
     .x-one-evolution-{{ section.id }} .item-content h3.year-text {
-      font-size: 21px;
-      margin-bottom: 8px;
-      line-height: 130%;
+      font-size: clamp(16px, calc(100vw * 21 / 750), 21px);
+      margin-bottom: clamp(4px, calc(100vw * 8 / 750), 8px);
+      line-height: 1.19;
     }
 
     .x-one-evolution-{{ section.id }} .item-content h4 {
-      font-size: 14px;
-      margin-bottom: 4px;
+      font-size: clamp(12px, calc(100vw * 14 / 750), 14px);
+      margin-bottom: clamp(2px, calc(100vw * 4 / 750), 4px);
+      line-height: 130%;
       max-width: 100%;
     }
 
     .x-one-evolution-{{ section.id }} .item-content p {
-      font-size: 12px;
-      line-height: 130%;
+      font-size: clamp(10px, calc(100vw * 11 / 750), 11px);
+      line-height: 136%;
     }
+
     .x-one-evolution-{{ section.id }} .item-2025 .item-content h4 {
       max-width: 100%;
     }
+
+    .x-one-evolution-{{ section.id }} .item-2025 {
+      margin-bottom: clamp(6px, calc(100vw * 10 / 750), 10px);
+    }
   }
 </style>
-
-<div
-  id="{% if section.settings.nav_id != empty %}custom-nav-{{ section.settings.nav_id }}{% endif %}"
-  class="x-one-evolution-{{ section.id }}"
->
-  <div class="evolution-section">
-    <!-- <div class="bg-layer"></div> -->
-
-    <div class="evolution-container">
-      <!-- 头部 -->
-      <div class="header-content">
-        <div class="header-content-title">{{ section.settings.title }}</div>
-        <div class="header-content-subtitle">
-          {{ section.settings.subtitle }}
+  
+  <div
+    id="{% if section.settings.nav_id != empty %}custom-nav-{{ section.settings.nav_id }}{% endif %}"
+    class="x-one-evolution-{{ section.id }}"
+  >
+    <div class="evolution-section">
+      <!-- <div class="bg-layer"></div> -->
+  
+      <div class="evolution-container">
+        <!-- 头部 -->
+        <div class="header-content">
+          <div class="header-content-title">{{ section.settings.title }}</div>
+          <div class="header-content-subtitle">
+            {{ section.settings.subtitle }}
+          </div>
         </div>
-      </div>
-
-      <div class="timeline-wrapper">
-        <!-- 背景层 (单张背景图) -->
-
-        <!-- PC端顶部横线 (移动端隐藏) -->
-        <div class="pc-horizontal-line"></div>
-
-        <!-- 移动端左侧竖线 (PC端隐藏) -->
-        <div class="mobile-vertical-line"></div>
-
-        <div class="timeline">
-          <!--
-            HTML顺序：2023 -> 2024 -> 2025
-            移动端显示：2023在顶 (Flex Column)
-            PC端显示：2025在左 (Flex Row Reverse)
-          -->
-
-          <!-- Item 1: 2023 -->
-          <div class="timeline-item">
-            <div class="big-circle"></div>
-            <div class="connector-line"></div>
-            <!-- 移动端虚线 -->
-            <div class="connector-vertical"></div>
-            <!-- PC端竖线 -->
-            <div class="small-dot"></div>
-
-            <div class="item-content">
-              <h3 class="year-text">2023</h3>
-              <h4>Procolored V11 Pro UV Printer</h4>
-              <p>
-                {{ section.settings.content_1 }}
-              </p>
-            </div>
+  
+        <div class="timeline-wrapper">
+          <!-- 背景层 (单张背景图) -->
+          <div class="timeline-bg-img">
+            {% assign image_pc = section.settings.image %}
+            {% assign image_mb = section.settings.mobile_image %}
+            <img
+              data-sizes="100vw"
+              data-sizes="auto"
+              data-srcset="
+                {%- if image_pc.width >= 375 -%}{{ image_pc | image_url: width: 750 }} 375w,{%- endif -%}
+                {%- if image_pc.width >= 750 -%}{{ image_pc | image_url: width: 1500 }} 750w,{%- endif -%}
+                {%- if image_pc.width >= 1100 -%}{{ image_pc | image_url: width: 2200 }} 1100w,{%- endif -%}
+                {%- if image_pc.width >= 1500 -%}{{ image_pc | image_url: width: 3000 }} 1500w,{%- endif -%}
+                {%- if image_pc.width >= 1780 -%}{{ image_pc | image_url: width: 3560 }} 1780w,{%- endif -%}
+                {%- if image_pc.width >= 2000 -%}{{ image_pc | image_url: width: 4000 }} 2000w,{%- endif -%}
+                {%- if image_pc.width >= 3000 -%}{{ image_pc | image_url: width: 6000 }} 3000w,{%- endif -%}
+                {%- if image_pc.width >= 3840 -%}{{ image_pc | image_url: width: 3840 }} 3840w,{%- endif -%}
+  
+                {{ image_pc | image_url }} {{ image_pc.width }}w
+              "
+              data-src="{{ image_pc | image_url: width: 3000 }}"
+              style="aspect-ratio: {{ image_pc.aspect_ratio }};"
+              class="lazyload pc"
+              alt="{{ image_pc.alt }}"
+            >
+            <img
+              data-sizes="100vw"
+              data-sizes="auto"
+              data-srcset="
+                {%- if image_mb.width >= 375 -%}{{ image_mb | image_url: width: 750 }} 375w,{%- endif -%}
+                {%- if image_mb.width >= 750 -%}{{ image_mb | image_url: width: 1500 }} 750w,{%- endif -%}
+                {%- if image_mb.width >= 1100 -%}{{ image_mb | image_url: width: 2200 }} 1100w,{%- endif -%}
+                {%- if image_mb.width >= 1500 -%}{{ image_mb | image_url: width: 3000 }} 1500w,{%- endif -%}
+                {%- if image_mb.width >= 1780 -%}{{ image_mb | image_url: width: 3560 }} 1780w,{%- endif -%}
+                {%- if image_mb.width >= 2000 -%}{{ image_mb | image_url: width: 4000 }} 2000w,{%- endif -%}
+                {%- if image_mb.width >= 3000 -%}{{ image_mb | image_url: width: 6000 }} 3000w,{%- endif -%}
+                {%- if image_mb.width >= 3840 -%}{{ image_mb | image_url: width: 3840 }} 3840w,{%- endif -%}
+  
+                {{ image_mb | image_url }} {{ image_mb.width }}w
+              "
+              data-src="{{ image_mb | image_url: width: 750 }}"
+              style="aspect-ratio: {{ image_mb.aspect_ratio }};"
+              class="lazyload mb"
+              alt="{{ image_mb.alt }}"
+            >
           </div>
-
-          <!-- Item 2: 2024 -->
-          <div class="timeline-item">
-            <div class="big-circle"></div>
-            <div class="connector-line"></div>
-            <div class="connector-vertical"></div>
-            <div class="small-dot"></div>
-
-            <div class="item-content">
-              <h3 class="year-text">2024</h3>
-              <h4>Procolored VF13 Pro UV Printer</h4>
-              <p>
-                {{ section.settings.content_2 }}
-              </p>
-            </div>
-          </div>
-
-          <!-- Item 3: 2025 -->
-          <div class="timeline-item item-2025">
-            <div class="big-circle"></div>
-            <div class="connector-line"></div>
-            <div class="connector-vertical"></div>
-            <div class="small-dot"></div>
-
-            <div class="item-content">
-              <h3 class="year-text" style="color:#FF8F1C;">2025</h3>
-              <h4>X one UV Full-color Engraving Laser</h4>
-              <p>
-                {{ section.settings.content_3 }}
-              </p>
+          <div class="timeline-content">
+            <!-- PC端顶部横线 (移动端隐藏) -->
+            <div class="pc-horizontal-line"></div>
+  
+            <!-- 移动端左侧竖线 (PC端隐藏) -->
+            <div class="mobile-vertical-line"></div>
+  
+            <div class="timeline">
+              <!-- Item 1: 2023 -->
+              <div class="timeline-item">
+                <div class="big-circle"></div>
+                <div class="item-content">
+                  <h3 class="year-text">2023</h3>
+                  <h4>Procolored V11 Pro UV Printer</h4>
+                  <p>
+                    {{ section.settings.content_1 }}
+                  </p>
+                </div>
+              </div>
+  
+              <!-- Item 2: 2024 -->
+              <div class="timeline-item">
+                <div class="big-circle"></div>
+                <div class="item-content">
+                  <h3 class="year-text">2024</h3>
+                  <h4>Procolored VF13 Pro UV Printer</h4>
+                  <p>
+                    {{ section.settings.content_2 }}
+                  </p>
+                </div>
+              </div>
+  
+              <!-- Item 3: 2025 -->
+              <div class="timeline-item item-2025">
+                <div class="big-circle">
+                  <div class="small-dot"></div>
+                </div>
+                
+                <div class="item-content">
+                  <h3 class="year-text" style="color:#FF8F1C;">2025</h3>
+                  <h4>X one UV Full-color Engraving Laser</h4>
+                  <p>
+                    {{ section.settings.content_3 }}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-{% schema %}
-{
-  "name": "X one evolution",
-  "tag": "section",
-  "settings": [
-    {
-      "type": "text",
-      "id": "nav_id",
-      "label": "模块锚点ID",
-      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
-    },
-    {
-      "type": "html",
-      "id": "title",
-      "label": "大标题",
-      "default": "The Evolution of Procolored: Redefining the World of UV & Laser"
-    },
-    {
-      "type": "html",
-      "id": "subtitle",
-      "label": "小标题",
-      "default": "Evolution is about rewriting the rules. Procolored began in 2018 with a deep dive into UV precision. Today, we’ve mastered the synergy of UV and Laser, turning cross-process integration into systemic innovation. Every step we take is a leap toward creative production without boundaries."
-    },
-    {
-      "type": "html",
-      "id": "content_1",
-      "label": "文案1",
-      "default": "Setting the standard for high-fidelity desktop production. By perfecting dual-head UV integration, we made professional material printing accessible and reliable."
-    },
-    {
-      "type": "html",
-      "id": "content_2",
-      "label": "文案2",
-      "default": "Bridging the gap between printing and lamination. This hybrid solution mastered UV-DTF technology, unlocking the power to decorate curved surfaces."
-    },
-    {
-      "type": "html",
-      "id": "content_3",
-      "label": "文案3",
-      "default": "The ultimate realization of systemic innovation. By unifying UV, Laser, and UV-DTF into one intelligent ecosystem. We have redefined the next-gen industrial powerhouse."
-    },
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "背景图片（PC端）"
-    },
-    {
-      "type": "image_picker",
-      "id": "mobile_image",
-      "label": "背景图片（移动端）"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 200,
-      "step": 2,
-      "unit": "px",
-      "label": "顶部填充",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "padding_top_mobile",
-      "min": 0,
-      "max": 200,
-      "step": 2,
-      "unit": "px",
-      "label": "顶部填充(移动端)",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 200,
-      "step": 2,
-      "unit": "px",
-      "label": "底部填充",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom_mobile",
-      "min": 0,
-      "max": 200,
-      "step": 2,
-      "unit": "px",
-      "label": "底部填充(移动端)",
-      "default": 0
-    }
-  ],
-  "blocks": [
-    {
-      "type": "image",
-      "name": "图片",
-      "settings": [
-        {
-          "id": "event_tracking",
-          "type": "text",
-          "label": "埋点触发事件（触发时机：点击）",
-          "info": "例如：Click_ShopNow_SF_oven"
-        },
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "图片（PC端）"
-        },
-        {
-          "type": "image_picker",
-          "id": "mobile_image",
-          "label": "图片（移动端）"
-        },
-        {
-          "type": "html",
-          "id": "heading",
-          "label": "主标题"
-        },
-        {
-          "type": "html",
-          "id": "content",
-          "label": "内容"
-        }
-      ]
-    }
-  ],
-  "max_blocks": 20,
-  "presets": [
-    {
-      "name": "X one evolution"
-    }
-  ]
-}
-{% endschema %}
+  {% schema %}
+  {
+    "name": "X one evolution",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "nav_id",
+        "label": "模块锚点ID",
+        "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+      },
+      {
+        "type": "html",
+        "id": "title",
+        "label": "大标题",
+        "default": "The Evolution of Procolored: Redefining the World of UV & Laser"
+      },
+      {
+        "type": "html",
+        "id": "subtitle",
+        "label": "小标题",
+        "default": "Evolution is about rewriting the rules. Procolored began in 2018 with a deep dive into UV precision. Today, we’ve mastered the synergy of UV and Laser, turning cross-process integration into systemic innovation. Every step we take is a leap toward creative production without boundaries."
+      },
+      {
+        "type": "html",
+        "id": "content_1",
+        "label": "文案1",
+        "default": "Setting the standard for high-fidelity desktop production. By perfecting dual-head UV integration, we made professional material printing accessible and reliable."
+      },
+      {
+        "type": "html",
+        "id": "content_2",
+        "label": "文案2",
+        "default": "Bridging the gap between printing and lamination. This hybrid solution mastered UV-DTF technology, unlocking the power to decorate curved surfaces."
+      },
+      {
+        "type": "html",
+        "id": "content_3",
+        "label": "文案3",
+        "default": "The ultimate realization of systemic innovation. By unifying UV, Laser, and UV-DTF into one intelligent ecosystem. We have redefined the next-gen industrial powerhouse."
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "背景图片（PC端）"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_image",
+        "label": "背景图片（移动端）"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "顶部填充",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mobile",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "顶部填充(移动端)",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "底部填充",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mobile",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "底部填充(移动端)",
+        "default": 0
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "图片",
+        "settings": [
+          {
+            "id": "event_tracking",
+            "type": "text",
+            "label": "埋点触发事件（触发时机：点击）",
+            "info": "例如：Click_ShopNow_SF_oven"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "图片（PC端）"
+          },
+          {
+            "type": "image_picker",
+            "id": "mobile_image",
+            "label": "图片（移动端）"
+          },
+          {
+            "type": "html",
+            "id": "heading",
+            "label": "主标题"
+          },
+          {
+            "type": "html",
+            "id": "content",
+            "label": "内容"
+          }
+        ]
+      }
+    ],
+    "max_blocks": 20,
+    "presets": [
+      {
+        "name": "X one evolution"
+      }
+    ]
+  }
+  {% endschema %}
+  

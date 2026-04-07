@@ -50,7 +50,10 @@
   .product-section-mobile .badge-sold-out {
     color: #666 !important;
   }
-
+  .product-section-mobile.third {
+    flex-direction: column;
+    gap: 0.625rem;
+  }
   .product-section-item-mobile .badge-new-arrival {
     color: #da291c;
   }
@@ -159,7 +162,7 @@
                               <div class="full-menu-mobile product-section-mobile third">
                                 {% for collection in collections %}
                                   {% if collection.url == l.url %}
-                                    {% for prod in collection.products limit: 1 %}
+                                    {% for prod in collection.products limit: 2 %}
                                       {% assign prod_url = prod.url %}
                                       {% if prod.metafields.custom.learn_more_link.value.url %}
                                         {% assign prod_url = prod.metafields.custom.learn_more_link.value.url %}
@@ -267,7 +270,7 @@
                               <div class="full-menu-mobile product-section-mobile second">
                                 {% for collection in collections %}
                                   {% if collection.url == l.url %}
-                                    {% for prod in collection.products offset: 1 limit: 1 %}
+                                    {% for prod in collection.products offset: 2 limit: 1 %}
                                       {% assign prod_url = prod.url %}
                                       {% if prod.metafields.custom.learn_more_link.value.url %}
                                         {% assign prod_url = prod.metafields.custom.learn_more_link.value.url %}
@@ -377,7 +380,7 @@
                                 {% for collection in collections %}
                                   {% if collection.url == l.url %}
                                     {% assign show_badge = false %}
-                                    {% for prod in collection.products offset: 2 limit: 3 %}
+                                    {% for prod in collection.products offset: 3 limit: 3 %}
                                       {% assign prod_tags = prod.tags | downcase %}
 
                                       {% if prod_tags contains 'save'
@@ -409,7 +412,7 @@
                                         }
                                       </style>
                                     {% endunless %}
-                                    {% for prod in collection.products offset: 2 limit: 3 %}
+                                    {% for prod in collection.products offset: 3 limit: 3 %}
                                       {% assign prod_url = prod.url %}
                                       {% if prod.metafields.custom.learn_more_link.value.url %}
                                         {% assign prod_url = prod.metafields.custom.learn_more_link.value.url %}
@@ -854,7 +857,7 @@
             </div>
             <div class="!border-x-0 !border-b-0">
               <ul class="p-4 ml-4 list-none m-0 text-sm text-gray-600">
-                <li>Poins rewards</li>
+                <li>Points Rewards</li>
                 <li>10% off consumables</li>
                 <li>Free Training Class</li>
                 <li>Free Trials</li>

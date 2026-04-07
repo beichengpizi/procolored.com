@@ -339,36 +339,11 @@
 
     document.querySelector("#shopify-section-{{ section.id }} .remind-button")
       .addEventListener('click', function() {
-
-        if (customerId != "") {
-          // ✅ 已登录：直接提交到 Klaviyo
-          console.log('已登录，直接提交邮箱');
-
-          window._learnq = window._learnq || [];
-          window._learnq.push([
-            'identify',
-            {
-              '$email': customerEmail
-            }
-          ]);
-
-          // 👉 可选：记录一个事件（方便做 flow）
-          window._learnq.push([
-            'track',
-            'Subscribed HeroUnit',
-            {
-              email: customerEmail
-            }
-          ]);
-          
-          document.querySelector("#shopify-section-{{ section.id }} #subscribe-successful").style.display = "flex";
-        } else {
-          // ❌ 未登录：弹出表单
-          console.log('未登录，弹窗');
-
-          window._klOnsite = window._klOnsite || [];
-          window._klOnsite.push(['openForm', 'SFFuRY']);
-        }
+        console.log('openForm');
+        
+        // 1. 打开 Klaviyo 表单
+        window._klOnsite = window._klOnsite || [];
+        window._klOnsite.push(['openForm', 'SFFuRY']); // 你的表单ID
     });
 
     document.querySelector("#shopify-section-{{ section.id }} .close-button").addEventListener('click', function() {

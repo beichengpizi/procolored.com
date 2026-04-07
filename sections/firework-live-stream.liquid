@@ -348,180 +348,224 @@ src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UZTJ3d">
 </script>
 
 <script>
-  
   let targetTime = '';
+  let timer;
+
   $(document).ready(function () {
-    const channel = '{{ section.settings.channel }}';
-    const playlist_ID = '{{ section.settings.playlist_ID }}';
     const section = document.querySelector('#fw_combined_player-{{ section.id }}');
 
-    fetch(`https://cdn1-api.fireworktv.com/embed/v2/playlists/${playlist_ID}/feeds?page_size=10&n=1&_=1772100713403`).then(response => {
-      if (!response.ok) {
-        throw new Error('网络请求失败');
-      }
-      return response.json();
-    }).then(data => {
-        targetTime = new Date(data.feed_items[0].video.started_at).getTime();
-        data.feed_items.forEach((item, index) => {
-            if (section && channel != '' && playlist_ID != '' && index <= 3) {
-                // 页面加载时检查是否显示浮窗
-                const player = document.createElement("span");
-                // 插入fw-herounit播放器到页面
-                player.innerHTML = `
-                <div class="live-stream-item">
-                    <div class="live-stream-image first-live-stream-image ${checkFirstLive(index, true)}">
-                        <img src="{{ section.settings.first_live_stream_image | img_url: 'master' }}" alt="" width="100%" height="100%">
-                        <div class="starting-soon-label">
-                            Starting soon
-                        </div>
-                        <div class="countdown-wrapper">
-                            <div class="count-box">
-                                <div class="count-number" id="days">00</div>
-                                <div class="count-label">Days</div>
-                            </div>
+    const manualTimes = [
+      {% for block in section.blocks %}
+        {% if block.settings.time != blank %}
+          "{{ block.settings.time }}",
+        {% endif %}
+      {% endfor %}
+    ];
 
-                            <div class="count-box">
-                                <div class="count-number" id="hours">00</div>
-                                <div class="count-label">Hrs</div>
-                            </div>
+    function parseManualTimeToUTC(str) {
+      if (!str) return null;
 
-                            <div class="count-box">
-                                <div class="count-number" id="minutes">00</div>
-                                <div class="count-label">Mins</div>
-                            </div>
+      // 按 PT 解析
+      const [datePart, timePart] = str.split(" ");
+      if (!datePart || !timePart) return null;
 
-                            <div class="count-box">
-                                <div class="count-number" id="seconds">00</div>
-                                <div class="count-label">Secs</div>
-                            </div>
-                        </div>
-                    </div>
+      const [year, month, day] = datePart.split("-").map(Number);
+      const [hour, minute] = timePart.split(":").map(Number);
 
-                    <div class="live-stream-image ${checkFirstLive(index, false)}">
-                      <img src="{{ section.settings.live_stream_image | img_url: 'master' }}" alt="" width="100%" height="100%">
-                      <div class="starting-soon-label">
-                          next live
-                      </div>
-                    </div>
-
-                    <div class="live-stream-content">
-                        <div class="live-stream-title">
-                            ${item.video.caption}
-                        </div>
-
-                        <div class="live-stream-time-wrapper">
-                            <div class="live-stream-date">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M5.33331 1.33337V4.00004" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M10.6667 1.33337V4.00004" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M12.6667 2.66663H3.33333C2.59695 2.66663 2 3.26358 2 3.99996V13.3333C2 14.0697 2.59695 14.6666 3.33333 14.6666H12.6667C13.403 14.6666 14 14.0697 14 13.3333V3.99996C14 3.26358 13.403 2.66663 12.6667 2.66663Z" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M2 6.66663H14" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-
-                                <span class="live-stream-date-text">
-                                    ${formatToPT(item.video.started_at)}
-                                </span>
-                            </div>
-
-                            <div class="live-stream-date">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <g clip-path="url(#clip0_9866_9125)">
-                                        <path d="M7.99998 14.6667C11.6819 14.6667 14.6666 11.6819 14.6666 8.00004C14.6666 4.31814 11.6819 1.33337 7.99998 1.33337C4.31808 1.33337 1.33331 4.31814 1.33331 8.00004C1.33331 11.6819 4.31808 14.6667 7.99998 14.6667Z" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M8 4V8L10.6667 9.33333" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_9866_9125">
-                                        <rect width="16" height="16" fill="white"/>
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-
-                                <span class="live-stream-time-text">${formatTimeToPT(item.video.started_at)}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
-                section.appendChild(player);
-                section.querySelectorAll(".live-stream-button").forEach((item) => {
-                  item.addEventListener('click', () => {
-                    console.log('customer data', JSON.parse(window.localStorage.getItem("smile_shopify_data")));
-                    if(JSON.parse(window.localStorage.getItem("smile_shopify_data")) == undefined) {
-                      const modalLogin = document.querySelector("modal-login");
-                      if (modalLogin) {
-                        const loginForm = modalLogin.showModal(
-                          modalLogin.fetchForm.login.innerHTML
-                        );
-                        modalLogin.loginBindEvent(loginForm.el);
-                      } else {
-                        console.warn("modalLogin 元素不存在");
-                      }
-                    } 
-                    
-                    const streamTime = item.getAttribute("data-time");
-
-                    // 1️⃣ 识别用户 + 保存预约时间
-                    _learnq.push(["identify", {
-                      "$email": JSON.parse(window.localStorage.getItem("smile_shopify_data")).customer.email,
-                      "live_stream_reminder": streamTime
-                    }]);
-
-                    // 2️⃣ 记录预约事件（可选）
-                    _learnq.push(["track", "Live Stream Reminder Booked", {
-                      stream_time: streamTime
-                    }]);
-
-                    alert("You're booked! We'll remind you before the stream.");
-                  });
-                });
-                updateCountdown();
-                const timer = setInterval(updateCountdown, 1000);
-            } else {
-                console.log('#fw-player 不存在');
-            }
-        });
-    });
-  });
-
-  function formStartDate(date) {
-    return date.split("T")[0];
-  }
-
-  function checkFirstLive(index, show) {
-    if(index == 0) {
-        return show ? '' : 'hidden';
+      // PT → UTC（这里用 +7，简单稳定）
+      return new Date(Date.UTC(year, month - 1, day, hour + 7, minute || 0, 0));
     }
-    else return show ? 'hidden' : '';
-  }
 
-  function formatLabel(index) {
-    return index == 0 ? 'Starting Soon' : 'next live';
-  }
+    // 计算下一个周三的时间（考虑时区和夏令时）
+    function getNextWednesdayTime() {
+      // 当前 PT 时间（伪PT）
+      const now = new Date();
+      const nowPT = new Date(now.toLocaleString("en-US", {
+        timeZone: "America/Los_Angeles"
+      }));
+
+      const day = nowPT.getDay();
+      let diff = (3 - day + 7) % 7;
+      if (diff === 0) diff = 7;
+
+      // 👉 先算“日期”
+      const targetPT = new Date(nowPT);
+      targetPT.setDate(nowPT.getDate() + diff);
+
+      // 👉 再构造 UTC 时间（关键）
+      const year = targetPT.getFullYear();
+      const month = targetPT.getMonth();
+      const date = targetPT.getDate();
+
+      // PT 18:00 → 转成 UTC（+7 或 +8 小时）
+      const utcDate = new Date(Date.UTC(year, month, date, 18 + 7, 0, 0));
+
+      return utcDate;
+    }
+
+    // 生成未来的4场直播时间
+    const liveTimes = [];
+
+    // 1️⃣ 自动生成未来直播（多生成几个，保证够用）
+    for (let i = 0; i < 6; i++) {
+      const base = getNextWednesdayTime();
+      const t = new Date(base);
+      t.setDate(t.getDate() + 7 * i);
+      liveTimes.push(t);
+    }
+
+    // 2️⃣ 加入手动 block 时间
+    manualTimes.forEach(str => {
+      const t = parseManualTimeToUTC(str);
+      if (t && !isNaN(t)) {
+        liveTimes.push(t);
+      }
+    });
+
+    // 3️⃣ 排序（从近到远）
+    liveTimes.sort((a, b) => a - b);
+
+    // 4️⃣ 只保留未来时间
+    const now = Date.now();
+    const filtered = liveTimes.filter(t => t.getTime() > now);
+
+    // 5️⃣ 只取前4个
+    const finalLiveTimes = filtered.slice(0, 4);
+
+    finalLiveTimes.forEach((time, index) => {
+      const section = document.querySelector('#fw_combined_player-{{ section.id }}');
+
+      if (section && index < 4) {
+        const player = document.createElement("span");
+        const isNextLive = time > new Date(); // 判断是否是未来的直播（未开始的）
+
+        player.innerHTML = `
+        <div class="live-stream-item">
+          <div class="live-stream-image first-live-stream-image ${checkFirstLive(index, true)}">
+            <img src="{{ section.settings.first_live_stream_image | img_url: 'master' }}" alt="" width="100%" height="100%">
+            <div class="starting-soon-label">
+                ${isNextLive ? 'Starting soon' : ''}
+            </div>
+            ${isNextLive ? `
+            <div class="countdown-wrapper">
+              <div class="count-box">
+                  <div class="count-number" id="days-${index}">00</div>
+                  <div class="count-label">Days</div>
+              </div>
+
+              <div class="count-box">
+                  <div class="count-number" id="hours-${index}">00</div>
+                  <div class="count-label">Hrs</div>
+              </div>
+
+              <div class="count-box">
+                  <div class="count-number" id="minutes-${index}">00</div>
+                  <div class="count-label">Mins</div>
+              </div>
+
+              <div class="count-box">
+                  <div class="count-number" id="seconds-${index}">00</div>
+                  <div class="count-label">Secs</div>
+              </div>
+            </div>
+            ` : ''}
+          </div>
+
+          <div class="live-stream-image ${checkFirstLive(index, false)}">
+            <img src="{{ section.settings.live_stream_image | img_url: 'master' }}" alt="" width="100%" height="100%">
+            <div class="starting-soon-label">
+                ${index == 0 ? 'Starting Soon' : 'next live'}
+            </div>
+          </div>
+
+          <div class="live-stream-content">
+              <div class="live-stream-time-wrapper">
+                  <div class="live-stream-date">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <path d="M5.33331 1.33337V4.00004" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M10.6667 1.33337V4.00004" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M12.6667 2.66663H3.33333C2.59695 2.66663 2 3.26358 2 3.99996V13.3333C2 14.0697 2.59695 14.6666 3.33333 14.6666H12.6667C13.403 14.6666 14 14.0697 14 13.3333V3.99996C14 3.26358 13.403 2.66663 12.6667 2.66663Z" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M2 6.66663H14" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+
+                      <span class="live-stream-date-text">
+                          ${formatToPT(time)}
+                      </span>
+                  </div>
+
+                  <div class="live-stream-date">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <g clip-path="url(#clip0_9866_9125)">
+                              <path d="M7.99998 14.6667C11.6819 14.6667 14.6666 11.6819 14.6666 8.00004C14.6666 4.31814 11.6819 1.33337 7.99998 1.33337C4.31808 1.33337 1.33331 4.31814 1.33331 8.00004C1.33331 11.6819 4.31808 14.6667 7.99998 14.6667Z" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M8 4V8L10.6667 9.33333" stroke="#4A5565" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                          </g>
+                          <defs>
+                              <clipPath id="clip0_9866_9125">
+                              <rect width="16" height="16" fill="white"/>
+                              </clipPath>
+                          </defs>
+                      </svg>
+
+                      <span class="live-stream-time-text">${formatTimeToPT(time)}</span>
+                  </div>
+              </div>
+          </div>
+        </div>`;
+
+        // 添加到页面
+        section.appendChild(player);
+
+        // 如果是下一个直播，设置倒计时
+        if (index == 0) {
+          targetTime = time.getTime();
+          timer = setInterval(updateCountdown, 1000);
+        }
+      }
+    });
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      
+      const diff = targetTime - now;
+      console.log(new Date(targetTime).toLocaleString(), 'readable');
+      if (diff <= 0) {
+        document.querySelectorAll(".count-number").forEach((el) => el.innerText = "00");
+        clearInterval(timer);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.querySelector(`#days-0`).innerText = String(days).padStart(2, "0");
+      document.querySelector(`#hours-0`).innerText = String(hours).padStart(2, "0");
+      document.querySelector(`#minutes-0`).innerText = String(minutes).padStart(2, "0");
+      document.querySelector(`#seconds-0`).innerText = String(seconds).padStart(2, "0");
+    }
+  });
 
   function formatToPT(dateString) {
     const date = new Date(dateString);
-
-    // 转换为太平洋时间
     const options = {
-        timeZone: 'America/Los_Angeles',
-        month: 'short',
-        day: 'numeric'
+      timeZone: 'America/Los_Angeles',
+      month: 'short',
+      day: 'numeric',
     };
-
     const formatter = new Intl.DateTimeFormat('en-US', options);
     const parts = formatter.formatToParts(date);
-
     const month = parts.find(p => p.type === 'month').value;
     const day = parseInt(parts.find(p => p.type === 'day').value);
 
-    // 添加序数后缀
     function getOrdinal(n) {
-        if (n > 3 && n < 21) return 'th';
-        switch (n % 10) {
+      if (n > 3 && n < 21) return 'th';
+      switch (n % 10) {
         case 1: return 'st';
         case 2: return 'nd';
         case 3: return 'rd';
         default: return 'th';
-        }
+      }
     }
 
     return `${month} ${day}${getOrdinal(day)} (PT)`;
@@ -529,44 +573,20 @@ src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UZTJ3d">
 
   function formatTimeToPT(dateString) {
     const date = new Date(dateString);
-
     const formatter = new Intl.DateTimeFormat('en-GB', {
-        timeZone: 'America/Los_Angeles',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false // 24小时制
+      timeZone: 'America/Los_Angeles',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
     });
-
     return formatter.format(date);
   }
 
-  // 🎯 设置目标时间（UTC时间示例）
-
-  function updateCountdown() {
-    const now = new Date().getTime();
-    const diff = targetTime - now;
-    const section = document.querySelector('#fw_combined_player-{{ section.id }}');
-
-    if (diff <= 0) {
-      section.querySelector("#days").innerText = "00";
-      section.querySelector("#hours").innerText = "00";
-      section.querySelector("#minutes").innerText = "00";
-      section.querySelector("#seconds").innerText = "00";
-      clearInterval(timer);
-      return;
-    }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    section.querySelector("#days").innerText = String(days).padStart(2, "0");
-    section.querySelector("#hours").innerText = String(hours).padStart(2, "0");
-    section.querySelector("#minutes").innerText = String(minutes).padStart(2, "0");
-    section.querySelector("#seconds").innerText = String(seconds).padStart(2, "0");
+  function checkFirstLive(index, show) {
+    return index === 0 ? (show ? '' : 'hidden') : (show ? 'hidden' : '');
   }
 </script>
+
 
 {% schema %}
 {
@@ -624,6 +644,20 @@ src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UZTJ3d">
       "label": "Playlist ID",
       "default": "gOdre6",
       "info": "[How to find Channel and Playlist ID](https://help.firework.com/leveraging-the-shopify-embed-app)"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "LiveStream",
+      "type": "live_stream",
+      "settings": [
+        {
+          "type": "text",
+          "id": "time",
+          "label": "直播时间",
+          "info": "时间格式：2026-04-01 18:00"
+        }
+      ]
     }
   ],
   "presets": [

@@ -298,6 +298,7 @@
     border: 1px solid rgba(0, 0, 0, 0.50);
     opacity: 0.5;
     cursor: not-allowed;
+    display:none;
   }
 
   /* ===== Result Page ===== */
@@ -781,13 +782,15 @@
       border-radius: 99px;
       border: 1px solid #000;
       background: #fff;
+      display:inline-block;
     }
 
     .printing-business-survey-{{ section.id }} #backBtn-{{ section.id }}:disabled {
-      border: 1px solid #eee;
+      {% comment %} border: 1px solid #eee;
       background: #eee;
       opacity: 0.5;
-      cursor: not-allowed;
+      cursor: not-allowed; {% endcomment %}
+      display:none;
     }
 
     /* ===== Result Page ===== */
@@ -1309,7 +1312,7 @@
       productId = '';
 
       nextBtn.style.display = 'inline-block';
-      backBtn.style.display = 'inline-block';
+      {% comment %} backBtn.style.display = 'inline-block'; {% endcomment %}
       nextBtn.disabled = false;
       backBtn.disabled = true;
 
@@ -1365,7 +1368,7 @@
         isResultPage = false;
 
         nextBtn.style.display = 'inline-block';
-        backBtn.style.display = 'inline-block';
+        {% comment %} backBtn.style.display = 'inline-block'; {% endcomment %}
         nextBtn.disabled = false;
         backBtn.disabled = true;
         setFooterVisible(true);
