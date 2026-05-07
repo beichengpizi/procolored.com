@@ -290,7 +290,7 @@ class ModuleSwitcher {
 
       const img = document.createElement("img");
       img.alt = data.alt || "";
-      img.loading = "eager";
+      img.loading = "lazy";
       img.style.opacity = "0";
       img.style.transition = "opacity 0.3s";
       img.style.width = "100%";
@@ -315,7 +315,7 @@ class ModuleSwitcher {
       videoDiv.style.width = "100%";
 
       const video = document.createElement("video");
-      video.preload = "auto";
+      video.preload = "none";
       video.muted = true;
       video.controls = false; // 永远不显示控制条
       video.style.background = "#000";
@@ -473,7 +473,7 @@ const moduleData2 = {
     subheading: "Color Precision",
     title: "Procolored Studio Lite",
     subtitle: "Professional RIP Program",
-    description: "Prcolored Studio Lite automatically detects image formats, accurately distinguishes between RGB and CMYK color modes, and intelligently matches preset color curves to ensure each hue is accurately translated onto the final print. It's easy for beginners to achieve high-quality results with precise and professional color reproduction.",
+    description: "Procolored Studio Lite automatically detects image formats, accurately distinguishes between RGB and CMYK color modes, and intelligently matches preset color curves to ensure each hue is accurately translated onto the final print. It's easy for beginners to achieve high-quality results with precise and professional color reproduction.",
     type: "video",
     src: "https://cdn.shopify.com/videos/c/o/v/d0bef47aaa5e4e2ea343c6204d96044d.mp4",
   },

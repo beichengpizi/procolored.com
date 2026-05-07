@@ -1,60 +1,77 @@
 {% liquid
-  if section.settings.row == 2
-  assign row = 'lg:grid-cols-2'
-  endif
-  if section.settings.row == 3
-    assign row = 'lg:grid-cols-3'
-  endif
+  assign row_count = section.settings.row | default: 4
 
-  if section.settings.row == 4
-    assign row = 'lg:grid-cols-4'
-  endif
+  case row_count
+    when 2
+      assign row = 'lg:grid-cols-2'
+    when 3
+      assign row = 'lg:grid-cols-3'
+    when 4
+      assign row = 'lg:grid-cols-4'
+    when 5
+      assign row = 'lg:grid-cols-5'
+    else
+      assign row = 'lg:grid-cols-4'
+  endcase
 
-  if section.settings.row == 5
-    assign row = 'lg:grid-cols-5'
-  endif
+  assign footer_button_href = section.settings.button_link | default: '#'
 %}
 
 <div
   class="member-benefits-wrap-{{ section.id }}"
   data-section-type="member-benefits"
-  style="background-color: {{ section.settings.bg_color }};"
+  style="background: {{ section.settings.bg_color }};"
 >
-  <div class="member-benefits-container-{{ section.id }} swiper">
-    <h2 class="heading  m-0  {{ section.settings.heading_font_family }}">{{ section.settings.headding }}</h2>
+  <div
+    class="member-benefits-container-{{ section.id }} swiper swiper-container"
+    data-member-benefits-container="{{ section.id }}"
+  >
+    <h2 class="heading m-0 {{ section.settings.heading_font_family }}">
+      {{ section.settings.headding }}
+    </h2>
+
     {% if section.settings.descriptiton != blank %}
-    <p>{{ section.settings.descriptiton }}</p>
+      <div class="member-benefits-description-{{ section.id }} {{ section.settings.desc_font_family }}">
+        {{ section.settings.descriptiton }}
+      </div>
     {% endif %}
 
-    <div class="member-benefits-content w-full   inline-grid md:grid-cols-2  {{ row }} swiper-wrapper">
+    <div class="member-benefits-content w-full inline-grid md:grid-cols-2 {{ row }} swiper-wrapper">
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when 'member' -%}
-            <div class="swiper-slide">
+            <div class="swiper-slide" {{ block.shopify_attributes }}>
               {% render 'member-benefits', type: 'member', block: block %}
             </div>
           {%- else -%}
-            <div class="swiper-slide">
+            <div class="swiper-slide" {{ block.shopify_attributes }}>
               {% render 'member-benefits', type: 'item', block: block %}
             </div>
         {%- endcase -%}
       {%- endfor -%}
     </div>
-    {% if section.settings.button_text != empty %}
-      < {%- if customer -%}div{%- else -%}modal-login client:idle{%- endif %}  class="member-benefits-wrap-{{ section.id }}__footer">
-        
-        <a
-          data-login
-          class="member-benefits-wrap-{{ section.id }}_footer_button"
-          href="{%- if customer -%}
-          {{ section.settings.button_link | default: '#' }}
-        {%- else -%}
-         /account
-        {% endif %}"
-        >
-          {{ section.settings.button_text }}
-        </a>
-      </{%- if customer -%}div{%- else -%}modal-login{%- endif -%}>
+
+    {% if section.settings.button_text != blank %}
+      {% if customer %}
+        <div class="member-benefits-wrap-{{ section.id }}__footer">
+          <a
+            class="member-benefits-wrap-{{ section.id }}_footer_button"
+            href="{{ footer_button_href }}"
+          >
+            {{ section.settings.button_text }}
+          </a>
+        </div>
+      {% else %}
+        <modal-login client:idle class="member-benefits-wrap-{{ section.id }}__footer">
+          <a
+            data-login
+            class="member-benefits-wrap-{{ section.id }}_footer_button"
+            href="/account"
+          >
+            {{ section.settings.button_text }}
+          </a>
+        </modal-login>
+      {% endif %}
     {% endif %}
 
     <div class="swiper-pagination"></div>
@@ -62,281 +79,410 @@
 </div>
 
 <script>
-  var swiper = new Swiper(".member-benefits-container-{{ section.id }}", {
-    slidesPerView: 4,
-    spaceBetween: 16,
-    slidesOffsetAfter: 0,
-    slidesOffsetBefore: 0,
-    allowTouchMove: false,
-    pagination: {
-      el: ".member-benefits-container-{{ section.id }} .swiper-pagination",
-      clickable: true,
-    },
-    breakpoints: {
-      768: {
-        slidesPerView: 1.2,
-        spaceBetween: 16,
-        slidesOffsetAfter: 24,
-        slidesOffsetBefore: 24,
-        allowTouchMove: true,
-      },
-    },
-  });
-</script>
-<style>
-      .member-benefits-wrap-{{ section.id }}{
-        padding-top:{{section.settings.padding_top}}px;
-        padding-bottom:{{section.settings.padding_bottom}}px;
+  (() => {
+    const sectionId = '{{ section.id }}';
+    const containerSelector = '.member-benefits-container-{{ section.id }}';
+    const mobileQuery = window.matchMedia('(max-width: 768px)');
+    const rowCount = {{ section.settings.row | default: 4 }};
+    const desktopGap = {{ section.settings.item_gap | default: 16 }};
+    const mobileGap = {{ section.settings.item_gap_mobile | default: 16 }};
+    const maxRetryCount = 20;
 
-      }
-      .member-benefits-container-{{ section.id }}{
-        {% if section.settings.section_max_width != 'none' %}
-          max-width: {{ section.settings.section_max_width }}px;
-          margin: 0 auto;
-        {% endif %}
-  
-        width: 100%;
-       
+    let retryCount = 0;
+    let swiperInstance = null;
+    let currentMode = '';
+    let resizeTimer = null;
+
+    const getContainer = () => document.querySelector(containerSelector);
+
+    const getMode = () => {
+      return mobileQuery.matches ? 'mobile' : 'desktop';
+    };
+
+    const getSwiperOptions = () => {
+      const isMobile = mobileQuery.matches;
+
+      return {
+        slidesPerView: isMobile ? 1.2 : rowCount,
+        spaceBetween: isMobile ? mobileGap : desktopGap,
+        slidesOffsetBefore: isMobile ? 24 : 0,
+        slidesOffsetAfter: isMobile ? 24 : 0,
+        allowTouchMove: isMobile,
+        watchOverflow: true,
+        observer: true,
+        observeParents: true,
+        pagination: {
+          el: `${containerSelector} .swiper-pagination`,
+          clickable: true,
+        },
+      };
+    };
+
+    const destroySwiper = () => {
+      if (swiperInstance && typeof swiperInstance.destroy === 'function') {
+        swiperInstance.destroy(true, true);
       }
 
-      .member-benefits-container-{{ section.id }} .swiper-slide {
-        height: auto;
-        display: flex;
+      swiperInstance = null;
+      currentMode = '';
+    };
+
+    const initSwiper = () => {
+      const container = getContainer();
+
+      if (!container) return;
+
+      if (typeof Swiper === 'undefined') {
+        if (retryCount < maxRetryCount) {
+          retryCount += 1;
+          window.setTimeout(initSwiper, 100);
+        }
+        return;
       }
 
-      @media screen and (min-width: 768px) {
-        .member-benefits-container-{{ section.id }} .swiper-slide {
-          flex: 1;
+      const wrapper = container.querySelector('.member-benefits-content');
+      const slides = container.querySelectorAll('.swiper-slide');
+
+      if (!wrapper || slides.length === 0) return;
+
+      const nextMode = getMode();
+
+      if (swiperInstance && currentMode === nextMode) {
+        if (typeof swiperInstance.update === 'function') {
+          swiperInstance.update();
+        }
+        return;
+      }
+
+      destroySwiper();
+
+      currentMode = nextMode;
+      swiperInstance = new Swiper(containerSelector, getSwiperOptions());
+    };
+
+    const handleResize = () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(initSwiper, 150);
+    };
+
+    const handleSectionLoad = (event) => {
+      if (event.detail && event.detail.sectionId === sectionId) {
+        initSwiper();
+      }
+    };
+
+    const handleSectionUnload = (event) => {
+      if (event.detail && event.detail.sectionId === sectionId) {
+        destroySwiper();
+
+        window.removeEventListener('resize', handleResize);
+        document.removeEventListener('shopify:section:load', handleSectionLoad);
+        document.removeEventListener('shopify:section:unload', handleSectionUnload);
+
+        if (mobileQuery.removeEventListener) {
+          mobileQuery.removeEventListener('change', initSwiper);
+        } else if (mobileQuery.removeListener) {
+          mobileQuery.removeListener(initSwiper);
         }
       }
+    };
 
-      .member-benefits-container-{{ section.id }} .swiper-pagination {
-        position: static;
-        display: none;
-      }
+    initSwiper();
 
-      .member-benefits-container-{{ section.id }} .swiper-pagination-bullet-active {
-        background: #FF8F1C;
-      }
+    window.addEventListener('resize', handleResize, { passive: true });
+    document.addEventListener('shopify:section:load', handleSectionLoad);
+    document.addEventListener('shopify:section:unload', handleSectionUnload);
 
-    .member-benefits-container-{{ section.id }}  .heading{
-      color:{{section.settings.heading_color}};
-      font-size: {{section.settings.headding_size}}px;
-      line-height: 1;
-      margin-bottom: {{section.settings.title_margin_bottom}}px;
-      text-align: {{section.settings.title_alignment}};
-      }
-      .member-benefits-container-{{ section.id }}  .member-benefits-content{
-        gap:{{ section.settings.item_gap }}px;
-        display: flex;
-        align-items: stretch;
-      }
-      .member-benefits-container-{{ section.id }}  .member-benefits-content .item{
-        padding:{{section.settings.item_padding_top}}px {{section.settings.item_padding_right}}px {{section.settings.item_padding_bottom}}px {{section.settings.item_padding_left}}px;
-        border-radius: {{section.settings.item_border_radius}}px;
-        justify-content: start;
-        min-height: {{section.settings.bg_image_min_height}}px;
-        align-items: {{section.settings.icon_alignment}};
-
-      }
-      .member-benefits-container-{{ section.id }}  .member-benefits-content .item  .label-wrap{
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
-
-      }
-      .member-benefits-container-{{ section.id }}  .member-benefits-content .item  .label-container{
-        display: flex;
-        gap:4px;
-        align-items: baseline;
-        justify-content: center;
-        padding: 5px 12px;
-        border-radius: 100px;
-        border: 0.15px solid #FFF;
-        background: #313237;
-      }
-      .member-benefits-container-{{ section.id }}  .member-benefits-content .item  .label-icon{
-        width: 11px;
-        height:13px;
-        color: {{section.settings.title_color}};
-      }
-      .member-benefits-container-{{ section.id }}  .member-benefits-content .item  .label-text{
-        color:{{section.settings.title_color}};
-        font-size: 12px;
-        line-height: 1;
-      }
-      .member-benefits-container-{{ section.id }}  .member-benefits-content .item .img-wrap{
-        padding:{{section.settings.image_padding_top}}px {{section.settings.image_padding_right}}px {{section.settings.image_padding_bottom}}px {{section.settings.image_padding_left}}px;
-      }
-
-      .member-benefits-container-{{ section.id }}  .member-benefits-content .item  .img-wrap img{
-        width: 100%;
-        height: 100%;
-      }
-      .member-benefits-container-{{ section.id }}  .member-benefits-content .item h3{
-        color:{{section.settings.title_color}};
-        width: 100%;
-        font-size: {{section.settings.title_size}}px;
-        margin-top: {{section.settings.headding_margin_top}}px;
-        margin-bottom: {{section.settings.headding_margin_bottom}}px;
-        line-height: 1.2;
-        text-align: {{section.settings.content_alignment}};
-
-      }
-      .member-benefits-container-{{ section.id }}  .member-benefits-content .item  .description{
-        color:{{section.settings.desc_color}};
-        width: 100%;
-        font-size: {{section.settings.desc_size}}px;
-        line-height: 1.3;
-        text-align: {{section.settings.content_alignment}};
-      }
-      .member-benefits-container-{{ section.id }}  .member-benefits-content .item .buttom-wrap{
-        display: flex;
-        margin-top: 16px;
-
+    if (mobileQuery.addEventListener) {
+      mobileQuery.addEventListener('change', initSwiper);
+    } else if (mobileQuery.addListener) {
+      mobileQuery.addListener(initSwiper);
     }
-    .member-benefits-container-{{ section.id }}  .member-benefits-content .item .buttom-wrap a{
-      display: flex;
-      padding: 14px 28px;
-      justify-content: center;
-      align-items: center;
-      border-radius: 75px;
-      font-weight: 700;
-      background: {{section.settings.button_bg_color}};
-      font-size: 14px;
-      line-height: 1;
-      color: {{section.settings.button_font_color}};
-      min-width: 146px;
-    }
-    .member-benefits-wrap-{{ section.id }}__footer{
-      display: flex;
-      margin-top: 40px;
-      justify-content: center;
-    }
-  .member-benefits-wrap-{{ section.id }}_footer_button{
+  })();
+</script>
+
+<style>
+  .member-benefits-wrap-{{ section.id }} {
+    padding-top: clamp(calc({{ section.settings.padding_top }}px * 0.75), calc({{ section.settings.padding_top }} / 1920 * 100vw), calc({{ section.settings.padding_top }}px * 1));
+    padding-bottom: clamp(calc({{ section.settings.padding_bottom }}px * 0.75), calc({{ section.settings.padding_bottom }} / 1920 * 100vw), calc({{ section.settings.padding_bottom }}px * 1));
+    overflow: hidden;
+  }
+
+  .member-benefits-container-{{ section.id }} {
+    {% if section.settings.section_max_width != 'none' %}
+      max-width: {{ section.settings.section_max_width }}px;
+      margin: 0 auto;
+    {% endif %}
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .member-benefits-container-{{ section.id }} .swiper-slide {
+    height: auto;
     display: flex;
-    padding: 20px 60px;
+    box-sizing: border-box;
+  }
+
+  .member-benefits-container-{{ section.id }} .swiper-slide > * {
+    width: 100%;
+  }
+
+  .member-benefits-container-{{ section.id }} .swiper-pagination {
+    position: static;
+    display: none;
+    margin-top: 16px;
+  }
+
+  .member-benefits-container-{{ section.id }} .swiper-pagination-bullet-active {
+    background: #FF8F1C;
+  }
+
+  .member-benefits-container-{{ section.id }} .heading {
+    color: {{ section.settings.heading_color }};
+    font-size: clamp(calc({{ section.settings.headding_size }}px * 0.75), calc({{ section.settings.headding_size }} / 1920 * 100vw), calc({{ section.settings.headding_size }}px * 1));
+    line-height: 1;
+    margin-bottom: clamp(calc({{ section.settings.title_margin_bottom }}px * 0.75), calc({{ section.settings.title_margin_bottom }} / 1920 * 100vw), calc({{ section.settings.title_margin_bottom }}px * 1));
+    text-align: {{ section.settings.title_alignment }};
+  }
+
+  .member-benefits-description-{{ section.id }} {
+    color: {{ section.settings.desc_color }};
+    font-size: clamp(calc({{ section.settings.desc_size }}px * 0.75), calc({{ section.settings.desc_size }} / 1920 * 100vw), calc({{ section.settings.desc_size }}px * 1));
+    line-height: 1.4;
+    text-align: {{ section.settings.title_alignment }};
+    margin: 0 0 clamp(calc({{ section.settings.title_margin_bottom }}px * 0.5), calc({{ section.settings.title_margin_bottom }} / 1920 * 100vw), calc({{ section.settings.title_margin_bottom }}px * 0.75));
+    padding: 0 16px;
+  }
+
+  .member-benefits-container-{{ section.id }} .member-benefits-content {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .member-benefits-container-{{ section.id }} .member-benefits-content .item {
+    padding: clamp(calc({{ section.settings.item_padding_top }}px * 0.75), calc({{ section.settings.item_padding_top }} / 1920 * 100vw), calc({{ section.settings.item_padding_top }}px * 1)) clamp(calc({{ section.settings.item_padding_right }}px * 0.75), calc({{ section.settings.item_padding_right }} / 1920 * 100vw), calc({{ section.settings.item_padding_right }}px * 1)) clamp(calc({{ section.settings.item_padding_bottom }}px * 0.75), calc({{ section.settings.item_padding_bottom }} / 1920 * 100vw), calc({{ section.settings.item_padding_bottom }}px * 1)) clamp(calc({{ section.settings.item_padding_left }}px * 0.75), calc({{ section.settings.item_padding_left }} / 1920 * 100vw), calc({{ section.settings.item_padding_left }}px * 1));
+    border-radius: clamp(calc({{ section.settings.item_border_radius }}px * 0.75), calc({{ section.settings.item_border_radius }} / 1920 * 100vw), calc({{ section.settings.item_border_radius }}px * 1));
+    background-color: {{ section.settings.item_bg_color }};
+    justify-content: start;
+    min-height: clamp(calc({{ section.settings.bg_image_min_height }}px * 0.85), calc({{ section.settings.bg_image_min_height }} / 1920 * 100vw), calc({{ section.settings.bg_image_min_height }}px * 1));
+    align-items: {{ section.settings.icon_alignment }};
+    box-sizing: border-box;
+  }
+
+  .member-benefits-container-{{ section.id }} .member-benefits-content .item .label-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .member-benefits-container-{{ section.id }} .member-benefits-content .item .label-container {
+    display: flex;
+    gap: 4px;
+    align-items: baseline;
+    justify-content: center;
+    padding: 5px 12px;
+    border-radius: 100px;
+    border: 0.15px solid #FFF;
+    background: #313237;
+  }
+
+  .member-benefits-container-{{ section.id }} .member-benefits-content .item .label-icon {
+    width: 11px;
+    height: 13px;
+    color: {{ section.settings.title_color }};
+  }
+
+  .member-benefits-container-{{ section.id }} .member-benefits-content .item .label-text {
+    color: {{ section.settings.title_color }};
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  .member-benefits-container-{{ section.id }} .member-benefits-content .item .img-wrap {
+    padding: clamp(calc({{ section.settings.image_padding_top }}px * 0.75), calc({{ section.settings.image_padding_top }} / 1920 * 100vw), calc({{ section.settings.image_padding_top }}px * 1)) clamp(calc({{ section.settings.image_padding_right }}px * 0.75), calc({{ section.settings.image_padding_right }} / 1920 * 100vw), calc({{ section.settings.image_padding_right }}px * 1)) clamp(calc({{ section.settings.image_padding_bottom }}px * 0.75), calc({{ section.settings.image_padding_bottom }} / 1920 * 100vw), calc({{ section.settings.image_padding_bottom }}px * 1)) clamp(calc({{ section.settings.image_padding_left }}px * 0.75), calc({{ section.settings.image_padding_left }} / 1920 * 100vw), calc({{ section.settings.image_padding_left }}px * 1));
+    box-sizing: border-box;
+  }
+
+  .member-benefits-container-{{ section.id }} .member-benefits-content .item .img-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  .member-benefits-container-{{ section.id }} .member-benefits-content .item h3 {
+    color: {{ section.settings.title_color }};
+    width: 100%;
+    font-size: clamp(calc({{ section.settings.title_size }}px * 0.75), calc({{ section.settings.title_size }} / 1920 * 100vw), calc({{ section.settings.title_size }}px * 1));
+    margin-top: clamp(calc({{ section.settings.headding_margin_top }}px * 0.75), calc({{ section.settings.headding_margin_top }} / 1920 * 100vw), calc({{ section.settings.headding_margin_top }}px * 1));
+    margin-bottom: clamp(calc({{ section.settings.headding_margin_bottom }}px * 0.75), calc({{ section.settings.headding_margin_bottom }} / 1920 * 100vw), calc({{ section.settings.headding_margin_bottom }}px * 1));
+    line-height: 1.2;
+    text-align: {{ section.settings.content_alignment }};
+  }
+
+  .member-benefits-container-{{ section.id }} .member-benefits-content .item .description {
+    color: {{ section.settings.desc_color }};
+    width: 100%;
+    font-size: clamp(calc({{ section.settings.desc_size }}px * 0.75), calc({{ section.settings.desc_size }} / 1920 * 100vw), calc({{ section.settings.desc_size }}px * 1));
+    line-height: 1.3;
+    text-align: {{ section.settings.content_alignment }};
+  }
+
+  .member-benefits-container-{{ section.id }} .member-benefits-content .item .buttom-wrap {
+    display: flex;
+    margin-top: 16px;
+  }
+
+  .member-benefits-container-{{ section.id }} .member-benefits-content .item .buttom-wrap a {
+    display: flex;
+    padding: 14px 28px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 75px;
+    font-weight: 700;
+    background: {{ section.settings.button_bg_color }};
+    font-size: 14px;
+    line-height: 1;
+    color: {{ section.settings.button_font_color }};
+    min-width: 146px;
+    text-decoration: none;
+  }
+
+  .member-benefits-wrap-{{ section.id }}__footer {
+    display: flex;
+    margin-top: clamp(calc(40px * 0.75), calc(40 / 1920 * 100vw), calc(40px * 1));
+    justify-content: center;
+  }
+
+  .member-benefits-wrap-{{ section.id }}_footer_button {
+    display: flex;
+    padding: clamp(calc(20px * 0.75), calc(20 / 1920 * 100vw), calc(20px * 1)) clamp(calc(60px * 0.75), calc(60 / 1920 * 100vw), calc(60px * 1));
     justify-content: center;
     align-items: center;
     line-height: 1;
     font-size: 14px;
     font-weight: 700;
-    color: {{section.settings.button_font_color}};
+    color: {{ section.settings.button_font_color }};
     border-radius: 40px;
-    background: {{section.settings.button_bg_color}};
+    background: {{ section.settings.button_bg_color }};
+    text-decoration: none;
   }
-        [data-section-type='member-benefits'] .placeholder_svg_tag {
-          width: 56px;
-          height: 56px;
-        }
-        .member-benefits-container-{{ section.id }}  .member-benefits-content .item  .mobileShow{
-          display: none;
-        }
-        .member-benefits-container-{{ section.id }}  .member-benefits-content .item  .desktopShow{
-          display: block;
-          {% if section.settings.show_icon_max_height %}
-            max-height: {{section.settings.icon_max_height}}px;
-          {% endif %}
-        }
-      /* 移动设备 */
-      @media screen and (min-width: 320px) and (max-width: 480px){
-        .member-benefits-wrap-{{ section.id }}{
-          padding-top:{{section.settings.padding_top_mobile}}px;
-          padding-bottom:{{section.settings.padding_bottom_mobile}}px;
-          padding-left: 0;
-          padding-right: 0;
-          overflow: hidden;
-        }
 
-        .member-benefits-container-{{ section.id }} .swiper-pagination {
-          position: static;
-          display: block;
-        }
+  [data-section-type='member-benefits'] .placeholder_svg_tag {
+    width: 56px;
+    height: 56px;
+  }
 
-        .member-benefits-container-{{ section.id }}  .heading{
-          font-size: {{section.settings.headding_size_mobile}}px;
-          margin-bottom: {{section.settings.title_margin_bottom_mobile}}px;
-          text-align: {{section.settings.title_alignment_mobile}};
-          padding: 0 16px;
-          }
-          .member-benefits-container-{{ section.id }}  .member-benefits-content{
-            gap:{{ section.settings.item_gap_mobile }}px;
-          }
-          .member-benefits-container-{{ section.id }}  .member-benefits-content .item{
-            padding:{{section.settings.item_padding_top_mobile}}px {{section.settings.item_padding_right_mobile}}px {{section.settings.item_padding_bottom_mobile}}px {{section.settings.item_padding_left_mobile}}px;
-            min-height: {{section.settings.bg_image_min_height_mobile}}px;
-            border-radius: {{section.settings.item_border_radius_mobile}}px;
-            min-height: unset;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-          }
-          .member-benefits-container-{{ section.id }}  .member-benefits-content .item .img-wrap{
-            padding:{{section.settings.image_padding_top_mobile}}px {{section.settings.image_padding_right_mobile}}px {{section.settings.image_padding_bottom_mobile}}px {{section.settings.image_padding_left_mobile}}px;
-          }
-          .member-benefits-container-{{ section.id }}  .member-benefits-content .item .headding-wrap{
-            display: flex;
-            align-items: center;
-            column-gap: 16px;
-              
-            margin-top: {{section.settings.headding_margin_top_mobile}}px;
-            margin-bottom: {{section.settings.headding_margin_bottom_mobile}}px;
-          }
-          .member-benefits-container-{{ section.id }}  .member-benefits-content .item h3{
-           
-            width: 100%;
-            font-size: {{section.settings.title_size_mobile}}px;
-            {% unless section.settings.show_icon_in_headding %}
-              margin-top: {{section.settings.headding_margin_top_mobile}}px;
-              margin-bottom: {{section.settings.headding_margin_bottom_mobile}}px;
-            {% else %}
-              margin-top: 0;
-              margin-bottom: 0;
-            {% endunless %}
-            line-height: 1.2;
+  .member-benefits-container-{{ section.id }} .member-benefits-content .item .mobileShow {
+    display: none;
+  }
 
-          }
-          .member-benefits-container-{{ section.id }}  .member-benefits-content .item  .description{
-            font-size: {{section.settings.desc_size_mobile}}px;
+  .member-benefits-container-{{ section.id }} .member-benefits-content .item .desktopShow {
+    display: block;
+    {% if section.settings.show_icon_max_height %}
+      max-height: clamp(calc({{ section.settings.icon_max_height }}px * 0.75), calc({{ section.settings.icon_max_height }} / 1920 * 100vw), calc({{ section.settings.icon_max_height }}px * 1));
+    {% endif %}
+  }
 
-          }
-          .member-benefits-container-{{ section.id }}  .member-benefits-content .item .buttom-wrap{
-            display: flex;
-            margin-top: 14px;
+  @media screen and (max-width: 768px) {
+    .member-benefits-wrap-{{ section.id }} {
+      padding-top: clamp(calc({{ section.settings.padding_top_mobile }}px * 0.85), calc({{ section.settings.padding_top_mobile }} / 375 * 100vw), calc({{ section.settings.padding_top_mobile }}px * 1));
+      padding-bottom: clamp(calc({{ section.settings.padding_bottom_mobile }}px * 0.85), calc({{ section.settings.padding_bottom_mobile }} / 375 * 100vw), calc({{ section.settings.padding_bottom_mobile }}px * 1));
+      padding-left: 0;
+      padding-right: 0;
+    }
 
-        }
-          .member-benefits-container-{{ section.id }}  .member-benefits-content .item .buttom-wrap a{
+    .member-benefits-container-{{ section.id }} .swiper-pagination {
+      display: block;
+    }
 
-            padding: 12px 28px;
-            min-width: 108px;
+    .member-benefits-container-{{ section.id }} .heading {
+      font-size: clamp(calc({{ section.settings.headding_size_mobile }}px * 0.85), calc({{ section.settings.headding_size_mobile }} / 375 * 100vw), calc({{ section.settings.headding_size_mobile }}px * 1));
+      margin-bottom: clamp(calc({{ section.settings.title_margin_bottom_mobile }}px * 0.85), calc({{ section.settings.title_margin_bottom_mobile }} / 375 * 100vw), calc({{ section.settings.title_margin_bottom_mobile }}px * 1));
+      text-align: {{ section.settings.title_alignment_mobile }};
+      padding: 0 16px;
+    }
 
-            font-size: 12px;
+    .member-benefits-description-{{ section.id }} {
+      font-size: clamp(calc({{ section.settings.desc_size_mobile }}px * 0.85), calc({{ section.settings.desc_size_mobile }} / 375 * 100vw), calc({{ section.settings.desc_size_mobile }}px * 1));
+      text-align: {{ section.settings.title_alignment_mobile }};
+      margin-bottom: clamp(calc({{ section.settings.title_margin_bottom_mobile }}px * 0.85), calc({{ section.settings.title_margin_bottom_mobile }} / 375 * 100vw), calc({{ section.settings.title_margin_bottom_mobile }}px * 1));
+    }
 
-          }
-          .member-benefits-wrap-{{ section.id }}__footer{
+    .member-benefits-container-{{ section.id }} .member-benefits-content .item {
+      padding: clamp(calc({{ section.settings.item_padding_top_mobile }}px * 0.85), calc({{ section.settings.item_padding_top_mobile }} / 375 * 100vw), calc({{ section.settings.item_padding_top_mobile }}px * 1)) clamp(calc({{ section.settings.item_padding_right_mobile }}px * 0.85), calc({{ section.settings.item_padding_right_mobile }} / 375 * 100vw), calc({{ section.settings.item_padding_right_mobile }}px * 1)) clamp(calc({{ section.settings.item_padding_bottom_mobile }}px * 0.85), calc({{ section.settings.item_padding_bottom_mobile }} / 375 * 100vw), calc({{ section.settings.item_padding_bottom_mobile }}px * 1)) clamp(calc({{ section.settings.item_padding_left_mobile }}px * 0.85), calc({{ section.settings.item_padding_left_mobile }} / 375 * 100vw), calc({{ section.settings.item_padding_left_mobile }}px * 1));
+      min-height: clamp(calc({{ section.settings.bg_image_min_height_mobile }}px * 0.9), calc({{ section.settings.bg_image_min_height_mobile }} / 375 * 100vw), calc({{ section.settings.bg_image_min_height_mobile }}px * 1));
+      border-radius: clamp(calc({{ section.settings.item_border_radius_mobile }}px * 0.85), calc({{ section.settings.item_border_radius_mobile }} / 375 * 100vw), calc({{ section.settings.item_border_radius_mobile }}px * 1));
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
 
-            margin-top: 20px;
-          }
-        .member-benefits-wrap-{{ section.id }}_footer_button{
+    .member-benefits-container-{{ section.id }} .member-benefits-content .item .img-wrap {
+      padding: clamp(calc({{ section.settings.image_padding_top_mobile }}px * 0.85), calc({{ section.settings.image_padding_top_mobile }} / 375 * 100vw), calc({{ section.settings.image_padding_top_mobile }}px * 1)) clamp(calc({{ section.settings.image_padding_right_mobile }}px * 0.85), calc({{ section.settings.image_padding_right_mobile }} / 375 * 100vw), calc({{ section.settings.image_padding_right_mobile }}px * 1)) clamp(calc({{ section.settings.image_padding_bottom_mobile }}px * 0.85), calc({{ section.settings.image_padding_bottom_mobile }} / 375 * 100vw), calc({{ section.settings.image_padding_bottom_mobile }}px * 1)) clamp(calc({{ section.settings.image_padding_left_mobile }}px * 0.85), calc({{ section.settings.image_padding_left_mobile }} / 375 * 100vw), calc({{ section.settings.image_padding_left_mobile }}px * 1));
+    }
 
-          padding: 20px 48px;
+    .member-benefits-container-{{ section.id }} .member-benefits-content .item .headding-wrap {
+      display: flex;
+      align-items: center;
+      column-gap: 16px;
+      margin-top: clamp(calc({{ section.settings.headding_margin_top_mobile }}px * 0.85), calc({{ section.settings.headding_margin_top_mobile }} / 375 * 100vw), calc({{ section.settings.headding_margin_top_mobile }}px * 1));
+      margin-bottom: clamp(calc({{ section.settings.headding_margin_bottom_mobile }}px * 0.85), calc({{ section.settings.headding_margin_bottom_mobile }} / 375 * 100vw), calc({{ section.settings.headding_margin_bottom_mobile }}px * 1));
+    }
 
-        }
-        .member-benefits-container-{{ section.id }}  .member-benefits-content .item  .mobileShow{
-          display: block;
-          {% if section.settings.show_icon_max_height %}
-            {% if section.settings.show_icon_in_headding %}
-              width: 20%;
-              max-height: max-content;
-            {% else %}
-              max-height: {{section.settings.icon_max_height_mobile}}px;
-            {% endif %}
-          {% endif %}
-        }
-        .member-benefits-container-{{ section.id }}  .member-benefits-content .item  .desktopShow{
-          display: none;
-        }
-      }
+    .member-benefits-container-{{ section.id }} .member-benefits-content .item h3 {
+      width: 100%;
+      font-size: clamp(calc({{ section.settings.title_size_mobile }}px * 0.85), calc({{ section.settings.title_size_mobile }} / 375 * 100vw), calc({{ section.settings.title_size_mobile }}px * 1));
+      {% unless section.settings.show_icon_in_headding %}
+        margin-top: clamp(calc({{ section.settings.headding_margin_top_mobile }}px * 0.85), calc({{ section.settings.headding_margin_top_mobile }} / 375 * 100vw), calc({{ section.settings.headding_margin_top_mobile }}px * 1));
+        margin-bottom: clamp(calc({{ section.settings.headding_margin_bottom_mobile }}px * 0.85), calc({{ section.settings.headding_margin_bottom_mobile }} / 375 * 100vw), calc({{ section.settings.headding_margin_bottom_mobile }}px * 1));
+      {% else %}
+        margin-top: 0;
+        margin-bottom: 0;
+      {% endunless %}
+      line-height: 1.2;
+    }
+
+    .member-benefits-container-{{ section.id }} .member-benefits-content .item .description {
+      font-size: clamp(calc({{ section.settings.desc_size_mobile }}px * 0.85), calc({{ section.settings.desc_size_mobile }} / 375 * 100vw), calc({{ section.settings.desc_size_mobile }}px * 1));
+    }
+
+    .member-benefits-container-{{ section.id }} .member-benefits-content .item .buttom-wrap {
+      display: flex;
+      margin-top: 14px;
+    }
+
+    .member-benefits-container-{{ section.id }} .member-benefits-content .item .buttom-wrap a {
+      padding: 12px 28px;
+      min-width: 108px;
+      font-size: 12px;
+    }
+
+    .member-benefits-wrap-{{ section.id }}__footer {
+      margin-top: clamp(calc(20px * 0.85), calc(20 / 375 * 100vw), calc(20px * 1));
+    }
+
+    .member-benefits-wrap-{{ section.id }}_footer_button {
+      padding: clamp(calc(20px * 0.85), calc(20 / 375 * 100vw), calc(20px * 1)) clamp(calc(48px * 0.85), calc(48 / 375 * 100vw), calc(48px * 1));
+    }
+
+    .member-benefits-container-{{ section.id }} .member-benefits-content .item .mobileShow {
+      display: block;
+      {% if section.settings.show_icon_max_height %}
+        {% if section.settings.show_icon_in_headding %}
+          width: 20%;
+          max-height: max-content;
+        {% else %}
+          max-height: clamp(calc({{ section.settings.icon_max_height_mobile }}px * 0.85), calc({{ section.settings.icon_max_height_mobile }} / 375 * 100vw), calc({{ section.settings.icon_max_height_mobile }}px * 1));
+        {% endif %}
+      {% endif %}
+    }
+
+    .member-benefits-container-{{ section.id }} .member-benefits-content .item .desktopShow {
+      display: none;
+    }
+  }
 </style>
 
 {% schema %}
@@ -368,8 +514,7 @@
         {
           "value": "980",
           "label": "980px"
-        },
-     
+        }
       ],
       "default": "1200"
     },
@@ -388,7 +533,7 @@
     {
       "type": "checkbox",
       "id": "show_icon_in_headding",
-      "label": "开启图标在主标题内部",  
+      "label": "开启图标在主标题内部",
       "default": false,
       "info": "目前仅支持移动端，开启后，图标会显示在主标题内部，而不是在主标题外部"
     },
@@ -407,7 +552,6 @@
       "unit": "px",
       "label": "卡片边框圆角大小",
       "default": 20
-    
     },
     {
       "type": "range",
@@ -418,7 +562,6 @@
       "unit": "px",
       "label": "卡片边框圆角大小（移动端）",
       "default": 20
-    
     },
     {
       "type": "range",
@@ -475,7 +618,6 @@
           "value": "center",
           "label": "居中对齐"
         },
-
         {
           "value": "end",
           "label": "右对齐"
@@ -496,7 +638,6 @@
           "value": "center",
           "label": "居中对齐"
         },
-
         {
           "value": "end",
           "label": "右对齐"
@@ -517,7 +658,6 @@
           "value": "center",
           "label": "居中对齐"
         },
-
         {
           "value": "end",
           "label": "右对齐"
@@ -538,7 +678,6 @@
           "value": "center",
           "label": "居中对齐"
         },
-
         {
           "value": "end",
           "label": "右对齐"
@@ -689,7 +828,6 @@
       ],
       "default": "custom-font-regular"
     },
-
     {
       "type": "header",
       "content": "颜色"
@@ -754,7 +892,6 @@
       "unit": "px",
       "label": "卡片间距",
       "default": 16
-    
     },
     {
       "type": "range",
@@ -765,7 +902,6 @@
       "unit": "px",
       "label": "卡片间距(移动端)",
       "default": 16
-    
     },
     {
       "type": "range",
@@ -1007,7 +1143,6 @@
       "label": "底部填充",
       "default": 60
     },
-
     {
       "type": "range",
       "id": "padding_top_mobile",
@@ -1177,7 +1312,7 @@
   ],
   "presets": [
     {
-      "name": "Instructor multicolumn",
+      "name": "Instructor multicolumn"
     }
   ]
 }

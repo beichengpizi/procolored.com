@@ -74,6 +74,41 @@
     height: 25px;
     fill: #da291c;
   }
+
+  .sub-menu li:has(.community-label) {
+    display: flex;
+    align-items: center;
+  }
+
+  .community-label {
+    color: white;
+    border-radius: 4px;
+    font-size: 10px;
+    position: relative;
+    margin-left: 4px;
+  }
+
+  .community-label svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .community-label-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .community-label-text {
+    z-index: 10;
+    position: relative;
+    padding: 0 3px 1px 8px;
+    line-height: 1.3;
+  }
 </style>
 <nav
   id="mobile-menu"
@@ -490,7 +525,7 @@
                                               {%- capture starting_num -%}
                                               {{ prod.price_min | money }}
                                             {%- endcapture -%}
-                                              <div class="badge-starting">Starting at {{ starting_num }}</div>
+                                              <div class="badge-starting">Starting at  {{ starting_num }}</div>
                                             {% elsif prod_tags contains 'popular' %}
                                               <div class="badge-new-arrival">Most Popular</div>
                                             {% elsif prod_tags contains 'home friendly' %}
@@ -634,8 +669,8 @@
                                               <div class="badge-free-oven">Free Oven</div>
                                             {% elsif prod_tags contains 'starting' %}
                                               {%- capture starting_num -%}
-                                                {{ prod.price_min | money }}
-                                              {%- endcapture -%}
+                                              {{ prod.price_min | money }}
+                                            {%- endcapture -%}
                                               <div class="badge-starting">Starting at {{ starting_num }}</div>
                                             {% elsif prod_tags contains 'popular' %}
                                               <div class="badge-new-arrival">Most Popular</div>
@@ -673,7 +708,20 @@
                             </div>
                           </details>
                         {% else %}
-                          <a href="{{ l.url }}" title="{{ l.title | escape }}">{{ l.title }}</a>
+                          <a href="{{ l.url }}" title="{{ l.title | escape }}">
+                            {{ l.title }}
+                            {% if l.title == 'ColorChannels' %}
+                              <span class="community-label">
+                                <span class="community-label-text">Community</span>
+
+                                <div class="community-label-background">
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none">
+                                    <path d="M62 0C63.1046 9.01957e-07 64 0.895431 64 2V12C64 13.1046 63.1046 14 62 14H6C4.89543 14 4 13.1046 4 12V10.709C2.0966 10.9482 0.0034936 10.8946 0 10.8945L4 6.15332V2C4 0.895431 4.89543 5.63724e-08 6 0H62Z" fill="#FF8F1C"/>
+                                  </svg>
+                                </div>
+                              </span>
+                            {% endif %}
+                          </a>
                         {% endif %}
                       </li>
                     {%- endfor -%}
@@ -826,7 +874,7 @@
                         </g>
                     </g>
                   </svg>
-                  My Rewards
+                 My Rewards
                 </a>
               </li>
               <li>

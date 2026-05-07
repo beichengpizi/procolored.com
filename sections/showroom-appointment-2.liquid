@@ -1,0 +1,612 @@
+<style>
+  #shopify-section-{{ section.id }} {
+      display: none;
+      justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .showroom-appointment {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 98px 0 48px 0;
+  }
+
+  #shopify-section-{{ section.id }} .section-header--title {
+    font-weight: 800;
+    text-align: center;
+    font-size: 40px;
+  }
+
+  #shopify-section-{{ section.id }} .section-header {
+    padding-bottom: 48px;
+  }
+
+  #shopify-section-{{ section.id }} .section-header--description {
+    color: #5D5D5D;
+    text-align: center;
+    font-size: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .appointment-wrapper {
+      display: flex;
+      gap: 10px;
+      max-width: 1400px;
+      width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .swiper-slide {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      /* 设置每个 slide 的最小宽度 */
+      width: 100%;
+      flex-direction: column;
+  }
+
+  #shopify-section-{{ section.id }} .swiper {
+      width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .appointment-item {
+      display: flex;
+      width: 736px;  /* 每个 item 的宽度 */
+      height: fit-content;
+      padding: 16px 36px;
+      flex-direction: column;
+      align-items: flex-start;
+      border-radius: 12px;
+      background: #FFF;
+      height: 100%;
+      justify-content: space-between;
+  }
+
+  #shopify-section-{{ section.id }} .appointment-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} a.appointment-info {
+    text-decoration: underline;
+  }
+
+  #shopify-section-{{ section.id }} .appointment-info-text {
+      font-size: 24px;
+      color: #0F0C00;
+  }
+
+  #shopify-section-{{ section.id }} .appointment-button-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      align-self: stretch;
+      padding-top: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .appointment-button {
+      display: flex;
+      padding: 12px 0;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex: 1 0 0;
+      border-radius: 4px;
+      color: #FFF;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .cancel-button {
+      background: #DA291C;
+  }
+
+  #shopify-section-{{ section.id }} .cancelled-button,
+  #shopify-section-{{ section.id }} .expired-button,
+  #shopify-section-{{ section.id }} .disabled-button {
+      opacity: 0.3;
+      background: #121212;
+  }
+
+  #shopify-section-{{ section.id }} .check-in-button {
+      background: #165DFF;
+  }
+
+  #shopify-section-{{ section.id }} .checked-in-button {
+      background: #36D399;
+  }
+
+  #shopify-section-{{ section.id }} .reminding-message {
+      color: #DA291C;
+      font-size: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .appointment-info-wrapper {
+      
+  }
+
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }} .section-header {
+        padding: 0 0 20px;
+    }
+    
+
+      #shopify-section-{{ section.id }} .section-header--title {
+          font-size: 24px;
+          font-weight: 800;
+      }
+
+      #shopify-section-{{ section.id }} .section-header--description {
+          font-size: 16px;
+      }
+
+      #shopify-section-{{ section.id }} .showroom-appointment {
+          padding: 48px 0 24px 0;
+          width: 100%;
+      }
+
+      #shopify-section-{{ section.id }} .appointment-info svg {
+          width: 14px;
+          height: 14px;
+      }
+
+      #shopify-section-{{ section.id }} .appointment-wrapper {
+          gap: 0;
+      }
+
+      #shopify-section-{{ section.id }} .appointment-item {
+          width: 100%;  /* 每个 item 的宽度 */
+          padding: 24px;
+      }
+
+      #shopify-section-{{ section.id }} .appointment-info-text {
+          font-size: 14px;
+          flex: 1;
+      }
+
+      #shopify-section-{{ section.id }} .appointment-button-group {
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+          align-self: stretch;
+      }
+
+      #shopify-section-{{ section.id }} .appointment-button {
+          font-size: 12px;
+      }
+
+      #shopify-section-{{ section.id }} .reminding-message {
+          font-size: 14px;
+      }
+  }
+</style>
+
+<div class="showroom-appointment">
+  {% render 'section-header',
+    section_heading: section.settings.section_heading,
+    section_description: section.settings.description
+  %}
+
+  <div class="swiper mySwiper">
+    <div class="appointment-wrapper swiper-wrapper"></div>
+  </div>
+</div>
+
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+{{ 'swiper-bundle.min.js' | asset_url | script_tag }}
+
+{% assign customerId = '' %}
+{% assign isLogin = 0 %}
+{% if customer %}
+  {% assign isLogin = 1 %}
+  {% assign customerId = customer.id %}
+{% endif %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let customerId = ''; 
+        let customerIdString =''
+        let isLogin = {{ isLogin }};
+        let customerEmail = "";
+        console.log("customer.id");
+        if(isLogin === 1){
+            console.log('已登录帐号')
+            customerIdString = "{{customerId}}";
+            customerId = customerIdString - 0;
+            customerEmail="{{customer.email}}";
+        }else{
+            console.log('未登录帐号')
+        }
+        
+        console.log('customerId==',customerId);
+        
+        function shopifyLogin() {
+            const modalLogin = document.querySelector("modal-login");
+            if (modalLogin) {
+            console.log('modalLogin', modalLogin);
+            const loginForm = modalLogin.showModal(modalLogin.fetchForm.login.innerHTML);
+            modalLogin.loginBindEvent(loginForm.el);
+            } else {
+            console.warn('modalLogin 元素不存在');
+            }
+        }
+
+        {% comment %} const api = 'https://booster.procolored.com'; {% endcomment %}
+        const showroomAppointmentApi = "/procolored/activity/showroom/getReservationRecord";
+        const showroomCheckInApi = "/procolored/activity/showroom/checkin";
+        const showroomCancelApi = "/procolored/activity/showroom/cancelReservation";
+        function checkLocalStorage() {
+            // 如果数据存在且有效，解析并获取 customerEmail
+            if (customerEmail != "") {
+                console.log('customerEmail', customerEmail);
+                try {
+                    // 停止检查并加载预约数据
+                    loadShowroomAppointment();
+                } catch (error) {
+                    console.error("Error parsing localStorage data:", error);
+                }
+            }
+        }
+
+        // 每500毫秒检查一次 localStorage 中的数据，直到数据准备好
+        checkLocalStorage();
+
+        function formatDateToCustomFormat(startDateStr, endDateStr) {
+            // 创建起始和结束时间的 Date 对象
+            const startDate = new Date(startDateStr);
+            const endDate = new Date(endDateStr);
+
+            // 使用 Intl.DateTimeFormat 获取格式化后的日期
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const startFormatted = new Intl.DateTimeFormat('en-US', options).format(startDate);
+
+            // 获取小时和分钟
+            const startHours = String(startDate.getHours()).padStart(2, '0');
+            const startMinutes = String(startDate.getMinutes()).padStart(2, '0');
+            const endHours = String(endDate.getHours()).padStart(2, '0');
+            const endMinutes = String(endDate.getMinutes()).padStart(2, '0');
+
+            // 组合结果
+            const formattedDate = `${startFormatted} ${startHours}:${startMinutes} - ${endHours}:${endMinutes}`;
+
+            return formattedDate;
+        }
+
+
+        window.loadShowroomAppointment = function() {
+            {% comment %} fetch(`${api}${showroomAppointmentApi}?customerEmail=${customerEmail}&origin=Shopify_US`, {
+                method: 'GET',
+                headers: window.ShopifyData.headers,
+            }).then(response => {
+                if(!response.ok) {
+                    throw new Error('网络请求失败');
+                }
+                return response.json();
+            }) {% endcomment %}
+            boosterFetch(
+                showroomAppointmentApi,
+                {
+                    email: customerEmail,
+                    origin: 'Shopify_US'
+                },
+                { method: 'GET' }
+              )
+            .then(data => {
+                if(data.code === 200) {
+                    if(data.result.length > 0) document.querySelector("#shopify-section-{{ section.id }}").style.display = 'flex';
+                    let result = data.result;
+                    const appointmentWrapper = document.querySelector('#shopify-section-{{ section.id }} .appointment-wrapper');
+                    result.forEach((item, index) => {
+                        const el = document.createElement("div");
+                        el.className = 'appointment-record swiper-slide';
+                        let startDate = item.visitDateStart;
+                        let endDate = item.visitDateEnd;
+                        el.dataset.appointmentId = item.id;
+                        el.dataset.startTime = startDate;
+                        el.dataset.endTime = endDate;
+                        el.dataset.timeZone = item.showroomId == 1 ? 'America/Los_Angeles' : 'America/Chicago';
+                        el.innerHTML = `
+                            <div class="appointment-item">
+                                <div class="appointment-info-wrapper">
+                                    <div class="appointment-info">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+                                            <path d="M13.0005 4.15088C18.4603 4.15123 22.8862 8.57775 22.8862 14.0376C22.8859 19.4972 18.4601 23.923 13.0005 23.9233C7.54063 23.9233 3.11409 19.4974 3.11377 14.0376C3.11377 8.57754 7.54043 4.15088 13.0005 4.15088ZM12.8833 7.88818C12.3463 7.88818 11.9107 8.32382 11.9106 8.86084L11.9097 14.2134C11.9097 14.4712 12.0125 14.7185 12.1948 14.9009L15.9741 18.6802C16.3539 19.0596 16.9695 19.0597 17.3491 18.6802C17.7287 18.3005 17.7285 17.6849 17.3491 17.3052L13.855 13.811V8.86084C13.855 8.32393 13.4202 7.8884 12.8833 7.88818Z" fill="#165DFF"/>
+                                            <path d="M3.27588 5.7714L6.67937 3.34033L3.27588 5.7714Z" fill="#165DFF"/>
+                                            <path d="M3.27588 5.7714L6.67937 3.34033" stroke="#165DFF" stroke-width="1.94485" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M22.7243 5.7714L19.3208 3.34033L22.7243 5.7714Z" fill="#165DFF"/>
+                                            <path d="M22.7243 5.7714L19.3208 3.34033" stroke="#165DFF" stroke-width="1.94485" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span class="appointment-info-text">${formatDateToCustomFormat(startDate, endDate)}</span>
+                                    </div>
+                                    <div class="appointment-info">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+                                            <mask id="path-1-outside-1_461_5378" maskUnits="userSpaceOnUse" x="-0.0405273" y="14.3369" width="26" height="11" fill="black">
+                                                <rect fill="white" x="-0.0405273" y="14.3369" width="26" height="11"/>
+                                                <path d="M5.90031 17.3369C4.08331 17.882 2.95947 18.6351 2.95947 19.4668C2.95947 21.1304 7.45482 22.479 13.0001 22.479C18.5454 22.479 23.0408 21.1304 23.0408 19.4668C23.0408 18.6351 21.9169 17.882 20.0999 17.3369"/>
+                                            </mask>
+                                            <path d="M6.52291 19.4122C7.66905 19.0684 8.31945 17.8605 7.9756 16.7143C7.63175 15.5682 6.42386 14.9178 5.27771 15.2616L5.90031 17.3369L6.52291 19.4122ZM20.7225 15.2616C19.5764 14.9178 18.3685 15.5682 18.0246 16.7143C17.6808 17.8605 18.3312 19.0684 19.4773 19.4122L20.0999 17.3369L20.7225 15.2616ZM5.90031 17.3369L5.27771 15.2616C4.25655 15.568 3.27233 15.9758 2.49504 16.5271C1.77404 17.0385 0.792806 18.0005 0.792806 19.4668H2.95947H5.12614C5.12614 19.7728 5.01688 19.9876 4.95338 20.0807C4.90058 20.1581 4.88771 20.1427 5.002 20.0616C5.24087 19.8922 5.72707 19.651 6.52291 19.4122L5.90031 17.3369ZM2.95947 19.4668H0.792806C0.792806 20.9332 1.77402 21.8952 2.49503 22.4066C3.27233 22.9579 4.25656 23.3657 5.27772 23.6721C7.34764 24.293 10.0774 24.6457 13.0001 24.6457V22.479V20.3124C10.3776 20.3124 8.08698 19.9907 6.5229 19.5215C5.72706 19.2827 5.24087 19.0415 5.002 18.8721C4.70685 18.6627 5.12614 18.8323 5.12614 19.4668H2.95947ZM13.0001 22.479V24.6457C15.9229 24.6457 18.6526 24.293 20.7225 23.6721C21.7437 23.3657 22.7279 22.9579 23.5052 22.4066C24.2262 21.8952 25.2074 20.9332 25.2074 19.4668H23.0408H20.8741C20.8741 18.8323 21.2934 18.6627 20.9983 18.8721C20.7594 19.0415 20.2732 19.2827 19.4774 19.5215C17.9133 19.9907 15.6227 20.3124 13.0001 20.3124V22.479ZM23.0408 19.4668H25.2074C25.2074 18.0005 24.2262 17.0385 23.5052 16.5271C22.7279 15.9758 21.7437 15.568 20.7225 15.2616L20.0999 17.3369L19.4773 19.4122C20.2732 19.651 20.7594 19.8922 20.9983 20.0617C21.1125 20.1427 21.0997 20.1581 21.0469 20.0807C20.9834 19.9876 20.8741 19.7728 20.8741 19.4668H23.0408Z" fill="#165DFF" mask="url(#path-1-outside-1_461_5378)"/>
+                                            <path d="M13 2.01465C17.0145 2.01465 20.2686 5.18928 20.2686 9.10547C20.2685 14.5907 13.0179 19.336 13 19.3477C12.9619 19.3227 5.73149 14.583 5.73145 9.10547C5.73145 5.1893 8.98558 2.01469 13 2.01465ZM13 5.91211C11.0595 5.91232 9.48654 7.48525 9.48633 9.42578C9.48636 11.3665 11.0594 12.9402 13 12.9404C14.9407 12.9403 16.5146 11.3665 16.5146 9.42578C16.5144 7.48522 14.9406 5.91227 13 5.91211Z" fill="#165DFF"/>
+                                        </svg>
+                                        <span class="appointment-info-text">${formatAddress(item.showroomId)}</span>
+                                    </div>
+                                </div>
+                                ${
+                                    item.meetingLink
+                                    ? `
+                                        <a class="appointment-info" href="${item.meetingLink}" target="_blank">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+                                                <path d="M7 3.96352V2.5C7 1.67158 7.67155 1 8.5 1H21.5C22.3285 1 23 1.67158 23 2.5V15.5C23 16.3285 22.3285 17 21.5 17H20.0087" stroke="#165DFF" stroke-width="2"/>
+                                                <path d="M18.5 4H4.5C3.67157 4 3 4.67157 3 5.5V19.5C3 20.3284 3.67157 21 4.5 21H18.5C19.3284 21 20 20.3284 20 19.5V5.5C20 4.67157 19.3284 4 18.5 4Z" fill="#165DFF" stroke="#165DFF" stroke-width="2" stroke-linejoin="round"/>
+                                                <path d="M10.1396 10.5629L13.0064 7.5786C13.7927 6.79227 15.0849 6.8096 15.8926 7.61728C16.7003 8.42496 16.7176 9.71716 15.9313 10.5034L14.8966 11.5991" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M7.44576 13.6162C7.16935 13.8926 6.59778 14.4446 6.59778 14.4446C5.81145 15.2309 5.7901 16.6324 6.59778 17.4401C7.40546 18.2477 8.69761 18.265 9.48395 17.4787L12.2812 14.9392" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M10.2598 13.3891C9.88468 13.0139 9.68004 12.5342 9.64727 12.0492C9.60946 11.4901 9.80007 10.924 10.2212 10.5029" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M12.2422 12.0527C13.0499 12.8604 13.0672 14.1526 12.2809 14.9389" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <span class="appointment-info-text">${item.meetingLink}</span>
+                                        </a>
+                                    `: ''
+                                }
+                            </div>
+
+                            <div class="reminding-message"></div>
+                        `;
+                        const buttonGroup = document.createElement('div');
+                        buttonGroup.className = "appointment-button-group";
+                        if(item.reservationStatus == 0) {
+                            const cancelledButton = document.createElement('button');
+                            cancelledButton.className = "appointment-button cancelled-button";
+                            cancelledButton.innerHTML = "Cancelled";
+                            buttonGroup.appendChild(cancelledButton);
+                        }
+                        else if(item.reservationStatus == 1) {
+                            const cancelButton = document.createElement('button');
+                            cancelButton.className = "appointment-button cancel-button";
+                            cancelButton.innerHTML = "Cancel appointment";
+                            if(isOneDayToStart(item.visitDateStart, item.showroomId) == true) {
+                                cancelButton.disabled = true;
+                                cancelButton.className = "appointment-button cancel-button disabled-button";
+                            }
+                            buttonGroup.appendChild(cancelButton);
+
+                            const checkInButton = document.createElement('button');
+                            checkInButton.className = "appointment-button check-in-button";
+                            checkInButton.innerHTML = "Check In";
+                            buttonGroup.appendChild(checkInButton);
+                        } else if(item.reservationStatus == 2) {
+                            const expiredButton = document.createElement('button');
+                            expiredButton.className = "appointment-button expired-button";
+                            expiredButton.innerHTML = "Expired";
+                            expiredButton.disabled = true;
+                            buttonGroup.appendChild(expiredButton);
+                        } else if(item.reservationStatus == 3) {
+                            const checkedInButton = document.createElement('button');
+                            checkedInButton.className = "appointment-button checked-in-button";
+                            checkedInButton.innerHTML = "Checked In";
+                            checkedInButton.disabled = true;
+                            buttonGroup.appendChild(checkedInButton);
+                        }
+                        el.querySelector('.appointment-item').appendChild(buttonGroup);
+                        appointmentWrapper.appendChild(el);
+                    });
+
+                    var swiper = new Swiper(".mySwiper", {
+                        slidesPerView: 1.2,
+                        spaceBetween: 10,
+
+                        // 👇 移动端左右留白
+                        slidesOffsetBefore: 10,
+                        slidesOffsetAfter: 10,
+
+                        breakpoints: {
+                            768: {
+                                slidesPerView: 1.8,
+                                spaceBetween: 10,
+                                centeredSlides: true,
+
+                                // 👉 桌面可以取消或调整
+                                slidesOffsetBefore: 0,
+                                slidesOffsetAfter: 0,
+                            }
+                        }
+                    });
+
+                    appointmentWrapper.querySelectorAll('.check-in-button').forEach((item) => {
+                        item.addEventListener("click", (event) => handleCheckIn(event));
+                    });
+
+                    appointmentWrapper.querySelectorAll('.cancel-button').forEach((item) => {
+                        item.addEventListener("click", (event) => handleCancel(event));
+                    });
+                }
+            });
+        }
+
+        function handleCheckIn(event) {
+            const startTime = event.target.closest('.appointment-record').dataset.startTime;
+            const endTime = event.target.closest('.appointment-record').dataset.endTime;
+            if(isHalfHourToStart(startTime, endTime, 30, event) == false) {
+                event.target.closest('.appointment-record').querySelector(".reminding-message").innerHTML = 'This is not the scheduled time yet.';
+                return;
+            } else {
+                event.target.closest('.appointment-record').querySelector(".reminding-message").innerHTML = '';
+            }
+             // 检查浏览器是否支持 Geolocation API
+            let latitude = 0, longitude = 0;
+            if (navigator.geolocation) {
+                // 获取当前位置
+                navigator.geolocation.getCurrentPosition(async function(position) {
+                    // 获取经纬度
+                    latitude = position.coords.latitude;
+                    longitude = position.coords.longitude;
+                    console.log("当前经度", latitude);
+                    console.log("当前纬度", longitude);
+
+                    // 可以在这里将经纬度传递到地图或其他应用中
+                            
+                    const postData = {
+                    id: event.target.closest(".appointment-record").dataset.appointmentId,
+                    checkinLat: latitude,
+                    checkinLng: longitude
+                    };
+
+                    try {
+                        
+                        const res = await boosterFetch(
+                            showroomCheckInApi,
+                            postData,
+                            { method: 'POST' }
+                          )
+                        .then(data => {
+                            if(data.code !== 200) {
+                                const text = data.msg;
+                                event.target.closest('.appointment-record').querySelector('.reminding-message').innerHTML = `${text}`;
+                                throw new Error(`Server error: ${res.status} ${text}`);
+                            } else {
+                                event.target.className = "appointment-button checked-in-button";
+                                event.target.innerHTML = "Checked In";
+                                event.target.disabled = true;
+                                event.target.closest('.appointment-button-group').querySelector('.cancel-button').style.display = 'none';
+                            }
+                        });
+                    } catch (err) {
+                        console.error(err);
+                    }
+                }, function(error) {
+                    // 如果获取位置失败
+                    console.error("无法获取位置:", error);
+                    alert('Failed to fetch your location.')
+                });
+            } else {
+                return;
+            }
+        }
+
+        async function handleCancel(event) {
+            const postData = {
+                id: event.target.closest(".appointment-record").dataset.appointmentId
+            };
+            boosterFetch(showroomCancelApi, postData, { method: 'POST' })
+            .then((data) => {
+                if (data.code === 200) {
+                    event.target.className = "appointment-button cancelled-button";
+                    event.target.innerHTML = "Cancelled";
+                    event.target.disabled = true;
+                    event.target.closest('.appointment-button-group').querySelector('.check-in-button').style.display = 'none';
+                } else {
+                alert(data.msg || 'Error: Unknown error');
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+        
+            });
+            {% comment %} try {
+                const res = await fetch(`${api}${showroomCancelApi}`, {
+                    method: "POST",
+                    headers: window.ShopifyData.headers,
+                    body: JSON.stringify(postData),
+                });
+
+                if(!res.ok) {
+                    const text = await res.text();
+                    throw new Error(`Server error: ${res.status} ${text}`);
+                }
+
+                const data = await res.json();
+
+                if(data.code == 200) {
+                    event.target.className = "appointment-button cancelled-button";
+                    event.target.innerHTML = "Cancelled";
+                    event.target.disabled = true;
+                    event.target.closest('.appointment-button-group').querySelector('.check-in-button').style.display = 'none';
+                }
+                else {
+                    alert(data.msg || 'Unknown error.');
+                }
+            } catch (err) {
+                console.error(err);
+            } {% endcomment %}
+        }
+
+        function isHalfHourToStart(startDateStr, endDateStr, limitTime, event) { 
+            console.log(startDateStr, "startDateStr", endDateStr, "endDateStr");
+            
+            // 获取当前时间的 Los Angeles 时区时间
+            const currentTime = new Date().toLocaleString('en-US', { timeZone: event.target.closest('.appointment-record').dataset.timeZone });
+            const startTime = new Date(startDateStr);
+            const endTime = new Date(endDateStr);
+
+            // 将当前时间转换为 Date 对象
+            const currentDate = new Date(currentTime);
+
+            // 计算当前时间与开始时间的差值（毫秒）
+            const timeDifference = startTime - currentDate;
+
+            // 将限制时间（limitTime，单位为分钟）转化为毫秒
+            const limitTimeInMilliseconds = Number(limitTime) * 60 * 1000;
+
+            // 判断是否在限制时间内
+            console.log("currentTime", currentDate, "startTime", startTime, "endTime", endTime);
+            if (timeDifference <= limitTimeInMilliseconds || (currentDate > startTime && endTime > currentDate)) {
+                return true;  // 当前时间距离开始时间还在限制时间范围内
+            } else {
+                return false; // 当前时间距离开始时间超过限制时间
+            }
+        }
+
+        function formatAddress(showroomId) {
+            return showroomId == 1 ? "1180 Centre Drive, Unit B, City of Industry, California 91789, USA" : "7410 Boulevard 26 Suite F, Richland Hills, TX 76180, USA";
+        }
+
+        function isOneDayToStart(startDateStr, showroomId) { 
+            // 获取当前时间的 Los Angeles 时区时间
+            const timeZone = showroomId == 1 ? 'America/Los_Angeles' : 'America/Chicago';
+            const currentTime = new Date().toLocaleString('en-US', { timeZone: timeZone });
+            const startTime = new Date(startDateStr);
+
+            // 将当前时间转换为 Date 对象
+            const currentDate = new Date(currentTime);
+
+            // 计算当前时间与开始时间的差值（毫秒）
+            const timeDifference = startTime - currentDate;
+
+            // 将一天的时间（1440分钟）转化为毫秒
+            const oneDayInMilliseconds = 1440 * 60 * 1000;
+
+            // 判断是否在一天之内
+            if (timeDifference <= oneDayInMilliseconds) {
+                return true;  // 当前时间距离开始时间还有一天
+            } else {
+                return false; // 当前时间距离开始时间不再一天内
+            }
+        }
+
+        if(customerEmail != "") {
+            loadShowroomAppointment();
+        }
+    });
+</script>
+
+{% schema %}
+{
+  "name": "Showroom Appointment 2",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section heading"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Showroom Appointment 2"
+    }
+  ]
+}
+{% endschema %}

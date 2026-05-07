@@ -1,0 +1,1575 @@
+{% liquid
+  assign section_dom_id = 'distributor-section-' | append: section.id
+
+  assign desktop_banner_bg = section.settings.banner_image_pc_fallback
+  if section.settings.banner_image_pc != blank
+    assign desktop_banner_bg = section.settings.banner_image_pc | image_url: width: 2400
+  endif
+
+  assign mobile_banner_bg = ''
+  if section.settings.banner_image_mobile != blank
+    assign mobile_banner_bg = section.settings.banner_image_mobile | image_url: width: 900
+  elsif section.settings.banner_image_mobile_fallback_asset != blank
+    assign mobile_banner_bg = section.settings.banner_image_mobile_fallback_asset | asset_url
+  endif
+
+  assign apply_button_text_mobile = section.settings.apply_button_text_mobile
+  if apply_button_text_mobile == blank
+    assign apply_button_text_mobile = section.settings.apply_button_text_pc
+  endif
+
+  assign heading_mobile_html = section.settings.heading_mobile_html
+  if heading_mobile_html == blank
+    assign heading_mobile_html = section.settings.heading_pc_html
+  endif
+
+  assign globo_form_css_id = section.settings.globo_form_css_id
+  if globo_form_css_id == blank
+    assign globo_form_css_id = '27527'
+  endif
+%}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    --distributor-page-bg: {{ section.settings.page_background }};
+    --distributor-content-bg: {{ section.settings.content_background }};
+    --distributor-content-max-width: {{ section.settings.content_max_width }}px;
+    --distributor-content-padding-x-pc: {{ section.settings.content_padding_x_pc }}px;
+    --distributor-content-padding-x-mobile: {{ section.settings.content_padding_x_mobile }}px;
+
+    --distributor-banner-height-pc: clamp(
+      calc({{ section.settings.banner_height_pc_min }}px * 1),
+      calc({{ section.settings.banner_height_pc }}px * 100vw / 1920px),
+      calc({{ section.settings.banner_height_pc_max }}px * 1)
+    );
+    --distributor-banner-height-mobile: {{ section.settings.banner_height_mobile }}px;
+
+    --distributor-heading-color: {{ section.settings.heading_color }};
+    --distributor-heading-font-size-pc: {{ section.settings.heading_font_size_pc }}px;
+    --distributor-heading-font-size-mobile: {{ section.settings.heading_font_size_mobile }}px;
+    --distributor-heading-padding-top-pc: {{ section.settings.heading_padding_top_pc }}px;
+    --distributor-heading-padding-bottom-pc: {{ section.settings.heading_padding_bottom_pc }}px;
+    --distributor-heading-padding-top-mobile: {{ section.settings.heading_padding_top_mobile }}px;
+    --distributor-heading-padding-bottom-mobile: {{ section.settings.heading_padding_bottom_mobile }}px;
+
+    --distributor-cards-gap-pc: {{ section.settings.cards_gap_pc }}px;
+    --distributor-cards-gap-mobile: {{ section.settings.cards_gap_mobile }}px;
+    --distributor-cards-bottom-padding-pc: {{ section.settings.cards_bottom_padding_pc }}px;
+    --distributor-cards-bottom-padding-mobile: {{ section.settings.cards_bottom_padding_mobile }}px;
+
+    --distributor-card-bg: {{ section.settings.card_background }};
+    --distributor-card-text-color: {{ section.settings.card_text_color }};
+    --distributor-card-title-color: {{ section.settings.card_title_color }};
+    --distributor-card-content-color: {{ section.settings.card_content_color }};
+    --distributor-card-min-height-pc: {{ section.settings.card_min_height_pc }}px;
+    --distributor-card-padding-top-pc: {{ section.settings.card_padding_top_pc }}px;
+    --distributor-card-padding-x-pc: {{ section.settings.card_padding_x_pc }}px;
+    --distributor-card-padding-mobile: {{ section.settings.card_padding_mobile }}px;
+    --distributor-card-radius-pc: {{ section.settings.card_radius_pc }}px;
+    --distributor-card-radius-mobile: {{ section.settings.card_radius_mobile }}px;
+    --distributor-card-icon-size-pc: {{ section.settings.card_icon_size_pc }}px;
+    --distributor-card-icon-size-mobile: {{ section.settings.card_icon_size_mobile }}px;
+    --distributor-card-icon-margin-bottom-pc: {{ section.settings.card_icon_margin_bottom_pc }}px;
+    --distributor-card-icon-margin-bottom-mobile: {{ section.settings.card_icon_margin_bottom_mobile }}px;
+    --distributor-card-title-font-size-pc: {{ section.settings.card_title_font_size_pc }}px;
+    --distributor-card-title-font-size-mobile: {{ section.settings.card_title_font_size_mobile }}px;
+    --distributor-card-content-font-size-pc: {{ section.settings.card_content_font_size_pc }}px;
+    --distributor-card-content-font-size-mobile: {{ section.settings.card_content_font_size_mobile }}px;
+
+    --distributor-apply-button-bg: {{ section.settings.apply_button_bg }};
+    --distributor-apply-button-text-color: {{ section.settings.apply_button_text_color }};
+    --distributor-apply-button-hover-bg: {{ section.settings.apply_button_hover_bg }};
+    --distributor-apply-button-hover-text-color: {{ section.settings.apply_button_hover_text_color }};
+
+    --distributor-form-section-bg: {{ section.settings.form_section_background }};
+    --distributor-form-inner-bg: {{ section.settings.form_inner_background }};
+    --distributor-form-placeholder-bg: {{ section.settings.form_placeholder_background }};
+    --distributor-form-placeholder-color: {{ section.settings.form_placeholder_text_color }};
+    --distributor-form-placeholder-border: {{ section.settings.form_placeholder_border_color }};
+    --distributor-form-padding-bottom-pc: {{ section.settings.form_padding_bottom_pc }}px;
+    --distributor-form-padding-bottom-mobile: {{ section.settings.form_padding_bottom_mobile }}px;
+
+    --distributor-globo-form-bg: {{ section.settings.globo_form_background }};
+    --distributor-globo-form-title-color: {{ section.settings.globo_form_title_color }};
+    --distributor-globo-form-description-color: {{ section.settings.globo_form_description_color }};
+    --distributor-globo-form-label-color: {{ section.settings.globo_form_label_color }};
+    --distributor-globo-form-input-bg: {{ section.settings.globo_form_input_background }};
+    --distributor-globo-form-input-color: {{ section.settings.globo_form_input_text_color }};
+    --distributor-globo-form-input-border: {{ section.settings.globo_form_input_border_color }};
+    --distributor-globo-form-input-focus-border: {{ section.settings.globo_form_input_focus_border_color }};
+    --distributor-globo-form-checkbox-border: {{ section.settings.globo_form_checkbox_border_color }};
+    --distributor-globo-form-submit-bg: {{ section.settings.globo_form_submit_background }};
+    --distributor-globo-form-submit-color: {{ section.settings.globo_form_submit_text_color }};
+    --distributor-globo-form-submit-border: {{ section.settings.globo_form_submit_border_color }};
+    --distributor-globo-form-submit-hover-bg: {{ section.settings.globo_form_submit_hover_background }};
+    --distributor-globo-form-submit-hover-color: {{ section.settings.globo_form_submit_hover_text_color }};
+    --distributor-globo-form-submit-hover-border: {{ section.settings.globo_form_submit_hover_border_color }};
+    --distributor-globo-form-padding-pc: {{ section.settings.globo_form_padding_pc }}px;
+    --distributor-globo-form-padding-x-pc: {{ section.settings.globo_form_padding_x_pc }}px;
+    --distributor-globo-form-padding-mobile: {{ section.settings.globo_form_padding_mobile }}px;
+  }
+
+  #shopify-section-{{ section.id }} .distributor {
+    background: var(--distributor-page-bg);
+  }
+
+  #shopify-section-{{ section.id }} .distributor .bg-white {
+    background: var(--distributor-content-bg);
+  }
+
+  #shopify-section-{{ section.id }} .distributor .distributor-banner {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .distributor .distributor-banner.pc {
+    height: var(--distributor-banner-height-pc);
+  }
+
+  #shopify-section-{{ section.id }} .distributor .distributor-banner.mobile {
+    height: var(--distributor-banner-height-mobile);
+  }
+
+  #shopify-section-{{ section.id }} .distributor .sections {
+    max-width: var(--distributor-content-max-width);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .distributor .sections--cards {
+    padding: 0 var(--distributor-content-padding-x-pc) var(--distributor-cards-bottom-padding-pc);
+  }
+
+  #shopify-section-{{ section.id }} .distributor .sections--form {
+    background: var(--distributor-form-section-bg);
+  }
+
+  #shopify-section-{{ section.id }} .distributor .section-headers {
+    text-align: center;
+    padding-top: var(--distributor-heading-padding-top-pc);
+    padding-bottom: var(--distributor-heading-padding-bottom-pc);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  #shopify-section-{{ section.id }} .distributor .section-headers .section-header-1 {
+    color: var(--distributor-heading-color);
+    font-weight: 700;
+    font-size: var(--distributor-heading-font-size-pc);
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .distributor .responsive-html > * {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .distributor .responsive-html--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .distributor .section-cards {
+    display: flex;
+    flex-direction: row;
+    gap: var(--distributor-cards-gap-pc);
+  }
+
+  #shopify-section-{{ section.id }} .distributor .section-card {
+    background: var(--distributor-card-bg-current, var(--distributor-card-bg));
+    color: var(--distributor-card-text-color-current, var(--distributor-card-text-color));
+    text-align: center;
+    width: calc((100% - (var(--distributor-cards-gap-pc) * 3)) / 4);
+    min-height: var(--distributor-card-min-height-pc);
+    padding: var(--distributor-card-padding-top-pc) var(--distributor-card-padding-x-pc) var(--distributor-card-padding-x-pc);
+    border-radius: var(--distributor-card-radius-pc);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  #shopify-section-{{ section.id }} .distributor .section-card-inner {
+    width: 100%;
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .distributor .section-card-icon {
+    width: var(--distributor-card-icon-size-pc);
+    height: var(--distributor-card-icon-size-pc);
+    margin-bottom: var(--distributor-card-icon-margin-bottom-pc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .distributor .section-card-icon img {
+    width: var(--distributor-card-icon-size-pc);
+    height: var(--distributor-card-icon-size-pc);
+    object-fit: contain;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .distributor .section-card .section-card-title {
+    color: var(--distributor-card-title-color-current, var(--distributor-card-title-color));
+    font-size: var(--distributor-card-title-font-size-pc);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  #shopify-section-{{ section.id }} .distributor .section-card .section-card-content {
+    color: var(--distributor-card-content-color-current, var(--distributor-card-content-color));
+    font-size: var(--distributor-card-content-font-size-pc);
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .distributor .apply-button-outer {
+    padding: 34px 1rem calc(34px - 1.5rem);
+  }
+
+  #shopify-section-{{ section.id }} .distributor .apply-button {
+    margin: 0;
+    background: var(--distributor-apply-button-bg);
+    padding: 0.5rem 1.5rem;
+    border-radius: 40px;
+    cursor: pointer;
+    color: var(--distributor-apply-button-text-color);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-align: center;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .distributor .apply-button:hover {
+    background: var(--distributor-apply-button-hover-bg);
+    color: var(--distributor-apply-button-hover-text-color);
+  }
+
+  #shopify-section-{{ section.id }} .distributor .form {
+    background: var(--distributor-form-section-bg);
+    text-align: center;
+    padding: 0 0 var(--distributor-form-padding-bottom-pc);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  #shopify-section-{{ section.id }} .distributor .form .form-inner {
+    width: 100%;
+    background: var(--distributor-form-inner-bg);
+    text-align: center;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #shopify-section-{{ section.id }} .distributor .distributor-app-placeholder {
+    width: 100%;
+    padding: 24px;
+    border: 1px dashed var(--distributor-form-placeholder-border);
+    border-radius: 12px;
+    color: var(--distributor-form-placeholder-color);
+    background: var(--distributor-form-placeholder-bg);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .globo-form-id-{{ globo_form_css_id }} .globo-form-app .globo-label,
+  #shopify-section-{{ section.id }} .globo-form-id-{{ globo_form_css_id }} .globo-form-app .globo-form-control label.globo-label,
+  #shopify-section-{{ section.id }} .globo-form-id-{{ globo_form_css_id }} .globo-form-app .globo-form-control label.globo-label span.label-content {
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .globo-form-app {
+    margin-top: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .globo-form-app.boxed-layout {
+    background: var(--distributor-globo-form-bg) !important;
+    border-radius: 20px !important;
+    box-shadow: none !important;
+  }
+
+  #shopify-section-{{ section.id }} .globo-form-app.boxed-layout:not(html):not(p) {
+    padding: var(--distributor-globo-form-padding-pc) var(--distributor-globo-form-padding-x-pc) !important;
+  }
+
+  #shopify-section-{{ section.id }} .globo-form-control {
+    margin-bottom: 16px !important;
+  }
+
+  #shopify-section-{{ section.id }} .globo-form-input,
+  #shopify-section-{{ section.id }} .classic-input,
+  #shopify-section-{{ section.id }} .gfb__other-option__value {
+    color: var(--distributor-globo-form-input-color) !important;
+    border-color: var(--distributor-globo-form-input-border) !important;
+    border-radius: 10px !important;
+    /* box-shadow: none !important; */
+    background-color: var(--distributor-globo-form-input-bg) !important;
+  }
+
+  #shopify-section-{{ section.id }} .globo-form-input::placeholder,
+  #shopify-section-{{ section.id }} .classic-input::placeholder,
+  #shopify-section-{{ section.id }} .gfb__other-option__value::placeholder {
+    color: var(--distributor-globo-form-input-color) !important;
+    opacity: 0.55;
+  }
+
+  #shopify-section-{{ section.id }} select.classic-input:not(html) {
+    border: 1px solid var(--distributor-globo-form-input-border) !important;
+  }
+
+  #shopify-section-{{ section.id }} .classic-input:focus,
+  #shopify-section-{{ section.id }} .gfb__other-option__value:focus,
+  #shopify-section-{{ section.id }} .globo-form-input:focus {
+    border-color: var(--distributor-globo-form-input-focus-border) !important;
+  }
+
+  #shopify-section-{{ section.id }} .globo-form-app .header {
+    margin-bottom: 20px !important;
+  }
+
+  #shopify-section-{{ section.id }} .globo-form-app .header .title {
+    color: var(--distributor-globo-form-title-color) !important;
+    margin-top: 0 !important;
+    margin-bottom: 10px !important;
+    font-size: 30px !important;
+  }
+
+  #shopify-section-{{ section.id }} .globo-form-app .header .description {
+    color: var(--distributor-globo-form-description-color) !important;
+    font-size: 20px !important;
+    text-align: left !important;
+  }
+
+  #shopify-section-{{ section.id }} .globo-form-control input,
+  #shopify-section-{{ section.id }} .globo-form-control textarea,
+  #shopify-section-{{ section.id }} .globo-form-control select {
+    border-radius: 4px !important;
+  }
+
+  #shopify-section-{{ section.id }} .globo-form-control label:not(html),
+  #shopify-section-{{ section.id }} .globo-form-control .checkbox-wrapper label.checkbox-label:not(html),
+  #shopify-section-{{ section.id }} .globo-form-control .checkbox-wrapper .checkbox-label:not(html),
+  #shopify-section-{{ section.id }} .globo-form-control .globo-label,
+  #shopify-section-{{ section.id }} .globo-form-control .label-content {
+    color: var(--distributor-globo-form-label-color) !important;
+    box-shadow: none;
+    font-size: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .checkbox-label.globo-option::before {
+    box-shadow: none !important;
+    border-color: var(--distributor-globo-form-checkbox-border) !important;
+  }
+
+  #shopify-section-{{ section.id }} .checkbox-label.globo-option::after {
+    box-shadow: none !important;
+  }
+
+  #shopify-section-{{ section.id }} .globo-form-id-{{ globo_form_css_id }} .globo-form-app .globo-form-control .checkbox-wrapper .checkbox-input:checked ~ .checkbox-label:not(html)::before {
+    background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTZweCIgaGVpZ2h0PSIxMnB4IiB2aWV3Qm94PSIwIDAgMTYgMTIiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+RmlsbCAxPC90aXRsZT4KICAgIDxnIGlkPSJ6IiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0i5Luj55CG5ZWGIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNDAyLCAtMjQ4OCkiIGZpbGw9IiMwMDAwMDAiPgogICAgICAgICAgICA8ZyBpZD0i6KGo5qC8IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNjAsIDE0NTgpIj4KICAgICAgICAgICAgICAgIDxnIGlkPSJPdGhlci3pgInkuK3moLflvI8iIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQwLCAxMDI2KSI+CiAgICAgICAgICAgICAgICAgICAgPHBvbHlnb24gaWQ9IkZpbGwtMSIgcG9pbnRzPSIxNi44NjI5MTQgNCA3Ljg0NzgwMTMyIDEzLjA5NjQ5MzIgMy4xMzcwODYwMiA4LjM4NTc3NzkgMiA5LjUyMjg2MzkxIDcuODQ3ODAxMzIgMTUuMjg5MzgyMiAxOCA1LjEzNzA4NjAyIj48L3BvbHlnb24+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70%;
+    transition: none;
+  }
+
+  #shopify-section-{{ section.id }} .globo-form-control .checkbox-wrapper .checkbox-input:checked ~ .checkbox-label::after {
+    background-image: none !important;
+  }
+
+  #shopify-section-{{ section.id }} .gfb__footer .wizard__footer {
+    border-radius: 40px !important;
+  }
+
+  #shopify-section-{{ section.id }} .action.next.submit.classic-button {
+    background: var(--distributor-globo-form-submit-bg) !important;
+    color: var(--distributor-globo-form-submit-color) !important;
+    border: 1px solid var(--distributor-globo-form-submit-border) !important;
+    border-radius: 40px !important;
+    margin-bottom: 0 !important;
+    font-weight: 700;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .action.next.submit.classic-button:hover {
+    background: var(--distributor-globo-form-submit-hover-bg) !important;
+    color: var(--distributor-globo-form-submit-hover-color) !important;
+    border-color: var(--distributor-globo-form-submit-hover-border) !important;
+  }
+
+  @media (min-width: 769px) {
+    #shopify-section-{{ section.id }} .distributor .apply-button-outer {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .distributor .distributor-banner.mobile {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .action.next.submit.classic-button {
+      margin-top: calc(40px - 16px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .distributor .distributor-banner.pc {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .distributor .sections--cards {
+      padding: 0 var(--distributor-content-padding-x-mobile) var(--distributor-cards-bottom-padding-mobile);
+    }
+
+    #shopify-section-{{ section.id }} .distributor .section-headers {
+      text-align: left;
+      padding-top: var(--distributor-heading-padding-top-mobile);
+      padding-bottom: var(--distributor-heading-padding-bottom-mobile);
+      align-items: flex-start;
+    }
+
+    #shopify-section-{{ section.id }} .distributor .section-headers .section-header-1 {
+      font-size: var(--distributor-heading-font-size-mobile);
+      line-height: 1.2;
+      margin-bottom: 0;
+    }
+
+    #shopify-section-{{ section.id }} .distributor .responsive-html--pc {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .distributor .responsive-html--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .distributor .section-cards {
+      flex-wrap: wrap;
+      gap: var(--distributor-cards-gap-mobile);
+    }
+
+    #shopify-section-{{ section.id }} .distributor .section-card {
+      width: calc(50% - (var(--distributor-cards-gap-mobile) / 2));
+      min-height: initial;
+      height: auto;
+      padding: var(--distributor-card-padding-mobile);
+      border-radius: var(--distributor-card-radius-mobile);
+    }
+
+    #shopify-section-{{ section.id }} .distributor .section-card-inner {
+      max-width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .distributor .section-card-icon {
+      width: var(--distributor-card-icon-size-mobile);
+      height: var(--distributor-card-icon-size-mobile);
+      margin-bottom: var(--distributor-card-icon-margin-bottom-mobile);
+    }
+
+    #shopify-section-{{ section.id }} .distributor .section-card-icon img {
+      width: var(--distributor-card-icon-size-mobile);
+      height: var(--distributor-card-icon-size-mobile);
+    }
+
+    #shopify-section-{{ section.id }} .distributor .section-card .section-card-title {
+      font-size: var(--distributor-card-title-font-size-mobile);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .distributor .section-card .section-card-content {
+      font-size: var(--distributor-card-content-font-size-mobile);
+      padding: 0;
+    }
+
+    #shopify-section-{{ section.id }} .distributor .form {
+      padding-top: 0;
+      padding-bottom: var(--distributor-form-padding-bottom-mobile);
+    }
+
+    #shopify-section-{{ section.id }} .distributor .form .form-inner {
+      border-radius: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .globo-form-app {
+      margin-bottom: 0;
+    }
+
+    #shopify-section-{{ section.id }} .globo-form-app.boxed-layout:not(html) {
+      padding: var(--distributor-globo-form-padding-mobile) !important;
+      border-radius: 10px !important;
+    }
+
+    #shopify-section-{{ section.id }} .globo-form-app.boxed-layout p {
+      font-size: 14px;
+      line-height: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .globo-form-app .header .title:not(html) {
+      font-size: 18px !important;
+      text-align: left;
+    }
+
+    #shopify-section-{{ section.id }} .globo-form-control label:not(html),
+    #shopify-section-{{ section.id }} .globo-form-control .checkbox-wrapper .checkbox-label:not(html),
+    #shopify-section-{{ section.id }} .globo-form-control .checkbox-wrapper label.checkbox-label:not(html):not(p):not(a) {
+      font-size: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .action.next.submit.classic-button {
+      width: 100%;
+    }
+    #shopify-section-{{ section.id }} .globo-form-control label:not(html),
+  #shopify-section-{{ section.id }} .globo-form-control .checkbox-wrapper label.checkbox-label:not(html),
+  #shopify-section-{{ section.id }} .globo-form-control .checkbox-wrapper .checkbox-label:not(html),
+  #shopify-section-{{ section.id }} .globo-form-control .globo-label,
+  #shopify-section-{{ section.id }} .globo-form-control .label-content {
+
+    font-size: 14px;
+  }
+  }
+{% endstyle %}
+
+<div id="{{ section_dom_id }}" class="distributor" data-section-id="{{ section.id }}">
+  {% if section.settings.show_banner %}
+    {% if mobile_banner_bg != blank %}
+      <div
+        class="distributor-banner mobile"
+        style="background-image: url('{{ mobile_banner_bg }}');"
+        aria-label="Distributor application banner mobile"
+      ></div>
+    {% endif %}
+
+    {% if desktop_banner_bg != blank %}
+      <div
+        class="distributor-banner pc"
+        style="background-image: url('{{ desktop_banner_bg }}');"
+        data-scroll-to-form="{% if section.settings.enable_banner_click %}true{% else %}false{% endif %}"
+        aria-label="Distributor application banner desktop"
+      ></div>
+    {% endif %}
+  {% endif %}
+
+  {% if section.settings.show_apply_button_mobile %}
+    <div class="apply-button-outer bg-white">
+      <div
+        class="apply-button mobile"
+        data-anchor="join-section-{{ section.id }}"
+        role="button"
+        tabindex="0"
+      >
+        {{ apply_button_text_mobile | escape }}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if section.settings.show_heading or section.settings.show_cards %}
+    <div class="sections sections--cards bg-white">
+      {% if section.settings.show_heading %}
+        <div class="section-headers">
+          <div class="section-header-1">
+            <div class="responsive-html responsive-html--pc">
+              {{ section.settings.heading_pc_html }}
+            </div>
+            <div class="responsive-html responsive-html--mobile">
+              {{ heading_mobile_html }}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if section.settings.show_cards %}
+        <section class="why">
+          <div class="section-cards">
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'benefit_card' %}
+                  {% liquid
+                    assign card_title_mobile_html = block.settings.title_mobile_html
+                    if card_title_mobile_html == blank
+                      assign card_title_mobile_html = block.settings.title_pc_html
+                    endif
+
+                    assign card_content_mobile_html = block.settings.content_mobile_html
+                    if card_content_mobile_html == blank
+                      assign card_content_mobile_html = block.settings.content_pc_html
+                    endif
+
+                    assign icon_src = ''
+                    if block.settings.icon_image != blank
+                      assign icon_src = block.settings.icon_image | image_url: width: 176
+                    elsif block.settings.icon_fallback_asset != blank
+                      assign icon_src = block.settings.icon_fallback_asset | asset_url
+                    endif
+                  %}
+
+                  <div
+                    class="section-card"
+                    style="
+                      {% if block.settings.card_background_override != blank %}--distributor-card-bg-current: {{ block.settings.card_background_override }};{% endif %}
+                      {% if block.settings.card_text_color_override != blank %}--distributor-card-text-color-current: {{ block.settings.card_text_color_override }};{% endif %}
+                      {% if block.settings.card_title_color_override != blank %}--distributor-card-title-color-current: {{ block.settings.card_title_color_override }};{% endif %}
+                      {% if block.settings.card_content_color_override != blank %}--distributor-card-content-color-current: {{ block.settings.card_content_color_override }};{% endif %}
+                    "
+                    {{ block.shopify_attributes }}
+                  >
+                    <div class="section-card-inner">
+                      {% if icon_src != blank %}
+                        <div class="section-card-icon">
+                          <img
+                            class="lazyload"
+                            src="{{ icon_src }}"
+                            data-src="{{ icon_src }}"
+                            alt="{{ block.settings.icon_alt | escape }}"
+                            width="{{ section.settings.card_icon_size_pc }}"
+                            height="{{ section.settings.card_icon_size_pc }}"
+                            loading="lazy"
+                          >
+                        </div>
+                      {% endif %}
+
+                      <div class="section-card-title">
+                        <div class="responsive-html responsive-html--pc">
+                          {{ block.settings.title_pc_html }}
+                        </div>
+                        <div class="responsive-html responsive-html--mobile">
+                          {{ card_title_mobile_html }}
+                        </div>
+                      </div>
+
+                      <div class="section-card-content">
+                        <div class="responsive-html responsive-html--pc">
+                          {{ block.settings.content_pc_html }}
+                        </div>
+                        <div class="responsive-html responsive-html--mobile">
+                          {{ card_content_mobile_html }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              {% endcase %}
+            {% endfor %}
+          </div>
+        </section>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if section.settings.show_form %}
+    <div class="sections sections--form">
+      <section id="join-section-{{ section.id }}" class="form">
+        <div class="form-inner">
+          {% assign has_app_block = false %}
+
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when '@app' %}
+                {% assign has_app_block = true %}
+                {% render block %}
+            {% endcase %}
+          {% endfor %}
+
+          {% if request.design_mode and has_app_block == false %}
+            <div class="distributor-app-placeholder">
+              请在当前模块中添加 Globo Form Builder 的 App Block。这里已不再使用固定短码：
+              <strong>&lt;div class="globo-formbuilder" data-id="Mjc1Mjc="&gt;&lt;/div&gt;</strong>
+            </div>
+          {% endif %}
+        </div>
+      </section>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+  (() => {
+    const section = document.getElementById({{ section_dom_id | json }});
+
+    if (!section || section.dataset.initialized === 'true') {
+      return;
+    }
+
+    section.dataset.initialized = 'true';
+
+    const scrollToForm = () => {
+      const target = section.querySelector('.form');
+
+      if (!target) {
+        return;
+      }
+
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    };
+
+    section.querySelectorAll('[data-href]').forEach((el) => {
+      el.addEventListener('click', () => {
+        const href = el.getAttribute('data-href');
+
+        if (href) {
+          window.location.href = href;
+        }
+      });
+    });
+
+    section.querySelectorAll('[data-open]').forEach((el) => {
+      el.addEventListener('click', () => {
+        const openUrl = el.getAttribute('data-open');
+
+        if (openUrl) {
+          window.open(openUrl, '_blank', 'noopener');
+        }
+      });
+    });
+
+    section.querySelectorAll('[data-anchor]').forEach((el) => {
+      el.addEventListener('click', () => {
+        const anchor = el.getAttribute('data-anchor');
+        const target = anchor ? document.getElementById(anchor) : null;
+
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+
+          return;
+        }
+
+        scrollToForm();
+      });
+
+      el.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          el.click();
+        }
+      });
+    });
+
+    const desktopBanner = section.querySelector('.distributor-banner.pc');
+
+    if (desktopBanner && desktopBanner.dataset.scrollToForm === 'true') {
+      desktopBanner.addEventListener('click', scrollToForm);
+    }
+
+    section.querySelectorAll('.faq-obj-head').forEach((el) => {
+      el.addEventListener('click', () => {
+        const parent = el.parentElement;
+
+        if (!parent) {
+          return;
+        }
+
+        parent.classList.toggle('active');
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "经销商申请模块",
+  "tag": "section",
+  "class": "section-distributor-application",
+  "settings": [
+    {
+      "type": "header",
+      "content": "模块开关"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "label": "显示顶部 Banner",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_apply_button_mobile",
+      "label": "移动端显示 Apply 按钮",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_banner_click",
+      "label": "PC Banner 点击滚动到表单",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "显示标题",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cards",
+      "label": "显示权益卡片",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_form",
+      "label": "显示表单区域",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "顶部 Banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image_pc",
+      "label": "Banner 图片 - PC"
+    },
+    {
+      "type": "text",
+      "id": "banner_image_pc_fallback",
+      "label": "Banner 默认图片 URL - PC",
+      "default": "https://cdn.shopify.com/s/files/1/0509/3454/6613/files/01a22581cd48885d61cfb3aaafa5ff2d.png"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image_mobile",
+      "label": "Banner 图片 - 移动端"
+    },
+    {
+      "type": "text",
+      "id": "banner_image_mobile_fallback_asset",
+      "label": "Banner 默认素材文件名 - 移动端",
+      "default": "distributor-banner-mobile.png"
+    },
+    {
+      "type": "range",
+      "id": "banner_height_pc_min",
+      "label": "Banner 最小高度 - PC",
+      "min": 200,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "default": 340
+    },
+    {
+      "type": "range",
+      "id": "banner_height_pc",
+      "label": "Banner 设计稿高度 - PC",
+      "min": 200,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "default": 700
+    },
+    {
+      "type": "range",
+      "id": "banner_height_pc_max",
+      "label": "Banner 最大高度 - PC",
+      "min": 200,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "default": 900
+    },
+    {
+      "type": "range",
+      "id": "banner_height_mobile",
+      "label": "Banner 高度 - 移动端",
+      "min": 120,
+      "max": 420,
+      "step": 5,
+      "unit": "px",
+      "default": 235
+    },
+    {
+      "type": "header",
+      "content": "移动端按钮"
+    },
+    {
+      "type": "text",
+      "id": "apply_button_text_pc",
+      "label": "按钮文案 - PC",
+      "default": "Apply Now"
+    },
+    {
+      "type": "text",
+      "id": "apply_button_text_mobile",
+      "label": "按钮文案 - 移动端，留空则使用 PC"
+    },
+    {
+      "type": "color",
+      "id": "apply_button_bg",
+      "label": "按钮背景色",
+      "default": "#da291c"
+    },
+    {
+      "type": "color",
+      "id": "apply_button_text_color",
+      "label": "按钮文字颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "apply_button_hover_bg",
+      "label": "按钮悬停背景色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "apply_button_hover_text_color",
+      "label": "按钮悬停文字颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "标题内容"
+    },
+    {
+      "type": "html",
+      "id": "heading_pc_html",
+      "label": "主标题 - PC",
+      "default": "<p>Why Partner with Us?</p>"
+    },
+    {
+      "type": "html",
+      "id": "heading_mobile_html",
+      "label": "主标题 - 移动端，留空则使用 PC"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_pc",
+      "label": "主标题字号 - PC",
+      "min": 16,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "label": "主标题字号 - 移动端",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "主标题颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "模块颜色"
+    },
+    {
+      "type": "color",
+      "id": "page_background",
+      "label": "整体背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "content_background",
+      "label": "内容区域背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "form_section_background",
+      "label": "表单区域背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "form_inner_background",
+      "label": "表单内层背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "form_placeholder_background",
+      "label": "表单占位提示背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "form_placeholder_text_color",
+      "label": "表单占位提示文字颜色",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "form_placeholder_border_color",
+      "label": "表单占位提示边框颜色",
+      "default": "#cccccc"
+    },
+    {
+      "type": "header",
+      "content": "布局间距"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "内容最大宽度",
+      "min": 960,
+      "max": 1600,
+      "step": 10,
+      "unit": "px",
+      "default": 1380
+    },
+    {
+      "type": "range",
+      "id": "content_padding_x_pc",
+      "label": "内容左右边距 - PC",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "content_padding_x_mobile",
+      "label": "内容左右边距 - 移动端",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top_pc",
+      "label": "标题上边距 - PC",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 104
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_pc",
+      "label": "标题下边距 - PC",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top_mobile",
+      "label": "标题上边距 - 移动端",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_mobile",
+      "label": "标题下边距 - 移动端",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "cards_gap_pc",
+      "label": "卡片间距 - PC",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "cards_gap_mobile",
+      "label": "卡片间距 - 移动端",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "cards_bottom_padding_pc",
+      "label": "卡片区域下边距 - PC",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "cards_bottom_padding_mobile",
+      "label": "卡片区域下边距 - 移动端",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "form_padding_bottom_pc",
+      "label": "表单区域下边距 - PC",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 66
+    },
+    {
+      "type": "range",
+      "id": "form_padding_bottom_mobile",
+      "label": "表单区域下边距 - 移动端",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "header",
+      "content": "卡片样式"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "卡片背景色",
+      "default": "#da291c"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "卡片默认文字颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "卡片标题颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_content_color",
+      "label": "卡片内容颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_min_height_pc",
+      "label": "卡片最小高度 - PC",
+      "min": 220,
+      "max": 620,
+      "step": 4,
+      "unit": "px",
+      "default": 384
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top_pc",
+      "label": "卡片上内边距 - PC",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 58
+    },
+    {
+      "type": "range",
+      "id": "card_padding_x_pc",
+      "label": "卡片左右内边距 - PC",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_mobile",
+      "label": "卡片内边距 - 移动端",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_radius_pc",
+      "label": "卡片圆角 - PC",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_radius_mobile",
+      "label": "卡片圆角 - 移动端",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_icon_size_pc",
+      "label": "图标尺寸 - PC",
+      "min": 32,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "card_icon_size_mobile",
+      "label": "图标尺寸 - 移动端",
+      "min": 24,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "card_icon_margin_bottom_pc",
+      "label": "图标下边距 - PC",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_icon_margin_bottom_mobile",
+      "label": "图标下边距 - 移动端",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_title_font_size_pc",
+      "label": "卡片标题字号 - PC",
+      "min": 12,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_title_font_size_mobile",
+      "label": "卡片标题字号 - 移动端",
+      "min": 10,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_content_font_size_pc",
+      "label": "卡片内容字号 - PC",
+      "min": 12,
+      "max": 44,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_content_font_size_mobile",
+      "label": "卡片内容字号 - 移动端",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Globo 表单颜色"
+    },
+    {
+      "type": "color",
+      "id": "globo_form_background",
+      "label": "Globo 表单背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "globo_form_title_color",
+      "label": "Globo 表单标题颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "globo_form_description_color",
+      "label": "Globo 表单描述颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "globo_form_label_color",
+      "label": "Globo 表单标签颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "globo_form_input_background",
+      "label": "Globo 输入框背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "globo_form_input_text_color",
+      "label": "Globo 输入框文字颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "globo_form_input_border_color",
+      "label": "Globo 输入框边框颜色",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "globo_form_input_focus_border_color",
+      "label": "Globo 输入框聚焦边框颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "globo_form_checkbox_border_color",
+      "label": "Globo 复选框边框颜色",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "globo_form_submit_background",
+      "label": "Globo 提交按钮背景色",
+      "default": "#da291c"
+    },
+    {
+      "type": "color",
+      "id": "globo_form_submit_text_color",
+      "label": "Globo 提交按钮文字颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "globo_form_submit_border_color",
+      "label": "Globo 提交按钮边框颜色",
+      "default": "#da291c"
+    },
+    {
+      "type": "color",
+      "id": "globo_form_submit_hover_background",
+      "label": "Globo 提交按钮悬停背景色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "globo_form_submit_hover_text_color",
+      "label": "Globo 提交按钮悬停文字颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "globo_form_submit_hover_border_color",
+      "label": "Globo 提交按钮悬停边框颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Globo 表单样式"
+    },
+    {
+      "type": "text",
+      "id": "globo_form_css_id",
+      "label": "Globo 表单 CSS ID",
+      "default": "27527",
+      "info": "仅用于匹配 .globo-form-id-xxxxx 的样式，当前默认对应原 data-id Mjc1Mjc=。"
+    },
+    {
+      "type": "range",
+      "id": "globo_form_padding_pc",
+      "label": "Globo 表单内边距 - PC",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "globo_form_padding_x_pc",
+      "label": "Globo 表单左右内边距 - PC",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "globo_form_padding_mobile",
+      "label": "Globo 表单内边距 - 移动端",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "benefit_card",
+      "name": "权益卡片",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "图标图片"
+        },
+        {
+          "type": "text",
+          "id": "icon_fallback_asset",
+          "label": "默认图标文件名",
+          "default": "distributor-1.svg"
+        },
+        {
+          "type": "text",
+          "id": "icon_alt",
+          "label": "图标 ALT",
+          "default": "Distributor benefit icon"
+        },
+        {
+          "type": "html",
+          "id": "title_pc_html",
+          "label": "标题 - PC",
+          "default": "<p>Light Asset</p>"
+        },
+        {
+          "type": "html",
+          "id": "title_mobile_html",
+          "label": "标题 - 移动端，留空则使用 PC"
+        },
+        {
+          "type": "html",
+          "id": "content_pc_html",
+          "label": "内容 - PC",
+          "default": "<p>Join the program without the need for significant upfront capital or physical infrastructure</p>"
+        },
+        {
+          "type": "html",
+          "id": "content_mobile_html",
+          "label": "内容 - 移动端，留空则使用 PC"
+        },
+        {
+          "type": "header",
+          "content": "单个卡片颜色覆盖"
+        },
+        {
+          "type": "color",
+          "id": "card_background_override",
+          "label": "单个卡片背景色，留空使用全局"
+        },
+        {
+          "type": "color",
+          "id": "card_text_color_override",
+          "label": "单个卡片默认文字颜色，留空使用全局"
+        },
+        {
+          "type": "color",
+          "id": "card_title_color_override",
+          "label": "单个卡片标题颜色，留空使用全局"
+        },
+        {
+          "type": "color",
+          "id": "card_content_color_override",
+          "label": "单个卡片内容颜色，留空使用全局"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "经销商申请模块",
+      "blocks": [
+        {
+          "type": "benefit_card",
+          "settings": {
+            "icon_fallback_asset": "distributor-1.svg",
+            "icon_alt": "Light Asset",
+            "title_pc_html": "<p>Light Asset</p>",
+            "content_pc_html": "<p>Join the program without the need for significant upfront capital or physical infrastructure</p>"
+          }
+        },
+        {
+          "type": "benefit_card",
+          "settings": {
+            "icon_fallback_asset": "distributor-2.svg",
+            "icon_alt": "Simple Process",
+            "title_pc_html": "<p>Simple Process</p>",
+            "content_pc_html": "<p>Agents are only responsible for sale, while we handle shipping, inventory and guidance</p>"
+          }
+        },
+        {
+          "type": "benefit_card",
+          "settings": {
+            "icon_fallback_asset": "distributor-3.svg",
+            "icon_alt": "Stable Income",
+            "title_pc_html": "<p>Stable Income</p>",
+            "content_pc_html": "<p>High brand market share and good reputation lead to easy transactions and consistent income</p>"
+          }
+        },
+        {
+          "type": "benefit_card",
+          "settings": {
+            "icon_fallback_asset": "distributor-4.svg",
+            "icon_alt": "Reliable Support",
+            "title_pc_html": "<p>Reliable Support</p>",
+            "content_pc_html": "<p>Procolored offers comprehensive support to partners in after-sales and marketing</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

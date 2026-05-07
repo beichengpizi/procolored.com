@@ -1,0 +1,1143 @@
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/intl-tel-input@18/build/css/intlTelInput.css"
+>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18/build/js/intlTelInput.min.js"></script>
+
+<style>
+  #shopify-section-{{ section.id }} .max-width {
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} p {
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .section-header--description {
+    color: #3D3D3D;
+    text-align: center;
+    font-size: 18px;
+    line-height: 24.84px; /* 138% */
+  }
+
+  #shopify-section-{{ section.id }} .modal-content .section-header--content {
+    display: flex;
+    align-items: center;
+    max-width: 512px;
+    flex-direction: column;
+  }
+
+  /* 统一修改所有 Checkbox & Radio 选中颜色 */
+  #shopify-section-{{ section.id }} input[type="checkbox"],
+  #shopify-section-{{ section.id }} input[type="radio"] {
+    accent-color: #5E8DFF !important;
+  }
+
+  #shopify-section-{{ section.id }} .form-box {
+      background: #fff;
+      border-radius: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .title {
+      font-size: 22px;
+      margin-bottom: 20px;
+      font-weight: bold;
+  }
+
+  #shopify-section-{{ section.id }} .form-row {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 32px;
+      position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .form-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+  }
+
+  #shopify-section-{{ section.id }} label,
+  #shopify-section-{{ section.id }} .section-title {
+      font-weight: bold;
+      margin-bottom: 12px;
+      color: #0F0C00;
+      font-size: 16px;
+      font-weight: 700;
+      text-wrap: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .checkbox-group label {
+    color: #0F0C00;
+    font-size: 18px;
+    line-height: 24px; /* 133.333% */
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .required {
+      color: red;
+      margin-left: 4px;
+  }
+
+  #shopify-section-{{ section.id }} input[type="text"],
+  #shopify-section-{{ section.id }} input[type="email"],
+  #shopify-section-{{ section.id }} input[type="date"],
+  #shopify-section-{{ section.id }} select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 0;
+      width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} input[type=radio],
+  #shopify-section-{{ section.id }} input[type=checkbox] {
+    margin-right: 0;
+    width: 18px;
+  }
+
+  #shopify-section-{{ section.id }} input.error {
+      border-color: red;
+  }
+
+  #shopify-section-{{ section.id }} .error-text {
+      color: red;
+      font-size: 12px;
+      position: absolute;
+      bottom: -21px;
+  }
+
+  #shopify-section-{{ section.id }} .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 32px;
+      padding: 12px 0;
+  }
+
+  #shopify-section-{{ section.id }} .checkbox-group label {
+      font-weight: normal;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .checkbox-group.agree label {
+    color: #939393;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} button {
+      width: 100%;
+      background: #006aff;
+      color: #fff;
+      border-radius: 6px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      height: 52px;
+  }
+
+  #shopify-section-{{ section.id }} button:hover {
+      background: #0057d1;
+  }
+
+  #shopify-section-{{ section.id }} input {
+      padding: 12px;
+      font-size: 15px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+  }
+
+  #shopify-section-{{ section.id }} .disabled {
+      color: #ccc;
+      pointer-events: none;
+      opacity: 0.4;
+  }
+
+  #shopify-section-{{ section.id }} .selected {
+      background: rgba(22, 93, 255, 0.10);
+      color: white;
+  }
+
+  /* Time slots */
+  #shopify-section-{{ section.id }} .time-slots {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px 12px;
+  }
+
+  #shopify-section-{{ section.id }} .section-header {
+    justify-content: center;
+    padding-bottom: 0;
+  }
+
+  /* —— 两栏布局 —— */
+  #shopify-section-{{ section.id }} .page-layout {
+      display: flex;
+      gap: 30px;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 48px;
+  }
+
+  /* 灰色遮罩层 */
+  #shopify-section-{{ section.id }} .success-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    display: none;
+  }
+
+  /* 白色弹窗框 */
+  #shopify-section-{{ section.id }} .success-popup-box {
+    background: #fff;
+    width: 500px;
+    padding: 24px;
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .success-title {
+    color: #165DFF;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    padding-bottom: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .success-desc {
+    color: #3D3D3D;
+    text-align: center;
+    font-size: 14px;
+    padding-bottom: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .success-btn {
+    padding: 12px 36px;
+    background: #165DFF;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    width: fit-content;
+  }
+
+  #shopify-section-{{ section.id }} input::placeholder {
+    color: #999 !important;
+    opacity: 1 !important;
+  }
+
+  #shopify-section-{{ section.id }} .visit-type-box {
+    border-radius: 4px;
+    border: 1px solid var(---4, #E7E7E7);
+    background: #FFF;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    flex: 1;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .visit-type-box.active {
+    border: 1px solid var(---4, #1677FF);
+    background: #F1F6FF;
+  }
+
+  #shopify-section-{{ section.id }} .visit-type-box svg {
+    background: #F1F6FF;
+    border-radius: 99px;
+  }
+
+  #shopify-section-{{ section.id }} .visit-type-box.active svg {
+    background: #165DFF;
+    border-radius: 99px;
+  }
+
+  #shopify-section-{{ section.id }} .visit-type-box.active path,
+  #shopify-section-{{ section.id }} .visit-type-box.active rect {
+    stroke: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .in-person-title {
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 22.4px; /* 140% */
+  }
+
+  #shopify-section-{{ section.id }} .visit-type-box.active .in-person-title {
+    color: #165DFF;
+  }
+
+  #shopify-section-{{ section.id }} .in-person-desc {
+    color: #3D3D3D;
+    font-size: 14px;
+    line-height: 20px; /* 142.86% */
+  }
+
+  #shopify-section-{{ section.id }} .expand-selector {
+    padding: 0 40px;
+  }
+
+  #shopify-section-{{ section.id }} .expand-selector select {
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .selector-box {
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .selector-box svg {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  #shopify-section-{{ section.id }} #phone {
+    padding-left: 50px;
+  }
+
+  #shopify-section-{{ section.id }} #showroom-selector-box,
+  #shopify-section-{{ section.id }} #date-selector-box,
+  #shopify-section-{{ section.id }} #time-selector-box,
+  #shopify-section-{{ section.id }} #meetingMethodSelector {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .time-selector {
+    display: flex;
+    gap: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .time-slot {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .week-day {
+    font-size: 12px;
+    color: #3D3D3D;
+    font-weight: 700;
+    line-height: 16.8px; /* 140% */
+    margin-bottom: 9px;
+  }
+
+  #shopify-section-{{ section.id }} .time-slot-date {
+    padding: 12px 20px;
+    border-radius: 4px;
+    border: 1px solid #E7E7E7;
+    font-size: 14px;
+    line-height: 1;
+    color: #6D6D6D;
+  }
+
+  #shopify-section-{{ section.id }} .time-slot.active .time-slot-date {
+    border: 1px solid #165DFF;
+    background: #EAF0FF;
+    border-radius: 4px;
+    color: #165DFF;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1; /* 160% */
+    padding: 12px 20px;
+  }
+
+  #shopify-section-{{ section.id }} .placeholder-text {
+    color: #D1D1D1;
+    font-size: 14px;
+    line-height: 19.6px; /* 140% */
+  }
+
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }} .form-box {
+        background: transparent;
+        padding: 0;
+        box-shadow: unset;
+    }
+
+    #shopify-section-{{ section.id }} .form-row {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 12px;
+        flex-direction: column;
+    }
+
+    #shopify-section-{{ section.id }} .form-row:has(.visit-type-box) {
+      flex-direction: row;
+    }
+
+    #shopify-section-{{ section.id }} .visit-type-box {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .in-person-desc {
+      font-size: 12px;
+      line-height: 140%; /* 16.8px */
+    }
+
+    #shopify-section-{{ section.id }} .form-item {
+        flex-direction: column;
+    }
+
+    #shopify-section-{{ section.id }} label,
+    #shopify-section-{{ section.id }} .section-title {
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .checkbox-group label {
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} input[type="text"],
+    #shopify-section-{{ section.id }} input[type="email"],
+    #shopify-section-{{ section.id }} input[type="date"],
+    #shopify-section-{{ section.id }} select {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 12px;
+        margin-bottom: 0;
+        height: 48px;
+    }
+
+    #shopify-section-{{ section.id }} input[type=radio] {
+      margin-right: 0;
+    }
+
+    #shopify-section-{{ section.id }} input[type=radio],
+    #shopify-section-{{ section.id }} input[type=checkbox] {
+      width: 12px;
+    }
+
+    #shopify-section-{{ section.id }} input.error {
+        border-color: red;
+    }
+
+    #shopify-section-{{ section.id }} .error-text {
+        color: red;
+        font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .checkbox-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 12px;
+        margin-bottom: 8px;
+        padding: 8px 0;
+    }
+
+    #shopify-section-{{ section.id }} .checkbox-group:not(.agree) label {
+        font-weight: normal;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    #shopify-section-{{ section.id }}  .checkbox-group.agree label {
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    #shopify-section-{{ section.id }} button {
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    #shopify-section-{{ section.id }} input {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    /* 让所有表单中的 text 输入框背景透明 */
+    #shopify-section-{{ section.id }} input[type="text"] {
+        background-color: transparent !important;
+        box-shadow: none !important;   /* 可选：移除边缘阴影 */
+    }
+
+    /* 如果你只想改 radio/checkbox 后面的 Other 输入框 */
+    #shopify-section-{{ section.id }} .radio-other-input,
+    #shopify-section-{{ section.id }} .checkbox-other-input {
+        background-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    #shopify-section-{{ section.id }} .section-header--description {
+      font-size: 14px;
+      line-height: 19.6px; /* 140% */
+    }
+
+    /* Time slots */
+    #shopify-section-{{ section.id }} .time-slots {
+        gap: 12px 20px;
+        justify-content: flex-start;
+    }
+
+    /* —— 两栏布局 —— */
+    #shopify-section-{{ section.id }} .page-layout {
+        padding-top: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .section-header {
+      padding: 20px 16px 0 16px;
+    }
+
+    /* 灰色遮罩层 */
+    #shopify-section-{{ section.id }} .success-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #shopify-section-{{ section.id }} .close svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* 白色弹窗框 */
+    #shopify-section-{{ section.id }} .success-popup-box {
+      background: #fff;
+      padding: 32px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      margin: 0 24px;
+    }
+
+    #shopify-section-{{ section.id }} .success-title {
+      color: #165DFF;
+      font-size: 20px;
+      padding-bottom: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .success-desc {
+      text-align: center;
+      font-size: 12px;
+      padding-bottom: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .success-btn {
+      font-size: 14px;
+      line-height: 19.6px; /* 140% */
+    }
+
+    #shopify-section-{{ section.id }} .expand-selector {
+      padding: 0;
+    }
+
+    #shopify-section-{{ section.id }} .time-select {
+      flex-wrap: wrap;
+    }
+
+    #shopify-section-{{ section.id }} .time-selector {
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+  }
+</style>
+
+{% render 'section-header',
+  section_heading: section.settings.dialog_title,
+  section_description: section.settings.dialog_description
+%}
+<div class="page-layout">
+  <div class="max-width">
+    <div class="form-box">
+      <!-- Row 1 -->
+      <div class="form-row">
+        <div class="form-item">
+          <label>First Name <span class="required">*</span></label>
+          <input type="text" id="first-name" placeholder="First Name">
+          <div class="error-text" id="firstNameErr"></div>
+        </div>
+
+        <div class="form-item">
+          <label>Last Name <span class="required">*</span></label>
+          <input type="text" id="last-name" placeholder="Last Name">
+          <div class="error-text" id="lastNameErr"></div>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="form-row">
+        <div class="form-item">
+          <label>Email <span class="required">*</span></label>
+          <input type="email" id="email" placeholder="Email">
+          <div class="error-text" id="emailErr"></div>
+        </div>
+
+        <div class="form-item">
+          <label>Phone Number <span class="required">*</span></label>
+          <input type="text" id="phone" placeholder="Phone Number">
+          <div class="error-text" id="phoneErr"></div>
+        </div>
+      </div>
+
+      <!-- Model of Interest -->
+      <div class="section-title">Visit Type<span class="required">*</span></div>
+      <div class="form-row">
+        <div class="visit-type-box in-person" data-type="in_person">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M28.6878 18.9165V27.4165C28.6878 28.7052 27.6432 29.7498 26.3545 29.7498H13.6878C12.3992 29.7498 11.3545 28.7052 11.3545 27.4165V18.9165" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10.165 14.4623C9.33648 16.6079 10.9346 18.9167 13.2346 18.9167C15.0295 18.9167 16.4945 17.4616 16.4945 15.6667C16.4945 17.4616 17.9496 18.9167 19.7445 18.9167H20.2962C22.0911 18.9167 23.5462 17.4616 23.5462 15.6667C23.5462 17.4616 25.0118 18.9167 26.8067 18.9167C29.1079 18.9167 30.7075 16.6066 29.8783 14.46L28.8286 11.7425C28.4811 10.8431 27.6162 10.25 26.652 10.25H13.3918C12.4275 10.25 11.5625 10.8432 11.2151 11.7428L10.165 14.4623Z" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M23.25 29.7502V25.9585C23.25 24.1636 21.7949 22.7085 20 22.7085C18.2051 22.7085 16.75 24.1636 16.75 25.9585V29.7502" stroke="#000" stroke-width="2"/>
+          </svg>
+
+          <div class="in-person-info">
+            <div class="in-person-title">In-Person</div>
+            <div class="in-person-desc">Visit our showroom for a hands-on experience</div>
+          </div>
+        </div>
+
+        <div class="visit-type-box online" data-type="online">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.0762 28.7139V23.7139H17.0762V28.7139" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 29.5H25.8333" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18.1426 17.6787V15.2992C18.1426 14.9133 18.5612 14.6729 18.8945 14.8673L20.9283 16.0537L22.9736 17.2468C23.3044 17.4398 23.3044 17.9177 22.9736 18.1106L20.9283 19.3037L18.8945 20.4901C18.5612 20.6845 18.1426 20.4441 18.1426 20.0582V17.6787Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+            <rect x="9.85742" y="10.7861" width="20.2857" height="12.8571" rx="2" stroke="#333333" stroke-width="2"/>
+          </svg>
+
+          <div class="in-person-info">
+            <div class="in-person-title">Online</div>
+            <div class="in-person-desc">Book an online meeting with our specialist</div>
+          </div>
+        </div>
+        <div class="error-text" id="visitTypeErr"></div>
+      </div>
+      <div class="expand-selector">
+        <div class="form-row" id="showroom-selector-box">
+          <div class="form-item">
+            <label>Select Showroom? <span class="required">*</span></label>
+            <div class="selector-box">
+              <select name="showroom" id="showroomSelect">
+                <option value="" disabled selected>Please select</option>
+              </select>
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M18 10L12 16L6 10L18 10Z" fill="#333333" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="error-text" id="showroomIdErr"></div>
+          </div>
+        </div>
+
+        <div class="form-row" id="date-selector-box">
+          <div class="form-item">
+            <label>Which day do you wish to visit? <span class="required">*</span></label>
+            <div class="time-selector"></div>
+            <div class="error-text" id="visitDateErr"></div>
+          </div>
+        </div>
+
+        <div class="form-row" id="time-selector-box">
+          <div class="form-item">
+            <label>Select Time? <span class="required">*</span></label>
+            <div class="selector-box">
+              <select name="showroom" id="timeSelect">
+                <option value="" class="placeholder-text">Please select</option>
+              </select>
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M18 10L12 16L6 10L18 10Z" fill="#333333" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="error-text" id="visitTimeErr"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-item" id="meetingMethodSelector">
+          <label>Choose Meeting Method <span class="required">*</span></label>
+          <div class="selector-box">
+            <select name="meetingMethod" id="meetingMethod">
+              <option value=""></option>
+              <option value="google_meet">Google Meet</option>
+              <option value="zoom">Zoom</option>
+            </select>
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M18 10L12 16L6 10L18 10Z" fill="#333333" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="error-text" id="meetingPlatformErr"></div>
+        </div>
+
+        <div class="form-item">
+          <label>Which machine are you interested in? <span class="required">*</span></label>
+          <div class="selector-box">
+            <select name="modelOfInterest" id="modelOfInterest">
+              <option value="" class="placeholder-text">Please select</option>
+              <option value="K13 Lite">K13 Lite</option>
+              <option value="F13 Pro">F13 Pro</option>
+              <option value="VF13 Pro">VF13 Pro</option>
+              <option value="Oven">Oven</option>
+              <option value="Heat Press">Heat Press</option>
+            </select>
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M18 10L12 16L6 10L18 10Z" fill="#333333" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="error-text" id="modelOfInterestErr"></div>
+        </div>
+      </div>
+
+      <!-- Checkbox for agreement -->
+      <div class="checkbox-group agree" style="margin-top:12px;">
+        <label><input type="checkbox" id="agree"> I agree to the 
+        <a href="https://www.procolored.com/policies/privacy-policy">
+          Privacy Policy
+        </a>
+        and 
+        <a href="https://www.procolored.com/policies/terms-of-service">
+          Terms of Service
+        </a>
+      </label>
+      </div>
+
+      <!-- Submit -->
+      <button id="submitBtn">Submit Your Reserve Application</button>
+      <div style="margin-top:8px;" id="submitMsg"></div>
+    </div>
+  </div>
+</div>
+
+{% assign customerId = '' %}
+{% assign isLogin = 0 %}
+{% if customer %}
+  {% assign isLogin = 1 %}
+  {% assign customerId = customer.id %}
+{% endif %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // const api = 'https://booster.procolored.com';
+    // const api = 'https://test.procolored.com'; //测试环境
+    const showRoomBookingApi = '/procolored/activity/showroom/booking';
+    const showRoomTimeSlotApi = '/procolored/activity/showroom/getTimeSlot';
+    const availableTimeSlotsApi = '/procolored/activity/showroom/availableTimeSlots';
+
+    const section = document.querySelector('#shopify-section-{{ section.id }}');
+
+    let availableDates = [];
+
+    let startTime = '';
+    let endTime = '';
+
+    section.querySelector('.in-person').addEventListener('click', () => {
+      console.log('in-person clicked');
+      section.querySelector('.in-person').classList.add('active');
+      section.querySelector('.online').classList.remove('active');
+      section.querySelector('#showroom-selector-box').style.display = 'block';
+      section.querySelector('#meetingMethodSelector').style.display = 'none';
+      section.querySelector('#visitTypeErr').textContent = '';
+      section.querySelectorAll('[data-online]').forEach((el) => {
+        el.style.display = 'block';
+      });
+    });
+
+    section.querySelector('.online').addEventListener('click', () => {
+      console.log('online clicked');
+      section.querySelector('.in-person').classList.remove('active');
+      section.querySelector('.online').classList.add('active');
+      section.querySelector('#showroom-selector-box').style.display = 'block';
+      section.querySelector('#meetingMethodSelector').style.display = 'flex';
+      section.querySelector('#visitTypeErr').textContent = '';
+      section.querySelectorAll('[data-online="false"]').forEach((el) => {
+        el.style.display = 'none';
+      });
+    });
+
+    // 初始化国际电话输入框
+    const input = section.querySelector("#phone");
+    const iti = window.intlTelInput(input, {
+      initialCountry: "us", // 默认国家
+      showFlags: true,
+      showSelectedDialCode: true,
+      preferredCountries: ["us", "gb", "ca", "au"], // 常用国家排前
+      utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18/build/js/utils.js" // 解析格式所需
+    });
+
+    const countryPhoneCode = "+" + iti.getSelectedCountryData().dialCode;
+
+    function isValidPhone() {
+      return iti.isValidNumber();
+    }
+
+    section.querySelector('#showroomSelect').addEventListener('change', (e) => {
+      const showroomId = e.target.value;
+      if (showroomId) {
+        getAvailableTimeSlots(showroomId)
+          .then(() => {
+            availableDates.forEach((item) => {
+              section.querySelector('#date-selector-box').style.display = 'block';
+              const timeSlot = document.createElement('div');
+              const date = new Date(item.date);
+              // 获取月份和日期
+              const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+              const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+              const month = months[date.getMonth()]; // 获取月份
+              timeSlot.dataset.date = item.date; // 将日期存储在 data-date 属性中，方便后续使用
+              timeSlot.innerHTML = `
+                <div class="week-day">
+                  ${daysOfWeek[date.getDay()]}
+                </div>
+
+                <div class="time-slot-date">
+                  ${month} ${date.getDate()}
+                </div>
+              `;
+              timeSlot.classList.add('time-slot');
+              timeSlot.addEventListener('click', () => {
+                section.querySelector('#visitDateErr').textContent = '';
+
+                // 取消其他已选的时间段的选中状态
+                section.querySelectorAll('.time-slot').forEach((slot) => {
+                  slot.classList.remove('active');
+                });
+                // 设置当前点击的时间段为选中状态
+                timeSlot.classList.add('active');
+                // 将选中的日期值设置到隐藏的输入框中，格式可以根据需要调整
+                startTime = timeSlot.dataset.date;
+
+                section.querySelector('#time-selector-box').style.display = 'block';
+
+                section.querySelector('#timeSelect').innerHTML = '<option value="">Please select</option>'; // 每次点击日期时，重置时间选择框
+                item.timeSlots.forEach((time) => {
+                  const timeOption = document.createElement('option');
+                  timeOption.value = time;
+                  timeOption.textContent = time;
+                  section.querySelector('#timeSelect').appendChild(timeOption);
+                });
+              });
+              section.querySelector('.time-selector').appendChild(timeSlot);
+            });
+          })
+          .catch((err) => {
+            console.error('Error fetching available time slots:', err);
+          });
+      }
+    });
+
+    function resetForm() {
+      // 1️⃣ 清空 input
+      section.querySelector('#first-name').value = '';
+      section.querySelector('#last-name').value = '';
+      section.querySelector('#email').value = '';
+      section.querySelector('#phone').value = '';
+
+      // 2️⃣ 清空 select
+      section.querySelector('#showroomSelect').selectedIndex = 0;
+      section.querySelector('#timeSelect').innerHTML = '<option value="">Please select</option>';
+      section.querySelector('#meetingMethod').selectedIndex = 0;
+      section.querySelector('#modelOfInterest').selectedIndex = 0;
+
+      // 3️⃣ 清空日期/时间 UI
+      section.querySelector('.time-selector').innerHTML = '';
+      startTime = '';
+      endTime = '';
+
+      // 4️⃣ 清除选中状态
+      section.querySelectorAll('.visit-type-box').forEach(el => {
+        el.classList.remove('active');
+      });
+
+      section.querySelectorAll('.time-slot').forEach(el => {
+        el.classList.remove('active');
+      });
+
+      // 5️⃣ 清空 checkbox
+      section.querySelector('#agree').checked = false;
+
+      // 6️⃣ 清空错误提示
+      section.querySelectorAll('.error-text').forEach(el => {
+        el.textContent = '';
+      });
+
+      // 7️⃣ 隐藏动态区域（很关键，不然 UI 会残留）
+      section.querySelector('#date-selector-box').style.display = 'none';
+      section.querySelector('#time-selector-box').style.display = 'none';
+
+      // 8️⃣ 重置 intlTelInput（否则国家码会残留）
+      if (iti) {
+        iti.setNumber('');
+      }
+    }
+
+    // 获取所有可用的时间段数据
+    function getAvailableTimeSlots(showroomId) {
+      return new Promise((resolve, reject) => {
+        boosterFetch(
+          availableTimeSlotsApi,
+          {
+            showroomId: showroomId,
+          },
+          { method: 'GET' }
+        )
+          .then((data) => {
+            if (data.code === 200) {
+              availableDates = data.result;
+              resolve(); // 完成获取数据
+            } else {
+              reject('返回数据错误');
+            }
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    }
+
+    function shopifyLogin() {
+      const modalLogin = document.querySelector("modal-login");
+      if (modalLogin) {
+        console.log('modalLogin', modalLogin);
+        const loginForm = modalLogin.showModal(modalLogin.fetchForm.login.innerHTML);
+        modalLogin.loginBindEvent(loginForm.el);
+      } else {
+        console.warn('modalLogin 元素不存在');
+      }
+    }
+
+    /* ===== Validation and submit ===== */
+    const submitBtn = document.getElementById('submitBtn');
+    const submitMsg = document.getElementById('submitMsg');
+    submitBtn.addEventListener('click', async () => {
+      // reset errors
+      [
+        'firstNameErr',
+        'lastNameErr',
+        'phoneErr',
+        'emailErr',
+        'visitTypeErr',
+        'showroomIdErr',
+        'visitDateErr',
+        'visitTimeErr',
+        'meetingPlatformErr',
+        'modelOfInterestErr'
+      ].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = '';
+      });
+
+      document.getElementById('submitMsg').textContent = '';
+
+      let visitDateStart = '';
+      let visitDateEnd = '';
+      const firstName = document.getElementById('first-name')?.value.trim();
+      const lastName = document.getElementById('last-name')?.value.trim();
+      const email = document.getElementById('email')?.value.trim();
+      const phone = document.getElementById('phone')?.value.trim();
+      const phoneNumber = countryPhoneCode + "" + document.getElementById('phone')?.value.trim();
+      const visitType = section.querySelector('.visit-type-box.active')?.dataset.type || '';
+      const showroomId = section.querySelector('#showroomSelect').value;
+      const visitDate = section.querySelector('.time-slot.active')?.dataset.date || '';
+      const visitTime = section.querySelector('#timeSelect').value;
+
+      if(visitDate && visitTime) {
+        visitDateStart = visitDate + 'T' + visitTime.split('~')[0]?.trim();
+        visitDateEnd = visitDate + 'T' + visitTime.split('~')[1]?.trim();
+      }
+      const meetingPlatform = section.querySelector('#meetingMethod').value;
+      const modelOfInterest = section.querySelector('#modelOfInterest').value;
+      const agreePolicy = document.getElementById('agree').checked ? 1 : 0;
+
+      document.getElementById('first-name').addEventListener('input', (e) => {
+        if (e.target.value.trim()) {
+          document.getElementById('firstNameErr').textContent = '';
+        }
+      });
+
+      document.getElementById('last-name').addEventListener('input', (e) => {
+        if (e.target.value.trim()) {
+          document.getElementById('lastNameErr').textContent = '';
+        }
+      });
+
+      document.getElementById('email').addEventListener('input', (e) => {
+        if (e.target.value.trim()) {
+          document.getElementById('emailErr').textContent = '';
+        }
+      });
+
+      document.getElementById('phone').addEventListener('input', (e) => {
+        if (e.target.value.trim()) {
+          document.getElementById('phoneErr').textContent = '';
+        }
+      });
+
+      document.getElementById('modelOfInterest').addEventListener('change', (e) => {
+        if (e.target.value.trim()) {
+          document.getElementById('modelOfInterestErr').textContent = '';
+        }
+      });
+
+      section.querySelector('#showroomSelect').addEventListener('change', (e) => {
+        if (e.target.value.trim()) {
+          document.getElementById('showroomIdErr').textContent = '';
+        }
+      });
+
+      section.querySelector('#timeSelect').addEventListener('change', (e) => {
+        if (e.target.value.trim()) {
+          document.getElementById('visitTimeErr').textContent = '';
+        }
+      });
+
+      // 先声明 hasError
+      let hasError = false;
+
+      // 基础校验
+      if (!firstName) {
+        document.getElementById('firstNameErr').textContent = 'Please fill your first name';
+        hasError = true;
+      }
+      if (!lastName) {
+        document.getElementById('lastNameErr').textContent = 'Please fill your last name';
+        hasError = true;
+      }
+      if (!email) {
+        document.getElementById('emailErr').textContent = 'Please fill your email';
+        hasError = true;
+      }
+      if (!phone) {
+        document.getElementById('phoneErr').textContent = 'Please fill your phone';
+        hasError = true;
+      }
+      if (!isValidPhone()) {
+        document.getElementById('phoneErr').textContent = 'Please enter a valid phone number';
+        hasError = true;
+      }
+      if (!visitType) {
+        document.getElementById('visitTypeErr').textContent = 'Please select your visit type';
+        hasError = true;
+      }
+      if (!showroomId) {
+        document.getElementById('showroomIdErr').textContent = 'Please select a showroom';
+        hasError = true;
+      }
+      if (!visitDate) {
+        document.getElementById('visitDateErr').textContent = 'Please select a date';
+        hasError = true;
+      }
+      if (!visitTime) {
+        document.getElementById('visitTimeErr').textContent = 'Please select a time';
+        hasError = true;
+      }
+      if (visitType == 'online' && !meetingPlatform) {
+        document.getElementById('meetingPlatformErr').textContent = 'Please select a meeting platform';
+        hasError = true;
+      }
+      if (!modelOfInterest) {
+        document.getElementById('modelOfInterestErr').textContent = 'Please select a model';
+        hasError = true;
+      }
+
+      if (hasError) return;
+
+      const postData = {
+        firstName,
+        lastName,
+        phoneNumber,
+        email,
+        visitDateStart,
+        visitDateEnd,
+        modelOfInterest,
+        agreePolicy,
+        origin: 'Shopify_US',
+        showroomId,
+        visitType,
+        meetingPlatform
+      };
+
+      // send request
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+      boosterFetch(showRoomBookingApi, postData, { method: 'POST' })
+      .then((data) => {
+        if (data.code === 200) {
+          document.getElementById('successPopup').style.display = 'flex';
+          submitBtn.textContent = 'Submit Your Reserve Application';
+          section.querySelector('#showroomModal').style.display = 'none';
+
+        } else {
+          alert(data.msg || 'Error: Unknown error');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit Your Reserve Application';
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        submitMsg.style.color = 'red';
+        submitMsg.textContent = 'Submit failed. Please try again later.';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Your Reserve Application';
+      });
+    });
+
+    let customerId = ''; 
+    let customerIdString =''
+    let isLogin = {{ isLogin }};
+    let customerEmail = "";
+    console.log("customer.id");
+    if(isLogin === 1){
+        console.log('已登录帐号')
+        customerIdString = "{{customerId}}";
+        customerId = customerIdString - 0;
+        customerEmail="{{customer.email}}";
+    }else{
+        console.log('未登录帐号')
+    }
+
+    document.getElementById('successOk').addEventListener('click', () => {
+      console.log('My appointment Click', customerId);
+      if(customerId == "") {
+        shopifyLogin();
+      } else {
+        // ✅ 先清空表单
+        resetForm();
+        section.querySelector('#successPopup').style.display = 'none';
+        document.querySelector(".showroom-appointment").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+        try {
+          loadShowroomAppointment();
+        } catch (error) {
+          console.error('Error loading showroom appointment:', error);
+        }
+      }
+    });
+  });
+</script>

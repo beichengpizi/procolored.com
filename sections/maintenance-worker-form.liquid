@@ -49,7 +49,23 @@
         </div>
       {%- endif -%}
       <div id="maintenance-worker-form-page" class="p-2 sm:p-4 pt-0 min-h-56 md:p-8">
-        {{ section.settings.form }}
+        {% assign has_app_block = false %}
+        {% for block in section.blocks %}
+          {% if block.type == '@app' %}
+            {% assign has_app_block = true %}
+          {% endif %}
+        {% endfor %}
+
+        {% if has_app_block %}
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when '@app' %}
+                {% render block %}
+            {% endcase %}
+          {% endfor %}
+        {% else %}
+          {{ section.settings.form }}
+        {% endif %}
       </div>
     </div>
   </div>
@@ -139,6 +155,32 @@
       "type": "liquid",
       "id": "form",
       "label": "表单代码，去后台 APP 内获取"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "TimeLineItem",
+      "name": "TimeLine Item",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "timeline_title",
+          "label": "Timeline title"
+        },
+        {
+          "type": "color",
+          "id": "dot_color",
+          "label": "Dot color"
+        }
+      ]
+    },
+    {
+      "type": "@app"
     }
   ],
   "presets": [

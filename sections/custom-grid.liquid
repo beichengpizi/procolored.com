@@ -1,0 +1,322 @@
+<style>
+    #shopify-section-{{ section.id }} .custom-grid-wrapper {
+        padding: 80px 0;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    #shopify-section-{{ section.id }} .custom-grid-title {
+        color: #000;
+        text-align: center;
+        font-size: 40px;
+        font-weight: 800;
+        line-height: 48.8px; /* 122% */
+        padding-bottom: 48px;
+    }
+
+    #shopify-section-{{ section.id }} .custom-grid-container {
+        display: grid;
+        grid-template-columns: repeat({{ section.settings.total_column }}, 1fr);
+        gap: 24px;
+    }
+
+    @media screen and (max-width: 1400px) {
+        #shopify-section-{{ section.id }} .custom-grid-container {
+            padding: 0 36px;
+        }
+    }
+
+    #shopify-section-{{ section.id }} .icon-title {
+        color: #0F0C00;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 31.92px; /* 133% */
+        margin-top: 24px;
+        margin-bottom: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .image-item img {
+        border-radius: 20px;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    #shopify-section-{{ section.id }} .image-item {
+        height: 100%;
+        width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .icon-item {
+        background: #fff;
+        border-radius: 20px;
+        padding: 24px;
+        height: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .icon-text {
+        color: #5D5D5D;
+        font-size: 18px;
+        line-height: 24.84px; /* 138% */
+    }
+
+    {% for block in section.blocks %}
+       #grid-item-{{ block.id }} {
+            grid-column: span {{ block.settings.column }};
+            grid-row: span {{ block.settings.row }};
+       }
+    {% endfor %}
+
+    @media screen and (max-width: 767px) {
+        #shopify-section-{{ section.id }} {
+            padding: 24px 16px;
+        }
+
+        #shopify-section-{{ section.id }} .custom-grid-wrapper {
+            padding: 0;
+        }
+
+        #shopify-section-{{ section.id }} .custom-grid-title {
+            font-size: 24px;
+            line-height: 31.92px; /* 133% */
+            padding-bottom: 20px;
+        }
+
+        #shopify-section-{{ section.id }} .custom-grid-container {
+            grid-template-columns: repeat({{ section.settings.mobile_total_column }}, 1fr);
+            gap: 20px 12px;
+        }
+
+        #shopify-section-{{ section.id }} .custom-grid-container {
+            padding: 0;
+        }
+
+        #shopify-section-{{ section.id }} .icon-title {
+            font-size: 18px;
+            line-height: 24.84px; /* 138% */
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+
+        #shopify-section-{{ section.id }} .image-item img {
+            border-radius: 12px;
+        }
+
+        #shopify-section-{{ section.id }} .icon-text {
+            font-size: 14px;
+            line-height: 19.6px; /* 140% */
+        }
+
+        #shopify-section-{{ section.id }} .icon-item {
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        #shopify-section-{{ section.id }} .icon-item svg {
+            width: 48px;
+            height: 48px;
+        }
+
+        {% for block in section.blocks %}
+           #grid-item-{{ block.id }} {
+                grid-column: span {{ block.settings.mobile_column }};
+                grid-row: span {{ block.settings.mobile_row }};
+                order: {{ block.settings.mobile_order }};
+           }
+        {% endfor %}
+    }
+</style>
+
+<div class="custom-grid-wrapper">
+    <div class="custom-grid-title">
+        {{ section.settings.title }}
+    </div>
+
+    <div class="custom-grid-container">
+        {%- for block in section.blocks -%}
+            <div class="custom-grid-item" id="grid-item-{{ block.id }}">
+                {%- case block.type -%}
+                    {%- when 'image' -%}
+                        <div class="image-item">
+                            <img src="{{ block.settings.image | image_url }}" alt="" width="auto" height="auto">
+                        </div>
+                    {%- else -%}
+                        <div class="icon-item">
+                            <div>
+                                {{ block.settings.icon }}
+                            </div>
+                            <div class="icon-title">
+                                {{ block.settings.title }}
+                            </div>
+                            <div class="icon-text">
+                                {{ block.settings.text }}
+                            </div>
+                        </div>
+                {%- endcase -%}
+            </div>
+        {%- endfor -%}
+    </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Custom grid",
+    "tag": "section",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+        },
+        {
+            "type": "range",
+            "id": "total_column",
+            "label": "Total column",
+            "min": 1,
+            "max": 10,
+            "default": 1,
+            "step": 1
+        },
+        {
+            "type": "range",
+            "id": "mobile_total_column",
+            "label": "Mobile total column",
+            "min": 1,
+            "max": 10,
+            "default": 1,
+            "step": 1
+        }
+    ],
+    "blocks": [
+        {
+            "type": "image",
+            "name": "Image",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "range",
+                    "id": "column",
+                    "label": "Column",
+                    "min": 1,
+                    "max": 10,
+                    "default": 1,
+                    "step": 1
+                },
+                {
+                    "type": "range",
+                    "id": "mobile_column",
+                    "label": "Mobile column",
+                    "min": 1,
+                    "max": 10,
+                    "default": 1,
+                    "step": 1
+                },
+                {
+                    "type": "range",
+                    "id": "row",
+                    "label": "Row",
+                    "min": 1,
+                    "max": 10,
+                    "default": 1,
+                    "step": 1
+                },
+                {
+                    "type": "range",
+                    "id": "mobile_row",
+                    "label": "Mobile row",
+                    "min": 1,
+                    "max": 10,
+                    "default": 1,
+                    "step": 1
+                },
+                {
+                    "type": "range",
+                    "id": "mobile_order",
+                    "label": "Mobile order",
+                    "min": 1,
+                    "max": 10,
+                    "default": 1,
+                    "step": 1
+                },
+            ]
+        },
+        {
+            "type": "icon",
+            "name": "Icon",
+            "settings": [
+                {
+                    "type": "liquid",
+                    "id": "icon",
+                    "label": "Icon"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                },
+                {
+                    "type": "text",
+                    "id": "text",
+                    "label": "Text"
+                },
+                {
+                    "type": "range",
+                    "id": "column",
+                    "label": "Column",
+                    "min": 1,
+                    "max": 10,
+                    "default": 1,
+                    "step": 1
+                },
+                {
+                    "type": "range",
+                    "id": "mobile_column",
+                    "label": "Mobile column",
+                    "min": 1,
+                    "max": 10,
+                    "default": 1,
+                    "step": 1
+                },
+                {
+                    "type": "range",
+                    "id": "row",
+                    "label": "Row",
+                    "min": 1,
+                    "max": 10,
+                    "default": 1,
+                    "step": 1
+                },
+                {
+                    "type": "range",
+                    "id": "mobile_row",
+                    "label": "Mobile row",
+                    "min": 1,
+                    "max": 10,
+                    "default": 1,
+                    "step": 1
+                },
+                {
+                    "type": "range",
+                    "id": "mobile_order",
+                    "label": "Mobile order",
+                    "min": 1,
+                    "max": 10,
+                    "default": 1,
+                    "step": 1
+                },
+            ]
+        }
+    ],
+    "presets": [
+      {
+        "name": "Custom grid",
+        "settings": {
+        }
+      }
+    ]
+  }
+{% endschema %}

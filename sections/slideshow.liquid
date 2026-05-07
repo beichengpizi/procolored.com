@@ -574,7 +574,7 @@
                 onclick="TriplePixel('custom', '{{ block.settings.event_tracking }}', { value: 1 });"
               {% endif %}
               href="{{ block.settings.slide_link }}"
-              class="slideshow__slide-content-link"
+              class="slideshow__slide-content-link {% if block.settings.redirect_to_colorChannel %}redirectToColorchannels{% endif %}"
               target="_blank"
               tabindex="-1"
             >
@@ -1053,6 +1053,12 @@
           "type": "text",
           "label": "埋点触发事件（触发时机：点击）",
           "info": "例如：Click_ShopNow_SF_oven"
+        },
+        {
+          "type": "checkbox",
+          "id": "redirect_to_colorChannel",
+          "label": "Redirect to ColorChannel",
+          "default": false
         },
         {
           "type": "image_picker",

@@ -666,46 +666,201 @@
   </div>
 </div>
 <script defer type="text/javascript">
-  $(document).ready(function () {
-      const totalNums = {{ section.blocks.size }}
+  (() => {
+    const sectionId = '{{ section.id }}';
+    const totalNums = {{ section.blocks.size }};
+    const root = document.getElementById(`detail-section1-${sectionId}`);
 
-      if (totalNums > 1) {
+    if (!root || root.dataset.videoAutoplayInited === 'true') return;
+    root.dataset.videoAutoplayInited = 'true';
 
-          const custom_product_multiple_slider_swiper = new Swiper('.detail-section1-mySwiper-{{section.id}}', {
-              lazy: {
-                  loadPrevNext: true,
-              },
-              noSwiping: true,
-              slidesPerView: 1,
-              spaceBetween: 10,
-              navigation: {
-                  nextEl: '.swiper-button-next',
-                  prevEl: '.swiper-button-prev',
-              },
+    /**
+     * 判断元素是否真实显示，避免 PC / 移动端隐藏视频被误播放。
+     */
+    const isElementVisible = (element) => {
+      if (!element) return false;
 
-              on: {
-                  init: function (swiper) { },
-                  slideChangeTransitionEnd: function (swiper) { },
-              },
-          });
-          if (totalNums === 1) {
-              console.log('禁止拖动');
-              // 禁止拖动
-              custom_product_multiple_slider_swiper.allowTouchMove = false;
-          } else {
-              // 允许拖动
-              console.log('允许拖动');
-              custom_product_multiple_slider_swiper.allowTouchMove = true;
-          }
+      const mediaWrap = element.closest('.show_desktop, .show_mobile') || element;
+      const wrapStyle = window.getComputedStyle(mediaWrap);
+      const elementStyle = window.getComputedStyle(element);
+
+      return (
+        wrapStyle.display !== 'none' &&
+        wrapStyle.visibility !== 'hidden' &&
+        elementStyle.display !== 'none' &&
+        elementStyle.visibility !== 'hidden' &&
+        Boolean(element.offsetWidth || element.offsetHeight || element.getClientRects().length)
+      );
+    };
+
+    /**
+     * 将 data-poster / source[data-src] 转成浏览器可识别的 poster / src。
+     * 当前代码只写了 data-src，不执行这一步时，video 没有真实播放地址。
+     */
+    const loadVideo = (video) => {
+      if (!video || video.dataset.loaded === 'true') return;
+
+      const poster = video.dataset.poster;
+      if (poster && !video.getAttribute('poster')) {
+        video.setAttribute('poster', poster);
       }
-    //  会员登录弹窗
-      const modalLogin = document.querySelector('modal-login');
-      $('#detail-section1-{{section.id}} .button_link_login_button').on('click', function () {
-        modalLogin.showModal(modalLogin.fetchForm.login.innerHTML);
+
+      video.querySelectorAll('source').forEach((source) => {
+        const sourceUrl = source.dataset.src;
+        if (sourceUrl && !source.getAttribute('src')) {
+          source.setAttribute('src', sourceUrl);
+        }
+      });
+
+      video.muted = true;
+      video.defaultMuted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.setAttribute('muted', 'muted');
+      video.setAttribute('playsinline', 'playsinline');
+      video.setAttribute('webkit-playsinline', 'webkit-playsinline');
+
+      video.load();
+      video.dataset.loaded = 'true';
+    };
+
+    /**
+     * 自动播放需要 muted + playsinline，并且 play() 需要捕获异常，避免浏览器策略报错中断后续逻辑。
+     */
+    const playVideo = (video) => {
+      if (!video || !isElementVisible(video)) return;
+
+      loadVideo(video);
+
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {
+          // 某些低电量模式 / 省流量模式会阻止自动播放，这里不阻断页面功能。
+        });
+      }
+    };
+
+    const pauseVideo = (video) => {
+      if (!video || video.paused) return;
+      video.pause();
+    };
+
+    const getActiveScope = () => root.querySelector('.swiper-slide-active') || root;
+
+    const pauseInactiveVideos = (activeScope) => {
+      root.querySelectorAll('video').forEach((video) => {
+        if (!activeScope || !activeScope.contains(video)) {
+          pauseVideo(video);
+        }
+      });
+    };
+
+    const playActiveVideos = () => {
+      const activeScope = getActiveScope();
+      pauseInactiveVideos(activeScope);
+
+      activeScope.querySelectorAll('video').forEach((video) => {
+        playVideo(video);
+      });
+    };
+
+    const playActiveVideosWithRetry = () => {
+      playActiveVideos();
+      window.setTimeout(playActiveVideos, 120);
+      window.setTimeout(playActiveVideos, 500);
+    };
+
+    let customProductMultipleSliderSwiper = null;
+
+    if (totalNums > 1) {
+      const sliderEl = root.querySelector('.detail-section1-mySwiper-{{section.id}}');
+
+      if (sliderEl && typeof Swiper === 'function') {
+        customProductMultipleSliderSwiper = new Swiper(sliderEl, {
+          lazy: {
+            loadPrevNext: true,
+          },
+          noSwiping: false,
+          slidesPerView: 1,
+          spaceBetween: 10,
+          navigation: {
+            nextEl: '#detail-section1-{{section.id}} .swiper-button-next',
+            prevEl: '#detail-section1-{{section.id}} .swiper-button-prev',
+          },
+          on: {
+            init: function () {
+              playActiveVideosWithRetry();
+            },
+            slideChangeTransitionStart: function () {
+              pauseInactiveVideos(null);
+            },
+            slideChangeTransitionEnd: function () {
+              playActiveVideosWithRetry();
+            },
+          },
+        });
+
+        customProductMultipleSliderSwiper.allowTouchMove = true;
+      }
+    }
+
+    /**
+     * 首屏 / 滚动进入视口时再加载并播放，兼顾自动播放与性能。
+     */
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            playActiveVideosWithRetry();
+          } else {
+            root.querySelectorAll('video').forEach(pauseVideo);
+          }
+        });
+      }, {
+        root: null,
+        threshold: 0.25,
+      });
+
+      observer.observe(root);
+    } else {
+      playActiveVideosWithRetry();
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        root.querySelectorAll('video').forEach(pauseVideo);
+      } else {
+        playActiveVideosWithRetry();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      window.setTimeout(playActiveVideosWithRetry, 150);
+    });
+
+    // 兜底：部分移动端浏览器首次自动播放被拦截时，用户第一次点击模块后立即尝试播放。
+    root.addEventListener('click', playActiveVideosWithRetry, { once: true });
+
+    // Shopify 主题编辑器中选中 / 重载 section 后，重新尝试播放当前可见视频。
+    document.addEventListener('shopify:section:select', (event) => {
+      if (event.target && event.target.contains(root)) {
+        playActiveVideosWithRetry();
+      }
+    });
+
+    // 会员登录弹窗，改为原生 ES6，避免 jQuery 未加载时影响视频播放初始化。
+    const loginButton = root.querySelector('.button_link_login_button');
+    const modalLogin = document.querySelector('modal-login');
+
+    if (loginButton && modalLogin && modalLogin.fetchForm && modalLogin.fetchForm.login) {
+      loginButton.addEventListener('click', () => {
         const loginForm = modalLogin.showModal(modalLogin.fetchForm.login.innerHTML);
-        modalLogin.loginBindEvent(loginForm.el);
-      })
-  });
+        if (loginForm && loginForm.el && typeof modalLogin.loginBindEvent === 'function') {
+          modalLogin.loginBindEvent(loginForm.el);
+        }
+      });
+    }
+  })();
 </script>
 {% schema %}
 {

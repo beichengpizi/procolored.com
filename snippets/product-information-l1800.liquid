@@ -493,6 +493,7 @@
           .product_description .description:not(html) {
             min-height: 80px;
             height: unset !important;
+            font-size: 14px;
           }
 
           @media (max-width: 768px) {
@@ -957,6 +958,7 @@
             {%- for type in shop.enabled_payment_types -%}
               <figure>{{ type | payment_type_svg_tag: class: 'payment-icons__icon' }}</figure>
             {%- endfor -%}
+            
             <figure>
               <img
                 style="width: 36px;height: 22px"
@@ -966,6 +968,9 @@
                 data-src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/klarna_0d75eba3-ffce-4bf3-ace8-660dcafb309f.png?v=1765871490"
                 alt="Klarna_Payment"
               >
+            </figure>
+            <figure>
+              <img src="{{ 'afterpay' | payment_type_img_url }}" height="35" alt="afterpay" />
             </figure>
           {%- endunless -%}
         </div>
