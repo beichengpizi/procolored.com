@@ -1,0 +1,287 @@
+{%- liquid
+  assign block_count = section.blocks.size
+-%}
+
+<style>
+  .mothers-day-multicolumn-{{ section.id }} {
+    background: #FFFAF3;
+    padding: 120px 0;
+  }
+
+  .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: 100%;
+    padding: 20px 24px 24px;
+    border-radius: 20px;
+    background: #ffffff;
+    overflow: hidden;
+  }
+
+  .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__media {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 190px;
+    margin-bottom: 12px;
+  }
+
+  .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__image {
+    display: block;
+    width: 100%;
+    object-fit: contain;
+  }
+
+  .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__content {
+    width: 100%;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__title {
+    margin: 0;
+    color: #111111;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.28;
+  }
+
+  .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__description {
+    margin-top: 12px;
+    color: #2f2f2f;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__description > *:first-child,
+  .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__title > *:first-child {
+    margin-top: 0;
+  }
+
+  .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__description > *:last-child,
+  .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__title > *:last-child {
+    margin-bottom: 0;
+  }
+
+  .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    margin-top: auto;
+    padding: 12px 24px;
+    border-radius: 4px;
+    background: #a92c23;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+
+  .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__button:hover {
+    background: #B83A34;
+    color: #ffffff;
+  }
+
+  .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__placeholder {
+    width: 100%;
+    max-width: 250px;
+    aspect-ratio: 1 / 0.8;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #f8eadc 0%, #fff7f0 100%);
+  }
+
+  @media screen and (max-width: 989px) {
+    .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .mothers-day-multicolumn-{{ section.id }} {
+      padding: 48px 0;
+    }
+
+    .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__grid {
+      display: flex;
+      flex-wrap: nowrap;
+      grid-template-columns: none;
+      gap: 16px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0 16px 6px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      touch-action: pan-x;
+    }
+
+    .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__inner {
+      padding-left: 16px;
+    }
+
+    .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__card {
+      flex: 0 0 calc(100% - 30px);
+      padding: 20px 16px;
+      border-radius: 16px;
+      scroll-snap-align: start;
+    }
+
+    .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__media {
+      min-height: 160px;
+      margin-bottom: 10px;
+      aspect-ratio: 269 / 200;
+    }
+
+    .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__title {
+      font-size: 20px;
+    }
+
+    .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__description {
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .mothers-day-multicolumn-{{ section.id }} .mothers-day-multicolumn__button {
+      width: 100%;
+      max-width: 160px;
+      margin-top: auto;
+      padding: 11px 20px;
+    }
+  }
+</style>
+
+<section class="mothers-day-multicolumn-{{ section.id }}" id="custom-nav-{{ section.settings.nav_id }}">
+  <div class="mothers-day-multicolumn__inner">
+    {%- if block_count > 0 -%}
+      <div class="mothers-day-multicolumn__grid">
+        {%- for block in section.blocks -%}
+          <div class="mothers-day-multicolumn__card" {{ block.shopify_attributes }}>
+            <div class="mothers-day-multicolumn__media">
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 600
+                  | image_tag:
+                    class: 'mothers-day-multicolumn__image',
+                    loading: 'lazy',
+                    widths: '240, 320, 400, 500, 600',
+                    sizes: '(max-width: 749px) calc(100vw - 64px), (max-width: 989px) calc((100vw - 68px) / 2), 360px',
+                    alt: block.settings.image.alt | default: shop.name
+                }}
+              {%- else -%}
+                <div class="mothers-day-multicolumn__placeholder"></div>
+              {%- endif -%}
+            </div>
+
+            <div class="mothers-day-multicolumn__content">
+              {%- if block.settings.title != blank -%}
+                <div class="mothers-day-multicolumn__title">
+                  {{ block.settings.title }}
+                </div>
+              {%- endif -%}
+
+              {%- if block.settings.description != blank -%}
+                <div class="mothers-day-multicolumn__description">
+                  {{ block.settings.description }}
+                </div>
+              {%- endif -%}
+
+              {%- if block.settings.button_text != blank -%}
+                <a
+                  class="mothers-day-multicolumn__button"
+                  {% if block.settings.button_url != blank %}
+                    href="{{ block.settings.button_url }}"
+                  {% else %}
+                    role="link"
+                    aria-disabled="true"
+                  {% endif %}
+                >
+                  {{ block.settings.button_text }}
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Mothers Day MultiColumn",
+    "tag": "section",
+    "settings": [
+        {
+            "type": "text",
+            "id": "nav_id",
+            "label": "Navigation id"
+        }
+    ],
+    "blocks": [
+      {
+        "name": "Item",
+        "type": "item",
+        "settings": [
+           {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"
+           },
+           {
+                "type": "liquid",
+                "id": "title",
+                "label": "Title"
+            },
+            {
+                "type": "liquid",
+                "id": "description",
+                "label": "Description"
+            },
+            {
+                "type": "url",
+                "id": "button_url",
+                "label": "Button url"
+            },
+            {
+                "type": "text",
+                "id": "button_text",
+                "label": "Button text"
+            }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Mothers Day MultiColumn",
+        "settings": {
+        }
+      }
+    ]
+  }
+{% endschema %}

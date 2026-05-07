@@ -574,7 +574,26 @@
         <div class="redirectToColorchannels" style="cursor:pointer;">跳转到社区网站按钮</div>
         <div class="redirectToColorchannels" style="cursor:pointer;">跳转到社区网站按钮2</div>
       {% endcomment %}
+      {% comment %} 为了防止命名冲突，在每个变量后面加上了colorchannel后缀 {% endcomment %}
+      {% assign customerIdColorChannel = '' %}
+      {% assign isLoginColorChnanel = 0 %}
+      {% if customer %}
+        {% assign isLoginColorChnanel = 1 %}
+        {% assign customerIdColorChannel = customer.id %}
+        {%- assign customerEmailColorChannel = customer.email -%}
+      {% endif %}
       <script>
+        let customerIdColorChannel = ''; 
+        let customerIdStringColorChannel =''
+        let isLoginColorChannel = {{ isLoginColorChnanel }};
+        let customerEmailColorChannel = "";
+        if(isLoginColorChannel === 1){
+            customerIdStringColorChannel = "{{customerIdColorChannel}}";
+            customerIdColorChannel = customerIdStringColorChannel - 0;
+            customerEmailColorChannel="{{customer.email}}";
+        }else{
+            console.log('未登录帐号')
+        }
         // 注意：页面有多个 class="redirectToColorchannels"，所以用 class 选择器批量绑定
         (function () {
           function bindRedirectButtons() {
@@ -597,52 +616,80 @@
             redirectBtns.forEach(addActualHandler);
           }
 
+          function getUTMParameters(url) {
+              const params = new URLSearchParams(new URL(url).search);
+              const utmParams = {};
+
+              // 遍历所有的 URL 参数
+              for (const [key, value] of params.entries()) {
+                  if (key.startsWith('utm_')) {
+                      utmParams[key] = value;
+                  }
+              }
+
+              return utmParams;
+          }
+
           function addActualHandler(element) {
             // 避免重复绑定
             if (element.dataset.redirectBound) return;
             element.dataset.redirectBound = '1';
-            element.addEventListener('click', async function () {
+            element.addEventListener('click', async function (event) {
               // 检查 Shopify 是否已登录
-              {% if customer %}
-                const customerEmail = '{{ customer.email | escape }}';
+              if(isLoginColorChannel === 1) {
+                event.preventDefault();
+                console.log('element.href', element.href);
                 const formData = new FormData();
 
                 // 根据当前URL判断market
-                let market = 'US';
+                let market = 'Shopify_US';
                 if (
                   window.location.origin === 'https://procolored.eu' ||
                   window.location.href.startsWith('https://procolored.eu/')
                 ) {
-                  market = 'EU';
+                  market = 'Shopify_EU';
                 } else if (
-                  window.location.origin === 'https://www.procolored.com' ||
-                  window.location.href.startsWith('https://www.procolored.com/')
+                  window.location.origin === 'https://fr.procolored.com' ||
+                  window.location.href.startsWith('https://fr.procolored.com/')
                 ) {
-                  market = 'US';
+                  market = 'Shopify_FR';
                 }
-                formData.append('email', customerEmail);
+                formData.append('email', customerEmailColorChannel);
                 formData.append('market', market);
-
+                formData.append('customerId', customerIdColorChannel);
+                formData.append('utmSource', getUTMParameters(element.href).utm_source);
+                formData.append('utmMedium', getUTMParameters(element.href).utm_medium);
+                formData.append('utmCampaign', getUTMParameters(element.href).utm_campaign);
+                formData.append('utmContent', getUTMParameters(element.href).utm_content);
+                
+                const colorChannelApi = '/userapi/network/getshopifytoken';
                 try {
-                  const response = await fetch('https://www.colorchannels.com/userapi/network/getshopifytoken ', {
-                    method: 'POST',
-                    body: formData,
+                  colorChannelFetch(
+                    colorChannelApi,
+                    formData,
+                    { method: "POST" }
+                  )
+                  .then((data) => {
+                    console.log('data', data);
+                    if (data && data.status === 1 && data.data.url) {
+                      window.open(data.data.url, '_blank');
+                    } else {
+                      console.log('获取跳转链接失败：', data.msg);
+                      alert('Failed to get redirect link. Please try again later.');
+                    }
+                  })
+                  .catch((error) => {
+                    console.error(error);
                   });
-                  const result = await response.json();
-                  if (result && result.status === 1 && result.data && result.data.url) {
-                    window.open(result.data.url, '_blank');
-                  } else {
-                    console.log('获取跳转链接失败：', result);
-                    alert('Failed to get redirect link. Please try again later.');
-                  }
                 } catch (err) {
-                  console.log('网络错误：', err);
-                  alert('Network error, please try again later.');
+                  console.error(err);
+                  window.open(element.href, '_blank');
                 }
-              {% else %}
+              }
+              else {
                 // 未登录
-                window.open('https://www.colorchannels.com/community', '_blank');
-              {% endif %}
+                window.open(element.href, '_blank');
+              }
             });
           }
 
@@ -758,105 +805,136 @@
       }
     </style>
 
-    {%
-      if request.path == '/products/products-13-dual-heads-dtf-pro-a3-dtf-printer-direct-to-film-printer-upgrade' or request.path ==
-      '/products/13-dual-heads-dtf-pro-a3-dtf-transfer-printer-oven' or request.path ==
-      '/products/13-dual-heads-dtf-pro-a3-dtf-transfer-printer-complete-bundle' or request.path ==
-      '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-oven-premium' or request.path ==
-      '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-complete-bundle-premium' or request.path ==
-      '/products/13-dual-heads-dtf-pro-a3-dtf-transfer-printer-dtf-shaker-bundle' or request.path ==
-      '/products/13-dual-heads-dtf-pro-a3-dtf-transfer-printer-ultimate-bundle'or request.path ==
-      '/products/products-13-dual-heads-dtf-pro-a3-dtf-printer-with-printer-stand' or request.path ==
-      '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-oven' or request.path ==
-      '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-with-stand-complete-bundle' or request.path ==
-      '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-oven-premium' or request.path ==
-      '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-complete-bundle-premium' or request.path ==
-      '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-shaker-oven' or request.path ==
-      '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-ultimate-bundle'
-    %}
-      <!-- 默认F13 pro弹窗 -->
-      <div class="f13-promotional-activities">
-        <a
-          class="f13-promotional-activities-img"
-          href="#"
-          onclick="
-            TriplePixel('custom', 'float_quiz_entry_click', {
-               value: 1,
-               page: '{{ request.path }}'
-            });
-          "
+{% if request.path == '/products/products-13-dual-heads-dtf-pro-a3-dtf-printer-direct-to-film-printer-upgrade'
+  or request.path == '/products/13-dual-heads-dtf-pro-a3-dtf-transfer-printer-oven'
+  or request.path == '/products/13-dual-heads-dtf-pro-a3-dtf-transfer-printer-complete-bundle'
+  or request.path == '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-oven-premium'
+  or request.path == '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-complete-bundle-premium'
+  or request.path == '/products/13-dual-heads-dtf-pro-a3-dtf-transfer-printer-dtf-shaker-bundle'
+  or request.path == '/products/13-dual-heads-dtf-pro-a3-dtf-transfer-printer-ultimate-bundle'
+  or request.path == '/products/products-13-dual-heads-dtf-pro-a3-dtf-printer-with-printer-stand'
+  or request.path == '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-oven'
+  or request.path == '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-with-stand-complete-bundle'
+  or request.path == '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-oven-premium'
+  or request.path == '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-complete-bundle-premium'
+  or request.path == '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-shaker-oven'
+  or request.path == '/products/procolored-f13-pro-panda-dtf-printer-13-a3-dual-xp600-stand-ultimate-bundle'
+%}
+  <!-- 默认F13 pro弹窗 -->
+  <div class="f13-promotional-activities">
+    <a
+      class="f13-promotional-activities-img"
+      href="#"
+      onclick="
+        TriplePixel('custom', 'float_quiz_entry_click', {
+           value: 1,
+           page: '{{ request.path }}'
+        });
+      "
+    >
+      <img
+        src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/F13pro_PC_2b036037-852c-45cf-9b15-82f512cf3164.png?v=1773648243"
+        alt=""
+      >
+    </a>
+    <div class="f13-promotional-activities-close-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 21 21" fill="none">
+        <circle cx="10.5" cy="10.5" r="9.79091" stroke="#BABABA" stroke-width="1.41818" />
+        <path d="M6.83447 14.4951L14.501 6.82861M6.83447 6.82861L14.501 14.4951" stroke="#BABABA" stroke-width="1.41818"
+          stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+{% elsif request.path == '/products/procolored-p13-dtf-printer'
+  or request.path == '/products/procolored-p13-dtf-printer-13-a3-xp600-oven-windows'
+  or request.path == '/products/procolored-p13-dtf-printer-13-a3-xp600-complete-bundle-windows'
+  or request.path == '/products/procolored-p13-dtf-printer-13-a3-xp600-dtf-shaker-bundle-windows'
+  or request.path == '/products/procolored-p13-dtf-printer-13-a3-xp600-ultimate-bundle-windows'
+  or request.path == '/products/procolored-p13-dtf-printer-13-a3-xp600-oven-premium'
+  or request.path == '/products/procolored-p13-dtf-printer-13-a3-xp600-complete-bundle-premium'
+%}
+  <!-- 默认p13弹窗 -->
+  <div class="f13-promotional-activities">
+    <a
+      class="f13-promotional-activities-img"
+      href="#"
+      onclick="
+        TriplePixel('custom', 'float_quiz_entry_click', {
+           value: 1,
+           page: '{{ request.path }}'
+        });
+      "
+    >
+      <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/P13_PC.png?v=1773648167" alt="">
+    </a>
+    <div class="f13-promotional-activities-close-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 21 21" fill="none">
+        <circle cx="10.5" cy="10.5" r="9.79091" stroke="#BABABA" stroke-width="1.41818" />
+        <path d="M6.83447 14.4951L14.501 6.82861M6.83447 6.82861L14.501 14.4951" stroke="#BABABA" stroke-width="1.41818"
+          stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+{% elsif request.path == '/products/13-single-head-dtf-printer-roll'
+  or request.path
+    == '/products/13-single-head-a3-dtf-printer-direct-to-film-printer-roller-version-l1800-complete-bundle'
+  or request.path == '/products/procolored-f13-panda-dtf-printer-13-a3-l1800-complete-bundle-premium'
+  or request.path == '/products/procolored-f13-panda-dtf-printer-13-a3-l1800-oven-premium'
+  or request.path == '/products/13-single-head-a3-dtf-printer-direct-to-film-printer-roller-version-l1800-oven'
+%}
+  <!-- 默认F13弹窗 -->
+  <div class="f13-promotional-activities">
+    <a
+      class="f13-promotional-activities-img"
+      href="#"
+      onclick="
+        TriplePixel('custom', 'float_quiz_entry_click', {
+           value: 1,
+           page: '{{ request.path }}'
+        });
+      "
+    >
+      <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/PC_40834be3-8a2f-4a0b-b519-a314a3fbe4fa.png?v=1768903599" alt="">
+    </a>
+    <div class="f13-promotional-activities-close-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 21 21" fill="none">
+        <circle cx="10.5" cy="10.5" r="9.79091" stroke="#BABABA" stroke-width="1.41818" />
+        <path d="M6.83447 14.4951L14.501 6.82861M6.83447 6.82861L14.501 14.4951" stroke="#BABABA" stroke-width="1.41818"
+          stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+{% else %}
+  <!-- 默认F13弹窗 -->
+  {% comment %}
+    <div class="f13-promotional-activities">
+      <a
+        class="f13-promotional-activities-img"
+        href="/products/13-single-head-dtf-printer-roll"
+        onclick="
+          TriplePixel('custom', 'float_quiz_entry_click', {
+             value: 1,
+             page: '{{ request.path }}'
+          });
+        "
+      >
+        <img
+          src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/PC_40834be3-8a2f-4a0b-b519-a314a3fbe4fa.png?v=1768903599"
+          alt=""
         >
-          <img
-            src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/F13pro_PC_2b036037-852c-45cf-9b15-82f512cf3164.png?v=1773648243"
-            alt=""
-          >
-        </a>
-        <div class="f13-promotional-activities-close-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 21 21" fill="none">
-            <circle cx="10.5" cy="10.5" r="9.79091" stroke="#BABABA" stroke-width="1.41818" />
-            <path d="M6.83447 14.4951L14.501 6.82861M6.83447 6.82861L14.501 14.4951" stroke="#BABABA" stroke-width="1.41818"
-              stroke-linecap="round" />
-          </svg>
-        </div>
+      </a>
+      <div class="f13-promotional-activities-close-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 21 21" fill="none">
+          <circle cx="10.5" cy="10.5" r="9.79091" stroke="#BABABA" stroke-width="1.41818" />
+          <path d="M6.83447 14.4951L14.501 6.82861M6.83447 6.82861L14.501 14.4951" stroke="#BABABA" stroke-width="1.41818"
+            stroke-linecap="round" />
+        </svg>
       </div>
-    {%
-      elsif request.path == '/products/procolored-p13-dtf-printer' or request.path ==
-      '/products/procolored-p13-dtf-printer-13-a3-xp600-oven-windows' or request.path ==
-      '/products/procolored-p13-dtf-printer-13-a3-xp600-complete-bundle-windows' or request.path ==
-      '/products/procolored-p13-dtf-printer-13-a3-xp600-dtf-shaker-bundle-windows' or request.path ==
-      '/products/procolored-p13-dtf-printer-13-a3-xp600-ultimate-bundle-windows' or request.path ==
-      '/products/procolored-p13-dtf-printer-13-a3-xp600-oven-premium' or request.path ==
-      '/products/procolored-p13-dtf-printer-13-a3-xp600-complete-bundle-premium'
-    %}
-      <!-- 默认p13弹窗 -->
-      <div class="f13-promotional-activities">
-        <a
-          class="f13-promotional-activities-img"
-          href="#"
-          onclick="
-            TriplePixel('custom', 'float_quiz_entry_click', {
-               value: 1,
-               page: '{{ request.path }}'
-            });
-          "
-        >
-          <img src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/P13_PC.png?v=1773648167" alt="">
-        </a>
-        <div class="f13-promotional-activities-close-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 21 21" fill="none">
-            <circle cx="10.5" cy="10.5" r="9.79091" stroke="#BABABA" stroke-width="1.41818" />
-            <path d="M6.83447 14.4951L14.501 6.82861M6.83447 6.82861L14.501 14.4951" stroke="#BABABA" stroke-width="1.41818"
-              stroke-linecap="round" />
-          </svg>
-        </div>
-      </div>
-    {% else %}
-      <!-- 默认F13弹窗 -->
-      <div class="f13-promotional-activities">
-        <a
-          class="f13-promotional-activities-img"
-          href="/products/13-single-head-dtf-printer-roll"
-          onclick="
-            TriplePixel('custom', 'float_quiz_entry_click', {
-               value: 1,
-               page: '{{ request.path }}'
-            });
-          "
-        >
-          <img
-            src="https://cdn.shopify.com/s/files/1/0509/3454/6613/files/PC_40834be3-8a2f-4a0b-b519-a314a3fbe4fa.png?v=1768903599"
-            alt=""
-          >
-        </a>
-        <div class="f13-promotional-activities-close-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 21 21" fill="none">
-            <circle cx="10.5" cy="10.5" r="9.79091" stroke="#BABABA" stroke-width="1.41818" />
-            <path d="M6.83447 14.4951L14.501 6.82861M6.83447 6.82861L14.501 14.4951" stroke="#BABABA" stroke-width="1.41818"
-              stroke-linecap="round" />
-          </svg>
-        </div>
-      </div>
-    {% endif %}
+    </div>
+  {% endcomment %}
+{% endif %}
+
+
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         const closeBtn1 = document.querySelector('.f13-promotional-activities-close-icon');

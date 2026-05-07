@@ -90,9 +90,14 @@
       scrollbar-width: none;
       overflow-x: auto;
       touch-action: pan-x;
-      border-radius: 100px;
       background: #fff;
       margin-bottom: 32px;
+    }
+
+    @media screen and (min-width: 768px) {
+      .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-tabs {
+        border-radius: 100px;
+      }
     }
 
     .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-tab {
@@ -405,22 +410,15 @@
       border: 1px solid #B83A34;
     }
 
-    .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-products-swiper-container {
-      padding-bottom: 88px;
-    }
-
     .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-navigation-buttons {
       display: flex;
       width: 100%;
-      position: absolute;
-      top: auto;
-      left: 50%;
-      width: 18%;
-      transform: translate(-50%, 0);
-      bottom: 0;
-      {% comment %} transform: translateY(calc(-50% )); {% endcomment %}
+      position: static;
       z-index: 1;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 30px;
+      align-items: center;
+      padding-top: 48px;
     }
 
     .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-nav-button {
@@ -448,12 +446,9 @@
 
     .valentines-day-swiper-{{ section.id }} .swiper-scrollbar {
       height: 4px;
-      width: 8%;
+      width: 191px;
       border-radius: 99px;
       background: #fff;
-      left: 50%;
-      bottom: 18px;
-      transform: translateX(-50%);
     }
 
     .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-products-swiper-container {
@@ -476,6 +471,7 @@
 
     .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-products-swiper-container.active {
       display: flex;
+      flex-direction: column;
     }
 
 
@@ -571,6 +567,10 @@
 
       }
 
+      .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-title-wrapper {
+        padding: 0;
+      }
+
       .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-product-label-container {
         left: -52px;
         position: relative;
@@ -626,12 +626,20 @@
       }
       .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-tabs {
         margin-bottom: 32px;
+        width: 100%;
+        max-width: 100%;
+        align-self: stretch;
+        justify-content: flex-start;
+        background: none;
+        gap: 12px;
+        padding: 0 16px;
       }
       .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-tab {
         font-size: 14px;
         min-width: unset;
         padding: 9px 12px;
         border-radius: 50px;
+        background: #fff;
       }
       .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-banner {
         margin-bottom: 16px;
@@ -779,7 +787,7 @@
               padding-top: 12px !important;
           }
         {%- endif -%}
-      .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-navigation-buttons {
+      .valentines-day-swiper-{{ section.id }} .valentines-day-swiper-promotion-navigation-buttons .valentines-day-swiper-promotion-nav-button {
         display: none;
       }
       .valentines-day-swiper-{{ section.id }} .swiper-scrollbar-drag {}
@@ -1201,6 +1209,7 @@
                   </defs>
                 </svg>
               </div>
+              <div class="swiper-scrollbar swiper-scrollbar-{{ section.id }}-{{ forloop.index0 }}"></div>
               <div
                 class="valentines-day-swiper-promotion-nav-button"
                 id="valentines-day-swiper-promotion-nextButton-{{ section.id }}-{{ forloop.index0 }}"
@@ -1223,7 +1232,6 @@
                 </svg>
               </div>
             </div>
-            <div class="swiper-scrollbar swiper-scrollbar-{{ section.id }}-{{ forloop.index0 }}"></div>
           </div>
 
           <div
@@ -1521,8 +1529,10 @@ for (let i = 0; i < SWIPER_COUNT; i++) {
         if (navButtons) {
           if (window.innerWidth <= 768) {
             navButtons.style.opacity = '1'; // 移动端
+            navButtons.style.display = 'flex';
           } else {
             navButtons.style.opacity = '0'; // PC端
+            navButtons.style.display = 'none';
           }
         }
     }
@@ -1587,11 +1597,13 @@ const bannerBoxes = document.querySelectorAll('.valentines-day-swiper-{{ section
 * 横向滑动指定tab至容器中间
 */
 function scrollTabIntoView(activeTab) {
-const tabCenter = activeTab.offsetLeft + activeTab.offsetWidth / 2;
-const scrollTo = tabCenter - tabContainer.clientWidth / 2;
-tabContainer.scrollTo({
-  left: scrollTo,
+if (!activeTab || window.innerWidth > 768) return;
+const maxScrollLeft = tabContainer.scrollWidth - tabContainer.clientWidth;
+if (maxScrollLeft <= 0) return;
+activeTab.scrollIntoView({
   behavior: 'smooth',
+  block: 'nearest',
+  inline: 'center',
 });
 }
 
@@ -1623,7 +1635,7 @@ tab.addEventListener('click', function () {
   initAllSwipers();
 
   // 5. 滚动tab到中间
-  scrollTabIntoView(tab);
+  requestAnimationFrame(() => scrollTabIntoView(tab));
 });
 });
 

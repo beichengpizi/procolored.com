@@ -54,7 +54,6 @@
     font-size: 40px;
     font-weight: 800;
     line-height: 1.2;
-    margin-bottom: 16px;
   }
   .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-subtitle {
     color: rgba(0, 0, 0, 0.90);
@@ -276,7 +275,7 @@
     position: absolute;
     left: -24px;
     z-index: 10;
-    bottom: -1px;
+    bottom: -2px;
   }
 
   .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-label-discount-text {
@@ -341,11 +340,15 @@
     height: 100%;
     overflow: hidden;
   }
+  .valentines-day-product-tab-card-mySwiper-{{ section.id }} .swiper-pagination {
+    display: flex;
+    padding: 12px 27px;
+  }
   .valentines-day-product-tab-card-mySwiper-{{ section.id }} .swiper-slide {
     width: 100% !important;
   }
   .valentines-day-product-tab-card-mySwiper-{{ section.id }} .swiper-pagination-bullet {
-    width: 20%;
+    width: 100%;
     height: 4px;
     display: inline-block;
     border-radius: 99px;
@@ -390,21 +393,26 @@
 
    }
   .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-content {
-    position: relative;
     padding-left: {{ section.settings.content_padding_left_and_right }}px;
     padding-right: {{ section.settings.content_padding_left_and_right }}px;
     flex: 0 0 {{ section.settings.content_space_percent }}%;
     display: flex;
-    align-items: center;
+    align-items: start;
     gap: 20px;
     width: {{ section.settings.content_space_percent }}%;
     margin-left: auto;
     padding-top: 20px;
     padding-bottom: 20px;
     box-sizing: border-box;
-    height: 100%;
-    align-content: center;
-    flex-wrap: wrap;
+  }
+  @media screen and (min-width: 768px) {
+    .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-content {
+      position: relative;
+      align-items: center;
+      height: 100%;
+      align-content: center;
+      flex-wrap: wrap;
+    }
   }
   .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-main {
     position: relative;
@@ -503,7 +511,6 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 20px;
   }
   .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-price.mb{
     display:none;
@@ -522,8 +529,15 @@
     text-decoration-line: line-through;
   }
   .valentines-day-product-tab-{{ section.id }} .mascot-activities-product-info-klarna {
-    margin-top: -6px;
+    margin-top: 12px;
     margin-bottom: 20px;
+    padding: 0;
+  }
+  .valentines-day-product-tab-{{ section.id }} .mascot-activities-product-info-klarna.noshow {
+    display: none;
+  }
+  .valentines-day-product-tab-{{ section.id }} .mascot-activities-product-info-klarna.mb {
+    display: none;
   }
   .valentines-day-product-tab-{{ section.id }} .mascot-activities-product-info-klarna klarna-placement::part(osm-container) {
     background: transparent;
@@ -531,6 +545,10 @@
     margin: 0;
     padding: 0;
     text-align: left;
+  }
+  .valentines-day-product-tab-{{ section.id }} .mascot-activities-product-info-klarna klarna-placement::part(osm-message) {
+    margin-left: 0;
+    line-height: 1.4;
   }
   .valentines-day-product-tab-{{ section.id }} .mascot-activities-product-info-klarna klarna-placement::part(osm-cta) {
     color: #1677FF;
@@ -577,8 +595,8 @@
     background: #B83A34;
   }
   .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-button-view-more:hover {
-    color: #000;
-    background: transparent;
+    color: #B83A34;
+    border: 1px solid #B83A34;
   }
   .valentines-day-product-tab-{{ section.id }} .product-flash-sale-countdown {
     max-width: max-content;
@@ -689,7 +707,7 @@
       font-size: 14px;
 
       max-width: 280px;
-      margin-bottom: 33px;
+      margin-bottom: 24px;
     }
     .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-desc {
       margin-bottom: 20px;
@@ -697,7 +715,7 @@
     }
     .valentines-day-product-tab-{{ section.id }} .valentines-day-products-main-banner-box {
       max-width: 100%;
-      margin-bottom: 40px;
+      margin-bottom: 48px;
       border-radius: 10px;
     }
     .valentines-day-product-tab-{{ section.id }} .valentines-day-products-main-banner-box .pc {
@@ -720,8 +738,9 @@
       gap: 10px;
     }
     .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-tab-dropdown-wrapper--color {
-      flex: 0 0 96px;
-      width: 96px;
+      flex: 0 0 80px;
+      width: 80px;
+      min-width: 80px;
     }
     .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-content {
       max-width: 100%;
@@ -804,14 +823,20 @@
       align-items: center;
       gap: 10px;
       border-radius: 0 999px 999px 0;
-      background: #EC5992;
+      background: #E84478;
+      position: relative;
+      top: unset;
+      right: unset;
+      left: unset;
+      margin-left: 35px;
+      margin-bottom: 12px;
+    }
+    .valentines-day-product-tab-{{ section.id }} .mascot-activities-product-info-klarna.mb {
+      display: flex;
     }
     .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-label-discount-text {
       font-size: 9px;
       gap: 2px;
-    }
-    .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-label-discount-text-value {
-      font-size: 12px;
     }
     .valentines-day-product-tab-{{ section.id }} .valentines-day-products-product-gifts-icon {
       top: 8px;
@@ -848,8 +873,12 @@
       border-bottom-left-radius: 0;
 
      }
+    .valentines-day-product-tab-{{ section.id }} .klarna-placement::part(osm-message) {
+      margin-left: 0;
+    }
+
     .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-content {
-      padding: 0 0 20px 0;
+      padding: 24px 0;
       flex: none;
       flex-direction: column;
       align-items: start;
@@ -858,7 +887,6 @@
       margin-top: auto;
     }
     .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-main {
-      padding: 0 0 20px 0;
       flex: none;
       flex-direction: column;
       align-items: start;
@@ -884,7 +912,7 @@
       {% if section.blocks.size > 1 %}
       align-items: start;
       {% else %}
-        align-items: center;
+        align-items: flex-start;
       {% endif %}
       gap: 8px;
       padding-left: {{ section.settings.content_padding_left_and_right_mobile }}px;
@@ -916,6 +944,7 @@
     .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-features {
       margin-top: 8px;
       max-width: 100%;
+      margin-bottom: 12px;
     }
     .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-description {
       color: #3D3D3D;
@@ -933,14 +962,12 @@
       padding-top: 4px;
     }
     .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-content-bottom {
-      padding-top: 12px;
       padding-left: {{ section.settings.content_padding_left_and_right_mobile }}px;
       padding-right: {{ section.settings.content_padding_left_and_right_mobile }}px;
     }
     .valentines-day-product-tab-{{ section.id }} .mascot-activities-product-info-klarna {
       margin-top: 0px;
       margin-bottom: 12px;
-      padding: 0  0 0 16px;
     }
     .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-price {
       gap: 10px;
@@ -1193,6 +1220,9 @@
       margin-top: 10px;
       margin-bottom: 0;
     }
+    .valentines-day-product-tab-{{ section.id }} .mothers-day-hidden {
+      display: none;
+    }
     .valentines-day-product-tab-{{ section.id }} .valentines-day-dropdown-mock-option {
       padding: 10px;
       font-size: 10px;
@@ -1207,6 +1237,9 @@
       margin: 0;
       background: none;
     }
+    .valentines-day-product-tab-{{ section.id }} .valentines-day-product-tab-product-label-discount-text-unit {
+      font-size: 12px;
+    }
     .valentines-day-product-tab-{{ section.id }} .valentines-day-dropdown-mock {
       font-size: 12px;
       border: none;
@@ -1214,6 +1247,7 @@
       -webkit-tap-highlight-color: transparent;
       /* Remove default tap highlight color on mobile */
       background-color: transparent;
+      min-width: 80px;
     }
     .valentines-day-product-tab-{{ section.id }} .valentines-day-dropdown-mock-selected {
       padding-left: 8px;
@@ -1396,7 +1430,6 @@
           {% assign product_banner_image_mb = block.settings.product_banner_image_mb %}
           {% assign product_banner_title = block.settings.product_banner_title %}
           {% assign product_banner_subtitle = block.settings.product_banner_subtitle %}
-
           <div
             class="valentines-day-product-tab-banner-box {% if forloop.first %} active{% endif %}"
           >
@@ -1467,9 +1500,10 @@
         {% assign scene_image_mb_2 = section.settings.scene_image_mb_2 %}
         {% assign scene_image_pc_3 = section.settings.scene_image_pc_3 %}
         {% assign scene_image_mb_3 = section.settings.scene_image_mb_3 %}
+        {% assign product_active = false %}
         {%- for block in section.blocks -%}
           <div
-            class="valentines-day-product-tab {% if forloop.first %} active{% endif %}"
+            class="valentines-day-product-tab {% if product_active == false and block.settings.product.available == true %} active{% endif %}"
             data-tab="{{ forloop.index0  }}"
             data-product-color="{{ block.settings.product_color | default: 'default' | escape }}"
             data-product-color-label="{{ block.settings.product_color | default: 'default' | replace: '-', ' ' | replace: '_', ' ' | capitalize | escape }}"
@@ -1561,13 +1595,13 @@
                       {% if scene_image_pc_1 and scene_image_mb_1 %}
                         <style>
                               .swiper-slide-img-{{ block.id }}{
-                                  aspect-ratio: {{ scene_image_pc_1.aspect_ratio }}
-                              }
-                              @media and screen (max-width: 768px) {
-                              .swiper-slide-img-{{ block.id }}{
                                   aspect-ratio: {{ scene_image_mb_1.aspect_ratio }}
                               }
-                          }
+                              @media screen and (min-width: 768px) {
+                                .swiper-slide-img-{{ block.id }}{
+                                    aspect-ratio: {{ scene_image_pc_1.aspect_ratio }}
+                                }
+                              }
                         </style>
                         <div class="swiper-slide">
                           <div class="swiper-slide-img swiper-slide-img-{{ block.id }}">
@@ -1623,7 +1657,7 @@
                               .swiper-slide-img-{{ block.id }}{
                                   aspect-ratio: {{ scene_image_pc_2.aspect_ratio }}
                               }
-                              @media and screen (max-width: 768px) {
+                              @media screen and (max-width: 768px) {
                               .swiper-slide-img-{{ block.id }}{
                                   aspect-ratio: {{ scene_image_mb_2.aspect_ratio }}
                               }
@@ -1974,22 +2008,43 @@
                             <div class="valentines-day-product-tab-product-features">{{- features -}}</div>
                           {% endif %}
                           {% if section.blocks.size == 1 %}
-                          <div class="valentines-day-product-tab-product-price mb">
-                            {% if product_price != blank and product_price > 0 %}
-                              <div class="valentines-day-product-tab-product-sale-price">
-                                {{ product_price | money_without_trailing_zeros }}
+                            <div class="valentines-day-product-tab-product-price mb">
+                              {% if product_price != blank and product_price > 0 %}
+                                <div class="valentines-day-product-tab-product-sale-price">
+                                  {{ product_price | money_without_trailing_zeros }}
+                                </div>
+                              {% endif %}
+                              {% if product_origin_price != blank
+                                and product_origin_price > 0
+                                and product_origin_price > product_price
+                              %}
+                                <div class="valentines-day-product-tab-product-original-price">
+                                  {{ product_origin_price | money_without_trailing_zeros }}
+                                </div>
+                              {% endif %}
+                            </div>
+                            {%- if section.settings.show_klarna -%}
+                              <div class="mascot-activities-product-info-klarna mb">
+                                {% assign klarna_id = 'shopify-block-AbFBFd0QvcXlzYkYva__klarna_on_site_messaging_app_block_gcU6LY' %}
+                                <!-- DO NOT DELETE -->
+                                <div class="klarna-osm-wrapper">
+                                  <klarna-placement
+                                    id="{{ klarna_id }}"
+                                    data-key="credit-promotion-auto-size"
+                                    data-theme="light"
+                                    data-message-prefix=""
+                                    data-integration-style="app-blocks"
+                                    data-locale="en-US"
+                                    {% if variant %}
+                                      data-purchase-amount="{{ variant.price }}"
+                                    {% endif %}
+                                    data-preloaded="true"
+                                  >
+                                  </klarna-placement>
+                                </div>
                               </div>
                             {% endif %}
-                            {% if product_origin_price != blank
-                              and product_origin_price > 0
-                              and product_origin_price > product_price
-                            %}
-                              <div class="valentines-day-product-tab-product-original-price">
-                                {{ product_origin_price | money_without_trailing_zeros }}
-                              </div>
-                            {% endif %}
-                          </div>
-                        {% endif %}
+                          {% endif %}
                         </div>
                       </div>
                       {% if section.blocks.size > 1 %}
@@ -2064,6 +2119,15 @@
                                 {% assign first_tab_label = section.blocks[0].settings.title
                                   | default: section.blocks[0].settings.product.title
                                 %}
+                                {% assign first_label_set = false %}
+                                {% for block in section.blocks %}
+                                  {% if block.settings.product.available == true and first_label_set == false %}
+                                    {% assign first_tab_label = section.blocks[forloop.index0].settings.title 
+                                      | default: section.blocks[forloop.index0].settings.product.title
+                                    %}
+                                    {% assign first_label_set = true %}
+                                  {% endif %}
+                                {% endfor %}
                                 {{ first_tab_label }}
                               </div>
                               <span class="valentines-day-dropdown-mock-dropdown-icon">
@@ -2078,18 +2142,24 @@
                                 </svg>
                               </span>
                               <ul class="valentines-day-dropdown-mock-options" data-options>
+                                {% assign option_active = false %}
                                 {%- for product_block in section.blocks -%}
-                                  {% assign tab_label = product_block.settings.title | default: product_block.settings.product.title %}
-                                  <li
-                                    class="valentines-day-dropdown-mock-option{% if forloop.first %} active{% endif %}"
-                                    data-value="{{ tab_label | escape }}"
-                                    data-idx="{{ forloop.index0 }}"
-                                    data-product-color="{{ product_block.settings.product_color | default: 'default' | escape }}"
-                                    data-product-color-label="{{ product_block.settings.product_color | default: 'default' | replace: '-', ' ' | replace: '_', ' ' | capitalize | escape }}"
-                                    id="valentines-day-product-tab-tab-option-{{ section.id }}-{{ forloop.index0 }}"
-                                  >
-                                    {{ tab_label }}
-                                  </li>
+                                  {% if product_block.settings.product.available == true %}
+                                    {% assign tab_label = product_block.settings.title | default: product_block.settings.product.title %}
+                                    <li
+                                      class="valentines-day-dropdown-mock-option{% if option_active == false and product_block.settings.product.available == true %} active{% endif %}"
+                                      data-value="{{ tab_label | escape }}"
+                                      data-idx="{{ forloop.index0 }}"
+                                      data-product-color="{{ product_block.settings.product_color | default: 'default' | escape }}"
+                                      data-product-color-label="{{ product_block.settings.product_color | default: 'default' | replace: '-', ' ' | replace: '_', ' ' | capitalize | escape }}"
+                                      id="valentines-day-product-tab-tab-option-{{ section.id }}-{{ forloop.index0 }}"
+                                    >
+                                      {{ tab_label }}
+                                    </li>
+                                  {% endif %}
+                                  {% if option_active == false and product_block.settings.product.available == true %}
+                                    {% assign option_active = true %}
+                                  {% endif %}
                                 {%- endfor -%}
                               </ul>
                             </div>
@@ -2156,10 +2226,11 @@
                                 }
 
                                 // 选项点击
-                                options.forEach(function (option, idx) {
+                                options.forEach(function (option) {
                                   option.addEventListener('click', function (e) {
                                     e.preventDefault();
                                     e.stopPropagation();
+                                    const optionIdx = Number(option.getAttribute('data-idx'));
 
                                     const doSwitch = function () {
                                       // 激活当前
@@ -2173,7 +2244,7 @@
                                       // 分发事件
                                       const event = new CustomEvent('valentines-dayTabCustomDropdownChange', {
                                         detail: {
-                                          idx: idx,
+                                          idx: optionIdx,
                                           value: option.getAttribute('data-value'),
                                           text: option.innerText,
                                         },
@@ -2188,7 +2259,7 @@
                                           .querySelectorAll('.valentines-day-product-tab');
 
                                         cardContainer.forEach(function (tabCt, index) {
-                                          if (index === idx) {
+                                          if (index === optionIdx) {
                                             tabCt.classList.add('active');
 
                                             const activeTabs = Array.from(tabContainers).filter(function (ct) {
@@ -2207,8 +2278,8 @@
                                             }
                                             if (!dropdownMockParent) return;
 
-                                              dropdownOptions.forEach(function (opt, optIdx) {
-                                                if (optIdx === idx) {
+                                              dropdownOptions.forEach(function (opt) {
+                                                if (Number(opt.getAttribute('data-idx')) === optionIdx) {
                                                   opt.classList.add('active');
                                                   const selectedEl = dropdownMockParent.querySelector('[data-selected]');
                                                   if (selectedEl) selectedEl.innerText = opt.getAttribute('data-value');
@@ -2227,7 +2298,7 @@
                                     };
 
                                     // 只对“切到第一个 tab”做锁滚（你说只有这个会出问题）
-                                    if (idx === 0) lockScrollAndRun(doSwitch);
+                                    if (optionIdx === 0) lockScrollAndRun(doSwitch);
                                     else doSwitch();
                                   });
                                 });
@@ -2269,42 +2340,42 @@
                             </div>
                           {%- endif -%}
                         {%- endif -%}
-                        <div class="valentines-day-product-tab-product-price {% if section.blocks.size == 1 %} noshow {% endif %}">
-                          {% if product_price != blank and product_price > 0 %}
-                            <div class="valentines-day-product-tab-product-sale-price">
-                              {{ product_price | money_without_trailing_zeros }}
-                            </div>
-                          {% endif %}
-                          {% if product_origin_price != blank
-                            and product_origin_price > 0
-                            and product_origin_price > product_price
-                          %}
-                            <div class="valentines-day-product-tab-product-original-price">
-                              {{ product_origin_price | money_without_trailing_zeros }}
-                            </div>
-                          {% endif %}
-                        </div>
-                        {%- if section.settings.show_klarna -%}
-                          <div class="mascot-activities-product-info-klarna">
-                            {% assign klarna_id = 'shopify-block-AbFBFd0QvcXlzYkYva__klarna_on_site_messaging_app_block_gcU6LY' %}
-                            <!-- DO NOT DELETE -->
-                            <div class="klarna-osm-wrapper">
-                              <klarna-placement
-                                id="{{ klarna_id }}"
-                                data-key="credit-promotion-auto-size"
-                                data-theme="light"
-                                data-message-prefix=""
-                                data-integration-style="app-blocks"
-                                data-locale="en-US"
-                                {% if variant %}
-                                  data-purchase-amount="{{ variant.price }}"
-                                {% endif %}
-                                data-preloaded="true"
-                              >
-                              </klarna-placement>
-                            </div>
+                        <div class="valentines-day-product-tab-product-price {% if section.blocks.size == 1 %}mothers-day-hidden{% endif %}">
+                            {% if product_price != blank and product_price > 0 %}
+                              <div class="valentines-day-product-tab-product-sale-price">
+                                {{ product_price | money_without_trailing_zeros }}
+                              </div>
+                            {% endif %}
+                            {% if product_origin_price != blank
+                              and product_origin_price > 0
+                              and product_origin_price > product_price
+                            %}
+                              <div class="valentines-day-product-tab-product-original-price">
+                                {{ product_origin_price | money_without_trailing_zeros }}
+                              </div>
+                            {% endif %}
                           </div>
-                        {% endif %}
+                          {%- if section.settings.show_klarna -%}
+                            <div class="mascot-activities-product-info-klarna {% if section.blocks.size == 1 %}mothers-day-hidden{% endif %}">
+                              {% assign klarna_id = 'shopify-block-AbFBFd0QvcXlzYkYva__klarna_on_site_messaging_app_block_gcU6LY' %}
+                              <!-- DO NOT DELETE -->
+                              <div class="klarna-osm-wrapper">
+                                <klarna-placement
+                                  id="{{ klarna_id }}"
+                                  data-key="credit-promotion-auto-size"
+                                  data-theme="light"
+                                  data-message-prefix=""
+                                  data-integration-style="app-blocks"
+                                  data-locale="en-US"
+                                  {% if variant %}
+                                    data-purchase-amount="{{ variant.price }}"
+                                  {% endif %}
+                                  data-preloaded="true"
+                                >
+                                </klarna-placement>
+                              </div>
+                            </div>
+                          {% endif %}
                         <div class="valentines-day-product-tab-product-button-wrapper">
                           <product-card>
                             <div
@@ -2348,6 +2419,9 @@
               </div>
             {%- endif -%}
           </div>
+          {% if block.settings.product.available == true and product_active == false %}
+            {% assign product_active = true %}
+          {% endif %}
         {%- endfor -%}
       </div>
     </div>
@@ -2426,24 +2500,32 @@
 
     if (!tabs.length || !productDropdowns.length || !colorDropdowns.length) return;
 
-    const colorOptions = [];
+    const rawColorOptions = [];
     tabs.forEach(function (tab) {
       const value = tab.dataset.productColor || 'default';
       const label = tab.dataset.productColorLabel || value;
       if (
-        !colorOptions.some(function (item) {
+        !rawColorOptions.some(function (item) {
           return item.value === value;
         })
       ) {
-        colorOptions.push({ value: value, label: label });
+        rawColorOptions.push({ value: value, label: label });
       }
+    });
+
+    const colorOptions = rawColorOptions.filter(function (item) {
+      return productDropdowns.some(function (dropdown) {
+        return Array.from(dropdown.querySelectorAll('.valentines-day-dropdown-mock-option')).some(function (option) {
+          return (option.dataset.productColor || 'default') === item.value;
+        });
+      });
     });
 
     if (colorOptions.length <= 1) {
       colorDropdownWraps.forEach(function (wrap) {
         wrap.hidden = true;
       });
-      return;
+      if (!colorOptions.length || colorOptions.length == 1) colorDropdownWraps.style.display = 'none';
     }
 
     colorDropdownWraps.forEach(function (wrap) {
@@ -2468,13 +2550,20 @@
     }
 
     function getVisibleIndexes(colorValue) {
-      return tabs
-        .filter(function (tab) {
-          return (tab.dataset.productColor || 'default') === colorValue;
-        })
-        .map(function (tab) {
-          return Number(tab.dataset.tab);
+      const visibleIndexes = [];
+
+      productDropdowns.forEach(function (dropdown) {
+        Array.from(dropdown.querySelectorAll('.valentines-day-dropdown-mock-option')).forEach(function (option) {
+          if ((option.dataset.productColor || 'default') === colorValue) {
+            const optionIdx = Number(option.dataset.idx);
+            if (visibleIndexes.indexOf(optionIdx) === -1) {
+              visibleIndexes.push(optionIdx);
+            }
+          }
         });
+      });
+
+      return visibleIndexes;
     }
 
     function setActiveTab(activeIdx) {

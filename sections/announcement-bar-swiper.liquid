@@ -140,7 +140,7 @@
             left: 14px;
             top: 20px;
             width: 48%;
-
+            justify-content: {{ block.settings.justify_content }};
             height: calc(100% - 20px);
             padding-bottom: 13px;
             {% if block.settings.banner_bg_image_pc %}
@@ -475,6 +475,26 @@
           "id": "show_flash_sale_countdown",
           "label": "显示秒杀倒计时",
           "default": true
+        },
+        {
+          "type": "select",
+          "id": "justify_content",
+          "label": "垂直对齐方式",
+          "options": [
+            {
+              "value": "start",
+              "label": "向上对齐"
+            },
+            {
+              "value": "center",
+              "label": "居中对齐"
+            },
+            {
+              "value": "end",
+              "label": "向下对齐"
+            }
+          ],
+          "default": "start"
         },
         {
           "type": "text",

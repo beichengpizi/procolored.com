@@ -1,3 +1,9 @@
+<style>
+  #shopify-section-{{ section.id }} .loading-dots {
+    font-size: 16px;
+  }
+</style>
+
 <member-account class="relative block lg:py-24" client:idle>
   <div class="lg:container">
     <div class="grid lg:grid-cols-4 gap-4">
@@ -90,7 +96,11 @@
                 {% render 'member-icons', icon: 'jb', class: 'size-4' %}
                 <span class="ml-2">My Point Balance:</span>
               </div>
-              <span class="font-bold" data-points>0</span>
+              <span class="font-bold" data-points>
+                <span class="loading-dots">
+                  Loading...
+                </span>
+              </span>
             </div>
             <hr class="w-px h-2 lg:h-4 bg-gray-200">
             <div class="flex items-center">

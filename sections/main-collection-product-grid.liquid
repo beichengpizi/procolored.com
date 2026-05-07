@@ -156,6 +156,18 @@
     .main-collection-product-grid-{{ section.id }} .facets--bar.facets--bar-inline {
       width: 100%;
     }
+
+    .main-collection-product-grid-{{ section.id }} .collection-banner {
+      position: relative;
+    }
+
+    .main-collection-product-grid-{{ section.id }} .banner-content {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
     .main-collection-product-grid-{{ section.id }} .collection-banner .show_desktop {
       display: flex;
     }
@@ -199,6 +211,44 @@
       border-radius: 20px;
   }
 
+  {% if section.settings.consumables_tab_style %}
+    @media screen and (min-width: 768px) {
+      .main-collection-section-{{ section.id }} .collection-tab > label {
+        flex-direction: row;
+      }
+
+      .main-collection-section-{{ section.id }} .collection-tab.active > label {
+        background: black;
+        border-radius: 99px;
+        border: 1px solid;
+      }
+
+      .main-collection-section-{{ section.id }} .collection-tab.active .collection-tab-product-title {
+        color: #fff;
+      }
+
+      .main-collection-section-{{ section.id }} .collection-tab.active {
+        border: none;
+      }
+
+      .main-collection-section-{{ section.id }} .collection-tab-product-title {
+        padding: 0 14px;
+      }
+
+      .main-collection-section-{{ section.id }} .collection-tab-product-img {
+        width: 100px;
+        background: white;
+        border-radius: 99px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .main-collection-section-{{ section.id }} .collection-tab-product-img img {
+        max-width: 50%;
+      }
+    }
+  {% endif %}
+
     @media screen and (max-width: 768px) {
       .main-collection-section-{{ section.id }} {
         padding-top: {{ section.settings.padding_top_mobile }}px;
@@ -206,6 +256,12 @@
       }
       .main-collection-product-grid-{{ section.id }} .collection-banner,.main-collection-product-grid-{{ section.id }} .sub-collection-banner img {
         margin-bottom: 30px;
+      }
+
+      .main-collection-product-grid-{{ section.id }} .banner-content {
+        left: 50%;
+        top: 10px;
+        transform: translate(-50%);
       }
 
       .main-collection-section-{{ section.id }} .collection-tabs-container {
@@ -540,6 +596,7 @@
 
     }
 </style>
+
 {%- liquid
   assign enable_filtering = section.settings.enable_filtering
   assign enable_sorting = section.settings.enable_sorting
@@ -925,6 +982,9 @@
                         data-src="{{banner_mobile | image_url:width:1000}}"
                       >
                     {%- endif -%}
+                    <div class="banner-content">
+                      {{ section.settings.banner_content }}
+                    </div>
                   {% if section.settings.banner_link != blank %}
                     </a>
                   {% else %}
@@ -1220,6 +1280,11 @@
       "info": "全局：当前系列横幅图片（包括子系列默认图片），若想单独配置子系列横幅需要在系列元字段sub-collection pages banner MB配置"
     },
     {
+      "type": "liquid",
+      "id": "banner_content",
+      "label": "Banner content"
+    },
+    {
       "type": "url",
       "id": "banner_link",
       "label": "点击banner跳转链接"
@@ -1230,6 +1295,12 @@
       "label": "显示子系列tabs",
       "default": false,
       "info": "需配置子系列筛选标识才生效！"
+    },
+    {
+      "type": "checkbox",
+      "id": "consumables_tab_style",
+      "label": "耗材系列tab样式",
+      "default": false
     },
     {
       "type": "text",
