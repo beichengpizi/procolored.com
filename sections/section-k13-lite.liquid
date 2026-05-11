@@ -1,5 +1,7 @@
-{{ 'k13-lite-index.css' | asset_url | stylesheet_tag }}
-{{ 'fixed-left-nav-jump.css' | asset_url | stylesheet_tag }}
+<link rel="preload" href="{{ 'k13-lite-index.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'k13-lite-index.css' | asset_url }}"></noscript>
+<link rel="preload" href="{{ 'fixed-left-nav-jump.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'fixed-left-nav-jump.css' | asset_url }}"></noscript>
 <!-- k13-lite-banner-wrapper start -->
 {% comment %}
   <section id="k13-lite-banner">
@@ -1247,27 +1249,27 @@
       <div class="k13-lite-one-click-ink-extraction-content">
         <div class="k13-lite-one-click-ink-extraction-video">
           <video
-            class="k13-lite-one-click-ink-extraction-video-desktop"
+            class="k13-lite-one-click-ink-extraction-video-desktop lazy"
             autoplay
             loop
             muted
             playsinline
             webkit-playsinline
             x5-playsinline
-            preload="auto"
+            preload="none"
           >
             <source src="https://cdn.shopify.com/videos/c/o/v/770711e338f04a1091203acba9de7a03.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
           <video
-            class="k13-lite-one-click-ink-extraction-video-mobile"
+            class="k13-lite-one-click-ink-extraction-video-mobile lazy"
             autoplay
             loop
             muted
             playsinline
             webkit-playsinline
             x5-playsinline
-            preload="auto"
+            preload="none"
           >
             <source src="https://cdn.shopify.com/videos/c/o/v/cac79efa063f4eba83d392509358dcd4.mp4" type="video/mp4">
             Your browser does not support the video tag.
@@ -1424,7 +1426,8 @@
                       x5-video-player-type="h5"
                       x5-video-player-fullscreen="false"
                       style="width: 100%; max-width: 100%; display: block"
-                      preload="auto"
+                      preload="none"
+                      class="lazy"
                     >
                       <source
                         src="https://cdn.shopify.com/videos/c/o/v/be03b0d3792644bba7514ddc30e21adc.mp4"
@@ -1458,6 +1461,7 @@
                 <div class="k13-lite-pixel-to-fabric-card">
                   <div class="k13-lite-pixel-to-fabric-card-img">
                     <video
+                      class="lazy"
                       autoplay
                       loop
                       muted
@@ -1467,7 +1471,7 @@
                       x5-video-player-type="h5"
                       x5-video-player-fullscreen="false"
                       style="width: 100%; max-width: 100%; display: block"
-                      preload="auto"
+                      preload="none"
                     >
                       <source
                         src="https://cdn.shopify.com/videos/c/o/v/1b1fb35e4be6482c9ec5b3dda2b43fea.mp4"
@@ -4466,14 +4470,14 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery.mousewheel/jquery.mousewheel.min.js"></script>
 
 <!-- Fixed navigation jump on the left 左侧固定导航跳转 end -->
-<script src="{{ 'k13-lite-index.js' | asset_url }}"></script>
-<script src="{{ 'k13-lite-hassle-free-maintenance.js' | asset_url }}"></script>
+<script src="{{ 'k13-lite-index.js' | asset_url }}" async></script>
+<script src="{{ 'k13-lite-hassle-free-maintenance.js' | asset_url }}" async></script>
 {% comment %} <script src="{{ 'k13-lite-video-scroll-control.js' | asset_url }}"></script> {% endcomment %}
-<script src="{{ 'k13-lite-pixel-to-fabric.js' | asset_url }}"></script>
+<script src="{{ 'k13-lite-pixel-to-fabric.js' | asset_url }}" async></script>
 
-<script src="{{ 'k13-lite-unlock-VIP-access.js' | asset_url }}"></script>
-<script src="{{ 'k13-lite-unlock-your-hidden-edition.js' | asset_url }}"></script>
-<script src="{{ 'fixed-left-nav-jump.js' | asset_url }}"></script>
+<script src="{{ 'k13-lite-unlock-VIP-access.js' | asset_url }}" async></script>
+<script src="{{ 'k13-lite-unlock-your-hidden-edition.js' | asset_url }}" async></script>
+<script src="{{ 'fixed-left-nav-jump.js' | asset_url }}" async></script>
 <script>
    // 等待页面加载完成
    document.addEventListener("DOMContentLoaded", function () {

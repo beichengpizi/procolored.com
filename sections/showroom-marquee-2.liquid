@@ -1,0 +1,672 @@
+<style>
+  .home-printing-section1-{{ section.id }}{
+    background: #fff;
+    padding-top:{{ section.settings.padding_top }}px;
+    padding-bottom:{{ section.settings.padding_bottom }}px;
+  }
+    .home-printing-section1-{{ section.id }} .section-header-{{ section.id }} {
+      text-align: center;
+      padding: 0 24px;
+      margin-bottom: 48px;
+    }
+
+    .home-printing-section1-{{ section.id }} .section-header-{{ section.id }} .section-header-title {
+      color: #121212;
+      text-align: center;
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.5;
+      margin: 0 0 20px 0;
+    }
+
+    .home-printing-section1-{{ section.id }} .section-header-{{ section.id }} .section-header-subtitle {
+      color: #5D5D5D;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.5;
+      margin: 0 auto;
+    }
+    .home-printing-section1-{{ section.id }} .section-header-{{ section.id }} .section-header-subtitle span{
+        display:block;
+    }
+    .home-printing-section1-{{ section.id }} .marquee-row {
+      width: 100%;
+      overflow: hidden;
+      margin-bottom: 100px;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: pan-y;
+    }
+
+    .home-printing-section1-{{ section.id }} .marquee-row.is-dragging {
+      cursor: grabbing;
+    }
+
+    .home-printing-section1-{{ section.id }} .marquee-track {
+      display: flex;
+      width: max-content;
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+    }
+
+    .home-printing-section1-{{ section.id }} .marquee-group {
+      display: flex;
+      gap: 24px;
+      padding-right: 24px;
+      flex-shrink: 0;
+    }
+
+    .home-printing-section1-{{ section.id }} .marquee-group .card:nth-child(2n+1) {
+      padding-top: 113px;
+    }
+
+    .home-printing-section1-{{ section.id }} .card {
+      width: 400px;
+      min-height: 1px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .home-printing-section1-{{ section.id }} .card-icon {
+      flex-shrink: 0;
+      text-align: center;
+      line-height: 1;
+      width: 400px;
+      height: 100%;
+    }
+
+    .home-printing-section1-{{ section.id }} .card-icon img {
+      width: 100%;
+      max-width: 100%;
+      flex-shrink: 0;
+      object-fit: cover;
+      aspect-ratio: 4/3;
+      border-radius: 20px;
+    }
+
+    .home-printing-section1-{{ section.id }} .card-content {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .home-printing-section1-{{ section.id }} .card-content .card-content-title {
+      color: #000;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.33;
+    }
+
+    .home-printing-section1-{{ section.id }} .card-content .card-content-desc {
+      color: #3d3d3d;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    .home-printing-section1-{{ section.id }} .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      align-items: center;
+      border-radius: 99px;
+    }
+
+    .home-printing-section1-{{ section.id }} .prev-button,
+    .home-printing-section1-{{ section.id }} .next-button {
+      cursor: pointer;
+    }
+
+    .home-printing-section1-{{ section.id }} .prev-button:hover rect,
+    .home-printing-section1-{{ section.id }} .next-button:hover rect {
+      stroke: #121212;
+    }
+
+    .home-printing-section1-{{ section.id }} .marquee-progress {
+      width: 608px;
+      height: 4px;
+      background: rgba(0,0,0,0.1);
+      overflow: hidden;
+      border-radius: 99px;
+    }
+
+    .home-printing-section1-{{ section.id }} .marquee-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #000;
+      transition: width 0.1s linear;
+      border-radius: 99px;
+    }
+
+    @media (max-width: 768px) {
+        .home-printing-section1-{{ section.id }}{
+            background: #fff;
+            padding-top:{{ section.settings.padding_top_mobile }}px;
+            padding-bottom:{{ section.settings.padding_bottom_mobile }}px;
+          }
+      .home-printing-section1-{{ section.id }} .section-header-{{ section.id }} .section-header-title {
+        text-align: center;
+        font-size: 24px;
+        font-weight: 800;
+        line-height: 1.33;
+        margin-bottom: 12px;
+      }
+
+      .home-printing-section1-{{ section.id }} .section-header-{{ section.id }} .section-header-subtitle {
+        text-align: center;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.4;
+      }
+      .home-printing-section1-{{ section.id }} .section-header-{{ section.id }} .section-header-subtitle span{
+        display:inline;
+    }
+
+      .home-printing-section1-{{ section.id }} .marquee-group {
+        display: flex;
+        gap: 16px;
+        padding-right: 16px;
+        flex-shrink: 0;
+      }
+
+      .home-printing-section1-{{ section.id }} .section-header-{{ section.id }} {
+        margin-bottom: 32px;
+      }
+
+      .home-printing-section1-{{ section.id }} .marquee-row {
+        margin-bottom: 32px;
+      }
+
+      .home-printing-section1-{{ section.id }} .card {
+        width: 220px;
+        padding: 0;
+        gap: 9px;
+      }
+
+      .home-printing-section1-{{ section.id }} .card-icon img {
+        border-radius: 10px;
+      }
+
+      .home-printing-section1-{{ section.id }} .prev-button,
+      .home-printing-section1-{{ section.id }} .next-button {
+        width: 44px;
+      }
+
+      .home-printing-section1-{{ section.id }} .marquee-group .card:nth-child(2n+1) {
+        padding-top: 37px;
+      }
+
+      .home-printing-section1-{{ section.id }} .card-icon {
+        width: 220px;
+      }
+
+      .home-printing-section1-{{ section.id }} .card-content .card-content-title {
+        color: #000;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 1.4;
+      }
+
+      .home-printing-section1-{{ section.id }} .card-content .card-content-desc {
+        color: #3d3d3d;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 140%;
+      }
+
+      .home-printing-section1-{{ section.id }} .button-group {
+        gap: 24px;
+      }
+
+      .home-printing-section1-{{ section.id }} .marquee-progress {
+        max-width: 156px;
+      }
+    }
+</style>
+
+<div
+  id="{% if section.settings.nav_id != empty %}custom-nav-{{ section.settings.nav_id }}{% endif %}"
+  class="home-printing-section1-{{ section.id }}"
+>
+  <div class="section-header-{{ section.id }}">
+    <div class="section-header-title">Showroom Highlights</div>
+    <div class="section-header-subtitle">
+      Browse the real-life moment of our showroom and experience the charm of professional DTF printing.
+    </div>
+  </div>
+
+  <!-- 第一行：向左 -->
+  <div class="marquee-row" id="row1-{{ section.id }}">
+    <div class="marquee-track">
+      <div class="marquee-group">
+        {% for block in section.blocks %}
+          <div class="card">
+            <div class="card-icon">
+                <img
+                    class="lazyload"
+                    data-src="{{ block.settings.image | img_url: 'master' }}"
+                    alt="" width="100%" height="100%"
+                >
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="button-group">
+    <div class="prev-button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <rect x="-0.5" y="0.5" width="47" height="47" rx="23.5" transform="matrix(-1 0 0 1 47 0)" stroke="#E7E7E7"/>
+        <path d="M14.182 24H33.8184" stroke="#121212" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M20.7275 17.4541L14.1821 23.9996L20.7275 30.545" stroke="#121212" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <div class="marquee-progress">
+      <div class="marquee-progress-bar"></div>
+    </div>
+
+    <div class="next-button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="#E7E7E7"/>
+        <path d="M33.818 24H14.1816" stroke="#121212" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M27.2725 17.4541L33.8179 23.9996L27.2725 30.545" stroke="#121212" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+  
+</div>
+<script>
+  (function () {
+    let args = null;
+    let timer = null;
+    function debounce(fn, wait) {
+      timer = null;
+      return function () {
+        args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          fn.apply(null, args);
+        }, wait);
+      };
+    }
+
+    function NativeMarquee(selector, options) {
+      this.root = document.querySelector(selector);
+      this.track = this.root.querySelector('.marquee-track');
+      this.baseGroup = this.root.querySelector('.marquee-group').cloneNode(true);
+      this.rawX = 0; // ✅ 永远递增/递减，不参与 normalize
+
+      this.direction = options.direction === 'right' ? 1 : -1;
+      this.speed = options.speed || 50;
+
+      this.groupWidth = 0;
+      this.currentX = 0;
+      this.lastTime = 0;
+      this.rafId = null;
+      this.pointerId = null;
+      this.dragStartClientX = 0;
+      this.dragStartTranslate = 0;
+      const section = document.querySelector('#shopify-section-{{ section.id }}');
+      this.progressBar = section.querySelector('.marquee-progress-bar');
+
+      this.isSliding = false;
+      this.slideTargetX = 0;
+      this.slideStartX = 0;
+      this.slideStartTime = 0;
+      this.slideDuration = 400; // 动画时间（ms）
+
+      this.pauseState = {
+        {% comment %} hover: false, {% endcomment %}
+        drag: false,
+        hidden: false,
+        outOfView: false,
+      };
+
+      {% comment %} this.isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches; {% endcomment %}
+
+      this.build();
+      this.bindEvents();
+      this.play();
+    }
+
+    NativeMarquee.prototype.build = function () {
+      this.track.innerHTML = '';
+
+      var prev = this.baseGroup.cloneNode(true);
+      var curr = this.baseGroup.cloneNode(true);
+      var next = this.baseGroup.cloneNode(true);
+
+      prev.setAttribute('aria-hidden', 'true');
+      next.setAttribute('aria-hidden', 'true');
+
+      this.track.appendChild(prev);
+      this.track.appendChild(curr);
+      this.track.appendChild(next);
+
+      this.groups = {
+        prev: prev,
+        curr: curr,
+        next: next,
+      };
+
+      this.measure();
+      this.currentX = -this.groupWidth;
+      this.applyTranslate(this.currentX);
+    };
+
+    NativeMarquee.prototype.measure = function () {
+      let width = this.groups.curr.getBoundingClientRect().width;
+      this.groupWidth = Math.round(width * 1000) / 1000;
+    };
+
+    NativeMarquee.prototype.applyTranslate = function (x) {
+      this.currentX = x;
+      this.track.style.transform = 'translate3d(' + x + 'px, 0, 0)';
+    };
+        
+    NativeMarquee.prototype.updateProgress = function () {
+      if (!this.progressBar || !this.groupWidth) return;
+
+      const totalWidth = this.groupWidth;
+
+      // ✅ 用 currentX（已经 normalize 过）
+      let progress = Math.abs(this.currentX) / totalWidth;
+
+      if (progress > 1) progress = progress % 1;
+
+      this.progressBar.style.width = (progress * 100) + '%';
+    };
+
+    NativeMarquee.prototype.normalize = function () {
+      if (!this.groupWidth) return;
+
+      while (this.currentX <= -this.groupWidth * 2) {
+        this.currentX += this.groupWidth;
+      }
+
+      while (this.currentX >= 0) {
+        this.currentX -= this.groupWidth;
+      }
+    };
+
+    NativeMarquee.prototype.isPaused = function () {
+      return this.pauseState.drag || this.pauseState.hidden || this.pauseState.outOfView;
+    };
+
+    NativeMarquee.prototype.stopRAF = function () {
+      if (this.rafId !== null) {
+        cancelAnimationFrame(this.rafId);
+        this.rafId = null;
+      }
+    };
+
+    NativeMarquee.prototype.play = function () {
+      const self = this;
+
+      if (this.rafId !== null || this.isPaused()) return;
+
+      this.lastTime = performance.now();
+
+      function tick(now) {
+        if (self.isPaused() && !self.isSliding) {
+          self.stopRAF();
+          return;
+        }
+
+        var delta = now - self.lastTime;
+        self.lastTime = now;
+
+        if (delta < 0 || delta > 34) {
+          delta = 16.7;
+        }
+
+        // ✅ 如果正在执行“按钮滑动动画”
+        if (self.isSliding) {
+          const progress = Math.min((now - self.slideStartTime) / self.slideDuration, 1);
+
+          // easeOut
+          const ease = 1 - Math.pow(1 - progress, 3);
+
+          const newX = self.slideStartX + (self.slideTargetX - self.slideStartX) * ease;
+
+          // ✅ 计算这一步移动了多少
+          let deltaMove = newX - self.currentX;
+
+          // ✅ 同步到 rawX
+          self.rawX += deltaMove;
+
+          self.applyTranslate(newX);
+          self.updateProgress(); // 👈 加这一行
+
+          if (progress >= 1) {
+            self.isSliding = false;
+            self.currentX = self.slideTargetX;
+            self.normalize();
+          }
+
+        } else {
+          // ✅ 原来的自动滚动
+          if (self.groupWidth) {
+            // ✅ 改成
+            let move = self.direction * self.speed * (delta / 1000);
+
+            self.currentX += move;
+            self.rawX += move; // 👈 关键
+            self.normalize();
+            self.applyTranslate(self.currentX);
+
+            self.updateProgress(); // ✅ 就加在这里
+          }
+        }
+
+        self.rafId = requestAnimationFrame(tick);
+      }
+
+      this.rafId = requestAnimationFrame(tick);
+    };
+
+    NativeMarquee.prototype.pause = function (reason) {
+      if (!this.pauseState.hasOwnProperty(reason)) return;
+      this.pauseState[reason] = true;
+      this.stopRAF();
+    };
+
+    NativeMarquee.prototype.resume = function (reason) {
+      if (!this.pauseState.hasOwnProperty(reason)) return;
+      this.pauseState[reason] = false;
+
+      if (!this.isPaused()) {
+        this.play();
+      }
+    };
+
+
+    NativeMarquee.prototype.handleResize = function () {
+      let oldWidth = this.groupWidth || 1;
+      let progress = this.currentX / oldWidth;
+
+      this.measure();
+
+      if (!this.groupWidth) return;
+
+      this.currentX = progress * this.groupWidth;
+      this.normalize();
+      this.applyTranslate(this.currentX);
+    };
+
+    NativeMarquee.prototype.bindEvents = function () {
+      let self = this;
+      {% comment %} 
+      if (this.isFinePointer) {
+        this.root.addEventListener('mouseenter', function () {
+          self.pause('hover');
+        });
+
+        this.root.addEventListener('mouseleave', function () {
+          self.resume('hover');
+        });
+      } {% endcomment %}
+
+      this.root.addEventListener('dragstart', function (e) {
+        e.preventDefault();
+      });
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+          self.pause('hidden');
+        } else {
+          self.resume('hidden');
+        }
+      });
+
+      if ('IntersectionObserver' in window) {
+        this.io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.target !== self.root) return;
+
+              if (entry.isIntersecting) {
+                self.resume('outOfView');
+              } else {
+                self.pause('outOfView');
+              }
+            });
+          },
+          {
+            threshold: 0.01,
+          }
+        );
+
+        this.io.observe(this.root);
+      }
+
+      this.onResize = debounce(function () {
+        self.handleResize();
+      }, 120);
+
+      window.addEventListener('resize', this.onResize, { passive: true });
+      
+      const section = document.querySelector('#shopify-section-{{ section.id }}');
+      const prevBtn = section.querySelector('.prev-button');
+      const nextBtn = section.querySelector('.next-button');
+      prevBtn.addEventListener('click', () => {
+        this.slideByCard(-1);
+      });
+
+      nextBtn.addEventListener('click', () => {
+        this.slideByCard(1);
+      });
+    };
+
+    NativeMarquee.prototype.slideByCard = function (dir) {
+      if (this.isSliding) return;
+
+      const card = this.root.querySelector('.card');
+      if (!card) return;
+
+      const style = window.getComputedStyle(card);
+      const cardWidth =
+        card.getBoundingClientRect().width +
+        parseFloat(style.marginRight);
+
+      this.isSliding = true;
+      this.slideStartX = this.currentX;
+
+      // dir: 1 向右按钮（内容向左）
+      this.slideTargetX = this.currentX - dir * cardWidth;
+
+      this.slideStartTime = performance.now();
+
+      // ⚠️ 确保动画在跑
+      this.play();
+    };
+
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+    new NativeMarquee('#row1-{{ section.id }}', {
+      direction: 'left',
+      speed: isMobile ? 25 : 50, // 👈 移动端减半
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Showroom Marquee 2",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_id",
+      "label": "模块锚点ID",
+      "info": "模块锚点ID，用于在页面中定位，例如：锚点定位，锚点跳转，锚点高亮等，方便用户快速定位到该模块。(锚点ID必须为英文字母,全局唯一)"
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部填充(移动端)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 160
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "底部填充(移动端)",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Card",
+      "type": "card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Showroom Marquee 2"
+    }
+  ]
+}
+{% endschema %}

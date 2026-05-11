@@ -1,0 +1,329 @@
+<style>
+  #shopify-section-{{ section.id }} .globo-form-app {
+    max-width: 1200px !important;
+    width: 100% !important;
+    margin: 40px auto !important;
+  }
+ 
+  #shopify-section-{{ section.id }} .globo-form-app .panels {
+    z-index: 10;
+  }
+
+  #shopify-section-{{ section.id }} .video-wrapper {
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .video-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .video-description {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .video-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 50px;
+  }
+
+  #shopify-section-{{ section.id }} video {
+    width: 100%;
+    display: block;
+  }
+  
+  #shopify-section-{{ section.id }} video::-webkit-media-controls-timeline {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .progress-bar {
+    position: relative;
+    height: 3px;
+    background: #eee;
+    margin: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .progress {
+    height: 100%;
+    width: 0%;
+    background: #000;
+    transition: width 0.3s ease;
+  }
+
+  #shopify-section-{{ section.id }} .dots {
+    position: absolute;
+    top: -6px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #shopify-section-{{ section.id }} .dot {
+    width: 12px;
+    height: 12px;
+    background: #ccc;
+    border-radius: 50%;
+    transform: translateY(25%);
+  }
+
+  #shopify-section-{{ section.id }} .dot.active {
+    background: #000;
+  }
+
+  #shopify-section-{{ section.id }} .skip-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 20px 0;
+    display: none; /* 初始隐藏 */
+  }
+
+  #shopify-section-{{ section.id }} .skip-container.mobile {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #shopify-section-{{ section.id }} .skip-item {
+  }
+
+  #shopify-section-{{ section.id }} .skip-item:hover {
+    background-color: #ccc;
+  }
+
+  #shopify-section-{{ section.id }} .globo-form-app button[disabled] {
+    opcacity: 0.7 !important;
+  }
+
+  #shopify-section-{{ section.id }} .wizard__header {
+    display: none !important;
+  }
+
+  #shopify-section-{{ section.id }} .gfb__repeater {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .globo-form-app {
+      margin: 16px !important;
+      width: calc(100% - 32px) !important;
+    }
+
+    #shopify-section-{{ section.id }} .video-container {
+      max-width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .skip-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    #shopify-section-{{ section.id }} .globo-form-app.boxed-layout .g-container {
+      padding: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .video-title {
+      font-size: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .video-description {
+      font-size: 12px;
+    }
+  }
+</style>
+
+<div>
+    <div class="globo-formbuilder" data-id="MTM5NDQx"></div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const section = document.querySelector('#shopify-section-{{ section.id }}');
+    let panelContainer = section.querySelector('.panel[data-step="1"].movingIn');
+    // 设置一个定时器，每隔 500 毫秒检查一次 panelContainer 是否加载
+
+    const checkPanelContainerInterval = setInterval(() => {
+      panelContainer = section.querySelector('.panel[data-step="1"].movingIn');
+
+      if (panelContainer) {
+        // panelContainer 已经加载，清除定时器
+        clearInterval(checkPanelContainerInterval);
+
+        const videoConTainer = document.createElement('div');
+        videoConTainer.classList.add('video-wrapper');
+        videoConTainer.innerHTML = `
+          <div class="video-title">
+            {{ section.settings.title }}
+          </div>
+
+          <div class="video-description">
+            {{ section.settings.description }}
+          </div>
+
+          <div class="video-container" id="video-container">
+            {%- for block in section.blocks -%}
+              {% if block.settings.required %}
+                  <video id="video{{ forloop.index }}" class="video lazy" controls style="display: none;" preload="none">
+                      <source src="{{ block.settings.video.sources[0].url }}" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              {% endif %}
+            {%- endfor -%}
+            <div class="progress-bar">
+              <div class="progress" id="progress"></div>
+              <div class="dots" id="dots"></div>
+            </div>
+          </div>
+        `;
+        panelContainer.insertBefore(videoConTainer, panelContainer.firstChild);
+
+        const resizeObserver = new ResizeObserver(() => {
+          const panelContainerHeight = panelContainer.offsetHeight;
+          section.querySelector('.wizard__content .panels').style.height =
+            panelContainerHeight + 'px';
+        });
+
+        resizeObserver.observe(panelContainer);
+
+        section.querySelector('.wizard__footer .submit').disabled = true;
+        section.querySelector('.wizard__footer .submit').style.opacity = 0.7;
+
+        section.querySelector('.wizard__footer .previous').addEventListener('click', function() {
+          section.querySelector('.wizard__footer .submit').disabled = false;
+          section.querySelector('.wizard__footer .submit').style.opacity = 1;
+        });
+
+        section.querySelector('.wizard__footer .submit').addEventListener('click', function() {
+          section.querySelector('.wizard__footer .submit').disabled = true;
+          section.querySelector('.wizard__footer .submit').style.opacity = 0.7;
+        });
+
+        // 只获取“必看视频”（关键点！）
+        const videos = Array.from(document.querySelectorAll('#video-container .video'));
+        let currentVideoIndex = 0;
+
+        const progressBar = document.getElementById('progress');
+        const dotsContainer = document.getElementById('dots');
+
+        // 初始化圆点
+        function initDots() {
+          dotsContainer.innerHTML = '';
+          const firstDot = document.createElement('span');
+          firstDot.classList.add('dot');
+          firstDot.style.visibility = 'hidden'; // 隐藏第一个圆点
+          dotsContainer.appendChild(firstDot);
+          videos.forEach((_, index) => {
+            const dot = document.createElement('span');
+            dot.classList.add('dot');
+            if (index === 0) dot.classList.add('active');
+            dotsContainer.appendChild(dot);
+          });
+        }
+
+        // 更新进度条（按视频个数）
+        function updateProgress() {
+          const percentage = ((currentVideoIndex + 1) / videos.length) * 100;
+          progressBar.style.width = `${percentage}%`;
+
+          const dots = document.querySelectorAll('.dot');
+          dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index <= currentVideoIndex);
+          });
+        }
+
+        // 自动播放下一个视频
+        function setupVideoListeners() {
+          videos.forEach((video, index) => {
+            video.addEventListener('ended', () => {
+              if (index < videos.length - 1) {
+                video.style.display = 'none';
+                currentVideoIndex = index + 1;
+
+                const nextVideo = videos[currentVideoIndex];
+                nextVideo.style.display = 'block';
+                nextVideo.play();
+
+                updateProgress(); // ⭐ 更新进度
+              } else {
+                updateProgress(); // 最后一次也更新
+
+                videoConTainer.innerHTML = `
+                  <div class="skip-container" id="skip-container">
+                    {%- for block in section.blocks -%}
+                      {%- if block.settings.required == false -%}
+                          <div class="skip-item">
+                              <video class="video lazy" controls preload="none">
+                                  <source src="{{ block.settings.video.sources[0].url }}" type="video/mp4">
+                                  Your browser does not support the video tag.
+                              </video>
+                          </div>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                `;
+
+                videoConTainer.querySelector('.skip-container').style.display = 'grid';
+                 // 显示跳过视频容器
+
+                section.querySelector('.wizard__footer .submit').disabled = false;
+                section.querySelector('.wizard__footer .submit').style.opacity = 1;
+              }
+            });
+          });
+        }
+
+        // 初始化
+        function initVideos() {
+          videos[0].style.display = 'block';
+          initDots();       // ⭐ 初始化圆点
+          updateProgress(); // ⭐ 初始化进度
+          setupVideoListeners();
+        }
+
+        initVideos();
+      }
+    }, 500); // 每 500 毫秒检查一次 panelContainer 是否加载
+  });
+</script>
+{% schema %}
+  {
+    "name": "Warranty Form",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "description",
+        "label": "Description"
+      }
+    ],
+    "blocks": [
+        {
+            "type": "video",
+            "name": "video",
+            "settings": [
+                {
+                    "type": "video",
+                    "id": "video",
+                    "label": "Video"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "required",
+                    "label": "Required"
+                }
+            ]
+        }
+    ],
+    "presets": [
+      {
+        "name": "Warranty Form"
+      }
+    ]
+  }
+{% endschema %}

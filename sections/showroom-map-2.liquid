@@ -764,36 +764,44 @@
       }
     })
 
+    const showroomModal = section.querySelector("#showroomModal");
+    const resetShowroomForm = () => {
+      section.dispatchEvent(new CustomEvent('showroom:reset-form'));
+    };
+    const closeShowroomModal = () => {
+      showroomModal.classList.remove('show');
+      const closeDelay = window.matchMedia('(max-width: 768px)').matches ? 350 : 0;
+      setTimeout(() => {
+        showroomModal.style.display = 'none';
+        resetShowroomForm();
+      }, closeDelay);
+    };
+
     section.querySelector('.book-button').addEventListener('click', function(){
       console.log('book-button clicked');
-      section.querySelector("#showroomModal").style.display = "block";
+      showroomModal.style.display = "block";
       // 下一帧加 class（让动画生效）
       requestAnimationFrame(() => {
-        section.querySelector("#showroomModal").classList.add('show');
+        showroomModal.classList.add('show');
       });
     });
 
     section.querySelector(".close").onclick = function() {
-      section.querySelector("#showroomModal").style.display = "none";
-      setTimeout(() => {
-        section.querySelector("#showroomModal").style.display = 'none';
-        resetForm();
-      }, 350); // 和 transition 时间一致
+      closeShowroomModal();
     };
 
-    window.onclick = function(event) {
+    window.addEventListener('click', function(event) {
       const modal = section.querySelector("#showroomModal");
       if (event.target === modal) {
-        modal.style.display = "none";
-        resetForm();
+        closeShowroomModal();
       }
-    };
+    });
   });
 </script>
 
 {% schema %}
 {
-  "name": "Showroom Map 2",
+  "name": "Showroom Map",
   "tag": "section",
   "settings": [
     {
@@ -824,7 +832,7 @@
   ],
   "presets": [
     {
-      "name": "Showroom Map 2"
+      "name": "Showroom Map"
     }
   ]
 }
