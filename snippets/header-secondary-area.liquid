@@ -15,6 +15,47 @@
   .show-on-mobile {
     display: none;
   }
+  .thb-quick-live-stream {
+    position: relative;
+  }
+
+  .thb-quick-live-stream i {
+    width: 2px;
+    height: 6.5px;
+    bottom: 6px;
+    border-radius: 1px;
+    background-color: #fff;
+    animation: live-animat .4s ease-in-out infinite alternate;
+    transform-origin: center bottom;
+    left: 4.5px;
+    position: absolute;
+  }
+
+  .thb-quick-live-stream i.line1 {
+    left: 5.5px;
+  }
+
+  .thb-quick-live-stream i.line2 {
+    left: 9.5px;
+    animation-delay: -.2s;
+  }
+
+  .thb-quick-live-stream i.line3 {
+    left: 13.5px;
+    animation-delay: -.1s;
+  }
+
+  @keyframes live-animat {
+    0% {
+      -webkit-transform: scaleY(.3);
+      transform: scaleY(.3);
+    }
+    100% {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+  }
+
   @media screen and (max-width: 768px) {
     .thb-secondary-area.thb-header-right .country-switcher {
       padding-left: 8px;
@@ -31,11 +72,25 @@
     .show-on-mobile {
       display: inline-flex;
     }
+
+    .thb-quick-live-stream i.line1 {
+      left: 2.5px;
+    }
+
+    .thb-quick-live-stream i.line2 {
+      left: 6.5px;
+      animation-delay: -.2s;
+    }
+
+    .thb-quick-live-stream i.line3 {
+      left: 10.5px;
+      animation-delay: -.1s;
+    }
   }
 </style>
 <div class="thb-secondary-area thb-header-right">
   <a
-    class="thb-secondary-area-item thb-quick-search"
+    class="thb-secondary-area-item thb-quick-search show-on-desktop"
     href="{{ routes.search_url }}"
     title="{{ 'sections.header.search' | t }}"
   >
@@ -67,4 +122,18 @@
       {% render 'country-switcher' %}
     {%- endif -%}
   {% endcomment %}
+  <a
+    class="thb-secondary-area-item thb-quick-live-stream "
+    href="{{ routes.search_url }}"
+    title="{{ 'sections.header.search' | t }}"
+  >
+    <div class="thb-secondary-item-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18.5 9.01984C18.5 9.22209 18.7277 9.34063 18.8934 9.22464L21.9265 7.10142C22.5893 6.63748 23.5 7.11163 23.5 7.92066V16.0793C23.5 16.8884 22.5893 17.3625 21.9265 16.8986L18.8934 14.7754C18.7277 14.6594 18.5 14.7779 18.5 14.9802V18C18.5 19.1046 17.6046 20 16.5 20H2.5C1.39543 20 0.5 19.1046 0.5 18V6C0.5 4.89543 1.39543 4 2.5 4H16.5C17.6046 4 18.5 4.89543 18.5 6V9.01984Z" fill="#F44A4A"></path>
+      </svg>
+      <i class="absolute line1"></i>
+      <i class="absolute line2"></i>
+      <i class="absolute line3"></i>
+    </div>
+  </a>
 </div>
