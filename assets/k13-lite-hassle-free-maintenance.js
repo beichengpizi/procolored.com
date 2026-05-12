@@ -328,6 +328,7 @@ class ModuleSwitcher {
       video.style.opacity = "0";
       video.style.transition = "opacity 0.3s";
       video.style.width = "100%";
+      video.dataset.src = data.src; // 使用 data-src 存储视频地址，实际 src 在需要时设置，优化初始加载
 
       const source = document.createElement("source");
       source.src = data.src;

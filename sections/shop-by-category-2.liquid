@@ -1,6 +1,8 @@
 {% comment %}
   区块：按类别选购2
   - 标签通过类型为 "tab" 的区块定义。使用设置项 "shop-by-category-2-tab" 作为标签显示名称。
+  - 每个标签区块可通过“设为默认激活标签”控制首屏默认激活状态。
+    若多个标签同时勾选，仅按区块顺序取第一个；若都未勾选，则默认激活第一个标签。
   - 每个产品区块通过 "tab_handle" 字段与标签关联。需设置为目标标签的 handle。
     标签的 handle 会根据标签名自动生成，也可通过标签的 handle 字段自定义。
   - 每个产品区块：
@@ -10,7 +12,35 @@
     - 图片优先级（桌面/移动端）：自定义桌面/移动端图片 > 产品主图。如无产品且无自定义图片，则图片为空。
     - “了解更多”按钮默认链接到所选产品页，可通过自定义链接覆盖。
 {% endcomment %}
+
 {% assign section_id = section.id %}
+{% assign shop_by_category_lazy_expand = '' %}
+{% if request.page_type == 'index' and request.design_mode == false %}
+  {% assign shop_by_category_lazy_expand = '80' %}
+{% endif %}
+
+{%- comment -%}
+  先统一取得所有 Tab，并计算默认激活的 Tab handle：
+  1. 优先取第一个勾选“设为默认激活标签”的 Tab
+  2. 若没有任何 Tab 被勾选，则回退到第一个 Tab
+{%- endcomment -%}
+{% assign tabs = section.blocks | where: 'type', 'tab' %}
+{% assign active_tab_handle = '' %}
+
+{% for tab in tabs %}
+  {% if active_tab_handle == blank and tab.settings.is_default_active %}
+    {% assign active_tab_label = tab.settings.shop_by_category_2_tab | default: 'Tab ' %}
+    {% assign active_tab_handle = tab.settings.tab_handle | default: active_tab_label | handle %}
+  {% endif %}
+{% endfor %}
+
+{% if active_tab_handle == blank %}
+  {% for tab in tabs limit: 1 %}
+    {% assign active_tab_label = tab.settings.shop_by_category_2_tab | default: 'Tab ' %}
+    {% assign active_tab_handle = tab.settings.tab_handle | default: active_tab_label | handle %}
+  {% endfor %}
+{% endif %}
+
 <style>
     /* Scoped styles for this section instance */
     #shop-by-category-2-{{ section_id }} {
@@ -65,8 +95,6 @@
       padding: 3.125vw 1.56vw;
       background: #f9f9f9;
       width: 100%;
-
-
     }
     #shop-by-category-2-{{ section_id }} .shop-by-category-2-product-name {
       font-size: clamp(20px, 2vw, 30px);
@@ -85,7 +113,7 @@
     }
     #shop-by-category-2-{{ section_id }} .shop-by-category-2-product-image {
       width: 100%;
-    aspect-ratio: 3/2;
+      aspect-ratio: 3/2;
       background: #f9f9f9;
       margin-bottom: 3.854vw;
       display: flex;
@@ -96,7 +124,7 @@
     }
     #shop-by-category-2-{{ section_id }} .shop-by-category-2-product-image img {
       max-width: 100%;
-     max-height: 100%;
+      max-height: 100%;
       width: 100%;
       display: block;
       object-fit: cover;
@@ -118,12 +146,11 @@
       cursor: pointer;
       text-align: center;
       text-decoration: none;
-      display: flex
-  ;
+      display: flex;
       width: max-content;
       align-items: center;
       justify-content: center;
-      margin:0;
+      margin: 0;
     }
     #shop-by-category-2-{{ section_id }} .shop-by-category-2-button.learn-more {
       color: #000;
@@ -135,11 +162,11 @@
       background: #ff8f1c;
       color: #fff;
     }
-
-    #shop-by-category-2-{{ section_id }}  .shop-by-category-2-button.coming-soon:hover {
+    #shop-by-category-2-{{ section_id }} .shop-by-category-2-button.coming-soon:hover {
       background: #ff8f1c;
       color: #fff;
     }
+
     @media (max-width: 1200px) {
       #shop-by-category-2-{{ section_id }} .shop-by-category-2-products {
         grid-template-columns: repeat(2, 1fr);
@@ -154,8 +181,9 @@
         max-width: 90vw;
       }
     }
+
     @media (max-width: 768px) {
-      #shop-by-category-2-{{ section_id }}{
+      #shop-by-category-2-{{ section_id }} {
         margin: 0;
         padding: 25px 0;
       }
@@ -205,7 +233,7 @@
         padding: 0 24px;
       }
       #shop-by-category-2-{{ section_id }} .shop-by-category-2-product-card {
-          padding: 30px 20px;
+        padding: 30px 20px;
         border-radius: 10px;
         max-width: 100%;
       }
@@ -228,13 +256,12 @@
       #shop-by-category-2-{{ section_id }} .shop-by-category-2-product-buttons {
         gap: 14px;
       }
-      #shop-by-category-2-{{ section_id }} product-card{
+      #shop-by-category-2-{{ section_id }} product-card {
         height: 30px;
-    }
+      }
       #shop-by-category-2-{{ section_id }} .shop-by-category-2-button {
         min-width: 108px;
         min-height: 30px;
-
         padding: 8px 16px;
         border-radius: 5px;
         background: #fffefd;
@@ -256,18 +283,20 @@
       <div class="shop-by-category-2-title">{{ section.settings.title }}</div>
     {% endif %}
 
-    {%- comment -%} Build tabs list and a lookup of tab handles {%- endcomment -%}
-    {% assign tabs = section.blocks | where: 'type', 'tab' %}
-    {% assign tab_handles = '' %}
+    {%- comment -%} Build tabs list {%- endcomment -%}
     <div class="shop-by-category-2-tabs" role="tablist">
       {%- for tab in tabs -%}
         {% assign tab_label = tab.settings.shop_by_category_2_tab | default: 'Tab ' %}
         {% assign tab_handle = tab.settings.tab_handle | default: tab_label | handle %}
+        {% assign is_active_tab = false %}
+        {% if tab_handle == active_tab_handle %}
+          {% assign is_active_tab = true %}
+        {% endif %}
         <button
-          class="shop-by-category-2-tab{% if forloop.first %} active{% endif %}"
+          class="shop-by-category-2-tab{% if is_active_tab %} active{% endif %}"
           role="tab"
           data-category="{{ tab_handle }}"
-          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          aria-selected="{% if is_active_tab %}true{% else %}false{% endif %}"
         >
           {{ tab_label }}
         </button>
@@ -280,7 +309,12 @@
     {%- for tab in tabs -%}
       {% assign tab_label = tab.settings.shop_by_category_2_tab | default: 'Tab ' %}
       {% assign tab_handle = tab.settings.tab_handle | default: tab_label | handle %}
-      <div class="shop-by-category-2-products {% if forloop.first %}active{% endif %}" data-category="{{ tab_handle }}">
+      {% assign is_active_group = false %}
+      {% if tab_handle == active_tab_handle %}
+        {% assign is_active_group = true %}
+      {% endif %}
+
+      <div class="shop-by-category-2-products{% if is_active_group %} active{% endif %}" data-category="{{ tab_handle }}">
         {%- for block in product_blocks -%}
           {% assign product_tab_handle = block.settings.tab_handle | handle %}
           {% if product_tab_handle == tab_handle %}
@@ -313,6 +347,8 @@
 
             {% assign desktop_final = desktop_image | default: fallback_image %}
             {% assign mobile_final = mobile_image | default: fallback_image %}
+            {% assign image_reference = desktop_final | default: mobile_final %}
+            {% assign image_sizes = '(max-width: 768px) calc(100vw - 88px), (max-width: 900px) 80vw, (max-width: 1200px) 39vw, 26vw' %}
 
             {%- comment -%} Link: custom override or product url {%- endcomment -%}
             {% assign learn_more_url = block.settings.learn_more_url %}
@@ -324,20 +360,26 @@
               {% if product_name != blank %}
                 <div class="shop-by-category-2-product-name">{{ product_name }}</div>
               {% endif %}
+
               {% if product_tagline != blank %}
                 <div class="shop-by-category-2-product-tagline">{{ product_tagline }}</div>
               {% endif %}
+
               <div class="shop-by-category-2-product-image">
                 {%- if desktop_final != blank or mobile_final != blank -%}
                   <picture>
                     {%- if mobile_final != blank -%}
                       <source
                         media="(max-width: 768px)"
+                        sizes="{{ image_sizes }}"
+                        data-sizes="{{ image_sizes }}"
                         data-srcset="
                           {%- if mobile_final.width >= 200 -%}{{ mobile_final | image_url: width: 200 }} 200w,{%- endif -%}
                           {%- if mobile_final.width >= 375 -%}{{ mobile_final | image_url: width: 375 }} 375w,{%- endif -%}
                           {%- if mobile_final.width >= 550 -%}{{ mobile_final | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if mobile_final.width >= 640 -%}{{ mobile_final | image_url: width: 640 }} 640w,{%- endif -%}
                           {%- if mobile_final.width >= 750 -%}{{ mobile_final | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if mobile_final.width >= 960 -%}{{ mobile_final | image_url: width: 960 }} 960w,{%- endif -%}
                           {%- if mobile_final.width >= 1100 -%}{{ mobile_final | image_url: width: 1100 }} 1100w,{%- endif -%}
                           {%- if mobile_final.width >= 1500 -%}{{ mobile_final | image_url: width: 1500 }} 1500w,{%- endif -%}
                           {%- if mobile_final.width >= 1780 -%}{{ mobile_final | image_url: width: 1780 }} 1780w,{%- endif -%}
@@ -348,17 +390,30 @@
                         "
                       >
                     {%- endif -%}
+
                     {%- if desktop_final != blank -%}
                       <img
                         class="lazyload"
-                        style="aspect-ratio: {{ desktop_final.aspect_ratio}};"
-                        data-src="{{ desktop_final | image_url }}"
+                        width="{{ image_reference.width }}"
+                        height="{{ image_reference.height }}"
+                        style="aspect-ratio: {{ desktop_final.aspect_ratio }};"
+                        data-src="{{ desktop_final | image_url: width: 1100 }}"
+                        sizes="{{ image_sizes }}"
+                        data-sizes="{{ image_sizes }}"
                         alt="{{ product_name | escape }}"
+                        loading="lazy"
+                        fetchpriority="low"
+                        decoding="async"
+                        {% if shop_by_category_lazy_expand != blank %}
+                          data-expand="{{ shop_by_category_lazy_expand }}"
+                        {% endif %}
                         data-srcset="
                           {%- if desktop_final.width >= 200 -%}{{ desktop_final | image_url: width: 200 }} 200w,{%- endif -%}
                           {%- if desktop_final.width >= 375 -%}{{ desktop_final | image_url: width: 375 }} 375w,{%- endif -%}
                           {%- if desktop_final.width >= 550 -%}{{ desktop_final | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if desktop_final.width >= 640 -%}{{ desktop_final | image_url: width: 640 }} 640w,{%- endif -%}
                           {%- if desktop_final.width >= 750 -%}{{ desktop_final | image_url: width: 750 }} 750w,{%- endif -%}
+                          {%- if desktop_final.width >= 960 -%}{{ desktop_final | image_url: width: 960 }} 960w,{%- endif -%}
                           {%- if desktop_final.width >= 1100 -%}{{ desktop_final | image_url: width: 1100 }} 1100w,{%- endif -%}
                           {%- if desktop_final.width >= 1500 -%}{{ desktop_final | image_url: width: 1500 }} 1500w,{%- endif -%}
                           {%- if desktop_final.width >= 1780 -%}{{ desktop_final | image_url: width: 1780 }} 1780w,{%- endif -%}
@@ -371,15 +426,27 @@
                     {%- else -%}
                       {%- if mobile_final != blank -%}
                         <img
-                          style="aspect-ratio: {{ mobile_final.aspect_ratio}};"
+                          width="{{ image_reference.width }}"
+                          height="{{ image_reference.height }}"
+                          style="aspect-ratio: {{ mobile_final.aspect_ratio }};"
                           class="lazyload"
-                          data-src="{{ mobile_final | image_url }}"
+                          data-src="{{ mobile_final | image_url: width: 750 }}"
+                          sizes="{{ image_sizes }}"
+                          data-sizes="{{ image_sizes }}"
                           alt="{{ product_name | escape }}"
+                          loading="lazy"
+                          fetchpriority="low"
+                          decoding="async"
+                          {% if shop_by_category_lazy_expand != blank %}
+                            data-expand="{{ shop_by_category_lazy_expand }}"
+                          {% endif %}
                           data-srcset="
                             {%- if mobile_final.width >= 200 -%}{{ mobile_final | image_url: width: 200 }} 200w,{%- endif -%}
                             {%- if mobile_final.width >= 375 -%}{{ mobile_final | image_url: width: 375 }} 375w,{%- endif -%}
                             {%- if mobile_final.width >= 550 -%}{{ mobile_final | image_url: width: 550 }} 550w,{%- endif -%}
+                            {%- if mobile_final.width >= 640 -%}{{ mobile_final | image_url: width: 640 }} 640w,{%- endif -%}
                             {%- if mobile_final.width >= 750 -%}{{ mobile_final | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if mobile_final.width >= 960 -%}{{ mobile_final | image_url: width: 960 }} 960w,{%- endif -%}
                             {%- if mobile_final.width >= 1100 -%}{{ mobile_final | image_url: width: 1100 }} 1100w,{%- endif -%}
                             {%- if mobile_final.width >= 1500 -%}{{ mobile_final | image_url: width: 1500 }} 1500w,{%- endif -%}
                             {%- if mobile_final.width >= 1780 -%}{{ mobile_final | image_url: width: 1780 }} 1780w,{%- endif -%}
@@ -394,16 +461,18 @@
                   </picture>
                 {%- endif -%}
               </div>
+
               <div class="shop-by-category-2-product-buttons">
                 {%- if learn_more_url != blank -%}
                   <a href="{{ learn_more_url }}" target="_blank" class="shop-by-category-2-button learn-more">
                     {{- block.settings.learn_more_label -}}
                   </a>
                 {%- endif -%}
+
                 {%- if learn_more_url != blank -%}
                   <product-card>
                     <div
-                      class=" shop-by-category-2-button coming-soon product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
+                      class="shop-by-category-2-button coming-soon product-btn external-add-to-cart-button product-card--add-to-cart-button product-card--add-to-cart-button-simple button accent"
                       data-product-id="{{ variant.id }}"
                       tabindex="-1"
                       {% if variant.available == false %}
@@ -446,6 +515,7 @@
           groupEl.classList.remove('active');
         }
       });
+
       tabElements.forEach(function (tabEl) {
         if (tabEl.getAttribute('data-category') === categoryHandle) {
           tabEl.classList.add('active');
@@ -461,7 +531,8 @@
       tabEl.addEventListener('click', function () {
         const categoryHandle = tabEl.getAttribute('data-category');
         showCategory(categoryHandle);
-        // 移动端居中滚动
+
+        // 移动端点击后，将当前激活标签尽量滚动到容器中间，提升可用性
         const tabsContainerEl = shopByCategoryRoot.querySelector('.shop-by-category-2-tabs');
         if (tabsContainerEl) {
           const containerRect = tabsContainerEl.getBoundingClientRect();
@@ -471,12 +542,16 @@
           const tabWidth = tabRect.width;
           const containerWidth = containerRect.width;
           const targetScrollLeft = tabLeft - (containerWidth - tabWidth) / 2;
-          tabsContainerEl.scrollTo({ left: Math.max(0, targetScrollLeft), behavior: 'smooth' });
+
+          tabsContainerEl.scrollTo({
+            left: Math.max(0, targetScrollLeft),
+            behavior: 'smooth'
+          });
         }
       });
     });
 
-    // 初始化
+    // 初始化：优先读取 Liquid 已输出的 active 标签，确保首屏直接显示对应内容
     const firstActiveTab = shopByCategoryRoot.querySelector('.shop-by-category-2-tab.active');
     if (firstActiveTab) {
       showCategory(firstActiveTab.getAttribute('data-category'));
@@ -496,7 +571,6 @@
       "label": "Section title",
       "default": "Shop By Category"
     }
-
   ],
   "blocks": [
     {
@@ -514,6 +588,13 @@
           "id": "tab_handle",
           "label": "Tab handle (用于关联，留空则自动)",
           "info": "产品块的 tab_handle 必须与此处一致（或自动由名称生成的 handle）。"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_default_active",
+          "label": "设为默认激活标签",
+          "default": false,
+          "info": "若多个标签同时勾选，仅按区块顺序取第一个；若都未勾选，则默认激活第一个标签。"
         }
       ]
     },
@@ -607,11 +688,29 @@
     {
       "name": "Shop By Category 2",
       "blocks": [
-        { "type": "tab", "settings": { "shop_by_category_2_tab": "Personal Studio", "tab_handle": "personal-studio" } },
-        { "type": "tab", "settings": { "shop_by_category_2_tab": "Hobbyist Use", "tab_handle": "hobbyist-use" } },
         {
           "type": "tab",
-          "settings": { "shop_by_category_2_tab": "Small-scale Factory", "tab_handle": "small-scale-factory" }
+          "settings": {
+            "shop_by_category_2_tab": "Personal Studio",
+            "tab_handle": "personal-studio",
+            "is_default_active": true
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "shop_by_category_2_tab": "Hobbyist Use",
+            "tab_handle": "hobbyist-use",
+            "is_default_active": false
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "shop_by_category_2_tab": "Small-scale Factory",
+            "tab_handle": "small-scale-factory",
+            "is_default_active": false
+          }
         },
         {
           "type": "product",

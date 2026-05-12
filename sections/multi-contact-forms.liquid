@@ -1,0 +1,440 @@
+{{ 'multi-contact-forms.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign heading_html_mobile = section.settings.heading_html_mobile
+  if heading_html_mobile == blank
+    assign heading_html_mobile = section.settings.heading_html_pc
+  endif
+
+  assign intro_html_mobile = section.settings.intro_html_mobile
+  if intro_html_mobile == blank
+    assign intro_html_mobile = section.settings.intro_html_pc
+  endif
+
+  assign contact_info_html_mobile = section.settings.contact_info_html_mobile
+  if contact_info_html_mobile == blank
+    assign contact_info_html_mobile = section.settings.contact_info_html_pc
+  endif
+
+  assign tab_count = 0
+  assign app_block_count = 0
+
+  for block in section.blocks
+    if block.type == 'tab'
+      assign tab_count = tab_count | plus: 1
+    elsif block.type == '@app'
+      assign app_block_count = app_block_count | plus: 1
+    endif
+  endfor
+-%}
+
+{%- capture option_names_capture -%}
+  {%- assign tab_index = 0 -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'tab' -%}
+      {%- assign tab_index = tab_index | plus: 1 -%}
+      {%- assign tab_label_mobile = block.settings.label_mobile -%}
+      {%- if tab_label_mobile == blank -%}
+        {%- assign tab_label_mobile = block.settings.label_pc -%}
+      {%- endif -%}
+      {%- unless tab_index == 1 -%}__TAB_SPLIT__{%- endunless -%}
+      {{- tab_label_mobile | strip -}}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- capture option_values_capture -%}
+  {%- assign tab_index = 0 -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'tab' -%}
+      {%- assign tab_index = tab_index | plus: 1 -%}
+      {%- unless tab_index == 1 -%}__TAB_SPLIT__{%- endunless -%}
+      {{- block.id -}}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- assign option_names = option_names_capture | split: '__TAB_SPLIT__' -%}
+{%- assign option_values = option_values_capture | split: '__TAB_SPLIT__' -%}
+
+<style>
+  #shopify-section-{{ section.id }} .multi-contact-forms__mobile-text,
+  #shopify-section-{{ section.id }} .multi-contact-forms__tab-text--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .multi-contact-forms__desktop-text {
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .multi-contact-forms__tab-text--desktop {
+    display: inline;
+  }
+
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }} .multi-contact-forms__desktop-text,
+    #shopify-section-{{ section.id }} .multi-contact-forms__tab-text--desktop {
+      display: none !important;
+    }
+
+    #shopify-section-{{ section.id }} .multi-contact-forms__mobile-text {
+      display: block !important;
+    }
+
+    #shopify-section-{{ section.id }} .multi-contact-forms__tab-text--mobile {
+      display: inline !important;
+    }
+  }
+</style>
+
+<div class="multi-contact-forms-container" id="multi-contact-forms-{{ section.id }}">
+  <div class="multi-contact-forms-header">
+    <div class="multi-contact-forms__desktop-text">
+      {{ section.settings.heading_html_pc }}
+    </div>
+
+    <div class="multi-contact-forms__mobile-text">
+      {{ heading_html_mobile }}
+    </div>
+  </div>
+
+  <hr>
+
+  {%- if tab_count > 0 -%}
+    <multi-page-with-navigation
+      class="multi-page-with-navigation section-spacing section-spacing--disable-top"
+      data-section-id="{{ section.id }}"
+    >
+      <div class="row">
+        <div class="small-12 columns"></div>
+      </div>
+
+      <div class="multi-page-with-navigation--inner">
+        <div class="multi-page-with-navigation--menu heading-font">
+          <div class="multi-page-with-navigation--select">
+            {% render 'custom-selector',
+              option_names: option_names,
+              option_values: option_values,
+              section_id: section.id
+            %}
+          </div>
+
+          <div class="multi-page-with-navigation__button-group">
+            {%- assign tab_index = 0 -%}
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'tab' -%}
+                {%- assign tab_index = tab_index | plus: 1 -%}
+                {%- assign tab_label_pc = block.settings.label_pc -%}
+                {%- assign tab_label_mobile = block.settings.label_mobile -%}
+
+                {%- if tab_label_pc == blank -%}
+                  {%- assign tab_label_pc = 'Tab ' | append: tab_index -%}
+                {%- endif -%}
+
+                {%- if tab_label_mobile == blank -%}
+                  {%- assign tab_label_mobile = tab_label_pc -%}
+                {%- endif -%}
+
+                <button
+                  type="button"
+                  class="multi-page-with-navigation--button{% if tab_index == 1 %} active{% endif %}"
+                  data-value="{{ block.id }}"
+                  data-selector-option-value="{{ block.id }}"
+                  aria-current="{% if tab_index == 1 %}true{% else %}false{% endif %}"
+                  {{ block.shopify_attributes }}
+                >
+                  <span class="multi-contact-forms__tab-text--desktop">
+                    {{ tab_label_pc | escape }}
+                  </span>
+
+                  <span class="multi-contact-forms__tab-text--mobile">
+                    {{ tab_label_mobile | escape }}
+                  </span>
+
+                  {% render 'icon-right-arrow' %}
+                </button>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <div class="multi-page-with-navigation--content">
+          <div class="multi-page-with-navigation--page">
+            <div class="rte">
+              <div class="multi-contact-forms__desktop-text">
+                {{ section.settings.intro_html_pc }}
+                {{ section.settings.contact_info_html_pc }}
+              </div>
+
+              <div class="multi-contact-forms__mobile-text">
+                {{ intro_html_mobile }}
+                {{ contact_info_html_mobile }}
+              </div>
+            </div>
+
+            <div class="multi-page-switch">
+              {%- assign tab_index = 0 -%}
+
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'tab' -%}
+                  {%- assign tab_index = tab_index | plus: 1 -%}
+                  {%- assign has_matched_app_block = false -%}
+                  {%- assign current_app_block_index = 0 -%}
+
+                  <div
+                    data-selector-option-value="{{ block.id }}"
+                    class="rte{% if tab_index == 1 %} active{% endif %}"
+                    aria-hidden="{% if tab_index == 1 %}false{% else %}true{% endif %}"
+                  >
+                    {%- for app_block in section.blocks -%}
+                      {%- if app_block.type == '@app' -%}
+                        {%- assign current_app_block_index = current_app_block_index | plus: 1 -%}
+
+                        {%- if current_app_block_index == tab_index and current_app_block_index <= 8 -%}
+                          {%- assign has_matched_app_block = true -%}
+                          <div class="multi-contact-forms__app-block" {{ app_block.shopify_attributes }}>
+                            {% render app_block %}
+                          </div>
+                        {%- endif -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+
+                    {%- unless has_matched_app_block -%}
+                      {%- if section.settings.enable_shortcode_fallback and block.settings.fallback_form_id != blank -%}
+                        <div
+                          class="globo-formbuilder"
+                          data-id="{{ block.settings.fallback_form_id | escape }}"
+                        ></div>
+                      {%- endif -%}
+                    {%- endunless -%}
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </multi-page-with-navigation>
+  {%- endif -%}
+</div>
+
+<script>
+  (() => {
+    /**
+     * Multi contact forms navigation
+     * 1. 支持最多 8 个 Tab；
+     * 2. 使用 data-selector-option-value 进行切换，避免文案修改后影响逻辑；
+     * 3. 支持 Shopify 主题编辑器中 section 重新加载后再次初始化；
+     * 4. 使用事件委托，减少重复绑定，提升可维护性。
+     */
+    const initMultiContactFormsNavigation = (scope = document) => {
+      const navigations = scope.querySelectorAll('multi-page-with-navigation');
+
+      navigations.forEach((navigation) => {
+        if (navigation.dataset.multiContactFormsInitialized === 'true') return;
+
+        navigation.dataset.multiContactFormsInitialized = 'true';
+
+        const buttons = Array.from(navigation.querySelectorAll('button.multi-page-with-navigation--button'));
+
+        const pages = Array.from(navigation.querySelectorAll('.multi-page-switch > .rte[data-selector-option-value]'));
+
+        const validValues = pages.map((page) => page.dataset.selectorOptionValue).filter(Boolean);
+
+        const activatePage = (value) => {
+          if (!value || !validValues.includes(value)) return;
+
+          buttons.forEach((button) => {
+            const isActive = button.dataset.selectorOptionValue === value;
+
+            button.classList.toggle('active', isActive);
+            button.setAttribute('aria-current', isActive ? 'true' : 'false');
+          });
+
+          pages.forEach((page) => {
+            const isActive = page.dataset.selectorOptionValue === value;
+
+            page.classList.toggle('active', isActive);
+            page.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+          });
+
+          const nativeSelect = navigation.querySelector('.multi-page-with-navigation--select select');
+
+          if (nativeSelect && nativeSelect.value !== value) {
+            nativeSelect.value = value;
+          }
+        };
+
+        navigation.addEventListener('click', (event) => {
+          const button = event.target.closest('button.multi-page-with-navigation--button');
+
+          if (button && navigation.contains(button)) {
+            activatePage(button.dataset.selectorOptionValue);
+            return;
+          }
+
+          const selectorArea = event.target.closest('.multi-page-with-navigation--select');
+
+          if (!selectorArea || !navigation.contains(selectorArea)) return;
+
+          const optionNode = event.target.closest('[data-selector-option-value], [data-value]');
+
+          if (!optionNode) return;
+
+          const value = optionNode.dataset.selectorOptionValue || optionNode.dataset.value;
+
+          activatePage(value);
+        });
+
+        navigation.addEventListener('change', (event) => {
+          const selectorArea = event.target.closest('.multi-page-with-navigation--select');
+
+          if (!selectorArea || !navigation.contains(selectorArea)) return;
+
+          const value = event.target.value || event.target.dataset.selectorOptionValue || event.target.dataset.value;
+
+          activatePage(value);
+        });
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => initMultiContactFormsNavigation(), { once: true });
+    } else {
+      initMultiContactFormsNavigation();
+    }
+
+    document.addEventListener('shopify:section:load', (event) => {
+      initMultiContactFormsNavigation(event.target);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Multi contact forms",
+  "tag": "section",
+  "class": "section-multi-contact-forms",
+  "settings": [
+    {
+      "type": "header",
+      "content": "标题"
+    },
+    {
+      "type": "html",
+      "id": "heading_html_pc",
+      "label": "标题 HTML（PC）",
+      "default": "<h1>Contact Us</h1>"
+    },
+    {
+      "type": "html",
+      "id": "heading_html_mobile",
+      "label": "标题 HTML（移动端，留空则使用 PC）"
+    },
+    {
+      "type": "header",
+      "content": "顶部说明"
+    },
+    {
+      "type": "html",
+      "id": "intro_html_pc",
+      "label": "顶部说明 HTML（PC）",
+      "default": "<p style=\"margin-bottom: 20px;\">Procolored is committed to providing you with the best products and services.</p>"
+    },
+    {
+      "type": "html",
+      "id": "intro_html_mobile",
+      "label": "顶部说明 HTML（移动端，留空则使用 PC）"
+    },
+    {
+      "type": "header",
+      "content": "联系信息"
+    },
+    {
+      "type": "html",
+      "id": "contact_info_html_pc",
+      "label": "联系信息 HTML（PC）",
+      "default": "<div><h3>Contact Info</h3><p><strong>US Phone: </strong>+1 877 717 1666</p><p><strong>Phone Service: </strong>Monday to Sunday 9:00AM - 5:00PM (PT)</p><p><strong>After-sales Email: </strong>Support@procolored.com</p><p><strong>Pre-sales Email: </strong>Sales@procolored.com</p></div>"
+    },
+    {
+      "type": "html",
+      "id": "contact_info_html_mobile",
+      "label": "联系信息 HTML（移动端，留空则使用 PC）"
+    },
+    {
+      "type": "header",
+      "content": "Globo Form Builder 兜底配置"
+    },
+    {
+      "type": "paragraph",
+      "content": "推荐方式：先添加 Tab，再按相同顺序添加 Globo Form Builder App Block。第 1 个 Tab 对应第 1 个 App Block，以此类推，最多使用前 8 个 App Block。"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_shortcode_fallback",
+      "label": "未添加对应 App Block 时启用 shortcode 兜底",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label_pc",
+          "label": "Tab 文案（PC）",
+          "default": "New Tab"
+        },
+        {
+          "type": "text",
+          "id": "label_mobile",
+          "label": "Tab 文案（移动端，留空则使用 PC）"
+        },
+        {
+          "type": "text",
+          "id": "fallback_form_id",
+          "label": "兜底 Globo 表单 ID"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "max_blocks": 16,
+  "presets": [
+    {
+      "name": "Multi contact forms",
+      "blocks": [
+        {
+          "type": "tab",
+          "settings": {
+            "label_pc": "Pre-sales Consultant",
+            "label_mobile": "",
+            "fallback_form_id": "MjcxNTE="
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "label_pc": "After-sales Support",
+            "label_mobile": "",
+            "fallback_form_id": "MjcxNTM="
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "label_pc": "Service Feedback",
+            "label_mobile": "",
+            "fallback_form_id": "MzYxMDc="
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

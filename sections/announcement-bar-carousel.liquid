@@ -1,0 +1,1186 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .announcement-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    touch-action: pan-y;
+  }
+
+  #shopify-section-{{ section.id }} .announcement-slider-track {
+    display: flex;
+    width: 100%;
+    will-change: transform;
+    transition-property: transform;
+    transition-timing-function: ease;
+    transition-duration: var(--announcement-transition-duration, 500ms);
+  }
+
+  #shopify-section-{{ section.id }} .announcement-slide {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+
+  /* Top promotional banner 顶部促销活动横幅 start */
+  {% for block in section.blocks %}
+    .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }}.top-promotional-banner-wrapper {
+      background: linear-gradient(269deg, #000 11.94%, #fece67 120.47%);
+      background-color: {{ block.settings.bg_color }};
+      background: {{ block.settings.background_gradient_color }};
+      cursor: pointer;
+      {% if block.settings.banner_bg_image_pc %}
+        {% if forloop.first %}
+          background-image: url({{ block.settings.banner_bg_image_pc | image_url: width: 1920 }});
+        {% endif %}
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        aspect-ratio: {{ block.settings.banner_bg_image_pc.aspect_ratio }};
+        min-height: 98px;
+        display: flex;
+        width: 100%;
+      {%- endif -%}
+    }
+
+    .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-countdown-box {
+      margin-top: auto;
+      {% if block.settings.banner_bg_image_pc %}
+        margin-top: 5px;
+      {%- endif -%}
+    }
+
+    .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-title {
+      {% if block.settings.title_gradient_color != blank %}
+        background: {{ block.settings.title_gradient_color }};
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+      {% else %}
+        color: {{ block.settings.title_color }};
+      {% endif %}
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.25;
+    }
+
+    .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-subtitle {
+      {% if block.settings.title_gradient_color != blank %}
+        background: {{ block.settings.title_gradient_color }};
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+      {% else %}
+        color: {{ block.settings.title_color }};
+      {% endif %}
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-countdown-box .time-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 52px;
+      min-height: 56px;
+      position: relative;
+      border-radius: 6px;
+      border: 1px dashed {{ block.settings.countdown_color }};
+    }
+
+    .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-countdown-box .time-value {
+      {% if block.settings.countdown_gradient_color != blank %}
+        background: {{ block.settings.countdown_gradient_color }};
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+      {% else %}
+        color: {{ block.settings.countdown_color }};
+      {% endif %}
+      border-radius: 0;
+      font-size: 24px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-countdown-box .time-label {
+      font-size: 12px;
+      {% if block.settings.countdown_gradient_color != blank %}
+        background: {{ block.settings.countdown_gradient_color }};
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+      {% else %}
+        color: {{ block.settings.countdown_color }};
+      {% endif %}
+      line-height: 1;
+    }
+
+    @media screen and (max-width: 768px) {
+      .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }}.top-promotional-banner-wrapper {
+        background: {{ block.settings.background_gradient_color_mb }};
+        {% if block.settings.banner_mb_image_pc %}
+          aspect-ratio: {{ block.settings.banner_mb_image_pc.aspect_ratio }};
+          {% if forloop.first %}
+            background-image: url({{ block.settings.banner_mb_image_pc | image_url: width: 750 }});
+          {% endif %}
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+        {%- endif -%}
+      }
+
+      .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-containner {
+        display: flex;
+        padding-right: 0;
+        gap: 0;
+        justify-content: end;
+        position: relative;
+        {% if block.settings.banner_bg_image_pc or block.settings.banner_mb_image_pc %}
+          margin: 0;
+        {%- endif -%}
+        width: 100%;
+        max-width: 242px;
+      }
+
+      .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-containner-content {
+        display: flex;
+        align-items: start;
+        flex-direction: column;
+        position: absolute;
+        left: 14px;
+        top: 20px;
+        width: 48%;
+        justify-content: {{ block.settings.justify_content }};
+        height: calc(100% - 20px);
+        padding-bottom: 13px;
+        {% if block.settings.banner_bg_image_pc or block.settings.banner_mb_image_pc %}
+          gap: 0 !important;
+          width: 100%;
+          top: 5px;
+          left: 10px;
+        {%- endif -%}
+      }
+    }
+  {% endfor %}
+
+  .top-promotional-banner-{{ section.id }} .announcement-pagination {
+    position: absolute;
+    left: 0;
+    bottom: 8px;
+    z-index: 2;
+    display: none;
+    width: 100%;
+    text-align: center;
+    line-height: 1;
+  }
+
+  .top-promotional-banner-{{ section.id }} .announcement-pagination-bullet {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin: 0 4px;
+    padding: 0;
+    border: 0;
+    border-radius: 9999px;
+    background: #fff;
+    opacity: 0.2;
+    cursor: pointer;
+    transition: opacity 0.25s ease;
+  }
+
+  .top-promotional-banner-{{ section.id }} .announcement-pagination-bullet.is-active {
+    opacity: 1;
+  }
+
+  .top-promotional-banner-{{ section.id }} .top-promotional-banner-containner {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .top-promotional-banner-{{ section.id }} .top-promotional-banner-containner-content {
+    display: flex;
+    align-items: center;
+    gap: 120px;
+  }
+
+  .top-promotional-banner-{{ section.id }} .top-promotional-banner-title-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .top-promotional-banner-{{ section.id }} .top-promotional-banner-title--mobile,
+  .top-promotional-banner-{{ section.id }} .top-promotional-banner-subtitle--mobile {
+    display: none;
+  }
+
+  .top-promotional-banner-{{ section.id }} .top-promotional-banner-subtitle span {
+    display: block;
+  }
+
+  .top-promotional-banner-{{ section.id }} .top-promotional-banner-countdown-box {
+    max-width: max-content;
+  }
+
+  .top-promotional-banner-{{ section.id }} .top-promotional-banner-countdown-box .countdown-box > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .top-promotional-banner-{{ section.id }} .top-promotional-banner-img {
+    width: 228px;
+  }
+
+  .top-promotional-banner-{{ section.id }} .top-promotional-banner-img img {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  @media screen and (max-width: 768px) {
+    .top-promotional-banner-{{ section.id }} .announcement-pagination {
+      display: block;
+    }
+
+    .top-promotional-banner-{{ section.id }} .top-promotional-banner-title--desktop,
+    .top-promotional-banner-{{ section.id }} .top-promotional-banner-subtitle--desktop {
+      display: none;
+    }
+
+    .top-promotional-banner-{{ section.id }} .top-promotional-banner-title--mobile,
+    .top-promotional-banner-{{ section.id }} .top-promotional-banner-subtitle--mobile {
+      display: block;
+    }
+  }
+
+  {% for block in section.blocks %}
+    @media screen and (max-width: 768px) {
+      .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-title-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-title {
+        font-size: 12px;
+      }
+
+      .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-subtitle {
+        font-size: 14px;
+        line-height: 1.14;
+      }
+
+      .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-subtitle span {
+        display: inline;
+      }
+
+      .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-countdown-box .countdown-box > div {
+        gap: 6px;
+      }
+
+      .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-countdown-box .time-block {
+        min-width: 29px;
+        min-height: 30px;
+        border-radius: 5px;
+      }
+
+      .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-countdown-box .time-value {
+        font-size: 13px;
+        margin-bottom: 4px;
+      }
+
+      .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-countdown-box .time-label {
+        font-size: 6px;
+        line-height: 1;
+      }
+
+      .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-img {
+        width: 196px;
+        flex-shrink: 0;
+      }
+
+      .top-promotional-banner-{{ section.id }} .tpb-block-{{ block.id }} .top-promotional-banner-img img {
+        display: flex;
+        width: 100%;
+        max-width: 100%;
+        object-fit: cover;
+      }
+    }
+  {% endfor %}
+  /* Top promotional banner 顶部促销活动横幅 end */
+</style>
+
+<!-- Top promotional banner 顶部促销活动横幅 start -->
+<section
+  id="top-promotional-banner-{{ section.id }}"
+  class="top-promotional-banner-{{ section.id }} announcement-slider"
+  data-section-id="{{ section.id }}"
+  data-autoplay-enabled="{{ section.settings.enable_autoplay }}"
+  data-autoplay-delay="{{ section.settings.autoplay_delay }}"
+  data-touch-swipe-enabled="{{ section.settings.enable_touch_swipe }}"
+  style="--announcement-transition-duration: {{ section.settings.transition_duration }}ms;"
+>
+  <div class="announcement-slider-track">
+    {% for block in section.blocks %}
+      {% assign title_mobile = block.settings.title_mb | default: block.settings.title %}
+      {% assign subtitle_mobile = block.settings.subtitle_mb | default: block.settings.subtitle %}
+
+      <div
+        id="announcement-block-{{ block.id }}"
+        class="top-promotional-banner-wrapper announcement-slide tpb-block-{{ block.id }}"
+        data-block-id="{{ block.id }}"
+        data-real-index="{{ forloop.index0 }}"
+        {% if block.settings.banner_bg_image_pc %}
+          data-bg-desktop="{{ block.settings.banner_bg_image_pc | image_url: width: 1920 | escape }}"
+        {% endif %}
+        {% if block.settings.banner_mb_image_pc %}
+          data-bg-mobile="{{ block.settings.banner_mb_image_pc | image_url: width: 750 | escape }}"
+        {% endif %}
+        onclick="window.location.href='{{ block.settings.banner_link | default: '/' }}'"
+        {{ block.shopify_attributes }}
+      >
+        <div class="top-promotional-banner-containner">
+          <div class="top-promotional-banner-containner-content">
+            <div class="top-promotional-banner-title-wrapper">
+              {%- if block.settings.title != blank -%}
+                <div class="top-promotional-banner-title top-promotional-banner-title--desktop">
+                  {{ block.settings.title }}
+                </div>
+              {%- endif -%}
+
+              {%- if title_mobile != blank -%}
+                <div class="top-promotional-banner-title top-promotional-banner-title--mobile">
+                  {{ title_mobile }}
+                </div>
+              {%- endif -%}
+
+              {%- if block.settings.subtitle != blank -%}
+                <div class="top-promotional-banner-subtitle top-promotional-banner-subtitle--desktop">
+                  {{ block.settings.subtitle }}
+                </div>
+              {%- endif -%}
+
+              {%- if subtitle_mobile != blank -%}
+                <div class="top-promotional-banner-subtitle top-promotional-banner-subtitle--mobile">
+                  {{ subtitle_mobile }}
+                </div>
+              {%- endif -%}
+            </div>
+
+            {%- if block.settings.show_flash_sale_countdown
+              and block.settings.flash_sale_countdown != blank
+              and block.settings.flash_sale_countdown_end != blank
+            -%}
+              <div class="top-promotional-banner-countdown-box">
+                <div
+                  class="countdown-box"
+                  data-countdown
+                  data-countdown-start="{{ block.settings.flash_sale_countdown | escape }}"
+                  data-countdown-end="{{ block.settings.flash_sale_countdown_end | escape }}"
+                >
+                  <div>
+                    <div class="time-block">
+                      <div class="time-value">00</div>
+                      <div class="time-label">Days</div>
+                    </div>
+                    <div class="time-block">
+                      <div class="time-value">00</div>
+                      <div class="time-label">Hrs</div>
+                    </div>
+                    <div class="time-block">
+                      <div class="time-value">00</div>
+                      <div class="time-label">Mins</div>
+                    </div>
+                    <div class="time-block">
+                      <div class="time-value">00</div>
+                      <div class="time-label">Secs</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+
+          {% assign banner_image_pc = block.settings.banner_image_pc %}
+          {% assign banner_image_mb = block.settings.banner_image_mb %}
+
+          {% if banner_image_pc and banner_image_mb %}
+            <div class="top-promotional-banner-img">
+              <picture>
+                <source
+                  srcset="{{ block.settings.banner_image_mb | image_url: width: 750 }}"
+                  media="(max-width: 768px)"
+                >
+                <img
+                  src="{{ block.settings.banner_image_pc | image_url: width: 750 }}"
+                  alt="Black Friday Promotion Banner"
+                  loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                  decoding="async"
+                  {% unless forloop.first %}
+                    fetchpriority="low"
+                  {% endunless %}
+                >
+              </picture>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if section.blocks.size > 1 %}
+    <div class="announcement-pagination" aria-label="Announcement banner pagination"></div>
+  {% endif %}
+</section>
+<!-- Top promotional banner 顶部促销活动横幅 end -->
+
+<script>
+  (function () {
+    const sectionId = {{ section.id | json }};
+    const sectionSelector = '#shopify-section-' + sectionId;
+    const rootSelector = sectionSelector + ' .announcement-slider';
+    const registry = (window.__procoloredAnnouncementBarNative = window.__procoloredAnnouncementBarNative || {
+      instances: {},
+      eventsBound: false,
+    });
+
+    function getRoot() {
+      return document.querySelector(rootSelector);
+    }
+
+    function cleanupLoopClones(root) {
+      if (!root) return;
+
+      root.querySelectorAll('[data-native-clone="true"]').forEach((clone) => {
+        clone.remove();
+      });
+    }
+
+    class NativeAnnouncementSlider {
+      constructor(root) {
+        cleanupLoopClones(root);
+
+        this.root = root;
+        this.track = root.querySelector('.announcement-slider-track');
+        this.pagination = root.querySelector('.announcement-pagination');
+        this.originalSlides = Array.from(root.querySelectorAll('.announcement-slide'));
+        this.slideCount = this.originalSlides.length;
+        this.canLoop = this.slideCount > 1;
+        this.currentIndex = this.canLoop ? 1 : 0;
+        this.isAnimating = false;
+        this.autoplayEnabled = root.dataset.autoplayEnabled === 'true';
+        this.autoplayDelay = Number(root.dataset.autoplayDelay) || 5000;
+        this.touchSwipeEnabled = root.dataset.touchSwipeEnabled === 'true';
+        this.autoplayTimer = null;
+        this.countdownTimer = null;
+        this.touchStartX = 0;
+        this.touchStartY = 0;
+        this.touchDeltaX = 0;
+        this.touchDeltaY = 0;
+        this.suppressClick = false;
+        this.mediaQuery = window.matchMedia ? window.matchMedia('(max-width: 768px)') : null;
+
+        this.handleTransitionEnd = this.handleTransitionEnd.bind(this);
+        this.handlePaginationClick = this.handlePaginationClick.bind(this);
+        this.handleTouchStart = this.handleTouchStart.bind(this);
+        this.handleTouchMove = this.handleTouchMove.bind(this);
+        this.handleTouchEnd = this.handleTouchEnd.bind(this);
+        this.handleRootClickCapture = this.handleRootClickCapture.bind(this);
+        this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
+        this.handleMediaChange = this.handleMediaChange.bind(this);
+      }
+
+      init() {
+        if (!this.root || !this.track || !this.slideCount) return;
+
+        this.createLoopClones();
+        this.createPagination();
+        this.bindEvents();
+        this.translateTo(this.currentIndex, false);
+        this.updatePagination();
+        this.hydrateNearbyBackgrounds();
+        this.initCountdowns();
+        this.startAutoplay();
+      }
+
+      createLoopClones() {
+        if (!this.canLoop) return;
+
+        const firstClone = this.originalSlides[0].cloneNode(true);
+        const lastClone = this.originalSlides[this.slideCount - 1].cloneNode(true);
+
+        this.prepareClone(firstClone);
+        this.prepareClone(lastClone);
+
+        firstClone.dataset.clone = 'first';
+        firstClone.dataset.nativeClone = 'true';
+        lastClone.dataset.clone = 'last';
+        lastClone.dataset.nativeClone = 'true';
+
+        this.track.appendChild(firstClone);
+        this.track.insertBefore(lastClone, this.track.firstChild);
+      }
+
+      prepareClone(clone) {
+        clone.removeAttribute('id');
+
+        Array.from(clone.attributes).forEach((attribute) => {
+          if (attribute.name.indexOf('data-shopify-editor') === 0) {
+            clone.removeAttribute(attribute.name);
+          }
+        });
+      }
+
+      createPagination() {
+        if (!this.pagination || !this.canLoop) return;
+
+        this.pagination.innerHTML = this.originalSlides
+          .map((_, index) => {
+            return (
+              '<button' +
+              ' type="button"' +
+              ' class="announcement-pagination-bullet"' +
+              ' data-index="' + index + '"' +
+              ' aria-label="Go to slide ' + (index + 1) + '"' +
+              '></button>'
+            );
+          })
+          .join('');
+      }
+
+      bindEvents() {
+        this.track.addEventListener('transitionend', this.handleTransitionEnd);
+
+        if (this.pagination) {
+          this.pagination.addEventListener('click', this.handlePaginationClick);
+        }
+
+        if (this.touchSwipeEnabled && this.canLoop) {
+          this.root.addEventListener('touchstart', this.handleTouchStart, { passive: true });
+          this.root.addEventListener('touchmove', this.handleTouchMove, { passive: false });
+          this.root.addEventListener('touchend', this.handleTouchEnd, { passive: true });
+        }
+
+        this.root.addEventListener('click', this.handleRootClickCapture, true);
+        document.addEventListener('visibilitychange', this.handleVisibilityChange);
+
+        if (this.mediaQuery) {
+          if (typeof this.mediaQuery.addEventListener === 'function') {
+            this.mediaQuery.addEventListener('change', this.handleMediaChange);
+          } else if (typeof this.mediaQuery.addListener === 'function') {
+            this.mediaQuery.addListener(this.handleMediaChange);
+          }
+        }
+      }
+
+      unbindEvents() {
+        this.track.removeEventListener('transitionend', this.handleTransitionEnd);
+
+        if (this.pagination) {
+          this.pagination.removeEventListener('click', this.handlePaginationClick);
+        }
+
+        this.root.removeEventListener('touchstart', this.handleTouchStart);
+        this.root.removeEventListener('touchmove', this.handleTouchMove);
+        this.root.removeEventListener('touchend', this.handleTouchEnd);
+        this.root.removeEventListener('click', this.handleRootClickCapture, true);
+        document.removeEventListener('visibilitychange', this.handleVisibilityChange);
+
+        if (this.mediaQuery) {
+          if (typeof this.mediaQuery.removeEventListener === 'function') {
+            this.mediaQuery.removeEventListener('change', this.handleMediaChange);
+          } else if (typeof this.mediaQuery.removeListener === 'function') {
+            this.mediaQuery.removeListener(this.handleMediaChange);
+          }
+        }
+      }
+
+      getAllSlides() {
+        return Array.from(this.track.querySelectorAll('.announcement-slide'));
+      }
+
+      getRealIndex() {
+        if (!this.canLoop) return this.currentIndex;
+        return (this.currentIndex - 1 + this.slideCount) % this.slideCount;
+      }
+
+      translateTo(index, animate) {
+        this.track.style.transitionDuration = animate
+          ? 'var(--announcement-transition-duration, 500ms)'
+          : '0ms';
+        this.track.style.transform = 'translate3d(-' + index * 100 + '%, 0, 0)';
+      }
+
+      goToNext() {
+        if (!this.canLoop || this.isAnimating) return;
+
+        this.isAnimating = true;
+        this.currentIndex += 1;
+        this.hydrateNearbyBackgrounds(this.currentIndex);
+        this.translateTo(this.currentIndex, true);
+        this.updatePagination();
+      }
+
+      goToPrevious() {
+        if (!this.canLoop || this.isAnimating) return;
+
+        this.isAnimating = true;
+        this.currentIndex -= 1;
+        this.hydrateNearbyBackgrounds(this.currentIndex);
+        this.translateTo(this.currentIndex, true);
+        this.updatePagination();
+      }
+
+      goToRealIndex(realIndex, animate) {
+        if (!this.canLoop && realIndex === 0) return;
+        if (realIndex < 0 || realIndex >= this.slideCount) return;
+
+        this.currentIndex = this.canLoop ? realIndex + 1 : realIndex;
+        this.isAnimating = !!animate;
+        this.hydrateNearbyBackgrounds(this.currentIndex);
+        this.translateTo(this.currentIndex, !!animate);
+        this.updatePagination();
+
+        if (!animate) {
+          this.isAnimating = false;
+        }
+      }
+
+      handleTransitionEnd(event) {
+        if (event.target !== this.track) return;
+
+        if (this.canLoop && this.currentIndex === 0) {
+          this.currentIndex = this.slideCount;
+          this.translateTo(this.currentIndex, false);
+        }
+
+        if (this.canLoop && this.currentIndex === this.slideCount + 1) {
+          this.currentIndex = 1;
+          this.translateTo(this.currentIndex, false);
+        }
+
+        this.isAnimating = false;
+        this.updatePagination();
+        this.hydrateNearbyBackgrounds();
+      }
+
+      handlePaginationClick(event) {
+        const bullet = event.target.closest('.announcement-pagination-bullet');
+        if (!bullet) return;
+
+        const targetIndex = Number(bullet.dataset.index);
+        if (Number.isNaN(targetIndex)) return;
+
+        this.goToRealIndex(targetIndex, true);
+        this.restartAutoplay();
+      }
+
+      updatePagination() {
+        if (!this.pagination) return;
+
+        const activeIndex = this.getRealIndex();
+
+        this.pagination.querySelectorAll('.announcement-pagination-bullet').forEach((bullet, index) => {
+          bullet.classList.toggle('is-active', index === activeIndex);
+        });
+      }
+
+      getBannerBackgroundUrl(slide) {
+        if (!slide) return '';
+
+        const isMobile = !!(this.mediaQuery && this.mediaQuery.matches);
+
+        return isMobile
+          ? slide.dataset.bgMobile || slide.dataset.bgDesktop || ''
+          : slide.dataset.bgDesktop || slide.dataset.bgMobile || '';
+      }
+
+      hydrateSlideBackground(slide) {
+        if (!slide) return;
+
+        const backgroundUrl = this.getBannerBackgroundUrl(slide);
+        if (!backgroundUrl) return;
+        if (slide.dataset.bgHydratedUrl === backgroundUrl) return;
+
+        slide.style.backgroundImage = 'url("' + backgroundUrl.replace(/"/g, '\\"') + '")';
+        slide.dataset.bgHydratedUrl = backgroundUrl;
+      }
+
+      hydrateNearbyBackgrounds(referenceIndex) {
+        const allSlides = this.getAllSlides();
+        const current = typeof referenceIndex === 'number' ? referenceIndex : this.currentIndex;
+
+        this.hydrateSlideBackground(allSlides[current]);
+        this.hydrateSlideBackground(allSlides[current + 1]);
+        this.hydrateSlideBackground(allSlides[current - 1]);
+      }
+
+      handleMediaChange() {
+        this.getAllSlides().forEach((slide) => {
+          delete slide.dataset.bgHydratedUrl;
+        });
+
+        this.hydrateNearbyBackgrounds();
+      }
+
+      handleTouchStart(event) {
+        const touch = event.touches[0];
+        if (!touch) return;
+
+        this.touchStartX = touch.clientX;
+        this.touchStartY = touch.clientY;
+        this.touchDeltaX = 0;
+        this.touchDeltaY = 0;
+        this.pauseAutoplay();
+      }
+
+      handleTouchMove(event) {
+        const touch = event.touches[0];
+        if (!touch) return;
+
+        this.touchDeltaX = touch.clientX - this.touchStartX;
+        this.touchDeltaY = touch.clientY - this.touchStartY;
+
+        if (
+          Math.abs(this.touchDeltaX) > 10 &&
+          Math.abs(this.touchDeltaX) > Math.abs(this.touchDeltaY)
+        ) {
+          this.suppressClick = true;
+          event.preventDefault();
+        }
+      }
+
+      handleTouchEnd() {
+        const swipeThreshold = 50;
+
+        if (Math.abs(this.touchDeltaX) >= swipeThreshold) {
+          if (this.touchDeltaX < 0) {
+            this.goToNext();
+          } else {
+            this.goToPrevious();
+          }
+        }
+
+        window.setTimeout(() => {
+          this.suppressClick = false;
+        }, 350);
+
+        this.restartAutoplay();
+      }
+
+      handleRootClickCapture(event) {
+        if (!this.suppressClick) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+        this.suppressClick = false;
+      }
+
+      handleVisibilityChange() {
+        if (document.hidden) {
+          this.pauseAutoplay();
+        } else {
+          this.startAutoplay();
+        }
+      }
+
+      startAutoplay() {
+        if (!this.autoplayEnabled || !this.canLoop || document.hidden) return;
+
+        this.pauseAutoplay();
+
+        this.autoplayTimer = window.setTimeout(() => {
+          this.goToNext();
+          this.startAutoplay();
+        }, this.autoplayDelay);
+      }
+
+      pauseAutoplay() {
+        if (this.autoplayTimer) {
+          window.clearTimeout(this.autoplayTimer);
+          this.autoplayTimer = null;
+        }
+      }
+
+      restartAutoplay() {
+        this.pauseAutoplay();
+        this.startAutoplay();
+      }
+
+      padNumber(value, minLength) {
+        return String(value).padStart(minLength, '0');
+      }
+
+      getCountdownMarkup(days, hours, minutes, seconds) {
+        return (
+          '<div>' +
+            '<div class="time-block">' +
+              '<div class="time-value">' + this.padNumber(days, 2) + '</div>' +
+              '<div class="time-label">Days</div>' +
+            '</div>' +
+            '<div class="time-block">' +
+              '<div class="time-value">' + this.padNumber(hours, 2) + '</div>' +
+              '<div class="time-label">Hrs</div>' +
+            '</div>' +
+            '<div class="time-block">' +
+              '<div class="time-value">' + this.padNumber(minutes, 2) + '</div>' +
+              '<div class="time-label">Mins</div>' +
+            '</div>' +
+            '<div class="time-block">' +
+              '<div class="time-value">' + this.padNumber(seconds, 2) + '</div>' +
+              '<div class="time-label">Secs</div>' +
+            '</div>' +
+          '</div>'
+        );
+      }
+
+      updateCountdown(countdown) {
+        const endTime = Date.parse(countdown.dataset.countdownEnd);
+        const countdownBox = countdown.closest('.top-promotional-banner-countdown-box');
+
+        // 截止时间格式无效时，隐藏整个倒计时模块，避免前台显示异常内容
+        if (Number.isNaN(endTime)) {
+          countdown.hidden = true;
+
+          if (countdownBox) {
+            countdownBox.style.display = 'none';
+          }
+
+          return;
+        }
+
+        const now = Date.now();
+        const remaining = endTime - now;
+
+        // 倒计时结束后，隐藏整个倒计时模块，不再显示 00 Days / 00 Hrs / 00 Mins / 00 Secs
+        if (remaining <= 0) {
+          countdown.hidden = true;
+
+          if (countdownBox) {
+            countdownBox.style.display = 'none';
+          }
+
+          return;
+        }
+
+        countdown.hidden = false;
+
+        if (countdownBox) {
+          countdownBox.style.display = '';
+        }
+
+        const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((remaining / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((remaining / (1000 * 60)) % 60);
+        const seconds = Math.floor((remaining / 1000) % 60);
+
+        countdown.innerHTML = this.getCountdownMarkup(days, hours, minutes, seconds);
+      }
+
+      initCountdowns() {
+        const countdowns = Array.from(this.root.querySelectorAll('[data-countdown]'));
+
+        if (!countdowns.length) return;
+
+        const updateAllCountdowns = () => {
+          countdowns.forEach((countdown) => this.updateCountdown(countdown));
+        };
+
+        updateAllCountdowns();
+
+        this.countdownTimer = window.setInterval(updateAllCountdowns, 1000);
+      }
+
+      goToBlock(blockId) {
+        const targetSlide = this.originalSlides.find((slide) => slide.dataset.blockId === blockId);
+        if (!targetSlide) return;
+
+        const targetIndex = Number(targetSlide.dataset.realIndex);
+        if (Number.isNaN(targetIndex)) return;
+
+        this.goToRealIndex(targetIndex, false);
+      }
+
+      destroy() {
+        this.pauseAutoplay();
+
+        if (this.countdownTimer) {
+          window.clearInterval(this.countdownTimer);
+          this.countdownTimer = null;
+        }
+
+        this.unbindEvents();
+        cleanupLoopClones(this.root);
+      }
+    }
+
+    function init() {
+      const root = getRoot();
+      if (!root) return;
+
+      const oldInstance = registry.instances[sectionId];
+
+      if (oldInstance && oldInstance.slider) {
+        oldInstance.slider.destroy();
+      }
+
+      const slider = new NativeAnnouncementSlider(root);
+      slider.init();
+
+      registry.instances[sectionId] = {
+        slider,
+        init,
+        destroy,
+      };
+    }
+
+    function destroy() {
+      const instance = registry.instances[sectionId];
+
+      if (instance && instance.slider) {
+        instance.slider.destroy();
+      }
+
+      delete registry.instances[sectionId];
+    }
+
+    if (!registry.eventsBound) {
+      document.addEventListener('shopify:section:load', function (event) {
+        const id = event.detail && event.detail.sectionId;
+        const instance = id && registry.instances[id];
+
+        if (instance && typeof instance.init === 'function') {
+          instance.init();
+        }
+      });
+
+      document.addEventListener('shopify:section:unload', function (event) {
+        const id = event.detail && event.detail.sectionId;
+        const instance = id && registry.instances[id];
+
+        if (instance && typeof instance.destroy === 'function') {
+          instance.destroy();
+        }
+      });
+
+      document.addEventListener('shopify:block:select', function (event) {
+        const detail = event.detail || {};
+        const instance = detail.sectionId && registry.instances[detail.sectionId];
+
+        if (!instance || !instance.slider) return;
+
+        instance.slider.pauseAutoplay();
+        instance.slider.goToBlock(detail.blockId);
+      });
+
+      document.addEventListener('shopify:block:deselect', function (event) {
+        const detail = event.detail || {};
+        const instance = detail.sectionId && registry.instances[detail.sectionId];
+
+        if (!instance || !instance.slider) return;
+
+        instance.slider.restartAutoplay();
+      });
+
+      registry.eventsBound = true;
+    }
+
+    init();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Announcement bar carousel",
+  "tag": "section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "开启自动切换",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "label": "自动切换间隔",
+      "min": 1000,
+      "max": 9000,
+      "step": 500,
+      "unit": "ms",
+      "default": 5000
+    },
+    {
+      "type": "range",
+      "id": "transition_duration",
+      "label": "切换动画时长",
+      "min": 200,
+      "max": 1500,
+      "step": 100,
+      "unit": "ms",
+      "default": 500
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_touch_swipe",
+      "label": "开启移动端触摸滑动",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "html",
+          "id": "title",
+          "label": "标题（PC端）",
+          "default": "<span>Black Friday Presale</span>"
+        },
+        {
+          "type": "html",
+          "id": "title_mb",
+          "label": "标题（移动端）"
+        },
+        {
+          "type": "html",
+          "id": "subtitle",
+          "label": "副标题（PC端）",
+          "default": "<div>Lock in Huge Discounts & Win Prizes!<span> Up to $1249 OFF & Exciting Gifts</span></div>"
+        },
+        {
+          "type": "html",
+          "id": "subtitle_mb",
+          "label": "副标题（移动端）"
+        },
+        {
+          "type": "url",
+          "id": "banner_link",
+          "label": "活动链接"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_flash_sale_countdown",
+          "label": "显示秒杀倒计时",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "justify_content",
+          "label": "垂直对齐方式",
+          "options": [
+            {
+              "value": "start",
+              "label": "向上对齐"
+            },
+            {
+              "value": "center",
+              "label": "居中对齐"
+            },
+            {
+              "value": "end",
+              "label": "向下对齐"
+            }
+          ],
+          "default": "start"
+        },
+        {
+          "type": "text",
+          "id": "flash_sale_countdown",
+          "label": "活动开始时间",
+          "info": "活动开始时间，格式为：2024-10-10T15:00:00+08:00",
+          "default": "2025-11-01T15:00:00+08:00"
+        },
+        {
+          "type": "text",
+          "id": "flash_sale_countdown_end",
+          "label": "活动截止时间",
+          "info": "活动截止时间，格式为：2024-10-24T15:00:00+08:00",
+          "default": "2025-11-24T15:00:00+08:00"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_image_pc",
+          "label": "活动图标（PC端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_image_mb",
+          "label": "活动图标（移动端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_bg_image_pc",
+          "label": "背景图（PC端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_mb_image_pc",
+          "label": "背景图（移动端）"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "标题字体颜色",
+          "default": "#fff"
+        },
+        {
+          "type": "color_background",
+          "id": "title_gradient_color",
+          "label": "标题渐变色"
+        },
+        {
+          "type": "color",
+          "id": "countdown_color",
+          "label": "倒计时字体颜色",
+          "default": "#fff"
+        },
+        {
+          "type": "color_background",
+          "id": "countdown_gradient_color",
+          "label": "倒计时渐变色"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "背景色"
+        },
+        {
+          "type": "color_background",
+          "id": "background_gradient_color",
+          "label": "渐变背景色（PC端）",
+          "default": "linear-gradient(269deg, #000 11.94%, #fece67 120.47%)"
+        },
+        {
+          "type": "color_background",
+          "id": "background_gradient_color_mb",
+          "label": "渐变背景色（移动端）",
+          "default": "linear-gradient(260deg, #000 15.48%, #fece67 127.47%)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar carousel"
+    }
+  ]
+}
+{% endschema %}

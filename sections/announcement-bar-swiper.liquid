@@ -151,6 +151,10 @@
             {%- endif -%}
           }
         }
+        
+        .top-promotional-banner-{{ section.id }} #swiper-block-{{ block.id }} .top-promotional-banner-containner-content {
+          gap: {{ block.settings.gap }}px;
+        }
   {% endfor %}
 
   .top-promotional-banner-{{ section.id }} .swiper-pagination {
@@ -495,6 +499,16 @@
             }
           ],
           "default": "start"
+        },
+        {
+          "type": "range",
+          "id": "gap",
+          "label": "文字和倒计时的间距",
+          "min": 0,
+          "max": 120,
+          "step": 2,
+          "default": 120,
+          "unit": "px"
         },
         {
           "type": "text",
