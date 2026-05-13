@@ -158,50 +158,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
   learnMoreBtn.addEventListener("click", function () {
     isExpanded = !isExpanded;
-    // 使用 CSS 类代替直接修改 style，减少重排
-    requestAnimationFrame(() => {
-      hiddenRows.forEach((row) => {
-        row.classList.toggle('visible', isExpanded);
-      });
-      learnMoreBtn.classList.toggle('expanded', isExpanded);
+    hiddenRows.forEach((row) => {
+      row.style.display = isExpanded ? "flex" : "none";
     });
+    learnMoreBtn.innerHTML = isExpanded ? `Show less<svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+<path d="M9 6L5 1L1 6" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+</path>
+    </svg>` : `Learn more <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+      <path d="M9 1L5 6L1 1" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>`;
   });
 });
 
-// <!-- faq 事件 --> 解决移动端点击时背景闪烁问题，使用事件委托优化
+// <!-- faq 事件 --> 解决移动端点击时背景闪烁问题，使用 touchstart 阻止点击高亮
 document.addEventListener("DOMContentLoaded", function () {
-  var faqContainer = document.querySelector(".ugc-faq-container-content");
-  if (!faqContainer) return;
-  
-  // 使用事件委托，减少事件监听数量和 DOM 重排
-  faqContainer.addEventListener("click", function (e) {
-    var question = e.target.closest(".ugc-faq-container-content-item-question");
-    if (!question) return;
-    
-    var item = question.closest(".ugc-faq-container-content-item");
-    if (!item) return;
-    
-    // 批量更新：使用 requestAnimationFrame 合并重排操作
-    requestAnimationFrame(() => {
+  var faqItems = document.querySelectorAll(".ugc-faq-container-content-item");
+  faqItems.forEach(function (item) {
+    var question = item.querySelector(
+      ".ugc-faq-container-content-item-question"
+    );
+    // 阻止移动端点击高亮（闪烁）
+    question.addEventListener(
+      "touchstart",
+      function (e) {
+        e.preventDefault(); // 阻止默认的点击高亮
+        // 手动触发点击事件
+        this.click();
+      },
+      { passive: false }
+    );
+    question.addEventListener("click", function (e) {
+      // 如果当前item已激活，则移除active，实现随时切换
       if (item.classList.contains("active")) {
         item.classList.remove("active");
       } else {
-        faqContainer.querySelectorAll(".ugc-faq-container-content-item.active").forEach(function (i) {
+        // 移除所有的active
+        faqItems.forEach(function (i) {
           i.classList.remove("active");
         });
+        // 给当前点击的item添加active
         item.classList.add("active");
       }
     });
-  }, { passive: true });
-  
-  // 移动端触摸处理
-  faqContainer.addEventListener("touchstart", function (e) {
-    var question = e.target.closest(".ugc-faq-container-content-item-question");
-    if (question) {
-      e.preventDefault();
-      question.click();
-    }
-  }, { passive: false });
+  });
 });
 
 // 等待页面加载完成
@@ -240,25 +239,19 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   });
 
-  // 缓存按钮元素，减少重复 DOM 查询
-  const prevButton = document.getElementById(
-    "k13-lite-customers-are-saying-prevButton"
-  );
-  const nextButton = document.getElementById(
-    "k13-lite-customers-are-saying-nextButton"
-  );
-  
-  // 更新导航按钮状态 - 使用 CSS 类代替 disabled 属性优化性能
+  // 更新导航按钮状态
   function updateNavigationButtons() {
-    const isBeginning = k13_lite_customers_are_saying_swiper_container_swiper.isBeginning;
-    const isEnd = k13_lite_customers_are_saying_swiper_container_swiper.isEnd;
-    
-    // 使用 classList 操作和 disabled 结合，避免每次都查询 DOM
-    prevButton.classList.toggle('disabled', isBeginning);
-    prevButton.disabled = isBeginning;
-    
-    nextButton.classList.toggle('disabled', isEnd);
-    nextButton.disabled = isEnd;
+    const prevButton = document.getElementById(
+      "k13-lite-customers-are-saying-prevButton"
+    );
+    const nextButton = document.getElementById(
+      "k13-lite-customers-are-saying-nextButton"
+    );
+
+    prevButton.disabled =
+      k13_lite_customers_are_saying_swiper_container_swiper.isBeginning;
+    nextButton.disabled =
+      k13_lite_customers_are_saying_swiper_container_swiper.isEnd;
   }
 
   // 动态计算 slidesOffsetBefore，使其在1920px时为360px，响应式自适应
@@ -448,98 +441,73 @@ let currentMaterialsIndex = 0;
 
 function updateMainImage() {
   const img = document.getElementById('k13-lite-can-really-do-main-img');
-  if (img) {
-    img.src = images[currentDesignIndex][currentMaterialsIndex];
-  }
+  img.src = images[currentDesignIndex][currentMaterialsIndex];
 }
 
-// 绑定点击事件 - 使用事件委托优化性能
+// 绑定点击事件
 document.addEventListener('DOMContentLoaded', function () {
-  const designContainer = document.querySelector('.k13-lite-can-really-do-content-options-designs');
-  const materialsContainer = document.querySelector('.k13-lite-can-really-do-content-options-materials');
-  
-  // 设计 - 事件委托
-  if (designContainer) {
-    designContainer.addEventListener('click', function (e) {
-      const el = e.target.closest('.k13-lite-can-really-do-content-options-item-design');
-      if (!el) return;
-      
-      requestAnimationFrame(() => {
-        // 移除其他 active
-        designContainer.querySelectorAll('.k13-lite-can-really-do-content-options-item-design.active').forEach(function (e2) { 
-          if (e2 !== el) e2.classList.remove('active'); 
-        });
-        el.classList.add('active');
-        currentDesignIndex = parseInt(el.getAttribute('data-design-index'));
-        updateMainImage();
-      });
+  // 设计
+  const designImgs = document.querySelectorAll('.k13-lite-can-really-do-content-options-item-design');
+  designImgs.forEach(function (el) {
+    el.addEventListener('click', function () {
+      // 移除所有active
+      designImgs.forEach(function (e2) { e2.classList.remove('active'); });
+      el.classList.add('active');
+      currentDesignIndex = parseInt(el.getAttribute('data-design-index'));
+      updateMainImage();
     });
-  }
+  });
 
-  // 材质 - 事件委托
-  if (materialsContainer) {
-    materialsContainer.addEventListener('click', function (e) {
-      const el = e.target.closest('.k13-lite-can-really-do-content-options-item-materials');
-      if (!el) return;
-      
-      requestAnimationFrame(() => {
-        // 移除其他 active
-        materialsContainer.querySelectorAll('.k13-lite-can-really-do-content-options-item-materials.active').forEach(function (e2) { 
-          if (e2 !== el) e2.classList.remove('active'); 
-        });
-        el.classList.add('active');
-        currentMaterialsIndex = parseInt(el.getAttribute('data-materials-index'));
-        updateMainImage();
-      });
+  // 材质
+  const materialsImgs = document.querySelectorAll('.k13-lite-can-really-do-content-options-item-materials');
+  materialsImgs.forEach(function (el) {
+    el.addEventListener('click', function () {
+      // 移除所有active
+      materialsImgs.forEach(function (e2) { e2.classList.remove('active'); });
+      el.classList.add('active');
+      currentMaterialsIndex = parseInt(el.getAttribute('data-materials-index'));
+      updateMainImage();
     });
-  }
+  });
 
   // 初始化图片
   updateMainImage();
 });
 
 
-// 增加tab点击切换功能 - 优化 DOM 操作性能
+// 增加tab点击切换功能
 (function () {
-  const tabsContainer = document.querySelector('.k13-lite-parameter-table-tabs');
-  if (!tabsContainer) return;
-  
-  const productImg = document.querySelector('.k13-lite-parameter-table-product-img');
+  const k13_lite_parameter_table_tabs = document.querySelectorAll('.k13-lite-parameter-table-tab');
+  let k13_lite_parameter_table_product_img = document.querySelector('.k13-lite-parameter-table-product-img');
   const whatsInTheBoxWrapper = document.querySelector('.whats-in-the-box-wrapper');
-  const packedImg = document.querySelector('.whats-in-the-box-container-content-img img');
-  
-  // 事件委托：在容器上监听，减少事件监听数量
-  tabsContainer.addEventListener('click', function (e) {
-    const tab = e.target.closest('.k13-lite-parameter-table-tab');
-    if (!tab) return;
-    
-    requestAnimationFrame(() => {
-      // 批量更新：一次性处理所有 DOM 变更，减少重排
-      const newImg = tab.getAttribute('data-img');
-      const newPackedImg = tab.getAttribute('data-packed-img');
-      const color = tab.getAttribute('data-color');
-      
-      // 移除其他 tab 的 active 状态
-      tabsContainer.querySelectorAll('.k13-lite-parameter-table-tab.is-active').forEach(function (t) {
-        if (t !== tab) {
-          t.classList.remove('is-active');
-          t.setAttribute('aria-selected', 'false');
-        }
+  const whatsInTheBoxContainerContentImg = document.querySelector('.whats-in-the-box-container-content-img img');
+  k13_lite_parameter_table_tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      // 移除所有tab的is-active
+      k13_lite_parameter_table_tabs.forEach(function (t) {
+        t.classList.remove('is-active');
+        t.setAttribute('aria-selected', 'false');
       });
-      
-      // 设置当前 tab 为 active
-      tab.classList.add('is-active');
-      tab.setAttribute('aria-selected', 'true');
-      
-      // 批量更新图片和颜色（使用 .src 而不是 setAttribute 更高效）
-      if (productImg && newImg) {
-        productImg.src = newImg;
+      // 当前tab加is-active
+      this.classList.add('is-active');
+      this.setAttribute('aria-selected', 'true');
+      // 替换图片
+      const newImg = this.getAttribute('data-img');
+      const newPackedImg = this.getAttribute('data-packed-img');
+      if (k13_lite_parameter_table_product_img && newImg) {
+        k13_lite_parameter_table_product_img.setAttribute('src', newImg);
       }
-      if (packedImg && newPackedImg) {
-        packedImg.src = newPackedImg;
+      if (whatsInTheBoxContainerContentImg && newPackedImg) {
+        whatsInTheBoxContainerContentImg.setAttribute('src', newPackedImg);
       }
+      // 获取当前tab的data-color属性
+      const color = this.getAttribute('data-color');
       if (whatsInTheBoxWrapper) {
-        whatsInTheBoxWrapper.classList.toggle('pink', color === 'pink');
+        if (color === 'pink') {
+          whatsInTheBoxWrapper.classList.add('pink');
+        } else {
+          whatsInTheBoxWrapper.classList.remove('pink');
+        }
       }
     });
   });
