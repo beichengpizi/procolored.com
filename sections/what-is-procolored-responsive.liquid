@@ -1,0 +1,893 @@
+{%- liquid
+  assign title_desktop = section.settings.title_desktop
+  assign title_mobile = section.settings.title_mobile | default: title_desktop
+  assign hero_image_desktop = section.settings.hero_image_desktop
+  assign hero_image_mobile = section.settings.hero_image_mobile | default: hero_image_desktop
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} .What-is-Procolored {
+    --wip-section-bg: {{ section.settings.section_bg_color }};
+    --wip-title-color: {{ section.settings.title_color }};
+    --wip-value-color: {{ section.settings.value_color }};
+    --wip-label-color: {{ section.settings.label_color }};
+    --wip-default-card-bg: {{ section.settings.default_card_bg_color }};
+    --wip-hero-placeholder-bg: {{ section.settings.hero_placeholder_bg_color }};
+
+    background-color: var(--wip-section-bg);
+    padding-top: clamp(calc({{ section.settings.section_padding_top_pc }}px * 0.667), calc(100vw * {{ section.settings.section_padding_top_pc }} / 1920), calc({{ section.settings.section_padding_top_pc }}px * 2));
+    padding-bottom: clamp(calc({{ section.settings.section_padding_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.section_padding_bottom_pc }} / 1920), calc({{ section.settings.section_padding_bottom_pc }}px * 2));
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .What-is-Procolored__inner {
+    max-width: clamp(calc({{ section.settings.inner_max_width_pc }}px * 0.667), calc(100vw * {{ section.settings.inner_max_width_pc }} / 1920), calc({{ section.settings.inner_max_width_pc }}px * 2));
+    margin: 0 auto;
+    padding-left: clamp(calc({{ section.settings.inner_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.inner_padding_x_pc }} / 1920), calc({{ section.settings.inner_padding_x_pc }}px * 2));
+    padding-right: clamp(calc({{ section.settings.inner_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.inner_padding_x_pc }} / 1920), calc({{ section.settings.inner_padding_x_pc }}px * 2));
+  }
+
+  #shopify-section-{{ section.id }} .What-is-Procolored__title {
+    color: var(--wip-title-color);
+    text-align: center;
+    font-size: clamp(calc({{ section.settings.title_font_size_pc }}px * 0.667), calc(100vw * {{ section.settings.title_font_size_pc }} / 1920), calc({{ section.settings.title_font_size_pc }}px * 2));
+    font-weight: 800;
+    line-height: 1.22;
+    margin: 0 0 clamp(calc({{ section.settings.title_margin_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.title_margin_bottom_pc }} / 1920), calc({{ section.settings.title_margin_bottom_pc }}px * 2));
+  }
+
+  #shopify-section-{{ section.id }} .What-is-Procolored__title--mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .What-is-Procolored__hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1400 / 788;
+    overflow: hidden;
+    background-color: var(--wip-hero-placeholder-bg);
+    border-radius: clamp(calc({{ section.settings.hero_radius_pc }}px * 0.667), calc(100vw * {{ section.settings.hero_radius_pc }} / 1920), calc({{ section.settings.hero_radius_pc }}px * 2));
+  }
+
+  #shopify-section-{{ section.id }} .What-is-Procolored__hero-img,
+  #shopify-section-{{ section.id }} .What-is-Procolored__hero-fallback {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .What-is-Procolored__hero-fallback {
+    background-image: var(--wip-hero-fallback-image, none);
+    background-size: cover;
+    background-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .What-is-Procolored__stats {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_desktop }}, minmax(0, 1fr));
+    gap: clamp(calc({{ section.settings.stats_gap_pc }}px * 0.667), calc(100vw * {{ section.settings.stats_gap_pc }} / 1920), calc({{ section.settings.stats_gap_pc }}px * 2));
+    margin-top: clamp(calc({{ section.settings.stats_margin_top_pc }}px * 0.667), calc(100vw * {{ section.settings.stats_margin_top_pc }} / 1920), calc({{ section.settings.stats_margin_top_pc }}px * 2));
+  }
+
+  #shopify-section-{{ section.id }} .What-is-Procolored__card {
+    border-radius: clamp(calc({{ section.settings.card_radius_pc }}px * 0.667), calc(100vw * {{ section.settings.card_radius_pc }} / 1920), calc({{ section.settings.card_radius_pc }}px * 2));
+    background: var(--wip-card-bg, var(--wip-default-card-bg));
+    padding: clamp(calc({{ section.settings.card_padding_y_pc }}px * 0.667), calc(100vw * {{ section.settings.card_padding_y_pc }} / 1920), calc({{ section.settings.card_padding_y_pc }}px * 2)) clamp(calc({{ section.settings.card_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.card_padding_x_pc }} / 1920), calc({{ section.settings.card_padding_x_pc }}px * 2));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .What-is-Procolored__icon {
+    width: clamp(calc({{ section.settings.icon_size_pc }}px * 0.667), calc(100vw * {{ section.settings.icon_size_pc }} / 1920), calc({{ section.settings.icon_size_pc }}px * 2));
+    height: clamp(calc({{ section.settings.icon_size_pc }}px * 0.667), calc(100vw * {{ section.settings.icon_size_pc }} / 1920), calc({{ section.settings.icon_size_pc }}px * 2));
+    margin-bottom: clamp(calc({{ section.settings.icon_margin_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.icon_margin_bottom_pc }} / 1920), calc({{ section.settings.icon_margin_bottom_pc }}px * 2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--wip-icon-primary-color, #3FA9FF);
+  }
+
+  #shopify-section-{{ section.id }} .What-is-Procolored__icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .What-is-Procolored__value {
+    color: var(--wip-value-color);
+    font-size: clamp(calc({{ section.settings.value_font_size_pc }}px * 0.667), calc(100vw * {{ section.settings.value_font_size_pc }} / 1920), calc({{ section.settings.value_font_size_pc }}px * 2));
+    font-weight: 700;
+    line-height: 1.12;
+    margin: 0 0 clamp(calc({{ section.settings.value_margin_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.value_margin_bottom_pc }} / 1920), calc({{ section.settings.value_margin_bottom_pc }}px * 2));
+  }
+
+  #shopify-section-{{ section.id }} .What-is-Procolored__label {
+    color: var(--wip-label-color);
+    text-align: center;
+    font-size: clamp(calc({{ section.settings.label_font_size_pc }}px * 0.667), calc(100vw * {{ section.settings.label_font_size_pc }} / 1920), calc({{ section.settings.label_font_size_pc }}px * 2));
+    font-weight: 400;
+    line-height: 1.38;
+  }
+
+  #shopify-section-{{ section.id }} .What-is-Procolored__label--mobile,
+  #shopify-section-{{ section.id }} .What-is-Procolored__value--mobile {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .What-is-Procolored {
+      padding-top: clamp(calc({{ section.settings.section_padding_top_mobile }}px * 0.85), calc(100vw * {{ section.settings.section_padding_top_mobile }} / 375), calc({{ section.settings.section_padding_top_mobile }}px * 1.15));
+      padding-bottom: clamp(calc({{ section.settings.section_padding_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.section_padding_bottom_mobile }} / 375), calc({{ section.settings.section_padding_bottom_mobile }}px * 1.15));
+    }
+
+    #shopify-section-{{ section.id }} .What-is-Procolored__inner {
+      max-width: none;
+      padding-left: clamp(calc({{ section.settings.inner_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.inner_padding_x_mobile }} / 375), calc({{ section.settings.inner_padding_x_mobile }}px * 1.15));
+      padding-right: clamp(calc({{ section.settings.inner_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.inner_padding_x_mobile }} / 375), calc({{ section.settings.inner_padding_x_mobile }}px * 1.15));
+    }
+
+    #shopify-section-{{ section.id }} .What-is-Procolored__title {
+      font-size: clamp(calc({{ section.settings.title_font_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.title_font_size_mobile }} / 375), calc({{ section.settings.title_font_size_mobile }}px * 1.15));
+      line-height: 1.33;
+      margin-bottom: clamp(calc({{ section.settings.title_margin_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.title_margin_bottom_mobile }} / 375), calc({{ section.settings.title_margin_bottom_mobile }}px * 1.15));
+    }
+
+    #shopify-section-{{ section.id }} .What-is-Procolored__title--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .What-is-Procolored__title--mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .What-is-Procolored__hero {
+      margin-top: clamp(calc({{ section.settings.hero_margin_top_mobile }}px * 0.85), calc(100vw * {{ section.settings.hero_margin_top_mobile }} / 375), calc({{ section.settings.hero_margin_top_mobile }}px * 1.15));
+      aspect-ratio: 327 / 208;
+      border-radius: clamp(calc({{ section.settings.hero_radius_mobile }}px * 0.85), calc(100vw * {{ section.settings.hero_radius_mobile }} / 375), calc({{ section.settings.hero_radius_mobile }}px * 1.15));
+    }
+
+    #shopify-section-{{ section.id }} .What-is-Procolored__stats {
+      grid-template-columns: repeat({{ section.settings.columns_mobile }}, minmax(0, 1fr));
+      gap: clamp(calc({{ section.settings.stats_gap_mobile }}px * 0.85), calc(100vw * {{ section.settings.stats_gap_mobile }} / 375), calc({{ section.settings.stats_gap_mobile }}px * 1.15));
+      margin-top: clamp(calc({{ section.settings.stats_margin_top_mobile }}px * 0.85), calc(100vw * {{ section.settings.stats_margin_top_mobile }} / 375), calc({{ section.settings.stats_margin_top_mobile }}px * 1.15));
+    }
+
+    #shopify-section-{{ section.id }} .What-is-Procolored__card {
+      border-radius: clamp(calc({{ section.settings.card_radius_mobile }}px * 0.85), calc(100vw * {{ section.settings.card_radius_mobile }} / 375), calc({{ section.settings.card_radius_mobile }}px * 1.15));
+      padding: clamp(calc({{ section.settings.card_padding_y_mobile }}px * 0.85), calc(100vw * {{ section.settings.card_padding_y_mobile }} / 375), calc({{ section.settings.card_padding_y_mobile }}px * 1.15)) clamp(calc({{ section.settings.card_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.card_padding_x_mobile }} / 375), calc({{ section.settings.card_padding_x_mobile }}px * 1.15));
+    }
+
+    #shopify-section-{{ section.id }} .What-is-Procolored__icon {
+      width: clamp(calc({{ section.settings.icon_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.icon_size_mobile }} / 375), calc({{ section.settings.icon_size_mobile }}px * 1.15));
+      height: clamp(calc({{ section.settings.icon_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.icon_size_mobile }} / 375), calc({{ section.settings.icon_size_mobile }}px * 1.15));
+      margin-bottom: clamp(calc({{ section.settings.icon_margin_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.icon_margin_bottom_mobile }} / 375), calc({{ section.settings.icon_margin_bottom_mobile }}px * 1.15));
+    }
+
+    #shopify-section-{{ section.id }} .What-is-Procolored__value {
+      font-size: clamp(calc({{ section.settings.value_font_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.value_font_size_mobile }} / 375), calc({{ section.settings.value_font_size_mobile }}px * 1.15));
+      line-height: 1.5;
+      margin-bottom: clamp(calc({{ section.settings.value_margin_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.value_margin_bottom_mobile }} / 375), calc({{ section.settings.value_margin_bottom_mobile }}px * 1.15));
+    }
+
+    #shopify-section-{{ section.id }} .What-is-Procolored__label {
+      font-size: clamp(calc({{ section.settings.label_font_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.label_font_size_mobile }} / 375), calc({{ section.settings.label_font_size_mobile }}px * 1.15));
+      line-height: 1.4;
+    }
+
+    #shopify-section-{{ section.id }} .What-is-Procolored__label--desktop,
+    #shopify-section-{{ section.id }} .What-is-Procolored__value--desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .What-is-Procolored__label--mobile,
+    #shopify-section-{{ section.id }} .What-is-Procolored__value--mobile {
+      display: block;
+    }
+  }
+</style>
+
+<div class="What-is-Procolored">
+  <div class="What-is-Procolored__inner">
+    {%- if title_desktop != blank -%}
+      <div class="What-is-Procolored__title What-is-Procolored__title--desktop">{{ title_desktop }}</div>
+    {%- endif -%}
+
+    {%- if title_mobile != blank -%}
+      <div class="What-is-Procolored__title What-is-Procolored__title--mobile">{{ title_mobile }}</div>
+    {%- endif -%}
+
+    <div class="What-is-Procolored__hero"{% if section.settings.hero_fallback_url != blank %} style="--wip-hero-fallback-image: url('{{ section.settings.hero_fallback_url }}');"{% endif %}>
+      {%- if hero_image_desktop != blank or hero_image_mobile != blank -%}
+        <picture>
+          {%- if hero_image_mobile != blank -%}
+            <source
+              media="(max-width: 768px)"
+              data-srcset="{{ hero_image_mobile | image_url: width: 750 }} 750w, {{ hero_image_mobile | image_url: width: 1000 }} 1000w, {{ hero_image_mobile | image_url: width: 1200 }} 1200w"
+              sizes="100vw"
+            >
+          {%- endif -%}
+          {%- if hero_image_desktop != blank -%}
+            <img
+              class="What-is-Procolored__hero-img lazyload"
+              src="data:image/gif;base64,R0lGODlhAQABAAAAACw="
+              data-src="{{ hero_image_desktop | image_url: width: 2400 }}"
+              data-srcset="{{ hero_image_desktop | image_url: width: 1200 }} 1200w, {{ hero_image_desktop | image_url: width: 1800 }} 1800w, {{ hero_image_desktop | image_url: width: 2400 }} 2400w, {{ hero_image_desktop | image_url: width: 3200 }} 3200w"
+              data-sizes="auto"
+              alt="{{ section.settings.hero_alt | escape }}"
+              width="{{ hero_image_desktop.width }}"
+              height="{{ hero_image_desktop.height }}"
+              loading="lazy"
+            >
+          {%- elsif hero_image_mobile != blank -%}
+            <img
+              class="What-is-Procolored__hero-img lazyload"
+              src="data:image/gif;base64,R0lGODlhAQABAAAAACw="
+              data-src="{{ hero_image_mobile | image_url: width: 1200 }}"
+              data-srcset="{{ hero_image_mobile | image_url: width: 750 }} 750w, {{ hero_image_mobile | image_url: width: 1000 }} 1000w, {{ hero_image_mobile | image_url: width: 1200 }} 1200w"
+              data-sizes="auto"
+              alt="{{ section.settings.hero_alt | escape }}"
+              width="{{ hero_image_mobile.width }}"
+              height="{{ hero_image_mobile.height }}"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </picture>
+      {%- else -%}
+        <div class="What-is-Procolored__hero-fallback" role="img" aria-label="{{ section.settings.hero_alt | escape }}"></div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="What-is-Procolored__stats">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign value_desktop = block.settings.value_desktop
+            assign value_mobile = block.settings.value_mobile | default: value_desktop
+            assign label_desktop = block.settings.label_desktop
+            assign label_mobile = block.settings.label_mobile | default: label_desktop
+            assign card_bg_color = block.settings.card_bg_color | default: section.settings.default_card_bg_color
+          -%}
+          <div
+            class="What-is-Procolored__card"
+            style="--wip-card-bg: {{ card_bg_color }}; --wip-icon-primary-color: {{ block.settings.icon_primary_color }}; --wip-icon-soft-color: {{ block.settings.icon_soft_color }}; --wip-icon-line-color: {{ block.settings.icon_line_color }};"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.icon_svg_html != blank -%}
+              <div class="What-is-Procolored__icon">{{ block.settings.icon_svg_html }}</div>
+            {%- endif -%}
+
+            {%- if value_desktop != blank -%}
+              <div class="What-is-Procolored__value What-is-Procolored__value--desktop">{{ value_desktop }}</div>
+            {%- endif -%}
+            {%- if value_mobile != blank -%}
+              <div class="What-is-Procolored__value What-is-Procolored__value--mobile">{{ value_mobile }}</div>
+            {%- endif -%}
+
+            {%- if label_desktop != blank -%}
+              <div class="What-is-Procolored__label What-is-Procolored__label--desktop">{{ label_desktop }}</div>
+            {%- endif -%}
+            {%- if label_mobile != blank -%}
+              <div class="What-is-Procolored__label What-is-Procolored__label--mobile">{{ label_mobile }}</div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "What is Procolored",
+  "tag": "section",
+  "class": "section-what-is-procolored",
+  "settings": [
+    {
+      "type": "header",
+      "content": "模块内容"
+    },
+    {
+      "type": "html",
+      "id": "title_desktop",
+      "label": "主标题 HTML（PC）",
+      "default": "What is Procolored?"
+    },
+    {
+      "type": "html",
+      "id": "title_mobile",
+      "label": "主标题 HTML（移动端）",
+      "placeholder": "留空时自动使用 PC 主标题"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_desktop",
+      "label": "主图（PC）"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_mobile",
+      "label": "主图（移动端）"
+    },
+    {
+      "type": "text",
+      "id": "hero_alt",
+      "label": "主图 Alt 文案",
+      "default": "What is Procolored"
+    },
+    {
+      "type": "text",
+      "id": "hero_fallback_url",
+      "label": "主图兜底外链 URL（未选择图片时使用）",
+      "default": "https://images.unsplash.com/photo-1579762593175-20226054cad0?q=80&w=2400&auto=format&fit=crop"
+    },
+    {
+      "type": "header",
+      "content": "颜色配置"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "模块背景颜色",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "主标题颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "value_color",
+      "label": "数字颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "说明文字颜色",
+      "default": "#6D6D6D"
+    },
+    {
+      "type": "color",
+      "id": "default_card_bg_color",
+      "label": "卡片默认背景颜色",
+      "default": "#F8F9FC"
+    },
+    {
+      "type": "color",
+      "id": "hero_placeholder_bg_color",
+      "label": "未配置主图时背景颜色",
+      "default": "#F8F9FC"
+    },
+    {
+      "type": "header",
+      "content": "PC 布局尺寸"
+    },
+    {
+      "type": "range",
+      "id": "inner_max_width_pc",
+      "label": "内容最大宽度（PC）",
+      "min": 1000,
+      "max": 1800,
+      "step": 8,
+      "unit": "px",
+      "default": 1448
+    },
+    {
+      "type": "range",
+      "id": "inner_padding_x_pc",
+      "label": "内容左右边距（PC）",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_pc",
+      "label": "模块上边距（PC）",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_pc",
+      "label": "模块下边距（PC）",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_pc",
+      "label": "主标题字号（PC）",
+      "min": 20,
+      "max": 96,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "title_margin_bottom_pc",
+      "label": "主标题下边距（PC）",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "hero_radius_pc",
+      "label": "主图圆角（PC）",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "stats_margin_top_pc",
+      "label": "卡片区域上边距（PC）",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "stats_gap_pc",
+      "label": "卡片间距（PC）",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_radius_pc",
+      "label": "卡片圆角（PC）",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_padding_y_pc",
+      "label": "卡片上下内边距（PC）",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_padding_x_pc",
+      "label": "卡片左右内边距（PC）",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "icon_size_pc",
+      "label": "SVG 图标尺寸（PC）",
+      "min": 20,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "icon_margin_bottom_pc",
+      "label": "SVG 图标下边距（PC）",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "value_font_size_pc",
+      "label": "数字字号（PC）",
+      "min": 12,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "value_margin_bottom_pc",
+      "label": "数字下边距（PC）",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "label_font_size_pc",
+      "label": "说明文字字号（PC）",
+      "min": 10,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "移动端布局尺寸"
+    },
+    {
+      "type": "range",
+      "id": "inner_padding_x_mobile",
+      "label": "内容左右边距（移动端）",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "label": "模块上边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "label": "模块下边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "label": "主标题字号（移动端）",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "title_margin_bottom_mobile",
+      "label": "主标题下边距（移动端）",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "hero_margin_top_mobile",
+      "label": "主图上边距（移动端）",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "hero_radius_mobile",
+      "label": "主图圆角（移动端）",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "stats_margin_top_mobile",
+      "label": "卡片区域上边距（移动端）",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "stats_gap_mobile",
+      "label": "卡片间距（移动端）",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_radius_mobile",
+      "label": "卡片圆角（移动端）",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_padding_y_mobile",
+      "label": "卡片上下内边距（移动端）",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_padding_x_mobile",
+      "label": "卡片左右内边距（移动端）",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "icon_size_mobile",
+      "label": "SVG 图标尺寸（移动端）",
+      "min": 16,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "icon_margin_bottom_mobile",
+      "label": "SVG 图标下边距（移动端）",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "value_font_size_mobile",
+      "label": "数字字号（移动端）",
+      "min": 10,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "value_margin_bottom_mobile",
+      "label": "数字下边距（移动端）",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "label_font_size_mobile",
+      "label": "说明文字字号（移动端）",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "卡片列数"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "PC 每行卡片数量",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "移动端每行卡片数量",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 3
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat_item",
+      "name": "数据卡片",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon_svg_html",
+          "label": "SVG HTML",
+          "default": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 70 70\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\">\n  <circle cx=\"22\" cy=\"27\" r=\"17\" fill=\"currentColor\"/>\n  <circle cx=\"35\" cy=\"35\" r=\"22\" fill=\"var(--wip-icon-soft-color)\" fill-opacity=\"0.4\"/>\n  <circle cx=\"35\" cy=\"35\" r=\"13\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n  <path d=\"M22 35H48\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>\n  <path d=\"M35 22C38.3137 22 41 27.8203 41 35C41 42.1797 38.3137 48 35 48C31.6863 48 29 42.1797 29 35C29 27.8203 31.6863 22 35 22Z\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>"
+        },
+        {
+          "type": "color",
+          "id": "icon_primary_color",
+          "label": "SVG 主色",
+          "default": "#3FA9FF"
+        },
+        {
+          "type": "color",
+          "id": "icon_soft_color",
+          "label": "SVG 辅助色",
+          "default": "#3FA9FF"
+        },
+        {
+          "type": "color",
+          "id": "icon_line_color",
+          "label": "SVG 线条/文字颜色",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "card_bg_color",
+          "label": "卡片背景颜色",
+          "default": "#F8F9FC"
+        },
+        {
+          "type": "text",
+          "id": "value_desktop",
+          "label": "数字文案（PC）",
+          "default": "140+"
+        },
+        {
+          "type": "text",
+          "id": "value_mobile",
+          "label": "数字文案（移动端）"
+        },
+        {
+          "type": "html",
+          "id": "label_desktop",
+          "label": "说明文案 HTML（PC）",
+          "default": "Global Reach"
+        },
+        {
+          "type": "html",
+          "id": "label_mobile",
+          "label": "说明文案 HTML（移动端）",
+          "placeholder": "留空时自动使用 PC 说明文案"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "What is Procolored",
+      "blocks": [
+        {
+          "type": "stat_item",
+          "settings": {
+            "value_desktop": "140+",
+            "value_mobile": "140+",
+            "label_desktop": "Global Reach",
+            "label_mobile": "Global Reach",
+            "icon_svg_html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 70 70\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\">\n  <circle cx=\"22\" cy=\"27\" r=\"17\" fill=\"currentColor\"/>\n  <circle cx=\"35\" cy=\"35\" r=\"22\" fill=\"var(--wip-icon-soft-color)\" fill-opacity=\"0.4\"/>\n  <circle cx=\"35\" cy=\"35\" r=\"13\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n  <path d=\"M22 35H48\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>\n  <path d=\"M35 22C38.3137 22 41 27.8203 41 35C41 42.1797 38.3137 48 35 48C31.6863 48 29 42.1797 29 35C29 27.8203 31.6863 22 35 22Z\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>",
+            "icon_primary_color": "#3FA9FF",
+            "icon_soft_color": "#3FA9FF",
+            "icon_line_color": "#FFFFFF",
+            "card_bg_color": "#F8F9FC"
+          }
+        },
+        {
+          "type": "stat_item",
+          "settings": {
+            "value_desktop": "30K+",
+            "value_mobile": "30K+",
+            "label_desktop": "Customer Base",
+            "label_mobile": "Customer Base",
+            "icon_svg_html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 70 70\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\">\n  <rect x=\"8\" y=\"8\" width=\"36\" height=\"36\" rx=\"10\" fill=\"currentColor\"/>\n  <rect x=\"14\" y=\"14\" width=\"42\" height=\"42\" rx=\"10\" fill=\"var(--wip-icon-soft-color)\" fill-opacity=\"0.42\"/>\n  <circle cx=\"35\" cy=\"30\" r=\"5\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\"/>\n  <path d=\"M25.5 45.5C26.2 40.8 30.1 37.5 35 37.5C39.9 37.5 43.8 40.8 44.5 45.5\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>\n  <path d=\"M25.4 34.8C24.2 33.6 23.5 32 23.5 30.2C23.5 27 25.8 24.4 28.9 23.9\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>\n  <path d=\"M44.6 34.8C45.8 33.6 46.5 32 46.5 30.2C46.5 27 44.2 24.4 41.1 23.9\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>\n</svg>",
+            "icon_primary_color": "#FF7254",
+            "icon_soft_color": "#FF937D",
+            "icon_line_color": "#FFFFFF",
+            "card_bg_color": "#F8F9FC"
+          }
+        },
+        {
+          "type": "stat_item",
+          "settings": {
+            "value_desktop": "50+",
+            "value_mobile": "50+",
+            "label_desktop": "Service Centers",
+            "label_mobile": "Service Centers",
+            "icon_svg_html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 70 70\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\">\n  <path d=\"M8 24C8 21.1 9.6 18.4 12.1 17L22.6 11.1C25 9.8 28 9.8 30.4 11.1L40.9 17C43.4 18.4 45 21.1 45 24V39C45 43.4 41.4 47 37 47H16C11.6 47 8 43.4 8 39V24Z\" fill=\"currentColor\"/>\n  <path d=\"M14 31.5C14 27.8 16 24.5 19.2 22.7L30.2 16.7C33.2 15 36.8 15 39.8 16.7L50.8 22.7C54 24.5 56 27.8 56 31.5V47C56 52.5 51.5 57 46 57H24C18.5 57 14 52.5 14 47V31.5Z\" fill=\"var(--wip-icon-soft-color)\" fill-opacity=\"0.42\"/>\n  <rect x=\"25.5\" y=\"31.5\" width=\"19\" height=\"19\" rx=\"3\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\"/>\n  <path d=\"M28 39H42\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>\n  <path d=\"M31 27.8H39\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>\n</svg>",
+            "icon_primary_color": "#96DF15",
+            "icon_soft_color": "#D8FA9C",
+            "icon_line_color": "#FFFFFF",
+            "card_bg_color": "#F8F9FC"
+          }
+        },
+        {
+          "type": "stat_item",
+          "settings": {
+            "value_desktop": "45%",
+            "value_mobile": "45%",
+            "label_desktop": "R&D Personnel",
+            "label_mobile": "R&D Personnel",
+            "icon_svg_html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 70 70\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\">\n  <rect x=\"8\" y=\"8\" width=\"36\" height=\"36\" rx=\"10\" fill=\"currentColor\"/>\n  <rect x=\"14\" y=\"14\" width=\"42\" height=\"42\" rx=\"10\" fill=\"var(--wip-icon-soft-color)\" fill-opacity=\"0.42\"/>\n  <path d=\"M45.7 31C47 29.6 47.4 27.7 46.7 26L44.8 27.9H42.1V25.2L44 23.3C42.4 22.7 40.4 23 39.1 24.4C37.7 25.7 37.4 27.7 38 29.4L29.4 38C27.7 37.4 25.7 37.7 24.4 39.1C23 40.4 22.7 42.4 23.3 44L25.2 42.1H27.9V44.8L26 46.7C27.7 47.4 29.6 47 31 45.7C32.3 44.3 32.7 42.4 32 40.7L40.7 32C42.4 32.7 44.3 32.3 45.7 31Z\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/>\n  <path d=\"M34.8 38.4L42.2 45.8C42.9 46.5 44.1 46.5 44.8 45.8L45.8 44.8C46.5 44.1 46.5 42.9 45.8 42.2L38.4 34.8\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/>\n</svg>",
+            "icon_primary_color": "#FF7254",
+            "icon_soft_color": "#FF937D",
+            "icon_line_color": "#FFFFFF",
+            "card_bg_color": "#F8F9FC"
+          }
+        },
+        {
+          "type": "stat_item",
+          "settings": {
+            "value_desktop": "300+",
+            "value_mobile": "300+",
+            "label_desktop": "Authorized Patents",
+            "label_mobile": "Authorized Patents",
+            "icon_svg_html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 70 70\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\">\n  <rect x=\"9\" y=\"11\" width=\"39\" height=\"29\" rx=\"6\" fill=\"currentColor\"/>\n  <rect x=\"13\" y=\"15\" width=\"42\" height=\"32\" rx=\"8\" fill=\"var(--wip-icon-soft-color)\" fill-opacity=\"0.42\"/>\n  <path d=\"M20 25H40\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>\n  <path d=\"M20 33H31.5\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>\n  <path d=\"M40 44H52V52C52 53.6 50.3 54.5 49 53.7L46.5 52.3C46.2 52.1 45.8 52.1 45.5 52.3L43 53.7C41.7 54.5 40 53.6 40 52V44Z\" fill=\"var(--wip-icon-soft-color)\" fill-opacity=\"0.5\"/>\n  <circle cx=\"46\" cy=\"38\" r=\"11\" fill=\"currentColor\"/>\n  <circle cx=\"46\" cy=\"38\" r=\"4.75\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\"/>\n</svg>",
+            "icon_primary_color": "#3FA9FF",
+            "icon_soft_color": "#3FA9FF",
+            "icon_line_color": "#FFFFFF",
+            "card_bg_color": "#F8F9FC"
+          }
+        },
+        {
+          "type": "stat_item",
+          "settings": {
+            "value_desktop": "10+",
+            "value_mobile": "10+",
+            "label_desktop": "Worldwide Logistics",
+            "label_mobile": "Worldwide Logistics",
+            "icon_svg_html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 70 70\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\">\n  <rect x=\"9\" y=\"9\" width=\"36\" height=\"36\" rx=\"8\" fill=\"currentColor\"/>\n  <rect x=\"14\" y=\"14\" width=\"42\" height=\"42\" rx=\"10\" fill=\"var(--wip-icon-soft-color)\" fill-opacity=\"0.42\"/>\n  <path d=\"M23.4 40.4L27.4 40.8C28 40.9 28.5 41.5 28.6 42.1L29 46C29.3 46.8 30.2 47.2 30.9 46.8L32.5 46C32.9 45.8 33.2 45.3 33.2 44.9L33.1 40.7C33.1 40.4 33.3 40 33.5 39.8L35.8 37.5C36.3 36.9 37 37.1 37.3 37.8L39.9 44C40.3 45 41.3 45.2 42 44.5L43.2 43.3C43.8 42.7 44 41.5 43.6 40.7L40.6 33.4C40.5 33.1 40.6 32.7 40.8 32.5L43.4 29.9C44.2 29 44.6 27.4 44.2 26.2C44 25.8 43.7 25.5 43.3 25.3C42.1 24.9 40.5 25.3 39.6 26.1L37 28.7C36.8 28.9 36.4 29 36.1 28.9L28.8 25.9C28 25.5 26.8 25.7 26.2 26.3L25 27.5C24.3 28.2 24.5 29.2 25.5 29.6L31.7 32.2C32.4 32.5 32.6 33.2 32 33.7L29.7 36C29.5 36.2 29.1 36.4 28.8 36.4L24.6 36.2C24.2 36.2 23.6 36.6 23.4 37L22.7 38.6C22.3 39.3 22.7 40.2 23.4 40.4Z\" stroke=\"var(--wip-icon-line-color)\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>",
+            "icon_primary_color": "#96DF15",
+            "icon_soft_color": "#D8FA9C",
+            "icon_line_color": "#FFFFFF",
+            "card_bg_color": "#F8F9FC"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

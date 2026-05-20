@@ -746,11 +746,33 @@
                             {%- liquid
                               assign image_index = 'tab_image_' | append: forloop.index
                               assign tab_image = section.settings[image_index]
+
+                              if section.settings.sub_category_filter_id == 'machine_category'
+                                assign machine_category_label = value.label | strip | downcase
+                                case machine_category_label
+                                  when 'k13 lite white'
+                                    assign tab_image = section.settings.tab_image_1
+                                  when 'k13 lite pink'
+                                    assign tab_image = section.settings.tab_image_2
+                                  when 'p13 series'
+                                    assign tab_image = section.settings.tab_image_3
+                                  when 'f13 pro series'
+                                    assign tab_image = section.settings.tab_image_4
+                                  when 'f13 series'
+                                    assign tab_image = section.settings.tab_image_5
+                                  when 'f8 series'
+                                    assign tab_image = section.settings.tab_image_6
+                                  when 'k13 pink'
+                                    assign tab_image = section.settings.tab_image_7
+                                  when 'k13 white'
+                                    assign tab_image = section.settings.tab_image_8
+                                endcase
+                              endif
                             -%}
                             <div
                               data-index="{{ forloop.index0 }}"
                               data-label="{{ value.label }}"
-                              class="collection-tab {% if forloop.first -%} active {%- endif -%}"
+                              class="collection-tab"
                             >
                               <input
                                 class=" tab-radio-trigger"
@@ -808,25 +830,30 @@
                               // 自动选中第一个未选中未禁用的tab
                               // 判断url里是否含有参数
                               const urlParams = new URLSearchParams(window.location.search);
-                              if (Array.from(urlParams.keys()).length > 0) {
-                                console.log('URL中包含参数:', window.location.search);
-                                // 遍历所有tab，若url参数匹配data-label则激活对应tab
-                                // 修正: URL参数中的+号处理为空格便于匹配
+                              const tabSearchParamName = {{ sub_category_filter_name | json }};
+                              const tabSearchValue = urlParams.get(tabSearchParamName);
+                              if (tabSearchValue) {
+                                const normalizedSearchValue = tabSearchValue.replace(/\+/g, ' ');
+                                let matchedTab = false;
                                 document
                                   .querySelectorAll('.main-collection-section-' + sectionId + ' .collection-tab')
                                   .forEach(function (tab) {
-                                    tab.classList.remove('active');
                                     const dataLabel = tab.getAttribute('data-label');
-                                    // 获取第一个URL参数值（去除?），将+替换为空格
-                                    let searchValue = window.location.search.replace(/^\?/, '');
-                                    searchValue = decodeURIComponent(searchValue.replace(/\+/g, ' '));
-                                    console.log('searchValue==',searchValue);
-                                    console.log('dataLabel==',dataLabel);
-                                    if (dataLabel && searchValue && searchValue.includes(dataLabel)) {
-                                      tab.classList.add('active');
+                                    const isActiveTab = dataLabel === normalizedSearchValue;
+
+                                    tab.classList.toggle('active', isActiveTab);
+                                    if (isActiveTab) {
+                                      matchedTab = true;
                                     }
                                   });
-                              }else{
+
+                                if (!matchedTab) {
+                                  const firstTab = document.querySelector('.main-collection-section-' + sectionId + ' .collection-tab');
+                                  if (firstTab) {
+                                    firstTab.classList.add('active');
+                                  }
+                                }
+                              } else {
                                 const firstRadio = document.querySelector('.tab-radio-trigger[data-tab-default="true"]');
                                 if (firstRadio && !firstRadio.checked && !firstRadio.disabled) {
                                   {% comment %} firstRadio.click(); {% endcomment %}

@@ -1,0 +1,2348 @@
+{% liquid
+  assign hw_default_type = ''
+  assign hw_first_type = ''
+
+  for block in section.blocks
+    if block.type == 'tab'
+      assign hw_tab_key = block.settings.tab_key | default: block.id | handleize
+
+      if hw_first_type == blank
+        assign hw_first_type = hw_tab_key
+      endif
+
+      if block.settings.default_active
+        assign hw_default_type = hw_tab_key
+      endif
+    endif
+  endfor
+
+  if hw_default_type == blank
+    assign hw_default_type = hw_first_type
+  endif
+%}
+
+<style>
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} {
+    --hw-color-bg: {{ section.settings.color_bg }};
+    --hw-color-title: {{ section.settings.color_title }};
+    --hw-color-desc: {{ section.settings.color_desc }};
+    --hw-color-media-bg: {{ section.settings.color_media_bg }};
+    --hw-color-nav-bg: {{ section.settings.color_nav_bg }};
+    --hw-color-nav-text: {{ section.settings.color_nav_text }};
+    --hw-color-nav-active-text: {{ section.settings.color_nav_active_text }};
+    --hw-color-nav-indicator: {{ section.settings.color_nav_indicator }};
+    --hw-color-step-text: {{ section.settings.color_step_text }};
+    --hw-color-step-active-text: {{ section.settings.color_step_active_text }};
+    --hw-color-step-line: {{ section.settings.color_step_line }};
+    --hw-color-step-active-line: {{ section.settings.color_step_active_line }};
+    --hw-color-info: {{ section.settings.color_info }};
+
+    width: 100%;
+    background-color: var(--hw-color-bg);
+    padding-top: clamp(calc({{ section.settings.padding_top_pc }}px * 0.667), calc(100vw * {{ section.settings.padding_top_pc }} / 1920), calc({{ section.settings.padding_top_pc }}px * 2));
+    padding-bottom: clamp(calc({{ section.settings.padding_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.padding_bottom_pc }} / 1920), calc({{ section.settings.padding_bottom_pc }}px * 2));
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} *,
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} *::before,
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} *::after {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__container {
+    max-width: clamp(calc({{ section.settings.container_max_width_pc }}px * 0.667), calc(100vw * {{ section.settings.container_max_width_pc }} / 1920), calc({{ section.settings.container_max_width_pc }}px * 2));
+    margin: 0 auto;
+    padding-left: clamp(calc({{ section.settings.container_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.container_padding_x_pc }} / 1920), calc({{ section.settings.container_padding_x_pc }}px * 2));
+    padding-right: clamp(calc({{ section.settings.container_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.container_padding_x_pc }} / 1920), calc({{ section.settings.container_padding_x_pc }}px * 2));
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__header {
+    text-align: center;
+    margin-bottom: clamp(calc({{ section.settings.header_margin_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.header_margin_bottom_pc }} / 1920), calc({{ section.settings.header_margin_bottom_pc }}px * 2));
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__title {
+    color: var(--hw-color-title);
+    text-align: center;
+    font-size: clamp(calc({{ section.settings.title_size_pc }}px * 0.667), calc(100vw * {{ section.settings.title_size_pc }} / 1920), calc({{ section.settings.title_size_pc }}px * 2));
+    font-weight: {{ section.settings.title_weight }};
+    line-height: {{ section.settings.title_line_height | divided_by: 100.0 }};
+    margin: 0 0 clamp(calc({{ section.settings.title_margin_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.title_margin_bottom_pc }} / 1920), calc({{ section.settings.title_margin_bottom_pc }}px * 2));
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__desc {
+    color: var(--hw-color-desc);
+    text-align: center;
+    font-size: clamp(calc({{ section.settings.desc_size_pc }}px * 0.667), calc(100vw * {{ section.settings.desc_size_pc }} / 1920), calc({{ section.settings.desc_size_pc }}px * 2));
+    font-weight: {{ section.settings.desc_weight }};
+    line-height: {{ section.settings.desc_line_height | divided_by: 100.0 }};
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__title p,
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__desc p,
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__info p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__text-mobile {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__text-pc {
+    display: contents;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__nav-main {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: clamp(calc({{ section.settings.nav_gap_pc }}px * 0.667), calc(100vw * {{ section.settings.nav_gap_pc }} / 1920), calc({{ section.settings.nav_gap_pc }}px * 2));
+    width: fit-content;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: clamp(calc({{ section.settings.nav_margin_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.nav_margin_bottom_pc }} / 1920), calc({{ section.settings.nav_margin_bottom_pc }}px * 2));
+    background: var(--hw-color-nav-bg);
+    border-radius: clamp(calc({{ section.settings.nav_radius_pc }}px * 0.667), calc(100vw * {{ section.settings.nav_radius_pc }} / 1920), calc({{ section.settings.nav_radius_pc }}px * 2));
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .nav-main__btn {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 auto;
+    min-height: clamp(calc({{ section.settings.nav_btn_min_height_pc }}px * 0.667), calc(100vw * {{ section.settings.nav_btn_min_height_pc }} / 1920), calc({{ section.settings.nav_btn_min_height_pc }}px * 2));
+    padding: clamp(calc({{ section.settings.nav_padding_y_pc }}px * 0.667), calc(100vw * {{ section.settings.nav_padding_y_pc }} / 1920), calc({{ section.settings.nav_padding_y_pc }}px * 2)) clamp(calc({{ section.settings.nav_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.nav_padding_x_pc }} / 1920), calc({{ section.settings.nav_padding_x_pc }}px * 2));
+    border: 0;
+    outline: 0;
+    border-radius: clamp(calc({{ section.settings.nav_radius_pc }}px * 0.667), calc(100vw * {{ section.settings.nav_radius_pc }} / 1920), calc({{ section.settings.nav_radius_pc }}px * 2));
+    background: transparent;
+    color: var(--hw-color-nav-text);
+    cursor: pointer;
+    font-size: clamp(calc({{ section.settings.nav_font_size_pc }}px * 0.667), calc(100vw * {{ section.settings.nav_font_size_pc }} / 1920), calc({{ section.settings.nav_font_size_pc }}px * 2));
+    font-weight: {{ section.settings.nav_font_weight }};
+    line-height: 1;
+    white-space: nowrap;
+    transition: color 0.35s ease, font-weight 0.35s ease;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .nav-main__btn.is-active {
+    color: var(--hw-color-nav-active-text);
+    font-weight: {{ section.settings.nav_active_font_weight }};
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .nav-main__indicator {
+    position: absolute;
+    z-index: 1;
+    background: var(--hw-color-nav-indicator);
+    border-radius: clamp(calc({{ section.settings.nav_radius_pc }}px * 0.667), calc(100vw * {{ section.settings.nav_radius_pc }} / 1920), calc({{ section.settings.nav_radius_pc }}px * 2));
+    opacity: 0;
+    pointer-events: none;
+    transition: left 0.45s cubic-bezier(0.23, 1, 0.32, 1), top 0.45s cubic-bezier(0.23, 1, 0.32, 1), width 0.45s cubic-bezier(0.23, 1, 0.32, 1), height 0.45s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.2s ease;
+    will-change: left, top, width, height;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(calc({{ section.settings.side_width_pc }}px * 0.667), calc(100vw * {{ section.settings.side_width_pc }} / 1920), calc({{ section.settings.side_width_pc }}px * 2));
+    gap: clamp(calc({{ section.settings.content_gap_pc }}px * 0.667), calc(100vw * {{ section.settings.content_gap_pc }} / 1920), calc({{ section.settings.content_gap_pc }}px * 2));
+    align-items: flex-start;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__display {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--hw-active-media-aspect-ratio, {{ section.settings.media_aspect_ratio }});
+    background-color: var(--hw-color-media-bg);
+    border-radius: clamp(calc({{ section.settings.media_radius_pc }}px * 0.667), calc(100vw * {{ section.settings.media_radius_pc }} / 1920), calc({{ section.settings.media_radius_pc }}px * 2));
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__media-item {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity {{ section.settings.media_fade_duration }}ms ease, visibility {{ section.settings.media_fade_duration }}ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__media-item.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__picture,
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__img,
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__video,
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__img,
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__video {
+    object-fit: {{ section.settings.media_object_fit }};
+    object-position: {{ section.settings.media_object_position }};
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__svg svg {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__side {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__steps {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-top: clamp(calc({{ section.settings.steps_margin_top_pc }}px * 0.667), calc(100vw * {{ section.settings.steps_margin_top_pc }} / 1920), calc({{ section.settings.steps_margin_top_pc }}px * 2));
+    margin-bottom: clamp(calc({{ section.settings.steps_margin_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.steps_margin_bottom_pc }} / 1920), calc({{ section.settings.steps_margin_bottom_pc }}px * 2));
+    padding-left: clamp(calc({{ section.settings.steps_padding_left_pc }}px * 0.667), calc(100vw * {{ section.settings.steps_padding_left_pc }} / 1920), calc({{ section.settings.steps_padding_left_pc }}px * 2));
+    border-left: clamp(calc({{ section.settings.step_track_thickness_pc }}px * 0.667), calc(100vw * {{ section.settings.step_track_thickness_pc }} / 1920), calc({{ section.settings.step_track_thickness_pc }}px * 2)) solid var(--hw-color-step-line);
+    overflow: visible;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__steps::before,
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__steps::after {
+    content: none;
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .step-item {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 auto;
+    margin: 0;
+    margin-left: calc((clamp(calc({{ section.settings.steps_padding_left_pc }}px * 0.667), calc(100vw * {{ section.settings.steps_padding_left_pc }} / 1920), calc({{ section.settings.steps_padding_left_pc }}px * 2)) + clamp(calc({{ section.settings.step_track_thickness_pc }}px * 0.667), calc(100vw * {{ section.settings.step_track_thickness_pc }} / 1920), calc({{ section.settings.step_track_thickness_pc }}px * 2))) * -1);
+    padding: clamp(calc({{ section.settings.step_padding_y_pc }}px * 0.667), calc(100vw * {{ section.settings.step_padding_y_pc }} / 1920), calc({{ section.settings.step_padding_y_pc }}px * 2)) 0 clamp(calc({{ section.settings.step_padding_y_pc }}px * 0.667), calc(100vw * {{ section.settings.step_padding_y_pc }} / 1920), calc({{ section.settings.step_padding_y_pc }}px * 2)) clamp(calc({{ section.settings.steps_padding_left_pc }}px * 0.667), calc(100vw * {{ section.settings.steps_padding_left_pc }} / 1920), calc({{ section.settings.steps_padding_left_pc }}px * 2));
+    border: 0;
+    border-left: clamp(calc({{ section.settings.step_active_thickness_pc }}px * 0.667), calc(100vw * {{ section.settings.step_active_thickness_pc }} / 1920), calc({{ section.settings.step_active_thickness_pc }}px * 2)) solid transparent;
+    background: transparent;
+    color: var(--hw-color-step-text);
+    cursor: pointer;
+    font-size: clamp(calc({{ section.settings.step_font_size_pc }}px * 0.667), calc(100vw * {{ section.settings.step_font_size_pc }} / 1920), calc({{ section.settings.step_font_size_pc }}px * 2));
+    font-weight: {{ section.settings.step_font_weight }};
+    line-height: {{ section.settings.step_line_height | divided_by: 100.0 }};
+    text-align: left;
+    white-space: nowrap;
+    transition: color 0.3s ease, font-weight 0.3s ease, border-color 0.3s ease;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .step-item.is-active {
+    color: var(--hw-color-step-active-text);
+    border-left-color: var(--hw-color-step-active-line);
+    font-weight: {{ section.settings.step_active_font_weight }};
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .step-item::before,
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .step-item::after {
+    content: none;
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__info {
+    color: var(--hw-color-info);
+    font-size: clamp(calc({{ section.settings.info_font_size_pc }}px * 0.667), calc(100vw * {{ section.settings.info_font_size_pc }} / 1920), calc({{ section.settings.info_font_size_pc }}px * 2));
+    font-weight: {{ section.settings.info_font_weight }};
+    line-height: {{ section.settings.info_line_height | divided_by: 100.0 }};
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__info.is-changing {
+    opacity: 0;
+    transform: translateY(clamp(calc(10px * 0.667), calc(100vw * 10 / 1920), calc(10px * 2)));
+  }
+
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} {
+      padding-top: clamp(calc({{ section.settings.padding_top_mobile }}px * 0.85), calc(100vw * {{ section.settings.padding_top_mobile }} / 375), calc({{ section.settings.padding_top_mobile }}px * 1.15));
+      padding-bottom: clamp(calc({{ section.settings.padding_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.padding_bottom_mobile }} / 375), calc({{ section.settings.padding_bottom_mobile }}px * 1.15));
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__container {
+      max-width: 100%;
+      padding-left: clamp(calc({{ section.settings.container_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.container_padding_x_mobile }} / 375), calc({{ section.settings.container_padding_x_mobile }}px * 1.15));
+      padding-right: clamp(calc({{ section.settings.container_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.container_padding_x_mobile }} / 375), calc({{ section.settings.container_padding_x_mobile }}px * 1.15));
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__header {
+      margin-bottom: clamp(calc({{ section.settings.header_margin_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.header_margin_bottom_mobile }} / 375), calc({{ section.settings.header_margin_bottom_mobile }}px * 1.15));
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__title {
+      font-size: clamp(calc({{ section.settings.title_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.title_size_mobile }} / 375), calc({{ section.settings.title_size_mobile }}px * 1.15));
+      line-height: {{ section.settings.title_line_height_mobile | divided_by: 100.0 }};
+      margin-bottom: clamp(calc({{ section.settings.title_margin_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.title_margin_bottom_mobile }} / 375), calc({{ section.settings.title_margin_bottom_mobile }}px * 1.15));
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__desc {
+      font-size: clamp(calc({{ section.settings.desc_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.desc_size_mobile }} / 375), calc({{ section.settings.desc_size_mobile }}px * 1.15));
+      line-height: {{ section.settings.desc_line_height_mobile | divided_by: 100.0 }};
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__text-pc {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__text-mobile {
+      display: contents;
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__nav-main {
+      width: 100%;
+      gap: clamp(calc({{ section.settings.nav_gap_mobile }}px * 0.85), calc(100vw * {{ section.settings.nav_gap_mobile }} / 375), calc({{ section.settings.nav_gap_mobile }}px * 1.15));
+      justify-content: center;
+      margin-bottom: clamp(calc({{ section.settings.nav_margin_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.nav_margin_bottom_mobile }} / 375), calc({{ section.settings.nav_margin_bottom_mobile }}px * 1.15));
+      border-radius: clamp(calc({{ section.settings.nav_radius_mobile }}px * 0.85), calc(100vw * {{ section.settings.nav_radius_mobile }} / 375), calc({{ section.settings.nav_radius_mobile }}px * 1.15));
+      overflow-x: hidden;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__nav-main.is-overflowing {
+      justify-content: flex-start;
+      overflow-x: auto;
+      scrollbar-width: none;
+      touch-action: pan-x;
+      overscroll-behavior-x: contain;
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__nav-main.is-overflowing::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .nav-main__btn {
+      min-height: clamp(calc({{ section.settings.nav_btn_min_height_mobile }}px * 0.85), calc(100vw * {{ section.settings.nav_btn_min_height_mobile }} / 375), calc({{ section.settings.nav_btn_min_height_mobile }}px * 1.15));
+      padding: clamp(calc({{ section.settings.nav_padding_y_mobile }}px * 0.85), calc(100vw * {{ section.settings.nav_padding_y_mobile }} / 375), calc({{ section.settings.nav_padding_y_mobile }}px * 1.15)) clamp(calc({{ section.settings.nav_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.nav_padding_x_mobile }} / 375), calc({{ section.settings.nav_padding_x_mobile }}px * 1.15));
+      border-radius: clamp(calc({{ section.settings.nav_radius_mobile }}px * 0.85), calc(100vw * {{ section.settings.nav_radius_mobile }} / 375), calc({{ section.settings.nav_radius_mobile }}px * 1.15));
+      font-size: clamp(calc({{ section.settings.nav_font_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.nav_font_size_mobile }} / 375), calc({{ section.settings.nav_font_size_mobile }}px * 1.15));
+      font-weight: {{ section.settings.nav_font_weight_mobile }};
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .nav-main__btn.is-active {
+      font-weight: {{ section.settings.nav_active_font_weight_mobile }};
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .nav-main__indicator {
+      border-radius: clamp(calc({{ section.settings.nav_radius_mobile }}px * 0.85), calc(100vw * {{ section.settings.nav_radius_mobile }} / 375), calc({{ section.settings.nav_radius_mobile }}px * 1.15));
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__content {
+      grid-template-columns: minmax(0, 1fr);
+      gap: clamp(calc({{ section.settings.content_gap_mobile }}px * 0.85), calc(100vw * {{ section.settings.content_gap_mobile }} / 375), calc({{ section.settings.content_gap_mobile }}px * 1.15));
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__display {
+      aspect-ratio: var(--hw-active-media-aspect-ratio, {{ section.settings.media_aspect_ratio_mobile }});
+      border-radius: clamp(calc({{ section.settings.media_radius_mobile }}px * 0.85), calc(100vw * {{ section.settings.media_radius_mobile }} / 375), calc({{ section.settings.media_radius_mobile }}px * 1.15));
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__steps {
+      width: 100%;
+      flex-direction: row;
+      justify-content: center;
+      gap: clamp(calc({{ section.settings.steps_gap_mobile }}px * 0.85), calc(100vw * {{ section.settings.steps_gap_mobile }} / 375), calc({{ section.settings.steps_gap_mobile }}px * 1.15));
+      margin-top: clamp(calc({{ section.settings.steps_margin_top_mobile }}px * 0.85), calc(100vw * {{ section.settings.steps_margin_top_mobile }} / 375), calc({{ section.settings.steps_margin_top_mobile }}px * 1.15));
+      margin-bottom: clamp(calc({{ section.settings.steps_margin_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.steps_margin_bottom_mobile }} / 375), calc({{ section.settings.steps_margin_bottom_mobile }}px * 1.15));
+      padding-left: 0;
+      padding-top: 0;
+      border-left: 0;
+      border-top: clamp(calc({{ section.settings.step_track_thickness_mobile }}px * 0.85), calc(100vw * {{ section.settings.step_track_thickness_mobile }} / 375), calc({{ section.settings.step_track_thickness_mobile }}px * 1.15)) solid var(--hw-color-step-line);
+      overflow-x: hidden;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__steps.is-overflowing {
+      justify-content: flex-start;
+      overflow-x: auto;
+      scrollbar-width: none;
+      touch-action: pan-x;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x proximity;
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__steps.is-overflowing::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .step-item {
+      margin-left: 0;
+      margin-top: calc(clamp(calc({{ section.settings.step_track_thickness_mobile }}px * 0.85), calc(100vw * {{ section.settings.step_track_thickness_mobile }} / 375), calc({{ section.settings.step_track_thickness_mobile }}px * 1.15)) * -1);
+      padding: clamp(calc({{ section.settings.step_padding_top_mobile }}px * 0.85), calc(100vw * {{ section.settings.step_padding_top_mobile }} / 375), calc({{ section.settings.step_padding_top_mobile }}px * 1.15)) 0 0;
+      border-left: 0;
+      border-top: clamp(calc({{ section.settings.step_active_thickness_mobile }}px * 0.85), calc(100vw * {{ section.settings.step_active_thickness_mobile }} / 375), calc({{ section.settings.step_active_thickness_mobile }}px * 1.15)) solid transparent;
+      color: var(--hw-color-step-text);
+      font-size: clamp(calc({{ section.settings.step_font_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.step_font_size_mobile }} / 375), calc({{ section.settings.step_font_size_mobile }}px * 1.15));
+      font-weight: {{ section.settings.step_font_weight_mobile }};
+      line-height: {{ section.settings.step_line_height_mobile | divided_by: 100.0 }};
+      scroll-snap-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .step-item.is-active {
+      border-top-color: var(--hw-color-step-active-line);
+      border-left-color: transparent;
+      font-weight: {{ section.settings.step_active_font_weight_mobile }};
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__info {
+      font-size: clamp(calc({{ section.settings.info_font_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.info_font_size_mobile }} / 375), calc({{ section.settings.info_font_size_mobile }}px * 1.15));
+      line-height: {{ section.settings.info_line_height_mobile | divided_by: 100.0 }};
+      min-height: auto;
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__info.is-changing {
+      transform: translateY(clamp(calc(10px * 0.85), calc(100vw * 10 / 375), calc(10px * 1.15)));
+    }
+  }
+</style>
+
+<div class="how-works how-works--{{ section.id }}" data-how-works-section="{{ section.id }}">
+  <div class="how-works__container">
+    <div class="how-works__header">
+      <div class="how-works__title">
+        <span class="how-works__text-pc">{{ section.settings.title_pc_html }}</span>
+        <span class="how-works__text-mobile">
+          {% if section.settings.title_mobile_html != blank %}
+            {{ section.settings.title_mobile_html }}
+          {% else %}
+            {{ section.settings.title_pc_html }}
+          {% endif %}
+        </span>
+      </div>
+
+      <div class="how-works__desc">
+        <span class="how-works__text-pc">{{ section.settings.desc_pc_html }}</span>
+        <span class="how-works__text-mobile">
+          {% if section.settings.desc_mobile_html != blank %}
+            {{ section.settings.desc_mobile_html }}
+          {% else %}
+            {{ section.settings.desc_pc_html }}
+          {% endif %}
+        </span>
+      </div>
+    </div>
+
+    <div class="how-works__nav-main" id="HowWorksNavMain-{{ section.id }}">
+      <div class="nav-main__indicator" id="HowWorksNavIndicator-{{ section.id }}"></div>
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'tab' -%}
+          {%- liquid
+            assign tab_key = block.settings.tab_key | default: block.id | handleize
+            capture tab_title_pc
+              echo block.settings.title_pc_html
+            endcapture
+            capture tab_title_mobile
+              echo block.settings.title_mobile_html
+            endcapture
+          -%}
+          <button
+            type="button"
+            class="nav-main__btn{% if tab_key == hw_default_type %} is-active{% endif %}"
+            data-type="{{ tab_key | escape }}"
+            aria-pressed="{% if tab_key == hw_default_type %}true{% else %}false{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            <span class="how-works__text-pc">{{ tab_title_pc }}</span>
+            <span class="how-works__text-mobile">
+              {%- if tab_title_mobile != blank -%}{{ tab_title_mobile }}{%- else -%}{{ tab_title_pc }}{%- endif -%}
+            </span>
+          </button>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="how-works__content">
+      <div class="how-works__display" id="HowWorksMediaDisplay-{{ section.id }}" aria-live="polite"></div>
+
+      <div class="how-works__side">
+        <div class="how-works__steps" id="HowWorksStepContainer-{{ section.id }}"></div>
+        <div class="how-works__info" id="HowWorksInfoText-{{ section.id }}"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" data-how-works-config>
+    {
+      "defaultType": {{ hw_default_type | json }},
+      "videoLoop": {{ section.settings.video_loop | json }},
+      "scrollSafePadding": {{ section.settings.mobile_scroll_safe_padding | json }},
+      "infoDelay": {{ section.settings.info_change_delay | json }},
+      "fallbackAspectPc": {{ section.settings.media_aspect_ratio | json }},
+      "fallbackAspectMobile": {{ section.settings.media_aspect_ratio_mobile | json }},
+      "tabs": [
+        {%- assign first_tab_json = true -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'tab' -%}
+            {%- liquid
+              assign tab_key = block.settings.tab_key | default: block.id | handleize
+              capture tab_title_pc_json
+                echo block.settings.title_pc_html
+              endcapture
+              capture tab_title_mobile_json
+                echo block.settings.title_mobile_html
+              endcapture
+              assign tab_title_text = tab_title_pc_json | strip_html | strip
+            -%}
+            {%- unless first_tab_json -%},{%- endunless -%}
+            {
+              "key": {{ tab_key | json }},
+              "titlePc": {{ tab_title_pc_json | json }},
+              "titleMobile": {{ tab_title_mobile_json | json }},
+              "titleText": {{ tab_title_text | json }},
+              "active": {{ block.settings.default_active | json }}
+            }
+            {%- assign first_tab_json = false -%}
+          {%- endif -%}
+        {%- endfor -%}
+      ],
+      "steps": [
+        {%- assign first_step_json = true -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'step' -%}
+            {%- liquid
+              assign step_group_key = block.settings.tab_key | default: hw_default_type | handleize
+
+              capture step_label_pc_json
+                echo block.settings.label_pc_html
+              endcapture
+
+              capture step_label_mobile_json
+                echo block.settings.label_mobile_html
+              endcapture
+
+              capture step_info_pc_json
+                echo block.settings.info_pc_html
+              endcapture
+
+              capture step_info_mobile_json
+                echo block.settings.info_mobile_html
+              endcapture
+
+              capture step_svg_pc_json
+                echo block.settings.svg_pc_html
+              endcapture
+
+              capture step_svg_mobile_json
+                echo block.settings.svg_mobile_html
+              endcapture
+
+              assign step_label_text = step_label_pc_json | strip_html | strip
+
+              assign image_pc_aspect = 0
+              if block.settings.image_pc != blank and block.settings.image_pc.aspect_ratio != blank
+                assign image_pc_aspect = block.settings.image_pc.aspect_ratio
+              endif
+
+              assign image_mobile_aspect = 0
+              if block.settings.image_mobile != blank and block.settings.image_mobile.aspect_ratio != blank
+                assign image_mobile_aspect = block.settings.image_mobile.aspect_ratio
+              endif
+
+              assign poster_pc_aspect = 0
+              if block.settings.video_poster_pc != blank and block.settings.video_poster_pc.aspect_ratio != blank
+                assign poster_pc_aspect = block.settings.video_poster_pc.aspect_ratio
+              endif
+
+              assign poster_mobile_aspect = 0
+              if block.settings.video_poster_mobile != blank and block.settings.video_poster_mobile.aspect_ratio != blank
+                assign poster_mobile_aspect = block.settings.video_poster_mobile.aspect_ratio
+              endif
+
+              assign image_pc_url = ''
+              if block.settings.image_pc != blank
+                assign image_pc_url = block.settings.image_pc | image_url: width: 2400
+              elsif block.settings.image_url_pc != blank
+                assign image_pc_url = block.settings.image_url_pc
+              endif
+
+              assign image_mobile_url = ''
+              if block.settings.image_mobile != blank
+                assign image_mobile_url = block.settings.image_mobile | image_url: width: 1400
+              elsif block.settings.image_url_mobile != blank
+                assign image_mobile_url = block.settings.image_url_mobile
+              endif
+
+              assign poster_pc_url = ''
+              if block.settings.video_poster_pc != blank
+                assign poster_pc_url = block.settings.video_poster_pc | image_url: width: 2400
+              elsif block.settings.video_poster_url_pc != blank
+                assign poster_pc_url = block.settings.video_poster_url_pc
+              endif
+
+              assign poster_mobile_url = ''
+              if block.settings.video_poster_mobile != blank
+                assign poster_mobile_url = block.settings.video_poster_mobile | image_url: width: 1400
+              elsif block.settings.video_poster_url_mobile != blank
+                assign poster_mobile_url = block.settings.video_poster_url_mobile
+              endif
+            -%}
+            {%- unless first_step_json -%},{%- endunless -%}
+            {
+              "groupKey": {{ step_group_key | json }},
+              "labelPc": {{ step_label_pc_json | json }},
+              "labelMobile": {{ step_label_mobile_json | json }},
+              "labelText": {{ step_label_text | json }},
+              "infoPc": {{ step_info_pc_json | json }},
+              "infoMobile": {{ step_info_mobile_json | json }},
+              "mediaType": {{ block.settings.media_type | json }},
+              "imagePc": {{ image_pc_url | json }},
+              "imageMobile": {{ image_mobile_url | json }},
+              "imageAspectPc": {{ image_pc_aspect | json }},
+              "imageAspectMobile": {{ image_mobile_aspect | json }},
+              "imageAlt": {{ block.settings.image_alt | json }},
+              "videoPc": {{ block.settings.video_url_pc | json }},
+              "videoMobile": {{ block.settings.video_url_mobile | json }},
+              "posterPc": {{ poster_pc_url | json }},
+              "posterMobile": {{ poster_mobile_url | json }},
+              "posterAspectPc": {{ poster_pc_aspect | json }},
+              "posterAspectMobile": {{ poster_mobile_aspect | json }},
+              "svgPc": {{ step_svg_pc_json | json }},
+              "svgMobile": {{ step_svg_mobile_json | json }}
+            }
+            {%- assign first_step_json = false -%}
+          {%- endif -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+</div>
+
+<script>
+  (() => {
+    class HowWorksShowcase {
+      constructor(root) {
+        this.root = root;
+        this.config = this.readConfig();
+        this.tabs = Array.isArray(this.config.tabs) ? this.config.tabs : [];
+        this.steps = Array.isArray(this.config.steps) ? this.config.steps : [];
+        this.state = {
+          type: this.config.defaultType || (this.tabs[0] && this.tabs[0].key) || '',
+          step: 0
+        };
+        this.resizeTimer = null;
+
+        this.dom = {
+          navMain: this.root.querySelector('.how-works__nav-main'),
+          navIndicator: this.root.querySelector('.nav-main__indicator'),
+          navBtns: Array.from(this.root.querySelectorAll('.nav-main__btn')),
+          stepContainer: this.root.querySelector('.how-works__steps'),
+          mediaDisplay: this.root.querySelector('.how-works__display'),
+          infoText: this.root.querySelector('.how-works__info')
+        };
+
+        this.init();
+      }
+
+      readConfig() {
+        const configNode = this.root.querySelector('[data-how-works-config]');
+
+        if (!configNode) return {};
+
+        try {
+          return JSON.parse(configNode.textContent || '{}');
+        } catch (error) {
+          console.warn('How Works config parse failed:', error);
+          return {};
+        }
+      }
+
+      init() {
+        if (!this.dom.navMain || !this.dom.stepContainer || !this.dom.mediaDisplay || !this.dom.infoText) return;
+        if (!this.tabs.length) return;
+
+        this.bindNavEvents();
+        this.renderAll();
+
+        window.addEventListener('resize', () => {
+          window.clearTimeout(this.resizeTimer);
+          this.resizeTimer = window.setTimeout(() => {
+            this.refreshLayout();
+            this.updateActiveMediaAspectRatio();
+            this.refreshActiveVideoSource();
+          }, 80);
+        });
+      }
+
+      bindNavEvents() {
+        this.dom.navBtns.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const type = btn.getAttribute('data-type');
+
+            if (!type) return;
+
+            if (this.state.type === type) {
+              this.scrollElementIntoView(btn, this.dom.navMain);
+              return;
+            }
+
+            this.state.type = type;
+            this.state.step = 0;
+            this.renderAll();
+
+            requestAnimationFrame(() => {
+              this.scrollElementIntoView(btn, this.dom.navMain);
+            });
+          });
+        });
+      }
+
+      isMobile() {
+        return window.matchMedia('(max-width: 768px)').matches;
+      }
+
+      getViewportValue(pcValue, mobileValue) {
+        return this.isMobile() && mobileValue ? mobileValue : pcValue;
+      }
+
+      sanitizeAspectRatio(value) {
+        if (value === null || value === undefined || value === '') return '';
+
+        const numberValue = Number(value);
+        if (Number.isFinite(numberValue) && numberValue > 0) {
+          return `${numberValue} / 1`;
+        }
+
+        const stringValue = String(value).trim();
+        if (/^\d+(?:\.\d+)?\s*\/\s*\d+(?:\.\d+)?$/.test(stringValue)) {
+          return stringValue;
+        }
+
+        return '';
+      }
+
+      getFallbackAspectRatio() {
+        return this.sanitizeAspectRatio(this.isMobile() ? this.config.fallbackAspectMobile : this.config.fallbackAspectPc) || '16 / 10';
+      }
+
+      getItemAspectRatio(item) {
+        if (!item) return this.getFallbackAspectRatio();
+
+        const aspect = this.isMobile()
+          ? item.imageAspectMobile || item.posterAspectMobile || item.imageAspectPc || item.posterAspectPc
+          : item.imageAspectPc || item.posterAspectPc || item.imageAspectMobile || item.posterAspectMobile;
+
+        return this.sanitizeAspectRatio(aspect) || this.getFallbackAspectRatio();
+      }
+
+      setDisplayAspectRatio(aspectRatio) {
+        const safeAspectRatio = this.sanitizeAspectRatio(aspectRatio) || this.getFallbackAspectRatio();
+        this.dom.mediaDisplay.style.setProperty('--hw-active-media-aspect-ratio', safeAspectRatio);
+      }
+
+      updateActiveMediaAspectRatio() {
+        const steps = this.getCurrentSteps();
+        const activeItemData = steps[this.state.step];
+        const activeItem = this.dom.mediaDisplay.querySelector('.how-works__media-item.is-active');
+        const activeMedia = activeItem ? activeItem.querySelector('img, video') : null;
+
+        this.setDisplayAspectRatio(this.getItemAspectRatio(activeItemData));
+
+        if (!activeMedia) return;
+
+        this.updateDisplayAspectRatioFromMedia(activeMedia);
+      }
+
+      updateDisplayAspectRatioFromMedia(media) {
+        if (!media) return;
+
+        if (media.tagName === 'IMG' && media.naturalWidth && media.naturalHeight) {
+          this.setDisplayAspectRatio(`${media.naturalWidth} / ${media.naturalHeight}`);
+          return;
+        }
+
+        if (media.tagName === 'VIDEO' && media.videoWidth && media.videoHeight) {
+          this.setDisplayAspectRatio(`${media.videoWidth} / ${media.videoHeight}`);
+        }
+      }
+
+      getResponsiveHtml(pcHtml, mobileHtml) {
+        const pc = pcHtml || '';
+        const mobile = mobileHtml || pc;
+
+        return `<span class="how-works__text-pc">${pc}</span><span class="how-works__text-mobile">${mobile}</span>`;
+      }
+
+      getCurrentSteps() {
+        return this.steps.filter((item) => item.groupKey === this.state.type);
+      }
+
+      updateOverflowClass(container) {
+        if (!container) return false;
+
+        const isOverflowing = container.scrollWidth > container.clientWidth + 1;
+        container.classList.toggle('is-overflowing', isOverflowing);
+
+        if (!isOverflowing) {
+          container.scrollLeft = 0;
+        }
+
+        return isOverflowing;
+      }
+
+      refreshLayout() {
+        this.updateOverflowClass(this.dom.navMain);
+        this.updateOverflowClass(this.dom.stepContainer);
+
+        requestAnimationFrame(() => {
+          this.moveMainIndicator();
+          this.scrollActiveStepIntoView();
+        });
+      }
+
+      scrollElementIntoView(element, container) {
+        if (!element || !container) return;
+        if (!container.classList.contains('is-overflowing')) return;
+
+        const safePadding = Number(this.config.scrollSafePadding || 24);
+        const elementLeft = element.offsetLeft;
+        const elementRight = elementLeft + element.offsetWidth;
+        const visibleLeft = container.scrollLeft;
+        const visibleRight = visibleLeft + container.clientWidth;
+        let targetLeft = container.scrollLeft;
+
+        if (elementLeft < visibleLeft + safePadding) {
+          targetLeft = elementLeft - safePadding;
+        } else if (elementRight > visibleRight - safePadding) {
+          targetLeft = elementRight - container.clientWidth + safePadding;
+        }
+
+        const maxScrollLeft = Math.max(0, container.scrollWidth - container.clientWidth);
+
+        container.scrollTo({
+          left: Math.max(0, Math.min(targetLeft, maxScrollLeft)),
+          behavior: 'smooth'
+        });
+      }
+
+      scrollActiveStepIntoView() {
+        if (!this.isMobile()) return;
+
+        const activeStep = this.dom.stepContainer.querySelector('.step-item.is-active');
+        this.scrollElementIntoView(activeStep, this.dom.stepContainer);
+      }
+
+      moveMainIndicator() {
+        const activeBtn = this.dom.navBtns.find((btn) => btn.classList.contains('is-active'));
+
+        if (!activeBtn || !this.dom.navIndicator) return;
+
+        this.dom.navIndicator.style.opacity = '1';
+        this.dom.navIndicator.style.width = `${activeBtn.offsetWidth}px`;
+        this.dom.navIndicator.style.height = `${activeBtn.offsetHeight}px`;
+        this.dom.navIndicator.style.left = `${activeBtn.offsetLeft}px`;
+        this.dom.navIndicator.style.top = `${activeBtn.offsetTop}px`;
+      }
+
+      renderAll() {
+        this.renderNavState();
+        this.renderSteps();
+        this.renderMedia();
+        this.updateActiveMediaAspectRatio();
+        this.updateInfo(true);
+
+        requestAnimationFrame(() => {
+          this.refreshLayout();
+          this.playActiveMedia();
+        });
+      }
+
+      renderNavState() {
+        this.dom.navBtns.forEach((btn) => {
+          const isActive = btn.getAttribute('data-type') === this.state.type;
+          btn.classList.toggle('is-active', isActive);
+          btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+      }
+
+      renderSteps() {
+        const steps = this.getCurrentSteps();
+        this.dom.stepContainer.innerHTML = '';
+
+        if (!steps.length) return;
+
+        if (this.state.step >= steps.length) {
+          this.state.step = 0;
+        }
+
+        steps.forEach((item, index) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `step-item${index === this.state.step ? ' is-active' : ''}`;
+          btn.innerHTML = this.getResponsiveHtml(item.labelPc, item.labelMobile);
+          btn.setAttribute('aria-pressed', index === this.state.step ? 'true' : 'false');
+          btn.setAttribute('aria-label', item.labelText || `Step ${index + 1}`);
+
+          btn.addEventListener('click', () => {
+            this.switchStep(index, btn);
+          });
+
+          this.dom.stepContainer.appendChild(btn);
+        });
+      }
+
+      switchStep(index, btnElement) {
+        if (this.state.step === index) {
+          this.scrollElementIntoView(btnElement, this.dom.stepContainer);
+          return;
+        }
+
+        this.state.step = index;
+
+        const buttons = Array.from(this.dom.stepContainer.querySelectorAll('.step-item'));
+        buttons.forEach((btn, btnIndex) => {
+          const isActive = btnIndex === index;
+          btn.classList.toggle('is-active', isActive);
+          btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+
+        this.updateOverflowClass(this.dom.stepContainer);
+        this.scrollElementIntoView(btnElement, this.dom.stepContainer);
+        this.activateMedia(index);
+        this.updateInfo(false);
+      }
+
+      renderMedia() {
+        const steps = this.getCurrentSteps();
+        this.dom.mediaDisplay.innerHTML = '';
+
+        steps.forEach((item, index) => {
+          const wrapper = document.createElement('div');
+          wrapper.className = `how-works__media-item${index === this.state.step ? ' is-active' : ''}`;
+          wrapper.dataset.index = String(index);
+
+          if (item.mediaType === 'video') {
+            wrapper.appendChild(this.createVideo(item));
+          } else if (item.mediaType === 'svg_html') {
+            wrapper.appendChild(this.createSvg(item));
+          } else {
+            wrapper.appendChild(this.createImage(item));
+          }
+
+          this.dom.mediaDisplay.appendChild(wrapper);
+        });
+      }
+
+      createImage(item) {
+        const picture = document.createElement('picture');
+        const source = document.createElement('source');
+        const img = document.createElement('img');
+        const pcSrc = item.imagePc || item.imageMobile || '';
+        const mobileSrc = item.imageMobile || item.imagePc || '';
+
+        picture.className = 'how-works__picture';
+        source.media = '(max-width: 768px)';
+        source.dataset.srcset = mobileSrc;
+        img.className = 'how-works__img lazyload';
+        img.dataset.src = pcSrc;
+        img.alt = item.imageAlt || item.labelText || '';
+        img.loading = 'lazy';
+        img.decoding = 'async';
+
+        img.addEventListener('load', () => {
+          if (img.closest('.how-works__media-item.is-active')) {
+            this.updateDisplayAspectRatioFromMedia(img);
+          }
+        });
+
+        picture.appendChild(source);
+        picture.appendChild(img);
+
+        // 关键兜底：主题未加载 lazysizes 时，仍然使用原生 loading="lazy" 正常显示图片。
+        if (!window.lazySizes) {
+          if (mobileSrc) source.srcset = mobileSrc;
+          if (pcSrc) img.src = pcSrc;
+        }
+
+        return picture;
+      }
+
+      createVideo(item) {
+        const video = document.createElement('video');
+        const poster = this.getViewportValue(item.posterPc || item.posterMobile || '', item.posterMobile || item.posterPc || '');
+
+        video.className = 'how-works__video';
+        video.muted = true;
+        video.loop = Boolean(this.config.videoLoop);
+        video.playsInline = true;
+        video.preload = 'metadata';
+        video.addEventListener('loadedmetadata', () => {
+          if (video.closest('.how-works__media-item.is-active')) {
+            this.updateDisplayAspectRatioFromMedia(video);
+          }
+        });
+        video.dataset.srcPc = item.videoPc || item.videoMobile || '';
+        video.dataset.srcMobile = item.videoMobile || item.videoPc || '';
+
+        if (poster) {
+          video.poster = poster;
+        }
+
+        return video;
+      }
+
+      createSvg(item) {
+        const holder = document.createElement('div');
+        holder.className = 'how-works__svg';
+        holder.innerHTML = this.getResponsiveHtml(item.svgPc, item.svgMobile);
+        return holder;
+      }
+
+      activateMedia(index) {
+        const mediaItems = Array.from(this.dom.mediaDisplay.querySelectorAll('.how-works__media-item'));
+
+        mediaItems.forEach((item, itemIndex) => {
+          const video = item.querySelector('video');
+          const isActive = itemIndex === index;
+
+          item.classList.toggle('is-active', isActive);
+
+          if (!video) return;
+
+          if (isActive) {
+            this.ensureVideoSource(video);
+            video.currentTime = 0;
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+
+        this.updateActiveMediaAspectRatio();
+      }
+
+      playActiveMedia() {
+        const activeItem = this.dom.mediaDisplay.querySelector('.how-works__media-item.is-active');
+        const activeVideo = activeItem ? activeItem.querySelector('video') : null;
+
+        if (!activeVideo) return;
+
+        this.ensureVideoSource(activeVideo);
+        this.updateActiveMediaAspectRatio();
+        activeVideo.play().catch(() => {});
+      }
+
+      ensureVideoSource(video) {
+        if (!video) return;
+
+        const nextSrc = this.getViewportValue(video.dataset.srcPc || '', video.dataset.srcMobile || '');
+
+        if (!nextSrc || video.dataset.currentSrc === nextSrc) return;
+
+        video.pause();
+        video.src = nextSrc;
+        video.dataset.currentSrc = nextSrc;
+        video.load();
+      }
+
+      refreshActiveVideoSource() {
+        const activeItem = this.dom.mediaDisplay.querySelector('.how-works__media-item.is-active');
+        const activeVideo = activeItem ? activeItem.querySelector('video') : null;
+
+        if (!activeVideo) return;
+
+        this.ensureVideoSource(activeVideo);
+        this.updateActiveMediaAspectRatio();
+        activeVideo.play().catch(() => {});
+      }
+
+      updateInfo(isImmediate) {
+        const steps = this.getCurrentSteps();
+        const data = steps[this.state.step];
+
+        if (!data) {
+          this.dom.infoText.innerHTML = '';
+          return;
+        }
+
+        const nextHtml = this.getResponsiveHtml(data.infoPc, data.infoMobile);
+        const delay = isImmediate ? 0 : Number(this.config.infoDelay || 300);
+
+        this.dom.infoText.classList.add('is-changing');
+
+        window.setTimeout(() => {
+          this.dom.infoText.innerHTML = nextHtml;
+          this.dom.infoText.classList.remove('is-changing');
+        }, delay);
+      }
+    }
+
+    const initHowWorksSections = (scope = document) => {
+      scope.querySelectorAll('[data-how-works-section]').forEach((root) => {
+        if (root.dataset.howWorksInitialized === 'true') return;
+
+        root.dataset.howWorksInitialized = 'true';
+        new HowWorksShowcase(root);
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => initHowWorksSections());
+    } else {
+      initHowWorksSections();
+    }
+
+    document.addEventListener('shopify:section:load', (event) => {
+      initHowWorksSections(event.target);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "How Works 响应式步骤",
+  "tag": "section",
+  "class": "section-how-works",
+  "max_blocks": 50,
+  "settings": [
+    {
+      "type": "header",
+      "content": "内容文案"
+    },
+    {
+      "type": "html",
+      "id": "title_pc_html",
+      "label": "标题 HTML - PC",
+      "default": "<span>How it Works</span>"
+    },
+    {
+      "type": "html",
+      "id": "title_mobile_html",
+      "label": "标题 HTML - 移动端（留空回退 PC）",
+      "default": "<span>How it Works</span>"
+    },
+    {
+      "type": "html",
+      "id": "desc_pc_html",
+      "label": "副标题 HTML - PC",
+      "default": "<span>Simple, fast, and made for real production — no experience required.</span>"
+    },
+    {
+      "type": "html",
+      "id": "desc_mobile_html",
+      "label": "副标题 HTML - 移动端（留空回退 PC）",
+      "default": "<span>Simple, fast, and made for real production — no experience required.</span>"
+    },
+    {
+      "type": "checkbox",
+      "id": "video_loop",
+      "label": "视频循环播放",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "info_change_delay",
+      "min": 0,
+      "max": 800,
+      "step": 8,
+      "unit": "ms",
+      "label": "说明文案切换延迟",
+      "default": 296
+    },
+    {
+      "type": "header",
+      "content": "颜色配置"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "模块背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_title",
+      "label": "标题颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "color_desc",
+      "label": "副标题颜色",
+      "default": "#3d3d3d"
+    },
+    {
+      "type": "color",
+      "id": "color_media_bg",
+      "label": "素材容器背景色",
+      "default": "#f0f0f0"
+    },
+    {
+      "type": "color",
+      "id": "color_nav_bg",
+      "label": "顶部分类背景色",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "color_nav_text",
+      "label": "顶部分类文字颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "color_nav_active_text",
+      "label": "顶部分类激活文字颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_nav_indicator",
+      "label": "顶部分类激活背景色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "color_step_text",
+      "label": "步骤文字颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "color_step_active_text",
+      "label": "步骤激活文字颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "color_step_line",
+      "label": "步骤默认线条颜色",
+      "default": "#dddddd"
+    },
+    {
+      "type": "color",
+      "id": "color_step_active_line",
+      "label": "步骤激活线条颜色",
+      "default": "#e32e09"
+    },
+    {
+      "type": "color",
+      "id": "color_info",
+      "label": "说明文案颜色",
+      "default": "#3d3d3d"
+    },
+    {
+      "type": "header",
+      "content": "PC 间距 / 布局"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_pc",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "模块上边距 - PC",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_pc",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "label": "模块下边距 - PC",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "container_max_width_pc",
+      "min": 768,
+      "max": 1768,
+      "step": 10,
+      "unit": "px",
+      "label": "内容最大宽度 - PC",
+      "default": 1248
+    },
+    {
+      "type": "range",
+      "id": "container_padding_x_pc",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "label": "内容左右边距 - PC",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom_pc",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "标题区下边距 - PC",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "title_margin_bottom_pc",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "label": "标题下边距 - PC",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "nav_margin_bottom_pc",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部分类下边距 - PC",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "nav_gap_pc",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部分类按钮间距 - PC",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "content_gap_pc",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "素材与右侧步骤间距 - PC",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "side_width_pc",
+      "min": 160,
+      "max": 560,
+      "step": 4,
+      "unit": "px",
+      "label": "右侧步骤区域宽度 - PC",
+      "default": 276
+    },
+    {
+      "type": "range",
+      "id": "media_radius_pc",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "素材圆角 - PC",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "media_aspect_ratio",
+      "label": "素材比例兜底 - PC（外链/SVG/视频元数据加载前）",
+      "default": "16 / 10",
+      "options": [
+        { "value": "16 / 9", "label": "16:9" },
+        { "value": "16 / 10", "label": "16:10" },
+        { "value": "4 / 3", "label": "4:3" },
+        { "value": "1 / 1", "label": "1:1" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "media_object_fit",
+      "label": "素材填充方式",
+      "default": "cover",
+      "options": [
+        { "value": "cover", "label": "Cover" },
+        { "value": "contain", "label": "Contain" },
+        { "value": "fill", "label": "Fill" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "media_object_position",
+      "label": "素材位置",
+      "default": "center center",
+      "options": [
+        { "value": "center center", "label": "居中" },
+        { "value": "top center", "label": "顶部居中" },
+        { "value": "bottom center", "label": "底部居中" },
+        { "value": "left center", "label": "左侧居中" },
+        { "value": "right center", "label": "右侧居中" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "media_fade_duration",
+      "min": 0,
+      "max": 1000,
+      "step": 10,
+      "unit": "ms",
+      "label": "素材淡入淡出时间",
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "PC 步骤线条 / 步骤间距"
+    },
+    {
+      "type": "range",
+      "id": "steps_margin_top_pc",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "步骤上边距 - PC",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "steps_margin_bottom_pc",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "label": "步骤下边距 - PC",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "steps_padding_left_pc",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "步骤文字左边距 - PC",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "step_padding_y_pc",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "单个步骤上下内边距 - PC",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "step_track_thickness_pc",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "label": "步骤默认竖线粗细 - PC",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "step_active_thickness_pc",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "label": "步骤激活竖线粗细 - PC",
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "移动端间距 / 布局"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "模块上边距 - 移动端",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "模块下边距 - 移动端",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "container_padding_x_mobile",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "内容左右边距 - 移动端",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "标题区下边距 - 移动端",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "title_margin_bottom_mobile",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "标题下边距 - 移动端",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "nav_margin_bottom_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "顶部分类下边距 - 移动端",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "nav_gap_mobile",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "顶部分类按钮间距 - 移动端",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_gap_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "内容区上下间距 - 移动端",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "media_radius_mobile",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "素材圆角 - 移动端",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "media_aspect_ratio_mobile",
+      "label": "素材比例兜底 - 移动端（外链/SVG/视频元数据加载前）",
+      "default": "16 / 10",
+      "options": [
+        { "value": "16 / 9", "label": "16:9" },
+        { "value": "16 / 10", "label": "16:10" },
+        { "value": "4 / 3", "label": "4:3" },
+        { "value": "1 / 1", "label": "1:1" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "steps_gap_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "label": "步骤按钮横向间距 - 移动端",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "steps_margin_top_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "步骤上边距 - 移动端",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "steps_margin_bottom_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "步骤下边距 - 移动端",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "step_padding_top_mobile",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "步骤文字距横线距离 - 移动端",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "step_track_thickness_mobile",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "label": "步骤默认横线粗细 - 移动端",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "step_active_thickness_mobile",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "label": "步骤激活横线粗细 - 移动端",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "mobile_scroll_safe_padding",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "移动端滑动安全边距",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "顶部分类按钮字体"
+    },
+    {
+      "type": "range",
+      "id": "nav_padding_x_pc",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮左右内边距 - PC",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "nav_padding_y_pc",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮上下内边距 - PC",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "nav_btn_min_height_pc",
+      "min": 24,
+      "max": 72,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮最小高度 - PC",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "nav_radius_pc",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮圆角 - PC",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "nav_font_size_pc",
+      "min": 10,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮字号 - PC",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "nav_font_weight",
+      "label": "按钮字重 - PC",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "nav_active_font_weight",
+      "label": "按钮激活字重 - PC",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "nav_padding_x_mobile",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮左右内边距 - 移动端",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "nav_padding_y_mobile",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮上下内边距 - 移动端",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "nav_btn_min_height_mobile",
+      "min": 24,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮最小高度 - 移动端",
+      "default": 38
+    },
+    {
+      "type": "range",
+      "id": "nav_radius_mobile",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮圆角 - 移动端",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "nav_font_size_mobile",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮字号 - 移动端",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "nav_font_weight_mobile",
+      "label": "按钮字重 - 移动端",
+      "default": "400",
+      "options": [
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "nav_active_font_weight_mobile",
+      "label": "按钮激活字重 - 移动端",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "标题 / 正文字体"
+    },
+    {
+      "type": "range",
+      "id": "title_size_pc",
+      "min": 16,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "label": "标题字号 - PC",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "标题字号 - 移动端",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "标题字重",
+      "default": "800",
+      "options": [
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" },
+        { "value": "800", "label": "800" },
+        { "value": "900", "label": "900" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "title_line_height",
+      "min": 100,
+      "max": 200,
+      "step": 1,
+      "label": "标题行高 - PC",
+      "default": 122,
+      "info": "实际输出值 = 当前数值 ÷ 100。例如 122 输出为 1.22。"
+    },
+    {
+      "type": "range",
+      "id": "title_line_height_mobile",
+      "min": 100,
+      "max": 200,
+      "step": 1,
+      "label": "标题行高 - 移动端",
+      "default": 133,
+      "info": "实际输出值 = 当前数值 ÷ 100。例如 122 输出为 1.22。"
+    },
+    {
+      "type": "range",
+      "id": "desc_size_pc",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "副标题字号 - PC",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "desc_size_mobile",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "副标题字号 - 移动端",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "desc_weight",
+      "label": "副标题字重",
+      "default": "400",
+      "options": [
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "desc_line_height",
+      "min": 100,
+      "max": 200,
+      "step": 1,
+      "label": "副标题行高 - PC",
+      "default": 138,
+      "info": "实际输出值 = 当前数值 ÷ 100。例如 122 输出为 1.22。"
+    },
+    {
+      "type": "range",
+      "id": "desc_line_height_mobile",
+      "min": 100,
+      "max": 200,
+      "step": 1,
+      "label": "副标题行高 - 移动端",
+      "default": 140,
+      "info": "实际输出值 = 当前数值 ÷ 100。例如 122 输出为 1.22。"
+    },
+    {
+      "type": "range",
+      "id": "step_font_size_pc",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "步骤字号 - PC",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "step_font_size_mobile",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "步骤字号 - 移动端",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "step_font_weight",
+      "label": "步骤字重 - PC",
+      "default": "400",
+      "options": [
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "step_active_font_weight",
+      "label": "步骤激活字重 - PC",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "step_font_weight_mobile",
+      "label": "步骤字重 - 移动端",
+      "default": "400",
+      "options": [
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "step_active_font_weight_mobile",
+      "label": "步骤激活字重 - 移动端",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "step_line_height",
+      "min": 100,
+      "max": 200,
+      "step": 1,
+      "label": "步骤行高 - PC",
+      "default": 133,
+      "info": "实际输出值 = 当前数值 ÷ 100。例如 122 输出为 1.22。"
+    },
+    {
+      "type": "range",
+      "id": "step_line_height_mobile",
+      "min": 100,
+      "max": 200,
+      "step": 1,
+      "label": "步骤行高 - 移动端",
+      "default": 150,
+      "info": "实际输出值 = 当前数值 ÷ 100。例如 122 输出为 1.22。"
+    },
+    {
+      "type": "range",
+      "id": "info_font_size_pc",
+      "min": 10,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "说明字号 - PC",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "info_font_size_mobile",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "说明字号 - 移动端",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "info_font_weight",
+      "label": "说明字重",
+      "default": "400",
+      "options": [
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "info_line_height",
+      "min": 100,
+      "max": 200,
+      "step": 1,
+      "label": "说明行高 - PC",
+      "default": 155,
+      "info": "实际输出值 = 当前数值 ÷ 100。例如 122 输出为 1.22。"
+    },
+    {
+      "type": "range",
+      "id": "info_line_height_mobile",
+      "min": 100,
+      "max": 200,
+      "step": 1,
+      "label": "说明行高 - 移动端",
+      "default": 140,
+      "info": "实际输出值 = 当前数值 ÷ 100。例如 122 输出为 1.22。"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "顶部分类",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_key",
+          "label": "分类标识（步骤中填写同样标识）",
+          "default": "dtf"
+        },
+        {
+          "type": "checkbox",
+          "id": "default_active",
+          "label": "默认激活此分类",
+          "default": false
+        },
+        {
+          "type": "html",
+          "id": "title_pc_html",
+          "label": "分类标题 HTML - PC",
+          "default": "<span>DTF Printing</span>"
+        },
+        {
+          "type": "html",
+          "id": "title_mobile_html",
+          "label": "分类标题 HTML - 移动端（留空回退 PC）",
+          "default": "<span>DTF Printing</span>"
+        }
+      ]
+    },
+    {
+      "type": "step",
+      "name": "步骤内容",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_key",
+          "label": "所属分类标识",
+          "default": "dtf",
+          "info": "填写和顶部分类一致的标识，例如 dtf、uv-dtf、uv。"
+        },
+        {
+          "type": "html",
+          "id": "label_pc_html",
+          "label": "步骤名称 HTML - PC",
+          "default": "<span>Print</span>"
+        },
+        {
+          "type": "html",
+          "id": "label_mobile_html",
+          "label": "步骤名称 HTML - 移动端（留空回退 PC）",
+          "default": "<span>Print</span>"
+        },
+        {
+          "type": "html",
+          "id": "info_pc_html",
+          "label": "说明 HTML - PC",
+          "default": "<span>Procolored DTF printers allow you to print high-quality designs directly onto specialized films.</span>"
+        },
+        {
+          "type": "html",
+          "id": "info_mobile_html",
+          "label": "说明 HTML - 移动端（留空回退 PC）",
+          "default": "<span>Procolored DTF printers allow you to print high-quality designs directly onto specialized films.</span>"
+        },
+        {
+          "type": "select",
+          "id": "media_type",
+          "label": "素材类型",
+          "default": "image",
+          "options": [
+            { "value": "image", "label": "图片" },
+            { "value": "video", "label": "视频" },
+            { "value": "svg_html", "label": "SVG / HTML" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image_pc",
+          "label": "图片 - PC"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "图片 - 移动端（留空回退 PC）"
+        },
+        {
+          "type": "text",
+          "id": "image_url_pc",
+          "label": "图片 URL - PC 兜底"
+        },
+        {
+          "type": "text",
+          "id": "image_url_mobile",
+          "label": "图片 URL - 移动端兜底（留空回退 PC）"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "图片 Alt"
+        },
+        {
+          "type": "text",
+          "id": "video_url_pc",
+          "label": "视频 MP4 URL - PC"
+        },
+        {
+          "type": "text",
+          "id": "video_url_mobile",
+          "label": "视频 MP4 URL - 移动端（留空回退 PC）"
+        },
+        {
+          "type": "image_picker",
+          "id": "video_poster_pc",
+          "label": "视频封面 - PC"
+        },
+        {
+          "type": "image_picker",
+          "id": "video_poster_mobile",
+          "label": "视频封面 - 移动端（留空回退 PC）"
+        },
+        {
+          "type": "text",
+          "id": "video_poster_url_pc",
+          "label": "视频封面 URL - PC 兜底"
+        },
+        {
+          "type": "text",
+          "id": "video_poster_url_mobile",
+          "label": "视频封面 URL - 移动端兜底（留空回退 PC）"
+        },
+        {
+          "type": "html",
+          "id": "svg_pc_html",
+          "label": "SVG / HTML - PC"
+        },
+        {
+          "type": "html",
+          "id": "svg_mobile_html",
+          "label": "SVG / HTML - 移动端（留空回退 PC）"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "How Works 响应式步骤",
+      "blocks": [
+        {
+          "type": "tab",
+          "settings": {
+            "tab_key": "dtf",
+            "default_active": true,
+            "title_pc_html": "<span>DTF Printing</span>",
+            "title_mobile_html": "<span>DTF Printing</span>"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_key": "uv-dtf",
+            "default_active": false,
+            "title_pc_html": "<span>UV DTF Printing</span>",
+            "title_mobile_html": "<span>UV DTF Printing</span>"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_key": "uv",
+            "default_active": false,
+            "title_pc_html": "<span>UV Printing</span>",
+            "title_mobile_html": "<span>UV Printing</span>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "tab_key": "dtf",
+            "label_pc_html": "<span>Print</span>",
+            "label_mobile_html": "<span>Print</span>",
+            "info_pc_html": "<span>Procolored DTF printers allow you to print high-quality designs directly onto specialized films.</span>",
+            "info_mobile_html": "<span>Procolored DTF printers allow you to print high-quality designs directly onto specialized films.</span>",
+            "media_type": "image",
+            "image_url_pc": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1200",
+            "image_alt": "Print"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "tab_key": "dtf",
+            "label_pc_html": "<span>Powder</span>",
+            "label_mobile_html": "<span>Powder</span>",
+            "info_pc_html": "<span>Apply adhesive powder evenly to the wet ink to ensure a durable bond during transfer.</span>",
+            "info_mobile_html": "<span>Apply adhesive powder evenly to the wet ink to ensure a durable bond during transfer.</span>",
+            "media_type": "image",
+            "image_url_pc": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1200",
+            "image_alt": "Powder"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "tab_key": "dtf",
+            "label_pc_html": "<span>Heat</span>",
+            "label_mobile_html": "<span>Heat</span>",
+            "info_pc_html": "<span>Melt the powder using a heat press or oven to create a flexible, washable adhesive layer.</span>",
+            "info_mobile_html": "<span>Melt the powder using a heat press or oven to create a flexible, washable adhesive layer.</span>",
+            "media_type": "video",
+            "video_url_pc": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "tab_key": "dtf",
+            "label_pc_html": "<span>Transfer</span>",
+            "label_mobile_html": "<span>Transfer</span>",
+            "info_pc_html": "<span>Press the film onto your garment to transfer the design with vibrant colors and soft feel.</span>",
+            "info_mobile_html": "<span>Press the film onto your garment to transfer the design with vibrant colors and soft feel.</span>",
+            "media_type": "image",
+            "image_url_pc": "https://images.unsplash.com/photo-1504198453319-5ce911baf2ea?auto=format&fit=crop&q=80&w=1200",
+            "image_alt": "Transfer"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "tab_key": "uv-dtf",
+            "label_pc_html": "<span>UV Print</span>",
+            "label_mobile_html": "<span>UV Print</span>",
+            "info_pc_html": "<span>UV DTF printing uses UV-curable ink to print designs onto a film A for hard surface application.</span>",
+            "info_mobile_html": "<span>UV DTF printing uses UV-curable ink to print designs onto a film A for hard surface application.</span>",
+            "media_type": "video",
+            "video_url_pc": "https://www.w3schools.com/html/movie.mp4"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "tab_key": "uv-dtf",
+            "label_pc_html": "<span>Laminate</span>",
+            "label_mobile_html": "<span>Laminate</span>",
+            "info_pc_html": "<span>Laminate the printed film A with film B to protect the ink and provide the carrier layer.</span>",
+            "info_mobile_html": "<span>Laminate the printed film A with film B to protect the ink and provide the carrier layer.</span>",
+            "media_type": "video",
+            "video_url_pc": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "tab_key": "uv-dtf",
+            "label_pc_html": "<span>Peel &amp; Stick</span>",
+            "label_mobile_html": "<span>Peel &amp; Stick</span>",
+            "info_pc_html": "<span>Simply peel the design and stick it onto any hard surface like glass, metal, or wood.</span>",
+            "info_mobile_html": "<span>Simply peel the design and stick it onto any hard surface like glass, metal, or wood.</span>",
+            "media_type": "video",
+            "video_url_pc": "https://vjs.zencdn.net/v/oceans.mp4"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "tab_key": "uv",
+            "label_pc_html": "<span>Setup</span>",
+            "label_mobile_html": "<span>Setup</span>",
+            "info_pc_html": "<span>Place your items on the flatbed. No pre-treatment is required for most hard materials.</span>",
+            "info_mobile_html": "<span>Place your items on the flatbed. No pre-treatment is required for most hard materials.</span>",
+            "media_type": "image",
+            "image_url_pc": "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=1200",
+            "image_alt": "Setup"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "tab_key": "uv",
+            "label_pc_html": "<span>Direct Print</span>",
+            "label_mobile_html": "<span>Direct Print</span>",
+            "info_pc_html": "<span>The UV light instantly cures the ink as it hits the surface, allowing for precise, textured printing.</span>",
+            "info_mobile_html": "<span>The UV light instantly cures the ink as it hits the surface, allowing for precise, textured printing.</span>",
+            "media_type": "image",
+            "image_url_pc": "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=1200",
+            "image_alt": "Direct Print"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "tab_key": "uv",
+            "label_pc_html": "<span>Finish</span>",
+            "label_mobile_html": "<span>Finish</span>",
+            "info_pc_html": "<span>Your product is ready immediately. Scratch-resistant and ready for sale or use.</span>",
+            "info_mobile_html": "<span>Your product is ready immediately. Scratch-resistant and ready for sale or use.</span>",
+            "media_type": "image",
+            "image_url_pc": "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=1200",
+            "image_alt": "Finish"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

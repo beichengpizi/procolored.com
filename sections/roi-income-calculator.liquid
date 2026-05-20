@@ -452,7 +452,7 @@
               gap: 8px;
               color: #FF8F1C;
               text-align: right;
-              font-size: 30px;
+              font-size: 34px;
               font-weight: 800;
               line-height: 1.26;
           }.roi-income-calculator-{{ section.id }} .nc-payback-val .paybackUnit{
@@ -495,6 +495,18 @@
               line-height: 140%;
               padding-bottom: 24px;
               border-bottom: 1px solid #E7E7E7;
+
+          }
+          .roi-income-calculator-{{ section.id }} .nc-hint-text-1{
+        
+            color: #666;
+      
+        }
+          .roi-income-calculator-{{ section.id }} .nc-hint-text-2{
+              margin-top: 16px;
+              color: #666;
+              padding-bottom: 0;
+              border-bottom: none;
           }.roi-income-calculator-{{ section.id }} .nc-chart-container, .roi-income-calculator-{{ section.id }} .nc-chart-container-lg{
               position: relative;
               width: 100%;
@@ -567,7 +579,7 @@
               gap: 18px;
           }.roi-income-calculator-{{ section.id }} .nc-cost-stage{
               position: relative;
-              min-height: 470px;
+              min-height: 300px;
               border-radius: 28px;
               background:
                   radial-gradient(circle at top right, rgba(43, 138, 255, 0.08), transparent 32%),
@@ -576,7 +588,7 @@
               box-shadow: var(--shadow-sm);
               overflow: hidden;
           }.roi-income-calculator-{{ section.id }} .nc-cost-stage .nc-chart-container-lg{
-              height: 470px;
+              height: 300px;
           }.roi-income-calculator-{{ section.id }} .nc-cost-guide-overlay{
               position: absolute;
               inset: 0;
@@ -1544,8 +1556,8 @@
                           <div class="nc-title-row">
                               <div class="nc-title-row-top">
                                   <div class="nc-orange-bar"></div>
-                                  <div id="selectedMachineName" class="nc-machine-name" title="P13 DTF Printer">P13 DTF Printer</div>
-                                  <div id="selectedMachinePrice" class="nc-machine-price">$4,299</div>
+                                  <div id="selectedMachineName" class="nc-machine-name" title=""></div>
+                                  <div id="selectedMachinePrice" class="nc-machine-price"></div>
                                   <div class="pill-button" data-open-modal="machine">
                                       <span aria-hidden="true">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
@@ -1581,7 +1593,7 @@
                                               </defs>
                                           </svg>
                                       </span>
-                                      Select Machine
+                                      <span data-copy-key="selectMachine">Select Machine</span>
                                   </div>
                               </div>
                               <div class="nc-subtitle">{{ section.settings.machine_subtitle | escape }}</div>
@@ -1597,7 +1609,7 @@
                                               fill="#FF8F1C" />
                                       </svg></div>
                                   <div class="nc-metric-info">
-                                      <span class="nc-metric-label">Total Units</span>
+                                      <span class="nc-metric-label" data-copy-key="totalUnitsLabel">Total Units</span>
                                       <span class="nc-metric-value" id="metricTotalUnits">0</span>
                                   </div>
                               </div>
@@ -1614,7 +1626,7 @@
                                               fill="#FF8F1C" />
                                       </svg></div>
                                   <div class="nc-metric-info">
-                                      <span class="nc-metric-label">Total Fabric Cost</span>
+                                      <span class="nc-metric-label" data-copy-key="totalFabricCostLabel">Total Fabric Cost</span>
                                       <span class="nc-metric-value" id="metricTotalCost">$0</span>
                                   </div>
                               </div>
@@ -1627,7 +1639,7 @@
                                               fill="#FF8F1C" />
                                       </svg></div>
                                   <div class="nc-metric-info">
-                                      <span class="nc-metric-label">Total Revenue</span>
+                                      <span class="nc-metric-label" data-copy-key="totalRevenueLabel">Total Revenue</span>
                                       <span class="nc-metric-value" id="metricTotalRevenue">$0</span>
                                   </div>
                               </div>
@@ -1657,7 +1669,7 @@
                                           <path d="M10 13.3333V6.66666" stroke="white" stroke-width="1.5"
                                               stroke-linecap="round" stroke-linejoin="round" />
                                       </svg>
-                                      Select My Material
+                                      <span data-copy-key="selectMaterial">Select My Material</span>
                                   </div>
                                   <div class="nc-btn-outline" id="btn-quick-custom">
                                       <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
@@ -1668,13 +1680,13 @@
                                           <path d="M8.33331 11.6667L17.5 2.5" stroke="#333333" stroke-width="1.5"
                                               stroke-linecap="round" />
                                       </svg>
-                                      Custom My Material
+                                      <span data-copy-key="customMaterial">Custom My Material</span>
                                   </div>
                               </div>
                               <div class="nc-material-list" id="materialStack"></div>
                               <div class="nc-mobile-material-pager" id="mobileMaterialPager" hidden>
                                   <button class="nc-mobile-material-nav" id="mobileMaterialPrev" type="button"
-                                      aria-label="Previous material">
+                                      aria-label="Previous material" data-copy-attr="previousMaterialAria">
                                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
                                           fill="none">
                                           <path d="M10.875 4.5L6.375 9L10.875 13.5" stroke="currentColor"
@@ -1683,7 +1695,7 @@
                                   </button>
                                   <div class="nc-mobile-material-count" id="mobileMaterialCount">1 / 1</div>
                                   <button class="nc-mobile-material-nav" id="mobileMaterialNext" type="button"
-                                      aria-label="Next material">
+                                      aria-label="Next material" data-copy-attr="nextMaterialAria">
                                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
                                           fill="none">
                                           <path d="M7.125 4.5L11.625 9L7.125 13.5" stroke="currentColor"
@@ -1691,84 +1703,77 @@
                                       </svg>
                                   </button>
                               </div>
-                              <div class="nc-mobile-note" id="mobileProfitNote">Note*: For estimation purpose only.
-                                  Actual profitability depends on numerous factors, including your marketing,
-                                  operational costs, and market trends.</div>
+                              <div class="nc-mobile-note" id="mobileProfitNote" data-copy-key="mobileProfitNote">Note*: For estimation purpose only. Actual profitability depends on numerous factors, including your marketing, operational costs, and market trends.</div>
                           </div>
   
   
                           <div class="nc-right-col">
                               <div class="nc-tabs">
                                   <div class="nc-tab-bg" role="tablist">
-                                      <div class="nc-tab is-active" id="tabProfit" role="tab" aria-selected="true">Profit
-                                          Overview</div>
-                                      <div class="nc-tab" id="tabCost" role="tab" aria-selected="false">Cost Breakdown
-                                      </div>
+                                      <div class="nc-tab is-active" id="tabProfit" role="tab" aria-selected="true" data-copy-key="profitOverviewTab">Profit Overview</div>
+                                      <div class="nc-tab" id="tabCost" role="tab" aria-selected="false" data-copy-key="costBreakdownTab">Cost Breakdown</div>
                                   </div>
                               </div>
   
                               <div class="nc-panel is-active" id="panelProfit" role="tabpanel">
                                   <div class="nc-row-space">
                                       <div class="nc-sub-header">
-                                          <div class="nc-orange-bar-sm"></div>Machine Payback Period
+                                          <div class="nc-orange-bar-sm"></div><span data-copy-key="paybackPeriodTitle">Machine Payback Period</span>
                                       </div>
                                       <div class="nc-payback-val"><span id="paybackValue">0.0</span><span
-                                              class="paybackUnit">month(s)</span>
+                                              class="paybackUnit" data-copy-key="paybackMonthUnit">month(s)</span>
                                       </div>
                                   </div>
   
                                   <div class="nc-data-list">
                                       {% if section.settings.show_working_days %}
                                       <div class="nc-data-row">
-                                          <span>Working Days</span>
+                                          <span data-copy-key="workingDaysLabel">Working Days</span>
                                           <div id="workingDaysValue" class="nc-input-sm nc-input-sm--static"
                                               aria-live="polite">0</div>
                                       </div>
                                       {% endif %}
                                       <div class="nc-data-row">
-                                          <span>Annual Revenue Forecast</span>
+                                          <span data-copy-key="annualRevenueLabel">Annual Revenue Forecast</span>
                                           <span class="nc-text-orange" id="annualRevenueValue">$0</span>
                                       </div>
                                       <div class="nc-data-row">
-                                          <span>Annual Net Profit Forecast</span>
+                                          <span data-copy-key="annualProfitLabel">Annual Net Profit Forecast</span>
                                           <span class="nc-text-orange" id="annualProfitValue">$0</span>
                                       </div>
                                   </div>
   
                                   <div class="nc-sub-header nc-sub-header-2">
-                                      <div class="nc-orange-bar-sm"></div>Profit Forecast
+                                      <div class="nc-orange-bar-sm"></div><span data-copy-key="profitForecastTitle">Profit Forecast</span>
                                   </div>
                                   <div class="nc-chart-container">
                                       <div class="nc-chart-surface" id="profitChart"></div>
-                                      <div class="nc-chart-status" id="profitChartStatus">ECharts is unavailable.</div>
+                                      <div class="nc-chart-status" id="profitChartStatus" data-copy-key="chartUnavailable">ECharts is unavailable.</div>
                                   </div>
-                                  <div class="nc-hint-text">Note*: For estimation purpose only. Actual profitability
-                                      depends on numerous, factors, including your marketing, operational costs, and
-                                      market detends.</div>
+                                  <div class="nc-hint-text nc-hint-text-1" data-copy-key="profitNote">Note*: For estimation purpose only. Actual profitability depends on numerous factors, including your marketing, operational costs, and market trends.</div>
                               </div>
   
                               <div class="nc-panel" id="panelCost" role="tabpanel">
                                   <div class="nc-row-space">
                                       <div class="nc-sub-header">
-                                          <div class="nc-orange-bar-sm"></div>View Cost Breakdown
+                                          <div class="nc-orange-bar-sm"></div><span data-copy-key="costBreakdownTitle">View Cost Breakdown</span>
                                       </div>
                                       <div class="nc-text-orange-lg" id="costBreakdownTotal">$0</div>
                                   </div>
-                                  <div class="nc-hint-text">Understand your daily costs to maximize your profit potential.
-                                  </div>
+                                  <div class="nc-hint-text" data-copy-key="costIntroText">Understand your daily costs to maximize your profit potential.</div>
   
                                   <div class="nc-cost-toolbar ">
                                       <div class="nc-sub-header">
-                                          <div class="nc-orange-bar-sm"></div>Total Cost
+                                          <div class="nc-orange-bar-sm"></div><span data-copy-key="totalCostTitle">Total Cost</span>
                                       </div>
                                       <div class="nc-period-toggle">
                                           <select class="nc-period-select" id="costPeriodControls"
-                                              aria-label="Select cost breakdown period">
-                                              <option value="daily">Daily</option>
-                                              <option value="weekly">Weekly</option>
-                                              <option value="monthly" selected>Monthly</option>
-                                              <option value="halfYearly">Half-Yearly</option>
-                                              <option value="yearly">Yearly</option>
+                                              aria-label="Select cost breakdown period" data-copy-attr="costPeriodAria">
+                                              <option value="daily" data-copy-key="periodDaily">Daily</option>
+                                              <option value="weekly" data-copy-key="periodWeekly">Weekly</option>
+                                              <option value="monthly" selected data-copy-key="periodMonthly">Monthly</option>
+                                              <option value="halfYearly" data-copy-key="periodHalfYearly">Half-Yearly</option>
+                                              <option value="yearly" data-copy-key="periodYearly">Yearly</option>
                                           </select>
                                       </div>
                                   </div>
@@ -1776,15 +1781,15 @@
                                       <div class="nc-cost-stage">
                                           <div class="nc-chart-container-lg">
                                               <div class="nc-chart-surface" id="costChart"></div>
-                                              <div class="nc-chart-status" id="costChartStatus">ECharts is unavailable.
-                                              </div>
+                                              <div class="nc-chart-status" id="costChartStatus" data-copy-key="chartUnavailable">ECharts is unavailable.</div>
                                           </div>
                                       </div>
                                       <div class="nc-cost-mobile-breakdown" id="costMobileBreakdown" hidden
-                                          aria-label="Mobile cost breakdown details"></div>
+                                          aria-label="Mobile cost breakdown details" data-copy-attr="mobileCostBreakdownAria"></div>
                                       <div class="nc-cost-legend" id="costBreakdownList"
-                                          aria-label="Equipment cost legend"></div>
+                                          aria-label="Equipment cost legend" data-copy-attr="costLegendAria"></div>
                                   </div>
+                                  <div class="nc-hint-text nc-hint-text-2" data-copy-key="costNote">Note*: For estimation purpose only. Actual costs depend on numerous factors, including your marketing, operational costs, and market demands.</div>
                               </div>
                           </div>
                       </div>
@@ -1795,8 +1800,8 @@
           <div class="modal" id="machineModal" aria-hidden="true">
               <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="machineModalTitle">
                   <div class="modal__header">
-                      <div class="modal__title" id="machineModalTitle">Select Machine</div>
-                      <div class="modal__close" data-close-modal="machine" aria-label="Close machine picker">
+                      <div class="modal__title" id="machineModalTitle" data-copy-key="machineModalTitle">Select Machine</div>
+                      <div class="modal__close" data-close-modal="machine" aria-label="Close machine picker" data-copy-attr="closeMachinePickerAria">
                           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24"
                               fill="none">
                               <path d="M5.88055 17.6418L17.6417 5.88068M5.88055 5.88068L17.6417 17.6418" stroke="black"
@@ -1808,8 +1813,8 @@
                       <div class="picker-grid" id="machinePicker"></div>
                   </div>
                   <div class="modal__footer">
-                      <div class="ghost-button" data-close-modal="machine">Cancel</div>
-                      <div class="save-button" id="machinePickerSave">Save</div>
+                      <div class="ghost-button" data-close-modal="machine" data-copy-key="cancelButton">Cancel</div>
+                      <div class="save-button" id="machinePickerSave" data-copy-key="saveButton">Save</div>
                   </div>
               </div>
           </div>
@@ -1817,8 +1822,8 @@
           <div class="modal" id="materialModal" aria-hidden="true">
               <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="materialModalTitle">
                   <div class="modal__header">
-                      <div class="modal__title" id="materialModalTitle">Select My Material</div>
-                      <div class="modal__close" data-close-modal="material" aria-label="Close material picker">
+                      <div class="modal__title" id="materialModalTitle" data-copy-key="materialModalTitle">Select My Material</div>
+                      <div class="modal__close" data-close-modal="material" aria-label="Close material picker" data-copy-attr="closeMaterialPickerAria">
                           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24"
                               fill="none">
                               <path d="M5.88055 17.6418L17.6417 5.88068M5.88055 5.88068L17.6417 17.6418" stroke="black"
@@ -1830,8 +1835,8 @@
                       <div class="picker-grid" id="materialPicker"></div>
                   </div>
                   <div class="modal__footer">
-                      <div class="ghost-button" data-close-modal="material">Cancel</div>
-                      <div class="save-button" id="materialPickerSave">Save</div>
+                      <div class="ghost-button" data-close-modal="material" data-copy-key="cancelButton">Cancel</div>
+                      <div class="save-button" id="materialPickerSave" data-copy-key="saveButton">Save</div>
                   </div>
               </div>
           </div>
@@ -1849,6 +1854,7 @@
         "locale": {{ section.settings.locale | json }},
         "currencyCode": {{ section.settings.currency_code | json }},
         "echartsScriptUrl": {{ section.settings.echarts_script_url | json }},
+        "copyLabelsJson": {{ section.settings.copy_labels_json | json }},
         "monthLabelsJson": {{ section.settings.month_labels_json | json }},
         "costPeriodLabelsJson": {{ section.settings.cost_period_labels_json | json }},
         "costBreakdownMetaJson": {{ section.settings.cost_breakdown_meta_json | json }},
@@ -1981,6 +1987,64 @@
               const DEFAULT_MATERIAL_CATALOG = Array.isArray(sectionConfig.materialCatalog) ? sectionConfig.materialCatalog : [];
               const DEFAULT_MONTH_LABELS = Array.from({ length: 12 }, (_, index) => `M${index + 1}`);
               const WASTE_RATE = Math.max(0, Number(sectionConfig.wasteRatePercent || 15) / 100);
+              const DEFAULT_COPY = {
+                  "selectMachine": "Select Machine",
+                  "totalUnitsLabel": "Total Units",
+                  "totalFabricCostLabel": "Total Fabric Cost",
+                  "totalRevenueLabel": "Total Revenue",
+                  "selectMaterial": "Select My Material",
+                  "customMaterial": "Custom My Material",
+                  "mobileProfitNote": "Note*: For estimation purpose only. Actual profitability depends on numerous factors, including your marketing, operational costs, and market trends.",
+                  "previousMaterialAria": "Previous material",
+                  "nextMaterialAria": "Next material",
+                  "profitOverviewTab": "Profit Overview",
+                  "costBreakdownTab": "Cost Breakdown",
+                  "paybackPeriodTitle": "Machine Payback Period",
+                  "paybackMonthUnit": "month(s)",
+                  "paybackDayUnit": "day(s)",
+                  "workingDaysLabel": "Working Days",
+                  "annualRevenueLabel": "Annual Revenue Forecast",
+                  "annualProfitLabel": "Annual Net Profit Forecast",
+                  "profitForecastTitle": "Profit Forecast",
+                  "chartUnavailable": "ECharts is unavailable.",
+                  "profitNote": "Note*: For estimation purpose only. Actual profitability depends on numerous factors, including your marketing, operational costs, and market trends.",
+                  "costBreakdownTitle": "View Cost Breakdown",
+                  "costIntroText": "Understand your daily costs to maximize your profit potential.",
+                  "totalCostTitle": "Total Cost",
+                  "costPeriodAria": "Select cost breakdown period",
+                  "periodDaily": "Daily",
+                  "periodWeekly": "Weekly",
+                  "periodMonthly": "Monthly",
+                  "periodHalfYearly": "Half-Yearly",
+                  "periodYearly": "Yearly",
+                  "periodDailyCost": "Daily Cost",
+                  "periodWeeklyCost": "Weekly Cost",
+                  "periodMonthlyCost": "Monthly Cost",
+                  "periodHalfYearlyCost": "Half-Yearly Cost",
+                  "periodYearlyCost": "Yearly Cost",
+                  "mobileCostBreakdownAria": "Mobile cost breakdown details",
+                  "costLegendAria": "Equipment cost legend",
+                  "costNote": "Note*: For estimation purpose only. Actual costs depend on numerous factors, including your marketing, operational costs, and market demands.",
+                  "machineModalTitle": "Select Machine",
+                  "materialModalTitle": "Select My Material",
+                  "closeMachinePickerAria": "Close machine picker",
+                  "closeMaterialPickerAria": "Close material picker",
+                  "cancelButton": "Cancel",
+                  "saveButton": "Save",
+                  "unitCostFieldLabel": "Unit Cost($)",
+                  "unitPriceFieldLabel": "Unit Price($)",
+                  "monthlyUnitsFieldLabel": "Monthly Units",
+                  "printSpeedLabel": "Print Speed",
+                  "printSizeLabel": "Print Size",
+                  "piecesPerHourLabel": "pcs/hr",
+                  "customProductNamePlaceholder": "Product Name...",
+                  "removeMaterialAria": "Remove material",
+                  "noMaterialsSelected": "No materials selected.",
+                  "grossProfitSeriesName": "Accumulated Gross Profit",
+                  "grossProfitTrendSeriesName": "Accumulated Gross Profit Trend",
+                  "wasteCompactLabel": "Waste",
+                  "ofTotalLabel": "of total"
+};
               const DEFAULT_COST_PERIOD_LABELS = {
                   daily: 'Daily Cost',
                   weekly: 'Weekly Cost',
@@ -2038,6 +2102,12 @@
                       return fallback;
                   }
               };
+              const COPY = parseJsonSetting(sectionConfig.copyLabelsJson, DEFAULT_COPY);
+              const getCopy = (key, fallback = '') => {
+                  const value = COPY[key];
+                  return typeof value === 'string' && value.length ? value : fallback;
+              };
+
               const machineCatalog = DEFAULT_MACHINE_CATALOG.filter(item => item && item.id);
               const LOCALE = sectionConfig.locale || 'en-US';
               const CURRENCY_CODE = sectionConfig.currencyCode || 'USD';
@@ -2057,7 +2127,13 @@
               const DEFAULT_MATERIAL_IDS = materialCatalog.filter(item => item.defaultSelected).map(item => item.id);
               const resolvedDefaultMaterialIds = DEFAULT_MATERIAL_IDS.length ? DEFAULT_MATERIAL_IDS : materialCatalog.slice(0, 1).map(item => item.id);
               const MONTH_LABELS = parseJsonSetting(sectionConfig.monthLabelsJson, DEFAULT_MONTH_LABELS);
-              const COST_PERIOD_LABELS = parseJsonSetting(sectionConfig.costPeriodLabelsJson, DEFAULT_COST_PERIOD_LABELS);
+              const COST_PERIOD_LABELS = parseJsonSetting(sectionConfig.costPeriodLabelsJson, {
+                  daily: getCopy("periodDailyCost", DEFAULT_COST_PERIOD_LABELS.daily),
+                  weekly: getCopy("periodWeeklyCost", DEFAULT_COST_PERIOD_LABELS.weekly),
+                  monthly: getCopy("periodMonthlyCost", DEFAULT_COST_PERIOD_LABELS.monthly),
+                  halfYearly: getCopy("periodHalfYearlyCost", DEFAULT_COST_PERIOD_LABELS.halfYearly),
+                  yearly: getCopy("periodYearlyCost", DEFAULT_COST_PERIOD_LABELS.yearly)
+              });
               const COST_CALLOUT_LAYOUTS = parseJsonSetting(sectionConfig.costCalloutLayoutsJson, DEFAULT_COST_CALLOUT_LAYOUTS);
               const COST_BREAKDOWN_META = parseJsonSetting(sectionConfig.costBreakdownMetaJson, DEFAULT_COST_BREAKDOWN_META);
               const CUSTOM_MATERIAL_DEFAULTS = {
@@ -2196,6 +2272,17 @@
   
               function escapeHtml(value) {
                   return String(value).replace(/[&<>"']/g, character => htmlEntityMap[character]);
+              }
+
+              function applyStaticCopy() {
+                  root.querySelectorAll('[data-copy-key]').forEach(element => {
+                      const fallback = element.textContent.trim();
+                      element.textContent = getCopy(element.dataset.copyKey, fallback);
+                  });
+
+                  root.querySelectorAll('[data-copy-attr]').forEach(element => {
+                      element.setAttribute('aria-label', getCopy(element.dataset.copyAttr, element.getAttribute('aria-label') || ''));
+                  });
               }
   
               function escapeSvgText(value) {
@@ -2344,7 +2431,7 @@
               function getFieldConfig(material, field) {
                   if (field === "unitCost") {
                       return {
-                          label: "Unit Cost($)",
+                          label: getCopy("unitCostFieldLabel", "Unit Cost($)"),
                           min: MIN_UNIT_COST,
                           max: clamp(Number(material.unitPrice), MIN_UNIT_COST, MAX_UNIT_COST),
                           step: 1
@@ -2353,7 +2440,7 @@
   
                   if (field === "unitPrice") {
                       return {
-                          label: "Unit Price($)",
+                          label: getCopy("unitPriceFieldLabel", "Unit Price($)"),
                           min: MIN_UNIT_PRICE,
                           max: MAX_UNIT_PRICE,
                           step: 1
@@ -2361,7 +2448,7 @@
                   }
   
                   return {
-                      label: "Monthly Units",
+                      label: getCopy("monthlyUnitsFieldLabel", "Monthly Units"),
                       min: MIN_MONTHLY_SALES,
                       max: MAX_MONTHLY_SALES,
                       step: 1
@@ -2420,11 +2507,11 @@
                   const safeMaterialId = escapeHtml(material.id);
                   const safeMaterialName = escapeHtml(material.name);
                   const printSizeMarkup = material.printSize
-                      ? `<br>Print Size: ${escapeHtml(material.printSize)}`
+                      ? `<br>${escapeHtml(getCopy("printSizeLabel", "Print Size"))}: ${escapeHtml(material.printSize)}`
                       : "";
-                  const materialMetaMarkup = material.isCustom ? "" : `<div class="nc-mat-sub">Print Speed: ${speed} pcs/hr${printSizeMarkup}</div>`;
+                  const materialMetaMarkup = material.isCustom ? "" : `<div class="nc-mat-sub">${escapeHtml(getCopy("printSpeedLabel", "Print Speed"))}: ${speed} ${escapeHtml(getCopy("piecesPerHourLabel", "pcs/hr"))}${printSizeMarkup}</div>`;
                   const titleMarkup = material.isCustom
-                      ? `<input type="text" class="nc-inline-name-input" value="${safeMaterialName}" placeholder="Product Name..." data-name-input="${safeMaterialId}">`
+                      ? `<input type="text" class="nc-inline-name-input" value="${safeMaterialName}" placeholder="${escapeHtml(getCopy("customProductNamePlaceholder", "Product Name..."))}" data-name-input="${safeMaterialId}">`
                       : `<div class="nc-mat-title">${safeMaterialName}</div>`;
   
                   const imageMarkup = material.isCustom
@@ -2439,7 +2526,7 @@
                 ${titleMarkup}
                 ${materialMetaMarkup}
               </div>
-              <div class="nc-mat-del"  data-remove-material="${safeMaterialId}" aria-label="Remove material">
+              <div class="nc-mat-del"  data-remove-material="${safeMaterialId}" aria-label="${escapeHtml(getCopy("removeMaterialAria", "Remove material"))}">
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
     <path d="M3.75 4.16666V16.3333C3.75 17.4379 4.64543 18.3333 5.75 18.3333H14.25C15.3546 18.3333 16.25 17.4379 16.25 16.3333V4.16666H3.75Z" stroke="#333333" stroke-width="1.5" stroke-linejoin="round"/>
     <path d="M8.33331 8.33334V13.75" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2461,7 +2548,7 @@
               function renderMaterialStack() {
                   const machine = getSelectedMachine();
                   if (!state.materials.length) {
-                      dom.materialStack.innerHTML = '<div class="nc-empty">No materials selected.</div>';
+                      dom.materialStack.innerHTML = `<div class="nc-empty">${escapeHtml(getCopy("noMaterialsSelected", "No materials selected."))}</div>`;
                       syncMobileMaterialPresentation();
                       return;
                   }
@@ -2573,7 +2660,7 @@
   
               function getCostPartLabelText(label, compact = false) {
                   const normalizedLabel = String(label).replace(/\(\$\)/g, "").replace(/\n/g, " ").trim();
-                  if (compact && /Waste Rate$/i.test(normalizedLabel)) return "Waste";
+                  if (compact && /Waste Rate$/i.test(normalizedLabel)) return getCopy("wasteCompactLabel", "Waste");
                   return normalizedLabel;
               }
   
@@ -2729,41 +2816,53 @@
               function getCostCalloutLayout(partKey) {
                   return COST_CALLOUT_LAYOUTS[partKey] || COST_CALLOUT_LAYOUTS.printer;
               }
-  
               function getCostPieLayout() {
-                  const isMobile = isMobileCostLayout();
-                  if (isMobile) {
-                      return {
-                          radius: ["0%", "48%"],
-                          center: ["50%", "67%"],
-                          left: 18,
-                          right: 18,
-                          top: 8,
-                          bottom: 6
-                      };
-                  }
-  
-                  const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
-                  if (viewportWidth <= 1180) {
-                      return {
-                          radius: ["0%", "48%"],
-                          center: ["50%", "47%"],
-                          left: 34,
-                          right: 34,
-                          top: 86,
-                          bottom: 106
-                      };
-                  }
-  
-                  return {
-                      radius: ["0%", "50%"],
-                      center: ["50%", "47%"],
-                      left: 38,
-                      right: 38,
-                      top: 88,
-                      bottom: 108
-                  };
-              }
+                const isMobile = isMobileCostLayout();
+            
+                if (isMobile) {
+                    return {
+                        // 原来是 ["0%", "48%"]，放大到 56%
+                        radius: ["0%", "56%"],
+                        center: ["50%", "66%"],
+                        left: 8,
+                        right: 8,
+                        top: 4,
+                        bottom: 0
+                    };
+                }
+            
+                const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+            
+                if (viewportWidth <= 1180) {
+                    return {
+                        // 原来是 ["0%", "48%"]，放大到 56%
+                        radius: ["0%", "56%"],
+                        center: ["50%", "48%"],
+                        left: 20,
+                        right: 20,
+                        top: 74,
+                        bottom: 92
+                    };
+                }
+            
+                return {
+                    // 原来是 ["0%", "50%"]，放大到 58%
+                    {% comment %}
+                    radius: ["0%", "58%"],       // 饼图半径范围，从圆心到外围的百分比。外圈为圆区域的 58%，比默认的 50% 更大。
+                    center: ["50%", "48%"],      // 饼图圆心相对于SVG的百分比位置，水平居中(50%)，竖直略偏上(48%)。
+                    left: 22,                    // 图表容器左侧外边距（像素）。
+                    right: 22,                   // 图表容器右侧外边距（像素）。
+                    top: 76,                     // 图表容器上侧外边距（像素）。
+                    bottom: 92                   // 图表容器下侧外边距（像素）。
+                    {% endcomment %}
+                    radius: ["0%", "58%"],
+                    center: ["50%", "48%"],
+                    left: 22,
+                    right: 22,
+                    top: 76,
+                    bottom: 92
+                };
+            }
   
               function getCostGuideTargetPoint(stageRect, partKey) {
                   const layout = getCostCalloutLayout(partKey);
@@ -2917,7 +3016,7 @@
                               fontSize: 12,
                               fontWeight: 700
                           },
-                          data: ["Accumulated Gross Profit", "Accumulated Gross Profit Trend"]
+                          data: [getCopy("grossProfitSeriesName", "Accumulated Gross Profit"), getCopy("grossProfitTrendSeriesName", "Accumulated Gross Profit Trend")]
                       },
                       xAxis: {
                           type: "category",
@@ -2949,7 +3048,7 @@
                       },
                       series: [
                           {
-                              name: "Accumulated Gross Profit",
+                              name: getCopy("grossProfitSeriesName", "Accumulated Gross Profit"),
                               type: "bar",
                               data: accumulatedGrossProfitData,
                               barWidth: 18,
@@ -2965,7 +3064,7 @@
                               emphasis: { disabled: true }
                           },
                           {
-                              name: "Accumulated Gross Profit Trend",
+                              name: getCopy("grossProfitTrendSeriesName", "Accumulated Gross Profit Trend"),
                               type: "line",
                               data: accumulatedGrossProfitData,
                               smooth: 0.38,
@@ -3000,7 +3099,7 @@
                   const isMobile = isMobileCostLayout();
                   const costPieLayout = getCostPieLayout();
                   const legendSelected = getCostLegendSelectedMap(parts);
-                  const centerTitleText = "Total Cost";
+                  const centerTitleText = getCopy("totalCostTitle", "Total Cost");
                   const centerValueText = preciseCurrency(total);
                   const titleTop = isMobile ? "8.5%" : "8%";
                   const valueTop = isMobile ? "16%" : "12%";
@@ -3043,7 +3142,7 @@
                       },
                       series: [
                           {
-                              name: "Total Cost",
+                              name: getCopy("totalCostTitle", "Total Cost"),
                               type: "pie",
                               startAngle: 90,
                               radius: costPieLayout.radius,
@@ -3251,7 +3350,7 @@
                 <span class="nc-cost-mobile-name">${escapeHtml(getCostPartLabelText(part.label, true))}</span>
               </span>
               <span class="nc-cost-mobile-value">${escapeHtml(chartLabelCurrency(part.value))}</span>
-              <span class="nc-cost-mobile-share">${getCostPartShare(part.value, total)}% of total</span>
+              <span class="nc-cost-mobile-share">${getCostPartShare(part.value, total)}% ${escapeHtml(getCopy("ofTotalLabel", "of total"))}</span>
             </button>
           `;
                   }).join("");
@@ -3439,20 +3538,20 @@
   
               function formatPaybackPeriod(paybackMonths) {
                   if (paybackMonths === null) {
-                      return { value: "--", unit: "month(s)" };
+                      return { value: "--", unit: getCopy("paybackMonthUnit", "month(s)") };
                   }
   
                   if (paybackMonths > 0 && paybackMonths < 1) {
                       const paybackDays = Math.min(30, Math.max(1, Math.ceil(paybackMonths * WORKING_DAYS_PER_MONTH)));
                       return {
                           value: String(paybackDays),
-                          unit: "day(s)"
+                          unit: getCopy("paybackDayUnit", "day(s)")
                       };
                   }
   
                   return {
                       value: (Math.ceil(paybackMonths * 10) / 10).toFixed(1),
-                      unit: "month(s)"
+                      unit: getCopy("paybackMonthUnit", "month(s)")
                   };
               }
   
@@ -3889,6 +3988,7 @@
   
               function init() {
                   collectDom();
+                  applyStaticCopy();
                   state.materials = getInitialMaterials();
                   syncMobileInsightLayout();
                   renderMachinePicker();
@@ -3908,6 +4008,7 @@
                   });
           })();
   </script>
+</div>
   
   {% schema %}
   {
@@ -3919,6 +4020,7 @@
       { "type": "text", "id": "title", "label": "标题", "default": "Estimate Your Potential Side Income" },
       { "type": "textarea", "id": "subtitle", "label": "副标题", "default": "See how daily production, costs, and margins translate into monthly income." },
       { "type": "textarea", "id": "machine_subtitle", "label": "机器介绍文案", "default": "Select your printing materials and see your daily profit and ROI potential!" },
+      {"type": "textarea", "id": "copy_labels_json", "label": "固定文案配置 JSON", "info": "修改前台固定文案。保持 JSON 格式；只改冒号右侧的文案，不要改 key。", "default": "{\"selectMachine\":\"Select Machine\",\"totalUnitsLabel\":\"Total Units\",\"totalFabricCostLabel\":\"Total Fabric Cost\",\"totalRevenueLabel\":\"Total Revenue\",\"selectMaterial\":\"Select My Material\",\"customMaterial\":\"Custom My Material\",\"mobileProfitNote\":\"Note*: For estimation purpose only. Actual profitability depends on numerous factors, including your marketing, operational costs, and market trends.\",\"previousMaterialAria\":\"Previous material\",\"nextMaterialAria\":\"Next material\",\"profitOverviewTab\":\"Profit Overview\",\"costBreakdownTab\":\"Cost Breakdown\",\"paybackPeriodTitle\":\"Machine Payback Period\",\"paybackMonthUnit\":\"month(s)\",\"paybackDayUnit\":\"day(s)\",\"workingDaysLabel\":\"Working Days\",\"annualRevenueLabel\":\"Annual Revenue Forecast\",\"annualProfitLabel\":\"Annual Net Profit Forecast\",\"profitForecastTitle\":\"Profit Forecast\",\"chartUnavailable\":\"ECharts is unavailable.\",\"profitNote\":\"Note*: For estimation purpose only. Actual profitability depends on numerous factors, including your marketing, operational costs, and market trends.\",\"costBreakdownTitle\":\"View Cost Breakdown\",\"costIntroText\":\"Understand your daily costs to maximize your profit potential.\",\"totalCostTitle\":\"Total Cost\",\"costPeriodAria\":\"Select cost breakdown period\",\"periodDaily\":\"Daily\",\"periodWeekly\":\"Weekly\",\"periodMonthly\":\"Monthly\",\"periodHalfYearly\":\"Half-Yearly\",\"periodYearly\":\"Yearly\",\"periodDailyCost\":\"Daily Cost\",\"periodWeeklyCost\":\"Weekly Cost\",\"periodMonthlyCost\":\"Monthly Cost\",\"periodHalfYearlyCost\":\"Half-Yearly Cost\",\"periodYearlyCost\":\"Yearly Cost\",\"mobileCostBreakdownAria\":\"Mobile cost breakdown details\",\"costLegendAria\":\"Equipment cost legend\",\"costNote\":\"Note*: For estimation purpose only. Actual costs depend on numerous factors, including your marketing, operational costs, and market demands.\",\"machineModalTitle\":\"Select Machine\",\"materialModalTitle\":\"Select My Material\",\"closeMachinePickerAria\":\"Close machine picker\",\"closeMaterialPickerAria\":\"Close material picker\",\"cancelButton\":\"Cancel\",\"saveButton\":\"Save\",\"unitCostFieldLabel\":\"Unit Cost($)\",\"unitPriceFieldLabel\":\"Unit Price($)\",\"monthlyUnitsFieldLabel\":\"Monthly Units\",\"printSpeedLabel\":\"Print Speed\",\"printSizeLabel\":\"Print Size\",\"piecesPerHourLabel\":\"pcs/hr\",\"customProductNamePlaceholder\":\"Product Name...\",\"removeMaterialAria\":\"Remove material\",\"noMaterialsSelected\":\"No materials selected.\",\"grossProfitSeriesName\":\"Accumulated Gross Profit\",\"grossProfitTrendSeriesName\":\"Accumulated Gross Profit Trend\",\"wasteCompactLabel\":\"Waste\",\"ofTotalLabel\":\"of total\"}"},
       { "type": "checkbox", "id": "show_working_days", "label": "显示 Working Days", "default": false },
       { "type": "number", "id": "working_days_per_month", "label": "每月工作天数", "default": 30 },
       { "type": "number", "id": "half_year_days", "label": "半年天数", "default": 182 },

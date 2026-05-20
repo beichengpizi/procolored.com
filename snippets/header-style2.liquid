@@ -1,6 +1,14 @@
 <div class="thb-header-mobile-left">
 	{% render 'header-mobile-toggle', header_settings: header_settings, blocks: blocks %}
+	<a
+		class="thb-secondary-area-item thb-quick-search show-on-mobile"
+		href="{{ routes.search_url }}"
+		title="{{ 'sections.header.search' | t }}"
+	>
+		{%- render 'svg-icons' with 'search' -%}
+	</a>
 </div>
+
 <div class="menu-logo-container">
 	{% if header_settings.logo %}
 		<a class="logolink" href="{{ routes.root_url }}">

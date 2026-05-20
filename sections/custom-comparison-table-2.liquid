@@ -1,7 +1,19 @@
-{% assign product_count = section.blocks.size | plus: 1 %}
-{% assign total_col_gap = section.settings.col_gap | times: section.blocks.size %}
-{% assign table_row_width = section.settings.section_max_width | minus: total_col_gap %}
-{% assign cel_width = table_row_width | divided_by: product_count | floor %}
+{%- liquid
+  assign available_product_blocks_count = 0
+  for block in section.blocks
+    assign block_product = block.settings.product
+    assign block_variant_index = block.settings.product_variant_location | default: '0' | plus: 0
+    assign block_variant = block_product.variants[block_variant_index]
+    if block_product.available and block_variant.available
+      assign available_product_blocks_count = available_product_blocks_count | plus: 1
+    endif
+  endfor
+
+  assign product_count = available_product_blocks_count | plus: 1
+  assign total_col_gap = section.settings.col_gap | times: available_product_blocks_count
+  assign table_row_width = section.settings.section_max_width | minus: total_col_gap
+  assign cel_width = table_row_width | divided_by: product_count | floor
+-%}
 <style>
     :root {
       /* Font sizes */
@@ -184,7 +196,7 @@
       }
       .comparison-table-wrapper-{{section.id}} .comparison-table-header-item{
         {% if product_count > 0 %}
-          grid-template-columns: repeat(6, 1fr);
+          grid-template-columns: repeat({{ product_count }}, 1fr);
         {% endif %}
         gap: 24px;
         padding: 0 0 8px 0;
@@ -405,6 +417,10 @@
           opacity:1;
 
       }
+        .comparison-table-wrapper-{{section.id}} .comparison-table-item > .spec-column:nth-child(2) .spec-label-mobile,
+        .comparison-table-wrapper-{{section.id}} .comparison-table-item > .profit-section:nth-child(2) .spec-label-mobile {
+          opacity: 1;
+        }
         .comparison-table-wrapper-{{section.id}}  .printer-title {
           font-size: 14px;
           margin-bottom: 4px;
@@ -522,15 +538,20 @@
     {% endif %}
   </div>
   {% assign show_buy_button = section.settings.show_Buy_Button %}
-  {% if section.blocks.size > 0 %}
+  {% if available_product_blocks_count > 0 %}
     <div class="comparison-table-container">
       <!-- 表格参数名称 -->
       <div class="comparison-table-item comparison-table-header-item">
         <div class="spec-label-column-product"></div>
         {% for block in section.blocks %}
-          {% assign prod = block.settings.product %}
-          {% assign variant_index = block.settings.product_variant_location | default: '0' | plus: 0 %}
-          {% assign variant = prod.variants[variant_index] %}
+          {% assign block_product = block.settings.product %}
+          {% assign block_variant_index = block.settings.product_variant_location | default: '0' | plus: 0 %}
+          {% assign block_variant = block_product.variants[block_variant_index] %}
+          {% unless block_product.available and block_variant.available %}
+            {% continue %}
+          {% endunless %}
+          {% assign prod = block_product %}
+          {% assign variant = block_variant %}
           {% assign product_name = block.settings.title %}
           {% assign product_image = block.settings.product_image | default: prod.featured_image %}
           {% assign product_description = block.settings.description %}
@@ -613,8 +634,14 @@
         <div class="spec-label">{{ 'products.product.parameter.print_size' | t }}</div>
         {%- assign parameter_label = 'products.product.parameter.print_size' | t -%}
         {% for block in section.blocks %}
+          {% assign block_product = block.settings.product %}
+          {% assign block_variant_index = block.settings.product_variant_location | default: '0' | plus: 0 %}
+          {% assign block_variant = block_product.variants[block_variant_index] %}
+          {% unless block_product.available and block_variant.available %}
+            {% continue %}
+          {% endunless %}
           {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
-          {% assign print_size = block.settings.product.metafields.custom.print_size.value %}
+          {% assign print_size = block_product.metafields.custom.print_size.value %}
           <div class="spec-column">
             <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
               {{ 'products.product.parameter.print_size' | t }}
@@ -638,8 +665,14 @@
         </div>
         {%- assign parameter_label = 'products.product.parameter.profit_per_day' | t -%}
         {% for block in section.blocks %}
+          {% assign block_product = block.settings.product %}
+          {% assign block_variant_index = block.settings.product_variant_location | default: '0' | plus: 0 %}
+          {% assign block_variant = block_product.variants[block_variant_index] %}
+          {% unless block_product.available and block_variant.available %}
+            {% continue %}
+          {% endunless %}
           {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
-          {% assign profit_per_day_array = block.settings.product.metafields.custom.profit_per_day.value %}
+          {% assign profit_per_day_array = block_product.metafields.custom.profit_per_day.value %}
           <div class="profit-section">
             <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
               {{ 'products.product.parameter.profit_per_day' | t }}
@@ -656,8 +689,14 @@
         {%- assign parameter_label = 'products.product.parameter.print_speed' | t -%}
         <div class="spec-label">{{ 'products.product.parameter.print_speed' | t }}</div>
         {% for block in section.blocks %}
+          {% assign block_product = block.settings.product %}
+          {% assign block_variant_index = block.settings.product_variant_location | default: '0' | plus: 0 %}
+          {% assign block_variant = block_product.variants[block_variant_index] %}
+          {% unless block_product.available and block_variant.available %}
+            {% continue %}
+          {% endunless %}
           {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
-          {% assign print_speed = block.settings.product.metafields.custom.print_speed.value %}
+          {% assign print_speed = block_product.metafields.custom.print_speed.value %}
           <div class="spec-column">
             <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
               {{ 'products.product.parameter.print_speed' | t }}
@@ -677,7 +716,13 @@
         <div class="spec-label">{{ 'products.product.parameter.unit_per_hour' | t }}</div>
         {%- assign parameter_label = 'products.product.parameter.unit_per_hour' | t -%}
         {% for block in section.blocks %}
-          {% assign unit_per_hour = block.settings.product.metafields.custom.unit_per_hour.value %}
+          {% assign block_product = block.settings.product %}
+          {% assign block_variant_index = block.settings.product_variant_location | default: '0' | plus: 0 %}
+          {% assign block_variant = block_product.variants[block_variant_index] %}
+          {% unless block_product.available and block_variant.available %}
+            {% continue %}
+          {% endunless %}
+          {% assign unit_per_hour = block_product.metafields.custom.unit_per_hour.value %}
           {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
           <div class="spec-column">
             <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
@@ -698,8 +743,14 @@
         <div class="spec-label">{{ 'products.product.parameter.printer_suitable_business_size' | t }}</div>
         {%- assign parameter_label = 'products.product.parameter.printer_suitable_business_size' | t -%}
         {% for block in section.blocks %}
+          {% assign block_product = block.settings.product %}
+          {% assign block_variant_index = block.settings.product_variant_location | default: '0' | plus: 0 %}
+          {% assign block_variant = block_product.variants[block_variant_index] %}
+          {% unless block_product.available and block_variant.available %}
+            {% continue %}
+          {% endunless %}
           {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
-          {% assign printer_suitable_business_size = block.settings.product.metafields.custom.printer_suitable_business_size.value %}
+          {% assign printer_suitable_business_size = block_product.metafields.custom.printer_suitable_business_size.value %}
           <div class="spec-column">
             <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
               {{ 'products.product.parameter.printer_suitable_business_size' | t }}
@@ -719,7 +770,13 @@
         <div class="spec-label">{{ 'products.product.parameter.printer_head' | t }}</div>
         {%- assign parameter_label = 'products.product.parameter.printer_head' | t -%}
         {% for block in section.blocks %}
-          {% assign printer_head = block.settings.product.metafields.custom.Printer_head.value %}
+          {% assign block_product = block.settings.product %}
+          {% assign block_variant_index = block.settings.product_variant_location | default: '0' | plus: 0 %}
+          {% assign block_variant = block_product.variants[block_variant_index] %}
+          {% unless block_product.available and block_variant.available %}
+            {% continue %}
+          {% endunless %}
+          {% assign printer_head = block_product.metafields.custom.Printer_head.value %}
           {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
           <div class="spec-column">
             <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
@@ -740,7 +797,13 @@
         <div class="spec-label">{{ 'products.product.parameter.printer_config' | t }}</div>
         {%- assign parameter_label = 'products.product.parameter.printer_config' | t -%}
         {% for block in section.blocks %}
-          {% assign printer_config = block.settings.product.metafields.custom.printer_config.value %}
+          {% assign block_product = block.settings.product %}
+          {% assign block_variant_index = block.settings.product_variant_location | default: '0' | plus: 0 %}
+          {% assign block_variant = block_product.variants[block_variant_index] %}
+          {% unless block_product.available and block_variant.available %}
+            {% continue %}
+          {% endunless %}
+          {% assign printer_config = block_product.metafields.custom.printer_config.value %}
           {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
           <div class="spec-column">
             <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
@@ -761,8 +824,14 @@
         {%- assign parameter_label = 'products.product.parameter.color_configuration' | t -%}
         <div class="spec-label">{{ 'products.product.parameter.color_configuration' | t }}</div>
         {% for block in section.blocks %}
+          {% assign block_product = block.settings.product %}
+          {% assign block_variant_index = block.settings.product_variant_location | default: '0' | plus: 0 %}
+          {% assign block_variant = block_product.variants[block_variant_index] %}
+          {% unless block_product.available and block_variant.available %}
+            {% continue %}
+          {% endunless %}
           {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
-          {% assign color_configuration = block.settings.product.metafields.custom.color_configuration.value %}
+          {% assign color_configuration = block_product.metafields.custom.color_configuration.value %}
           <div class="spec-column">
             <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
               {{ 'products.product.parameter.color_configuration' | t }}
@@ -782,7 +851,13 @@
         <div class="spec-label">{{ 'products.product.parameter.print_accuracy' | t }}</div>
         {%- assign parameter_label = 'products.product.parameter.print_accuracy' | t -%}
         {% for block in section.blocks %}
-          {% assign print_accuracy_full = block.settings.product.metafields.custom.print_accuracy.value %}
+          {% assign block_product = block.settings.product %}
+          {% assign block_variant_index = block.settings.product_variant_location | default: '0' | plus: 0 %}
+          {% assign block_variant = block_product.variants[block_variant_index] %}
+          {% unless block_product.available and block_variant.available %}
+            {% continue %}
+          {% endunless %}
+          {% assign print_accuracy_full = block_product.metafields.custom.print_accuracy.value %}
           {% if print_accuracy_full contains '(' and print_accuracy_full contains ')' %}
             {% assign dpi_part = print_accuracy_full | split: '(' | first | strip %}
             {% assign pass_part = print_accuracy_full | split: '(' | last | remove: ')' | strip %}
@@ -813,8 +888,14 @@
         <div class="spec-label">{{ 'products.product.parameter.applicable_system' | t }}</div>
         {%- assign parameter_label = 'products.product.parameter.applicable_system' | t -%}
         {% for block in section.blocks %}
+          {% assign block_product = block.settings.product %}
+          {% assign block_variant_index = block.settings.product_variant_location | default: '0' | plus: 0 %}
+          {% assign block_variant = block_product.variants[block_variant_index] %}
+          {% unless block_product.available and block_variant.available %}
+            {% continue %}
+          {% endunless %}
           {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
-          {% assign applicable_system = block.settings.product.metafields.custom.applicable_system.value %}
+          {% assign applicable_system = block_product.metafields.custom.applicable_system.value %}
           <div class="spec-column">
             <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
               {{ 'products.product.parameter.applicable_system' | t }}
@@ -834,8 +915,14 @@
         {%- assign parameter_label = 'products.product.parameter.software' | t -%}
         <div class="spec-label">{{ 'products.product.parameter.software' | t }}</div>
         {% for block in section.blocks %}
+          {% assign block_product = block.settings.product %}
+          {% assign block_variant_index = block.settings.product_variant_location | default: '0' | plus: 0 %}
+          {% assign block_variant = block_product.variants[block_variant_index] %}
+          {% unless block_product.available and block_variant.available %}
+            {% continue %}
+          {% endunless %}
           {%- assign highlight_params = block.settings.highlight_params | split: ',' -%}
-          {% assign software = block.settings.product.metafields.custom.software.value %}
+          {% assign software = block_product.metafields.custom.software.value %}
           <div class="spec-column">
             <div class="spec-label-mobile {% if forloop.first %}first{% endif %}">
               {{ 'products.product.parameter.software' | t }}
@@ -928,6 +1015,8 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const learnMoreBtn = document.querySelector('.learn-more-btn');
+    if (!learnMoreBtn) return;
+
     const hiddenRows = document.querySelectorAll('.mobile-hidden-new');
     let isExpanded = false;
 
