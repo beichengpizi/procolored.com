@@ -1,0 +1,890 @@
+{% liquid
+  assign heading_pc = section.settings.heading_html
+  assign heading_mobile = section.settings.heading_html_mobile
+  if heading_mobile == blank
+    assign heading_mobile = heading_pc
+  endif
+
+  assign subtitle_pc = section.settings.subtitle_html
+  assign subtitle_mobile = section.settings.subtitle_html_mobile
+  if subtitle_mobile == blank
+    assign subtitle_mobile = subtitle_pc
+  endif
+
+  assign footer_pc = section.settings.footer_text_html
+  assign footer_mobile = section.settings.footer_text_html_mobile
+  if footer_mobile == blank
+    assign footer_mobile = footer_pc
+  endif
+%}
+
+<section class="testimonials-section-{{ section.id }}" data-testimonials-section="{{ section.id }}">
+  <style>
+    .testimonials-section-{{ section.id }} {
+      --tm-section-bg: {{ section.settings.section_bg }};
+      --tm-card-bg: {{ section.settings.card_bg }};
+      --tm-heading-color: {{ section.settings.heading_color }};
+      --tm-subtitle-color: {{ section.settings.subtitle_color }};
+      --tm-name-color: {{ section.settings.name_color }};
+      --tm-role-color: {{ section.settings.role_color }};
+      --tm-review-color: {{ section.settings.review_color }};
+      --tm-link-color: {{ section.settings.link_color }};
+      --tm-link-hover-color: {{ section.settings.link_hover_color }};
+      --tm-quote-color: {{ section.settings.quote_color }};
+      --tm-star-color: {{ section.settings.star_color }};
+      --tm-avatar-bg: {{ section.settings.avatar_bg }};
+      --tm-avatar-color: {{ section.settings.avatar_color }};
+      --tm-marquee-distance: 50%;
+      --tm-marquee-duration: {{ section.settings.carousel_duration_pc }}s;
+
+      background: var(--tm-section-bg);
+      overflow: hidden;
+      padding-top: clamp(calc({{ section.settings.section_padding_top_pc }}px * 0.667), calc(100vw * {{ section.settings.section_padding_top_pc }} / 1920), calc({{ section.settings.section_padding_top_pc }}px * 2));
+      padding-bottom: clamp(calc({{ section.settings.section_padding_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.section_padding_bottom_pc }} / 1920), calc({{ section.settings.section_padding_bottom_pc }}px * 2));
+    }
+
+    .testimonials-section-{{ section.id }} * {
+      box-sizing: border-box;
+    }
+
+    .testimonials-section-{{ section.id }} .tm-header {
+      max-width: clamp(calc({{ section.settings.header_max_width_pc }}px * 0.667), calc(100vw * {{ section.settings.header_max_width_pc }} / 1920), calc({{ section.settings.header_max_width_pc }}px * 2));
+      margin: 0 auto clamp(calc({{ section.settings.header_margin_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.header_margin_bottom_pc }} / 1920), calc({{ section.settings.header_margin_bottom_pc }}px * 2));
+      padding-left: clamp(calc({{ section.settings.header_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.header_padding_x_pc }} / 1920), calc({{ section.settings.header_padding_x_pc }}px * 2));
+      padding-right: clamp(calc({{ section.settings.header_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.header_padding_x_pc }} / 1920), calc({{ section.settings.header_padding_x_pc }}px * 2));
+      text-align: center;
+    }
+
+    .testimonials-section-{{ section.id }} .tm-heading {
+      color: var(--tm-heading-color);
+      font-size: clamp(calc({{ section.settings.heading_size_pc }}px * 0.667), calc(100vw * {{ section.settings.heading_size_pc }} / 1920), calc({{ section.settings.heading_size_pc }}px * 2));
+      font-weight: {{ section.settings.heading_weight }};
+      line-height: {{ section.settings.heading_line_height }};
+      margin: 0 0 clamp(calc({{ section.settings.heading_margin_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.heading_margin_bottom_pc }} / 1920), calc({{ section.settings.heading_margin_bottom_pc }}px * 2));
+    }
+
+    .testimonials-section-{{ section.id }} .tm-subtitle {
+      color: var(--tm-subtitle-color);
+      font-size: clamp(calc({{ section.settings.subtitle_size_pc }}px * 0.667), calc(100vw * {{ section.settings.subtitle_size_pc }} / 1920), calc({{ section.settings.subtitle_size_pc }}px * 2));
+      font-weight: {{ section.settings.subtitle_weight }};
+      line-height: {{ section.settings.subtitle_line_height }};
+      margin: 0;
+    }
+
+    .testimonials-section-{{ section.id }} .tm-carousel {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .testimonials-section-{{ section.id }} .tm-track {
+      display: flex;
+      width: max-content;
+      transform: translate3d(0, 0, 0);
+      will-change: transform;
+      backface-visibility: hidden;
+      {% if section.settings.enable_autoplay %}
+        animation: tm-marquee-{{ section.id }} var(--tm-marquee-duration) linear infinite;
+      {% else %}
+        animation: none;
+      {% endif %}
+    }
+
+    {% if section.settings.pause_on_hover %}
+      .testimonials-section-{{ section.id }} .tm-carousel:hover .tm-track {
+        animation-play-state: paused;
+      }
+    {% endif %}
+
+    .testimonials-section-{{ section.id }} .tm-group {
+      display: flex;
+      flex-shrink: 0;
+      gap: clamp(calc({{ section.settings.card_gap_pc }}px * 0.667), calc(100vw * {{ section.settings.card_gap_pc }} / 1920), calc({{ section.settings.card_gap_pc }}px * 2));
+      padding-right: clamp(calc({{ section.settings.card_gap_pc }}px * 0.667), calc(100vw * {{ section.settings.card_gap_pc }} / 1920), calc({{ section.settings.card_gap_pc }}px * 2));
+    }
+
+    .testimonials-section-{{ section.id }} .tm-card {
+      flex: 0 0 auto;
+      width: clamp(calc({{ section.settings.card_width_pc }}px * 0.667), calc(100vw * {{ section.settings.card_width_pc }} / 1920), calc({{ section.settings.card_width_pc }}px * 2));
+      padding: clamp(calc({{ section.settings.card_padding_y_pc }}px * 0.667), calc(100vw * {{ section.settings.card_padding_y_pc }} / 1920), calc({{ section.settings.card_padding_y_pc }}px * 2)) clamp(calc({{ section.settings.card_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.card_padding_x_pc }} / 1920), calc({{ section.settings.card_padding_x_pc }}px * 2));
+      border-radius: clamp(calc({{ section.settings.card_radius_pc }}px * 0.667), calc(100vw * {{ section.settings.card_radius_pc }} / 1920), calc({{ section.settings.card_radius_pc }}px * 2));
+      background: var(--tm-card-bg);
+      position: relative;
+    }
+
+    .testimonials-section-{{ section.id }} .tm-card-header {
+      display: flex;
+      align-items: center;
+      position: relative;
+      margin-bottom: clamp(calc({{ section.settings.card_header_margin_pc }}px * 0.667), calc(100vw * {{ section.settings.card_header_margin_pc }} / 1920), calc({{ section.settings.card_header_margin_pc }}px * 2));
+      padding-right: clamp(calc({{ section.settings.quote_size_pc }}px * 0.667), calc(100vw * {{ section.settings.quote_size_pc }} / 1920), calc({{ section.settings.quote_size_pc }}px * 2));
+    }
+
+    .testimonials-section-{{ section.id }} .tm-avatar-wrap {
+      width: clamp(calc({{ section.settings.avatar_size_pc }}px * 0.667), calc(100vw * {{ section.settings.avatar_size_pc }} / 1920), calc({{ section.settings.avatar_size_pc }}px * 2));
+      height: clamp(calc({{ section.settings.avatar_size_pc }}px * 0.667), calc(100vw * {{ section.settings.avatar_size_pc }} / 1920), calc({{ section.settings.avatar_size_pc }}px * 2));
+      margin-right: clamp(calc({{ section.settings.avatar_gap_pc }}px * 0.667), calc(100vw * {{ section.settings.avatar_gap_pc }} / 1920), calc({{ section.settings.avatar_gap_pc }}px * 2));
+      border-radius: 50%;
+      overflow: hidden;
+      flex: 0 0 auto;
+      background: var(--tm-avatar-bg);
+    }
+
+    .testimonials-section-{{ section.id }} .tm-avatar {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .testimonials-section-{{ section.id }} .tm-avatar-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: var(--tm-avatar-color);
+      background: var(--tm-avatar-bg);
+      font-size: clamp(calc({{ section.settings.avatar_text_size_pc }}px * 0.667), calc(100vw * {{ section.settings.avatar_text_size_pc }} / 1920), calc({{ section.settings.avatar_text_size_pc }}px * 2));
+      font-weight: 800;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .testimonials-section-{{ section.id }} .tm-user-info {
+      min-width: 0;
+    }
+
+    .testimonials-section-{{ section.id }} .tm-name {
+      color: var(--tm-name-color);
+      font-size: clamp(calc({{ section.settings.name_size_pc }}px * 0.667), calc(100vw * {{ section.settings.name_size_pc }} / 1920), calc({{ section.settings.name_size_pc }}px * 2));
+      font-weight: {{ section.settings.name_weight }};
+      line-height: {{ section.settings.name_line_height }};
+      word-break: break-word;
+    }
+
+    .testimonials-section-{{ section.id }} .tm-role {
+      color: var(--tm-role-color);
+      font-size: clamp(calc({{ section.settings.role_size_pc }}px * 0.667), calc(100vw * {{ section.settings.role_size_pc }} / 1920), calc({{ section.settings.role_size_pc }}px * 2));
+      font-weight: {{ section.settings.role_weight }};
+      line-height: {{ section.settings.role_line_height }};
+      word-break: break-word;
+    }
+
+    .testimonials-section-{{ section.id }} .tm-quote {
+      position: absolute;
+      top: clamp(calc({{ section.settings.quote_top_pc }}px * 0.667), calc(100vw * {{ section.settings.quote_top_pc }} / 1920), calc({{ section.settings.quote_top_pc }}px * 2));
+      right: 0;
+      width: clamp(calc({{ section.settings.quote_size_pc }}px * 0.667), calc(100vw * {{ section.settings.quote_size_pc }} / 1920), calc({{ section.settings.quote_size_pc }}px * 2));
+      height: clamp(calc({{ section.settings.quote_size_pc }}px * 0.667), calc(100vw * {{ section.settings.quote_size_pc }} / 1920), calc({{ section.settings.quote_size_pc }}px * 2));
+      color: var(--tm-quote-color);
+      pointer-events: none;
+    }
+
+    .testimonials-section-{{ section.id }} .tm-quote svg,
+    .testimonials-section-{{ section.id }} .tm-star-fallback svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .testimonials-section-{{ section.id }} .tm-stars {
+      display: block;
+      width: auto;
+      height: clamp(calc({{ section.settings.stars_height_pc }}px * 0.667), calc(100vw * {{ section.settings.stars_height_pc }} / 1920), calc({{ section.settings.stars_height_pc }}px * 2));
+      margin-bottom: clamp(calc({{ section.settings.stars_margin_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.stars_margin_bottom_pc }} / 1920), calc({{ section.settings.stars_margin_bottom_pc }}px * 2));
+    }
+
+    .testimonials-section-{{ section.id }} .tm-star-fallback {
+      display: flex;
+      align-items: center;
+      gap: clamp(calc(4px * 0.667), calc(100vw * 4 / 1920), calc(4px * 2));
+      color: var(--tm-star-color);
+      margin-bottom: clamp(calc({{ section.settings.stars_margin_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.stars_margin_bottom_pc }} / 1920), calc({{ section.settings.stars_margin_bottom_pc }}px * 2));
+    }
+
+    .testimonials-section-{{ section.id }} .tm-star-fallback svg {
+      width: clamp(calc({{ section.settings.stars_height_pc }}px * 0.667), calc(100vw * {{ section.settings.stars_height_pc }} / 1920), calc({{ section.settings.stars_height_pc }}px * 2));
+      height: clamp(calc({{ section.settings.stars_height_pc }}px * 0.667), calc(100vw * {{ section.settings.stars_height_pc }} / 1920), calc({{ section.settings.stars_height_pc }}px * 2));
+      flex: 0 0 auto;
+    }
+
+    .testimonials-section-{{ section.id }} .tm-review {
+      color: var(--tm-review-color);
+      font-size: clamp(calc({{ section.settings.review_size_pc }}px * 0.667), calc(100vw * {{ section.settings.review_size_pc }} / 1920), calc({{ section.settings.review_size_pc }}px * 2));
+      font-weight: {{ section.settings.review_weight }};
+      line-height: {{ section.settings.review_line_height }};
+      word-break: break-word;
+    }
+
+    .testimonials-section-{{ section.id }} .tm-footer {
+      text-align: center;
+      margin-top: clamp(calc({{ section.settings.footer_margin_top_pc }}px * 0.667), calc(100vw * {{ section.settings.footer_margin_top_pc }} / 1920), calc({{ section.settings.footer_margin_top_pc }}px * 2));
+      padding-left: clamp(calc({{ section.settings.header_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.header_padding_x_pc }} / 1920), calc({{ section.settings.header_padding_x_pc }}px * 2));
+      padding-right: clamp(calc({{ section.settings.header_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.header_padding_x_pc }} / 1920), calc({{ section.settings.header_padding_x_pc }}px * 2));
+    }
+
+    .testimonials-section-{{ section.id }} .tm-link {
+      display: inline-block;
+      color: var(--tm-link-color);
+      font-size: clamp(calc({{ section.settings.footer_size_pc }}px * 0.667), calc(100vw * {{ section.settings.footer_size_pc }} / 1920), calc({{ section.settings.footer_size_pc }}px * 2));
+      font-weight: {{ section.settings.footer_weight }};
+      line-height: {{ section.settings.footer_line_height }};
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .testimonials-section-{{ section.id }} .tm-link:hover {
+      color: var(--tm-link-hover-color);
+    }
+
+    .testimonials-section-{{ section.id }} .tm-mobile {
+      display: none;
+    }
+
+    @keyframes tm-marquee-{{ section.id }} {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(calc(-1 * var(--tm-marquee-distance)), 0, 0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .testimonials-section-{{ section.id }} .tm-track {
+        animation: none;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .testimonials-section-{{ section.id }} {
+        --tm-marquee-duration: {{ section.settings.carousel_duration_mobile }}s;
+        padding-top: clamp(calc({{ section.settings.section_padding_top_mobile }}px * 0.85), calc(100vw * {{ section.settings.section_padding_top_mobile }} / 375), calc({{ section.settings.section_padding_top_mobile }}px * 1.15));
+        padding-bottom: clamp(calc({{ section.settings.section_padding_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.section_padding_bottom_mobile }} / 375), calc({{ section.settings.section_padding_bottom_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-header {
+        max-width: 100%;
+        margin-bottom: clamp(calc({{ section.settings.header_margin_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.header_margin_bottom_mobile }} / 375), calc({{ section.settings.header_margin_bottom_mobile }}px * 1.15));
+        padding-left: clamp(calc({{ section.settings.header_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.header_padding_x_mobile }} / 375), calc({{ section.settings.header_padding_x_mobile }}px * 1.15));
+        padding-right: clamp(calc({{ section.settings.header_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.header_padding_x_mobile }} / 375), calc({{ section.settings.header_padding_x_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-heading {
+        font-size: clamp(calc({{ section.settings.heading_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.heading_size_mobile }} / 375), calc({{ section.settings.heading_size_mobile }}px * 1.15));
+        margin-bottom: clamp(calc({{ section.settings.heading_margin_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.heading_margin_bottom_mobile }} / 375), calc({{ section.settings.heading_margin_bottom_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-subtitle {
+        font-size: clamp(calc({{ section.settings.subtitle_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.subtitle_size_mobile }} / 375), calc({{ section.settings.subtitle_size_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-group {
+        gap: clamp(calc({{ section.settings.card_gap_mobile }}px * 0.85), calc(100vw * {{ section.settings.card_gap_mobile }} / 375), calc({{ section.settings.card_gap_mobile }}px * 1.15));
+        padding-right: clamp(calc({{ section.settings.card_gap_mobile }}px * 0.85), calc(100vw * {{ section.settings.card_gap_mobile }} / 375), calc({{ section.settings.card_gap_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-card {
+        width: clamp(calc({{ section.settings.card_width_mobile }}px * 0.85), calc(100vw * {{ section.settings.card_width_mobile }} / 375), calc({{ section.settings.card_width_mobile }}px * 1.15));
+        padding: clamp(calc({{ section.settings.card_padding_y_mobile }}px * 0.85), calc(100vw * {{ section.settings.card_padding_y_mobile }} / 375), calc({{ section.settings.card_padding_y_mobile }}px * 1.15)) clamp(calc({{ section.settings.card_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.card_padding_x_mobile }} / 375), calc({{ section.settings.card_padding_x_mobile }}px * 1.15));
+        border-radius: clamp(calc({{ section.settings.card_radius_mobile }}px * 0.85), calc(100vw * {{ section.settings.card_radius_mobile }} / 375), calc({{ section.settings.card_radius_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-card-header {
+        margin-bottom: clamp(calc({{ section.settings.card_header_margin_mobile }}px * 0.85), calc(100vw * {{ section.settings.card_header_margin_mobile }} / 375), calc({{ section.settings.card_header_margin_mobile }}px * 1.15));
+        padding-right: clamp(calc({{ section.settings.quote_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.quote_size_mobile }} / 375), calc({{ section.settings.quote_size_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-avatar-wrap {
+        width: clamp(calc({{ section.settings.avatar_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.avatar_size_mobile }} / 375), calc({{ section.settings.avatar_size_mobile }}px * 1.15));
+        height: clamp(calc({{ section.settings.avatar_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.avatar_size_mobile }} / 375), calc({{ section.settings.avatar_size_mobile }}px * 1.15));
+        margin-right: clamp(calc({{ section.settings.avatar_gap_mobile }}px * 0.85), calc(100vw * {{ section.settings.avatar_gap_mobile }} / 375), calc({{ section.settings.avatar_gap_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-avatar-placeholder {
+        font-size: clamp(calc({{ section.settings.avatar_text_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.avatar_text_size_mobile }} / 375), calc({{ section.settings.avatar_text_size_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-name {
+        font-size: clamp(calc({{ section.settings.name_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.name_size_mobile }} / 375), calc({{ section.settings.name_size_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-role {
+        font-size: clamp(calc({{ section.settings.role_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.role_size_mobile }} / 375), calc({{ section.settings.role_size_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-quote {
+        top: clamp(calc({{ section.settings.quote_top_mobile }}px * 0.85), calc(100vw * {{ section.settings.quote_top_mobile }} / 375), calc({{ section.settings.quote_top_mobile }}px * 1.15));
+        width: clamp(calc({{ section.settings.quote_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.quote_size_mobile }} / 375), calc({{ section.settings.quote_size_mobile }}px * 1.15));
+        height: clamp(calc({{ section.settings.quote_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.quote_size_mobile }} / 375), calc({{ section.settings.quote_size_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-stars,
+      .testimonials-section-{{ section.id }} .tm-star-fallback {
+        margin-bottom: clamp(calc({{ section.settings.stars_margin_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.stars_margin_bottom_mobile }} / 375), calc({{ section.settings.stars_margin_bottom_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-stars,
+      .testimonials-section-{{ section.id }} .tm-star-fallback svg {
+        height: clamp(calc({{ section.settings.stars_height_mobile }}px * 0.85), calc(100vw * {{ section.settings.stars_height_mobile }} / 375), calc({{ section.settings.stars_height_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-star-fallback svg {
+        width: clamp(calc({{ section.settings.stars_height_mobile }}px * 0.85), calc(100vw * {{ section.settings.stars_height_mobile }} / 375), calc({{ section.settings.stars_height_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-review {
+        font-size: clamp(calc({{ section.settings.review_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.review_size_mobile }} / 375), calc({{ section.settings.review_size_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-footer {
+        margin-top: clamp(calc({{ section.settings.footer_margin_top_mobile }}px * 0.85), calc(100vw * {{ section.settings.footer_margin_top_mobile }} / 375), calc({{ section.settings.footer_margin_top_mobile }}px * 1.15));
+        padding-left: clamp(calc({{ section.settings.header_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.header_padding_x_mobile }} / 375), calc({{ section.settings.header_padding_x_mobile }}px * 1.15));
+        padding-right: clamp(calc({{ section.settings.header_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.header_padding_x_mobile }} / 375), calc({{ section.settings.header_padding_x_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-link {
+        font-size: clamp(calc({{ section.settings.footer_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.footer_size_mobile }} / 375), calc({{ section.settings.footer_size_mobile }}px * 1.15));
+      }
+
+      .testimonials-section-{{ section.id }} .tm-pc {
+        display: none;
+      }
+
+      .testimonials-section-{{ section.id }} .tm-mobile {
+        display: block;
+      }
+    }
+  </style>
+
+  {% if heading_pc != blank or subtitle_pc != blank %}
+    <div class="tm-header">
+      {% if heading_pc != blank %}
+        <div class="tm-heading tm-pc">{{ heading_pc }}</div>
+        <div class="tm-heading tm-mobile">{{ heading_mobile }}</div>
+      {% endif %}
+
+      {% if subtitle_pc != blank %}
+        <div class="tm-subtitle tm-pc">{{ subtitle_pc }}</div>
+        <div class="tm-subtitle tm-mobile">{{ subtitle_mobile }}</div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if section.blocks.size > 0 %}
+    <div class="tm-carousel" aria-label="{{ section.settings.carousel_aria_label | escape }}">
+      <div class="tm-track" data-testimonials-track>
+        {% for repeat_index in (1..2) %}
+          <div class="tm-group" data-testimonials-group {% if repeat_index == 2 %}aria-hidden="true"{% endif %}>
+            {% for block in section.blocks %}
+              {% liquid
+                assign avatar_pc = block.settings.avatar_image_pc
+                assign avatar_mobile = block.settings.avatar_image_mobile
+                if avatar_pc == blank and avatar_mobile != blank
+                  assign avatar_pc = avatar_mobile
+                endif
+                if avatar_mobile == blank
+                  assign avatar_mobile = avatar_pc
+                endif
+
+                assign stars_pc = block.settings.stars_image_pc
+                assign stars_mobile = block.settings.stars_image_mobile
+                if stars_pc == blank and stars_mobile != blank
+                  assign stars_pc = stars_mobile
+                endif
+                if stars_mobile == blank
+                  assign stars_mobile = stars_pc
+                endif
+
+                assign name_pc = block.settings.user_name_html
+                assign name_mobile = block.settings.user_name_html_mobile
+                if name_mobile == blank
+                  assign name_mobile = name_pc
+                endif
+
+                assign role_pc = block.settings.user_role_html
+                assign role_mobile = block.settings.user_role_html_mobile
+                if role_mobile == blank
+                  assign role_mobile = role_pc
+                endif
+
+                assign review_pc = block.settings.review_html
+                assign review_mobile = block.settings.review_html_mobile
+                if review_mobile == blank
+                  assign review_mobile = review_pc
+                endif
+
+                assign avatar_text = block.settings.avatar_fallback_text
+                if avatar_text == blank
+                  assign avatar_text = name_pc | strip_html | remove: '@' | slice: 0, 1
+                endif
+                if avatar_text == blank
+                  assign avatar_text = 'U'
+                endif
+
+                assign avatar_alt = block.settings.avatar_alt
+                if avatar_alt == blank
+                  assign avatar_alt = name_pc | strip_html
+                endif
+
+                assign stars_alt = block.settings.stars_alt
+                if stars_alt == blank
+                  assign stars_alt = '5 Stars'
+                endif
+              %}
+
+              <div class="tm-card" {% if repeat_index == 1 %}{{ block.shopify_attributes }}{% endif %}>
+                <div class="tm-card-header">
+                  <div class="tm-avatar-wrap">
+                    {% if avatar_pc != blank %}
+                      <picture>
+                        {% if avatar_mobile != blank %}
+                          <source
+                            media="(max-width: 768px)"
+                            data-srcset="{{ avatar_mobile | image_url: width: 80 }} 80w, {{ avatar_mobile | image_url: width: 120 }} 120w, {{ avatar_mobile | image_url: width: 160 }} 160w"
+                            sizes="54px"
+                          >
+                        {% endif %}
+                        <img
+                          class="tm-avatar lazyload"
+                          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                          data-src="{{ avatar_pc | image_url: width: 160 }}"
+                          data-srcset="{{ avatar_pc | image_url: width: 80 }} 80w, {{ avatar_pc | image_url: width: 120 }} 120w, {{ avatar_pc | image_url: width: 160 }} 160w, {{ avatar_pc | image_url: width: 240 }} 240w"
+                          sizes="(max-width: 768px) 54px, 62px"
+                          width="{{ avatar_pc.width }}"
+                          height="{{ avatar_pc.height }}"
+                          alt="{{ avatar_alt | escape }}"
+                        >
+                      </picture>
+                    {% else %}
+                      <div class="tm-avatar-placeholder" aria-hidden="true">
+                        {{ avatar_text | strip_html | slice: 0, 2 }}
+                      </div>
+                    {% endif %}
+                  </div>
+
+                  <div class="tm-user-info">
+                    {% if name_pc != blank %}
+                      <div class="tm-name tm-pc">{{ name_pc }}</div>
+                      <div class="tm-name tm-mobile">{{ name_mobile }}</div>
+                    {% endif %}
+
+                    {% if role_pc != blank %}
+                      <div class="tm-role tm-pc">{{ role_pc }}</div>
+                      <div class="tm-role tm-mobile">{{ role_mobile }}</div>
+                    {% endif %}
+                  </div>
+
+                  {% if section.settings.show_quote_icon %}
+                    <div class="tm-quote" aria-hidden="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
+                        <path d="M12.0645 18.6018H5.32652V5.73438H18.2403V17.2026C18.6147 24.8476 14.9652 30.5359 7.29158 34.2651L4.20312 30.0687C9.44328 27.2727 12.0645 23.4496 12.0645 18.6018ZM24.1366 34.2651L21.0482 30.0687C26.1005 27.2727 28.7218 23.4496 28.9084 18.6018H22.1704V5.73438H35.0853V17.2026C35.4598 24.8476 31.8102 30.5359 24.1366 34.2651Z" fill="currentColor" />
+                      </svg>
+                    </div>
+                  {% endif %}
+                </div>
+
+                {% if stars_pc != blank %}
+                  <picture>
+                    {% if stars_mobile != blank %}
+                      <source
+                        media="(max-width: 768px)"
+                        data-srcset="{{ stars_mobile | image_url: width: 100 }} 100w, {{ stars_mobile | image_url: width: 160 }} 160w, {{ stars_mobile | image_url: width: 220 }} 220w"
+                        sizes="120px"
+                      >
+                    {% endif %}
+                    <img
+                      class="tm-stars lazyload"
+                      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                      data-src="{{ stars_pc | image_url: width: 220 }}"
+                      data-srcset="{{ stars_pc | image_url: width: 100 }} 100w, {{ stars_pc | image_url: width: 160 }} 160w, {{ stars_pc | image_url: width: 220 }} 220w, {{ stars_pc | image_url: width: 320 }} 320w"
+                      sizes="(max-width: 768px) 120px, 160px"
+                      width="{{ stars_pc.width }}"
+                      height="{{ stars_pc.height }}"
+                      alt="{{ stars_alt | escape }}"
+                    >
+                  </picture>
+                {% else %}
+                  <div class="tm-star-fallback" role="img" aria-label="{{ stars_alt | escape }}">
+                    {% for star_index in (1..5) %}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M12 2.75l2.86 5.79 6.39.93-4.62 4.5 1.09 6.36L12 17.32l-5.72 3.01 1.09-6.36-4.62-4.5 6.39-.93L12 2.75z"/>
+                      </svg>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+
+                {% if review_pc != blank %}
+                  <div class="tm-review tm-pc">{{ review_pc }}</div>
+                  <div class="tm-review tm-mobile">{{ review_mobile }}</div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if footer_pc != blank %}
+    <div class="tm-footer">
+      {% if section.settings.footer_link != blank %}
+        <a class="tm-link tm-pc" href="{{ section.settings.footer_link }}" {% if section.settings.footer_open_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ footer_pc }}</a>
+        <a class="tm-link tm-mobile" href="{{ section.settings.footer_link }}" {% if section.settings.footer_open_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ footer_mobile }}</a>
+      {% else %}
+        <span class="tm-link tm-pc">{{ footer_pc }}</span>
+        <span class="tm-link tm-mobile">{{ footer_mobile }}</span>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <script>
+    (() => {
+      const init = () => {
+        const section = document.querySelector('[data-testimonials-section="{{ section.id }}"]');
+        if (!section || section.dataset.testimonialsReady === 'true') return;
+
+        section.dataset.testimonialsReady = 'true';
+
+        const track = section.querySelector('[data-testimonials-track]');
+        const firstGroup = section.querySelector('[data-testimonials-group]');
+        if (!track || !firstGroup) return;
+
+        // 计算第一组真实宽度作为动画位移，避免固定 -50% 导致首尾接缝、跳动或空白。
+        const updateDistance = () => {
+          const distance = firstGroup.getBoundingClientRect().width;
+          if (!distance) return;
+
+          track.style.setProperty('--tm-marquee-distance', `${distance}px`);
+
+          if (track.getAnimations) {
+            track.getAnimations().forEach((animation) => {
+              animation.cancel();
+              animation.play();
+            });
+          }
+        };
+
+        // 若主题未安装 lazysizes，则做兜底加载，避免图片一直停留在透明占位图。
+        const lazyloadFallback = () => {
+          if (window.lazySizes) return;
+
+          section.querySelectorAll('img.lazyload').forEach((img) => {
+            const dataSrc = img.getAttribute('data-src');
+            const dataSrcset = img.getAttribute('data-srcset');
+
+            if (dataSrcset && !img.getAttribute('srcset')) {
+              img.setAttribute('srcset', dataSrcset);
+            }
+
+            if (dataSrc && img.getAttribute('src') !== dataSrc) {
+              img.setAttribute('src', dataSrc);
+            }
+
+            img.classList.remove('lazyload');
+            img.classList.add('lazyloaded');
+          });
+
+          section.querySelectorAll('source[data-srcset]').forEach((source) => {
+            if (!source.getAttribute('srcset')) {
+              source.setAttribute('srcset', source.getAttribute('data-srcset'));
+            }
+          });
+        };
+
+        const scheduleUpdate = () => window.requestAnimationFrame(updateDistance);
+
+        lazyloadFallback();
+        scheduleUpdate();
+
+        window.addEventListener('load', scheduleUpdate, { once: true });
+        window.addEventListener('resize', scheduleUpdate);
+
+        if ('ResizeObserver' in window) {
+          const observer = new ResizeObserver(scheduleUpdate);
+          observer.observe(firstGroup);
+          observer.observe(section);
+        }
+
+        if (window.Shopify && Shopify.designMode) {
+          document.addEventListener('shopify:block:select', (event) => {
+            if (!section.contains(event.target)) return;
+            track.style.animationPlayState = 'paused';
+          });
+
+          document.addEventListener('shopify:block:deselect', (event) => {
+            if (!section.contains(event.target)) return;
+            track.style.animationPlayState = '';
+            scheduleUpdate();
+          });
+        }
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init, { once: true });
+      } else {
+        init();
+      }
+    })();
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "用户评价无缝轮播",
+  "tag": "section",
+  "class": "section-testimonials-marquee",
+  "max_blocks": 20,
+  "settings": [
+    { "type": "header", "content": "文案配置" },
+    { "type": "html", "id": "heading_html", "label": "主标题 - PC端", "default": "Hear Voice from<br>Procolored Users" },
+    { "type": "html", "id": "heading_html_mobile", "label": "主标题 - 移动端", "info": "不填写时默认使用 PC 端主标题。" },
+    { "type": "html", "id": "subtitle_html", "label": "副标题 - PC端", "default": "From home makers discovering a new creative outlet, to small business owners scaling their first online store — Procolored is part of thousands of journeys turning ideas into real products." },
+    { "type": "html", "id": "subtitle_html_mobile", "label": "副标题 - 移动端", "info": "不填写时默认使用 PC 端副标题。" },
+    { "type": "html", "id": "footer_text_html", "label": "底部按钮文案 - PC端", "default": "Your Story Could Be Next &gt;&gt;" },
+    { "type": "html", "id": "footer_text_html_mobile", "label": "底部按钮文案 - 移动端", "info": "不填写时默认使用 PC 端底部文案。" },
+    { "type": "url", "id": "footer_link", "label": "底部按钮链接" },
+    { "type": "checkbox", "id": "footer_open_new_tab", "label": "底部按钮打开新标签页", "default": false },
+    { "type": "text", "id": "carousel_aria_label", "label": "轮播无障碍描述", "default": "Customer testimonials" },
+
+    { "type": "header", "content": "轮播配置" },
+    { "type": "checkbox", "id": "enable_autoplay", "label": "开启自动滚动", "default": true },
+    { "type": "checkbox", "id": "pause_on_hover", "label": "鼠标悬停暂停", "default": true },
+    { "type": "range", "id": "carousel_duration_pc", "min": 10, "max": 80, "step": 1, "unit": "s", "label": "滚动一轮时长 - PC端", "info": "数值越小，滚动越快。", "default": 30 },
+    { "type": "range", "id": "carousel_duration_mobile", "min": 10, "max": 80, "step": 1, "unit": "s", "label": "滚动一轮时长 - 移动端", "info": "数值越小，滚动越快。", "default": 30 },
+
+    { "type": "header", "content": "颜色配置" },
+    { "type": "color", "id": "section_bg", "label": "模块背景颜色", "default": "#FFFFFF" },
+    { "type": "color", "id": "card_bg", "label": "卡片背景颜色", "default": "#F9F9F9" },
+    { "type": "color", "id": "heading_color", "label": "主标题颜色", "default": "#000000" },
+    { "type": "color", "id": "subtitle_color", "label": "副标题颜色", "default": "#3D3D3D" },
+    { "type": "color", "id": "name_color", "label": "用户名颜色", "default": "#000000" },
+    { "type": "color", "id": "role_color", "label": "用户身份颜色", "default": "#3D3D3D" },
+    { "type": "color", "id": "review_color", "label": "评价正文颜色", "default": "#3D3D3D" },
+    { "type": "color", "id": "link_color", "label": "底部按钮颜色", "default": "#40A9FF" },
+    { "type": "color", "id": "link_hover_color", "label": "底部按钮悬停颜色", "default": "#1687D9" },
+    { "type": "color", "id": "quote_color", "label": "引用图标颜色", "default": "#E7E7E7" },
+    { "type": "color", "id": "star_color", "label": "默认星级颜色", "default": "#FFC83D" },
+    { "type": "color", "id": "avatar_bg", "label": "默认头像背景颜色", "default": "#E7E7E7" },
+    { "type": "color", "id": "avatar_color", "label": "默认头像文字颜色", "default": "#000000" },
+
+    { "type": "header", "content": "模块间距配置" },
+    { "type": "range", "id": "section_padding_top_pc", "min": 0, "max": 240, "step": 4, "unit": "px", "label": "模块上边距 - PC端", "default": 120 },
+    { "type": "range", "id": "section_padding_bottom_pc", "min": 0, "max": 240, "step": 4, "unit": "px", "label": "模块下边距 - PC端", "default": 120 },
+    { "type": "range", "id": "section_padding_top_mobile", "min": 0, "max": 120, "step": 2, "unit": "px", "label": "模块上边距 - 移动端", "default": 48 },
+    { "type": "range", "id": "section_padding_bottom_mobile", "min": 0, "max": 120, "step": 2, "unit": "px", "label": "模块下边距 - 移动端", "default": 48 },
+    { "type": "range", "id": "header_max_width_pc", "min": 800, "max": 1600, "step": 10, "unit": "px", "label": "头部最大宽度 - PC端", "default": 1250 },
+    { "type": "range", "id": "header_padding_x_pc", "min": 0, "max": 80, "step": 2, "unit": "px", "label": "头部左右内边距 - PC端", "default": 24 },
+    { "type": "range", "id": "header_padding_x_mobile", "min": 0, "max": 48, "step": 2, "unit": "px", "label": "头部左右内边距 - 移动端", "default": 24 },
+    { "type": "range", "id": "header_margin_bottom_pc", "min": 0, "max": 120, "step": 2, "unit": "px", "label": "头部下间距 - PC端", "default": 48 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "min": 0, "max": 80, "step": 2, "unit": "px", "label": "头部下间距 - 移动端", "default": 24 },
+    { "type": "range", "id": "footer_margin_top_pc", "min": 0, "max": 160, "step": 2, "unit": "px", "label": "底部按钮上间距 - PC端", "default": 120 },
+    { "type": "range", "id": "footer_margin_top_mobile", "min": 0, "max": 100, "step": 2, "unit": "px", "label": "底部按钮上间距 - 移动端", "default": 48 },
+
+    { "type": "header", "content": "字体配置" },
+    { "type": "range", "id": "heading_size_pc", "min": 20, "max": 80, "step": 1, "unit": "px", "label": "主标题字号 - PC端", "default": 40 },
+    { "type": "range", "id": "heading_size_mobile", "min": 16, "max": 48, "step": 1, "unit": "px", "label": "主标题字号 - 移动端", "default": 24 },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "主标题字重",
+      "options": [
+        { "value": "400", "label": "常规 400" },
+        { "value": "500", "label": "中等 500" },
+        { "value": "600", "label": "半粗 600" },
+        { "value": "700", "label": "加粗 700" },
+        { "value": "800", "label": "特粗 800" }
+      ],
+      "default": "800"
+    },
+    { "type": "range", "id": "heading_line_height", "min": 1, "max": 2, "step": 0.1, "label": "主标题行高", "default": 1.2 },
+    { "type": "range", "id": "heading_margin_bottom_pc", "min": 0, "max": 80, "step": 2, "unit": "px", "label": "主标题下间距 - PC端", "default": 20 },
+    { "type": "range", "id": "heading_margin_bottom_mobile", "min": 0, "max": 48, "step": 2, "unit": "px", "label": "主标题下间距 - 移动端", "default": 12 },
+
+    { "type": "range", "id": "subtitle_size_pc", "min": 12, "max": 40, "step": 1, "unit": "px", "label": "副标题字号 - PC端", "default": 18 },
+    { "type": "range", "id": "subtitle_size_mobile", "min": 10, "max": 28, "step": 1, "unit": "px", "label": "副标题字号 - 移动端", "default": 14 },
+    {
+      "type": "select",
+      "id": "subtitle_weight",
+      "label": "副标题字重",
+      "options": [
+        { "value": "300", "label": "细体 300" },
+        { "value": "400", "label": "常规 400" },
+        { "value": "500", "label": "中等 500" },
+        { "value": "600", "label": "半粗 600" }
+      ],
+      "default": "400"
+    },
+    { "type": "range", "id": "subtitle_line_height", "min": 1, "max": 2, "step": 0.1, "label": "副标题行高", "default": 1.4 },
+
+    { "type": "range", "id": "name_size_pc", "min": 12, "max": 48, "step": 1, "unit": "px", "label": "用户名字号 - PC端", "default": 24 },
+    { "type": "range", "id": "name_size_mobile", "min": 10, "max": 32, "step": 1, "unit": "px", "label": "用户名字号 - 移动端", "default": 18 },
+    {
+      "type": "select",
+      "id": "name_weight",
+      "label": "用户名字重",
+      "options": [
+        { "value": "400", "label": "常规 400" },
+        { "value": "500", "label": "中等 500" },
+        { "value": "600", "label": "半粗 600" },
+        { "value": "700", "label": "加粗 700" },
+        { "value": "800", "label": "特粗 800" }
+      ],
+      "default": "800"
+    },
+    { "type": "range", "id": "name_line_height", "min": 1, "max": 2, "step": 0.1, "label": "用户名行高", "default": 1.3 },
+
+    { "type": "range", "id": "role_size_pc", "min": 10, "max": 32, "step": 1, "unit": "px", "label": "用户身份字号 - PC端", "default": 14 },
+    { "type": "range", "id": "role_size_mobile", "min": 10, "max": 24, "step": 1, "unit": "px", "label": "用户身份字号 - 移动端", "default": 14 },
+    {
+      "type": "select",
+      "id": "role_weight",
+      "label": "用户身份字重",
+      "options": [
+        { "value": "300", "label": "细体 300" },
+        { "value": "400", "label": "常规 400" },
+        { "value": "500", "label": "中等 500" },
+        { "value": "600", "label": "半粗 600" }
+      ],
+      "default": "400"
+    },
+    { "type": "range", "id": "role_line_height", "min": 1, "max": 2, "step": 0.1, "label": "用户身份行高", "default": 1.4 },
+
+    { "type": "range", "id": "review_size_pc", "min": 12, "max": 40, "step": 1, "unit": "px", "label": "评价正文字号 - PC端", "default": 18 },
+    { "type": "range", "id": "review_size_mobile", "min": 10, "max": 28, "step": 1, "unit": "px", "label": "评价正文字号 - 移动端", "default": 14 },
+    {
+      "type": "select",
+      "id": "review_weight",
+      "label": "评价正文字重",
+      "options": [
+        { "value": "300", "label": "细体 300" },
+        { "value": "400", "label": "常规 400" },
+        { "value": "500", "label": "中等 500" }
+      ],
+      "default": "400"
+    },
+    { "type": "range", "id": "review_line_height", "min": 1, "max": 2, "step": 0.1, "label": "评价正文行高", "default": 1.4 },
+
+    { "type": "range", "id": "footer_size_pc", "min": 12, "max": 48, "step": 1, "unit": "px", "label": "底部按钮字号 - PC端", "default": 24 },
+    { "type": "range", "id": "footer_size_mobile", "min": 10, "max": 32, "step": 1, "unit": "px", "label": "底部按钮字号 - 移动端", "default": 16 },
+    {
+      "type": "select",
+      "id": "footer_weight",
+      "label": "底部按钮字重",
+      "options": [
+        { "value": "400", "label": "常规 400" },
+        { "value": "500", "label": "中等 500" },
+        { "value": "600", "label": "半粗 600" },
+        { "value": "700", "label": "加粗 700" },
+        { "value": "800", "label": "特粗 800" }
+      ],
+      "default": "700"
+    },
+    { "type": "range", "id": "footer_line_height", "min": 1, "max": 2, "step": 0.1, "label": "底部按钮行高", "default": 1.7 },
+
+    { "type": "header", "content": "卡片布局配置" },
+    { "type": "range", "id": "card_width_pc", "min": 240, "max": 640, "step": 4, "unit": "px", "label": "卡片宽度 - PC端", "default": 372 },
+    { "type": "range", "id": "card_width_mobile", "min": 220, "max": 360, "step": 2, "unit": "px", "label": "卡片宽度 - 移动端", "default": 300 },
+    { "type": "range", "id": "card_gap_pc", "min": 8, "max": 80, "step": 2, "unit": "px", "label": "卡片间距 - PC端", "default": 24 },
+    { "type": "range", "id": "card_gap_mobile", "min": 8, "max": 48, "step": 2, "unit": "px", "label": "卡片间距 - 移动端", "default": 16 },
+    { "type": "range", "id": "card_radius_pc", "min": 0, "max": 60, "step": 1, "unit": "px", "label": "卡片圆角 - PC端", "default": 20 },
+    { "type": "range", "id": "card_radius_mobile", "min": 0, "max": 40, "step": 1, "unit": "px", "label": "卡片圆角 - 移动端", "default": 12 },
+    { "type": "range", "id": "card_padding_y_pc", "min": 12, "max": 80, "step": 2, "unit": "px", "label": "卡片上下内边距 - PC端", "default": 36 },
+    { "type": "range", "id": "card_padding_x_pc", "min": 12, "max": 80, "step": 2, "unit": "px", "label": "卡片左右内边距 - PC端", "default": 24 },
+    { "type": "range", "id": "card_padding_y_mobile", "min": 8, "max": 60, "step": 2, "unit": "px", "label": "卡片上下内边距 - 移动端", "default": 24 },
+    { "type": "range", "id": "card_padding_x_mobile", "min": 8, "max": 48, "step": 2, "unit": "px", "label": "卡片左右内边距 - 移动端", "default": 16 },
+    { "type": "range", "id": "card_header_margin_pc", "min": 0, "max": 60, "step": 2, "unit": "px", "label": "卡片头部下间距 - PC端", "default": 16 },
+    { "type": "range", "id": "card_header_margin_mobile", "min": 0, "max": 48, "step": 2, "unit": "px", "label": "卡片头部下间距 - 移动端", "default": 16 },
+    { "type": "range", "id": "avatar_size_pc", "min": 32, "max": 120, "step": 2, "unit": "px", "label": "头像尺寸 - PC端", "default": 62 },
+    { "type": "range", "id": "avatar_size_mobile", "min": 28, "max": 96, "step": 2, "unit": "px", "label": "头像尺寸 - 移动端", "default": 54 },
+    { "type": "range", "id": "avatar_gap_pc", "min": 0, "max": 40, "step": 1, "unit": "px", "label": "头像右侧间距 - PC端", "default": 10 },
+    { "type": "range", "id": "avatar_gap_mobile", "min": 0, "max": 32, "step": 1, "unit": "px", "label": "头像右侧间距 - 移动端", "default": 10 },
+    { "type": "range", "id": "avatar_text_size_pc", "min": 12, "max": 40, "step": 1, "unit": "px", "label": "默认头像文字大小 - PC端", "default": 20 },
+    { "type": "range", "id": "avatar_text_size_mobile", "min": 10, "max": 32, "step": 1, "unit": "px", "label": "默认头像文字大小 - 移动端", "default": 18 },
+    { "type": "checkbox", "id": "show_quote_icon", "label": "显示引用图标", "default": true },
+    { "type": "range", "id": "quote_size_pc", "min": 16, "max": 80, "step": 2, "unit": "px", "label": "引用图标尺寸 - PC端", "default": 40 },
+    { "type": "range", "id": "quote_size_mobile", "min": 12, "max": 56, "step": 2, "unit": "px", "label": "引用图标尺寸 - 移动端", "default": 28 },
+    { "type": "range", "id": "quote_top_pc", "min": -40, "max": 40, "step": 1, "unit": "px", "label": "引用图标顶部位置 - PC端", "default": -16 },
+    { "type": "range", "id": "quote_top_mobile", "min": -30, "max": 30, "step": 1, "unit": "px", "label": "引用图标顶部位置 - 移动端", "default": -4 },
+    { "type": "range", "id": "stars_height_pc", "min": 12, "max": 48, "step": 1, "unit": "px", "label": "星级图片高度 - PC端", "default": 24 },
+    { "type": "range", "id": "stars_height_mobile", "min": 10, "max": 40, "step": 1, "unit": "px", "label": "星级图片高度 - 移动端", "default": 24 },
+    { "type": "range", "id": "stars_margin_bottom_pc", "min": 0, "max": 60, "step": 2, "unit": "px", "label": "星级图片下间距 - PC端", "default": 20 },
+    { "type": "range", "id": "stars_margin_bottom_mobile", "min": 0, "max": 48, "step": 2, "unit": "px", "label": "星级图片下间距 - 移动端", "default": 12 }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "评价卡片",
+      "settings": [
+        { "type": "html", "id": "user_name_html", "label": "用户名 - PC端", "default": "@Alex" },
+        { "type": "html", "id": "user_name_html_mobile", "label": "用户名 - 移动端", "info": "不填写时默认使用 PC 端文案。" },
+        { "type": "html", "id": "user_role_html", "label": "用户身份 - PC端", "default": "Print-on-Demand Seller" },
+        { "type": "html", "id": "user_role_html_mobile", "label": "用户身份 - 移动端", "info": "不填写时默认使用 PC 端文案。" },
+        { "type": "html", "id": "review_html", "label": "评价正文 - PC端", "default": "\"Speed and consistency matter in my business. Procolored helped me keep up with orders without delays or quality issues.\"" },
+        { "type": "html", "id": "review_html_mobile", "label": "评价正文 - 移动端", "info": "不填写时默认使用 PC 端文案。" },
+        { "type": "image_picker", "id": "avatar_image_pc", "label": "头像图片 - PC端" },
+        { "type": "image_picker", "id": "avatar_image_mobile", "label": "头像图片 - 移动端", "info": "不填写时默认使用 PC 端图片。" },
+        { "type": "text", "id": "avatar_alt", "label": "头像图片 Alt 文案" },
+        { "type": "text", "id": "avatar_fallback_text", "label": "默认头像文字", "default": "A" },
+        { "type": "image_picker", "id": "stars_image_pc", "label": "星级图片 - PC端" },
+        { "type": "image_picker", "id": "stars_image_mobile", "label": "星级图片 - 移动端", "info": "不填写时默认使用 PC 端图片。" },
+        { "type": "text", "id": "stars_alt", "label": "星级图片 Alt 文案", "default": "5 Stars" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "用户评价无缝轮播",
+      "category": "自定义模块",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "user_name_html": "@Alex",
+            "user_role_html": "Print-on-Demand Seller",
+            "review_html": "\"Speed and consistency matter in my business. Procolored helped me keep up with orders without delays or quality issues.\"",
+            "avatar_fallback_text": "A"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "user_name_html": "@Mia",
+            "user_role_html": "Small Business Owner",
+            "review_html": "\"It made production feel easier to manage, especially when I needed stable output for repeat customer orders.\"",
+            "avatar_fallback_text": "M"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "user_name_html": "@Chris",
+            "user_role_html": "Custom Apparel Creator",
+            "review_html": "\"The workflow became much smoother. I can test designs, fulfill samples, and move faster without overcomplicating setup.\"",
+            "avatar_fallback_text": "C"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "user_name_html": "@Taylor",
+            "user_role_html": "Home Studio Maker",
+            "review_html": "\"For a compact studio, reliability matters. Procolored helped me turn more ideas into finished products with confidence.\"",
+            "avatar_fallback_text": "T"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "user_name_html": "@Jordan",
+            "user_role_html": "Online Store Founder",
+            "review_html": "\"The print quality and daily usability gave me more confidence to keep building my product line.\"",
+            "avatar_fallback_text": "J"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

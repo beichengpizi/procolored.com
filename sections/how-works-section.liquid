@@ -262,12 +262,13 @@
     font-size: clamp(calc({{ section.settings.info_font_size_pc }}px * 0.667), calc(100vw * {{ section.settings.info_font_size_pc }} / 1920), calc({{ section.settings.info_font_size_pc }}px * 2));
     font-weight: {{ section.settings.info_font_weight }};
     line-height: {{ section.settings.info_line_height | divided_by: 100.0 }};
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 1;
+    transition: opacity {{ section.settings.info_change_delay }}ms ease;
+    will-change: opacity;
   }
 
   #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__info.is-changing {
     opacity: 0;
-    transform: translateY(clamp(calc(10px * 0.667), calc(100vw * 10 / 1920), calc(10px * 2)));
   }
 
   @media (max-width: 768px) {
@@ -365,11 +366,29 @@
       padding-left: 0;
       padding-top: 0;
       border-left: 0;
-      border-top: clamp(calc({{ section.settings.step_track_thickness_mobile }}px * 0.85), calc(100vw * {{ section.settings.step_track_thickness_mobile }} / 375), calc({{ section.settings.step_track_thickness_mobile }}px * 1.15)) solid var(--hw-color-step-line);
+      border-top: 0;
       overflow-x: hidden;
       overflow-y: hidden;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__steps::before {
+      content: '';
+      display: block;
+      position: absolute;
+      z-index: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: clamp(calc({{ section.settings.step_track_thickness_mobile }}px * 0.85), calc(100vw * {{ section.settings.step_track_thickness_mobile }} / 375), calc({{ section.settings.step_track_thickness_mobile }}px * 1.15));
+      background: var(--hw-color-step-line);
+      pointer-events: none;
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__steps::after {
+      content: none;
+      display: none;
     }
 
     #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__steps.is-overflowing {
@@ -386,11 +405,13 @@
     }
 
     #shopify-section-{{ section.id }} .how-works--{{ section.id }} .step-item {
+      position: relative;
+      z-index: 1;
       margin-left: 0;
-      margin-top: calc(clamp(calc({{ section.settings.step_track_thickness_mobile }}px * 0.85), calc(100vw * {{ section.settings.step_track_thickness_mobile }} / 375), calc({{ section.settings.step_track_thickness_mobile }}px * 1.15)) * -1);
+      margin-top: 0;
       padding: clamp(calc({{ section.settings.step_padding_top_mobile }}px * 0.85), calc(100vw * {{ section.settings.step_padding_top_mobile }} / 375), calc({{ section.settings.step_padding_top_mobile }}px * 1.15)) 0 0;
       border-left: 0;
-      border-top: clamp(calc({{ section.settings.step_active_thickness_mobile }}px * 0.85), calc(100vw * {{ section.settings.step_active_thickness_mobile }} / 375), calc({{ section.settings.step_active_thickness_mobile }}px * 1.15)) solid transparent;
+      border-top: 0;
       color: var(--hw-color-step-text);
       font-size: clamp(calc({{ section.settings.step_font_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.step_font_size_mobile }} / 375), calc({{ section.settings.step_font_size_mobile }}px * 1.15));
       font-weight: {{ section.settings.step_font_weight_mobile }};
@@ -398,10 +419,36 @@
       scroll-snap-align: center;
     }
 
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .step-item::before {
+      content: '';
+      display: block;
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: clamp(calc({{ section.settings.step_active_thickness_mobile }}px * 0.85), calc(100vw * {{ section.settings.step_active_thickness_mobile }} / 375), calc({{ section.settings.step_active_thickness_mobile }}px * 1.15));
+      background: var(--hw-color-step-active-line);
+      opacity: 0;
+      transform: scaleX(0.65);
+      transform-origin: center;
+      transition: opacity 0.25s ease, transform 0.3s ease;
+      pointer-events: none;
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .step-item::after {
+      content: none;
+      display: none;
+    }
+
     #shopify-section-{{ section.id }} .how-works--{{ section.id }} .step-item.is-active {
-      border-top-color: var(--hw-color-step-active-line);
       border-left-color: transparent;
       font-weight: {{ section.settings.step_active_font_weight_mobile }};
+    }
+
+    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .step-item.is-active::before {
+      opacity: 1;
+      transform: scaleX(1);
     }
 
     #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__info {
@@ -410,9 +457,6 @@
       min-height: auto;
     }
 
-    #shopify-section-{{ section.id }} .how-works--{{ section.id }} .how-works__info.is-changing {
-      transform: translateY(clamp(calc(10px * 0.85), calc(100vw * 10 / 375), calc(10px * 1.15)));
-    }
   }
 </style>
 
@@ -640,6 +684,7 @@
           step: 0
         };
         this.resizeTimer = null;
+        this.infoTimer = null;
 
         this.dom = {
           navMain: this.root.querySelector('.how-works__nav-main'),
@@ -1069,19 +1114,32 @@
         const steps = this.getCurrentSteps();
         const data = steps[this.state.step];
 
+        window.clearTimeout(this.infoTimer);
+
         if (!data) {
           this.dom.infoText.innerHTML = '';
+          this.dom.infoText.classList.remove('is-changing');
           return;
         }
 
         const nextHtml = this.getResponsiveHtml(data.infoPc, data.infoMobile);
-        const delay = isImmediate ? 0 : Number(this.config.infoDelay || 300);
+        const delay = Number(this.config.infoDelay || 300);
 
-        this.dom.infoText.classList.add('is-changing');
-
-        window.setTimeout(() => {
+        if (isImmediate || delay <= 0) {
           this.dom.infoText.innerHTML = nextHtml;
           this.dom.infoText.classList.remove('is-changing');
+          return;
+        }
+
+        // 文案切换采用纯淡入淡出：先淡出旧文案，再替换内容并淡入，避免上下位移导致移动端抖动。
+        this.dom.infoText.classList.add('is-changing');
+
+        this.infoTimer = window.setTimeout(() => {
+          this.dom.infoText.innerHTML = nextHtml;
+
+          requestAnimationFrame(() => {
+            this.dom.infoText.classList.remove('is-changing');
+          });
         }, delay);
       }
     }

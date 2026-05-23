@@ -1,0 +1,948 @@
+{% liquid
+  assign fallback_image_url = 'https://cdn.shopify.com/s/files/1/0509/3454/6613/files/PC_Frame_2121235842_1.png?v=1779345335'
+  assign fallback_image_width = 560
+  assign fallback_image_height = 644
+
+  assign desktop_image = section.settings.media_image_pc
+  assign mobile_image = section.settings.media_image_mobile
+
+  assign render_image = desktop_image
+  if render_image == blank
+    assign render_image = mobile_image
+  endif
+
+  assign image_alt = section.settings.media_alt
+  if image_alt == blank and render_image != blank
+    assign image_alt = render_image.alt
+  endif
+
+
+%}
+
+<section
+  class="ready-start-card-section ready-start-card-section-{{ section.id }}"
+  style="
+    --ready-wrapper-bg: {{ section.settings.wrapper_bg_color }};
+    --ready-card-bg: {{ section.settings.card_bg_color }};
+    --ready-title-color: {{ section.settings.title_color }};
+    --ready-primary-bg: {{ section.settings.primary_bg_color }};
+    --ready-primary-text: {{ section.settings.primary_text_color }};
+    --ready-primary-border: {{ section.settings.primary_border_color }};
+    --ready-secondary-bg: {% if section.settings.secondary_bg_transparent %}transparent{% else %}{{ section.settings.secondary_bg_color }}{% endif %};
+    --ready-secondary-text: {{ section.settings.secondary_text_color }};
+    --ready-secondary-border: {{ section.settings.secondary_border_color }};
+    --ready-media-aspect-pc: {% if render_image != blank %}{{ render_image.width }} / {{ render_image.height }}{% else %}{{ fallback_image_width }} / {{ fallback_image_height }}{% endif %};
+    --ready-media-aspect-mobile: {% if mobile_image != blank %}{{ mobile_image.width }} / {{ mobile_image.height }}{% elsif render_image != blank %}{{ render_image.width }} / {{ render_image.height }}{% else %}{{ fallback_image_width }} / {{ fallback_image_height }}{% endif %};
+  "
+>
+  <div class="ready-start-card-section__inner">
+    <div class="ready-start-card">
+      <div class="ready-start-card__text-zone">
+        <div class="ready-start-card__title">
+          {% if section.settings.title_html != blank %}
+            {{ section.settings.title_html }}
+          {% else %}
+            Ready to Start<br>Something Real?
+          {% endif %}
+        </div>
+
+        <div class="ready-start-card__buttons">
+          {% if section.settings.primary_button_text != blank %}
+            <a
+              href="{{ section.settings.primary_button_link | default: '#' }}"
+              class="ready-start-card__button ready-start-card__button--primary"
+              {% if section.settings.primary_button_new_tab %}
+                target="_blank"
+                rel="noopener noreferrer"
+              {% endif %}
+            >
+              {{ section.settings.primary_button_text | escape }}
+            </a>
+          {% endif %}
+
+          {% if section.settings.secondary_button_text != blank %}
+            <a
+              href="{{ section.settings.secondary_button_link | default: '#' }}"
+              class="ready-start-card__button ready-start-card__button--secondary"
+              {% if section.settings.secondary_button_new_tab %}
+                target="_blank"
+                rel="noopener noreferrer"
+              {% endif %}
+            >
+              {{ section.settings.secondary_button_text | escape }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="ready-start-card__media">
+        <picture class="ready-start-card__picture">
+          {% comment %}
+            关键点：
+            1. source 使用 data-srcset，配合 lazysizes 懒加载；
+            2. 移动端图片未配置时，自动回退 PC 图片；
+            3. image_picker 不支持 default，所以未配置图片时使用 CDN fallback。
+          {% endcomment %}
+
+          {% if mobile_image != blank %}
+            <source
+              media="(max-width: 768px)"
+              data-srcset="
+                {{ mobile_image | image_url: width: 240 }} 240w,
+                {{ mobile_image | image_url: width: 320 }} 320w,
+                {{ mobile_image | image_url: width: 480 }} 480w,
+                {{ mobile_image | image_url: width: 640 }} 640w
+              "
+            >
+          {% elsif desktop_image != blank %}
+            <source
+              media="(max-width: 768px)"
+              data-srcset="
+                {{ desktop_image | image_url: width: 240 }} 240w,
+                {{ desktop_image | image_url: width: 320 }} 320w,
+                {{ desktop_image | image_url: width: 480 }} 480w,
+                {{ desktop_image | image_url: width: 640 }} 640w
+              "
+            >
+          {% else %}
+            <source
+              media="(max-width: 768px)"
+              data-srcset="{{ fallback_image_url }}"
+            >
+          {% endif %}
+
+          {% if render_image != blank %}
+            <img
+              class="ready-start-card__image lazyload"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 {{ render_image.width }} {{ render_image.height }}'%3E%3C/svg%3E"
+              data-src="{{ render_image | image_url: width: 1200 }}"
+              data-srcset="
+                {{ render_image | image_url: width: 480 }} 480w,
+                {{ render_image | image_url: width: 720 }} 720w,
+                {{ render_image | image_url: width: 960 }} 960w,
+                {{ render_image | image_url: width: 1200 }} 1200w,
+                {{ render_image | image_url: width: 1440 }} 1440w
+              "
+              data-sizes="auto"
+              data-expand="300"
+              width="{{ render_image.width }}"
+              height="{{ render_image.height }}"
+              alt="{{ image_alt | escape }}"
+              loading="lazy"
+              decoding="async"
+            >
+          {% else %}
+            <img
+              class="ready-start-card__image lazyload"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 {{ fallback_image_width }} {{ fallback_image_height }}'%3E%3C/svg%3E"
+              data-src="{{ fallback_image_url }}"
+              data-srcset="{{ fallback_image_url }}"
+              data-sizes="auto"
+              data-expand="300"
+              width="{{ fallback_image_width }}"
+              height="{{ fallback_image_height }}"
+              alt="{{ section.settings.media_alt | default: 'Ready to start illustration' | escape }}"
+              loading="lazy"
+              decoding="async"
+            >
+          {% endif %}
+        </picture>
+
+        <noscript>
+          {% if render_image != blank %}
+            <img
+              class="ready-start-card__image"
+              src="{{ render_image | image_url: width: 1200 }}"
+              width="{{ render_image.width }}"
+              height="{{ render_image.height }}"
+              alt="{{ image_alt | escape }}"
+            >
+          {% else %}
+            <img
+              class="ready-start-card__image"
+              src="{{ fallback_image_url }}"
+              width="{{ fallback_image_width }}"
+              height="{{ fallback_image_height }}"
+              alt="{{ section.settings.media_alt | default: 'Ready to start illustration' | escape }}"
+            >
+          {% endif %}
+        </noscript>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ready-start-card-section-{{ section.id }} {
+    background-color: var(--ready-wrapper-bg);
+    padding-top: clamp(calc({{ section.settings.wrapper_padding_top_pc }}px * 0.667), calc(100vw * {{ section.settings.wrapper_padding_top_pc }} / 1920), calc({{ section.settings.wrapper_padding_top_pc }}px * 2));
+    padding-bottom: clamp(calc({{ section.settings.wrapper_padding_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.wrapper_padding_bottom_pc }} / 1920), calc({{ section.settings.wrapper_padding_bottom_pc }}px * 2));
+    padding-left: clamp(calc({{ section.settings.wrapper_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.wrapper_padding_x_pc }} / 1920), calc({{ section.settings.wrapper_padding_x_pc }}px * 2));
+    padding-right: clamp(calc({{ section.settings.wrapper_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.wrapper_padding_x_pc }} / 1920), calc({{ section.settings.wrapper_padding_x_pc }}px * 2));
+  }
+
+  .ready-start-card-section-{{ section.id }} * {
+    box-sizing: border-box;
+  }
+
+  .ready-start-card-section-{{ section.id }} .ready-start-card-section__inner {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ready-start-card-section-{{ section.id }} .ready-start-card {
+    width: 100%;
+    max-width: clamp(calc({{ section.settings.card_max_width_pc }}px * 0.667), calc(100vw * {{ section.settings.card_max_width_pc }} / 1920), calc({{ section.settings.card_max_width_pc }}px * 2));
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--ready-card-bg);
+    border-radius: clamp(calc({{ section.settings.card_radius_pc }}px * 0.667), calc(100vw * {{ section.settings.card_radius_pc }} / 1920), calc({{ section.settings.card_radius_pc }}px * 2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(calc({{ section.settings.card_gap_pc }}px * 0.667), calc(100vw * {{ section.settings.card_gap_pc }} / 1920), calc({{ section.settings.card_gap_pc }}px * 2));
+    padding-top: clamp(calc({{ section.settings.card_padding_y_pc }}px * 0.667), calc(100vw * {{ section.settings.card_padding_y_pc }} / 1920), calc({{ section.settings.card_padding_y_pc }}px * 2));
+    padding-bottom: clamp(calc({{ section.settings.card_padding_y_pc }}px * 0.667), calc(100vw * {{ section.settings.card_padding_y_pc }} / 1920), calc({{ section.settings.card_padding_y_pc }}px * 2));
+    padding-left: clamp(calc({{ section.settings.card_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.card_padding_x_pc }} / 1920), calc({{ section.settings.card_padding_x_pc }}px * 2));
+    padding-right: clamp(calc({{ section.settings.card_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.card_padding_x_pc }} / 1920), calc({{ section.settings.card_padding_x_pc }}px * 2));
+    overflow: hidden;
+  }
+
+  .ready-start-card-section-{{ section.id }} .ready-start-card__text-zone {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    max-width: clamp(calc({{ section.settings.text_max_width_pc }}px * 0.667), calc(100vw * {{ section.settings.text_max_width_pc }} / 1920), calc({{ section.settings.text_max_width_pc }}px * 2));
+    flex: 1 1 0;
+    gap: clamp(calc({{ section.settings.text_gap_pc }}px * 0.667), calc(100vw * {{ section.settings.text_gap_pc }} / 1920), calc({{ section.settings.text_gap_pc }}px * 2));
+  }
+
+  .ready-start-card-section-{{ section.id }} .ready-start-card__title {
+    margin: 0;
+    color: var(--ready-title-color);
+    font-size: clamp(calc({{ section.settings.title_font_size_pc }}px * 0.667), calc(100vw * {{ section.settings.title_font_size_pc }} / 1920), calc({{ section.settings.title_font_size_pc }}px * 2));
+    font-weight: {{ section.settings.title_font_weight }};
+    line-height: {{ section.settings.title_line_height_pc | divided_by: 100.0 }};
+    letter-spacing: 0;
+  }
+
+  .ready-start-card-section-{{ section.id }} .ready-start-card__buttons {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 100%;
+    gap: clamp(calc({{ section.settings.button_gap_pc }}px * 0.667), calc(100vw * {{ section.settings.button_gap_pc }} / 1920), calc({{ section.settings.button_gap_pc }}px * 2));
+  }
+
+  .ready-start-card-section-{{ section.id }} .ready-start-card__button {
+    flex: 1 1 0;
+    min-width: min(
+      clamp(calc({{ section.settings.button_min_width_pc }}px * 0.667), calc(100vw * {{ section.settings.button_min_width_pc }} / 1920), calc({{ section.settings.button_min_width_pc }}px * 2)),
+      100%
+    );
+    min-height: clamp(calc({{ section.settings.button_min_height_pc }}px * 0.667), calc(100vw * {{ section.settings.button_min_height_pc }} / 1920), calc({{ section.settings.button_min_height_pc }}px * 2));
+    padding-top: clamp(calc({{ section.settings.button_padding_y_pc }}px * 0.667), calc(100vw * {{ section.settings.button_padding_y_pc }} / 1920), calc({{ section.settings.button_padding_y_pc }}px * 2));
+    padding-bottom: clamp(calc({{ section.settings.button_padding_y_pc }}px * 0.667), calc(100vw * {{ section.settings.button_padding_y_pc }} / 1920), calc({{ section.settings.button_padding_y_pc }}px * 2));
+    padding-left: clamp(calc({{ section.settings.button_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.button_padding_x_pc }} / 1920), calc({{ section.settings.button_padding_x_pc }}px * 2));
+    padding-right: clamp(calc({{ section.settings.button_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.button_padding_x_pc }} / 1920), calc({{ section.settings.button_padding_x_pc }}px * 2));
+    border-radius: clamp(calc({{ section.settings.button_radius_pc }}px * 0.667), calc(100vw * {{ section.settings.button_radius_pc }} / 1920), calc({{ section.settings.button_radius_pc }}px * 2));
+    border-width: {{ section.settings.button_border_width }}px;
+    border-style: solid;
+    font-size: clamp(calc({{ section.settings.button_font_size_pc }}px * 0.667), calc(100vw * {{ section.settings.button_font_size_pc }} / 1920), calc({{ section.settings.button_font_size_pc }}px * 2));
+    font-weight: {{ section.settings.button_font_weight }};
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .ready-start-card-section-{{ section.id }} .ready-start-card__button:hover {
+    transform: translateY(-1px);
+  }
+
+  .ready-start-card-section-{{ section.id }} .ready-start-card__button--primary {
+    background-color: var(--ready-primary-bg);
+    color: var(--ready-primary-text);
+    border-color: var(--ready-primary-border);
+  }
+
+  .ready-start-card-section-{{ section.id }} .ready-start-card__button--secondary {
+    background-color: var(--ready-secondary-bg);
+    color: var(--ready-secondary-text);
+    border-color: var(--ready-secondary-border);
+  }
+
+  .ready-start-card-section-{{ section.id }} .ready-start-card__media {
+    width: 100%;
+    max-width: clamp(calc({{ section.settings.media_max_width_pc }}px * 0.667), calc(100vw * {{ section.settings.media_max_width_pc }} / 1920), calc({{ section.settings.media_max_width_pc }}px * 2));
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ready-start-card-section-{{ section.id }} .ready-start-card__picture {
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--ready-media-aspect-pc);
+  }
+
+  .ready-start-card-section-{{ section.id }} .ready-start-card__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .ready-start-card-section-{{ section.id }} .ready-start-card__image.lazyload,
+  .ready-start-card-section-{{ section.id }} .ready-start-card__image.lazyloading {
+    opacity: 0;
+  }
+
+  .ready-start-card-section-{{ section.id }} .ready-start-card__image.lazyloaded {
+    opacity: 1;
+    transition: opacity 0.25s ease;
+  }
+
+  @media (max-width: 768px) {
+    .ready-start-card-section-{{ section.id }} {
+      padding-top: clamp(calc({{ section.settings.wrapper_padding_top_mobile }}px * 0.85), calc(100vw * {{ section.settings.wrapper_padding_top_mobile }} / 375), calc({{ section.settings.wrapper_padding_top_mobile }}px * 1.15));
+      padding-bottom: clamp(calc({{ section.settings.wrapper_padding_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.wrapper_padding_bottom_mobile }} / 375), calc({{ section.settings.wrapper_padding_bottom_mobile }}px * 1.15));
+      padding-left: clamp(calc({{ section.settings.wrapper_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.wrapper_padding_x_mobile }} / 375), calc({{ section.settings.wrapper_padding_x_mobile }}px * 1.15));
+      padding-right: clamp(calc({{ section.settings.wrapper_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.wrapper_padding_x_mobile }} / 375), calc({{ section.settings.wrapper_padding_x_mobile }}px * 1.15));
+    }
+
+    .ready-start-card-section-{{ section.id }} .ready-start-card {
+      flex-direction: column;
+      align-items: center;
+      max-width: 100%;
+      gap: clamp(calc({{ section.settings.card_gap_mobile }}px * 0.85), calc(100vw * {{ section.settings.card_gap_mobile }} / 375), calc({{ section.settings.card_gap_mobile }}px * 1.15));
+      border-radius: clamp(calc({{ section.settings.card_radius_mobile }}px * 0.85), calc(100vw * {{ section.settings.card_radius_mobile }} / 375), calc({{ section.settings.card_radius_mobile }}px * 1.15));
+      padding-top: clamp(calc({{ section.settings.card_padding_y_mobile }}px * 0.85), calc(100vw * {{ section.settings.card_padding_y_mobile }} / 375), calc({{ section.settings.card_padding_y_mobile }}px * 1.15));
+      padding-bottom: clamp(calc({{ section.settings.card_padding_y_mobile }}px * 0.85), calc(100vw * {{ section.settings.card_padding_y_mobile }} / 375), calc({{ section.settings.card_padding_y_mobile }}px * 1.15));
+      padding-left: clamp(calc({{ section.settings.card_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.card_padding_x_mobile }} / 375), calc({{ section.settings.card_padding_x_mobile }}px * 1.15));
+      padding-right: clamp(calc({{ section.settings.card_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.card_padding_x_mobile }} / 375), calc({{ section.settings.card_padding_x_mobile }}px * 1.15));
+    }
+
+    .ready-start-card-section-{{ section.id }} .ready-start-card__text-zone {
+      display: contents;
+    }
+
+    .ready-start-card-section-{{ section.id }} .ready-start-card__title {
+      order: 1;
+      width: 100%;
+      font-size: clamp(calc({{ section.settings.title_font_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.title_font_size_mobile }} / 375), calc({{ section.settings.title_font_size_mobile }}px * 1.15));
+      line-height: {{ section.settings.title_line_height_mobile | divided_by: 100.0 }};
+      text-align: center;
+    }
+
+    .ready-start-card-section-{{ section.id }} .ready-start-card__media {
+      order: 2;
+      flex: none;
+      width: 100%;
+      max-width: clamp(calc({{ section.settings.media_max_width_mobile }}px * 0.85), calc(100vw * {{ section.settings.media_max_width_mobile }} / 375), calc({{ section.settings.media_max_width_mobile }}px * 1.15));
+    }
+
+    .ready-start-card-section-{{ section.id }} .ready-start-card__picture {
+      aspect-ratio: var(--ready-media-aspect-mobile);
+    }
+
+    .ready-start-card-section-{{ section.id }} .ready-start-card__buttons {
+      order: 3;
+      flex-direction: column;
+      width: 100%;
+      max-width: 100%;
+      gap: clamp(calc({{ section.settings.button_gap_mobile }}px * 0.85), calc(100vw * {{ section.settings.button_gap_mobile }} / 375), calc({{ section.settings.button_gap_mobile }}px * 1.15));
+    }
+
+    .ready-start-card-section-{{ section.id }} .ready-start-card__button {
+      width: 100%;
+      min-width: 0;
+      min-height: clamp(calc({{ section.settings.button_min_height_mobile }}px * 0.85), calc(100vw * {{ section.settings.button_min_height_mobile }} / 375), calc({{ section.settings.button_min_height_mobile }}px * 1.15));
+      padding-top: clamp(calc({{ section.settings.button_padding_y_mobile }}px * 0.85), calc(100vw * {{ section.settings.button_padding_y_mobile }} / 375), calc({{ section.settings.button_padding_y_mobile }}px * 1.15));
+      padding-bottom: clamp(calc({{ section.settings.button_padding_y_mobile }}px * 0.85), calc(100vw * {{ section.settings.button_padding_y_mobile }} / 375), calc({{ section.settings.button_padding_y_mobile }}px * 1.15));
+      padding-left: clamp(calc({{ section.settings.button_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.button_padding_x_mobile }} / 375), calc({{ section.settings.button_padding_x_mobile }}px * 1.15));
+      padding-right: clamp(calc({{ section.settings.button_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.button_padding_x_mobile }} / 375), calc({{ section.settings.button_padding_x_mobile }}px * 1.15));
+      border-radius: clamp(calc({{ section.settings.button_radius_mobile }}px * 0.85), calc(100vw * {{ section.settings.button_radius_mobile }} / 375), calc({{ section.settings.button_radius_mobile }}px * 1.15));
+      font-size: clamp(calc({{ section.settings.button_font_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.button_font_size_mobile }} / 375), calc({{ section.settings.button_font_size_mobile }}px * 1.15));
+      white-space: normal;
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    /**
+     * 关键逻辑：
+     * 如果主题已经全局加载 lazysizes，则不重复加载；
+     * 如果没有加载，则为当前 section 补充 lazysizes，确保 data-src/data-srcset 能正常懒加载。
+     */
+    const lazySizesScriptId = 'ready-start-lazysizes-loader';
+
+    if (window.lazySizes || document.getElementById(lazySizesScriptId)) {
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.id = lazySizesScriptId;
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
+    script.async = true;
+    document.head.appendChild(script);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Ready start hero card",
+  "tag": "section",
+  "class": "section-ready-start-hero-card",
+  "settings": [
+    {
+      "type": "header",
+      "content": "内容"
+    },
+    {
+      "type": "html",
+      "id": "title_html",
+      "label": "标题 HTML",
+      "default": "Ready to Start<br>Something Real?"
+    },
+
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "主按钮文案",
+      "default": "Start Business Now"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "主按钮链接"
+    },
+    {
+      "type": "checkbox",
+      "id": "primary_button_new_tab",
+      "label": "主按钮新标签页打开",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "副按钮文案",
+      "default": "Explore Guides & Ideas"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "副按钮链接"
+    },
+    {
+      "type": "checkbox",
+      "id": "secondary_button_new_tab",
+      "label": "副按钮新标签页打开",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "素材"
+    },
+    {
+      "type": "image_picker",
+      "id": "media_image_pc",
+      "label": "PC 端图片"
+    },
+    {
+      "type": "image_picker",
+      "id": "media_image_mobile",
+      "label": "移动端图片，未设置时回退 PC 图片"
+    },
+    {
+      "type": "text",
+      "id": "media_alt",
+      "label": "图片 Alt 文案",
+      "default": "Ready to start illustration"
+    },
+    {
+      "type": "header",
+      "content": "颜色"
+    },
+    {
+      "type": "color",
+      "id": "wrapper_bg_color",
+      "label": "模块背景色",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "卡片背景色",
+      "default": "#F9F9F9"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "标题颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "primary_bg_color",
+      "label": "主按钮背景色",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "primary_text_color",
+      "label": "主按钮文字颜色",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "primary_border_color",
+      "label": "主按钮边框颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "checkbox",
+      "id": "secondary_bg_transparent",
+      "label": "副按钮背景透明",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "secondary_bg_color",
+      "label": "副按钮背景色，关闭透明时生效",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "secondary_text_color",
+      "label": "副按钮文字颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "secondary_border_color",
+      "label": "副按钮边框颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
+      "content": "PC 间距与布局"
+    },
+    {
+      "type": "range",
+      "id": "wrapper_padding_top_pc",
+      "label": "PC 模块上边距",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "wrapper_padding_bottom_pc",
+      "label": "PC 模块下边距",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "wrapper_padding_x_pc",
+      "label": "PC 模块左右边距",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "card_max_width_pc",
+      "label": "PC 卡片最大宽度",
+      "min": 960,
+      "max": 1600,
+      "step": 8,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "card_padding_x_pc",
+      "label": "PC 卡片左右内边距",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "card_padding_y_pc",
+      "label": "PC 卡片上下内边距",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "card_gap_pc",
+      "label": "PC 图文间距",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 49
+    },
+    {
+      "type": "range",
+      "id": "card_radius_pc",
+      "label": "PC 卡片圆角",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "text_max_width_pc",
+      "label": "PC 文案区域最大宽度",
+      "min": 300,
+      "max": 700,
+      "step": 4,
+      "unit": "px",
+      "default": 496
+    },
+    {
+      "type": "range",
+      "id": "text_gap_pc",
+      "label": "PC 标题与按钮间距",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "media_max_width_pc",
+      "label": "PC 图片最大宽度",
+      "min": 300,
+      "max": 700,
+      "step": 4,
+      "unit": "px",
+      "default": 560
+    },
+    {
+      "type": "header",
+      "content": "移动端间距与布局"
+    },
+    {
+      "type": "range",
+      "id": "wrapper_padding_top_mobile",
+      "label": "移动端模块上边距",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "wrapper_padding_bottom_mobile",
+      "label": "移动端模块下边距",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "wrapper_padding_x_mobile",
+      "label": "移动端模块左右边距",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_x_mobile",
+      "label": "移动端卡片左右内边距",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_padding_y_mobile",
+      "label": "移动端卡片上下内边距",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_gap_mobile",
+      "label": "移动端内容间距",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_radius_mobile",
+      "label": "移动端卡片圆角",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "media_max_width_mobile",
+      "label": "移动端图片最大宽度",
+      "min": 120,
+      "max": 320,
+      "step": 2,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "type": "header",
+      "content": "标题样式"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_pc",
+      "label": "PC 标题字号",
+      "min": 20,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "label": "移动端标题字号",
+      "min": 14,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "range",
+      "id": "title_font_weight",
+      "label": "标题字重",
+      "min": 400,
+      "max": 900,
+      "step": 100,
+      "default": 800
+    },
+    {
+      "type": "range",
+      "id": "title_line_height_pc",
+      "label": "PC 标题行高",
+      "min": 80,
+      "max": 160,
+      "step": 1,
+      "unit": "%",
+      "default": 122
+    },
+    {
+      "type": "range",
+      "id": "title_line_height_mobile",
+      "label": "移动端标题行高",
+      "min": 80,
+      "max": 160,
+      "step": 1,
+      "unit": "%",
+      "default": 122
+    },
+    {
+      "type": "header",
+      "content": "按钮样式"
+    },
+    {
+      "type": "range",
+      "id": "button_gap_pc",
+      "label": "PC 按钮间距",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "button_gap_mobile",
+      "label": "移动端按钮间距",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_min_width_pc",
+      "label": "PC 按钮最小宽度",
+      "min": 120,
+      "max": 360,
+      "step": 4,
+      "unit": "px",
+      "default": 240
+    },
+    {
+      "type": "range",
+      "id": "button_min_height_pc",
+      "label": "PC 按钮最小高度",
+      "min": 32,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "button_min_height_mobile",
+      "label": "移动端按钮最小高度",
+      "min": 32,
+      "max": 72,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "button_padding_x_pc",
+      "label": "PC 按钮左右内边距",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "range",
+      "id": "button_padding_y_pc",
+      "label": "PC 按钮上下内边距",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "button_padding_x_mobile",
+      "label": "移动端按钮左右内边距",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_padding_y_mobile",
+      "label": "移动端按钮上下内边距",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "button_radius_pc",
+      "label": "PC 按钮圆角",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 58
+    },
+    {
+      "type": "range",
+      "id": "button_radius_mobile",
+      "label": "移动端按钮圆角",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 58
+    },
+    {
+      "type": "range",
+      "id": "button_font_size_pc",
+      "label": "PC 按钮字号",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_font_size_mobile",
+      "label": "移动端按钮字号",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_font_weight",
+      "label": "按钮字重",
+      "min": 400,
+      "max": 900,
+      "step": 100,
+      "default": 700
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "label": "按钮边框宽度",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ready start hero card"
+    }
+  ]
+}
+{% endschema %}

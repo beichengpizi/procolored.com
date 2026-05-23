@@ -1,0 +1,1859 @@
+{% liquid
+  assign section_heading_html_pc = section.settings.heading_html_pc
+  assign section_heading_html_mobile = section.settings.heading_html_mobile
+  if section_heading_html_mobile == blank
+    assign section_heading_html_mobile = section_heading_html_pc
+  endif
+
+  assign section_subtitle_html_pc = section.settings.subtitle_html_pc
+  assign section_subtitle_html_mobile = section.settings.subtitle_html_mobile
+  if section_subtitle_html_mobile == blank
+    assign section_subtitle_html_mobile = section_subtitle_html_pc
+  endif
+%}
+
+<section
+  id="find-fit-{{ section.id }}"
+  class="find-fit find-fit-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+>
+  <div class="find-fit__container">
+    <div class="find-fit__header">
+      {% if section_heading_html_pc != blank %}
+        <div class="find-fit__title">
+          <div class="find-fit__html find-fit__html--pc">{{ section_heading_html_pc }}</div>
+          <div class="find-fit__html find-fit__html--mobile">{{ section_heading_html_mobile }}</div>
+        </div>
+      {% endif %}
+
+      {% if section_subtitle_html_pc != blank %}
+        <div class="find-fit__subtitle">
+          <div class="find-fit__html find-fit__html--pc">{{ section_subtitle_html_pc }}</div>
+          <div class="find-fit__html find-fit__html--mobile">{{ section_subtitle_html_mobile }}</div>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="find-fit__tabs-wrapper">
+        <div class="find-fit__tabs" data-find-fit-tabs role="tablist" aria-label="{{ section.settings.tabs_aria_label | escape }}"></div>
+      </div>
+
+      <div class="find-fit__content-wrapper">
+        <div class="find-fit__content" data-find-fit-content>
+          <div class="find-fit__text-side">
+            <div class="find-fit__content-title" data-find-fit-content-title></div>
+            <div class="find-fit__content-desc" data-find-fit-content-desc></div>
+            <a href="#" class="find-fit__btn" data-find-fit-content-btn></a>
+          </div>
+
+          <div class="find-fit__media-side" data-find-fit-media-container aria-live="polite"></div>
+        </div>
+      </div>
+
+      <script type="application/json" data-find-fit-data>
+        [
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign image_pc_url = block.settings.external_image_pc
+              assign image_pc_width = 0
+              assign image_pc_height = 0
+              if block.settings.image_pc != blank
+                assign image_pc_url = block.settings.image_pc | image_url: width: 2400
+                assign image_pc_width = block.settings.image_pc.width
+                assign image_pc_height = block.settings.image_pc.height
+              endif
+
+              assign image_mobile_url = block.settings.external_image_mobile
+              assign image_mobile_width = 0
+              assign image_mobile_height = 0
+              if block.settings.image_mobile != blank
+                assign image_mobile_url = block.settings.image_mobile | image_url: width: 1200
+                assign image_mobile_width = block.settings.image_mobile.width
+                assign image_mobile_height = block.settings.image_mobile.height
+              endif
+              if image_mobile_url == blank
+                assign image_mobile_url = image_pc_url
+                assign image_mobile_width = image_pc_width
+                assign image_mobile_height = image_pc_height
+              endif
+
+              assign video_pc_url = block.settings.external_video_pc
+              assign video_pc_width = 0
+              assign video_pc_height = 0
+              if block.settings.video_pc != blank
+                assign video_pc_mp4 = block.settings.video_pc.sources | where: 'format', 'mp4' | first
+                if video_pc_mp4 != blank
+                  assign video_pc_url = video_pc_mp4.url
+                  assign video_pc_width = video_pc_mp4.width
+                  assign video_pc_height = video_pc_mp4.height
+                endif
+              endif
+
+              assign video_mobile_url = block.settings.external_video_mobile
+              assign video_mobile_width = 0
+              assign video_mobile_height = 0
+              if block.settings.video_mobile != blank
+                assign video_mobile_mp4 = block.settings.video_mobile.sources | where: 'format', 'mp4' | first
+                if video_mobile_mp4 != blank
+                  assign video_mobile_url = video_mobile_mp4.url
+                  assign video_mobile_width = video_mobile_mp4.width
+                  assign video_mobile_height = video_mobile_mp4.height
+                endif
+              endif
+              if video_mobile_url == blank
+                assign video_mobile_url = video_pc_url
+                assign video_mobile_width = video_pc_width
+                assign video_mobile_height = video_pc_height
+              endif
+
+              assign poster_pc_url = block.settings.external_poster_pc
+              if block.settings.poster_pc != blank
+                assign poster_pc_url = block.settings.poster_pc | image_url: width: 1800
+              endif
+
+              assign poster_mobile_url = block.settings.external_poster_mobile
+              if block.settings.poster_mobile != blank
+                assign poster_mobile_url = block.settings.poster_mobile | image_url: width: 900
+              endif
+              if poster_mobile_url == blank
+                assign poster_mobile_url = poster_pc_url
+              endif
+
+              assign button_link = block.settings.button_link
+              if button_link == blank
+                assign button_link = '#'
+              endif
+            -%}
+            {
+              "id": {{ block.id | json }},
+              "labelPc": {{ block.settings.tab_label_html_pc | json }},
+              "labelMobile": {{ block.settings.tab_label_html_mobile | json }},
+              "titlePc": {{ block.settings.content_title_html_pc | json }},
+              "titleMobile": {{ block.settings.content_title_html_mobile | json }},
+              "descPc": {{ block.settings.content_desc_html_pc | json }},
+              "descMobile": {{ block.settings.content_desc_html_mobile | json }},
+              "buttonTextPc": {{ block.settings.button_label_html_pc | json }},
+              "buttonTextMobile": {{ block.settings.button_label_html_mobile | json }},
+              "buttonLink": {{ button_link | json }},
+              "buttonNewTab": {{ block.settings.button_new_tab | json }},
+              "mediaType": {{ block.settings.media_type | json }},
+              "objectFit": {{ block.settings.media_object_fit | json }},
+              "alt": {{ block.settings.media_alt_text | json }},
+              "imagePc": {{ image_pc_url | default: '' | json }},
+              "imagePcWidth": {{ image_pc_width | default: 0 | json }},
+              "imagePcHeight": {{ image_pc_height | default: 0 | json }},
+              "imageMobile": {{ image_mobile_url | default: '' | json }},
+              "imageMobileWidth": {{ image_mobile_width | default: 0 | json }},
+              "imageMobileHeight": {{ image_mobile_height | default: 0 | json }},
+              "videoPc": {{ video_pc_url | default: '' | json }},
+              "videoPcWidth": {{ video_pc_width | default: 0 | json }},
+              "videoPcHeight": {{ video_pc_height | default: 0 | json }},
+              "videoMobile": {{ video_mobile_url | default: '' | json }},
+              "videoMobileWidth": {{ video_mobile_width | default: 0 | json }},
+              "videoMobileHeight": {{ video_mobile_height | default: 0 | json }},
+              "posterPc": {{ poster_pc_url | default: '' | json }},
+              "posterMobile": {{ poster_mobile_url | default: '' | json }}
+            }{%- unless forloop.last -%},{%- endunless -%}
+          {%- endfor -%}
+        ]
+      </script>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .find-fit-{{ section.id }},
+  .find-fit-{{ section.id }} * {
+    box-sizing: border-box;
+  }
+
+  .find-fit-{{ section.id }} {
+    width: 100%;
+    background: {{ section.settings.section_background }};
+    padding-top: clamp(calc({{ section.settings.section_padding_top_pc }}px * 0.667), calc(100vw * {{ section.settings.section_padding_top_pc }} / 1920), calc({{ section.settings.section_padding_top_pc }}px * 2));
+    padding-bottom: clamp(calc({{ section.settings.section_padding_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.section_padding_bottom_pc }} / 1920), calc({{ section.settings.section_padding_bottom_pc }}px * 2));
+  }
+
+  .find-fit-{{ section.id }} button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .find-fit-{{ section.id }} a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .find-fit-{{ section.id }} .find-fit__container {
+    max-width: clamp(calc({{ section.settings.container_max_width_pc }}px * 0.667), calc(100vw * {{ section.settings.container_max_width_pc }} / 1920), calc({{ section.settings.container_max_width_pc }}px * 2));
+    margin: 0 auto;
+    padding-left: clamp(calc({{ section.settings.container_padding_inline_pc }}px * 0.667), calc(100vw * {{ section.settings.container_padding_inline_pc }} / 1920), calc({{ section.settings.container_padding_inline_pc }}px * 2));
+    padding-right: clamp(calc({{ section.settings.container_padding_inline_pc }}px * 0.667), calc(100vw * {{ section.settings.container_padding_inline_pc }} / 1920), calc({{ section.settings.container_padding_inline_pc }}px * 2));
+  }
+
+  .find-fit-{{ section.id }} .find-fit__header {
+    text-align: center;
+    margin-bottom: clamp(calc({{ section.settings.header_margin_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.header_margin_bottom_pc }} / 1920), calc({{ section.settings.header_margin_bottom_pc }}px * 2));
+  }
+
+  .find-fit-{{ section.id }} .find-fit__html--mobile {
+    display: none;
+  }
+
+  .find-fit-{{ section.id }} .find-fit__title {
+    color: {{ section.settings.heading_color }};
+    text-align: center;
+    font-size: clamp(calc({{ section.settings.heading_font_size_pc }}px * 0.667), calc(100vw * {{ section.settings.heading_font_size_pc }} / 1920), calc({{ section.settings.heading_font_size_pc }}px * 2));
+    font-weight: {{ section.settings.heading_font_weight }};
+    line-height: {{ section.settings.heading_line_height }};
+    margin-bottom: clamp(calc({{ section.settings.heading_margin_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.heading_margin_bottom_pc }} / 1920), calc({{ section.settings.heading_margin_bottom_pc }}px * 2));
+  }
+
+  .find-fit-{{ section.id }} .find-fit__title p,
+  .find-fit-{{ section.id }} .find-fit__subtitle p,
+  .find-fit-{{ section.id }} .find-fit__content-title p,
+  .find-fit-{{ section.id }} .find-fit__content-desc p {
+    margin: 0;
+  }
+
+  .find-fit-{{ section.id }} .find-fit__subtitle {
+    color: {{ section.settings.subtitle_color }};
+    text-align: center;
+    font-size: clamp(calc({{ section.settings.subtitle_font_size_pc }}px * 0.667), calc(100vw * {{ section.settings.subtitle_font_size_pc }} / 1920), calc({{ section.settings.subtitle_font_size_pc }}px * 2));
+    font-weight: {{ section.settings.subtitle_font_weight }};
+    line-height: {{ section.settings.subtitle_line_height }};
+  }
+
+  .find-fit-{{ section.id }} .find-fit__tabs-wrapper {
+    width: max-content;
+    max-width: 100%;
+    border-bottom: 1px solid {{ section.settings.tabs_border_color }};
+    margin-bottom: clamp(calc({{ section.settings.tabs_margin_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.tabs_margin_bottom_pc }} / 1920), calc({{ section.settings.tabs_margin_bottom_pc }}px * 2));
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .find-fit-{{ section.id }} .find-fit__tabs {
+    display: flex;
+    gap: clamp(calc({{ section.settings.tabs_gap_pc }}px * 0.667), calc(100vw * {{ section.settings.tabs_gap_pc }} / 1920), calc({{ section.settings.tabs_gap_pc }}px * 2));
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    white-space: nowrap;
+    position: relative;
+    scroll-behavior: auto;
+  }
+
+  .find-fit-{{ section.id }} .find-fit__tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .find-fit-{{ section.id }} .find-fit__tab {
+    padding-bottom: clamp(calc({{ section.settings.tab_padding_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.tab_padding_bottom_pc }} / 1920), calc({{ section.settings.tab_padding_bottom_pc }}px * 2));
+    color: {{ section.settings.tab_text_color }};
+    font-size: clamp(calc({{ section.settings.tab_font_size_pc }}px * 0.667), calc(100vw * {{ section.settings.tab_font_size_pc }} / 1920), calc({{ section.settings.tab_font_size_pc }}px * 2));
+    font-weight: {{ section.settings.tab_font_weight }};
+    line-height: {{ section.settings.tab_line_height }};
+    position: relative;
+    flex-shrink: 0;
+    transition: color 0.3s ease;
+  }
+
+  .find-fit-{{ section.id }} .find-fit__tab::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: clamp(calc({{ section.settings.active_line_height_pc }}px * 0.667), calc(100vw * {{ section.settings.active_line_height_pc }} / 1920), calc({{ section.settings.active_line_height_pc }}px * 2));
+    background-color: {{ section.settings.active_line_color }};
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
+
+  .find-fit-{{ section.id }} .find-fit__tab.is-active {
+    color: {{ section.settings.tab_active_text_color }};
+    font-weight: {{ section.settings.tab_active_font_weight }};
+  }
+
+  .find-fit-{{ section.id }} .find-fit__tab.is-active::after {
+    transform: scaleX(1);
+  }
+
+  .find-fit-{{ section.id }} .find-fit__content-wrapper {
+    position: relative;
+  }
+
+  .find-fit-{{ section.id }} .find-fit__content {
+    display: flex;
+    gap: clamp(calc({{ section.settings.content_gap_pc }}px * 0.667), calc(100vw * {{ section.settings.content_gap_pc }} / 1920), calc({{ section.settings.content_gap_pc }}px * 2));
+    align-items: center;
+  }
+
+  .find-fit-{{ section.id }} .find-fit__text-side {
+    flex: 1;
+    min-width: 0;
+    max-width: clamp(calc({{ section.settings.text_max_width_pc }}px * 0.667), calc(100vw * {{ section.settings.text_max_width_pc }} / 1920), calc({{ section.settings.text_max_width_pc }}px * 2));
+    margin-top: clamp(calc({{ section.settings.text_margin_top_pc }}px * 0.667), calc(100vw * {{ section.settings.text_margin_top_pc }} / 1920), calc({{ section.settings.text_margin_top_pc }}px * 2));
+  }
+
+  .find-fit-{{ section.id }} .find-fit__content-title {
+    color: {{ section.settings.content_title_color }};
+    font-size: clamp(calc({{ section.settings.content_title_font_size_pc }}px * 0.667), calc(100vw * {{ section.settings.content_title_font_size_pc }} / 1920), calc({{ section.settings.content_title_font_size_pc }}px * 2));
+    font-weight: {{ section.settings.content_title_font_weight }};
+    line-height: {{ section.settings.content_title_line_height }};
+    margin-bottom: clamp(calc({{ section.settings.content_title_margin_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.content_title_margin_bottom_pc }} / 1920), calc({{ section.settings.content_title_margin_bottom_pc }}px * 2));
+  }
+
+  .find-fit-{{ section.id }} .find-fit__content-desc {
+    color: {{ section.settings.content_desc_color }};
+    font-size: clamp(calc({{ section.settings.content_desc_font_size_pc }}px * 0.667), calc(100vw * {{ section.settings.content_desc_font_size_pc }} / 1920), calc({{ section.settings.content_desc_font_size_pc }}px * 2));
+    font-weight: {{ section.settings.content_desc_font_weight }};
+    line-height: {{ section.settings.content_desc_line_height }};
+    margin-bottom: clamp(calc({{ section.settings.content_desc_margin_bottom_pc }}px * 0.667), calc(100vw * {{ section.settings.content_desc_margin_bottom_pc }} / 1920), calc({{ section.settings.content_desc_margin_bottom_pc }}px * 2));
+  }
+
+  .find-fit-{{ section.id }} .find-fit__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: clamp(calc({{ section.settings.button_radius_pc }}px * 0.667), calc(100vw * {{ section.settings.button_radius_pc }} / 1920), calc({{ section.settings.button_radius_pc }}px * 2));
+    background: {{ section.settings.button_background }};
+    color: {{ section.settings.button_text_color }};
+    font-size: clamp(calc({{ section.settings.button_font_size_pc }}px * 0.667), calc(100vw * {{ section.settings.button_font_size_pc }} / 1920), calc({{ section.settings.button_font_size_pc }}px * 2));
+    font-weight: {{ section.settings.button_font_weight }};
+    line-height: 1;
+    padding-top: clamp(calc({{ section.settings.button_padding_y_pc }}px * 0.667), calc(100vw * {{ section.settings.button_padding_y_pc }} / 1920), calc({{ section.settings.button_padding_y_pc }}px * 2));
+    padding-bottom: clamp(calc({{ section.settings.button_padding_y_pc }}px * 0.667), calc(100vw * {{ section.settings.button_padding_y_pc }} / 1920), calc({{ section.settings.button_padding_y_pc }}px * 2));
+    padding-left: clamp(calc({{ section.settings.button_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.button_padding_x_pc }} / 1920), calc({{ section.settings.button_padding_x_pc }}px * 2));
+    padding-right: clamp(calc({{ section.settings.button_padding_x_pc }}px * 0.667), calc(100vw * {{ section.settings.button_padding_x_pc }} / 1920), calc({{ section.settings.button_padding_x_pc }}px * 2));
+    min-height: clamp(calc({{ section.settings.button_min_height_pc }}px * 0.667), calc(100vw * {{ section.settings.button_min_height_pc }} / 1920), calc({{ section.settings.button_min_height_pc }}px * 2));
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  }
+
+  .find-fit-{{ section.id }} .find-fit__btn:hover {
+    background: {{ section.settings.button_background_hover }};
+    color: {{ section.settings.button_text_color_hover }};
+    transform: translateY(-1px);
+  }
+
+  .find-fit-{{ section.id }} .find-fit__media-side {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    border-radius: clamp(calc({{ section.settings.media_radius_pc }}px * 0.667), calc(100vw * {{ section.settings.media_radius_pc }} / 1920), calc({{ section.settings.media_radius_pc }}px * 2));
+    overflow: hidden;
+    aspect-ratio: var(--media-aspect-ratio, 16 / 11);
+    background-color: {{ section.settings.media_background }};
+  }
+
+  .find-fit-{{ section.id }} .find-fit__media-element {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: var(--media-object-fit, cover);
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .find-fit-{{ section.id }} .find-fit__media-element.is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @media (max-width: 768px) {
+    .find-fit-{{ section.id }} {
+      padding-top: clamp(calc({{ section.settings.section_padding_top_mobile }}px * 0.85), calc(100vw * {{ section.settings.section_padding_top_mobile }} / 375), calc({{ section.settings.section_padding_top_mobile }}px * 1.15));
+      padding-bottom: clamp(calc({{ section.settings.section_padding_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.section_padding_bottom_mobile }} / 375), calc({{ section.settings.section_padding_bottom_mobile }}px * 1.15));
+    }
+
+    .find-fit-{{ section.id }} .find-fit__container {
+      max-width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .find-fit-{{ section.id }} .find-fit__html--pc {
+      display: none;
+    }
+
+    .find-fit-{{ section.id }} .find-fit__html--mobile {
+      display: block;
+    }
+
+    .find-fit-{{ section.id }} .find-fit__header {
+      padding-left: clamp(calc({{ section.settings.mobile_side_padding }}px * 0.85), calc(100vw * {{ section.settings.mobile_side_padding }} / 375), calc({{ section.settings.mobile_side_padding }}px * 1.15));
+      padding-right: clamp(calc({{ section.settings.mobile_side_padding }}px * 0.85), calc(100vw * {{ section.settings.mobile_side_padding }} / 375), calc({{ section.settings.mobile_side_padding }}px * 1.15));
+      margin-bottom: clamp(calc({{ section.settings.header_margin_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.header_margin_bottom_mobile }} / 375), calc({{ section.settings.header_margin_bottom_mobile }}px * 1.15));
+    }
+
+    .find-fit-{{ section.id }} .find-fit__title {
+      font-size: clamp(calc({{ section.settings.heading_font_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.heading_font_size_mobile }} / 375), calc({{ section.settings.heading_font_size_mobile }}px * 1.15));
+      margin-bottom: clamp(calc({{ section.settings.heading_margin_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.heading_margin_bottom_mobile }} / 375), calc({{ section.settings.heading_margin_bottom_mobile }}px * 1.15));
+    }
+
+    .find-fit-{{ section.id }} .find-fit__subtitle {
+      font-size: clamp(calc({{ section.settings.subtitle_font_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.subtitle_font_size_mobile }} / 375), calc({{ section.settings.subtitle_font_size_mobile }}px * 1.15));
+    }
+
+    .find-fit-{{ section.id }} .find-fit__tabs-wrapper {
+      width: 100%;
+      justify-content: flex-start;
+      margin-bottom: clamp(calc({{ section.settings.tabs_margin_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.tabs_margin_bottom_mobile }} / 375), calc({{ section.settings.tabs_margin_bottom_mobile }}px * 1.15));
+    }
+
+    .find-fit-{{ section.id }} .find-fit__tabs {
+      width: 100%;
+      padding-left: clamp(calc({{ section.settings.mobile_side_padding }}px * 0.85), calc(100vw * {{ section.settings.mobile_side_padding }} / 375), calc({{ section.settings.mobile_side_padding }}px * 1.15));
+      padding-right: clamp(calc({{ section.settings.mobile_side_padding }}px * 0.85), calc(100vw * {{ section.settings.mobile_side_padding }} / 375), calc({{ section.settings.mobile_side_padding }}px * 1.15));
+      gap: clamp(calc({{ section.settings.tabs_gap_mobile }}px * 0.85), calc(100vw * {{ section.settings.tabs_gap_mobile }} / 375), calc({{ section.settings.tabs_gap_mobile }}px * 1.15));
+    }
+
+    .find-fit-{{ section.id }} .find-fit__tab {
+      padding-bottom: clamp(calc({{ section.settings.tab_padding_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.tab_padding_bottom_mobile }} / 375), calc({{ section.settings.tab_padding_bottom_mobile }}px * 1.15));
+      font-size: clamp(calc({{ section.settings.tab_font_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.tab_font_size_mobile }} / 375), calc({{ section.settings.tab_font_size_mobile }}px * 1.15));
+    }
+
+    .find-fit-{{ section.id }} .find-fit__tab::after {
+      height: clamp(calc({{ section.settings.active_line_height_mobile }}px * 0.85), calc(100vw * {{ section.settings.active_line_height_mobile }} / 375), calc({{ section.settings.active_line_height_mobile }}px * 1.15));
+    }
+
+    .find-fit-{{ section.id }} .find-fit__content {
+      flex-direction: column;
+      gap: clamp(calc({{ section.settings.content_gap_mobile }}px * 0.85), calc(100vw * {{ section.settings.content_gap_mobile }} / 375), calc({{ section.settings.content_gap_mobile }}px * 1.15));
+    }
+
+    .find-fit-{{ section.id }} .find-fit__content-wrapper {
+      padding-left: clamp(calc({{ section.settings.mobile_side_padding }}px * 0.85), calc(100vw * {{ section.settings.mobile_side_padding }} / 375), calc({{ section.settings.mobile_side_padding }}px * 1.15));
+      padding-right: clamp(calc({{ section.settings.mobile_side_padding }}px * 0.85), calc(100vw * {{ section.settings.mobile_side_padding }} / 375), calc({{ section.settings.mobile_side_padding }}px * 1.15));
+    }
+
+    .find-fit-{{ section.id }} .find-fit__media-side {
+      order: -1;
+      width: 100%;
+      border-radius: clamp(calc({{ section.settings.media_radius_mobile }}px * 0.85), calc(100vw * {{ section.settings.media_radius_mobile }} / 375), calc({{ section.settings.media_radius_mobile }}px * 1.15));
+    }
+
+    .find-fit-{{ section.id }} .find-fit__text-side {
+      width: 100%;
+      max-width: 100%;
+      margin-top: 0;
+    }
+
+    .find-fit-{{ section.id }} .find-fit__content-title {
+      font-size: clamp(calc({{ section.settings.content_title_font_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.content_title_font_size_mobile }} / 375), calc({{ section.settings.content_title_font_size_mobile }}px * 1.15));
+      margin-bottom: clamp(calc({{ section.settings.content_title_margin_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.content_title_margin_bottom_mobile }} / 375), calc({{ section.settings.content_title_margin_bottom_mobile }}px * 1.15));
+    }
+
+    .find-fit-{{ section.id }} .find-fit__content-desc {
+      font-size: clamp(calc({{ section.settings.content_desc_font_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.content_desc_font_size_mobile }} / 375), calc({{ section.settings.content_desc_font_size_mobile }}px * 1.15));
+      margin-bottom: clamp(calc({{ section.settings.content_desc_margin_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.content_desc_margin_bottom_mobile }} / 375), calc({{ section.settings.content_desc_margin_bottom_mobile }}px * 1.15));
+    }
+
+    .find-fit-{{ section.id }} .find-fit__btn {
+      width: {% if section.settings.button_full_width_mobile %}100%{% else %}auto{% endif %};
+      border-radius: clamp(calc({{ section.settings.button_radius_mobile }}px * 0.85), calc(100vw * {{ section.settings.button_radius_mobile }} / 375), calc({{ section.settings.button_radius_mobile }}px * 1.15));
+      font-size: clamp(calc({{ section.settings.button_font_size_mobile }}px * 0.85), calc(100vw * {{ section.settings.button_font_size_mobile }} / 375), calc({{ section.settings.button_font_size_mobile }}px * 1.15));
+      padding-top: clamp(calc({{ section.settings.button_padding_y_mobile }}px * 0.85), calc(100vw * {{ section.settings.button_padding_y_mobile }} / 375), calc({{ section.settings.button_padding_y_mobile }}px * 1.15));
+      padding-bottom: clamp(calc({{ section.settings.button_padding_y_mobile }}px * 0.85), calc(100vw * {{ section.settings.button_padding_y_mobile }} / 375), calc({{ section.settings.button_padding_y_mobile }}px * 1.15));
+      padding-left: clamp(calc({{ section.settings.button_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.button_padding_x_mobile }} / 375), calc({{ section.settings.button_padding_x_mobile }}px * 1.15));
+      padding-right: clamp(calc({{ section.settings.button_padding_x_mobile }}px * 0.85), calc(100vw * {{ section.settings.button_padding_x_mobile }} / 375), calc({{ section.settings.button_padding_x_mobile }}px * 1.15));
+      min-height: clamp(calc({{ section.settings.button_min_height_mobile }}px * 0.85), calc(100vw * {{ section.settings.button_min_height_mobile }} / 375), calc({{ section.settings.button_min_height_mobile }}px * 1.15));
+      margin-bottom: clamp(calc({{ section.settings.button_margin_bottom_mobile }}px * 0.85), calc(100vw * {{ section.settings.button_margin_bottom_mobile }} / 375), calc({{ section.settings.button_margin_bottom_mobile }}px * 1.15));
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    const section = document.getElementById('find-fit-{{ section.id }}');
+    if (!section) return;
+
+    const dataNode = section.querySelector('[data-find-fit-data]');
+    const tabNavContainer = section.querySelector('[data-find-fit-tabs]');
+    const contentTitle = section.querySelector('[data-find-fit-content-title]');
+    const contentDesc = section.querySelector('[data-find-fit-content-desc]');
+    const contentBtn = section.querySelector('[data-find-fit-content-btn]');
+    const mediaContainer = section.querySelector('[data-find-fit-media-container]');
+
+    if (!dataNode || !tabNavContainer || !contentTitle || !contentDesc || !contentBtn || !mediaContainer) return;
+
+    let tabData = [];
+
+    try {
+      tabData = JSON.parse(dataNode.textContent || '[]');
+    } catch (error) {
+      console.warn('Find Your Fit: invalid section data.', error);
+      return;
+    }
+
+    if (!Array.isArray(tabData) || !tabData.length) return;
+
+    const mobileQuery = window.matchMedia('(max-width: 768px)');
+    const mediaCache = new Map();
+    let currentTabId = tabData[0].id;
+    let currentMediaKey = '';
+    let mediaLoadToken = 0;
+
+    const cleanHtml = (value) => (typeof value === 'string' ? value : '');
+    const isMobile = () => mobileQuery.matches;
+
+    const getResponsiveValue = (data, baseKey) => {
+      const pcValue = cleanHtml(data[`${baseKey}Pc`]);
+      const mobileValue = cleanHtml(data[`${baseKey}Mobile`]);
+      return isMobile() && mobileValue.trim() ? mobileValue : pcValue;
+    };
+
+    const getResponsiveMedia = (data) => {
+      const useMobile = isMobile();
+      const mediaType = data.mediaType === 'video' ? 'video' : 'image';
+
+      if (mediaType === 'video') {
+        const mobileUrl = cleanHtml(data.videoMobile);
+        const pcUrl = cleanHtml(data.videoPc);
+        return {
+          type: 'video',
+          url: useMobile && mobileUrl ? mobileUrl : pcUrl,
+          width: useMobile && Number(data.videoMobileWidth) ? Number(data.videoMobileWidth) : Number(data.videoPcWidth) || 0,
+          height: useMobile && Number(data.videoMobileHeight) ? Number(data.videoMobileHeight) : Number(data.videoPcHeight) || 0,
+          poster: useMobile && cleanHtml(data.posterMobile) ? cleanHtml(data.posterMobile) : cleanHtml(data.posterPc),
+          objectFit: data.objectFit || 'cover'
+        };
+      }
+
+      const mobileUrl = cleanHtml(data.imageMobile);
+      const pcUrl = cleanHtml(data.imagePc);
+      return {
+        type: 'image',
+        url: useMobile && mobileUrl ? mobileUrl : pcUrl,
+        width: useMobile && Number(data.imageMobileWidth) ? Number(data.imageMobileWidth) : Number(data.imagePcWidth) || 0,
+        height: useMobile && Number(data.imageMobileHeight) ? Number(data.imageMobileHeight) : Number(data.imagePcHeight) || 0,
+        poster: '',
+        objectFit: data.objectFit || 'cover'
+      };
+    };
+
+    const getMediaKey = (data) => {
+      const media = getResponsiveMedia(data);
+      return `${media.type}::${media.url}`;
+    };
+
+    const setMediaAspectRatio = (width, height) => {
+      const safeWidth = Number(width) || 0;
+      const safeHeight = Number(height) || 0;
+      if (safeWidth <= 0 || safeHeight <= 0) return;
+      mediaContainer.style.setProperty('--media-aspect-ratio', `${safeWidth} / ${safeHeight}`);
+    };
+
+    const pauseHiddenVideo = (element) => {
+      if (element && element.tagName === 'VIDEO') {
+        element.pause();
+      }
+    };
+
+    const playVisibleVideo = (element) => {
+      if (element && element.tagName === 'VIDEO') {
+        element.currentTime = element.currentTime || 0;
+        element.play().catch(() => {});
+      }
+    };
+
+    const showMediaElement = (targetElement) => {
+      mediaContainer.querySelectorAll('.find-fit__media-element').forEach((element) => {
+        const isTarget = element === targetElement;
+        element.classList.toggle('is-visible', isTarget);
+
+        if (isTarget) {
+          mediaContainer.style.setProperty('--media-object-fit', element.dataset.objectFit || 'cover');
+          playVisibleVideo(element);
+        } else {
+          pauseHiddenVideo(element);
+        }
+      });
+    };
+
+    const createImageElement = (data, media) => {
+      const image = document.createElement('img');
+      image.className = 'find-fit__media-element';
+      image.alt = cleanHtml(data.alt) || cleanHtml(getResponsiveValue(data, 'title')).replace(/<[^>]*>/g, '');
+      image.decoding = 'async';
+      image.loading = 'eager';
+      image.dataset.objectFit = media.objectFit;
+      image.src = media.url;
+      return image;
+    };
+
+    const createVideoElement = (data, media) => {
+      const video = document.createElement('video');
+      video.className = 'find-fit__media-element';
+      video.src = media.url;
+      video.autoplay = true;
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
+      video.preload = 'auto';
+      video.dataset.objectFit = media.objectFit;
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.setAttribute('aria-label', cleanHtml(data.alt) || cleanHtml(getResponsiveValue(data, 'title')).replace(/<[^>]*>/g, ''));
+
+      if (media.poster) {
+        video.poster = media.poster;
+      }
+
+      return video;
+    };
+
+    const cacheAndRevealMedia = (key, element, width, height, token) => {
+      if (token !== mediaLoadToken || key !== currentMediaKey) return;
+
+      setMediaAspectRatio(width, height);
+      element.dataset.mediaWidth = String(width || 16);
+      element.dataset.mediaHeight = String(height || 11);
+      mediaCache.set(key, element);
+      showMediaElement(element);
+    };
+
+    const loadImageWithoutBlank = (data, media, key, token) => {
+      if (!media.url) return;
+
+      const image = createImageElement(data, media);
+      mediaContainer.appendChild(image);
+
+      const reveal = () => {
+        const width = image.naturalWidth || media.width || 16;
+        const height = image.naturalHeight || media.height || 11;
+        const finish = () => cacheAndRevealMedia(key, image, width, height, token);
+
+        if (typeof image.decode === 'function') {
+          image.decode().then(finish).catch(finish);
+        } else {
+          finish();
+        }
+      };
+
+      image.onload = reveal;
+      image.onerror = () => {
+        if (token !== mediaLoadToken || key !== currentMediaKey) return;
+        image.remove();
+        setMediaAspectRatio(16, 11);
+      };
+
+      if (media.width && media.height) {
+        setMediaAspectRatio(media.width, media.height);
+      }
+
+      if (image.complete && image.naturalWidth && image.naturalHeight) {
+        reveal();
+      }
+    };
+
+    const loadVideoWithoutBlank = (data, media, key, token) => {
+      if (!media.url) return;
+
+      const video = createVideoElement(data, media);
+      mediaContainer.appendChild(video);
+
+      const reveal = () => {
+        const width = video.videoWidth || media.width || 16;
+        const height = video.videoHeight || media.height || 11;
+        cacheAndRevealMedia(key, video, width, height, token);
+      };
+
+      video.onloadeddata = reveal;
+      video.oncanplay = reveal;
+      video.onerror = () => {
+        if (token !== mediaLoadToken || key !== currentMediaKey) return;
+        video.remove();
+        setMediaAspectRatio(16, 11);
+      };
+
+      if (media.width && media.height) {
+        setMediaAspectRatio(media.width, media.height);
+      }
+
+      video.load();
+
+      if (video.readyState >= 2 && video.videoWidth && video.videoHeight) {
+        reveal();
+      }
+    };
+
+    const updateMediaWithoutBlank = (data) => {
+      const media = getResponsiveMedia(data);
+      const key = getMediaKey(data);
+      const token = ++mediaLoadToken;
+      currentMediaKey = key;
+
+      const cachedElement = mediaCache.get(key);
+      if (cachedElement) {
+        setMediaAspectRatio(
+          Number(cachedElement.dataset.mediaWidth) || media.width || 16,
+          Number(cachedElement.dataset.mediaHeight) || media.height || 11
+        );
+        showMediaElement(cachedElement);
+        return;
+      }
+
+      if (media.width && media.height) {
+        setMediaAspectRatio(media.width, media.height);
+      }
+
+      if (media.type === 'video') {
+        loadVideoWithoutBlank(data, media, key, token);
+        return;
+      }
+
+      loadImageWithoutBlank(data, media, key, token);
+    };
+
+    const scrollToCenter = (btn) => {
+      const containerWidth = tabNavContainer.clientWidth;
+      const btnOffsetLeft = btn.offsetLeft;
+      const btnWidth = btn.clientWidth;
+      const scrollPosition = btnOffsetLeft - (containerWidth / 2) + (btnWidth / 2);
+
+      tabNavContainer.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+      });
+    };
+
+    const updateDOMContent = (data) => {
+      contentTitle.innerHTML = getResponsiveValue(data, 'title');
+      contentDesc.innerHTML = getResponsiveValue(data, 'desc');
+      contentBtn.innerHTML = getResponsiveValue(data, 'buttonText');
+      contentBtn.href = cleanHtml(data.buttonLink) || '#';
+
+      if (data.buttonNewTab) {
+        contentBtn.target = '_blank';
+        contentBtn.rel = 'noopener noreferrer';
+      } else {
+        contentBtn.removeAttribute('target');
+        contentBtn.removeAttribute('rel');
+      }
+
+      const hasButtonText = Boolean(contentBtn.textContent.trim());
+      contentBtn.style.display = hasButtonText ? 'inline-flex' : 'none';
+
+      updateMediaWithoutBlank(data);
+    };
+
+    const syncTabLabels = () => {
+      tabNavContainer.querySelectorAll('.find-fit__tab').forEach((btn) => {
+        const data = tabData.find((item) => item.id === btn.dataset.id);
+        if (!data) return;
+        btn.innerHTML = getResponsiveValue(data, 'label');
+      });
+    };
+
+    const handleTabClick = (id, targetBtn) => {
+      if (id === currentTabId) return;
+
+      const newData = tabData.find((item) => item.id === id);
+      if (!newData) return;
+
+      currentTabId = id;
+
+      tabNavContainer.querySelectorAll('.find-fit__tab').forEach((btn) => {
+        const isActive = btn.dataset.id === id;
+        btn.classList.toggle('is-active', isActive);
+        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        btn.tabIndex = isActive ? 0 : -1;
+      });
+
+      scrollToCenter(targetBtn);
+      updateDOMContent(newData);
+    };
+
+    const renderTabs = () => {
+      tabNavContainer.innerHTML = '';
+
+      tabData.forEach((tab, index) => {
+        const btn = document.createElement('button');
+        const isActive = tab.id === currentTabId;
+
+        btn.className = `find-fit__tab${isActive ? ' is-active' : ''}`;
+        btn.innerHTML = getResponsiveValue(tab, 'label');
+        btn.type = 'button';
+        btn.dataset.id = tab.id;
+        btn.setAttribute('role', 'tab');
+        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        btn.tabIndex = isActive ? 0 : -1;
+
+        btn.addEventListener('click', (event) => handleTabClick(tab.id, event.currentTarget));
+        btn.addEventListener('keydown', (event) => {
+          const buttons = Array.from(tabNavContainer.querySelectorAll('.find-fit__tab'));
+          const currentIndex = buttons.indexOf(event.currentTarget);
+          let nextIndex = currentIndex;
+
+          if (event.key === 'ArrowRight') nextIndex = Math.min(currentIndex + 1, buttons.length - 1);
+          if (event.key === 'ArrowLeft') nextIndex = Math.max(currentIndex - 1, 0);
+          if (event.key === 'Home') nextIndex = 0;
+          if (event.key === 'End') nextIndex = buttons.length - 1;
+
+          if (nextIndex !== currentIndex) {
+            event.preventDefault();
+            buttons[nextIndex].focus();
+            buttons[nextIndex].click();
+          }
+        });
+
+        tabNavContainer.appendChild(btn);
+
+        if (index === 0) {
+          currentTabId = tab.id;
+        }
+      });
+
+      updateDOMContent(tabData.find((item) => item.id === currentTabId) || tabData[0]);
+    };
+
+    const refreshResponsiveContent = () => {
+      syncTabLabels();
+      const activeData = tabData.find((item) => item.id === currentTabId) || tabData[0];
+      updateDOMContent(activeData);
+
+      const activeBtn = tabNavContainer.querySelector('.find-fit__tab.is-active');
+      if (activeBtn) scrollToCenter(activeBtn);
+    };
+
+    renderTabs();
+
+    if (typeof mobileQuery.addEventListener === 'function') {
+      mobileQuery.addEventListener('change', refreshResponsiveContent);
+    } else if (typeof mobileQuery.addListener === 'function') {
+      mobileQuery.addListener(refreshResponsiveContent);
+    }
+
+    document.addEventListener('shopify:section:load', (event) => {
+      if (event.detail && event.detail.sectionId === '{{ section.id }}') {
+        refreshResponsiveContent();
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Find your fit tabs",
+  "tag": "section",
+  "class": "section-find-your-fit",
+  "settings": [
+    {
+      "type": "header",
+      "content": "顶部文案"
+    },
+    {
+      "type": "html",
+      "id": "heading_html_pc",
+      "label": "标题 HTML - PC",
+      "default": "Find Your Fit"
+    },
+    {
+      "type": "html",
+      "id": "heading_html_mobile",
+      "label": "标题 HTML - 移动端（为空则回退 PC）"
+    },
+    {
+      "type": "html",
+      "id": "subtitle_html_pc",
+      "label": "副标题 HTML - PC",
+      "default": "Simple, fast, and made for real production — no experience required."
+    },
+    {
+      "type": "html",
+      "id": "subtitle_html_mobile",
+      "label": "副标题 HTML - 移动端（为空则回退 PC）"
+    },
+    {
+      "type": "text",
+      "id": "tabs_aria_label",
+      "label": "Tab 无障碍标签",
+      "default": "Find your fit tabs"
+    },
+    {
+      "type": "header",
+      "content": "颜色"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "模块背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "标题颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "副标题颜色",
+      "default": "#3d3d3d"
+    },
+    {
+      "type": "color",
+      "id": "tab_text_color",
+      "label": "Tab 默认文字颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_text_color",
+      "label": "Tab 激活文字颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tabs_border_color",
+      "label": "Tab 底部分隔线颜色",
+      "default": "#dddddd"
+    },
+    {
+      "type": "color",
+      "id": "active_line_color",
+      "label": "Tab 激活线颜色",
+      "default": "#e32e09"
+    },
+    {
+      "type": "color",
+      "id": "content_title_color",
+      "label": "内容标题颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "content_desc_color",
+      "label": "内容描述颜色",
+      "default": "#3d3d3d"
+    },
+    {
+      "type": "color",
+      "id": "media_background",
+      "label": "素材加载背景色",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "按钮背景色",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "按钮文字颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_background_hover",
+      "label": "按钮悬停背景色",
+      "default": "#e32e09"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color_hover",
+      "label": "按钮悬停文字颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "PC 间距"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_pc",
+      "label": "模块上边距 - PC",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_pc",
+      "label": "模块下边距 - PC",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "container_max_width_pc",
+      "label": "内容最大宽度 - PC",
+      "min": 768,
+      "max": 2048,
+      "step": 16,
+      "unit": "px",
+      "default": 1248
+    },
+    {
+      "type": "range",
+      "id": "container_padding_inline_pc",
+      "label": "容器左右内边距 - PC",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom_pc",
+      "label": "顶部文案下边距 - PC",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom_pc",
+      "label": "标题下边距 - PC",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "tabs_margin_bottom_pc",
+      "label": "Tab 区域下边距 - PC",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "tabs_gap_pc",
+      "label": "Tab 间距 - PC",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "tab_padding_bottom_pc",
+      "label": "Tab 文字下内边距 - PC",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "active_line_height_pc",
+      "label": "Tab 激活线高度 - PC",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "content_gap_pc",
+      "label": "文字与素材间距 - PC",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "text_max_width_pc",
+      "label": "左侧文案最大宽度 - PC",
+      "min": 300,
+      "max": 700,
+      "step": 4,
+      "unit": "px",
+      "default": 564
+    },
+    {
+      "type": "range",
+      "id": "text_margin_top_pc",
+      "label": "左侧文案上偏移 - PC",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "content_title_margin_bottom_pc",
+      "label": "内容标题下边距 - PC",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "content_desc_margin_bottom_pc",
+      "label": "内容描述下边距 - PC",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "media_radius_pc",
+      "label": "素材圆角 - PC",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "移动端间距"
+    },
+    {
+      "type": "range",
+      "id": "mobile_side_padding",
+      "label": "移动端左右边距",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "label": "模块上边距 - 移动端",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "label": "模块下边距 - 移动端",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom_mobile",
+      "label": "顶部文案下边距 - 移动端",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom_mobile",
+      "label": "标题下边距 - 移动端",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "tabs_margin_bottom_mobile",
+      "label": "Tab 区域下边距 - 移动端",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "tabs_gap_mobile",
+      "label": "Tab 间距 - 移动端",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "tab_padding_bottom_mobile",
+      "label": "Tab 文字下内边距 - 移动端",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "active_line_height_mobile",
+      "label": "Tab 激活线高度 - 移动端",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "content_gap_mobile",
+      "label": "文字与素材间距 - 移动端",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "content_title_margin_bottom_mobile",
+      "label": "内容标题下边距 - 移动端",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "content_desc_margin_bottom_mobile",
+      "label": "内容描述下边距 - 移动端",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "media_radius_mobile",
+      "label": "素材圆角 - 移动端",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "字体"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_pc",
+      "label": "标题字号 - PC",
+      "min": 16,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "label": "标题字号 - 移动端",
+      "min": 14,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "标题字重",
+      "default": "800",
+      "options": [
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" },
+        { "value": "800", "label": "800" },
+        { "value": "900", "label": "900" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "label": "标题行高",
+      "min": 0.8,
+      "max": 2.0,
+      "step": 0.1,
+      "default": 1.2
+    },
+    {
+      "type": "range",
+      "id": "subtitle_font_size_pc",
+      "label": "副标题字号 - PC",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "subtitle_font_size_mobile",
+      "label": "副标题字号 - 移动端",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "select",
+      "id": "subtitle_font_weight",
+      "label": "副标题字重",
+      "default": "400",
+      "options": [
+        { "value": "300", "label": "300" },
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "subtitle_line_height",
+      "label": "副标题行高",
+      "min": 0.8,
+      "max": 2.0,
+      "step": 0.1,
+      "default": 1.4
+    },
+    {
+      "type": "range",
+      "id": "tab_font_size_pc",
+      "label": "Tab 字号 - PC",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "tab_font_size_mobile",
+      "label": "Tab 字号 - 移动端",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "tab_font_weight",
+      "label": "Tab 默认字重",
+      "default": "400",
+      "options": [
+        { "value": "300", "label": "300" },
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "tab_active_font_weight",
+      "label": "Tab 激活字重",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" },
+        { "value": "800", "label": "800" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "tab_line_height",
+      "label": "Tab 行高",
+      "min": 0.8,
+      "max": 2.0,
+      "step": 0.1,
+      "default": 1.5
+    },
+    {
+      "type": "range",
+      "id": "content_title_font_size_pc",
+      "label": "内容标题字号 - PC",
+      "min": 16,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "content_title_font_size_mobile",
+      "label": "内容标题字号 - 移动端",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "select",
+      "id": "content_title_font_weight",
+      "label": "内容标题字重",
+      "default": "800",
+      "options": [
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" },
+        { "value": "800", "label": "800" },
+        { "value": "900", "label": "900" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "content_title_line_height",
+      "label": "内容标题行高",
+      "min": 0.8,
+      "max": 2.0,
+      "step": 0.1,
+      "default": 1.2
+    },
+    {
+      "type": "range",
+      "id": "content_desc_font_size_pc",
+      "label": "内容描述字号 - PC",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "content_desc_font_size_mobile",
+      "label": "内容描述字号 - 移动端",
+      "min": 10,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "content_desc_font_weight",
+      "label": "内容描述字重",
+      "default": "400",
+      "options": [
+        { "value": "300", "label": "300" },
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "content_desc_line_height",
+      "label": "内容描述行高",
+      "min": 0.8,
+      "max": 2.0,
+      "step": 0.1,
+      "default": 1.6
+    },
+    {
+      "type": "header",
+      "content": "按钮"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size_pc",
+      "label": "按钮字号 - PC",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_font_size_mobile",
+      "label": "按钮字号 - 移动端",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "button_font_weight",
+      "label": "按钮字重",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" },
+        { "value": "800", "label": "800" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "button_padding_x_pc",
+      "label": "按钮左右内边距 - PC",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "button_padding_y_pc",
+      "label": "按钮上下内边距 - PC",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "button_min_height_pc",
+      "label": "按钮最小高度 - PC",
+      "min": 24,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "button_radius_pc",
+      "label": "按钮圆角 - PC",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 47
+    },
+    {
+      "type": "range",
+      "id": "button_padding_x_mobile",
+      "label": "按钮左右内边距 - 移动端",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "button_padding_y_mobile",
+      "label": "按钮上下内边距 - 移动端",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "button_min_height_mobile",
+      "label": "按钮最小高度 - 移动端",
+      "min": 24,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "button_radius_mobile",
+      "label": "按钮圆角 - 移动端",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 47
+    },
+    {
+      "type": "range",
+      "id": "button_margin_bottom_mobile",
+      "label": "按钮下边距 - 移动端",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "button_full_width_mobile",
+      "label": "移动端按钮占满整行",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab_item",
+      "name": "Tab 内容",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Tab 文案"
+        },
+        {
+          "type": "html",
+          "id": "tab_label_html_pc",
+          "label": "Tab 名称 HTML - PC",
+          "default": "Home Maker"
+        },
+        {
+          "type": "html",
+          "id": "tab_label_html_mobile",
+          "label": "Tab 名称 HTML - 移动端（为空则回退 PC）"
+        },
+        {
+          "type": "html",
+          "id": "content_title_html_pc",
+          "label": "内容标题 HTML - PC",
+          "default": "For Home Maker"
+        },
+        {
+          "type": "html",
+          "id": "content_title_html_mobile",
+          "label": "内容标题 HTML - 移动端（为空则回退 PC）"
+        },
+        {
+          "type": "html",
+          "id": "content_desc_html_pc",
+          "label": "内容描述 HTML - PC",
+          "default": "School runs, laundry cycles, meal prep, and keeping the house running smoothly — your days are always full. Between caring for everyone else, they still find little moments to create personalized t-shirts, home decor, and meaningful gifts. You love making things special, but don't have time for complicated tools, messy setups, or long learning curves."
+        },
+        {
+          "type": "html",
+          "id": "content_desc_html_mobile",
+          "label": "内容描述 HTML - 移动端（为空则回退 PC）"
+        },
+        {
+          "type": "html",
+          "id": "button_label_html_pc",
+          "label": "按钮文案 HTML - PC",
+          "default": "Shop K13 Lite Now"
+        },
+        {
+          "type": "html",
+          "id": "button_label_html_mobile",
+          "label": "按钮文案 HTML - 移动端（为空则回退 PC）"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "按钮链接"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_new_tab",
+          "label": "按钮新标签页打开",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "素材"
+        },
+        {
+          "type": "select",
+          "id": "media_type",
+          "label": "素材类型",
+          "default": "image",
+          "options": [
+            { "value": "image", "label": "图片" },
+            { "value": "video", "label": "视频" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "media_object_fit",
+          "label": "素材填充方式",
+          "default": "cover",
+          "options": [
+            { "value": "cover", "label": "cover 裁切填满" },
+            { "value": "contain", "label": "contain 完整显示" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "media_alt_text",
+          "label": "素材 Alt / 视频 aria-label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_pc",
+          "label": "图片 - PC"
+        },
+        {
+          "type": "text",
+          "id": "external_image_pc",
+          "label": "外链图片 URL - PC（未选图片时使用）",
+          "default": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "图片 - 移动端"
+        },
+        {
+          "type": "text",
+          "id": "external_image_mobile",
+          "label": "外链图片 URL - 移动端（为空则回退 PC）"
+        },
+        {
+          "type": "video",
+          "id": "video_pc",
+          "label": "视频 - PC"
+        },
+        {
+          "type": "text",
+          "id": "external_video_pc",
+          "label": "外链 MP4 视频 URL - PC（未选视频时使用）",
+          "default": "https://www.w3schools.com/html/mov_bbb.mp4"
+        },
+        {
+          "type": "video",
+          "id": "video_mobile",
+          "label": "视频 - 移动端"
+        },
+        {
+          "type": "text",
+          "id": "external_video_mobile",
+          "label": "外链 MP4 视频 URL - 移动端（为空则回退 PC）"
+        },
+        {
+          "type": "image_picker",
+          "id": "poster_pc",
+          "label": "视频封面图 - PC"
+        },
+        {
+          "type": "text",
+          "id": "external_poster_pc",
+          "label": "外链视频封面 URL - PC"
+        },
+        {
+          "type": "image_picker",
+          "id": "poster_mobile",
+          "label": "视频封面图 - 移动端"
+        },
+        {
+          "type": "text",
+          "id": "external_poster_mobile",
+          "label": "外链视频封面 URL - 移动端（为空则回退 PC）"
+        }
+      ]
+    }
+  ],
+ 
+  "presets": [
+    {
+      "name": "Find your fit tabs",
+      "blocks": [
+        {
+          "type": "tab_item",
+          "settings": {
+            "tab_label_html_pc": "Home Maker",
+            "content_title_html_pc": "For Home Maker",
+            "content_desc_html_pc": "School runs, laundry cycles, meal prep, and keeping the house running smoothly — your days are always full. Between caring for everyone else, they still find little moments to create personalized t-shirts, home decor, and meaningful gifts. You love making things special, but don't have time for complicated tools, messy setups, or long learning curves.",
+            "button_label_html_pc": "Shop K13 Lite Now",
+            "media_type": "image",
+            "external_image_pc": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80"
+          }
+        },
+        {
+          "type": "tab_item",
+          "settings": {
+            "tab_label_html_pc": "Hobby Crafter",
+            "content_title_html_pc": "For Hobby Crafter",
+            "content_desc_html_pc": "Turn your weekend projects into professional-grade creations. Whether you are experimenting with new materials or perfecting your craft, our tools provide the precision and reliability you need to bring your wildest ideas to life without the industrial hassle.",
+            "button_label_html_pc": "Explore Crafting Tools",
+            "media_type": "video",
+            "external_video_pc": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        },
+        {
+          "type": "tab_item",
+          "settings": {
+            "tab_label_html_pc": "Designers & Artists",
+            "content_title_html_pc": "For Designers & Artists",
+            "content_desc_html_pc": "Your art deserves the best canvas. We bridge the gap between digital design and physical products with color-accurate printing and seamless workflows. Focus on what you do best—creating stunning artwork—while we handle the production mechanics.",
+            "button_label_html_pc": "View Pro Series",
+            "media_type": "image",
+            "external_image_pc": "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=80"
+          }
+        },
+        {
+          "type": "tab_item",
+          "settings": {
+            "tab_label_html_pc": "Side Hustlers",
+            "content_title_html_pc": "For Side Hustlers",
+            "content_desc_html_pc": "Scale your passion project into a profitable business. Fast setup, low maintenance, and high output mean you can fulfill orders after hours without burning out. Built for efficiency so you can maximize your margins and grow on your own terms.",
+            "button_label_html_pc": "Start Scaling Today",
+            "media_type": "video",
+            "external_video_pc": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        },
+        {
+          "type": "tab_item",
+          "settings": {
+            "tab_label_html_pc": "POD Sellers",
+            "content_title_html_pc": "For POD Sellers",
+            "content_desc_html_pc": "Power your print-on-demand empire with commercial-grade reliability. High volume, consistent quality, and rapid turnaround times are baked into the DNA of our production systems. Keep your customers happy and your operations lean.",
+            "button_label_html_pc": "Discover Enterprise Solutions",
+            "media_type": "image",
+            "external_image_pc": "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=1200&q=80"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
