@@ -288,7 +288,12 @@
               font-size: 12px;
               font-weight: 400;
               line-height: 140%;
-          }.roi-income-calculator-{{ section.id }} .nc-mat-del{
+          }.roi-income-calculator-{{ section.id }} .nc-mat-actions{
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              flex-shrink: 0;
+          }.roi-income-calculator-{{ section.id }} .nc-mat-del, .roi-income-calculator-{{ section.id }} .nc-mat-reset{
               display: flex;
               width: 32px;
               height: 32px;
@@ -296,16 +301,17 @@
               justify-content: center;
               aspect-ratio: 1/1;
               border-radius: 99px;
+              padding: 0;
               background: #F9F9F9;
               flex-shrink: 0;
               cursor: pointer;
   
-          }.roi-income-calculator-{{ section.id }} .nc-mat-del svg{
+          }.roi-income-calculator-{{ section.id }} .nc-mat-del svg, .roi-income-calculator-{{ section.id }} .nc-mat-reset svg{
               width: 20px;
               height: 20px;
               flex-shrink: 0;
   
-          }.roi-income-calculator-{{ section.id }} .nc-mat-del:hover{
+          }.roi-income-calculator-{{ section.id }} .nc-mat-del:hover, .roi-income-calculator-{{ section.id }} .nc-mat-reset:hover{
               background: #FFF1E2;
   
           }.roi-income-calculator-{{ section.id }} .nc-inline-name-input{
@@ -1471,9 +1477,14 @@
                   overflow: hidden;
               }.roi-income-calculator-{{ section.id }} .nc-mat-sub{
                   font-size: 11px;
-              }.roi-income-calculator-{{ section.id }} .nc-mat-del{
+              }.roi-income-calculator-{{ section.id }} .nc-mat-actions{
+                  gap: 6px;
+              }.roi-income-calculator-{{ section.id }} .nc-mat-del, .roi-income-calculator-{{ section.id }} .nc-mat-reset{
                   width: 18px;
                   height: 18px;
+              }.roi-income-calculator-{{ section.id }} .nc-mat-del svg, .roi-income-calculator-{{ section.id }} .nc-mat-reset svg{
+                  width: 14px;
+                  height: 14px;
               }.roi-income-calculator-{{ section.id }} .nc-slider-group{
                   gap: 18px;
               }.roi-income-calculator-{{ section.id }} .nc-slider-row{
@@ -1934,7 +1945,7 @@
                 assign material_name = 'Material'
               endif
               assign material_image_url = ''
-              if block.settings.image != blank
+              if block.settings.ima ge != blank
                 assign material_image_url = block.settings.image | image_url: width: 900
               elsif material_product != blank and material_product.featured_image != blank
                 assign material_image_url = material_product.featured_image | image_url: width: 900
@@ -2038,6 +2049,7 @@
                   "printSizeLabel": "Print Size",
                   "piecesPerHourLabel": "pcs/hr",
                   "customProductNamePlaceholder": "Product Name...",
+                  "resetMaterialAria": "Reset material values",
                   "removeMaterialAria": "Remove material",
                   "noMaterialsSelected": "No materials selected.",
                   "grossProfitSeriesName": "Accumulated Gross Profit",
@@ -2406,6 +2418,38 @@
               function findMaterialById(materialId) {
                   return state.materials.find(material => material.id === materialId) || null;
               }
+
+              function getMaterialDefaultValues(material) {
+                  const sourceMaterial = material.isCustom
+                      ? CUSTOM_MATERIAL_DEFAULTS
+                      : materialCatalogById.get(material.sourceId || material.id);
+                  if (!sourceMaterial) return null;
+
+                  const normalizedDefaults = normalizeMaterialFields({
+                      ...material,
+                      unitCost: sourceMaterial.unitCost,
+                      unitPrice: sourceMaterial.unitPrice,
+                      monthlySales: sourceMaterial.monthlySales
+                  });
+
+                  return {
+                      unitCost: normalizedDefaults.unitCost,
+                      unitPrice: normalizedDefaults.unitPrice,
+                      monthlySales: normalizedDefaults.monthlySales
+                  };
+              }
+
+              function resetMaterialValues(materialId) {
+                  const material = findMaterialById(materialId);
+                  if (!material) return;
+
+                  const defaultValues = getMaterialDefaultValues(material);
+                  if (!defaultValues) return;
+
+                  Object.assign(material, defaultValues);
+                  syncMaterialCard(materialId);
+                  scheduleDashboardUpdate();
+              }
   
               function prependSelectedMaterials(materialIds) {
                   const nextMaterials = [...materialIds]
@@ -2526,7 +2570,16 @@
                 ${titleMarkup}
                 ${materialMetaMarkup}
               </div>
-              <div class="nc-mat-del"  data-remove-material="${safeMaterialId}" aria-label="${escapeHtml(getCopy("removeMaterialAria", "Remove material"))}">
+              <div class="nc-mat-actions">
+                <button class="nc-mat-reset" type="button" data-reset-material="${safeMaterialId}" aria-label="${escapeHtml(getCopy("resetMaterialAria", "Reset material values"))}">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+    <path d="M16.25 8.75C16.25 5.98858 14.0114 3.75 11.25 3.75C9.48585 3.75 7.93492 4.66364 7.04552 6.04355" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M6.66669 3.75V6.25H9.16669" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M3.75 11.25C3.75 14.0114 5.98858 16.25 8.75 16.25C10.5142 16.25 12.0651 15.3364 12.9545 13.9564" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M13.3333 16.25V13.75H10.8333" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+                </button>
+                <div class="nc-mat-del"  data-remove-material="${safeMaterialId}" aria-label="${escapeHtml(getCopy("removeMaterialAria", "Remove material"))}">
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
     <path d="M3.75 4.16666V16.3333C3.75 17.4379 4.64543 18.3333 5.75 18.3333H14.25C15.3546 18.3333 16.25 17.4379 16.25 16.3333V4.16666H3.75Z" stroke="#333333" stroke-width="1.5" stroke-linejoin="round"/>
     <path d="M8.33331 8.33334V13.75" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2534,6 +2587,7 @@
     <path d="M1.66669 4.16666H18.3334" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M6.66669 4.16666L8.0371 1.66666H11.9905L13.3334 4.16666H6.66669Z" stroke="#333333" stroke-width="1.5" stroke-linejoin="round"/>
   </svg>
+                </div>
                   </div>
             </div>
             <div class="nc-slider-group">
@@ -3797,6 +3851,12 @@
                       const closeTrigger = event.target.closest("[data-close-modal]");
                       if (closeTrigger) {
                           closeModal(closeTrigger.dataset.closeModal);
+                          return;
+                      }
+
+                      const resetTrigger = event.target.closest("[data-reset-material]");
+                      if (resetTrigger) {
+                          resetMaterialValues(resetTrigger.dataset.resetMaterial);
                           return;
                       }
   
